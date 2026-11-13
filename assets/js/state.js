@@ -23,7 +23,7 @@
     },
     render: function () {
       var h = document.getElementById("ao-hud");
-      if (!h) { h = document.createElement("header"); h.id = "ao-hud"; document.body.prepend(h); }
+      if (!h) { h = document.createElement("header"); h.id = "ao-hud"; (document.getElementById("quarto-document-content") || document.body).prepend(h); }
       var n = Object.keys(AO.state.passed).length;
       h.innerHTML = "<button id='ao-logbtn' aria-expanded='false' aria-controls='ao-log'>Quest Log ▾</button> <a href='" + (window.AO_BASE || "./") + "index.html'>Map</a> <span>XP " + AO.state.xp + "</span> <span>Quests cleared " + n + "</span> " +
         "<button id='ao-exp'>Save code</button> <button id='ao-imp'>Load code</button>";

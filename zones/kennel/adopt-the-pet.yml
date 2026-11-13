@@ -2,12 +2,14 @@ pass: 0.8
 questions:
   - type: choice
     prompt: "On a 16 GB laptop, what context length does Ollama use by default, and why does it matter for agents?"
+    explain: "Raise it with OLLAMA_CONTEXT_LENGTH when you start the server and verify with `ollama ps`."
     options:
       - { text: "About 4k tokens, far below the 64k or more that agents need, so the Pet forgets instructions and tool results", correct: true }
       - { text: "256k, so there is nothing to change", misconception: "The large defaults only apply to machines with much more video memory. A 16 GB laptop gets the small one." }
       - { text: "Whatever the model's maximum is", misconception: "The default is a memory-based limit, not the model's maximum. You raise it on purpose." }
   - type: order
     prompt: "Put the Pet's set-up in order."
+    explain: "Each step depends on the one before it."
     items:
       - "Install Ollama"
       - "Pull a model that lists tool support"
@@ -22,12 +24,14 @@ questions:
       "Install Ollama": "Everything else depends on Ollama being installed."
   - type: choice
     prompt: "What is OpenCode's default permission policy?"
+    explain: "Add an ask-everything rule first so the starting point is safe."
     options:
       - { text: "Allow everything, except reading .env files, which it asks about", correct: true }
       - { text: "Ask before everything", misconception: "That is the safer policy you have to add yourself, with an explicit ask-everything rule first." }
       - { text: "Deny everything until you allow it", misconception: "Nothing is denied by default. That is why you set the leash yourself." }
   - type: faulty-line
     prompt: "This OpenCode rule list should stop `git push`. Rules are checked in order and the last match wins. Which line breaks the protection?"
+    explain: "The last matching rule wins, so a broad allow placed after a deny cancels the deny."
     lines:
       - { text: '"permissions": [', why: "Just the start of the list." }
       - { text: '  { "action": "shell", "resource": "git push *", "effect": "deny" },', why: "This is the deny you want, but its position matters." }
@@ -35,6 +39,7 @@ questions:
       - { text: ']', why: "Just the end of the list." }
   - type: choice
     prompt: "A small local model proposes running `rm -rf data/`. Who is supposed to stop it?"
+    explain: "The tool's rules are the control. A model's good behaviour is not."
     options:
       - { text: "Your permission rules in the tool, not the model", correct: true }
       - { text: "The model, because a small model is cautious", misconception: "A model's caution is not a control. Small models can propose destructive commands, so the rules in the tool have to catch them." }
