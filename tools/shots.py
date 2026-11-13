@@ -37,6 +37,12 @@ SHOTS = [
     ("type-match-wrong", (1400, 900), lambda B: (fresh(B, "shot-match.html"), B.click_text("Check matches"), view_test(B))),
     ("quest-boss-wide", (1400, 900), lambda B: (fresh(B, "zones/maze/wall-of-output.html"), B.click_text("Do not accept"), view_test(B))),
     ("quest-exercise-wide", (1400, 900), lambda B: fresh(B, "zones/maze/ground-truth.html")),
+    ("character-midgame-wide", (1400, 900), lambda B: cleared(B, "character.html")),
+    ("character-fresh-narrow", (600, 900), lambda B: fresh(B, "character.html")),
+    ("quest-honour-wide", (1400, 900), lambda B: fresh(B, "zones/crypt/secrets-and-sensitive-ground.html")),
+    ("quest-forest-skill-wide", (1400, 900), lambda B: fresh(B, "zones/forest/forge-a-skill.html")),
+    ("quest-reef-wide", (1400, 900), lambda B: fresh(B, "zones/reef/the-reviewers-code.html")),
+    ("map-midgame-narrow", (600, 900), lambda B: cleared(B, "index.html")),
     ("quest-narrow", (600, 900), lambda B: fresh(B, "zones/kennel/adopt-the-pet.html")),
 ]
 only = set(sys.argv[2:])

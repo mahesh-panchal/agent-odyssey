@@ -1,0 +1,32 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "An agent produced a 1,500-line change for you. A collaborator who does not use LLMs will review it. What do you do?"
+    explain: "The sender carries the cost of making work reviewable. Splitting and self-review are part of the job."
+    options:
+      - { text: "Review it yourself, split it into small changes, say what the LLM did, and include evidence", correct: true }
+      - { text: "Send it as is and let them find the problems", misconception: "That moves your review work onto them." }
+      - { text: "Ask the agent to review its own work and send it", misconception: "Self-review by the same agent does not replace your own reading." }
+  - type: sort
+    prompt: "Sort each action by what it does to your reviewer."
+    bins: ["Eases the review", "Adds burden"]
+    explain: "Reviewers need small units, context and evidence."
+    items:
+      - { text: "One idea per pull request", bin: "Eases the review", misconception: "Small focused changes are quick to review properly." }
+      - { text: "Not mentioning that an LLM wrote part of it", bin: "Adds burden", misconception: "Reviewers cannot focus their attention if they do not know where to look." }
+      - { text: "Including the test you ran and its output", bin: "Eases the review", misconception: "Evidence lets the reviewer verify instead of guess." }
+      - { text: "Generated comments that restate every line", bin: "Adds burden", misconception: "Noise makes the real issues harder to find." }
+  - type: choice
+    prompt: "A collaborator does not use LLMs and is uneasy that you do. Which response respects them?"
+    explain: "Respecting a collaborator means not requiring them to adopt your tools, and making your work easy for them to check."
+    options:
+      - { text: "Tell them when you used one and make your changes reviewable without any tool", correct: true }
+      - { text: "Insist they try it so they understand", misconception: "Pressuring someone to adopt a tool makes collaboration worse." }
+      - { text: "Keep quiet about it to avoid an argument", misconception: "Hiding it removes their ability to judge the work properly." }
+  - type: choice
+    prompt: "You cannot explain a block of generated code in your own change. What now?"
+    explain: "If you cannot explain it, you cannot vouch for it. Understand it, simplify it, or leave it out."
+    options:
+      - { text: "Understand it or replace it before sending, because you are vouching for it", correct: true }
+      - { text: "Send it with a note that the LLM wrote it", misconception: "Disclosure is good but does not remove your responsibility for the content." }
+      - { text: "Leave it for the reviewer to figure out", misconception: "This is the Review-leech pattern." }

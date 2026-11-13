@@ -1,0 +1,32 @@
+---
+title: "Name the Fears"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** none. **Objective:** name what worries you about LLM agents, and learn the habit that answers each worry.
+**Time:** about 10 minutes. <span class="ao-badge">General practice, not a vendor claim: nothing here depends on a tool version.</span>
+:::
+
+## Why start with fears
+
+You do not have to like these tools. Many careful people in science are wary of them, and most of the wariness is reasonable.
+This odyssey does not ask you to stop worrying. It gives each worry a **habit** that makes the risk smaller, so you can decide with your eyes open.
+
+Each worry below is a real enemy in this land. Each has a counter-habit, and the rest of the odyssey trains them.
+
+| The worry | The enemy | The counter-habit | Where you learn it |
+|---|---|---|---|
+| "It will stop me learning." | Learning-drain | Write it first, predict before you look, ask it to explain instead of do. | Phylogenetic Forest |
+| "It produces slop in bulk." | Slop-ooze | Small steps, tests before code, a review budget. | Sequence Maze |
+| "It makes things up." | Mirage | Check against something the agent did not write. | Sequence Maze |
+| "Someone else has to review all this." | Review-leech | Review it yourself first, say that you used an LLM, send small changes. | Biodiversity Reef |
+| "It could delete my work or leak my data." | Data-wipe | Undo (git), permissions, a sandbox directory, no secrets in prompts. | Ancient DNA Crypt |
+| "I do not understand what it did." | Black-box husk | Ask for a changelog and explain it back before you keep it. | Sequence Maze |
+
+::: {.callout-note}
+Sometimes the right answer is not to use an LLM at all. Part of the skill is knowing when.
+:::
+
+## Battle: name the counter-habit
+
+<div data-ao-test="basecamp-name-the-fears" data-xp="40"></div>

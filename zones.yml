@@ -18,8 +18,14 @@ prologue: >-
   careless copy-and-paste, unreviewed output, and answers nobody understood. The tools are not the enemy. Walk the land,
   recruit companions, build your immunity, and clear the Murk.
 gates:
-  B: { id: basecamp, name: "Basecamp at the Root",  track: "Prologue",   status: soon,
-       blurb: "Where every journey starts: name your fears and take your first safe step. (Not open yet.)" }
+  B: { id: basecamp, name: "Basecamp at the Root",  track: "Prologue",   status: open,
+       quests: [
+         { id: basecamp-name-the-fears, title: "Name the Fears", page: zones/basecamp/name-the-fears.html,
+           story: "The fire at Basecamp burns low. Around it sit the worries every traveller brings. Name each one, and it shrinks.",
+           done: "Each fear has a name and a counter-habit. You travel knowing what you are guarding against." },
+         { id: basecamp-three-kinds-of-machine, title: "Three Kinds of Machine", page: zones/basecamp/three-kinds-of-machine.html,
+           story: "A workbench holds three machines: one that always repeats, one trained for a single task, one that talks.",
+           done: "You can choose the right machine, and sometimes the right machine is a plain script." } ] }
   K: { id: kennel,   name: "The Kennel",            track: "Companions", status: open,
        quests: [
          { id: kennel-recruit-the-beast, title: "Recruit the Beast", page: zones/kennel/recruit-the-beast.html,
@@ -35,7 +41,10 @@ gates:
            done: "The first seal cracks. You carry the Shield of Undo: any change can now be reversed." },
          { id: crypt-rules-of-the-carapace, title: "Rules of the Carapace", page: zones/crypt/rules-of-the-carapace.html,
            story: "Deeper in the Crypt, bare skin is not enough. You must grow a carapace: rules about what your companions may touch.",
-           done: "A carapace hardens over you. Your companions can now only do what your rules allow." } ] }
+           done: "A carapace hardens over you. Your companions can now only do what your rules allow." },
+         { id: crypt-secrets-and-sensitive-ground, title: "Secrets and Sensitive Ground", page: zones/crypt/secrets-and-sensitive-ground.html,
+           story: "In the deepest chamber lie sealed relics: keys, tokens and samples under special agreements. Not everything here may leave the room.",
+           done: "Your visor closes. Keys and sensitive ground stay out of reach, and you know where the agreement lives." } ] }
   M: { id: maze,     name: "Sequence Maze",         track: "Trust",      status: open,
        quests: [
          { id: maze-spot-the-mirage, title: "Spot the Mirage", page: zones/maze/spot-the-mirage.html,
@@ -47,9 +56,27 @@ gates:
          { id: maze-wall-of-output, title: "Boss: The Wall of Output", page: zones/maze/wall-of-output.html,
            story: "At the maze's heart rises a wall of text, thousands of lines high. It does not attack. It simply cannot be reviewed.",
            done: "The Wall crumbles into small, reviewable stones. You never had to read all of it, only to refuse it whole." } ] }
-  F: { id: forest,   name: "Phylogenetic Forest",   track: "Skills",     status: soon,
-       blurb: "A tree of skills grows here, one branch at a time. (Not open yet.)" }
-  R: { id: reef,     name: "Biodiversity Reef",     track: "Level",      status: soon,
-       blurb: "A living community: learn to work with others, with and without LLMs. (Not open yet.)" }
+  F: { id: forest,   name: "Phylogenetic Forest",   track: "Skills",     status: open,
+       quests: [
+         { id: forest-write-the-brief, title: "Write the Brief", page: zones/forest/write-the-brief.html,
+           story: "The first branch of the great tree is bare. A vague instruction leaves the sap to wander; a clear one makes the bark grow.",
+           done: "The first branch buds: briefs with a target, a check, and a plan before the edits." },
+         { id: forest-the-project-charter, title: "The Project Charter", page: zones/forest/the-project-charter.html,
+           story: "A carved stone stands at the forest's heart, holding what every traveller should know. It advises. It cannot bind.",
+           done: "A second branch: standing instructions that help, and a clear sense of why they do not enforce." },
+         { id: forest-forge-a-skill, title: "Forge a Skill", page: zones/forest/forge-a-skill.html,
+           story: "In a hollow, a smith keeps procedures in folders, taking each out only when it is needed.",
+           done: "A third branch: a procedure packaged as a Skill, read before it is trusted." } ] }
+  R: { id: reef,     name: "Biodiversity Reef",     track: "Level",      status: open,
+       quests: [
+         { id: reef-send-small-say-so, title: "Send Small, Say So", page: zones/reef/send-small-say-so.html,
+           story: "A Review-leech clings to the reef, feeding on work passed to others unchecked. Tidy hand-offs starve it.",
+           done: "You hand over small, honest, evidenced work. The leech goes hungry." },
+         { id: reef-the-reviewers-code, title: "The Reviewer's Code", page: zones/reef/the-reviewers-code.html,
+           story: "Now the work comes to you. Ask for evidence, not for stories, and be kind about it.",
+           done: "You review the work, not the tool, and you ask for what can be checked." },
+         { id: reef-teach-and-share-the-load, title: "Teach and Share the Load", page: zones/reef/teach-and-share-the-load.html,
+           story: "A reef thrives on many hands. Teach what you know, protect what you are learning, and take on only what you can review.",
+           done: "You teach the checks, guard your own learning, and keep your workload reviewable." } ] }
   P: { id: factory,  name: "Pipeline Factory",      track: "Craft",      status: soon,
        blurb: "Machines that run the same steps every time. Learn when an LLM belongs in them. (Not open yet.)" }

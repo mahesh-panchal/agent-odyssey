@@ -1,0 +1,38 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "What is preloaded from every Skill, before it is used?"
+    explain: "Only descriptions are preloaded. The body loads when the Skill is used, which keeps context small."
+    options:
+      - { text: "Only its short description", correct: true }
+      - { text: "The whole SKILL.md and all bundled files", misconception: "Loading everything would crowd the context, which is why descriptions load first." }
+      - { text: "Nothing at all", misconception: "The description must be loaded or the agent could not know when to use it." }
+  - type: choice
+    prompt: "What does allowed-tools in a Skill do?"
+    explain: "It pre-approves the listed tools for that turn. It does not restrict others."
+    options:
+      - { text: "Pre-approves the listed tools. It is not a restriction", correct: true }
+      - { text: "Locks the agent to only those tools", misconception: "It does not limit the agent, so it is not a security boundary." }
+      - { text: "Downloads the tools", misconception: "It only affects permission prompts." }
+  - type: faulty-line
+    prompt: "Which line in this Skill's frontmatter will make it hard for the agent to use at the right time?"
+    explain: "The description is how the agent decides whether the Skill applies. 'Stuff' says nothing about when to use it."
+    lines:
+      - { text: 'name: check-fasta', why: "A clear short name." }
+      - { text: 'description: Stuff for files.', faulty: true }
+      - { text: '---', why: "Closes the frontmatter." }
+  - type: sort
+    prompt: "Instructions file or Skill?"
+    bins: ["Instructions file", "Skill"]
+    explain: "Standing facts about the project go in the instructions file. A longer procedure used occasionally is a Skill."
+    items:
+      - { text: "How to run this project's tests", bin: "Instructions file", misconception: "A short fact needed in every session." }
+      - { text: "A ten-step procedure for preparing a submission bundle, used twice a year", bin: "Skill", misconception: "A long, occasional procedure belongs in a Skill so it only loads when needed." }
+      - { text: "'raw/ is read-only'", bin: "Instructions file", misconception: "A standing rule that applies throughout." }
+  - type: choice
+    prompt: "You find a Skill online that promises to speed up your analysis. What first?"
+    explain: "A Skill can contain instructions and scripts. Read it as you would read any code before running it."
+    options:
+      - { text: "Read the SKILL.md and any bundled scripts before installing", correct: true }
+      - { text: "Install it, since it is only text", misconception: "Skills can bundle scripts and steer the agent to run commands." }
+      - { text: "Ask the agent whether it is safe", misconception: "The agent reading the Skill is the thing at risk. Review it yourself." }

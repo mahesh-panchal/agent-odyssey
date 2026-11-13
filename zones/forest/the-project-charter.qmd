@@ -1,0 +1,38 @@
+---
+title: "The Project Charter"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Write the Brief. **Objective:** give the agent standing instructions for a project, and know what those instructions cannot do.
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs on 2026-11-13 (sources in `research/forest-and-reef.md`).</span>
+:::
+
+Typing the same background every session is wasteful. A **project instructions file** is read at the start so the agent already knows the project's conventions.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+The file is `CLAUDE.md`. It can live in `~/.claude/CLAUDE.md` (all your projects), `./CLAUDE.md` or `./.claude/CLAUDE.md` (the project, shared if committed), and `./CLAUDE.local.md` (yours, not committed). Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. `/init` drafts one from your project and `/memory` lists and edits them. `@path` imports another file, but that does not save context.
+
+## OpenCode + Ollama
+
+The file is `AGENTS.md` in the project root (or `~/.config/opencode/AGENTS.md` for all projects). `/init` creates or updates it. The `instructions` array in `opencode.json` adds more files. OpenCode also falls back to `CLAUDE.md` if there is no `AGENTS.md`.
+
+:::
+
+## What goes in, and the limit
+
+Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, "never edit `raw/`". Keep it short (the Claude Code docs aim for under 200 lines per file) because very long instructions are followed less well.
+
+::: {.callout-warning}
+**Instructions are advice, not enforcement.** Claude Code's docs describe `CLAUDE.md` as context, not enforced configuration. A line saying "never delete files" does not stop a delete. Enforcement comes from permission rules, hooks, or a sandbox: the carapace you built in the Crypt.
+:::
+
+Write the file yourself first and read what `/init` produces critically. A generated file can contain wrong guesses about your project.
+
+<div data-ao-honour="write-charter" data-xp="15">Write a short instructions file (about ten lines) for one of your real projects: how to run its tests, where data lives, and one thing the agent must never touch.</div>
+
+## Battle: the charter
+
+<div data-ao-test="forest-the-project-charter" data-xp="60"></div>

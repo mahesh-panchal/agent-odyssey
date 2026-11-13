@@ -1,0 +1,49 @@
+---
+title: "Forge a Skill"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** The Project Charter. **Objective:** package a repeatable procedure as a Skill, and know what a Skill does and does not do.
+**Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs on 2026-11-13 (sources in `research/forest-and-reef.md`).</span>
+:::
+
+An instructions file is read every session. A **Skill** is a procedure loaded only when it is relevant, so it can be long without crowding the context.
+
+## What a Skill is
+
+A Skill is a folder with a `SKILL.md` file. Only each Skill's short `description` is preloaded. The body is read when the Skill is used. A Skill can also bundle scripts and other files. Both you (by name, such as `/check-fasta`) and the agent (by matching the description) can start one.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Place it at `.claude/skills/<name>/SKILL.md` (project) or `~/.claude/skills/<name>/SKILL.md` (all projects). All frontmatter fields are optional, but write a clear `description` so it triggers at the right time. Keep the body under about 500 lines. The older `.claude/commands/` format still works but is merged into Skills.
+
+## OpenCode + Ollama
+
+OpenCode reads skills from `.opencode/skills`, `.claude/skills` and `.agents/skills`, so the same `SKILL.md` can serve both tools. Custom agents live in `.opencode/agents/*.md`.
+
+:::
+
+An example you can write by hand in a scratch folder:
+
+```markdown
+---
+name: check-fasta
+description: Check a FASTA file for empty records, duplicate IDs and non-ACGTN characters. Use before running any analysis on a new FASTA.
+---
+
+1. Run `grep -c '>' FILE` to count records.
+2. Run `grep '>' FILE | sort | uniq -d` to find duplicate IDs.
+3. Report what you ran and its output. Do not modify FILE.
+```
+
+::: {.callout-warning}
+`allowed-tools` in a Skill **pre-approves** tools for that turn. It does not restrict the agent to them. A Skill is not a sandbox, and a Skill you download is code you are choosing to trust. Read it before installing it, as you would read a script.
+:::
+
+<div data-ao-honour="write-skill" data-xp="20">Write a `SKILL.md` for one chore you repeat (checking an input, summarising a log). Make the description say when to use it.</div>
+
+## Battle: the Skill
+
+<div data-ao-test="forest-forge-a-skill" data-xp="60"></div>

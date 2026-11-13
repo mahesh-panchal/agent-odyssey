@@ -1,0 +1,23 @@
+---
+title: "Send Small, Say So"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Spot the Mirage. **Objective:** hand work to collaborators, whether or not they use LLMs, without passing them your review burden.
+**Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Team norms you agree locally override these defaults.</span>
+:::
+
+A reef is a community. When you use an agent, the cost of checking its output must not silently land on the next person. The **Review-leech** feeds on exactly that.
+
+Four habits:
+
+1. **Review it yourself first.** Read your own diff as if a stranger wrote it. If you cannot explain a line, it is not ready to send.
+2. **Say so.** Tell reviewers which parts an LLM helped with. It tells them where to look hardest, and it is honest.
+3. **Send small.** One idea per change, small enough to review in one sitting.
+4. **Bring evidence.** Include the test, the command, or the check that shows it works.
+
+These help reviewers who use LLMs and those who do not. A non-user should never have to learn a tool to review your work.
+
+## Battle: the hand-off
+
+<div data-ao-test="reef-send-small-say-so" data-xp="60"></div>

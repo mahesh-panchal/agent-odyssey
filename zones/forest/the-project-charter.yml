@@ -1,0 +1,33 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "Your CLAUDE.md says 'never delete files'. What does that guarantee?"
+    explain: "The file is context the model reads. It does not change what the tool allows. Permission rules or hooks enforce."
+    options:
+      - { text: "Nothing is guaranteed. It is guidance, and enforcement needs permission rules or hooks", correct: true }
+      - { text: "Deletes are blocked", misconception: "Instruction files are not enforcement. Use deny rules for that." }
+      - { text: "Deletes are blocked only on weekdays", misconception: "Instructions never act as a hard block at any time." }
+  - type: sort
+    prompt: "Which belong in a project instructions file?"
+    bins: ["Belongs", "Leave out"]
+    explain: "Keep what the agent cannot guess and what stays true. Leave out secrets and long prose."
+    items:
+      - { text: "The command that runs the test suite", bin: "Belongs", misconception: "A command the agent cannot guess is ideal content." }
+      - { text: "Your API key", bin: "Leave out", misconception: "Secrets must never go in a file that is read and often committed." }
+      - { text: "'raw/ is read-only data. Never edit it.'", bin: "Belongs", misconception: "A boundary the agent should know, though enforce it with a deny rule too." }
+      - { text: "A 40-page methods description", bin: "Leave out", misconception: "Long instructions are followed less well and fill the context." }
+  - type: match
+    prompt: "Match each tool or scope to its instructions file."
+    pairs:
+      - { left: "Claude Code, project", right: "CLAUDE.md in the project", misconception: "Claude Code reads CLAUDE.md." }
+      - { left: "OpenCode, project", right: "AGENTS.md in the project root", misconception: "OpenCode reads AGENTS.md, falling back to CLAUDE.md." }
+      - { left: "Claude Code, only you, uncommitted", right: "CLAUDE.local.md", misconception: "The local variant is for personal, uncommitted notes." }
+      - { left: "Generate a first draft", right: "/init", misconception: "/init drafts the file in both tools." }
+    explain: "Each tool has its own project file, and both can draft one with /init."
+  - type: choice
+    prompt: "/init wrote an instructions file for you. What should you do?"
+    explain: "A generated file is a draft. It can contain wrong guesses about how your project works."
+    options:
+      - { text: "Read it critically and correct it before relying on it", correct: true }
+      - { text: "Trust it, since the agent knows the project", misconception: "It inferred the project from files and may have guessed wrong." }
+      - { text: "Delete it, since instruction files never help", misconception: "A short, correct file saves repeated explanation." }

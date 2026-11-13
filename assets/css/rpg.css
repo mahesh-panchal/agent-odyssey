@@ -36,3 +36,11 @@ select:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 .ao-textlist summary { color: var(--fg); }
 [hidden] { display: none !important; }
 .ao-boss { margin: 0 0 .5rem; } .ao-boss progress { width: 40%; accent-color: var(--bad); vertical-align: middle; }
+.ao-honour { border: 2px dashed var(--accent); padding: .6rem .9rem; margin: 1rem 0; }
+.ao-honour-note { opacity: .75; font-size: 14px; }
+.ao-tree text { fill: var(--fg); font: 13px ui-monospace, monospace; }
+.ao-tree .on circle { fill: var(--accent); } .ao-tree circle { fill: var(--panel); stroke: var(--accent); stroke-width: 2; }
+.ao-tree .on text { font-weight: bold; }
+.ao-armour { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .6rem; }
+.ao-armour div { border: 2px solid var(--accent); padding: .5rem; background: var(--panel); }
+.ao-armour .on { background: var(--accent); color: #14101f; }

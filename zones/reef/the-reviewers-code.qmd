@@ -1,0 +1,24 @@
+---
+title: "The Reviewer's Code"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Send Small, Say So. **Objective:** review work that involved an LLM, kindly and effectively, and choose formats that review well.
+**Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Team norms you agree locally override these defaults.</span>
+:::
+
+You will also be on the receiving end. Reviewing LLM-assisted work is the same craft as any review, with a few shifts in attention.
+
+- **Ask for the evidence, not the story.** "Which test shows this works?" is better than "are you sure?".
+- **Watch for the usual tells.** Plausible but unused code, tests weakened to pass, and confident comments that do not match the code.
+- **Ask for understanding.** "Can you explain why this branch exists?" is fair for any author.
+- **Say when it is too big.** "Please split this" is a legitimate review comment, and the Wall of Output taught why.
+- **Be kind.** The aim is better science, not catching a person out.
+
+## Formats that review well
+
+Notebooks are an example. A [marimo](https://marimo.io/) notebook is stored as a plain `.py` file, so a diff shows what changed. A Jupyter `.ipynb` is JSON that also stores outputs and run counts, so diffs are noisy and hard to read. If you ask an agent to produce analysis, prefer a format your reviewer can actually diff.
+
+## Battle: the review
+
+<div data-ao-test="reef-the-reviewers-code" data-xp="60"></div>
