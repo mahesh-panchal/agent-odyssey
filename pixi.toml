@@ -39,3 +39,7 @@ description = "Drive the built site with real key presses (needs: quarto install
 cmd = "python tools/shots.py"
 depends-on = ["render"]
 description = "Screenshots of key pages into a directory for visual review"
+
+[tasks.new-quest]
+cmd = "python tools/new_quest.py"
+description = "Scaffold a quest: pixi run new-quest <zone> <slug> \"<Title>\""
