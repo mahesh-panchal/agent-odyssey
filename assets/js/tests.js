@@ -9,6 +9,21 @@
   }
   function shuffle(a) { return a.map(function (x) { return [Math.random(), x]; }).sort(function (p, q) { return p[0] - q[0]; }).map(function (p) { return p[1]; }); }
 
+  /* After a correct answer: say why the other choices are wrong (or why each item sits where it does). */
+  function why(q) {
+    var rows = [];
+    if (q.type === "choice") q.options.forEach(function (o) { if (!o.correct) rows.push(["✖ " + o.text, o.misconception]); });
+    else if (q.type === "sort") q.items.forEach(function (it) { rows.push([it.text + "  →  " + it.bin, it.misconception]); });
+    else if (q.type === "match") q.pairs.forEach(function (p) { rows.push([p.left + "  →  " + p.right, p.misconception]); });
+    else if (q.type === "faulty-line") q.lines.forEach(function (l) { if (!l.faulty) rows.push([l.text.trim(), l.why]); });
+    else if (q.type === "order" && q.why) Object.keys(q.why).forEach(function (k) { rows.push([k, q.why[k]]); });
+    rows = rows.filter(function (r) { return r[1]; });
+    if (!rows.length) return null;
+    var d = h("details", { class: "ao-why", open: "" }, [h("summary", { text: q.type === "choice" ? "Why the other answers are wrong" : "Why each one belongs where it does" })]);
+    rows.forEach(function (r) { d.appendChild(h("p", {}, [h("strong", { text: r[0] + ": " }), h("span", { text: r[1] })])); });
+    return d;
+  }
+
   /* Each renderer: (q, box, report) where report(ok, message) is called on every check. */
   var R = {};
   R.choice = function (q, box, report) {
@@ -103,7 +118,7 @@
           R[q.type](q, box, function (ok, msg) {
             if (solved) return;
             tries++;
-            if (ok) { solved = true; if (tries === 1) score++; var pr = el.querySelector(".ao-boss progress"); if (pr) { pr.value = qs.length - score; pr.nextSibling.textContent = "  HP " + (qs.length - score) + "/" + qs.length; } fb.className = "ao-fb ok"; fb.textContent = (tries === 1 ? "✔ Correct." : "✔ Correct (not first try).") + (q.explain ? " " + q.explain : ""); next.hidden = false; next.focus(); }
+            if (ok) { solved = true; if (tries === 1) score++; var pr = el.querySelector(".ao-boss progress"); if (pr) { pr.value = qs.length - score; pr.nextSibling.textContent = "  HP " + (qs.length - score) + "/" + qs.length; } fb.className = "ao-fb ok"; fb.textContent = (tries === 1 ? "✔ Correct." : "✔ Correct (not first try).") + (q.explain ? " " + q.explain : ""); var w = why(q); if (w) fb.parentNode.insertBefore(w, next); next.hidden = false; next.focus(); }
             else { fb.className = "ao-fb bad"; fb.textContent = "✖ Not quite. " + msg; }
           });
           el.appendChild(box); el.appendChild(fb); el.appendChild(next);

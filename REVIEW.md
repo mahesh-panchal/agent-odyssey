@@ -59,3 +59,8 @@ Living document. Update the tactics and the changelog whenever the build gains s
   local models), Claude Code-only claims scoped, distractor strawmen reduced in several banks, SVG label legibility.
   Still open: correct options tend to be longest/hedged across older banks; OpenCode docs describe V2 and the installed version
   was not checked; HUD companion/language selectors rely on Quarto tab sync only; Pipeline Factory and MCP/hooks are v2.
+
+## Parked for later (user)
+- Brainstorm names: "Shield of Undo" reads as corny. Rename candidates for all quests/zones in one pass (ids can stay).
+- Small nits to batch: (none recorded yet beyond the two fixed in v6).
+- v6: Map button first in the HUD, M/Esc returns to the map, correct answers now show why the others are wrong.

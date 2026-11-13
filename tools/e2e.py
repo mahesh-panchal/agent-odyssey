@@ -40,7 +40,9 @@ try:
     B.click_text("git push")
     check("Next is hidden until the question is solved", B.js("[...document.querySelectorAll('button')].filter(b=>b.textContent.includes('Next')).every(b=>getComputedStyle(b).display==='none')"))
     check("wrong answer shows its misconception", "Push sends commits" in B.js("document.querySelector('.ao-fb').textContent"))
-    B.click_text("git restore ."); B.click_text("Next")
+    B.click_text("git restore .")
+    check("correct answer still explains why the others are wrong", B.js("!!document.querySelector('.ao-why') && document.querySelector('.ao-why').textContent.includes('Push sends commits')"))
+    B.click_text("Next")
     B.click_text("After the agent"); B.click_text("Before letting"); B.click_text("Next")
     B.click_text("Both changes are undone"); B.click_text("analysis.py is back"); B.click_text("Next")
     res = B.js("document.querySelector('[data-ao-test]').textContent")
@@ -49,6 +51,9 @@ try:
     B.click_text("git restore ."); B.click_text("Next"); B.click_text("Before letting"); B.click_text("Next")
     B.click_text("analysis.py is back"); B.click_text("Next")
     check("clean run passes and awards XP", B.js("AO.state.xp") == 50 and B.js("!!AO.state.passed['crypt-shield-of-undo']"), B.js("JSON.stringify(AO.state)"))
+    B.go(base + "zones/crypt/shield-of-undo.html"); B.press("m", 1.0)
+    check("M key returns to the map from a quest page", B.js("location.pathname").endswith("index.html") or B.js("location.pathname") == "/", B.js("location.pathname"))
+    check("Map button is the first HUD item", B.js("document.querySelector('#ao-hud').firstElementChild.textContent.includes('Map')"))
     # --- every quest page in the story data loads a test bank ---
     quests = json.loads(B.js("fetch('/assets/data/world.json').then(r=>r.json()).then(w=>JSON.stringify(Object.values(w.gates).flatMap(g=>g.quests||[])))"))
     for q in quests:
