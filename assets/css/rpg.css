@@ -34,3 +34,4 @@ body.ao-log-open { margin-left: 18rem; margin-right: auto; }
 select { background: #14101f; color: var(--fg); border: 2px solid var(--accent); padding: .25rem .4rem; margin-left: .4rem; font: inherit; }
 select:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 .ao-textlist summary { color: var(--fg); }
+[hidden] { display: none !important; }

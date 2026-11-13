@@ -38,6 +38,7 @@ try:
     wrong = {"Quest": 0}
     B.js("localStorage.clear()"); B.go(base + "zones/crypt/shield-of-undo.html")
     B.click_text("git push")
+    check("Next is hidden until the question is solved", B.js("[...document.querySelectorAll('button')].filter(b=>b.textContent.includes('Next')).every(b=>getComputedStyle(b).display==='none')"))
     check("wrong answer shows its misconception", "Push sends commits" in B.js("document.querySelector('.ao-fb').textContent"))
     B.click_text("git restore ."); B.click_text("Next")
     B.click_text("After the agent"); B.click_text("Before letting"); B.click_text("Next")
