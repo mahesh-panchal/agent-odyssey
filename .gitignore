@@ -9,3 +9,4 @@ _site/
 .shots/
 assets/img/
 assets/data/
+__pycache__/
