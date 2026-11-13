@@ -22,6 +22,6 @@ questions:
     explain: "A record of model, version, prompt and input is what makes a result explainable later."
     options:
       - { text: "A log of the model, version, prompt and input for that row", correct: true }
-      - { text: "The pipeline code and its git history", misconception: "Code that calls a model does not say which model version or text it received on that run." }
-      - { text: "Asking the model again now", misconception: "A new answer may differ and says nothing about what happened then." }
-      - { text: "A note in the methods that an LLM was used", misconception: "A general statement does not say what produced this particular label." }
+      - { text: "The pipeline code and its full git history for that period", misconception: "Code that calls a model does not say which model version or text it received on that run." }
+      - { text: "Re-running the same prompt through the model today and comparing", misconception: "A new answer may differ and says nothing about what happened then." }
+      - { text: "A line in the methods section saying an LLM was used for labels", misconception: "A general statement does not say what produced this particular label." }

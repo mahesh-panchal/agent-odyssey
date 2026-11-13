@@ -5,8 +5,8 @@ questions:
     explain: "Start from their real problem, and put verification habits ahead of clever prompting."
     options:
       - { text: "Their actual task, and how they will check the result", correct: true }
-      - { text: "A list of advanced prompt tricks", misconception: "Tricks without checks produce confident errors faster." }
-      - { text: "A demo of the biggest time saving you have had", misconception: "Speed without verification is exactly the worry sceptics have." }
+      - { text: "A walkthrough of the advanced prompting tricks you rely on", misconception: "Tricks without checks produce confident errors faster." }
+      - { text: "A demo of the biggest time saving you have had so far", misconception: "Speed without verification is exactly the worry sceptics have." }
   - type: sort
     prompt: "Which protects your own learning?"
     bins: ["Protects learning", "Erodes learning"]
@@ -27,6 +27,6 @@ questions:
     prompt: "A colleague chooses not to use LLMs. How do you respond?"
     explain: "People can be excellent collaborators and reviewers without using the tools."
     options:
-      - { text: "Respect it, and make sure your work is reviewable without them using any tool", correct: true }
-      - { text: "Explain until they change their mind", misconception: "Pressure damages trust." }
-      - { text: "Avoid asking them to review", misconception: "Their review is valuable, and excluding them removes a good check." }
+      - { text: "Respect it, and make your work reviewable without any tool", correct: true }
+      - { text: "Keep explaining the benefits until they are ready to try it", misconception: "Pressure damages trust." }
+      - { text: "Route your reviews to LLM users, who can better judge the work", misconception: "Reviewing does not need the tool. Their review is valuable, and excluding them removes a good independent check." }

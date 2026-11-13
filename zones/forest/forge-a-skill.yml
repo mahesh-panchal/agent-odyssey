@@ -12,8 +12,8 @@ questions:
     explain: "It pre-approves the listed tools for that turn. It does not restrict others."
     options:
       - { text: "Pre-approves the listed tools. It is not a restriction", correct: true }
-      - { text: "Locks the agent to only those tools", misconception: "It does not limit the agent, so it is not a security boundary." }
-      - { text: "Downloads the tools", misconception: "It only affects permission prompts." }
+      - { text: "Restricts the agent to only the tools listed in the Skill", misconception: "It does not limit the agent, so it is not a security boundary." }
+      - { text: "Installs the listed tools if they are missing on the machine", misconception: "It only affects permission prompts." }
   - type: faulty-line
     prompt: "Which line in this Skill's frontmatter will make it hard for the agent to use at the right time?"
     explain: "The description is how the agent decides whether the Skill applies. 'Stuff' says nothing about when to use it."
@@ -34,5 +34,6 @@ questions:
     explain: "A Skill can contain instructions and scripts. Read it as you would read any code before running it."
     options:
       - { text: "Read the SKILL.md and any bundled scripts before installing", correct: true }
-      - { text: "Install it and watch the first run for anything odd", misconception: "Watching a run happens after any harm is done. Skills can bundle scripts and steer the agent to run commands." }
-      - { text: "Ask the agent whether it is safe", misconception: "The agent reading the Skill is the thing at risk. Review it yourself." }
+      - { text: "Install it and watch the first run closely for anything odd", misconception: "Watching a run happens after any harm is done. Skills can bundle scripts and steer the agent to run commands." }
+      - { text: "Ask the agent to read it and tell you whether it is safe", misconception: "The agent reading the Skill is the thing at risk, since its instructions can steer the agent. Review it yourself." }
+      - { text: "Check how popular it is and read the reviews before installing", misconception: "Popularity is not review. A widely shared Skill can still contain harmful instructions or scripts." }

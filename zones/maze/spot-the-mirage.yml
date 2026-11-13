@@ -12,8 +12,9 @@ questions:
     explain: "A reference is real only if an index you trust returns the same paper for that DOI or title."
     options:
       - { text: "Look the DOI or title up yourself in an index you trust", correct: true }
-      - { text: "Trust it, because a DOI is hard to invent", misconception: "A DOI-shaped string is easy to fabricate, and a real DOI can belong to a different paper than the one claimed." }
-      - { text: "Ask the same agent whether the citation is real", misconception: "The agent can confirm its own error as fluently as it made it. Check against a source it did not write." }
+      - { text: "Trust it, since the author list and DOI are hard to invent", misconception: "A DOI-shaped string is easy to fabricate, and a real DOI can belong to a different paper than the one claimed." }
+      - { text: "Ask the agent to re-check the citation and quote the abstract", misconception: "The agent can confirm its own error as fluently as it made it, and can invent a quote too. Check against a source it did not write." }
+      - { text: "Check that the journal name exists and treat the citation as real", misconception: "A real journal does not mean the paper exists in it. Look up the specific paper." }
   - type: match
     prompt: "Match each kind of claim to the check that actually tests it."
     explain: "Each check uses something independent of the agent: your shell, an index, your own data or your own test run."
@@ -43,6 +44,7 @@ questions:
     prompt: "An agent's script imports a package you have never heard of, and suggests 'pip install' for it. What is the first step?"
     explain: "Agents can name packages that do not exist or that are not the one you want, and an installed package runs with your permissions. Check that it exists and is the right one before installing."
     options:
-      - { text: "Look the package up on its official index and check it is the right, maintained one", correct: true }
-      - { text: "Install it in a fresh environment and see if the script runs", misconception: "Installing runs its code. A look-up comes first, and a clean environment only limits the mess afterwards." }
-      - { text: "Ask the agent to confirm the package is real", misconception: "The same system that named it will answer fluently either way." }
+      - { text: "Look the package up on its official index and check it is the right one", correct: true }
+      - { text: "Install it in a fresh environment first and see whether the script runs", misconception: "Installing runs its code. A look-up comes first, and a clean environment only limits the mess afterwards." }
+      - { text: "Ask the agent to confirm the package is real and show its documentation", misconception: "The same system that named it will answer fluently either way, and the documentation can be invented too." }
+      - { text: "Install it with --no-deps so its dependencies cannot do any harm", misconception: "The package itself can still run code when installed, and you have not checked it exists or is the right one." }

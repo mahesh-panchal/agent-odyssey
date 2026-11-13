@@ -15,9 +15,9 @@ questions:
     explain: "A dry run shows the plan. It does not run the commands."
     options:
       - { text: "The workflow manager could build a plan of which steps would run", correct: true }
-      - { text: "The tool commands are correct", misconception: "No command was executed, so a wrong flag still passes a dry run." }
-      - { text: "The results will be scientifically right", misconception: "Nothing was computed, so nothing about the results has been tested." }
-      - { text: "The pipeline is fast enough to run on real data", misconception: "A plan lists jobs but says nothing about how long they take." }
+      - { text: "Every tool command in the pipeline runs with valid flags and arguments", misconception: "No command was executed, so a wrong flag still passes a dry run." }
+      - { text: "The outputs will be correct once you run it on the real data", misconception: "Nothing was computed, so nothing about the results has been tested." }
+      - { text: "The pipeline will finish within the cluster time you plan to request", misconception: "A plan lists jobs but says nothing about how long they take." }
   - type: sort
     prompt: "Which problems can a dry run or stub run catch, and which not?"
     bins: ["Can catch", "Cannot catch"]

@@ -12,9 +12,9 @@ questions:
     prompt: "A colleague says: 'I will never use these tools because they make mistakes.' What is the most useful reply?"
     explain: "Mistakes are the reason for checking habits, not a reason that nobody may ever use a tool. Choosing not to use it is also a legitimate decision."
     options:
-      - { text: "Mistakes are real, and these habits limit their cost. Whether to use it at all is still your call", correct: true }
-      - { text: "Newer models are better, so the worry is outdated", misconception: "Models improve, but wrong output has not gone away, so checks are still needed." }
-      - { text: "Everyone is using them, so you will have to", misconception: "Social pressure is not an argument, and it makes sceptics less likely to engage." }
+      - { text: "Mistakes are real; the habits limit the cost, and using it at all is your call", correct: true }
+      - { text: "Newer models are much better now, so that worry is mostly outdated", misconception: "Models improve, but wrong output has not gone away, so checks are still needed." }
+      - { text: "Everyone is adopting them, so you will eventually have to use them too", misconception: "Social pressure is not an argument, and it makes sceptics less likely to engage." }
   - type: sort
     prompt: "Which of these is a real risk to plan for, and which is a myth?"
     bins: ["Real risk", "Myth"]
@@ -29,6 +29,6 @@ questions:
     prompt: "Which statement about this odyssey is true?"
     explain: "The site never calls an LLM and every exercise runs locally on mock data."
     options:
-      - { text: "Everything runs on your laptop with mock data, and the site itself never calls an LLM", correct: true }
-      - { text: "You must send your own data to an LLM service to complete the quests", misconception: "No exercise needs real or sensitive data." }
-      - { text: "You must complete every quest before any tool is safe to use", misconception: "Gating is soft. Take the quests that match your worry first." }
+      - { text: "Everything runs locally on mock data, and the site never calls an LLM", correct: true }
+      - { text: "You must send some of your own data to an LLM service for the quests", misconception: "No exercise needs real or sensitive data." }
+      - { text: "You must finish every quest before using any tool safely at work", misconception: "Gating is soft. Take the quests that match your worry first." }

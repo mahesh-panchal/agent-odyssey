@@ -14,8 +14,8 @@ questions:
     explain: "The agent researches and proposes a plan, and makes no source edits until you approve."
     options:
       - { text: "A plan to review before any source edits happen", correct: true }
-      - { text: "A guarantee that the plan is correct", misconception: "A plan can be wrong. Plan mode gives you a chance to catch that before changes." }
-      - { text: "Faster output", misconception: "Plan mode is about control, not speed." }
+      - { text: "A verified plan that is guaranteed to be correct", misconception: "A plan can be wrong. Plan mode gives you a chance to catch that before changes." }
+      - { text: "Quicker answers, since the agent skips running commands", misconception: "Plan mode is about control, not speed. The agent still reads files and runs shell commands to explore." }
   - type: order
     prompt: "Put this working loop in order."
     items:
@@ -38,5 +38,5 @@ questions:
     explain: "A command and its output are something you can inspect or re-run."
     options:
       - { text: "Ask it to run the check and show the command and its output", correct: true }
-      - { text: "Ask it to list the files it changed", misconception: "A list of changes says what it did, not that it works. Ask for a command and its output." }
-      - { text: "Ask it whether the result is correct", misconception: "An answer to that question is a claim, not an observation." }
+      - { text: "Ask it to summarise what it changed and why it should work", misconception: "A summary says what it did and what it believes, not that it works. Ask for a command and its output." }
+      - { text: "Ask it to say how confident it is that the result is correct", misconception: "An answer to that question is a claim, not an observation." }

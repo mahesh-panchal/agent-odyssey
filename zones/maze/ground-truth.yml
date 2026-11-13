@@ -5,22 +5,24 @@ questions:
     explain: "The script counts only uppercase G and C, so the soft-masked lowercase bases are ignored. Soft-masked sequence is common in genome assemblies."
     options:
       - { text: "It counts only uppercase G and C, so lowercase (soft-masked) bases are ignored", correct: true }
-      - { text: "It divides by the wrong total length", misconception: "Look at seq2: the length (10) is right. The numerator is what is too small." }
-      - { text: "Nothing: 20.0 is correct because lowercase means low quality", misconception: "Lowercase here marks masked repeats, not bad bases. They are still bases, and they still count towards GC content." }
+      - { text: "It divides by the wrong total length, so the percentage comes out too low", misconception: "Look at seq2: the length (10) is right. The numerator is what is too small." }
+      - { text: "Nothing is wrong: lowercase bases are low quality, so 20.0 is the right GC", misconception: "Lowercase here marks masked repeats, not bad bases. They are still bases, and they still count towards GC content." }
+      - { text: "It counts lowercase a and t as if they were G or C, which inflates the result", misconception: "That would push the number up, but 20.0 is below the true 60%. The script is ignoring lowercase G and C, not over-counting." }
   - type: choice
     prompt: "For seq3 (`GCNNNNAT`) the script prints 25.0, i.e. 2 GC out of all 8 positions, N included. Is this a bug?"
     explain: "Whether to count N in the denominator is a decision. Make it deliberately, state it, and test it. Do not let an agent decide silently."
     options:
-      - { text: "It is a policy choice: decide whether N counts in the length, then document and test it", correct: true }
-      - { text: "Definitely a bug, 50% is the only right answer", misconception: "Both 2/8 and 2/4 are defensible. The point is that the choice is made on purpose and written down." }
-      - { text: "Definitely correct, the agent would not get this wrong", misconception: "The agent made a choice silently. That is exactly what you want to decide yourself." }
+      - { text: "A policy choice: decide if N counts in the length, then document and test it", correct: true }
+      - { text: "Definitely a bug: 50% is the only right answer, so fix the script to exclude N", misconception: "Both 2/8 and 2/4 are defensible. The point is that the choice is made on purpose and written down." }
+      - { text: "Definitely correct: the agent chose the standard definition, so leave it as is", misconception: "There is no single standard. The agent made the choice silently, and that is exactly what you want to decide yourself." }
   - type: choice
     prompt: "The agent says it tested the script on seq1 and it passed. Why is that not enough?"
     explain: "seq1 is the happy path. The bug lives in cases the test data did not include: lowercase and N."
     options:
-      - { text: "The test data had no lowercase and no N, so the failing cases were never exercised", correct: true }
-      - { text: "A test on one sequence can never be valid", misconception: "One sequence can be a valid test of what it contains. Its weakness is what it leaves out." }
-      - { text: "The agent should have used a different language", misconception: "The language is not the issue. The test data did not cover the cases that fail." }
+      - { text: "seq1 had no lowercase and no N, so the failing cases were never exercised", correct: true }
+      - { text: "One sequence is never a valid test; the agent needed at least a hundred", misconception: "One sequence can be a valid test of what it contains, and there is no magic count. Its weakness is what it leaves out." }
+      - { text: "The agent should have written the script in a faster language than Python", misconception: "The language is not the issue. The test data did not cover the cases that fail." }
+      - { text: "The test passed only because seq1 was short; longer sequences always fail", misconception: "Length is not the trigger. Lowercase bases and N are, and they can appear in short sequences too." }
   - type: order
     prompt: "Put the verification routine in order."
     explain: "Decide what correct looks like with something independent first, then compare, then fix, then keep the failing case as a permanent test."

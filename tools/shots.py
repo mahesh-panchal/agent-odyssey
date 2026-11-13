@@ -24,7 +24,7 @@ def cleared(B, url):
 def view_test(B):                      # bring the quiz into the frame
     B.js("document.querySelector('[data-ao-test]').scrollIntoView({block:'center'})"); import time; time.sleep(0.3)
 def wrong_then_view(B, url):          # a genuinely wrong answer, so the feedback state is on screen
-    fresh(B, url); B.click_text("git push"); view_test(B)
+    fresh(B, url); B.click_text("git commit -a"); view_test(B)
 
 SHOTS = [
     ("map-fresh-wide", (1400, 900), lambda B: fresh(B, "index.html")),

@@ -4,9 +4,9 @@ questions:
     prompt: "Your CLAUDE.md says 'never delete files'. What does that guarantee?"
     explain: "The file is context the model reads. It does not change what the tool allows. Permission rules or hooks enforce."
     options:
-      - { text: "It is context for the model, so nothing is guaranteed. Permission rules or hooks enforce", correct: true }
-      - { text: "Deletes are blocked", misconception: "Instruction files are not enforcement. Use deny rules for that." }
-      - { text: "Deletes are blocked only on weekdays", misconception: "Instructions never act as a hard block at any time." }
+      - { text: "Nothing: it is context for the model. Permission rules or hooks enforce", correct: true }
+      - { text: "Claude Code will refuse every delete command while the rule is present", misconception: "Instruction files are not enforcement. Use deny rules for that." }
+      - { text: "Deletes will need your approval, because the rule makes the agent ask first", misconception: "The file does not change permission prompts. The agent can decide a guideline does not apply, so use permission settings for approval." }
   - type: sort
     prompt: "Which belong in a project instructions file?"
     bins: ["Belongs", "Leave out"]
@@ -28,6 +28,6 @@ questions:
     prompt: "/init wrote an instructions file for you. What should you do?"
     explain: "A generated file is a draft. It can contain wrong guesses about how your project works."
     options:
-      - { text: "Read it critically and correct it before relying on it", correct: true }
-      - { text: "Trust it, since the agent knows the project", misconception: "It inferred the project from files and may have guessed wrong." }
-      - { text: "Delete it, since instruction files never help", misconception: "A short, correct file saves repeated explanation." }
+      - { text: "Read it critically and fix it before relying on it", correct: true }
+      - { text: "Trust it as written, since the agent read the project", misconception: "It inferred the project from files and may have guessed wrong." }
+      - { text: "Delete it, since instruction files rarely help anyone", misconception: "A short, correct file saves repeated explanation." }

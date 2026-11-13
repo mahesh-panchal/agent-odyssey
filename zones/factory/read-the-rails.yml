@@ -28,7 +28,7 @@ questions:
     prompt: "An agent offers to 'fix' a failing pipeline step by deleting the check that fails. What do you do?"
     explain: "A failing check is information. Find out why it fails before removing it."
     options:
-      - { text: "Find out why the check fails and decide whether the check or the step is wrong", correct: true }
-      - { text: "Accept it, since the pipeline then runs", misconception: "Running is not correctness. The check may have found a real problem." }
-      - { text: "Ask the agent to loosen the check until it passes", misconception: "A check bent to pass no longer tests anything." }
-      - { text: "Rerun until it passes", misconception: "An intermittent pass does not fix the cause." }
+      - { text: "Find out why it fails, then decide whether the check or the step is wrong", correct: true }
+      - { text: "Accept the change, since the pipeline now runs to the end without errors", misconception: "Running is not correctness. The check may have found a real problem." }
+      - { text: "Ask the agent to relax the check's threshold just enough for it to pass", misconception: "A check bent to pass no longer tests anything." }
+      - { text: "Rerun the step several times in case the failure was a one-off glitch", misconception: "A check that failed may be flagging a real problem. A lucky pass does not remove the cause." }

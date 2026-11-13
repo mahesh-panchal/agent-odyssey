@@ -15,8 +15,8 @@ questions:
     explain: "Only permission rules restrict reads."
     options:
       - { text: "No. Use a `Read(./.env)` rule under `permissions.deny` instead", correct: true }
-      - { text: "Yes, it works like .gitignore", misconception: "The docs state .claudeignore has no effect. Only permission rules restrict reads." }
-      - { text: "Yes, but only for the Bash tool", misconception: "There is no such file-based restriction for any tool; permission rules are what count." }
+      - { text: "Yes, it works like .gitignore and hides the file from the agent", misconception: "The docs state .claudeignore has no effect. Only permission rules restrict reads." }
+      - { text: "Yes, but only for shell commands, not for the file read tool", misconception: "There is no such file-based restriction for any tool; permission rules are what count." }
   - type: faulty-line
     prompt: "This settings file is meant to keep a companion away from destructive commands. Which line undermines it?"
     explain: "An allow for rm * defeats the purpose of the file."
@@ -38,13 +38,13 @@ questions:
     prompt: "Your instructions file says 'never run rm'. Is that enforced?"
     explain: "Enforcement lives in the tool's rules, not in text the model reads."
     options:
-      - { text: "No. Instructions are guidance. Only permission rules are enforced by the tool", correct: true }
-      - { text: "Yes, the model always obeys its instructions file", misconception: "Models can miss or misread instructions, which is why enforcement lives in the tool's rules." }
-      - { text: "Yes, but only in plan mode", misconception: "Plan mode limits edits; it does not turn instruction text into a rule." }
+      - { text: "No. Instructions are guidance; only permission rules are enforced", correct: true }
+      - { text: "Yes, an explicit 'never' in the instructions file is always obeyed", misconception: "Models can miss or misread instructions, which is why enforcement lives in the tool's rules." }
+      - { text: "Yes, if the line is in the project file rather than your user file", misconception: "Neither file location turns instruction text into a rule; only permission rules are enforced." }
   - type: choice
     prompt: "Claude Code's sandbox is switched on. What still runs OUTSIDE it?"
     explain: "The sandbox covers shell commands. Other tools need their own rules."
     options:
       - { text: "File tools (read, edit, write), MCP servers and hooks", correct: true }
-      - { text: "Nothing, everything is sandboxed", misconception: "The sandbox covers shell commands and their child processes. Other tools are separate and need their own permission rules." }
-      - { text: "Only commands that start with sudo", misconception: "The boundary is by tool type, not by command wording." }
+      - { text: "Nothing: the sandbox wraps every tool Claude Code uses", misconception: "The sandbox covers shell commands and their child processes. Other tools are separate and need their own permission rules." }
+      - { text: "Only shell commands run with elevated privileges such as sudo", misconception: "The boundary is by tool type, not by command wording." }

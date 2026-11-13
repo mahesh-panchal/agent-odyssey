@@ -13,9 +13,9 @@ questions:
     prompt: "In a diff, a test's expected value changed from 60 to 20 in the same commit that fixed a function. What is the best reviewer response?"
     explain: "A test edited to match new output may mean the test was weakened to pass. Ask why the expected value changed."
     options:
-      - { text: "Ask why the expected value changed, and what independent source says 20 is right", correct: true }
-      - { text: "Approve, since the tests pass", misconception: "Tests that were edited to pass do not show the function is correct." }
-      - { text: "Reject because a machine wrote it", misconception: "Judge the evidence, not the tool." }
+      - { text: "Ask why the value changed and what independent source says 20 is right", correct: true }
+      - { text: "Approve, because the tests pass and the function was clearly fixed", misconception: "Tests that were edited to pass do not show the function is correct." }
+      - { text: "Ask them to put the value back to 60, since tests must never be edited", misconception: "Tests can legitimately change when the expected behaviour changes. What matters is an independent reason for the new value." }
   - type: choice
     prompt: "Which notebook format is easier for a reviewer to diff?"
     explain: "A notebook stored as plain Python text shows the changed lines. A JSON notebook with outputs produces noisy diffs."
@@ -28,5 +28,5 @@ questions:
     explain: "A fair question that you cannot answer means you do not yet understand your own change."
     options:
       - { text: "You are not ready to send it, so go and understand or remove it", correct: true }
-      - { text: "The reviewer is being unreasonable", misconception: "Explaining the reason for a line is an ordinary expectation of any author." }
-      - { text: "Ask the agent to justify it and paste the answer", misconception: "A justification written after the fact may not reflect why the code exists, and you still have not checked it." }
+      - { text: "The reviewer is asking about something that does not matter much", misconception: "Explaining the reason for a line is an ordinary expectation of any author." }
+      - { text: "Ask the agent to explain the branch and paste its explanation in", misconception: "A justification written after the fact may not reflect why the code exists, and you still have not checked it." }
