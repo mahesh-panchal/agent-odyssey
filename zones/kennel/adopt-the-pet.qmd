@@ -1,0 +1,82 @@
+---
+title: "Adopt the Pet"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** a laptop with about 16 GB of memory, a terminal, and roughly 5 GB of free disk. WSL users: see the unconfirmed list at the end.
+**Objective:** run a small local model with Ollama, give it enough context, and point OpenCode at it.
+**Time:** about 20 minutes. Everything stays on your machine.
+
+<span class="ao-badge">Last verified (docs, not run): Ollama v0.40.16 and OpenCode v2.3.0 on 2026-11-13. Sources: research/kennel-and-crypt.md</span>
+
+::: {.callout-warning}
+Some details on this page are **unconfirmed**. They are listed at the end under "Unconfirmed".
+:::
+:::
+
+## The Pet
+
+A small local model is gentle, free, and private. It also forgets things quickly and gets things wrong more often than a large hosted model. That is fine if you know it.
+
+## 1. Install Ollama and fetch a model
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh     # macOS and Linux
+ollama pull qwen3:4b                              # about 2.5 GB
+ollama run qwen3:4b "Say hello in one sentence."
+```
+
+`qwen3:4b` is one example of a small model that Ollama lists with tool support. Model names change quickly, so check the "tools" badge on the model's page at ollama.com/library. Whether a model really fits your RAM is something you test, not something these docs promise: use `ollama ps` while it runs.
+
+## 2. Give it room to think
+
+Ollama's docs say the default context is **4k tokens** on machines with under 24 GiB of video memory, which includes a 16 GB laptop. Agents and coding tools need **at least 64k**, and OpenCode says it requires 64k or higher. Set it when you start the server:
+
+```bash
+OLLAMA_CONTEXT_LENGTH=64000 ollama serve
+```
+
+Check what loaded with `ollama ps`. A bigger context needs more memory and can push work onto the CPU, which is slow, so the Pet may be a patient companion.
+
+## 3. Point OpenCode at it
+
+Install OpenCode (the official docs currently give this command), then connect inside it with `/connect`:
+
+```bash
+curl -fsSL https://opencode.ai/v2/install | bash
+```
+
+OpenCode finds Ollama at `http://127.0.0.1:11434` automatically. To spell it out, put this in `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "providers": {
+    "ollama": { "settings": { "baseURL": "http://127.0.0.1:11434/v1" } }
+  }
+}
+```
+
+## 4. Put the Pet on a leash
+
+OpenCode's default policy is **allow everything** (except reading `.env` files, which it asks about). The docs also warn: *"Shell is not a sandbox. It runs with the host user's authority."* A safer start asks about everything first, then narrows. **Rules are checked in order and the last match wins:**
+
+```json
+{
+  "permissions": [
+    { "action": "*", "resource": "*", "effect": "ask" },
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "git push *", "effect": "deny" }
+  ]
+}
+```
+
+## Unconfirmed (check before relying on it)
+
+- WSL: neither Ollama nor OpenCode publishes WSL guidance. Installing both inside your WSL distro is our best guess, not a documented path.
+- OpenCode is in a version change: its pages differ on some config keys, so if a snippet errors, check the current docs.
+- Small models are more error-prone than large ones. That is common experience, not something the vendors document.
+
+## Battle: the Pet's leash
+
+<div data-ao-test="kennel-adopt-the-pet" data-xp="60"></div>

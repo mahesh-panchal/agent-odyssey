@@ -1,0 +1,39 @@
+pass: 0.8
+questions:
+  - type: order
+    prompt: "Put the first-contact steps in the safest order."
+    items:
+      - "Run the installer"
+      - "Confirm with claude --version"
+      - "cd into an empty sandbox folder"
+      - "Start claude in plan mode"
+    why:
+      "Confirm with claude --version": "Install first, then confirm; you cannot check a version of something not yet installed."
+      "cd into an empty sandbox folder": "Move into the sandbox after the install is confirmed and before you start the agent."
+      "Start claude in plan mode": "Start the agent last, after you are standing in a throwaway folder."
+      "Run the installer": "The installer comes first; everything else depends on it."
+  - type: choice
+    prompt: "After installing, your shell says `claude: command not found`. What is the most likely cause?"
+    options:
+      - { text: "~/.local/bin, where the launcher lives, is not on your PATH", correct: true }
+      - { text: "Your Team plan login has expired", misconception: "Login happens after the program starts. A 'command not found' means the shell cannot find the program at all." }
+      - { text: "Run the installer again as root", misconception: "The launcher is installed under your own home folder and does not need root. The shell just cannot see that folder." }
+  - type: match
+    prompt: "Match each permission mode to what it does."
+    pairs:
+      - { left: "default", right: "Asks the first time each tool is used", misconception: "default is the ask-first mode." }
+      - { left: "acceptEdits", right: "Auto-accepts file edits and common file commands in the working directory", misconception: "acceptEdits accepts edits without prompting; it is not the read-only mode." }
+      - { left: "plan", right: "Reads and runs read-only commands, no source edits", misconception: "plan is the look-but-don't-touch mode." }
+      - { left: "bypassPermissions", right: "Skips prompts; use only in containers or VMs", misconception: "bypassPermissions removes the safety prompts, which is why it belongs in disposable environments." }
+  - type: choice
+    prompt: "You have a Team subscription login AND `ANTHROPIC_API_KEY` exported. What is the problem?"
+    options:
+      - { text: "Once approved, the API key is used, so work bills to the API account instead of your plan", correct: true }
+      - { text: "None: the subscription always takes priority", misconception: "The docs say the key wins once approved. Check /status and unset the variable if you did not mean to use it." }
+      - { text: "Claude Code refuses to start with both", misconception: "It starts fine, which is why the mix-up is easy to miss." }
+  - type: choice
+    prompt: "What does `claude doctor` do?"
+    options:
+      - { text: "Prints read-only diagnostics about your installation", correct: true }
+      - { text: "Repairs a broken install automatically", misconception: "doctor reports; it does not repair. Read what it prints and fix the cause yourself." }
+      - { text: "Uploads your session history for review", misconception: "doctor is a local diagnostic. It does not send your history anywhere." }

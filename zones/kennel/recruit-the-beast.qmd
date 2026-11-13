@@ -1,0 +1,62 @@
+---
+title: "Recruit the Beast"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** a terminal (macOS, Linux, or WSL 2 on Windows), internet, and a Claude Team plan login *or* an Anthropic API key.
+**Objective:** install Claude Code, confirm it works, and start it somewhere safe in read-only style.
+**Time:** about 15 minutes. **Nothing here edits your files.**
+
+<span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 on 2026-11-13, against code.claude.com/docs (sources in `research/kennel-and-crypt.md`). Docs change quickly; if a command differs, trust the official page and tell the maintainers.</span>
+:::
+
+## The Beast
+
+Claude Code is strong. Strength is the reason to put it on a short lead before you let it do anything.
+
+## 1. Install
+
+On macOS (Apple Silicon), Linux, or inside a WSL 2 terminal, run the native installer:
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+On Windows, install inside WSL 2 and use the Linux command there. Check the result:
+
+```bash
+claude --version     # prints a version number
+claude doctor        # read-only diagnostics; changes nothing
+```
+
+If the shell says `command not found`, the launcher lives in `~/.local/bin/claude` and that folder is not on your `PATH`.
+
+## 2. Log in
+
+Run `claude` and a browser opens. With a Team plan, log in with the account your admin invited you to. With an API key, `export ANTHROPIC_API_KEY=...` instead.
+
+::: {.callout-warning}
+If you have **both** a subscription login and `ANTHROPIC_API_KEY` set, the key is used once you approve it, so usage goes to the API account rather than your plan. Run `/status` to see which one is active; `unset ANTHROPIC_API_KEY` if you did not mean it.
+:::
+
+## 3. Start on a short lead
+
+Make a throwaway folder and start in **plan mode**, which reads files and runs read-only commands but does not edit your source:
+
+```bash
+mkdir -p ~/odyssey-sandbox && cd ~/odyssey-sandbox
+claude --permission-mode plan
+```
+
+`Shift+Tab` cycles `default`, `acceptEdits` and `plan` inside a session; the status bar shows the current mode.
+
+| Mode | What it does |
+|---|---|
+| `default` | asks the first time each tool is used |
+| `acceptEdits` | auto-accepts file edits and common file commands (`mkdir`, `touch`, `mv`, `cp`) in the working directory |
+| `plan` | reads and runs read-only commands; does not edit source files |
+| `bypassPermissions` | skips prompts. The docs say to use it only in containers or VMs |
+
+## Battle: the Beast's leash
+
+<div data-ao-test="kennel-recruit-the-beast" data-xp="60"></div>

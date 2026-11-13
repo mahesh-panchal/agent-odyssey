@@ -1,0 +1,41 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "On a 16 GB laptop, what context length does Ollama use by default, and why does it matter for agents?"
+    options:
+      - { text: "About 4k tokens, far below the 64k or more that agents need, so the Pet forgets instructions and tool results", correct: true }
+      - { text: "256k, so there is nothing to change", misconception: "The large defaults only apply to machines with much more video memory. A 16 GB laptop gets the small one." }
+      - { text: "Whatever the model's maximum is", misconception: "The default is a memory-based limit, not the model's maximum. You raise it on purpose." }
+  - type: order
+    prompt: "Put the Pet's set-up in order."
+    items:
+      - "Install Ollama"
+      - "Pull a model that lists tool support"
+      - "Start the server with a larger context"
+      - "Check what loaded with ollama ps"
+      - "Start OpenCode"
+    why:
+      "Pull a model that lists tool support": "You need Ollama installed before you can pull a model."
+      "Start the server with a larger context": "Set the context when the server starts, after the model is on disk."
+      "Check what loaded with ollama ps": "Check after the server is up so you can see the real context and whether it spilled to CPU."
+      "Start OpenCode": "OpenCode comes last, once the model is running and sized correctly."
+      "Install Ollama": "Everything else depends on Ollama being installed."
+  - type: choice
+    prompt: "What is OpenCode's default permission policy?"
+    options:
+      - { text: "Allow everything, except reading .env files, which it asks about", correct: true }
+      - { text: "Ask before everything", misconception: "That is the safer policy you have to add yourself, with an explicit ask-everything rule first." }
+      - { text: "Deny everything until you allow it", misconception: "Nothing is denied by default. That is why you set the leash yourself." }
+  - type: faulty-line
+    prompt: "This OpenCode rule list should stop `git push`. Rules are checked in order and the last match wins. Which line breaks the protection?"
+    lines:
+      - { text: '"permissions": [', why: "Just the start of the list." }
+      - { text: '  { "action": "shell", "resource": "git push *", "effect": "deny" },', why: "This is the deny you want, but its position matters." }
+      - { text: '  { "action": "shell", "resource": "*", "effect": "allow" }', faulty: true }
+      - { text: ']', why: "Just the end of the list." }
+  - type: choice
+    prompt: "A small local model proposes running `rm -rf data/`. Who is supposed to stop it?"
+    options:
+      - { text: "Your permission rules in the tool, not the model", correct: true }
+      - { text: "The model, because a small model is cautious", misconception: "A model's caution is not a control. Small models can propose destructive commands, so the rules in the tool have to catch them." }
+      - { text: "Nobody; local models cannot run commands", misconception: "OpenCode runs shell commands with your authority regardless of which model asked for them." }
