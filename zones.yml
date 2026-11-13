@@ -36,8 +36,17 @@ gates:
          { id: crypt-rules-of-the-carapace, title: "Rules of the Carapace", page: zones/crypt/rules-of-the-carapace.html,
            story: "Deeper in the Crypt, bare skin is not enough. You must grow a carapace: rules about what your companions may touch.",
            done: "A carapace hardens over you. Your companions can now only do what your rules allow." } ] }
-  M: { id: maze,     name: "Sequence Maze",         track: "Trust",      status: soon,
-       blurb: "Corridors of plausible-looking sequences. Learn to tell the real from the Mirage. (Not open yet.)" }
+  M: { id: maze,     name: "Sequence Maze",         track: "Trust",      status: open,
+       quests: [
+         { id: maze-spot-the-mirage, title: "Spot the Mirage", page: zones/maze/spot-the-mirage.html,
+           story: "The maze walls shimmer. Some corridors are real and some are Mirages: things that look exactly right and do not exist.",
+           done: "You can name the Mirage's tricks: invented functions, fake citations, confident nonsense." },
+         { id: maze-ground-truth, title: "Ground Truth", page: zones/maze/ground-truth.html,
+           story: "A glowing script claims to have been tested. Only an independent measurement can say whether it is telling the truth.",
+           done: "You hold a lantern of ground truth: an independent check that does not trust the agent's word." },
+         { id: maze-wall-of-output, title: "Boss: The Wall of Output", page: zones/maze/wall-of-output.html,
+           story: "At the maze's heart rises a wall of text, thousands of lines high. It does not attack. It simply cannot be reviewed.",
+           done: "The Wall crumbles into small, reviewable stones. You never had to read all of it, only to refuse it whole." } ] }
   F: { id: forest,   name: "Phylogenetic Forest",   track: "Skills",     status: soon,
        blurb: "A tree of skills grows here, one branch at a time. (Not open yet.)" }
   R: { id: reef,     name: "Biodiversity Reef",     track: "Level",      status: soon,

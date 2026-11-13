@@ -1,0 +1,20 @@
+---
+title: "Boss: The Wall of Output"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Spot the Mirage and Ground Truth recommended. **Objective:** survive a wall of agent output without reading all of it and without trusting all of it.
+**Time:** about 10 minutes. Each right answer on the first try damages the boss.
+
+<span class="ao-badge">Practice guidance, not a vendor claim. Based on the habits taught in this zone.</span>
+:::
+
+## The Wall
+
+The Wall does not attack. It is thousands of lines of generated diff, produced faster than anyone can review. If you merge it unread, the Blight spreads. If you try to read all of it, your attention thins and you approve things you did not understand. Neither is the answer.
+
+The answer is to **refuse it whole**: ask for smaller pieces, ground each piece in a check, and never pass your unread work on to a collaborator.
+
+## Battle: the Wall
+
+<div data-ao-test="maze-wall-of-output" data-xp="120"></div>

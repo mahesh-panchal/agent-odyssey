@@ -5,6 +5,7 @@ project:
     - assets/data
     - assets/js
     - assets/img
+    - exercises
 
 website:
   title: "Agent Odyssey"

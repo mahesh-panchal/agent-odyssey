@@ -1,0 +1,27 @@
+---
+title: "Spot the Mirage"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** none beyond a terminal and Python. **Objective:** learn how plausible-but-false output looks, and how to check it without asking the thing that produced it.
+**Time:** about 10 minutes.
+
+<span class="ao-badge">Verified: ran the Python example below on 2026-11-13. The rest is general practice, not a vendor claim.</span>
+:::
+
+## The Mirage
+
+A language model produces text that *fits*. Sometimes it fits reality and sometimes it only fits the pattern of what a correct answer would look like. The second kind is a **Mirage**. It reads smoothly, it is confident, and it is wrong. Confidence and detail tell you nothing about which kind you have.
+
+Common Mirages in analysis work:
+
+- **Invented functions and flags**: a method or option that sounds right but does not exist. Try it: `"ATGCGC".reverse_complement()` raises `AttributeError: 'str' object has no attribute 'reverse_complement'`.
+- **Invented references**: a citation with a believable author, journal and DOI that points to nothing, or to a different paper.
+- **Invented values and paths**: a plausible number, column name or file path that was never in your data.
+- **Self-confirmation**: asking the same agent "are you sure?" often gets a fluent yes.
+
+The cure is not suspicion of everything. It is **checking against something the agent did not write**: run it, look it up, recompute it another way.
+
+## Battle: the Mirage
+
+<div data-ao-test="maze-spot-the-mirage" data-xp="60"></div>

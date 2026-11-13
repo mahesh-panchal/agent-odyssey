@@ -1,0 +1,47 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "For seq2 the script prints 20.0 but the independent check gives 6 GC of 10 (60%). What is wrong with the script?"
+    explain: "The script counts only uppercase G and C, so the soft-masked lowercase bases are ignored. Soft-masked sequence is common in genome assemblies."
+    options:
+      - { text: "It counts only uppercase G and C, so lowercase (soft-masked) bases are ignored", correct: true }
+      - { text: "It divides by the wrong total length", misconception: "Look at seq2: the length (10) is right. The numerator is what is too small." }
+      - { text: "Nothing: 20.0 is correct because lowercase means low quality", misconception: "Lowercase here marks masked repeats, not bad bases. They are still bases, and they still count towards GC content." }
+  - type: choice
+    prompt: "For seq3 (`GCNNNNAT`) the script prints 25.0, i.e. 2 GC out of all 8 positions, N included. Is this a bug?"
+    explain: "Whether to count N in the denominator is a decision. Make it deliberately, state it, and test it. Do not let an agent decide silently."
+    options:
+      - { text: "It is a policy choice: decide whether N counts in the length, then document and test it", correct: true }
+      - { text: "Definitely a bug, 50% is the only right answer", misconception: "Both 2/8 and 2/4 are defensible. The point is that the choice is made on purpose and written down." }
+      - { text: "Definitely correct, the agent would not get this wrong", misconception: "The agent made a choice silently. That is exactly what you want to decide yourself." }
+  - type: choice
+    prompt: "The agent says it tested the script on seq1 and it passed. Why is that not enough?"
+    explain: "seq1 is the happy path. The bug lives in cases the test data did not include: lowercase and N."
+    options:
+      - { text: "The test data had no lowercase and no N, so the failing cases were never exercised", correct: true }
+      - { text: "A test on one sequence can never be valid", misconception: "One sequence can be a valid test of what it contains. Its weakness is what it leaves out." }
+      - { text: "The agent should have used a different language", misconception: "The language is not the issue. The test data did not cover the cases that fail." }
+  - type: order
+    prompt: "Put the verification routine in order."
+    explain: "Decide what correct looks like with something independent first, then compare, then fix, then keep the failing case as a permanent test."
+    items:
+      - "Run the script on a tiny input"
+      - "Compute the expected values with an independent method"
+      - "Compare every row, not just the first"
+      - "Investigate each mismatch"
+      - "Keep the failing case as a permanent test"
+    why:
+      "Compute the expected values with an independent method": "Run the script first, then get your own answer, so you know what to compare against."
+      "Compare every row, not just the first": "You need both answers before you can compare them."
+      "Investigate each mismatch": "Compare before you investigate, or you do not know what to look at."
+      "Keep the failing case as a permanent test": "Keep the failing case after you understand it, so it stays caught."
+      "Run the script on a tiny input": "Everything else needs a result to check."
+  - type: sort
+    prompt: "Which checks would have caught the lowercase bug?"
+    bins: ["Catches it", "Misses it"]
+    explain: "A check catches a bug only if it uses data that triggers it and an answer the buggy code did not produce."
+    items:
+      - { text: "Compare against the independent shell count on every sequence", bin: "Catches it", misconception: "seq2 differs between the two methods, so this surfaces it." }
+      - { text: "Ask the agent 'is gc.py correct?'", bin: "Misses it", misconception: "The agent already believed its script was correct. Asking again produces the same belief." }
+      - { text: "Test only on seq1", bin: "Misses it", misconception: "seq1 is uppercase and has no N, so the buggy code passes it." }
+      - { text: "Add a soft-masked sequence to the test data", bin: "Catches it", misconception: "A lowercase case is exactly what triggers the bug." }

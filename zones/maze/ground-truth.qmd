@@ -1,0 +1,49 @@
+---
+title: "Ground Truth"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** a terminal with Python 3 and `awk`, and the two exercise files below (about 1 KB in total). Nothing here touches your own data.
+**Objective:** find out whether a script an agent called "tested" is actually right, using a check the agent did not write.
+**Time:** about 15 minutes.
+
+<span class="ao-badge">Verified: ran gc.py and the awk check on 2026-11-13 (macOS, Python 3.15, Apple awk). Output below is the real output.</span>
+
+**Files:** [tiny.fasta](../../exercises/maze/tiny.fasta) and [gc.py](../../exercises/maze/gc.py). Save both into an empty folder.
+:::
+
+## The lantern
+
+An agent gave you `gc.py`, which reports the GC content of each sequence, and said "tested, works". Test it yourself:
+
+```bash
+python gc.py tiny.fasta
+```
+
+You should see:
+
+```
+seq1	50.0
+seq2	20.0
+seq3	25.0
+```
+
+Now measure the same thing a different way, with a tool the agent did not write. This `awk` command uppercases each line, counts G and C, and counts the total length:
+
+```bash
+awk '/^>/{if(n)print n"\t"gc" GC of "t" total"; n=substr($1,2); gc=0; t=0; next}
+     {s=toupper($0); t+=length(s); gc+=gsub(/[GC]/,"",s)}
+     END{print n"\t"gc" GC of "t" total"}' tiny.fasta
+```
+
+```
+seq1	6 GC of 12 total
+seq2	6 GC of 10 total
+seq3	2 GC of 8 total
+```
+
+Work out the percentages and compare them row by row with the script. Two of the three rows tell a story, and one of them is not a bug at all. Then take the battle.
+
+## Battle: the lantern
+
+<div data-ao-test="maze-ground-truth" data-xp="80"></div>
