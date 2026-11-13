@@ -1,3 +1,11 @@
 # pixi environments
 .pixi/*
 !.pixi/config.toml
+
+/.quarto/
+**/*.quarto_ipynb
+_site/
+.quarto/
+.shots/
+assets/img/
+assets/data/
