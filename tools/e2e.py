@@ -54,6 +54,9 @@ try:
     for q in quests:
         B.go(base + q["page"], 1.0)
         check("quest page renders a test: " + q["id"], B.js("!!document.querySelector('.ao-round')"))
+    B.go(base + "zones/maze/wall-of-output.html", 1.0)
+    check("boss fight shows a name and HP bar", B.js("!!document.querySelector('.ao-boss progress')") and "Wall of Output" in B.js("document.querySelector('.ao-boss').textContent"))
+    check("exercise files are published", B.js("Promise.all(['tiny.fasta','gc.py'].map(f=>fetch('/exercises/maze/'+f).then(r=>r.ok)))").__class__ is list and all(B.js("Promise.all(['tiny.fasta','gc.py'].map(f=>fetch('/exercises/maze/'+f).then(r=>r.ok)))")))
     # --- quest log ---
     open0 = B.js("document.getElementById('ao-logbtn').getAttribute('aria-expanded')")
     B.click_text("Quest Log"); open1 = B.js("document.getElementById('ao-logbtn').getAttribute('aria-expanded')")

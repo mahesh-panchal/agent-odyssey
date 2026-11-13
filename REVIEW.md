@@ -40,6 +40,11 @@ Living document. Update the tactics and the changelog whenever the build gains s
 - Form controls need their own styling pass: unstyled `<select>`s rendered black-on-dark and were only spotted by looking
   at a screenshot of a sorting question.
 
+- Bare fixture pages lack the site theme, so some defects (like a visible hidden button) only exist in the fixture. When a
+  shot looks wrong, check it against the real page before fixing the site.
+- Exercise data must be run, not assumed: the Maze's planted bug and the awk cross-check were executed and their real
+  output is what the page shows.
+
 ## Changelog
 - v1 (slice): tiers 1-3 added; e2e covers map, gates, quest scoring, 5 question types, quest log, save/load.
 - v2: shots cover states and widths; e2e smoke-checks every quest page; Kennel and Crypt quests carry fact badges;
@@ -47,3 +52,5 @@ Living document. Update the tactics and the changelog whenever the build gains s
 - v3: second reviewer round fixed START/NEXT/CLEARED map labels, removed the key-hint toast, made the quest-log 'Now' follow
   the page, and styled feedback and form controls. Not yet done: per-answer `explain` text in the banks, a closer-to-content
   header at wide widths, shots for faulty-line and match questions.
+- v4: review items closed (explain text, HUD alignment, per-type shots). Sequence Maze added with a boss; e2e checks boss HUD
+  and that exercise files are published. Next review round should look at the Maze pages and the boss in shots.

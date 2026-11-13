@@ -35,6 +35,8 @@ SHOTS = [
     ("quest-sort-wide", (1400, 900), lambda B: (fresh(B, "zones/crypt/rules-of-the-carapace.html"), B.click_text("Check sorting"), view_test(B))),
     ("type-faulty-line", (1400, 900), lambda B: (fresh(B, "shot-faulty-line.html"), B.js("document.querySelectorAll('.ao-line')[0].click()"), view_test(B))),
     ("type-match-wrong", (1400, 900), lambda B: (fresh(B, "shot-match.html"), B.click_text("Check matches"), view_test(B))),
+    ("quest-boss-wide", (1400, 900), lambda B: (fresh(B, "zones/maze/wall-of-output.html"), B.click_text("Do not accept"), view_test(B))),
+    ("quest-exercise-wide", (1400, 900), lambda B: fresh(B, "zones/maze/ground-truth.html")),
     ("quest-narrow", (600, 900), lambda B: fresh(B, "zones/kennel/adopt-the-pet.html")),
 ]
 only = set(sys.argv[2:])
