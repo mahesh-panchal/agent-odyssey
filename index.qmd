@@ -1,0 +1,19 @@
+---
+title: "Agent Odyssey"
+---
+
+A Blight spreads across the land: plausible-but-false knowledge that grows when nobody checks it.
+Walk the map with the arrow keys (or WASD) and press Enter on a gate. Zones still under the Murk are not open yet.
+
+<p id="ao-next" class="ao-next" aria-live="polite"></p>
+
+<canvas id="ao-world" tabindex="0" data-game-widget aria-label="Overworld map. Use the zone list below if you prefer links."></canvas>
+<p id="ao-caption" aria-live="polite"></p>
+
+<details class="ao-textlist"><summary>Text-only list of zones</summary>
+
+- [Kennel: Recruit the Beast](zones/kennel/recruit-the-beast.qmd) (open)
+- [Ancient DNA Crypt: Shield of Undo](zones/crypt/shield-of-undo.qmd) (open)
+- Not open yet: Basecamp at the Root, Sequence Maze, Phylogenetic Forest, Biodiversity Reef, Pipeline Factory
+
+</details>

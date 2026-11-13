@@ -1,0 +1,46 @@
+# Overworld layout. Legend: . grass  = path  # tree  ~ water  o stone.  Gates are letters (see gates).
+map:
+  - "####################"
+  - "#..F........~~~~...#"
+  - "#..=.........~~~.=C#"
+  - "#..=...K.....~~~.=.#"
+  - "#..=...=.........=.#"
+  - "#..=...=.........=M#"
+  - "#..===============.#"
+  - "#..=........=....=.#"
+  - "#..B........=....=R#"
+  - "#...........P......#"
+  - "#..................#"
+  - "####################"
+start: B
+prologue: >-
+  A Blight is spreading: plausible but false knowledge that grows whenever nobody checks it. It seeps through
+  careless copy-and-paste, unreviewed output, and answers nobody understood. The tools are not the enemy. Walk the land,
+  recruit companions, build your immunity, and clear the Murk.
+gates:
+  B: { id: basecamp, name: "Basecamp at the Root",  track: "Prologue",   status: soon,
+       blurb: "Where every journey starts: name your fears and take your first safe step. (Not open yet.)" }
+  K: { id: kennel,   name: "The Kennel",            track: "Companions", status: open,
+       quests: [
+         { id: kennel-recruit-the-beast, title: "Recruit the Beast", page: zones/kennel/recruit-the-beast.html,
+           story: "A great armoured beast sleeps in the Kennel, strong but unthinking. It will only follow someone who can set it up and keep it on a short lead.",
+           done: "The Beast stirs and falls in beside you. It is powerful and will do exactly what its permissions allow." },
+         { id: kennel-adopt-the-pet, title: "Adopt the Pet", page: zones/kennel/adopt-the-pet.html,
+           story: "In a corner, a small pet blinks at you. It lives on your own machine, costs nothing to feed, and forgets things easily.",
+           done: "The Pet curls up on your laptop. Small and local, it needs more room to think and a leash of its own." } ] }
+  C: { id: crypt,    name: "Ancient DNA Crypt",     track: "Armour",     status: open,
+       quests: [
+         { id: crypt-shield-of-undo, title: "Shield of Undo", page: zones/crypt/shield-of-undo.html,
+           story: "The Crypt door is sealed with Murk. A faded note reads: nothing here is safe to touch without a way back.",
+           done: "The first seal cracks. You carry the Shield of Undo: any change can now be reversed." },
+         { id: crypt-rules-of-the-carapace, title: "Rules of the Carapace", page: zones/crypt/rules-of-the-carapace.html,
+           story: "Deeper in the Crypt, bare skin is not enough. You must grow a carapace: rules about what your companions may touch.",
+           done: "A carapace hardens over you. Your companions can now only do what your rules allow." } ] }
+  M: { id: maze,     name: "Sequence Maze",         track: "Trust",      status: soon,
+       blurb: "Corridors of plausible-looking sequences. Learn to tell the real from the Mirage. (Not open yet.)" }
+  F: { id: forest,   name: "Phylogenetic Forest",   track: "Skills",     status: soon,
+       blurb: "A tree of skills grows here, one branch at a time. (Not open yet.)" }
+  R: { id: reef,     name: "Biodiversity Reef",     track: "Level",      status: soon,
+       blurb: "A living community: learn to work with others, with and without LLMs. (Not open yet.)" }
+  P: { id: factory,  name: "Pipeline Factory",      track: "Craft",      status: soon,
+       blurb: "Machines that run the same steps every time. Learn when an LLM belongs in them. (Not open yet.)" }
