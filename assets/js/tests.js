@@ -92,6 +92,10 @@
           if (i >= qs.length) return finish();
           var q = qs[i], tries = 0, solved = false;
           el.innerHTML = "";
+          if (bank.boss) {
+            var hp = Math.max(0, qs.length - score), bar = h("progress", { max: qs.length, value: hp, "aria-label": "Boss HP" });
+            el.appendChild(h("p", { class: "ao-boss" }, [h("strong", { text: "⚔ " + bank.boss.name + "  " }), bar, h("span", { text: "  HP " + hp + "/" + qs.length })]));
+          }
           el.appendChild(h("p", { text: "Round " + (i + 1) + " of " + qs.length, class: "ao-round" }));
           el.appendChild(h("p", {}, [h("strong", { text: q.prompt })]));
           var box = h("div", {}), fb = h("p", { "aria-live": "polite", class: "ao-fb" }), next = h("button", { text: "Next ▶", class: "ao-next-btn" });
@@ -99,7 +103,7 @@
           R[q.type](q, box, function (ok, msg) {
             if (solved) return;
             tries++;
-            if (ok) { solved = true; if (tries === 1) score++; fb.className = "ao-fb ok"; fb.textContent = (tries === 1 ? "✔ Correct." : "✔ Correct (not first try).") + (q.explain ? " " + q.explain : ""); next.hidden = false; next.focus(); }
+            if (ok) { solved = true; if (tries === 1) score++; var pr = el.querySelector(".ao-boss progress"); if (pr) { pr.value = qs.length - score; pr.nextSibling.textContent = "  HP " + (qs.length - score) + "/" + qs.length; } fb.className = "ao-fb ok"; fb.textContent = (tries === 1 ? "✔ Correct." : "✔ Correct (not first try).") + (q.explain ? " " + q.explain : ""); next.hidden = false; next.focus(); }
             else { fb.className = "ao-fb bad"; fb.textContent = "✖ Not quite. " + msg; }
           });
           el.appendChild(box); el.appendChild(fb); el.appendChild(next);

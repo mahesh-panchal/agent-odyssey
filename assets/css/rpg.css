@@ -35,3 +35,4 @@ select { background: #14101f; color: var(--fg); border: 2px solid var(--accent);
 select:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 .ao-textlist summary { color: var(--fg); }
 [hidden] { display: none !important; }
+.ao-boss { margin: 0 0 .5rem; } .ao-boss progress { width: 40%; accent-color: var(--bad); vertical-align: middle; }
