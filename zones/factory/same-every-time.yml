@@ -6,8 +6,8 @@ questions:
     options:
       - { text: "A short script with the mapping written out, tested once", correct: true }
       - { text: "An LLM call in the pipeline that renames them each run", misconception: "Each run could produce different names, and you would not notice." }
-      - { text: "An LLM call whose answer is cached after the first run", misconception: "Caching keeps the first answer, including its errors, without ever checking it." }
-      - { text: "A trained model that learned the mapping from examples", misconception: "Training is unnecessary for a rule you can write down." }
+      - { text: "An LLM call in the pipeline, with its answers cached but never validated", misconception: "Caching keeps the first answer, including its errors, without ever checking it." }
+      - { text: "A lookup done by an LLM once, with its output pasted into the pipeline unchecked", misconception: "A one-off answer pasted in is still unverified, and the mapping is not recorded anywhere you can review." }
   - type: sort
     prompt: "If a pipeline step must call an LLM, which measures help?"
     bins: ["Helps reproducibility", "Does not help"]
@@ -22,6 +22,6 @@ questions:
     explain: "A record of model, version, prompt and input is what makes a result explainable later."
     options:
       - { text: "A log of the model, version, prompt and input for that row", correct: true }
-      - { text: "The pipeline's code, which calls the model", misconception: "Code that calls a model does not say which model version or text it received." }
+      - { text: "The pipeline code and its git history", misconception: "Code that calls a model does not say which model version or text it received on that run." }
       - { text: "Asking the model again now", misconception: "A new answer may differ and says nothing about what happened then." }
-      - { text: "The final table, since the label is there", misconception: "The table shows the output without its origin." }
+      - { text: "A note in the methods that an LLM was used", misconception: "A general statement does not say what produced this particular label." }

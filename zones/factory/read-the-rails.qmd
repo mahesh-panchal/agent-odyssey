@@ -4,7 +4,7 @@ title: "Read the Rails"
 
 ::: {.quest-dialog}
 **Prerequisites:** Dry Run First. **Objective:** spot the common mistakes in agent-written pipeline rules by reading them.
-**Time:** about 10 minutes. <span class="ao-badge">General practice, not a vendor claim.</span>
+**Time:** about 10 minutes. <span class="ao-badge">General practice. The snippets were reasoned through, not run.</span>
 :::
 
 Pipelines fail quietly in a few recurring ways. When you review a rule, ask: *where does each input come from, where does each output go, and what would change if I re-ran it?*
