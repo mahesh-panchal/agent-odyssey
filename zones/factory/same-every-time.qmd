@@ -1,0 +1,24 @@
+---
+title: "Same Every Time"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Three Kinds of Machine. **Objective:** decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does.
+**Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim.</span>
+:::
+
+A pipeline earns trust by giving the same answer from the same input. An LLM call can return different text from run to run, so putting one inside a step changes what the pipeline is.
+
+**Prefer to keep the LLM out of the run.** Use it to *write* a script, then test the script and run the script. The script is deterministic and reviewable.
+
+If an LLM call really must be a step (tidying messy free-text labels, say), contain it:
+
+- **Record** the model name and version, and the exact prompt, with the outputs.
+- **Cache** results keyed by input, so a re-run does not change them silently.
+- **Validate** each output against a fixed set (a species list, a schema) and fail loudly when it does not match.
+- **Keep a human-check sample**: look at a random handful every time.
+- **Keep it away from data you may not send out.** See Secrets and Sensitive Ground.
+
+## Battle: reproducible runs
+
+<div data-ao-test="factory-same-every-time" data-xp="60"></div>

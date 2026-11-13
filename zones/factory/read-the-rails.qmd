@@ -1,0 +1,21 @@
+---
+title: "Read the Rails"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Dry Run First. **Objective:** spot the common mistakes in agent-written pipeline rules by reading them.
+**Time:** about 10 minutes. <span class="ao-badge">General practice, not a vendor claim.</span>
+:::
+
+Pipelines fail quietly in a few recurring ways. When you review a rule, ask: *where does each input come from, where does each output go, and what would change if I re-ran it?*
+
+Common mistakes:
+
+- A **hard-coded path** to someone's home directory or one sample.
+- An **output not declared**, so the manager cannot tell what a step made.
+- A **tool without a pinned version**, so results change when the environment does.
+- **Overwriting inputs** in place, so there is no way back.
+
+## Battle: spot the flaw
+
+<div data-ao-test="factory-read-the-rails" data-xp="60"></div>

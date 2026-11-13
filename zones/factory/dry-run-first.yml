@@ -1,0 +1,37 @@
+pass: 0.8
+questions:
+  - type: order
+    prompt: "Put the checks on agent-written pipeline code in order, cheapest first."
+    items:
+      - "Read the diff"
+      - "Dry run or stub run"
+      - "Run on a tiny real input"
+      - "Compare with an independent check on that input"
+      - "Run on real data"
+    why:
+      "Run on real data": "Real data and cluster time are the expensive step, so it comes after every cheap check."
+  - type: choice
+    prompt: "Your dry run lists every expected job and exits cleanly. What have you shown?"
+    explain: "A dry run shows the plan. It does not run the commands."
+    options:
+      - { text: "The workflow manager could build a plan of which steps would run", correct: true }
+      - { text: "The tool commands are correct", misconception: "No command was executed, so a wrong flag still passes a dry run." }
+      - { text: "The results will be scientifically right", misconception: "Nothing was computed, so nothing about the results has been tested." }
+      - { text: "The pipeline is fast enough to run on real data", misconception: "A plan lists jobs but says nothing about how long they take." }
+  - type: sort
+    prompt: "Which problems can a dry run or stub run catch, and which not?"
+    bins: ["Can catch", "Cannot catch"]
+    explain: "These runs exercise the graph, not the commands."
+    items:
+      - { text: "A rule needs a file that no earlier step produces", bin: "Can catch", misconception: "Missing inputs show up when the graph is built." }
+      - { text: "A tool flag that silently changes the result", bin: "Cannot catch", misconception: "The command never runs, so its behaviour is untested." }
+      - { text: "A process connected to the wrong upstream output", bin: "Can catch", misconception: "A stub run exercises the connections between steps." }
+      - { text: "Filtering that drops half the reads for the wrong reason", bin: "Cannot catch", misconception: "That needs a real run on a tiny input and a check on the result." }
+  - type: choice
+    prompt: "An agent says the new pipeline 'was tested'. Which follow-up is the most useful?"
+    explain: "Ask what was run, on what input, and compared with what. Then repeat the cheap parts yourself."
+    options:
+      - { text: "Ask what was run, on which input, and what the output was compared with", correct: true }
+      - { text: "Ask it to run the same test again and say whether it passes", misconception: "Another run by the same agent repeats the claim without independent confirmation." }
+      - { text: "Ask it to summarise the pipeline's design", misconception: "A summary describes the design and says nothing about whether it was tested." }
+      - { text: "Check that its commit message mentions testing", misconception: "A commit message is a claim." }

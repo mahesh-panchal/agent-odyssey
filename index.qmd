@@ -19,6 +19,6 @@ Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold *
 - [Phylogenetic Forest: Write the Brief](zones/forest/write-the-brief.qmd)
 - [Biodiversity Reef: Send Small, Say So](zones/reef/send-small-say-so.qmd)
 - [Character sheet](character.qmd)
-- Not open yet: Pipeline Factory
+- [Pipeline Factory: Dry Run First](zones/factory/dry-run-first.qmd)
 
 </details>

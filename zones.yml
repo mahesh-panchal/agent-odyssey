@@ -78,5 +78,14 @@ gates:
          { id: reef-teach-and-share-the-load, title: "Teach and Share the Load", page: zones/reef/teach-and-share-the-load.html,
            story: "A reef thrives on many hands. Teach what you know, protect what you are learning, and take on only what you can review.",
            done: "You teach the checks, guard your own learning, and keep your workload reviewable." } ] }
-  P: { id: factory,  name: "Pipeline Factory",      track: "Craft",      status: soon,
-       blurb: "Machines that run the same steps every time. Learn when an LLM belongs in them. (Not open yet.)" }
+  P: { id: factory,  name: "Pipeline Factory",      track: "Craft",      status: open,
+       quests: [
+         { id: factory-dry-run-first, title: "Dry Run First", page: zones/factory/dry-run-first.html,
+           story: "Conveyor belts hum, but one is wired to nowhere. A cheap test run shows where each belt leads before any real cargo moves.",
+           done: "You check the wiring cheaply, layer by layer, before the real cargo rolls." },
+         { id: factory-same-every-time, title: "Same Every Time", page: zones/factory/same-every-time.html,
+           story: "A talkative machine sits in the middle of the line. Sometimes it says one thing, sometimes another. The factory needs the same every time.",
+           done: "You keep the talker out of the run, or fence it in with records, caches and checks." },
+         { id: factory-read-the-rails, title: "Read the Rails", page: zones/factory/read-the-rails.html,
+           story: "The rails look sound, but one points at a private road and another melts the cargo it carries.",
+           done: "You read the rails for hidden paths, undeclared outputs and overwritten inputs." } ] }

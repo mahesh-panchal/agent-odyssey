@@ -1,0 +1,27 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "You need to rename 40 columns by a fixed mapping in every run. What is the sturdiest design?"
+    explain: "A known rule belongs in a script. An LLM can help write it, but it should not be in the run."
+    options:
+      - { text: "A short script with the mapping written out, tested once", correct: true }
+      - { text: "An LLM call in the pipeline that renames them each run", misconception: "Each run could produce different names, and you would not notice." }
+      - { text: "An LLM call whose answer is cached after the first run", misconception: "Caching keeps the first answer, including its errors, without ever checking it." }
+      - { text: "A trained model that learned the mapping from examples", misconception: "Training is unnecessary for a rule you can write down." }
+  - type: sort
+    prompt: "If a pipeline step must call an LLM, which measures help?"
+    bins: ["Helps reproducibility", "Does not help"]
+    explain: "Reproducibility needs recorded versions and prompts, fixed validation, and cached results you have checked."
+    items:
+      - { text: "Record the model name, version and prompt with each output", bin: "Helps reproducibility", misconception: "You cannot explain or repeat a result without them." }
+      - { text: "Validate outputs against a fixed list and fail on a mismatch", bin: "Helps reproducibility", misconception: "A fixed list turns a free-text answer into something checkable." }
+      - { text: "Trust the output because the prompt said 'be consistent'", bin: "Does not help", misconception: "An instruction in the prompt does not guarantee consistent output." }
+      - { text: "Use whatever model the service currently calls 'latest'", bin: "Does not help", misconception: "A moving target means a re-run may behave differently." }
+  - type: choice
+    prompt: "Three months later a reviewer asks how a label in your table was produced by an LLM step. What lets you answer?"
+    explain: "A record of model, version, prompt and input is what makes a result explainable later."
+    options:
+      - { text: "A log of the model, version, prompt and input for that row", correct: true }
+      - { text: "The pipeline's code, which calls the model", misconception: "Code that calls a model does not say which model version or text it received." }
+      - { text: "Asking the model again now", misconception: "A new answer may differ and says nothing about what happened then." }
+      - { text: "The final table, since the label is there", misconception: "The table shows the output without its origin." }
