@@ -4,7 +4,7 @@ title: "The Project Charter"
 
 ::: {.quest-dialog}
 **Prerequisites:** Write the Brief. **Objective:** give the agent standing instructions for a project, and know what those instructions cannot do.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs on 2026-11-13 (sources in `research/forest-and-reef.md`).</span>
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in `research/forest-and-reef.md`).</span>
 :::
 
 Typing the same background every session is wasteful. A **project instructions file** is read at the start so the agent already knows the project's conventions.
@@ -26,7 +26,7 @@ The file is `AGENTS.md` in the project root (or `~/.config/opencode/AGENTS.md` f
 Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, "never edit `raw/`". Keep it short (the Claude Code docs aim for under 200 lines per file) because very long instructions are followed less well.
 
 ::: {.callout-warning}
-**Instructions are advice, not enforcement.** Claude Code's docs describe `CLAUDE.md` as context, not enforced configuration. A line saying "never delete files" does not stop a delete. Enforcement comes from permission rules, hooks, or a sandbox: the carapace you built in the Crypt.
+**Instructions are advice, not enforcement.** Claude Code's docs describe `CLAUDE.md` as context, not enforced configuration. A line saying "never delete files" does not stop a delete. Enforcement comes from permission rules, hooks, or managed settings: the carapace you built in the Crypt.
 :::
 
 Write the file yourself first and read what `/init` produces critically. A generated file can contain wrong guesses about your project.

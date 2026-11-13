@@ -54,3 +54,8 @@ Living document. Update the tactics and the changelog whenever the build gains s
   header at wide widths, shots for faulty-line and match questions.
 - v4: review items closed (explain text, HUD alignment, per-type shots). Sequence Maze added with a boss; e2e checks boss HUD
   and that exercise files are published. Next review round should look at the Maze pages and the boss in shots.
+- v5: Basecamp, Forest, Reef, Crypt secrets quest, honour items, character sheet. Two independent reviewers (visual from
+  screenshots; content from files). Fixed: stale-looking midgame shot state, honour label, secrets-page overclaims (env vars,
+  local models), Claude Code-only claims scoped, distractor strawmen reduced in several banks, SVG label legibility.
+  Still open: correct options tend to be longest/hedged across older banks; OpenCode docs describe V2 and the installed version
+  was not checked; HUD companion/language selectors rely on Quarto tab sync only; Pipeline Factory and MCP/hooks are v2.

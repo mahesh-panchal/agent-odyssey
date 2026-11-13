@@ -3,7 +3,7 @@ title: "Agent Odyssey"
 ---
 
 A Blight spreads across the land: plausible-but-false knowledge that grows when nobody checks it.
-Walk the map with the arrow keys (or WASD) and press Enter on a gate. Zones still under the Murk are not open yet.
+Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold **▶ NEXT** marker is the suggested next stop. Other **OPEN** zones can be visited in any order, and 🔒 zones are not built yet.
 
 <p id="ao-next" class="ao-next" aria-live="polite"></p>
 

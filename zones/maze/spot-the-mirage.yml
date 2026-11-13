@@ -39,3 +39,10 @@ questions:
       - { text: "The explanation sounds confident and detailed", bin: "Does not count", misconception: "Tone and detail do not separate right from wrong." }
       - { text: "An independent method gives the same number", bin: "Counts as evidence", misconception: "Agreement from a method that does not share the agent's assumptions is real evidence." }
       - { text: "The agent explains its reasoning step by step", bin: "Does not count", misconception: "A step-by-step story can be wrong at any step, and it may be written to fit the answer." }
+  - type: choice
+    prompt: "An agent's script imports a package you have never heard of, and suggests 'pip install' for it. What is the first step?"
+    explain: "Agents can name packages that do not exist or that are not the one you want, and an installed package runs with your permissions. Check that it exists and is the right one before installing."
+    options:
+      - { text: "Look the package up on its official index and check it is the right, maintained one", correct: true }
+      - { text: "Install it in a fresh environment and see if the script runs", misconception: "Installing runs its code. A look-up comes first, and a clean environment only limits the mess afterwards." }
+      - { text: "Ask the agent to confirm the package is real", misconception: "The same system that named it will answer fluently either way." }

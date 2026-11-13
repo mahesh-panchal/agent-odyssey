@@ -10,6 +10,7 @@
       else { cb.checked = true; }          /* claimed once; no XP farming by toggling */
     };
     var body = document.createElement("span"); body.innerHTML = el.innerHTML;
+    var tag = document.createElement("strong"); tag.textContent = "Optional bonus: "; body.insertBefore(tag, body.firstChild);
     label.appendChild(cb); label.appendChild(document.createTextNode(" ")); label.appendChild(body); label.appendChild(note);
     el.innerHTML = ""; el.appendChild(label); el.classList.add("ao-honour");
   });

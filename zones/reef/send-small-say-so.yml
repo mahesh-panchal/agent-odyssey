@@ -13,7 +13,7 @@ questions:
     explain: "Reviewers need small units, context and evidence."
     items:
       - { text: "One idea per pull request", bin: "Eases the review", misconception: "Small focused changes are quick to review properly." }
-      - { text: "Not mentioning that an LLM wrote part of it", bin: "Adds burden", misconception: "Reviewers cannot focus their attention if they do not know where to look." }
+      - { text: "Leaving out which parts an LLM helped with", bin: "Adds burden", misconception: "Reviewers cannot focus their attention if they do not know where to look." }
       - { text: "Including the test you ran and its output", bin: "Eases the review", misconception: "Evidence lets the reviewer verify instead of guess." }
       - { text: "Generated comments that restate every line", bin: "Adds burden", misconception: "Noise makes the real issues harder to find." }
   - type: choice

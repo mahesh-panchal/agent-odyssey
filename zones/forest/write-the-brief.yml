@@ -37,6 +37,6 @@ questions:
     prompt: "Which request best asks the agent for evidence?"
     explain: "A command and its output are something you can inspect or re-run."
     options:
-      - { text: "Show the command you ran and its output", correct: true }
-      - { text: "Tell me you are confident", misconception: "Stated confidence is not an observation." }
-      - { text: "Say that it works", misconception: "A claim is not evidence." }
+      - { text: "Ask it to run the check and show the command and its output", correct: true }
+      - { text: "Ask it to list the files it changed", misconception: "A list of changes says what it did, not that it works. Ask for a command and its output." }
+      - { text: "Ask it whether the result is correct", misconception: "An answer to that question is a claim, not an observation." }

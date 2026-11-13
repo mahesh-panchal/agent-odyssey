@@ -4,7 +4,7 @@ questions:
     prompt: "Your CLAUDE.md says 'never delete files'. What does that guarantee?"
     explain: "The file is context the model reads. It does not change what the tool allows. Permission rules or hooks enforce."
     options:
-      - { text: "Nothing is guaranteed. It is guidance, and enforcement needs permission rules or hooks", correct: true }
+      - { text: "It is context for the model, so nothing is guaranteed. Permission rules or hooks enforce", correct: true }
       - { text: "Deletes are blocked", misconception: "Instruction files are not enforcement. Use deny rules for that." }
       - { text: "Deletes are blocked only on weekdays", misconception: "Instructions never act as a hard block at any time." }
   - type: sort

@@ -4,7 +4,7 @@ title: "Write the Brief"
 
 ::: {.quest-dialog}
 **Prerequisites:** a companion from the Kennel. **Objective:** write prompts that make output checkable, and manage the context window so the agent stays on task.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs on 2026-11-13 (sources in `research/forest-and-reef.md`).</span>
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in `research/forest-and-reef.md`).</span>
 :::
 
 The first branch of the skill tree is the **brief**: what you tell the agent. A vague brief invites a plausible guess. A good brief names the file and the symptom, says what "done" looks like, and gives the agent a **check it can run**.
@@ -16,12 +16,12 @@ The first branch of the skill tree is the **brief**: what you tell the agent. A 
 
 Two habits make the rest of this safer:
 
-- **Plan first.** In Claude Code, plan mode (`Shift+Tab`, or `/plan`) lets the agent read and propose a plan with no source edits until you approve. Read the plan the way you would read a methods section.
+- **Plan first.** In Claude Code, plan mode (`Shift+Tab`, or `/plan`) lets the agent explore the project and propose a plan without editing your source files until you approve. It is a guard on edits, not a promise that nothing runs. Read the plan the way you would read a methods section.
 - **Ask for evidence.** "Show the command and its output" turns a claim into something you can look at.
 
 ## Context is a budget
 
-Everything in the conversation competes for the model's attention. Old, unrelated material can crowd out what matters.
+Everything in the conversation takes up room in the context window. The Claude Code docs note that old conversation can crowd out the files you need next.
 
 ::: {.panel-tabset group="companion"}
 
@@ -31,7 +31,7 @@ Everything in the conversation competes for the model's attention. Old, unrelate
 
 ## OpenCode + Ollama
 
-`/compact` (alias `/summarize`) summarises the session and `/new` (alias `/clear`) starts a new one. The docs show no `/context` equivalent in the TUI. A small local model has a short window, so start fresh more often.
+`/compact` (alias `/summarize`) summarises the session and `/new` (alias `/clear`) starts a new one. The docs show no `/context` equivalent in the TUI.
 
 :::
 

@@ -4,14 +4,14 @@ title: "Forge a Skill"
 
 ::: {.quest-dialog}
 **Prerequisites:** The Project Charter. **Objective:** package a repeatable procedure as a Skill, and know what a Skill does and does not do.
-**Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs on 2026-11-13 (sources in `research/forest-and-reef.md`).</span>
+**Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in `research/forest-and-reef.md`).</span>
 :::
 
 An instructions file is read every session. A **Skill** is a procedure loaded only when it is relevant, so it can be long without crowding the context.
 
 ## What a Skill is
 
-A Skill is a folder with a `SKILL.md` file. Only each Skill's short `description` is preloaded. The body is read when the Skill is used. A Skill can also bundle scripts and other files. Both you (by name, such as `/check-fasta`) and the agent (by matching the description) can start one.
+A Skill is a folder with a `SKILL.md` file. Only each Skill's short `description` is preloaded. The body is read when the Skill is used. A Skill can also bundle scripts and other files. In Claude Code, both you (by name, such as `/check-fasta`) and the agent (by matching the description) can start one.
 
 ::: {.panel-tabset group="companion"}
 
@@ -30,7 +30,7 @@ An example you can write by hand in a scratch folder:
 ```markdown
 ---
 name: check-fasta
-description: Check a FASTA file for empty records, duplicate IDs and non-ACGTN characters. Use before running any analysis on a new FASTA.
+description: Count the records in a FASTA file and find duplicate IDs. Use before running any analysis on a new FASTA.
 ---
 
 1. Run `grep -c '>' FILE` to count records.
@@ -39,7 +39,7 @@ description: Check a FASTA file for empty records, duplicate IDs and non-ACGTN c
 ```
 
 ::: {.callout-warning}
-`allowed-tools` in a Skill **pre-approves** tools for that turn. It does not restrict the agent to them. A Skill is not a sandbox, and a Skill you download is code you are choosing to trust. Read it before installing it, as you would read a script.
+In Claude Code, `allowed-tools` in a Skill **pre-approves** tools for that turn. It does not restrict the agent to them. A Skill is not a sandbox, and a Skill you download is code you are choosing to trust. Read it before installing it, as you would read a script.
 :::
 
 <div data-ao-honour="write-skill" data-xp="20">Write a `SKILL.md` for one chore you repeat (checking an input, summarising a log). Make the description say when to use it.</div>

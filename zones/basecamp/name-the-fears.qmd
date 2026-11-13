@@ -16,7 +16,7 @@ Each worry below is a real enemy in this land. Each has a counter-habit, and the
 
 | The worry | The enemy | The counter-habit | Where you learn it |
 |---|---|---|---|
-| "It will stop me learning." | Learning-drain | Write it first, predict before you look, ask it to explain instead of do. | Phylogenetic Forest |
+| "It will stop me learning." | Learning-drain | Write it first, predict before you look, ask it to explain instead of do. | Biodiversity Reef |
 | "It produces slop in bulk." | Slop-ooze | Small steps, tests before code, a review budget. | Sequence Maze |
 | "It makes things up." | Mirage | Check against something the agent did not write. | Sequence Maze |
 | "Someone else has to review all this." | Review-leech | Review it yourself first, say that you used an LLM, send small changes. | Biodiversity Reef |

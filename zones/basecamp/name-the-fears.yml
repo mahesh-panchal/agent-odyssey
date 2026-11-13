@@ -13,18 +13,18 @@ questions:
     explain: "Mistakes are the reason for checking habits, not a reason that nobody may ever use a tool. Choosing not to use it is also a legitimate decision."
     options:
       - { text: "Mistakes are real, and these habits limit their cost. Whether to use it at all is still your call", correct: true }
-      - { text: "It is very accurate now, so the worry is outdated", misconception: "Accuracy has improved but fabrication has not gone away, and checks are still needed." }
+      - { text: "Newer models are better, so the worry is outdated", misconception: "Models improve, but wrong output has not gone away, so checks are still needed." }
       - { text: "Everyone is using them, so you will have to", misconception: "Social pressure is not an argument, and it makes sceptics less likely to engage." }
   - type: sort
     prompt: "Which of these is a real risk to plan for, and which is a myth?"
     bins: ["Real risk", "Myth"]
     explain: "Plan for the real ones with habits. Do not spend effort on the myths."
     items:
-      - { text: "Confident output that is simply wrong", bin: "Real risk", misconception: "Plausible-but-false output is the best-documented failure." }
+      - { text: "Confident output that is simply wrong", bin: "Real risk", misconception: "Plausible-but-false output is a well-known failure." }
       - { text: "Code that runs but does the wrong calculation", bin: "Real risk", misconception: "Running without error says nothing about correctness." }
       - { text: "The agent has opinions and will refuse to follow your instructions out of spite", bin: "Myth", misconception: "The risk is drift and misunderstanding, not spite." }
       - { text: "A large change that nobody can realistically review", bin: "Real risk", misconception: "Volume that outruns review capacity is a genuine problem." }
-      - { text: "Using an agent once permanently damages your own coding ability", bin: "Myth", misconception: "The risk is habitual outsourcing, which you control by choosing when to write it yourself." }
+      - { text: "A wrong answer can only come from a badly written prompt", bin: "Myth", misconception: "Wrong output happens even with good prompts, so checking is always needed." }
   - type: choice
     prompt: "Which statement about this odyssey is true?"
     explain: "The site never calls an LLM and every exercise runs locally on mock data."

@@ -12,13 +12,13 @@
 
       /* Level */
       var html = "<h2>Level</h2><p><strong>Rank: " + RANKS[rank] + "</strong> · XP " + AO.state.xp + " · quests cleared " + cleared +
-        "</p><p class='ao-soft'>Rank rises with quests cleared. Collaboration and teaching quests (Biodiversity Reef) are where the sceptics' hardest worries are answered.</p>";
+        "</p><p class='ao-soft'>Rank rises as you clear quests. Optional honour items add XP but never rank.</p>";
 
       /* Armour */
       var arm = byTrack("Armour"), plates = [];
-      if (arm && arm.quests) arm.quests.forEach(function (q) { plates.push([q.title, !!done[q.id], q.done]); });
+      if (arm && arm.quests) arm.quests.forEach(function (q) { plates.push([q.title, !!done[q.id], q.done, arm.name]); });
       html += "<h2>Armour</h2><div class='ao-armour'>" + (plates.length ? plates.map(function (p) {
-        return "<div class='" + (p[1] ? "on" : "") + "'><strong>" + (p[1] ? "✔ " : "○ ") + esc(p[0]) + "</strong><br>" + (p[1] ? esc(p[2]) : "not yet forged") + "</div>";
+        return "<div class='" + (p[1] ? "on" : "") + "'><strong>" + (p[1] ? "✔ " : "○ ") + esc(p[0]) + "</strong><br>" + (p[1] ? esc(p[2]) : "not yet forged. Clear this quest in the " + esc(p[3]) + ".") + "</div>";
       }).join("") : "<p>No armour quests yet.</p>") + "</div>";
 
       /* Skill tree: one clade per zone, one leaf per quest. Text-first: list below the picture. */

@@ -17,7 +17,7 @@ You will also be on the receiving end. Reviewing LLM-assisted work is the same c
 
 ## Formats that review well
 
-Notebooks are an example. A [marimo](https://marimo.io/) notebook is stored as a plain `.py` file, so a diff shows what changed. A Jupyter `.ipynb` is JSON that also stores outputs and run counts, so diffs are noisy and hard to read. If you ask an agent to produce analysis, prefer a format your reviewer can actually diff.
+Notebooks are one example. A [marimo](https://marimo.io/) notebook is stored as a plain `.py` file, so a diff shows what changed. A Jupyter `.ipynb` is JSON that also stores outputs and run counts, so diffs are noisy and hard to read, though stripping tools exist. If you ask an agent to produce analysis, prefer a format your reviewer can actually diff.
 
 ## Battle: the review
 

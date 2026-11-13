@@ -12,7 +12,7 @@ A reef is a community. When you use an agent, the cost of checking its output mu
 Four habits:
 
 1. **Review it yourself first.** Read your own diff as if a stranger wrote it. If you cannot explain a line, it is not ready to send.
-2. **Say so.** Tell reviewers which parts an LLM helped with. It tells them where to look hardest, and it is honest.
+2. **Say so.** Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Your team may set its own norm for how.
 3. **Send small.** One idea per change, small enough to review in one sitting.
 4. **Bring evidence.** Include the test, the command, or the check that shows it works.
 

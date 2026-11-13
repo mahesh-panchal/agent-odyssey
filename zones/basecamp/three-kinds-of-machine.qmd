@@ -11,7 +11,7 @@ title: "Three Kinds of Machine"
 
 - **A deterministic program** (a script, `awk`, `samtools`): the same input always gives the same output, and you can read why. Use it whenever the rule is known.
 - **A trained model** (a classifier, a gene-finder, a structure predictor): learned from data to do **one task**, with measured accuracy on that task. Use it when the rule is unknown but the task is narrow and validated.
-- **An LLM**: trained to continue text. Flexible and fluent, with no built-in guarantee of correctness. Use it where the task is open-ended and you can check the result, such as drafting, explaining, or writing a first version of code that you then test.
+- **An LLM**: trained on large amounts of text, then tuned to follow instructions. Flexible and fluent, with no built-in guarantee of correctness. Use it where the task is open-ended and you can check the result, such as drafting, explaining, or writing a first version of code that you then test.
 
 Two common mistakes: using an LLM to do something a one-line script does exactly (slow, costly, and sometimes wrong), and trusting a model outside the task it was validated for.
 

@@ -23,7 +23,7 @@
         html += "<details" + (open ? " open" : "") + "><summary>" + esc(g.name) + (g.status !== "open" ? " 🔒" : qs.length && qs.every(function (q) { return done[q.id]; }) ? " ✔" : "") + "</summary>";
         if (!qs.length) html += "<p class='ao-soft'>" + esc(g.blurb || "") + "</p>";
         qs.forEach(function (q) {
-          var st = done[q.id] ? "✔" : (cur && cur.q === q ? "▶" : "○");
+          var st = done[q.id] ? "✔" : (cur && cur.q === q ? "➜" : "○");
           html += "<p>" + st + " " + link(q) + "</p>";
         });
         html += "</details>";
