@@ -38,3 +38,11 @@ questions:
       - { text: "Asks you to approve a command before running it", bin: "Harness", misconception: "Permission prompts are a harness feature." }
       - { text: "Decides what code to suggest", bin: "Model", misconception: "Choosing the text is the model's job." }
       - { text: "Compacts old messages when the context fills", bin: "Harness", misconception: "Managing context is done by the harness." }
+  - type: match
+    prompt: "Match each term about what the model can see to what it is."
+    explain: "The window is what the model sees now. A session is the conversation that fills it. Memory is what carries over between sessions."
+    pairs:
+      - { left: "Context window", right: "Everything the model can see right now, up to a size limit", misconception: "The window is a live limit on what is visible, not a record of past sessions." }
+      - { left: "Memory", right: "Notes loaded at the start of every new session", misconception: "Memory persists beyond one conversation, which is its whole point." }
+      - { left: "Session usage", right: "How much allowance a session spends, rising as context grows", misconception: "Usage is a cost measure, not a storage area." }
+      - { left: "Context poisoning", right: "A wrong statement in context that later answers build on", misconception: "Poisoning is about a wrong claim spreading through later answers, not about a security breach of the tool itself." }

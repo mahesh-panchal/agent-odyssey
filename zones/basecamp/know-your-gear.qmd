@@ -3,7 +3,7 @@ title: "Know Your Gear"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Three Kinds of Machine. **Objective:** use the eight words this site relies on (model, harness, skill, MCP, hook, plugin, effort, eval) and say how they fit together.
+**Prerequisites:** Three Kinds of Machine. **Objective:** use the words this site relies on (model, harness, skill, MCP, hook, plugin, effort, eval, and the context terms below) and say how they fit together.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code and API docs on 2026-11-16 (sources in `research/terminology.md`). Other tools name things differently; the ideas carry over.</span>
 :::
 
@@ -62,6 +62,17 @@ People mix these words up, and the mix-ups cause real mistakes, such as blaming 
 - **Plugin.** A folder that bundles skills, hooks, MCP servers and more, installed as one unit. It can run code, so it is a trust decision.
 - **Effort.** A setting for how much the model reasons per step, from `low` to `max` in Claude Code (`/effort`, `--effort`). Low is faster and cheaper; high thinks longer and checks more. It is a behavioural signal, not an exact budget. The docs warn that `max` can show diminishing returns and overthink, so raise it only where you measure a gain. It makes answers more careful, not guaranteed correct.
 - **Eval.** A repeatable test of agent behaviour: a prompt plus checks on the result. Comparing runs **with** and **without** something (a skill, a rule) shows what it contributed. A score of 100% both ways means it contributed nothing.
+
+## Words about what the model can see
+
+These get mixed up more than any others. The Codon Mill quests take each one in turn.
+
+- **Token.** The chunk of text a model actually reads and writes. Not a letter and not quite a word. Limits and costs are counted in tokens. (See *Tokens, Not Letters*.)
+- **Context window.** Everything the model can see at once right now: instructions, files it has read, tool output and the conversation so far. It has a size limit, and a fuller window is not automatically a better one. (See *The Context Window*.)
+- **Session (session context).** One running conversation, and the context window it has built up. A new session starts with an empty conversation. Two sessions do not share their context.
+- **Memory.** Notes that the tool loads at the start of every session, such as your instructions file and, in Claude Code, notes the tool writes itself. Memory outlives a session; session context does not. (See *Memory, Sessions and Usage*.)
+- **Session usage.** How much of your allowance or bill a session spends. It climbs with the size of the context, because the whole conversation is sent again with each request.
+- **Context poisoning.** A community term, not vendor documentation: a wrong statement gets into the context, and later answers build on it. Starting a fresh session and keeping unverified claims out of memory files are the usual remedies.
 
 ::: {.callout-note}
 Naming differs between tools. The Claude Code docs define "harness" and "hooks" as above; do not assume another tool's hooks, plugins or effort settings work the same way. Check its docs.
