@@ -3,7 +3,7 @@ title: "Recruit the Beast"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** a terminal (macOS, Linux, or WSL 2 on Windows), internet, and a Claude Team plan login *or* an Anthropic API key.
+**Prerequisites:** a terminal (macOS, Linux, or WSL 2, the Windows Subsystem for Linux, on Windows), internet, and a Claude Team plan login *or* an Anthropic API key (API = programmatic access to the models, billed per token; a plan is a subscription with usage limits).
 **Objective:** install Claude Code, confirm it works, and start it somewhere safe in read-only style.
 **Time:** about 15 minutes. **Nothing here edits your files.**
 
@@ -36,7 +36,7 @@ If the shell says `command not found`, the launcher lives in `~/.local/bin/claud
 Run `claude` and a browser opens. With a Team plan, log in with the account your admin invited you to. With an API key, `export ANTHROPIC_API_KEY=...` instead.
 
 ::: {.callout-warning}
-If you have **both** a subscription login and `ANTHROPIC_API_KEY` set, the key is used once you approve it, so usage goes to the API account rather than your plan. Run `/status` to see which one is active; `unset ANTHROPIC_API_KEY` if you did not mean it.
+If you have **both** a subscription login and `ANTHROPIC_API_KEY` set, the key is used once you approve it, so usage goes to the API account rather than your plan. Run `/status` (a `/command` is typed inside the running tool) to see which one is active; `unset ANTHROPIC_API_KEY` if you did not mean it.
 :::
 
 ## 3. Start on a short lead
@@ -44,7 +44,7 @@ If you have **both** a subscription login and `ANTHROPIC_API_KEY` set, the key i
 Make a throwaway folder and start in **plan mode**, which reads files and runs read-only commands but does not edit your source:
 
 ```bash
-mkdir -p ~/odyssey-sandbox && cd ~/odyssey-sandbox
+mkdir -p ~/odyssey-scratch && cd ~/odyssey-scratch
 claude --permission-mode plan
 ```
 

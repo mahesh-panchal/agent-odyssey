@@ -17,8 +17,8 @@ Anthropic's glossary describes tokens as the smallest units a model works with. 
 Three consequences:
 
 - **Tokens are not words.** A sentence of ten words is not ten tokens. How many it is depends on the model and the language.
-- **The count changes between models.** The docs say newer tokenizers can produce about 30 percent more tokens for the same text, for Claude 4.7 and later, including Sonnet 5.5. So a count from one model generation should not be reused for another.
-- **Limits and cost are measured in tokens.** The context window is counted in tokens, and the docs frame cost in tokens too: the same prompt can cost different amounts on different models. The API has a free token-counting endpoint, and its answer is an estimate that may differ slightly from real use.
+- **The count changes between models.** The docs say newer tokenizers (the part that cuts text into tokens) can produce about 30 percent more tokens for the same text, for Claude 4.7 and later, including Sonnet 5.5. So a count from one model generation should not be reused for another.
+- **Limits and cost are measured in tokens.** The context window is counted in tokens, and the docs frame cost in tokens too: the same prompt can cost different amounts on different models. The API (programmatic access to the model, billed per token, as opposed to a chat plan) has a free token-counting endpoint, and its answer is an estimate that may differ slightly from real use.
 
 ## Why this matters for sequences
 

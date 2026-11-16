@@ -1,0 +1,74 @@
+---
+title: "When to Start Fresh"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Memory, Sessions and Usage. **Objective:** name the signals that say "start a new session", the signals that say "carry on", and when the middle path (compacting) fits better than either.
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16 (Claude Code best-practices, context-window, sessions and commands docs; OpenCode TUI docs). Claude Code specific unless stated.</span>
+Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
+:::
+
+You have a conversation open with an agent. It has read files, tried things and been corrected. Do you keep typing into it, or start over? Neither answer is always right, and the cost of getting it wrong runs both ways. This page gives you signals, not a formula.
+
+A few words first. A **session** is one saved conversation with the tool. Its **context** is the text the model can see right now (the context window, from The Context Window quest). **Compacting** means replacing the long history with a short summary and carrying on in the same conversation. **Starting fresh** means a new, empty conversation. Nothing else changes: your files stay as they are.
+
+## Signals to start fresh
+
+1. **A new, unrelated task.** The docs recommend `/clear` between unrelated tasks. They say it costs nothing, and the next task then does not keep paying for the previous one's history. A session holding three unrelated tasks re-reads all three on every turn of the fourth. (`/clear` starts a new empty conversation. Giving it a name, as in `/clear oauth-migration`, labels the one you leave so you can find it again.)
+2. **The agent repeats a wrong claim after two corrections.** The docs' advice is to clear and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts. See Memory, Sessions and Usage.
+3. **You notice it forgetting early instructions or contradicting itself.** **General practice:** treat this as a symptom of a crowded or degraded context and start fresh, with the instruction moved into the instructions file. The docs back the underlying mechanism: Anthropic calls the loss of accuracy and recall as context grows **context rot**, and notes that after compaction, detailed early instructions may be lost. They give no number at which either begins.
+4. **You have been away for a while.** The tool keeps a **cache**, a short-term store that makes re-reading the conversation cheaper. Per the docs it lasts about an hour on a subscription and five minutes with an API key. A very long session (past about 200 thousand tokens) that sits idle may be compacted shortly before the cache expires, so you return to a summary. The docs add: if you do not need the history at all, a fresh session still costs less.
+5. **The context is crowded.** Run `/context`: it shows what fills the window, with suggestions and capacity warnings. A crowded window with a task you still need is a reason to compact (below); a crowded window full of dead ends is a reason to clear.
+6. **A task is finished and a verified result is committed.** The result lives in your files and in git, so the conversation has done its job. The docs make the same move after a spec: write it down, then start a fresh session to build from it, so the build begins with a clean context and a written definition of done.
+
+## Signals to carry on
+
+- **Same task, and early decisions still matter.** The next step needs the same files, the decisions you made and what was already tried. That is the rule of thumb in this site's research (an inference from the docs, not an official rule).
+- **The agent is on track.** Nothing is being repeated or contradicted. Clearing a working session throws away good context to solve a problem you do not have.
+- **You are returning to a named session.** `/resume` (or `claude --resume <name>`) reopens a session you chose; `claude --continue` reopens the most recent one in this directory. Resume restores the messages, model and permission mode, not startup flags such as `--mcp-config`, which you pass again. If that session was compacted, it continues from the last summary.
+- **The tool offers to resume after a long break.** On some plans a dialog estimates how much of your usage limit the saved conversation alone would use, and lets you resume or start a new conversation. The docs' advice: choose by whether your next task still needs the saved conversation.
+
+## The middle path: compact
+
+`/compact` replaces the history with a summary and stays in the same conversation. Give it a focus note, as in the docs' example `/compact focus on the auth bug fix`, so the summary spends its words on what you still need.
+
+What the summary keeps and loses, per the docs: it keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost. Afterwards the tool re-supplies the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions, and re-reads up to five recently used files. The docs note that the tool also compacts automatically as you approach the limit. A manual `/compact` with a focus lets you choose the moment and the emphasis. It is not free: compacting itself reads the whole conversation once.
+
+## The decision ladder
+
+| Situation | Action | Why |
+|---|---|---|
+| New task, unrelated to this conversation | `/clear` | Old history would be re-read for nothing, and it can distract |
+| Same task, context crowded, early decisions still matter | `/compact` with a focus note | Keeps the thread, drops the bulk (details from early on may be lost, so restate any that matter) |
+| Same task, agent on track, plenty of room | Carry on | Nothing to fix |
+| Wrong claim repeated after two corrections | `/clear`, then one new prompt with what you learned | A third correction sits on top of two failed attempts |
+| Back after a long break, still need the conversation | `/resume` or `claude --continue` | You get the saved messages (or the last summary) |
+| Back after a long break, next task is new | Fresh session | Docs: a fresh session still costs less if you do not need the history |
+| Task done, verified result committed | Write down what matters, then `/clear` | The state is in your files and git, not in the chat |
+
+## Before you clear
+
+Starting fresh loses the conversation, not your files and not memory. The instructions file (`CLAUDE.md`) and auto memory load again in the new session. But anything you only said in chat is gone: the decisions, what failed and why, which sample misbehaved. **General practice:** write that down before you clear, because `/clear` drops the conversation, and commit the result so the state is recoverable. The Handoff Notes quest shows what such a note should contain. If you clear by mistake, `/resume` can reopen the old conversation.
+
+## The cost of both mistakes
+
+**Clearing too early** loses useful context. The agent must re-read files and rediscover decisions, which costs time and usage, and you may need to repeat yourself. **Clearing too late** costs too: the whole conversation is sent again on every request, so usage climbs, and per the docs a focused context gives better answers than a crowded one, even with a large window. Both errors are cheap to recover from if you wrote things down. That is the real argument for notes. The docs give no exact point at which automatic compaction starts, so this page gives no percentage to aim for.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Commands the docs confirm for this page: `/clear` (alias `/new`), `/compact [instructions]`, `/context`, `/resume [session]`, `claude --continue`, `claude --resume [name]`, `/rename`. To check how full the window is, use `/context`. Not checked: whether the status line can show a context-fullness figure.
+
+## OpenCode + Ollama
+
+The OpenCode terminal-interface docs list `/new` (alias `/clear`), `/sessions` (aliases `/resume`, `/continue`) and `/compact` (alias `/summarize`). Not checked: what OpenCode keeps or loses when it compacts, whether it has a `/context`-style display, and how a local Ollama model's smaller window changes the advice. General practice: the same signals apply to any tool, because every model has a finite window; just expect to start fresh sooner with a smaller one.
+
+:::
+
+<div data-ao-honour="paste-twice" data-xp="20">Next time you notice yourself pasting the same background twice, note it: that was the moment to put it in the instructions file.</div>
+<div data-ao-honour="name-signal" data-xp="20">At the end of your next working session, write one line saying which signal (new task, repeated error, forgotten instruction, long break, crowded context, finished and committed) would have told you to start fresh, or that none applied.</div>
+
+## Battle: empty the hopper or not
+
+<div data-ao-test="codon-mill-when-to-start-fresh" data-xp="50"></div>

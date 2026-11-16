@@ -14,7 +14,7 @@ title: "Why Notebooks Diff Badly"
 
 ## A notebook is a JSON file
 
-A `.ipynb` file is a JSON document with `metadata`, `nbformat`, `nbformat_minor` and a list of `cells`. A code cell stores its source, but also an `execution_count` and its outputs. A plot is stored inside the file as a base64 string. The format keeps source and outputs in the same file, so any run rewrites lines next to the code.
+A `.ipynb` file is a JSON document with `metadata`, `nbformat`, `nbformat_minor` (the notebook file-format version numbers) and a list of `cells`. A code cell stores its source, but also an `execution_count` and its outputs. A plot is stored inside the file as a base64 string (the image bytes written out as plain text). The format keeps source and outputs in the same file, so any run rewrites lines next to the code.
 
 Whether you use an agent or not, this is what git sees. The two mock notebooks differ by one real change: the cutoff `30` became `40`. Compare them:
 

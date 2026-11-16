@@ -17,7 +17,7 @@ A Skill is a folder with a `SKILL.md` file. Only each Skill's short `description
 
 ## Claude Code
 
-Place it at `.claude/skills/<name>/SKILL.md` (project) or `~/.claude/skills/<name>/SKILL.md` (all projects). All frontmatter fields are optional, but write a clear `description` so it triggers at the right time. Keep the body under about 500 lines. The older `.claude/commands/` format still works but is merged into Skills.
+Place it at `.claude/skills/<name>/SKILL.md` (project) or `~/.claude/skills/<name>/SKILL.md` (all projects). All frontmatter fields (frontmatter: the settings block between the two `---` lines at the top of the file) are optional, but write a clear `description` so it triggers at the right time. Keep the body under about 500 lines. The older `.claude/commands/` format still works but is merged into Skills.
 
 ## OpenCode + Ollama
 
@@ -58,7 +58,7 @@ Start `opencode` in the scratch folder. OpenCode finds `.claude/skills` too. The
 
 :::
 
-4. If it did not trigger, check in this order: the file starts with `---` on line 1; the YAML parses; field names are spelled right; the `description` says *when* to use it, with the key use case first (long descriptions are cut off in the listing).
+4. If it did not trigger, check in this order: the file starts with `---` on line 1; the YAML (the `key: value` text format used in that block) parses; field names are spelled right; the `description` says *when* to use it, with the key use case first (long descriptions are cut off in the listing).
 
 A Skill that is listed but never picked up is a finding, not a failure of the model. Next you will learn to measure that instead of guessing.
 

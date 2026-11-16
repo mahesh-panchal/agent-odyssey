@@ -18,7 +18,7 @@ Sooner or later the agent does something you did not want: it skips a check, nam
 5. **Repeat later.** A new model version can make a Skill unnecessary, or break it. Re-run the evals when the model, the tool, or the Skill changes.
 
 ::: {.callout-note}
-The unit that matters is the **difference** between *with* and *without*. A Skill that scores 100% both ways has taught the model nothing it did not know.
+The unit that matters is the **difference** between *with* and *without*. The *without* run is the **baseline**: the run without the change, which tells you what the model does on its own. A Skill that scores 100% both ways has taught the model nothing it did not know.
 :::
 
 ## What to check

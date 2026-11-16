@@ -11,7 +11,7 @@ title: "Boss: The Wall of Output"
 
 ## The Wall
 
-The Wall does not attack. It is thousands of lines of generated diff, produced faster than anyone can review. If you merge it unread, the Blight spreads. If you try to read all of it, your attention thins and you approve things you did not understand. Neither is the answer.
+The Wall does not attack. It is thousands of lines of generated diff (the list of lines a change added and removed), produced faster than anyone can review. If you merge it unread, the Blight spreads. If you try to read all of it, your attention thins and you approve things you did not understand. Neither is the answer.
 
 The answer is to **refuse it whole**: ask for smaller pieces, ground each piece in a check, and never pass your unread work on to a collaborator.
 

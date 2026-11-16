@@ -5,7 +5,7 @@ questions:
     explain: "Every habit here is a way of putting a check or a limit between the agent and the result."
     pairs:
       - { left: "It will make things up", right: "Check against something the agent did not write", misconception: "Fabrication is answered by independent checks, not by trusting more or asking the agent again." }
-      - { left: "It could delete my files", right: "Use git, permission rules and a sandbox directory", misconception: "Damage is limited by what the agent is allowed to touch and whether you can undo it." }
+      - { left: "It could delete my files", right: "Use git, permission rules and a sandbox or scratch directory", misconception: "Damage is limited by what the agent is allowed to touch and whether you can undo it." }
       - { left: "My collaborators will have to review it all", right: "Review it yourself first and send small changes", misconception: "The review burden belongs to the person who sends the change." }
       - { left: "I will stop learning", right: "Write it yourself first, or ask it to explain rather than do", misconception: "Learning is protected by deciding when you attempt the work yourself." }
   - type: choice

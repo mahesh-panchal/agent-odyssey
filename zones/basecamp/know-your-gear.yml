@@ -46,3 +46,12 @@ questions:
       - { left: "Memory", right: "Notes loaded at the start of every new session", misconception: "Memory persists beyond one conversation, which is its whole point." }
       - { left: "Session usage", right: "How much allowance a session spends, rising as context grows", misconception: "Usage is a cost measure, not a storage area." }
       - { left: "Context poisoning", right: "A wrong statement in context that later answers build on", misconception: "Poisoning is about a wrong claim spreading through later answers, not about a setting or a bug in the tool itself." }
+  - type: match
+    prompt: "Match each term to what it means."
+    explain: "These words describe the parts around the model: who sends text, who acts, and what can go wrong with text that arrives."
+    pairs:
+      - { left: "Prompt", right: "The text you send to the model", misconception: "A prompt is input from you, not a setting or a program." }
+      - { left: "Agent", right: "A model in a harness that picks and runs tools in a loop", misconception: "An agent is more than a bare model: the harness and the loop are what let it act." }
+      - { left: "Subagent", right: "A helper with its own context window that returns a summary", misconception: "A subagent has a separate window, so only its summary comes back to the main session." }
+      - { left: "Prompt injection", right: "Text from a file or page that the model treats as an instruction", misconception: "Injection arrives through content the model reads, not through a bug in the harness." }
+      - { left: "Hallucination", right: "A plausible statement that is false, such as an invented DOI", misconception: "A hallucination is a confident false output, not a crash or a slow reply." }

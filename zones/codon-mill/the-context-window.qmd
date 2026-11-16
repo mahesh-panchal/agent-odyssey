@@ -12,7 +12,7 @@ The **context window** is all the text the model can look at when it writes its 
 
 ## What fills it
 
-In Claude Code the docs list: your instructions, the files it reads, its own responses, and content that never appears in your terminal. Before you type anything, the window already holds the instructions file, auto memory, the names of MCP tools and skill descriptions. Every file it reads and every tool output then adds more. At the API level the same idea holds: system prompt, every message, tool results, tool definitions and the output all count.
+In Claude Code the docs list: your instructions, the files it reads, its own responses, and content that never appears in your terminal. Before you type anything, the window already holds the instructions file (`CLAUDE.md`, the text file the harness loads at session start; see Know Your Gear), auto memory, the names of MCP tools and skill descriptions. Every file it reads and every tool output then adds more. At the API level (programmatic access to the model) the same idea holds: system prompt (the harness's own instructions, sent with every request), every message, tool results, tool definitions and the output all count.
 
 Sizes depend on the model, up to 1 million tokens for some and 200 thousand for others, per the docs. A big window is room, not a promise of quality.
 
@@ -28,7 +28,7 @@ Anthropic's docs put it directly: more context is not automatically better, and 
 
 It **compacts** automatically as the limit nears: the history is replaced by a summary. The docs say the summary keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost. What is re-supplied afterwards: the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions; up to five recently read or edited files are read again (a file over 5,000 tokens comes back as a path only). Nested instruction files are summarised away and reload on demand.
 
-Useful controls: `/context` shows what is using space, `/compact` with a focus note compacts on purpose, `/clear` starts clean between unrelated tasks. A subagent has its own window and only a summary comes back. If one file or output is so big that the window refills after every summary, auto-compaction stops with an error rather than looping.
+Useful controls: `/context` shows what is using space, `/compact` with a focus note compacts on purpose, `/clear` starts clean between unrelated tasks. A subagent (a helper agent) has its own window and only a summary comes back. If one file or output is so big that the window refills after every summary, auto-compaction stops with an error rather than looping.
 
 ## OpenCode + Ollama
 

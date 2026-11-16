@@ -32,7 +32,7 @@ The habit that follows (general practice, inferred from the above): few, clearly
 
 ## Single call, workflow, agent, or script
 
-Anthropic's article "Building effective agents" separates two things. A **workflow** orchestrates models and tools through paths fixed in code. An **agent** is a system where the model directs its own process and tool use. The article's advice is to start with the simplest solution that works, and it says that building no agentic system at all may be the right choice. For many uses, one well-prepared call is usually enough. It adds that agents trade speed and cost for performance, and that autonomy brings compounding errors, so test with limits: a **stopping condition** such as a maximum number of steps.
+Anthropic's article "Building effective agents" separates two things. A **workflow** orchestrates models and tools through paths fixed in code. An **agent** is a system where the model directs its own process and tool use. The article's advice is to start with the simplest solution that works, and it says that building no agentic system (one where the model picks its own steps and tools) at all may be the right choice. For many uses, one well-prepared call is usually enough. It adds that agents trade speed and cost for performance, and that autonomy brings compounding errors, so test with limits: a **stopping condition** such as a maximum number of steps.
 
 Our reading of that, as general practice:
 

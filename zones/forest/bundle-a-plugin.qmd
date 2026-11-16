@@ -13,7 +13,7 @@ A single Skill in your folder helps you. A **plugin** is a folder that bundles S
 
 ## Claude Code
 
-The smallest plugin is a manifest and one Skill. Only `name` is required in `plugin.json`:
+The smallest plugin is a manifest (the file that describes the plugin: its name, version and author) and one Skill. Only `name` is required in `plugin.json`:
 
 ```json
 {
@@ -27,7 +27,7 @@ The smallest plugin is a manifest and one Skill. Only `name` is required in `plu
 Layout rules that trip people up:
 
 - Only `plugin.json` goes inside `.claude-plugin/`. Skills, agents and hooks go at the plugin root (`skills/<name>/SKILL.md`, `agents/`, `hooks/hooks.json`). Components placed inside `.claude-plugin/` do not load.
-- The plugin `name` becomes a namespace, so the Skill is invoked as `/fasta-tools:check-fasta`.
+- The plugin `name` becomes a namespace (a prefix that keeps names from clashing), so the Skill is invoked as `/fasta-tools:check-fasta`.
 - Put your evals in `evals/<case>/` so they travel with the plugin.
 
 Try it without installing anything:
@@ -40,7 +40,7 @@ claude plugin validate ./fasta-tools --strict   # also fails on warnings
 
 After editing, run `/reload-plugins` in the session. `validate` exited 0 on the example here, with only an icon warning that matters for marketplace submission. It checks syntax and schema, not behaviour: that is what the evals in the previous quest are for.
 
-To share, a **marketplace** is a repository with `.claude-plugin/marketplace.json` listing plugins and where to fetch them. It is a catalogue, not a hosted store. People add it once and install by name.
+To share, a **marketplace** (a plugin catalogue) is a repository with `.claude-plugin/marketplace.json` listing plugins and where to fetch them. It is a catalogue, not a hosted store. People add it once and install by name.
 
 ## OpenCode + Ollama
 

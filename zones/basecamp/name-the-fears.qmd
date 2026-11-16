@@ -3,7 +3,7 @@ title: "Name the Fears"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** none. **Objective:** name what worries you about LLM agents, and learn the habit that answers each worry.
+**Prerequisites:** none. **Objective:** name what worries you about large language model (LLM) agents (an agent is a model running inside a program that picks and runs tools in a loop toward a goal), and learn the habit that answers each worry.
 **Time:** about 10 minutes. <span class="ao-badge">General practice, not a vendor claim: nothing here depends on a tool version.</span>
 :::
 
@@ -20,7 +20,7 @@ Each worry below is a real enemy in this land. Each has a counter-habit, and the
 | "It produces slop in bulk." | Slop-ooze | Small steps, tests before code, a review budget. | Sequence Maze |
 | "It makes things up." | Mirage | Check against something the agent did not write. | Sequence Maze |
 | "Someone else has to review all this." | Review-leech | Review it yourself first, say that you used an LLM, send small changes. | Biodiversity Reef |
-| "It could delete my work or leak my data." | Data-wipe | Undo (git), permissions, a sandbox directory, no secrets in prompts. | Ancient DNA Crypt |
+| "It could delete my work or leak my data." | Data-wipe | Undo (git), permissions, a sandbox (an operating-system layer that limits what commands can touch) or scratch directory, no secrets in prompts (a prompt is the text you send to the model). | Ancient DNA Crypt |
 | "I do not understand what it did." | Black-box husk | Ask for a changelog and explain it back before you keep it. | Sequence Maze |
 
 ::: {.callout-note}

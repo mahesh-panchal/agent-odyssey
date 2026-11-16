@@ -6,11 +6,11 @@ questions:
     items:
       - "Run the installer"
       - "Confirm with claude --version"
-      - "cd into an empty sandbox folder"
+      - "cd into an empty scratch folder"
       - "Start claude in plan mode"
     why:
       "Confirm with claude --version": "Install first, then confirm; you cannot check a version of something not yet installed."
-      "cd into an empty sandbox folder": "Move into the sandbox after the install is confirmed and before you start the agent."
+      "cd into an empty scratch folder": "Move into the scratch folder after the install is confirmed and before you start the agent."
       "Start claude in plan mode": "Start the agent last, after you are standing in a throwaway folder."
       "Run the installer": "The installer comes first; everything else depends on it."
   - type: choice

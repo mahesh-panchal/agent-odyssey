@@ -11,7 +11,7 @@ Every control you have met does one of three things.
 
 - **Advises.** It puts words in front of the model: an instructions file, Skill text, a line in your prompt. The model reads it and may weigh it against everything else in its context. Nothing stops a tool call.
 - **Asks.** The harness pauses and puts the decision to you: a permission prompt, or an `ask` rule. It is only as good as your attention at the tenth prompt of the hour.
-- **Enforces.** Code outside the model refuses the action whatever the model wants: a `deny` rule, a hook that exits 2, a sandbox where one is on. Enforcement has edges too, listed below.
+- **Enforces.** Code outside the model refuses the action whatever the model wants: a `deny` rule, a hook that exits 2 (exit code 2 is how a hook says block), a sandbox (an operating-system layer that limits what commands can touch) where one is on. Enforcement has edges too, listed below.
 
 The Gatehouse's rule of thumb: advice for preferences, a prompt for decisions you want to make each time, enforcement for things that must never happen.
 
@@ -24,7 +24,7 @@ The Gatehouse's rule of thumb: advice for preferences, a prompt for decisions yo
 | Control | Kind | Edge, per the docs read or earlier quests |
 |---|---|---|
 | `CLAUDE.md`, Skill text, your prompt | Advises | Influences the model only. |
-| Permission prompt or `ask` rule | Asks | You must read it. A project `.mcp.json` server has its own approval prompt, and `-p` runs cannot show it. |
+| Permission prompt or `ask` rule | Asks | You must read it. A project `.mcp.json` server has its own approval prompt, and `-p` runs (non-interactive, headless) cannot show it. |
 | `deny` rule | Enforces | Matching on command arguments is fragile (see the Carapace quest). Deny and ask rules are still evaluated when a hook returns allow. |
 | `PreToolUse` hook, exit 2 | Enforces | Fires only on tool calls, sees the literal text, fails open if it crashes. |
 | Sandbox | Enforces | Off by default, and limits shell commands only (see the Carapace quest). The docs say its restrictions still apply if a prompt injection bypasses the model's decision. |

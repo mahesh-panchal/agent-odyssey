@@ -27,6 +27,8 @@ Not confirmed here: how OpenCode stores keys, and what the `apiKeyHelper` settin
 
 ## Data and egress
 
+Egress means data leaving the machine.
+
 - *General practice:* before any cluster data, paths, logs or code go to an external model API, check your institution's policy. Human genomic, clinical or controlled-access data often has agreements that forbid third-party processing.
 - Read is auto-approved inside the working directory. A project folder holding controlled data is therefore readable by the agent unless a `Read(...)` deny rule or `sandbox.filesystem.denyRead` covers it. *General practice:* keep controlled data outside the agent's working directory and give the agent synthetic or de-identified test data.
 - *General practice, not checked in the docs, so ask your site:* some sites restrict internet access from compute nodes, so an agent there may not reach a model API at all. A common pattern is the agent on your laptop or a login node, writing scripts, with jobs running offline. A plain `ssh` from inside the Claude Code sandbox does not work as a hop.

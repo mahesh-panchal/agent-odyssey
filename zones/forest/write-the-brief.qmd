@@ -31,7 +31,7 @@ Everything in the conversation takes up room in the context window. The Claude C
 
 ## OpenCode + Ollama
 
-`/compact` (alias `/summarize`) summarises the session and `/new` (alias `/clear`) starts a new one. The docs show no `/context` equivalent in the TUI.
+`/compact` (alias `/summarize`, meaning another name for the same command) summarises the session and `/new` (alias `/clear`) starts a new one. The docs show no `/context` equivalent in the TUI (the text user interface, OpenCode's terminal screen).
 
 :::
 

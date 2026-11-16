@@ -11,6 +11,8 @@ title: "Test the Skill"
 **This costs money.** Every eval run and every judge-model grader is a real model call on your account. Reading this page and writing the files costs nothing. Running the eval is optional here and gives bonus XP only. Check what your institution allows before you spend.
 :::
 
+Words used below. **Grader:** a check that marks a run pass or fail. **Arm:** one condition of the comparison (with the plugin, or without). **Ablation:** removing the thing to see what changes. **Judge model:** a second model that marks the answer. **Baseline:** the run without the change.
+
 ## Where this works
 
 `claude plugin eval` needs Claude Code **v2.1.269 or later**. It evaluates a **plugin directory** (a folder with `.claude-plugin/plugin.json`), so first turn your Skill into a small plugin; the next quest covers bundling in more detail. The example `exercises/forge/fasta-tools` in this repository already has the shape:

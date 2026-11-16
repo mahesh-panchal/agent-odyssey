@@ -13,7 +13,7 @@ Whether an agent should be anywhere near your cluster account is a decision for 
 
 A job script is text. Letting an agent *draft* one is low risk, because you read it before anything runs. *Submitting* spends shared resources, and cancelling can destroy work. A sensible split:
 
-- the agent drafts scripts, and may check state (`squeue`, `sinfo`, `sacct`). *General practice:* scope `sacct` with `-j <jobid>` or `-S <start date>` so it does not dump the whole accounting history
+- the agent drafts scripts, and may check state (`squeue`, `sinfo`, `sacct`). *General practice:* limit `sacct` with `-j <jobid>` or `-S <start date>` so it does not dump the whole accounting history
 - you approve `sbatch`, `srun`, `salloc` and `scancel`
 
 Before approving an `sbatch`, read the script and the resource request: `--time`, `--mem`, and the array size if it is an array.

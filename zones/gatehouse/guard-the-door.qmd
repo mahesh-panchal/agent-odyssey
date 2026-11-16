@@ -7,7 +7,7 @@ title: "Guard the Door"
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in `research/tools-and-guards.md`)</span>
 :::
 
-A **hook** is a user-defined handler that runs automatically at a set point in the harness's lifecycle. In Claude Code it can be a shell command, an HTTP endpoint and other kinds, and it receives JSON about the event. An instructions file asks the model to behave. A command hook is ordinary code that the harness runs, so what it decides does not depend on what the model wants. That contrast is our inference from how exit code 2 works, not a phrase from the docs.
+A **hook** is a user-defined handler that runs automatically at a set point in the harness's lifecycle. In Claude Code it can be a shell command, an HTTP endpoint and other kinds, and it receives JSON (a structured text format) about the event. An instructions file asks the model to behave. A command hook is ordinary code that the harness runs, so what it decides does not depend on what the model wants. That contrast is our inference from how exit code 2 works (a nonzero exit code is how a script signals failure; a hook uses 2 to mean block), not a phrase from the docs.
 
 ## A hook that refuses
 
@@ -15,7 +15,7 @@ A **hook** is a user-defined handler that runs automatically at a set point in t
 
 ## Claude Code
 
-Hooks go in a `hooks` block in a settings file. `.claude/settings.json` is committable and shared, `.claude/settings.local.json` is yours alone, and `~/.claude/settings.json` covers all projects. A `PreToolUse` hook fires before a tool runs, and the matcher `Bash` selects the shell tool:
+Hooks go in a `hooks` block in a settings file. `.claude/settings.json` is committable and shared, `.claude/settings.local.json` is yours alone, and `~/.claude/settings.json` covers all projects. A `PreToolUse` hook fires before a tool runs, and the matcher (the pattern that selects which tool the hook fires for) `Bash` selects the shell tool:
 
 ```json
 { "hooks": { "PreToolUse": [ { "matcher": "Bash",
@@ -36,9 +36,9 @@ fi
 exit 0  # exit 0 = no decision; the normal permission flow applies
 ```
 
-The hook gets the event as JSON on stdin, including `tool_name` and, for Bash, `tool_input.command`. Exit code 2 on `PreToolUse` blocks the call, and Claude sees the stderr text as the reason. Exit 0 does not approve anything: the call still goes through the normal permission flow.
+The hook gets the event as JSON on stdin (its standard input), including `tool_name` and, for Bash, `tool_input.command`. Exit code 2 on `PreToolUse` blocks the call, and Claude sees the stderr text as the reason. Exit 0 does not approve anything: the call still goes through the normal permission flow.
 
-Two behaviours matter for trust. First, if the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. A broken guard fails **open**, unless the hook is configured to block on failure (the guide names `onFailure: "block"`; check the current docs for where it goes). Second, exit 2 does not block everywhere: on `PostToolUse` the tool already ran and exit 2 only shows stderr to Claude, and on `Notification` the exit code is ignored.
+Two behaviours matter for trust. First, if the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. A broken guard fails **open** (it lets the action through when it breaks), unless the hook is configured to block on failure (the guide names `onFailure: "block"`; check the current docs for where it goes). Second, exit 2 does not block everywhere: on `PostToolUse` the tool already ran and exit 2 only shows stderr to Claude, and on `Notification` the exit code is ignored.
 
 ## OpenCode + Ollama
 
@@ -57,7 +57,7 @@ Not checked: an exit-code-2 equivalent or shell-hook configuration (neither appe
 
 ## A hook in a repository is code you did not write
 
-If a repository commits hooks in `.claude/settings.json`, they are code from its authors, running as you. Interactive Claude Code holds hooks back until you accept the workspace trust dialog. In `-p` and SDK runs there is no dialog, and the docs say hooks committed in a repository's `.claude/settings.json` run in a folder you have never trusted. Read `.claude/` before running headless in a clone, and the docs name `--bare` and `disableAllHooks` as ways to switch them off.
+If a repository commits hooks in `.claude/settings.json`, they are code from its authors, running as you. Interactive Claude Code holds hooks back until you accept the workspace trust dialog. In `-p` and SDK runs (headless: non-interactive, no one to answer a dialog) there is no dialog, and the docs say hooks committed in a repository's `.claude/settings.json` run in a folder you have never trusted. Read `.claude/` before running headless in a clone, and the docs name `--bare` and `disableAllHooks` as ways to switch them off.
 
 <div data-ao-honour="gatehouse-hook-in-a-scratch-folder" data-xp="20">In a throwaway folder with mock files, add the Bash-blocking hook above and ask for a harmless command that contains "drop table" in an `echo`. Note the stderr message the agent reports. Then change the script to exit 1 and see what happens.</div>
 

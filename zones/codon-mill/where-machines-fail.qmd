@@ -17,7 +17,7 @@ Models are generally useful where you can read the result, or run it, and judge 
 - summarising text
 - drafting prose, such as a README or a methods first draft
 - explaining code or an error message
-- converting formats, for example a samplesheet CSV to JSON
+- converting formats, for example a samplesheet CSV to JSON (a structured text format)
 - first drafts of code that you will then test
 
 **Caveat for summaries.** A summary can leave things out or bend them. A peer-reviewed study of the older, pre-chat generation of summarisation models (Maynez et al., ACL 2020) found substantial unfaithful content in every system tested. That evidence is dated, but the direction still applies. We found no published faithfulness rate for current Claude on scientific papers. So spot-check against the source: numbers, gene and sample names, direction of effect, negations. Omissions are harder to see, so skim the abstract and limitations yourself. Asking the model to quote the supporting lines first also helps; the Anthropic docs recommend quote-first extraction.
@@ -61,13 +61,13 @@ Same rule. Not checked: how reliable small local models are at this. General pra
 
 | Failure mode | What it looks like | What to do | Quest |
 |---|---|---|---|
-| Hallucination | A plausible DOI, gene ID or tool flag that does not exist | Allow "I don't know"; ask for word-for-word quotes first; restrict to supplied documents; look up every ID in PubMed or Ensembl, or run the tool's `--help` | Spot the Mirage |
-| Sycophancy | Agrees with your wrong hypothesis, or softens a correct criticism when you push back (Sharma et al., arXiv 2310.13548) | General practice: ask for the strongest case against your idea, and do not reveal your preferred answer | none yet |
-| Long-context degradation | Accuracy and recall drop as input grows ("context rot", per Anthropic's docs); relevant text in the middle is used less (arXiv 2307.03172) | Curate input: head, counts, filtered tables; start fresh for a new task | The Context Window |
-| Instruction drift | An early instruction is forgotten, for example after compaction | Short instructions file; a hook for must-never rules (Claude Code) | The Context Window |
+| Hallucination | A confident statement that is false. For example a plausible DOI, gene ID or tool flag that does not exist | Allow "I don't know"; ask for word-for-word quotes first; restrict to supplied documents; look up every ID in PubMed or Ensembl, or run the tool's `--help` | Spot the Mirage |
+| Sycophancy | Telling you what you want to hear. It agrees with your wrong hypothesis, or softens a correct criticism when you push back (Sharma et al., arXiv 2310.13548) | General practice: ask for the strongest case against your idea, and do not reveal your preferred answer | none yet |
+| Long-context degradation | Accuracy and recall drop as input grows ("context rot", per Anthropic's docs: the longer the input, the worse the recall); relevant text in the middle is used less (arXiv 2307.03172) | Curate input: head, counts, filtered tables; start fresh for a new task | The Context Window |
+| Instruction drift | An early instruction is forgotten, for example after compaction (the harness replacing old conversation with a summary to free room) | Short instructions file (`CLAUDE.md` or similar, loaded at session start); a hook for must-never rules (Claude Code) | The Context Window |
 | Non-determinism | The same prompt can give different answers | Not checked in the official docs. General practice: run twice and compare; record command, model and version; treat the script it wrote as the reproducible part | Same Every Time |
 | Overconfidence | Says it is done when it is not, often because it had no way to check | Give it a check to run (tests, row counts, md5) and read the output | none yet |
-| Prompt injection | A README, PDF or FASTA header contains instructions the agent follows | Treat fetched content as data; review commands before approving; no system is fully immune | Plug In a Server |
+| Prompt injection | Text the model treats as an instruction although it came from content, not from you. For example a README, PDF or FASTA header contains instructions the agent follows | Treat fetched content as data; review commands before approving; no system is fully immune | Plug In a Server |
 | Stale knowledge | Newer tool versions or database releases postdate its training | Check `--version` and the current docs. Current Claude models list a June 2026 cutoff | none yet |
 
 ## The decision rule

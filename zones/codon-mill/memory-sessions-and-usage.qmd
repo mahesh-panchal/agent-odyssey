@@ -20,7 +20,7 @@ People say "it remembers", "the session got long" and "I hit my usage" as if the
 
 **Memory.** Text on disk that is read into a new window at the start of every session. In Claude Code there are two kinds, both loaded at session start:
 
-- `CLAUDE.md`: instructions **you** write (scopes: project, user or organisation).
+- `CLAUDE.md`: instructions **you** write (scope = who or where a setting applies: project, user or organisation).
 - **Auto memory**: notes the **tool** writes itself from your corrections and preferences. It is per git repository and machine-local, kept in `~/.claude/projects/<project>/memory/` as plain markdown with a `MEMORY.md` index. Only the first 200 lines or 25KB of `MEMORY.md` load at start; topic files are read on demand.
 
 Memory is context, not enforced configuration. It also takes room in the window every session. Run `/clear` and the conversation goes but memory stays. Compaction shrinks a session; it does not create memory.
@@ -36,7 +36,7 @@ Memory is context, not enforced configuration. It also takes room in the window 
 | Session context | The window, this session only | No | `/clear`, `/compact`, what you let in |
 | `CLAUDE.md` | A file you write | Yes | Editing the file |
 | Auto memory | Markdown files the tool writes | Yes | `/memory` (read, edit, delete, toggle) |
-| Session cost display | Counted locally from tokens sent | Displayed total resets; plan limit use already spent does not come back (our inference) | Smaller outputs, fewer subagents, `/clear` between tasks |
+| Session cost display | Counted locally from tokens sent | Displayed total resets; plan limit use already spent does not come back (our inference) | Smaller outputs, fewer subagents (helper agents with their own context window), `/clear` between tasks |
 | Poisoned claim | In the context, or in memory | Gone from the context, stays in memory | Fresh session; delete the memory line |
 
 ## Why usage climbs
