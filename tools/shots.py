@@ -42,6 +42,8 @@ SHOTS = [
     ("quest-honour-wide", (1400, 900), lambda B: (fresh(B, "zones/crypt/secrets-and-sensitive-ground.html"), B.js("document.querySelector('.ao-honour').scrollIntoView({block:'center'})"), __import__("time").sleep(0.3))),
     ("quest-forest-narrow", (600, 1400), lambda B: fresh(B, "zones/forest/the-project-charter.html")),
     ("quest-forest-skill-wide", (1400, 900), lambda B: fresh(B, "zones/forest/forge-a-skill.html")),
+    ("quest-gear-wide", (1400, 1500), lambda B: fresh(B, "zones/basecamp/know-your-gear.html")),
+    ("quest-gear-narrow", (600, 1800), lambda B: fresh(B, "zones/basecamp/know-your-gear.html")),
     ("quest-reef-wide", (1400, 900), lambda B: fresh(B, "zones/reef/the-reviewers-code.html")),
     ("map-midgame-narrow", (600, 900), lambda B: cleared(B, "index.html")),
     ("quest-narrow", (600, 900), lambda B: fresh(B, "zones/kennel/adopt-the-pet.html")),
