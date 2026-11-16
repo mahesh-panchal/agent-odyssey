@@ -43,5 +43,13 @@ questions:
     options:
       - { text: "Prints read-only diagnostics about your installation", correct: true }
       - { text: "Repairs a broken install and reinstalls the launcher", misconception: "doctor reports; it does not repair. Read what it prints and fix the cause yourself." }
-      - { text: "Sends your session history to Anthropic for review", misconception: "doctor is a local diagnostic. It does not send your history anywhere." }
+      - { text: "Sends your session history to Anthropic for review", misconception: "The shell command prints diagnostics without starting a session, so there is no session history to review." }
       - { text: "Scans your project files for secrets before each session", misconception: "doctor reports on the installation, not on your project files. It does not scan for secrets." }
+  - type: match
+    prompt: "Match each question to the command that answers it."
+    explain: "Each command shows one slice of the setup. Pick by the question you have."
+    pairs:
+      - { left: "Which MCP servers are connected?", right: "/mcp", misconception: "/mcp lists MCP servers and their connection status." }
+      - { left: "What is filling my context window?", right: "/context", misconception: "/context breaks context use down by category." }
+      - { left: "Which installed skills never get used?", right: "/skill-doctor", misconception: "/skill-doctor reports per-skill cost and usage and flags skills that were never invoked." }
+      - { left: "claude will not even start. What do I run in the shell?", right: "claude doctor", misconception: "claude doctor runs without starting a session, so it still works when a session cannot start." }

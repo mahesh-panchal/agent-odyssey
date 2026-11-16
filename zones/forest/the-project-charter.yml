@@ -31,3 +31,11 @@ questions:
       - { text: "Read it critically and fix it before relying on it", correct: true }
       - { text: "Trust it as written, since the agent read the project", misconception: "It inferred the project from files and may have guessed wrong." }
       - { text: "Delete it, since instruction files rarely help anyone", misconception: "A short, correct file saves repeated explanation." }
+  - type: choice
+    prompt: "Two of your instruction files give conflicting advice about the test command. What does `/doctor prompt-audit` do about it?"
+    explain: "It flags outdated or conflicting content in a report with proposed edits and changes nothing until you ask. It is not a size audit, and its suggestions come from a model, so you still review them."
+    options:
+      - { text: "Reports the conflict with proposed edits, and changes nothing until you ask", correct: true }
+      - { text: "Rewrites both files at once to remove the conflict", misconception: "The audit proposes edits. Nothing in your files changes until you ask Claude to apply them." }
+      - { text: "Measures how many tokens the files use and trims the longest", misconception: "It checks for outdated or conflicting instructions, not size or cost." }
+      - { text: "Does nothing, because the model resolves conflicts reliably on its own", misconception: "The docs say Claude may pick one conflicting instruction arbitrarily, which is why an audit is useful." }
