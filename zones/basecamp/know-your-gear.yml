@@ -1,0 +1,40 @@
+pass: 0.8
+questions:
+  - type: match
+    prompt: "Match each term to what it is."
+    explain: "Keep the layers apart: the model thinks, the harness acts and enforces, extensions add to the harness, evals measure."
+    pairs:
+      - { left: "Model", right: "The LLM that reads and writes text", misconception: "The model is the reasoning part, not the surrounding program." }
+      - { left: "Harness", right: "The program that gives the model tools, context and permissions", misconception: "The harness is what turns text prediction into an agent that can act." }
+      - { left: "Eval", right: "A repeatable test of behaviour, with and without a change", misconception: "An eval measures behaviour from outside. It does not add behaviour." }
+      - { left: "Plugin", right: "A bundle of skills, hooks, servers and more", misconception: "A plugin packages other extensions. It is not a single instruction file." }
+  - type: choice
+    prompt: "The same model gives a careful answer in one tool and a sloppy one in another. Which is the better first suspicion?"
+    explain: "The harness decides tools, permissions, loop and context. Different armour can change behaviour even with the same model."
+    options:
+      - { text: "The harness differs: tools, context, permissions or settings", correct: true }
+      - { text: "One copy of the model must be defective", misconception: "Copies of a model are identical. The surroundings are what differ." }
+      - { text: "The effort setting cannot matter, since it is the same model", misconception: "Effort is a setting. It can differ between tools, and it changes how much the model reasons." }
+  - type: choice
+    prompt: "You want to guarantee that the agent never runs a command matching a dangerous pattern. What is the stronger tool?"
+    explain: "A hook that blocks the call acts whatever the model decides. Instruction text can only influence it."
+    options:
+      - { text: "A hook that blocks matching commands", correct: true }
+      - { text: "A line in the instructions file saying never to run it", misconception: "Instructions advise the model. They do not enforce anything." }
+      - { text: "A skill that describes the dangerous pattern", misconception: "A skill is advice loaded into context, and is not enforced." }
+      - { text: "Turning effort up to max so it thinks harder about it", misconception: "More thinking is not a guarantee. It still decides for itself." }
+  - type: choice
+    prompt: "What does raising the effort setting do?"
+    explain: "Effort changes how much the model reasons. That can cost more and take longer, and past a point it adds little."
+    options:
+      - { text: "Reasons more per step, costing more time, with diminishing returns", correct: true }
+      - { text: "Guarantees correct output on hard tasks, so you can skip checking", misconception: "More reasoning improves care but nothing guarantees correctness. Check results independently." }
+      - { text: "Gives it more tools and extra permissions to act with", misconception: "Tools and permissions belong to the harness, not to effort." }
+  - type: sort
+    prompt: "Which of these is the model, and which is the harness?"
+    bins: ["Model", "Harness"]
+    explain: "The model produces text. The harness runs commands, asks permission and manages the context window."
+    items:
+      - { text: "Asks you to approve a command before running it", bin: "Harness", misconception: "Permission prompts are a harness feature." }
+      - { text: "Decides what code to suggest", bin: "Model", misconception: "Choosing the text is the model's job." }
+      - { text: "Compacts old messages when the context fills", bin: "Harness", misconception: "Managing context is done by the harness." }

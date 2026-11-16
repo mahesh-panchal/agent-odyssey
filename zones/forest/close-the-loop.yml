@@ -1,0 +1,40 @@
+pass: 0.8
+questions:
+  - type: order
+    prompt: "Put the improvement loop in order."
+    explain: "You cannot fix what you have not noticed, and you cannot trust a fix you have not measured against a baseline."
+    items:
+      - "Notice the agent did the wrong thing and save the prompt"
+      - "Write or edit a Skill that steers it"
+      - "Run the prompt with and without the Skill, several times each"
+      - "Compare the two and keep, fix or drop the Skill"
+  - type: choice
+    prompt: "A Skill scores 100% with it and 100% without it. What does that tell you?"
+    explain: "The measure is the difference. No difference means the Skill adds nothing for this case, perhaps because the model already does it."
+    options:
+      - { text: "For this case the Skill adds nothing you can measure", correct: true }
+      - { text: "The Skill is excellent and should be kept as it is", misconception: "A high score both ways means the model passes without help, so the Skill is not responsible." }
+      - { text: "The eval is proven correct, since everything passes", misconception: "An always-passing check may be too easy. Read raw outputs before trusting it." }
+      - { text: "The model is too strong to be given Skills at all", misconception: "It only says this case is easy. Harder cases may still show a difference." }
+  - type: choice
+    prompt: "You ran each arm once and the Skill arm was better. What is wrong with stopping there?"
+    explain: "Output varies between runs, so a single pair can be luck. Repeat the runs before concluding."
+    options:
+      - { text: "One run each cannot separate the effect from random variation", correct: true }
+      - { text: "Nothing, since a better result is simply a better result", misconception: "Models vary between runs, so one better run can be chance." }
+      - { text: "Evals are only valid when they are run on a shared cluster", misconception: "Where it runs does not matter. The number of runs does." }
+  - type: sort
+    prompt: "Check the result, or check the process?"
+    bins: ["Result", "Process"]
+    explain: "Result checks look at what was produced. Process checks look at how the agent got there, such as whether the Skill was used."
+    items:
+      - { text: "The output file exists and has the expected header", bin: "Result", misconception: "This looks at what was produced." }
+      - { text: "The Skill was invoked at least once during the run", bin: "Process", misconception: "This looks at how the agent worked, not at the output." }
+      - { text: "The reported record count matches a count you made yourself", bin: "Result", misconception: "This compares the produced answer to ground truth." }
+  - type: choice
+    prompt: "Your evals passed last spring. A new model version is released. What do you do?"
+    explain: "Models and tools change. Re-running the same evals shows whether the Skill still helps or has become unnecessary."
+    options:
+      - { text: "Re-run the evals, with and without", correct: true }
+      - { text: "Keep trusting the old results, since the Skill itself has not changed", misconception: "The Skill is one half of the comparison. The model is the other half, and it changed." }
+      - { text: "Delete the Skill, because a newer model never needs any Skill", misconception: "Some Skills still help, such as lab-specific rules the model cannot know. Measure instead of assuming." }

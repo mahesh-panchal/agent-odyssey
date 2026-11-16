@@ -1,0 +1,70 @@
+---
+title: "Bundle a Plugin"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Test the Skill. **Objective:** package Skills (and their evals) as a plugin, validate it, and know why installing one is a trust decision.
+**Time:** about 20 minutes. <span class="ao-badge">Verified: ran `claude plugin validate .` and `--strict` on `exercises/forge/fasta-tools` (Claude Code 2.1.325). Other claims: last verified (docs, not run) on 2026-11-13, sources in `research/forge.md`.</span>
+:::
+
+A single Skill in your folder helps you. A **plugin** is a folder that bundles Skills, and optionally agents, hooks and MCP servers, so a whole group can install the same set and get updates.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+The smallest plugin is a manifest and one Skill. Only `name` is required in `plugin.json`:
+
+```json
+{
+  "name": "fasta-tools",
+  "description": "Small checks for FASTA files, as a teaching example.",
+  "version": "0.1.0",
+  "author": { "name": "Agent Odyssey contributors" }
+}
+```
+
+Layout rules that trip people up:
+
+- Only `plugin.json` goes inside `.claude-plugin/`. Skills, agents and hooks go at the plugin root (`skills/<name>/SKILL.md`, `agents/`, `hooks/hooks.json`). Components placed inside `.claude-plugin/` do not load.
+- The plugin `name` becomes a namespace, so the Skill is invoked as `/fasta-tools:check-fasta`.
+- Put your evals in `evals/<case>/` so they travel with the plugin.
+
+Try it without installing anything:
+
+```bash
+claude --plugin-dir ./fasta-tools      # load for this session only
+claude plugin validate ./fasta-tools   # checks files are well formed
+claude plugin validate ./fasta-tools --strict   # also fails on warnings
+```
+
+After editing, run `/reload-plugins` in the session. `validate` exited 0 on the example here, with only an icon warning that matters for marketplace submission. It checks syntax and schema, not behaviour: that is what the evals in the previous quest are for.
+
+To share, a **marketplace** is a repository with `.claude-plugin/marketplace.json` listing plugins and where to fetch them. It is a catalogue, not a hosted store. People add it once and install by name.
+
+## OpenCode + Ollama
+
+OpenCode has its own plugins: code (`.ts` or `.js`) that adds tools and hooks, loaded from `.opencode/plugins/` or `~/.config/opencode/plugins/`, or listed in its config as npm packages, git repositories or local directories. Last verified (docs): the config key spelling and whether OpenCode reads a Claude `plugin.json` are *unconfirmed*; check the current OpenCode docs before relying on either.
+
+What does work across both, per the docs read: a plain `SKILL.md` under `.claude/skills/` is found by OpenCode too. If your group uses both tools, shipping the Skill that way is the portable route.
+
+:::
+
+## Installing one is a trust decision
+
+::: {.callout-warning}
+Per the Claude Code docs, a plugin you install can run arbitrary code on your machine with your user privileges. Hooks, monitors, local MCP and language servers, and anything in `bin/` run **outside** the sandbox and the permission rules. Skills and agents only enter the context as instructions, but instructions can steer the agent too.
+:::
+
+Before installing or updating a plugin:
+
+1. Check where it comes from. A marketplace name says who publishes it, not what the plugin does.
+2. Read `hooks/hooks.json`, `.mcp.json`, and anything in `bin/`. These are where code lives.
+3. In a session, `/plugin` shows what will be installed. `claude --plugin-dir <dir> plugin details <name>` lists a component inventory without a session.
+4. Remember that auto-update can change files you reviewed. Pin a `version` for plugins you publish.
+
+<div data-ao-honour="bundle-plugin" data-xp="30">Turn the Skill you wrote into a plugin folder with a `plugin.json`, then run `claude plugin validate` on it and read the output.</div>
+
+## Battle: the plugin
+
+<div data-ao-test="forest-bundle-a-plugin" data-xp="60"></div>

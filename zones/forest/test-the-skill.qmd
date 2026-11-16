@@ -1,0 +1,89 @@
+---
+title: "Test the Skill"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Close the Loop. **Objective:** read and write a small Claude Code eval case that checks a Skill is triggered, and know what running it costs.
+**Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.325 plugin-evals docs on 2026-11-13 (sources in `research/forge.md`). `claude plugin eval` was not run for this page.</span>
+:::
+
+::: {.callout-warning}
+**This costs money.** Every eval run and every judge-model grader is a real model call on your account. Reading this page and writing the files costs nothing. Running the eval is optional here and gives bonus XP only. Check what your institution allows before you spend.
+:::
+
+## Where this works
+
+`claude plugin eval` needs Claude Code **v2.1.269 or later**. It evaluates a **plugin directory** (a folder with `.claude-plugin/plugin.json`), so first turn your Skill into a small plugin; the next quest covers bundling in more detail. The example `exercises/forge/fasta-tools` in this repository already has the shape:
+
+```text
+fasta-tools/
+├── .claude-plugin/plugin.json
+├── skills/check-fasta/SKILL.md
+└── evals/skill-triggers/
+    ├── prompt.md
+    └── graders/skill-fired.md
+```
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+The case is a prompt plus one or more graders. The prompt is written the way a user would ask, **without naming the Skill**:
+
+```markdown
+---
+runs: 1
+---
+I just got a new FASTA file called reads.fa from a collaborator. Can you check it is OK before I start the analysis?
+```
+
+The grader is a free check on the transcript, with no model call. It passes if the Skill tool was invoked for `check-fasta`:
+
+```markdown
+---
+type: tool_used
+tool: Skill
+input_match: '"skill"\s*:\s*"(?:[\w-]+:)?check-fasta"'
+---
+The check-fasta skill should be used when the user asks to check a new FASTA file, without naming the skill.
+```
+
+Run it cheaply while you iterate, one case, one run, no baseline arm:
+
+```bash
+claude plugin eval . --case skill-triggers --runs 1 --ablation none
+```
+
+The full comparison runs each case three times by default, with the plugin (**WITH**) and without it (**W/OUT**), and reports the difference (**Δ**):
+
+```bash
+claude plugin eval . --max-cost-usd 2
+```
+
+`--max-cost-usd` stops the run at a ceiling. Results land in `evals/results/<timestamp>/` with a `report.html`.
+
+## OpenCode + Ollama
+
+Last verified (docs): the pages read describe OpenCode skills and plugins but no equivalent of `claude plugin eval`. That is *unconfirmed*, not proven absent. You can still do the same comparison by hand: run one prompt several times with the Skill folder present, several times with it moved away, and compare using a script that checks the output. A small local model is cheap to run this way, but it follows Skills less reliably, so expect noisier results.
+
+:::
+
+## Reading the result
+
+- Six grader types exist. Four are free and computed from the transcript or files (`regex`, `tool_used`, `tool_order`, `file_exists`). Two use a judge model and cost tokens (`llm`, `baseline`). There are no custom-code graders.
+- In a two-arm run, `tool_used: Skill` is shown as an indicator and does not count towards the score unless you set `arm: both`.
+- **Δ near zero with the Skill not firing** is usually a real finding: the description does not trigger on that phrasing. Change the `description`, not the grader.
+- Pair one **result** grader with one **process** grader. Use `llm` graders only for short output, with a concrete PASS/FAIL rubric.
+- Each run happens in an isolated child session with only the plugin loaded: no personal settings, no instructions file, no other plugins. A pass there does not promise the same behaviour in your own setup.
+- `claude plugin validate` checks the files are well formed. It does not check behaviour.
+
+::: {.callout-note}
+Running an eval is the same trust decision as loading the plugin with `--plugin-dir`. Hooks you did not write run code. A passing eval says nothing about whether a plugin is safe.
+:::
+
+<div data-ao-honour="run-eval" data-xp="30">Run the cheap one-case command above on `exercises/forge/fasta-tools` with a cost ceiling, and open the `report.html`. Note whether the Skill fired.</div>
+<div data-ao-honour="write-case" data-xp="20">Write an eval case for your own Skill from the previous quest: a prompt that does not name it, and one grader.</div>
+
+## Battle: the eval
+
+<div data-ao-test="forest-test-the-skill" data-xp="60"></div>

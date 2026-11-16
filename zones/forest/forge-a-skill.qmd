@@ -38,6 +38,30 @@ description: Count the records in a FASTA file and find duplicate IDs. Use befor
 3. Report what you ran and its output. Do not modify FILE.
 ```
 
+## Do it: install it, then confirm it loaded
+
+Writing the file is half the job. A Skill with a typo in its frontmatter loads silently with no fields set, so always check.
+
+1. In a scratch folder (not a real project), save the example above as `.claude/skills/check-fasta/SKILL.md`. The `---` must be the very first line of the file.
+2. Make a tiny test file: `printf '>a\nACGT\n>a\nGGCC\n' > reads.fa` (two records, one duplicated ID).
+3. Confirm the tool can see it:
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Start `claude` in the scratch folder. Type `/` and look for `check-fasta` in the menu, or run `/skills`. If you created a top-level skills folder after the session started, run `/reload-skills`. Then ask, without naming the Skill: *"I just got reads.fa from a collaborator. Is it OK to analyse?"* The agent should load the Skill and report the commands it ran.
+
+## OpenCode + Ollama
+
+Start `opencode` in the scratch folder. OpenCode finds `.claude/skills` too. The model loads a Skill through its `skill` tool, and you can load one yourself by writing `@check-fasta` in a prompt. Then ask the same question and check whether the Skill was used.
+
+:::
+
+4. If it did not trigger, check in this order: the file starts with `---` on line 1; the YAML parses; field names are spelled right; the `description` says *when* to use it, with the key use case first (long descriptions are cut off in the listing).
+
+A Skill that is listed but never picked up is a finding, not a failure of the model. Next you will learn to measure that instead of guessing.
+
 ::: {.callout-warning}
 In Claude Code, `allowed-tools` in a Skill **pre-approves** tools for that turn. It does not restrict the agent to them. A Skill is not a sandbox, and a Skill you download is code you are choosing to trust. Read it before installing it, as you would read a script.
 :::

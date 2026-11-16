@@ -25,7 +25,10 @@ gates:
            done: "Each fear has a name and a counter-habit. You travel knowing what you are guarding against." },
          { id: basecamp-three-kinds-of-machine, title: "Three Kinds of Machine", page: zones/basecamp/three-kinds-of-machine.html,
            story: "A workbench holds three machines: one that always repeats, one trained for a single task, one that talks.",
-           done: "You can choose the right machine, and sometimes the right machine is a plain script." } ] }
+           done: "You can choose the right machine, and sometimes the right machine is a plain script." },
+         { id: basecamp-know-your-gear, title: "Know Your Gear", page: zones/basecamp/know-your-gear.html,
+           story: "The quartermaster lays out the kit: a companion, its armour, and a pile of fittings no one has labelled.",
+           done: "You can tell model from harness, and name what each fitting does and does not guarantee." } ] }
   K: { id: kennel,   name: "The Kennel",            track: "Companions", status: open,
        quests: [
          { id: kennel-recruit-the-beast, title: "Recruit the Beast", page: zones/kennel/recruit-the-beast.html,
@@ -66,7 +69,16 @@ gates:
            done: "A second branch: standing instructions that help, and a clear sense of why they do not enforce." },
          { id: forest-forge-a-skill, title: "Forge a Skill", page: zones/forest/forge-a-skill.html,
            story: "In a hollow, a smith keeps procedures in folders, taking each out only when it is needed.",
-           done: "A third branch: a procedure packaged as a Skill, read before it is trusted." } ] }
+           done: "A third branch: a procedure packaged as a Skill, installed and confirmed loaded." },
+         { id: forest-close-the-loop, title: "Close the Loop", page: zones/forest/close-the-loop.html,
+           story: "A hunter's log hangs from a branch: every time the machine went astray, a note of what was asked and what went wrong.",
+           done: "A fourth branch: each failure becomes a Skill, and each Skill is measured with and without." },
+         { id: forest-test-the-skill, title: "Test the Skill", page: zones/forest/test-the-skill.html,
+           story: "The smith holds the Skill up against an empty hand. Only if the two differ does it stay.",
+           done: "A fifth branch: you can read an eval, you know what it costs, and you know what a pass does not prove." },
+         { id: forest-bundle-a-plugin, title: "Bundle a Plugin", page: zones/forest/bundle-a-plugin.html,
+           story: "At the forest's edge, a satchel waits to be packed with the smith's finest Skills and tests. Whatever you carry, others will unpack.",
+           done: "The satchel is packed and sealed, and you know that opening someone else's satchel means trusting what runs inside." } ] }
   R: { id: reef,     name: "Biodiversity Reef",     track: "Level",      status: open,
        quests: [
          { id: reef-send-small-say-so, title: "Send Small, Say So", page: zones/reef/send-small-say-so.html,
