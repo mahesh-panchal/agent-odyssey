@@ -1,0 +1,73 @@
+---
+title: "Jobs, Not Jam"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Login Node Manners and Grow the Carapace. **Objective:** let the agent draft job scripts while you keep submitting and cancelling under your own approval, and know what polling costs.
+**Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm and Claude Code docs on 2026-11-16 (sources in `research/hpc-and-notebooks.md`)</span>
+:::
+
+Whether an agent should be anywhere near your cluster account is a decision for you and your cluster staff. **Follow your own cluster's policy and data agreement over this page.** Nothing here says that agent use is allowed or expected on any cluster. This quest is laptop-only reading: never try the rules on a real cluster to see what happens.
+
+## Draft versus submit
+
+A job script is text. Letting an agent *draft* one is low risk, because you read it before anything runs. *Submitting* spends shared resources, and cancelling can destroy work. A sensible split:
+
+- the agent drafts scripts, and may check state (`squeue`, `sinfo`, `sacct`)
+- you approve `sbatch`, `srun`, `salloc` and `scancel`
+
+Before approving an `sbatch`, read the script and the resource request: `--time`, `--mem`, and the array size if it is an array.
+
+## The permission rules
+
+Rules are enforced by the tool, with deny before ask before allow.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+A teaching configuration, derived from the permission rules in the docs rather than copied from them:
+
+```json
+{
+  "permissions": {
+    "allow": ["Bash(squeue *)", "Bash(sinfo *)", "Bash(sacct *)"],
+    "ask":   ["Bash(sbatch *)", "Bash(srun *)", "Bash(salloc *)", "Bash(scancel *)"],
+    "deny":  ["Bash(scancel -u *)", "Bash(scancel --user*)"]
+  }
+}
+```
+
+An `ask` rule prompts even when a narrower `allow` rule matches. Ask and deny rules apply to every part of a compound command (`&&`, `;`, `|`, loops, `$(...)`).
+
+**The caveat:** the docs say Bash rules are not a security boundary. `Bash(rm *)` does not stop `/bin/rm` or `bash -c 'rm ...'`, and by the same logic a `scancel` rule is not watertight. For real enforcement use the sandbox or a PreToolUse hook. Treat the rules above as a prompt that keeps you in the loop, not as a lock.
+
+## OpenCode + Ollama
+
+OpenCode (V2 docs; check your installed version) accepts `allow`, `ask` and `deny`, and an unmatched action asks. But its default base policy starts with an allow-everything rule, so `sbatch` will not ask unless you add an explicit rule:
+
+```json
+{ "action": "shell", "resource": "sbatch *", "effect": "ask" }
+```
+
+Add similar rules for `srun`, `salloc` and `scancel`, and a `deny` for `scancel -u *`. Rules are ordered, so check where they sit relative to the broad allow.
+
+:::
+
+## Why `scancel -u` is the dangerous one
+
+`scancel -u <you>` signals **all** your jobs, not just the ones the agent submitted. Whole jobs are terminated, and other work of yours dies with them. Prefer `scancel <jobid>` for an ID the agent itself submitted. Slurm can also rate-limit requests per user when they come in at a sustained high rate, so a runaway loop of commands is a problem for the scheduler as well as for you.
+
+## Polling costs money, and attention
+
+Claude Code charges by token use. The whole conversation is sent with every request, and each tool use sends another request. A `/loop` that polls `squeue` keeps firing on its interval, even while the session is idle, and sends your full context each time. Verbose output such as long logs also inflates the context.
+
+*General practice:* poll at intervals of minutes, not seconds, and read job output files or use `sacct` instead of watching the queue. Do not `/loop` a `squeue` poll. Foreground commands also time out by default (2 minutes, up to 10), so an agent waiting on `srun` gets cut off.
+
+## Honour-system side quest
+
+<div data-ao-honour="read-scheduler-rules" data-xp="20">Find your cluster's page on job limits (maximum jobs, array sizes, time limits) and note what would happen if a script submitted a thousand jobs by mistake.</div>
+
+## Battle: queue manners
+
+<div data-ao-test="citadel-jobs-not-jam" data-xp="50"></div>

@@ -1,0 +1,45 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "A PreToolUse command hook finds a forbidden command. Which behaviour blocks the call and tells Claude why?"
+    explain: "Exit code 2 blocks the tool call, and the stderr text is what Claude sees as the reason. Exit 0 means no decision and exit 1 is a non-blocking error."
+    options:
+      - { text: "Write the reason to stderr and exit with code 2", correct: true }
+      - { text: "Write the reason to stdout and exit with code 1", misconception: "Exit 1 is a non-blocking error: the action proceeds." }
+      - { text: "Write the reason to stderr and exit with code 0", misconception: "Exit 0 means no decision. The normal permission flow still applies." }
+      - { text: "Add a line to the instructions file asking Claude to stop", misconception: "Instructions influence the model. They do not stop the tool call." }
+  - type: order
+    prompt: "Put the steps of a blocking PreToolUse hook in order."
+    items:
+      - "Claude asks to run a Bash command"
+      - "The harness sends the event as JSON to the hook"
+      - "The script reads tool_input.command and tests it"
+      - "On a match it prints a reason to stderr and exits 2"
+      - "The call is refused and Claude sees the reason"
+    why:
+      "The harness sends the event as JSON to the hook": "The hook can only decide after the harness hands it the event on stdin."
+      "The call is refused and Claude sees the reason": "The reason is shown to Claude only once the hook has blocked the call."
+  - type: choice
+    prompt: "Your guard script has a typo and crashes with exit code 1 and no JSON output. What happens to the command it was meant to check?"
+    explain: "Any exit code other than 2, with no valid JSON, is a non-blocking error on most events, so the action proceeds. The guard fails open unless configured to block on failure."
+    options:
+      - { text: "It proceeds, because a crash is a non-blocking error", correct: true }
+      - { text: "It is blocked, because a failing guard stops everything", misconception: "Only exit 2 (or a deny decision) blocks. A crash does not." }
+      - { text: "It is held until you answer a prompt about the crash", misconception: "A crashed hook does not ask for a decision. The normal permission flow applies." }
+      - { text: "It runs in the sandbox instead of normally", misconception: "Hooks have no such fallback. The docs say the action proceeds." }
+  - type: faulty-line
+    prompt: "A colleague describes what their grep hook protects. Which line overclaims?"
+    explain: "A hook that greps the command text sees only that text. It is not a sandbox, and a differently spelled or script-hidden command passes it."
+    lines:
+      - { text: "It runs before the Bash tool and can refuse the call", why: "A PreToolUse hook fires before the tool runs." }
+      - { text: "It cannot see files added with an @ reference in the prompt", why: "No tool call happens, so no hook fires." }
+      - { text: "Because it blocks 'drop table', no database can ever be dropped", faulty: true }
+      - { text: "It runs with my user permissions, so I reviewed it first", why: "The docs say command hooks run with your full user permissions." }
+  - type: sort
+    prompt: "Sort each item by whose code it is when you open an unfamiliar repository."
+    bins: ["Code that can run as you", "Text that only steers the model"]
+    explain: "Command hooks execute with your privileges, as does a script they call. An instructions file is read into context."
+    items:
+      - { text: "A command hook in .claude/settings.json", bin: "Code that can run as you", misconception: "Command hooks execute shell commands with your user permissions." }
+      - { text: "A CLAUDE.md paragraph asking for care with deletes", bin: "Text that only steers the model", misconception: "Instructions are text in the context. They influence the model but execute nothing." }
+      - { text: "The shell script a hook points at", bin: "Code that can run as you", misconception: "The script is the hook. It runs as you whatever its name suggests." }

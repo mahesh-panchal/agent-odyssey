@@ -1,0 +1,66 @@
+---
+title: "Advice or Enforcement"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Plug In a Server, Guard the Door and the Rules of the Carapace. **Objective:** sort every control on this site by whether it advises, asks or enforces, and choose the right one for each risk.
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in `research/tools-and-guards.md`)</span>
+:::
+
+Every control you have met does one of three things.
+
+- **Advises.** It puts words in front of the model: an instructions file, Skill text, a line in your prompt. The model reads it and may weigh it against everything else in its context. Nothing stops a tool call.
+- **Asks.** The harness pauses and puts the decision to you: a permission prompt, or an `ask` rule. It is only as good as your attention at the tenth prompt of the hour.
+- **Enforces.** Code outside the model refuses the action whatever the model wants: a `deny` rule, a hook that exits 2, a sandbox where one is on. Enforcement has edges too, listed below.
+
+The Gatehouse's rule of thumb: advice for preferences, a prompt for decisions you want to make each time, enforcement for things that must never happen.
+
+## Each control, and its edge
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+| Control | Kind | Edge, per the docs read or earlier quests |
+|---|---|---|
+| `CLAUDE.md`, Skill text, your prompt | Advises | Influences the model only. |
+| Permission prompt or `ask` rule | Asks | You must read it. A project `.mcp.json` server has its own approval prompt, and `-p` runs cannot show it. |
+| `deny` rule | Enforces | Matching on command arguments is fragile (see the Carapace quest). Deny and ask rules are still evaluated when a hook returns allow. |
+| `PreToolUse` hook, exit 2 | Enforces | Fires only on tool calls, sees the literal text, fails open if it crashes. |
+| Sandbox | Enforces | Off by default, and limits shell commands only (see the Carapace quest). The docs say its restrictions still apply if a prompt injection bypasses the model's decision. |
+| Git history | Recovers | Does not prevent anything. A commit is a restore point that exists whatever the model did next. |
+
+A hook that returns **exit 0 is not a control at all**: it expresses no decision and the normal permission flow runs.
+
+## OpenCode + Ollama
+
+| Control | Kind | Edge, per the V2 docs read |
+|---|---|---|
+| Instructions file, Skill text, your prompt | Advises | Influences the model only. |
+| Permission rule with effect `ask`; no matching rule | Asks | No match means `ask`. |
+| Permission rule with effect `deny` | Enforces | An explicit configured `deny` is final and does not invoke the hook. |
+| Plugin permission hook (`evaluate`) | Enforces when it denies | Runs for `allow` and `ask` decisions, and can change the effect to `deny`. |
+| Git history | Recovers | Does not prevent anything. |
+
+Unconfirmed for OpenCode: an exit-code-2 equivalent, and whether throwing in a tool hook blocks a call. I also did not check sandboxing for OpenCode or the effect of a local Ollama model, so check the current docs before counting on either.
+
+:::
+
+## Choose by the cost of being wrong
+
+| Risk | Control | Why |
+|---|---|---|
+| Style: prefer `snake_case`, tidy commit messages | Advice | A miss costs a review comment. |
+| Pushing to a shared branch | Ask | You want to decide each time, with context. |
+| Reading `.env` or key files | Deny rule (enforce) | It must never happen, and a rule is cheap to write. |
+| A specific destructive command you can name | Blocking hook (enforce) | Code refuses it. Accept that it covers only what it matches. |
+| Fetched text telling the agent to act | Least privilege, read-only servers, sceptical reading | Advice cannot beat text the model has already read, so limit what the agent can do. |
+| An experiment that might wreck your files | Git commit plus a scratch folder | Recovery, not prevention. |
+
+Layer them: advice to steer, enforcement for the non-negotiable, git for the day something slips through. None of them replaces reading the diff.
+
+<div data-ao-honour="gatehouse-sort-your-controls" data-xp="20">List five controls in your own setup, such as an instructions file, a hook or a deny rule. Label each advises, asks or enforces, and write the way it could fail.</div>
+
+## Battle: signs and locks
+
+<div data-ao-test="gatehouse-advice-or-enforcement" data-xp="50"></div>

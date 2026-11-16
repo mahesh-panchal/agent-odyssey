@@ -1,0 +1,41 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "What does a language model read when you send it text?"
+    explain: "Text is cut into tokens first. A token can be a word, a piece of a word, a character or a byte, depending on how common the string is."
+    options:
+      - { text: "Tokens, which can be whole words or pieces of them", correct: true }
+      - { text: "Individual letters, one at a time, in the order typed", misconception: "The model works on tokens. Letter-by-letter reading is what a script does." }
+      - { text: "Whole words, always, with one token for each word", misconception: "Rare words are split into pieces, and punctuation also takes tokens. Tokens are not words." }
+  - type: sort
+    prompt: "Which of these jobs should you hand to a script or tool, and which can the model do by reading?"
+    bins: ["Script or tool", "Model by reading"]
+    explain: "Exact counting and exact copying need every letter. Summarising or explaining text does not."
+    items:
+      - { text: "Count the Gs in each of 500 reads", bin: "Script or tool", misconception: "Counting letters is exact work. A script does not miscount." }
+      - { text: "Explain what a FASTQ quality line means", bin: "Model by reading", misconception: "Explaining a format is language work. You can check it against the spec." }
+      - { text: "Produce the reverse complement of a 2 kb sequence", bin: "Script or tool", misconception: "Every letter matters here, and a retyped string can silently change." }
+      - { text: "Suggest a clearer name for a pipeline step", bin: "Model by reading", misconception: "A naming suggestion has no exact answer to get wrong." }
+      - { text: "Compute a checksum of a reference file", bin: "Script or tool", misconception: "A checksum changes completely with one wrong character." }
+  - type: choice
+    prompt: "You count tokens for a prompt on one model generation. You switch to a newer one. What should you do?"
+    explain: "Tokenizers differ between generations, and the docs warn against reusing counts. Count again with the model you will use."
+    options:
+      - { text: "Count again with the model you will actually use", correct: true }
+      - { text: "Keep the old number, since the text has not changed at all", misconception: "The same text can give a different count under a different tokenizer." }
+      - { text: "Convert it from the word count using a fixed ratio", misconception: "No fixed ratio holds across models and languages. The docs give estimates only." }
+  - type: faulty-line
+    prompt: "A step in an agent's plan for checking a FASTA file. Which line is the weakest?"
+    explain: "Reading a long sequence and stating its length from memory is guesswork over tokens. A command counts exactly."
+    lines:
+      - { text: "Run seqkit stats on the file, or a short awk length count", why: "A tool counts exactly and the output can be pasted." }
+      - { text: "Look at the sequence in the chat and state its length", faulty: true }
+      - { text: "Compare the printed count with the one in the file header", why: "An independent check on the result is good practice." }
+      - { text: "Keep the command so the count can be re-run", why: "A kept command makes the answer repeatable." }
+  - type: match
+    prompt: "Match each claim to what is behind it."
+    explain: "Tokens are the unit for limits and cost. Letter-level weakness is our inference from that fact, not an official statement."
+    pairs:
+      - { left: "Context window and bill are counted in", right: "Tokens", misconception: "Neither is counted in words or characters. Both use tokens." }
+      - { left: "Token counting endpoint result is", right: "An estimate that may differ slightly", misconception: "Docs call it an estimate, so treat it as approximate, not exact billing." }
+      - { left: "Letter counting by reading is unreliable because", right: "The model sees chunks, not letters", misconception: "The weakness comes from how text is cut up, not from carelessness." }

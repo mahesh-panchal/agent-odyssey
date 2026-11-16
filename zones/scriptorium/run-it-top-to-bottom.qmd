@@ -1,0 +1,84 @@
+---
+title: "Run It Top to Bottom"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Why Notebooks Diff Badly (helpful, not required), Python 3 and the two exercise files below (about 1 KB).
+**Objective:** show that a notebook's stored result can differ from a fresh top-to-bottom run, and use that as the check before you trust or share one.
+**Time:** about 15 minutes.
+
+<span class="ao-badge">Verified: ran run_cells.py on 2026-11-16 (macOS, Python 3.9.6). Output below is the real output. Tool facts: Last verified (docs, not run): marimo and Claude Code docs on 2026-11-16.</span>
+
+**Files:** [cells.py](../../exercises/scriptorium/cells.py) and [run_cells.py](../../exercises/scriptorium/run_cells.py). Save both into an empty folder.
+:::
+
+## Hidden state
+
+A notebook kernel keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran. The variables stay. The page then shows a result that the file, read from the top, does not produce. This is hidden state, and it needs no agent to appear.
+
+`cells.py` is a mock notebook with four cells, written in the `py:percent` style. `run_cells.py` runs cells in the order you give, sharing one namespace like a kernel. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.
+
+```bash
+python run_cells.py cells.py 1 2 3 4 3
+```
+
+```
+[cell 1]
+[cell 2]
+[cell 3]
+reads kept: 3
+[cell 4]
+[cell 3]
+reads kept: 2
+```
+
+The last screen shows `reads kept: 2`. Now run it the way a colleague would, top to bottom, in a fresh process:
+
+```bash
+python run_cells.py cells.py 1 2 3 4
+```
+
+```
+[cell 1]
+[cell 2]
+[cell 3]
+reads kept: 3
+[cell 4]
+```
+
+The file says 3 and the author's screen said 2. Cell 4 changes the cutoff after the cell that uses it, so the file as written never produces the 2.
+
+## The habit
+
+Before you trust or share a notebook, restart the kernel and run all cells from the top ("Restart Kernel and Run All" in Jupyter). If the result changes, the stored output was not a product of the file. Then fix the order so that cells only depend on cells above them.
+
+Two related options:
+
+- **Run it headless.** On a cluster, run notebooks as a batch job, not as an interactive Jupyter session on the login node (see the Citadel quests).
+- **marimo.** Its docs describe a reactive model: deleting a cell scrubs its variables from memory, which the docs say eliminates hidden state, and a notebook can be run as a script with `python your_notebook.py`. Check the docs for how side effects (files, network) behave, because this quest did not test that.
+
+Pin the environment too (a container or lockfile), so a fresh run happens with the same packages. An agent should not `pip install` into a shared environment.
+
+## Reviewing a notebook an agent edited
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+`NotebookEdit` changes one cell at a time. When it replaces a code cell, that cell's execution count and saved outputs are cleared. To get outputs back, re-run the cell and the cells that depend on it. So a notebook an agent touched shows either empty outputs or old outputs from cells it did not touch, which no longer match the new code. Re-run top to bottom yourself.
+
+Then check the numbers with something the agent did not write, as in the Ground Truth quest in the Maze: compute one or two values independently and compare. A fresh run that completes is not proof that the analysis is right.
+
+## OpenCode + Ollama
+
+The habit does not depend on the tool: restart, run all, and check a few numbers independently. This quest makes no claims about how OpenCode edits notebooks; check its docs.
+
+:::
+
+## Honour
+
+<div data-ao-honour="scriptorium-fresh-run" data-xp="20">Take one of your own notebooks and run Restart and Run All. Note whether any output changed, and why.</div>
+
+## Battle: the fresh run
+
+<div data-ao-test="scriptorium-run-it-top-to-bottom" data-xp="60"></div>

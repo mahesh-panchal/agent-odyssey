@@ -1,0 +1,46 @@
+pass: 0.8
+questions:
+  - type: sort
+    prompt: "Sort each Slurm command into the permission bin a cautious setup would give it."
+    explain: "Read-only status commands can be allowed. Commands that spend resources or end jobs ask. Cancelling every one of your jobs is denied."
+    bins: ["allow", "ask", "deny"]
+    items:
+      - { text: "squeue -u $USER", bin: "allow", misconception: "It only reports job state, so prompting for each call would train you to click yes without reading." }
+      - { text: "sacct for a finished job", bin: "allow", misconception: "It only reads accounting records. It changes nothing." }
+      - { text: "sbatch run_alignment.sh", bin: "ask", misconception: "Submitting spends shared resources, so you want to read the script and resources each time. Allowing it silently hands that decision to the agent." }
+      - { text: "scancel 123456", bin: "ask", misconception: "Cancelling one named job is legitimate but destructive, so you decide each time rather than deny it outright." }
+      - { text: "scancel -u your-username", bin: "deny", misconception: "This signals all your jobs, not only the agent's. It is not a command to approve case by case." }
+  - type: choice
+    prompt: "You have `Bash(scancel -u *)` in `deny`. How far can you rely on it to protect your other jobs?"
+    explain: "The docs say Bash rules are not a security boundary. A different spelling of the command can slip past, so pair the rule with a sandbox or a hook for enforcement."
+    options:
+      - { text: "As a speed bump only, since argument-matching rules can be bypassed", correct: true }
+      - { text: "Fully, because deny rules are checked before any other rule", misconception: "Deny does come first in order, but the pattern still has to match the command that actually runs." }
+      - { text: "Fully, provided the rule is in the user settings file", misconception: "File location sets scope, not strength. The matching limitation applies everywhere." }
+      - { text: "Not at all, because deny rules only cover file reads", misconception: "Deny rules apply to Bash commands too. They are just not watertight." }
+  - type: choice
+    prompt: "An agent is told to `/loop` a `squeue` check every 30 seconds for an overnight run. What is the main problem?"
+    explain: "Each firing sends the full context again and keeps spending tokens, even when the session is idle."
+    options:
+      - { text: "Every poll resends the whole conversation and costs tokens", correct: true }
+      - { text: "squeue only updates once an hour, so the polls return stale data", misconception: "The docs make no such claim. The issue is the cost of each poll, not staleness." }
+      - { text: "Looped commands are not allowed to run in the background", misconception: "Loops do run on an interval. That is exactly why they keep spending." }
+      - { text: "Polling cancels the job after three identical checks", misconception: "Reading the queue never changes a job's state." }
+  - type: faulty-line
+    prompt: "A teaching permission block for a cluster project. Which line breaks the intended split between agent and human?"
+    explain: "Allowing sbatch means the agent can submit jobs without asking you. Submission should be in ask."
+    lines:
+      - { text: '{', why: "Opens the file." }
+      - { text: '  "permissions": {', why: "Opens the permissions block." }
+      - { text: '    "allow": ["Bash(squeue *)", "Bash(sinfo *)", "Bash(sbatch *)"],', faulty: true }
+      - { text: '    "ask":   ["Bash(srun *)", "Bash(salloc *)", "Bash(scancel *)"],', why: "These spend resources or end jobs, so you decide each time." }
+      - { text: '    "deny":  ["Bash(scancel -u *)"]', why: "Blocks the bulk-cancel form." }
+      - { text: '  }', why: "Closes the block." }
+      - { text: '}', why: "Closes the file." }
+  - type: match
+    prompt: "Match each OpenCode or Claude Code behaviour to the setting that follows from it."
+    explain: "Know each tool's default, and then add the rule that makes sbatch ask."
+    pairs:
+      - { left: "Claude Code: make sbatch prompt every time", right: "Put Bash(sbatch *) in ask", misconception: "Ask rules force a prompt, even when a narrower allow rule exists." }
+      - { left: "OpenCode V2: unmatched action", right: "Asks, but the base policy allows nearly everything", misconception: "The default base policy starts with an allow-all rule, so an explicit ask rule for sbatch is needed." }
+      - { left: "Enforcing a rule beyond Bash matching", right: "Sandbox or PreToolUse hook", misconception: "The docs name the sandbox and hooks for enforcement, because Bash rules are not a security boundary." }

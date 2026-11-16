@@ -1,6 +1,10 @@
 project:
   type: website
   pre-render: python tools/prerender.py
+  render:
+    - "**/*.qmd"
+    - "**/*.md"
+    - "!exercises/**/*.ipynb"
   resources:
     - assets/data
     - assets/js

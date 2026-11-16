@@ -1,0 +1,50 @@
+---
+title: "The Context Window"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Tokens, Not Letters. **Objective:** say what fills the context window, what happens when it is full, and three habits that keep it useful.
+**Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API context-windows docs and Claude Code context-window and how-it-works docs on 2026-11-16 (sources in `research/fundamentals.md`). Compaction details are Claude Code specific.</span>
+Topics in this zone were inspired by Matt Pocock's free video course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
+:::
+
+The **context window** is all the text the model can look at when it writes its next piece of output, including its own reply. Anthropic's docs compare it to working memory, and say it is separate from what the model learned in training. It is measured in tokens, as in the last quest.
+
+## What fills it
+
+In Claude Code the docs list: your instructions, the files it reads, its own responses, and content that never appears in your terminal. Before you type anything, the window already holds the instructions file, auto memory, the names of MCP tools and skill descriptions. Every file it reads and every tool output then adds more. At the API level the same idea holds: system prompt, every message, tool results, tool definitions and the output all count.
+
+Sizes depend on the model, up to 1 million tokens for some and 200 thousand for others, per the docs. A big window is room, not a promise of quality.
+
+## Bigger is not better
+
+Anthropic's docs put it directly: more context is not automatically better, and as the token count grows, accuracy and recall degrade. They call this **context rot**. The docs give no number at which it starts, so do not trust any figure you see quoted without a source. The practical point: what you put in matters as much as how much fits.
+
+## When it fills up
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+It **compacts** automatically as the limit nears: the history is replaced by a summary. The docs say the summary keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost. What is re-supplied afterwards: the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions; up to five recently read or edited files are read again (a file over 5,000 tokens comes back as a path only). Nested instruction files are summarised away and reload on demand.
+
+Useful controls: `/context` shows what is using space, `/compact` with a focus note compacts on purpose, `/clear` starts clean between unrelated tasks. A subagent has its own window and only a summary comes back. If one file or output is so big that the window refills after every summary, auto-compaction stops with an error rather than looping.
+
+## OpenCode + Ollama
+
+Last verified (docs, not run): we did not check OpenCode's compaction behaviour for this page. The principle holds for any tool: when the window is full, something is dropped or summarised. A local model often runs with a smaller window, so check your model's setting and how your tool reports usage.
+
+:::
+
+## Three habits
+
+1. **Start fresh for a new task.** An unrelated earlier thread only takes room and can distract.
+2. **Keep outputs small.** In bioinformatics terms: do not print a big variant table or a whole log into the session. Ask for the head, a count, or a summary script's output (general practice).
+3. **Put durable facts in the instructions file,** such as how to run tests or which folders are off limits. Instructions given only in chat can be lost to compaction. Keep that file short; Anthropic's docs target under 200 lines and say longer files use more context and reduce adherence.
+
+<div data-ao-honour="check-context" data-xp="20">In a session you already have, look at what is using the window (in Claude Code, run <code>/context</code>). Note the largest item and whether you chose it.</div>
+<div data-ao-honour="move-fact" data-xp="20">Find one instruction you keep retyping in chat and move it into your instructions file in one short line.</div>
+
+## Battle: the hopper
+
+<div data-ao-test="codon-mill-the-context-window" data-xp="50"></div>

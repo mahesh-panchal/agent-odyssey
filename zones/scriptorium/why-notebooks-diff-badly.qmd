@@ -1,0 +1,91 @@
+---
+title: "Why Notebooks Diff Badly"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** basic git (`git diff`). Jupyter experience helps but is not required.
+**Objective:** explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable.
+**Time:** about 15 minutes.
+
+<span class="ao-badge">Verified: ran `diff` and `git diff --no-index --stat` on the mock notebooks on 2026-11-16 (macOS, Python 3.9.6). Tool facts: Last verified (docs, not run): nbformat, nbstripout, jupytext, nbdime and marimo docs on 2026-11-16.</span>
+
+**Files:** [before.ipynb](../../exercises/scriptorium/before.ipynb) and [after.ipynb](../../exercises/scriptorium/after.ipynb), two tiny mock notebooks (about 2.5 KB each). Save both into an empty folder.
+:::
+
+## A notebook is a JSON file
+
+A `.ipynb` file is a JSON document with `metadata`, `nbformat`, `nbformat_minor` and a list of `cells`. A code cell stores its source, but also an `execution_count` and its outputs. A plot is stored inside the file as a base64 string. Nothing in the format separates "what the author wrote" from "what the run produced".
+
+Whether you use an agent or not, this is what git sees. The two mock notebooks differ by one real change: the cutoff `30` became `40`. Compare them:
+
+```bash
+diff before.ipynb after.ipynb
+```
+
+```
+5c5
+<    "execution_count": 3,
+---
+>    "execution_count": 7,
+8c8
+<     "print(len([r for r in reads if r >= 30]))"
+---
+>     "print(len([r for r in reads if r >= 40]))"
+15c15
+<       "3\n"
+---
+>       "2\n"
+21c21
+<       "image/png": "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGx...
+---
+>       "image/png": "AAMGCQwPEhUYGx4hJCcqLTAzNjk8P0JFSEtOUV...
+```
+
+Four changed spots, one of them is the code. The rest is the run counter, the printed result and an image blob. In a real notebook the image is tens of kilobytes on a single line, and there are many cells. The format docs describe the structure; that this makes diffs noisy is our reading of it, and the output above is the evidence.
+
+The risk with a coding agent is the same as with a human: a reviewer who cannot find the code change will approve without reading it.
+
+## Four ways to make changes reviewable
+
+None of these is the only answer. Each moves the noise somewhere else.
+
+| Option | What it does | Cost |
+|---|---|---|
+| **nbstripout** | Strips outputs and some metadata when git stores the notebook. Outputs stay in your working file. | Git cannot set up the filter on clone, so each collaborator runs `nbstripout --install` themselves. |
+| **jupytext** | Pairs the `.ipynb` with a `.py` (the `py:percent` format is recommended for code). You review the `.py`; outputs stay in the `.ipynb`. | Two files to keep in sync. |
+| **nbdime** | A notebook-aware diff: `nbdiff` in the terminal, `nbdiff-web` in the browser, with git integration and a merge driver. | Everyone reviewing needs it installed. |
+| **marimo** | Notebooks are stored as pure Python, so ordinary git diffs work. | A different notebook tool, not Jupyter. `marimo convert your_notebook.ipynb > your_notebook.py` converts an existing one. |
+
+Pick by what your team can adopt. Stripping outputs is the smallest change; a different notebook tool is the largest.
+
+## Review the code cells, not the outputs
+
+Whatever you choose, the review habit is the same:
+
+- Look at the source cells. Treat outputs as something to regenerate, not to approve.
+- Run `git diff --stat` before committing and look for a notebook that grew by megabytes.
+- An output in a diff proves only that something ran once. It does not prove the code produces it.
+
+## With a companion
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Claude Code reads a `.ipynb` with all its cells and outputs, and an output-heavy notebook fills context. It edits notebooks with `NotebookEdit`, one cell at a time, by `cell_id`. Replacing a code cell clears that cell's execution count and saved outputs, so the agent's diff in the notebook contains lost outputs as well as new source. Stripping outputs first, or pointing the agent at the paired `.py`, keeps it on the code (general practice; check the docs for your version).
+
+## OpenCode + Ollama
+
+The idea is the same: review the source cells. This quest has no tool-specific claims for OpenCode; check its docs for how it handles notebook files.
+
+:::
+
+## Honour
+
+<div data-ao-honour="scriptorium-diff-stat" data-xp="20">Run <code>git diff --stat</code> in one of your own repositories that contains a notebook, and note how much of the change is outputs.</div>
+
+<div data-ao-honour="scriptorium-pick-option" data-xp="20">Write one sentence naming which of the four options your team could adopt this week, and what each collaborator would have to do.</div>
+
+## Battle: the diff
+
+<div data-ao-test="scriptorium-why-notebooks-diff-badly" data-xp="60"></div>

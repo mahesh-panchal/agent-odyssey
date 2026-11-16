@@ -1,0 +1,42 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "You add a stdio MCP server with `claude mcp add myserver -- <command>`. What is the most accurate description of what you did?"
+    explain: "The server is a command the harness launches on your machine. Working assumption (general practice): it can do what that command can do with the credentials you hand it, so it is a trust decision like installing any software."
+    options:
+      - { text: "Installed software that can act with whatever credentials you give it", correct: true }
+      - { text: "Added a text file of extra instructions that the model may ignore", misconception: "That describes an instructions file or a Skill. A server is running code, not just text." }
+      - { text: "Switched on a feature that Anthropic checks before it can run", misconception: "Nobody vets third-party servers for you. The docs tell you to verify that you trust each one." }
+      - { text: "Opened a read-only view of the data, so nothing can change", misconception: "Read-only is a property of a particular server or credential, not of MCP itself." }
+  - type: sort
+    prompt: "Where does each MCP server scope apply in Claude Code?"
+    bins: ["Only you, in this project", "Everyone on the project", "All your projects"]
+    explain: "Local is the default and is not shared. Project lives in .mcp.json in version control. User follows you everywhere."
+    items:
+      - { text: "Local scope (the default)", bin: "Only you, in this project", misconception: "Local is the default and is not shared with the team." }
+      - { text: "Project scope, via .mcp.json", bin: "Everyone on the project", misconception: "The file sits in the project root and is shared through version control." }
+      - { text: "User scope", bin: "All your projects", misconception: "User scope applies across every project you open, not one." }
+  - type: choice
+    prompt: "You clone a repository and Claude Code asks whether to use a server from its .mcp.json. What is the sound reading?"
+    explain: "The approval prompt is the gate for project-scoped servers. A committed .mcp.json asks to start software on your machine, so read it first."
+    options:
+      - { text: "Read it first: it asks to start code you did not write", correct: true }
+      - { text: "It is harmless because anything in a repository has been reviewed", misconception: "A repository can contain anything its authors committed. Review is not implied." }
+      - { text: "Approve it, because declining breaks the rest of the project", misconception: "Declining a server leaves the rest of the session working. It only withholds that server." }
+      - { text: "The prompt only appears for servers that need credentials", misconception: "The prompt is about project-scoped servers in general, not about credentials." }
+  - type: faulty-line
+    prompt: "A teammate lists habits for adding a server. Which line is the unsafe one?"
+    explain: "Servers that fetch external content can expose you to prompt injection, and the docs say to verify trust before connecting. Handing it write credentials and letting it act unattended removes the checks."
+    lines:
+      - { text: "Check who publishes the server and what tools it lists", why: "Reading before adding is the first check." }
+      - { text: "Choose a read-only server where one exists", why: "A server that cannot write limits what injected text can do." }
+      - { text: "Give it a write token and let it run unattended on fetched pages", faulty: true }
+      - { text: "Remove servers you no longer need, since tools use context", why: "OpenCode's docs say tools consume model context, so add only what you need." }
+  - type: match
+    prompt: "Match each risk to the habit that shrinks it."
+    explain: "Each habit puts a limit between the server and the damage it could do."
+    pairs:
+      - { left: "Fetched text tells the agent to act", right: "Read it sceptically and use read-only access", misconception: "Injection is answered by limiting what the agent can do with that text, not by trusting the source." }
+      - { left: "The server holds a powerful credential", right: "Give it the least privilege that does the job", misconception: "A broad token is the cost of convenience and widens any mistake." }
+      - { left: "A cloned repo ships a project server", right: "Read .mcp.json before approving", misconception: "The approval prompt only helps if you have read what it asks to start." }
+      - { left: "A dangerous tool on a server you need", right: "Deny that tool by its mcp__ name", misconception: "Rules match tool names, so one tool can be refused while the rest stay usable." }

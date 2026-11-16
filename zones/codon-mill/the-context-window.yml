@@ -1,0 +1,42 @@
+pass: 0.8
+questions:
+  - type: sort
+    prompt: "Which of these take room in the context window of a coding agent, and which do not?"
+    bins: ["Takes room", "Does not"]
+    explain: "Instructions, files read, tool output and the conversation itself all count. Files that were never read and your terminal scrollback do not."
+    items:
+      - { text: "The text of a file the agent just read", bin: "Takes room", misconception: "Every file it reads is added to the window." }
+      - { text: "The output of a command it ran", bin: "Takes room", misconception: "Tool output is added, whether or not you see it." }
+      - { text: "Your instructions file, loaded at session start", bin: "Takes room", misconception: "Instructions load before you type and use space every session." }
+      - { text: "A file in the project that was never opened", bin: "Does not", misconception: "Unread files are not in the window until the agent reads them." }
+      - { text: "A terminal command you ran before the session started", bin: "Does not", misconception: "Only what reaches the session counts." }
+  - type: choice
+    prompt: "What does Anthropic's documentation say happens as the amount of context grows?"
+    explain: "The docs say more context is not automatically better: accuracy and recall degrade as tokens grow, and they name it context rot. They give no threshold."
+    options:
+      - { text: "Accuracy and recall can degrade, which they call context rot", correct: true }
+      - { text: "Quality rises steadily until the window is completely full", misconception: "The docs say more is not automatically better." }
+      - { text: "Nothing, because the model always weighs all tokens equally", misconception: "The docs describe degradation, so equal weighing is not a safe assumption." }
+  - type: choice
+    prompt: "You told the agent a rule once early in a long session, and after compaction it is ignored. What is the most likely reason?"
+    explain: "The docs say detailed instructions from early in the conversation may be lost when history is summarised. Rules that must last belong in the instructions file."
+    options:
+      - { text: "The summary dropped it, since it only lived in chat", correct: true }
+      - { text: "The model refuses rules it has been given only once", misconception: "It is not refusal. The text is simply no longer in the window." }
+      - { text: "The instructions file was deleted by the compaction", misconception: "The project-root instructions file is supplied again after compaction." }
+  - type: order
+    prompt: "Put these steps in a sensible order for a session that is getting heavy."
+    explain: "Look first, then trim what you can, then compact on purpose, and clear when the next task is unrelated."
+    items:
+      - "Check what is using the window"
+      - "Stop printing large outputs into the session"
+      - "Compact with a note on what to keep"
+      - "Clear the session before an unrelated task"
+  - type: faulty-line
+    prompt: "A request to an agent during a long session. Which line is the problem for the context window?"
+    explain: "Printing a whole large table puts all of it into the window. Ask for a count, the head, or a script output instead."
+    lines:
+      - { text: "Count the rows in variants.tsv with a command and show the number", why: "A count is a tiny output." }
+      - { text: "Run cat on variants.tsv and read it all", faulty: true }
+      - { text: "Show me the first ten lines and the column names", why: "The head is small and shows the shape." }
+      - { text: "Write a short script that summarises the filters and run that", why: "Only the summary enters the window." }

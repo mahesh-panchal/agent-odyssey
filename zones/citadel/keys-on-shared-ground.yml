@@ -1,0 +1,44 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "`ANTHROPIC_API_KEY` is exported in a shared lab profile, and you also log in with a subscription. What does Claude Code use?"
+    explain: "When ANTHROPIC_API_KEY is set it overrides a subscription login, and in -p mode it is always used."
+    options:
+      - { text: "The API key, which overrides the subscription login", correct: true }
+      - { text: "The subscription login, since a personal login outranks an exported key", misconception: "The docs say the API key overrides a subscription login when it is set." }
+      - { text: "Whichever was created first, because Claude Code never mixes the two", misconception: "Creation order plays no part. The environment variable takes priority." }
+      - { text: "Neither, because a key in a shared profile is ignored for safety", misconception: "Nothing in the docs ignores a shared-profile key. It is used and billed." }
+  - type: choice
+    prompt: "The sandbox is on. Which of these can the agent's shell commands still read by default?"
+    explain: "Default sandbox reads cover most of the machine, including ~/.ssh and ~/.aws/credentials, so key files need deny rules."
+    options:
+      - { text: "Credential files such as ~/.ssh and ~/.aws/credentials", correct: true }
+      - { text: "Only the working directory, since the sandbox confines reads to it", misconception: "The sandbox confines writes by default, not reads. Reads cover most of the machine." }
+      - { text: "Nothing outside the project folder and the system temp directory", misconception: "That describes where writes are allowed, not where reads are allowed." }
+      - { text: "Everything except hidden files, which are skipped automatically", misconception: "There is no automatic skipping of hidden files. ~/.ssh is a hidden directory and is readable by default." }
+  - type: sort
+    prompt: "Sort each habit by how it fits shared cluster storage (general practice; your site's policy decides)."
+    explain: "Keep secrets and controlled data away from shared, readable places, and keep personal files at the narrowest permission."
+    bins: ["good habit", "bad habit"]
+    items:
+      - { text: "A per-user API key in a file readable only by you", bin: "good habit", misconception: "A key kept private to its owner is the safer arrangement on shared ground." }
+      - { text: "Check who can read ~/.claude on shared home storage", bin: "good habit", misconception: "Session history can hold pasted data and paths, so checking its permissions is sensible." }
+      - { text: "Synthetic test data in the agent's working directory", bin: "good habit", misconception: "Synthetic data carries no agreement risk, so it is the right thing to leave where the agent can read." }
+      - { text: "A lab-wide API key in a shared project directory", bin: "bad habit", misconception: "Anyone who can read the directory can use the key, and usage cannot be traced to one person." }
+      - { text: "Controlled-access data in the folder the agent works in", bin: "bad habit", misconception: "Reads inside the working directory need no approval, so the agent could read the data into its context." }
+  - type: faulty-line
+    prompt: "A user's notes for starting an agent on a cluster. Which line is the faulty one?"
+    explain: "Whether an external model API may be used with your data is set by policy and agreement, and is not assumed from the fact that the tool installs."
+    lines:
+      - { text: "Ask staff whether agents are allowed on login nodes.", why: "Site rules differ and staff decide." }
+      - { text: "Check the data agreement before pointing the agent at real data.", why: "The agreement governs where data may go." }
+      - { text: "The tool installed without errors, so external model use must be permitted.", faulty: true }
+      - { text: "Deny reads of ~/.ssh and ~/.aws/credentials.", why: "The sandbox default can read them." }
+  - type: match
+    prompt: "Match each setting or variable to what it does."
+    explain: "Know what each one controls before relying on it on shared storage."
+    pairs:
+      - { left: "CLAUDE_CONFIG_DIR", right: "Moves where settings, session history and plugins are stored", misconception: "It relocates the config directory, not the API key or the sandbox." }
+      - { left: "ANTHROPIC_API_KEY", right: "Overrides a subscription login when set", misconception: "It is not a fallback. When set it takes priority." }
+      - { left: "Managed settings", right: "Organisation rules that user files cannot override", misconception: "Managed settings sit at the top of the precedence order." }
+      - { left: "sandbox.filesystem.denyRead", right: "Blocks sandboxed commands from reading listed paths", misconception: "It applies to shell commands in the sandbox, not to hooks or MCP servers." }

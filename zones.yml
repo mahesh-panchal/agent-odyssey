@@ -1,15 +1,15 @@
 # Overworld layout. Legend: . grass  = path  # tree  ~ water  o stone.  Gates are letters (see gates).
 map:
   - "####################"
-  - "#..F........~~~~...#"
+  - "#..F=====T..~~~~...#"
   - "#..=.........~~~.=C#"
   - "#..=...K.....~~~.=.#"
-  - "#..=...=.........=.#"
+  - "#..=...=......N===.#"
   - "#..=...=.........=M#"
   - "#..===============.#"
   - "#..=........=....=.#"
-  - "#..B........=....=R#"
-  - "#...........P......#"
+  - "#..B==L.....=....=R#"
+  - "#...........P===H..#"
   - "#..................#"
   - "####################"
 start: B
@@ -29,6 +29,20 @@ gates:
          { id: basecamp-know-your-gear, title: "Know Your Gear", page: zones/basecamp/know-your-gear.html,
            story: "The quartermaster lays out the kit: a companion, its armour, and a pile of fittings no one has labelled.",
            done: "You can tell model from harness, and name what each fitting does and does not guarantee." } ] }
+  L: { id: codon-mill, name: "The Codon Mill", track: "Foundations", status: open,
+       quests: [
+         { id: codon-mill-tokens-not-letters, title: "Tokens, Not Letters", page: zones/codon-mill/tokens-not-letters.html,
+           story: "A mill grinds text into small chunks before the machine reads a word. It never sees the letters you see.",
+           done: "You know the machine reads chunks, so counting letters and reading sequences exactly are jobs for a script." },
+         { id: codon-mill-the-context-window, title: "The Context Window", page: zones/codon-mill/the-context-window.html,
+           story: "A great hopper holds everything the machine can see at once. When it overflows, the oldest grain spills out.",
+           done: "You know what fills the window, what happens when it is full, and when to start fresh." },
+         { id: codon-mill-who-said-what, title: "Who Said What", page: zones/codon-mill/who-said-what.html,
+           story: "Three voices speak in the mill: the one that built it, the one you wrote down, and yours. Only one of them is you.",
+           done: "You can tell the system prompt, the instructions file and your own message apart, and know which you control." },
+         { id: codon-mill-too-many-tools-too-many-agents, title: "Too Many Tools, Too Many Agents", page: zones/codon-mill/too-many-tools-too-many-agents.html,
+           story: "The mill wall is hung with every tool anyone ever made. A craftsman picks three. A chain of agents is rarely needed.",
+           done: "You keep the toolset small and reach for an agent only when a plain script or a single call will not do." } ] }
   K: { id: kennel,   name: "The Kennel",            track: "Companions", status: open,
        quests: [
          { id: kennel-recruit-the-beast, title: "Recruit the Beast", page: zones/kennel/recruit-the-beast.html,
@@ -79,6 +93,17 @@ gates:
          { id: forest-bundle-a-plugin, title: "Bundle a Plugin", page: zones/forest/bundle-a-plugin.html,
            story: "At the forest's edge, a satchel waits to be packed with the smith's finest Skills and tests. Whatever you carry, others will unpack.",
            done: "The satchel is packed and sealed, and you know that opening someone else's satchel means trusting what runs inside." } ] }
+  T: { id: gatehouse, name: "The Gatehouse", track: "Guards", status: open,
+       quests: [
+         { id: gatehouse-plug-in-a-server, title: "Plug In a Server", page: zones/gatehouse/plug-in-a-server.html,
+           story: "A heavy door in the Gatehouse opens onto the outside world. Anything that comes through acts with your keys.",
+           done: "You treat an MCP server as software you install, and scope it, limit it and read what it sends back." },
+         { id: gatehouse-guard-the-door, title: "Guard the Door", page: zones/gatehouse/guard-the-door.html,
+           story: "A watchman stands at the door and checks every visitor against a list. The list is code, so no one can talk their way past.",
+           done: "You can write a hook that refuses a command, and you know what it can and cannot stop." },
+         { id: gatehouse-advice-or-enforcement, title: "Advice or Enforcement", page: zones/gatehouse/advice-or-enforcement.html,
+           story: "A wall of signs hangs in the Gatehouse: some ask politely, some lock the door. You must know which is which.",
+           done: "You sort every control by whether it advises, asks or enforces, and choose the right one for each risk." } ] }
   R: { id: reef,     name: "Biodiversity Reef",     track: "Level",      status: open,
        quests: [
          { id: reef-send-small-say-so, title: "Send Small, Say So", page: zones/reef/send-small-say-so.html,
@@ -101,3 +126,22 @@ gates:
          { id: factory-read-the-rails, title: "Read the Rails", page: zones/factory/read-the-rails.html,
            story: "The rails look sound, but one points at a private road and another melts the cargo it carries.",
            done: "You read the rails for hidden paths, undeclared outputs and overwritten inputs." } ] }
+  N: { id: scriptorium, name: "The Scriptorium", track: "Side Quest", status: open,
+       quests: [
+         { id: scriptorium-why-notebooks-diff-badly, title: "Why Notebooks Diff Badly", page: zones/scriptorium/why-notebooks-diff-badly.html,
+           story: "Scribes here keep notebooks, but every page is stuffed with outputs and images. Reviewing a change means wading through all of it.",
+           done: "You know why a notebook review is hard, and how to make the changes visible." },
+         { id: scriptorium-run-it-top-to-bottom, title: "Run It Top to Bottom", page: zones/scriptorium/run-it-top-to-bottom.html,
+           story: "A notebook can hold a result nobody can reproduce. The order of work matters more than the page.",
+           done: "You check a notebook by running it fresh from top to bottom, and you review the code, not the outputs." } ] }
+  H: { id: citadel, name: "The Cluster Citadel", track: "Shared Ground", status: open,
+       quests: [
+         { id: citadel-login-node-manners, title: "Login Node Manners", page: zones/citadel/login-node-manners.html,
+           story: "The Citadel gate is shared by hundreds. One careless sweep of the whole library slows everyone.",
+           done: "You keep heavy work off the login node and off shared storage, and you know what to hand to the scheduler." },
+         { id: citadel-jobs-not-jam, title: "Jobs, Not Jam", page: zones/citadel/jobs-not-jam.html,
+           story: "A queue master hands out places in line. An agent that submits jobs freely can fill every place.",
+           done: "You let the agent draft job scripts, and you keep submitting and cancelling under your own approval." },
+         { id: citadel-keys-on-shared-ground, title: "Keys on Shared Ground", page: zones/citadel/keys-on-shared-ground.html,
+           story: "Your home directory lies on ground that others can reach. Keys, tokens and agent settings do not belong in a shared place.",
+           done: "Keys stay private, data stays within its agreement, and you ask your cluster staff before you use an agent there." } ] }
