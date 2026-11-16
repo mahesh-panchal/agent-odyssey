@@ -90,6 +90,7 @@ exit 0  # exit 0 = no decision; the normal permission flow applies
 - CONFIRMED: best practices: validate inputs, quote variables, block `..` path traversal, absolute paths, skip `.env`/`.git`/keys. C hooks
 - CONFIRMED limits: PreToolUse fires only when Claude calls a tool; `@`-referenced files in a prompt are added without a tool call so no hook (even `Read`) fires; none for `EndConversation`. Setup hooks cannot block. `UserPromptSubmit` cannot replace the prompt. C hooks
 - CONFIRMED: a matcher is a filter on tool name, not on content: a grep on `tool_input.command` sees only the literal string (our inference: it will miss `rm` hidden in a script the command runs; label as inference when teaching).
+- CONFIRMED: sandbox is an OS-enforced boundary for shell commands only and is off by default; file tools, MCP servers and hooks run outside it; it is one layer. Source: research/kennel-and-crypt.md, "Sandbox" section (lines 80-86). Argument-pattern deny rules are fragile: research/kennel-and-crypt.md line 219.
 - UNCONFIRMED: statement that a Bash-pattern hook can be evaded by obfuscation; not in the docs text read.
 
 ## B5. OpenCode equivalent

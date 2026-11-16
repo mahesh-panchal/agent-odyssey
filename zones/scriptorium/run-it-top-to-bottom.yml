@@ -4,9 +4,9 @@ questions:
     prompt: "A notebook shows `reads kept: 2`, but a fresh top-to-bottom run prints 3. What does that tell you?"
     explain: "The stored output came from an execution order that the file, read from the top, does not reproduce. The shown result cannot be trusted until the order is fixed."
     options:
-      - { text: "The stored output came from cells run in a different order than the file", correct: true }
-      - { text: "The fresh run is wrong because a new process cannot be trusted", misconception: "A fresh process has no hidden state. That is why it is the better test." }
-      - { text: "Python gives slightly different answers on every run of the same code", misconception: "This code is deterministic. The two numbers differ because the cells ran in different orders." }
+      - { text: "The output came from a different cell order than the file's", correct: true }
+      - { text: "The fresh run is wrong, because the stored output is what the author actually saw", misconception: "What the author saw came from an order the file does not contain. A fresh process has no hidden state, which is why it is the better test." }
+      - { text: "The fresh run lacks a package the author had installed", misconception: "A missing package would raise an error, not change the count. The cells use only built-in Python, and the numbers differ because the cells ran in different orders." }
       - { text: "The notebook is fine, since the number on screen is the most recent one", misconception: "Most recent is not reproducible. A colleague opening the file would not get that number." }
   - type: faulty-line
     prompt: "A notebook exported as a script. Which line makes a fresh top-to-bottom run fail or differ from the author's session?"
@@ -19,14 +19,14 @@ questions:
       - { text: "# %% cutoff, defined further down", why: "A cell header, harmless." }
       - { text: "threshold = 40", why: "A fine assignment, just placed after its use. The fault is the line that reads it first." }
   - type: sort
-    prompt: "Sort these habits by whether they show a notebook is reproducible."
-    bins: ["Shows it", "Does not show it"]
-    explain: "Reproducibility is shown by a fresh run from the top, not by what the page currently displays."
+    prompt: "Sort these habits by whether they rule out hidden state in a notebook."
+    bins: ["Rules it out", "Does not rule it out"]
+    explain: "A fresh run from the top rules out hidden state, which a page showing stored outputs cannot. It still does not prove the analysis is correct."
     items:
-      - { text: "Restart the kernel and run all cells from the top", bin: "Shows it", misconception: "A clean kernel removes hidden state, so matching output is real evidence." }
-      - { text: "Check that every cell has an output shown", bin: "Does not show it", misconception: "Outputs can be stale or from another order. Their presence proves nothing." }
-      - { text: "Run it as a script or batch job in a fresh process", bin: "Shows it", misconception: "A fresh process starts from nothing, like a colleague's machine would." }
-      - { text: "Run only the last cell again and read the number", bin: "Does not show it", misconception: "That reuses everything already in memory, hidden state included." }
+      - { text: "Restart the kernel and run all cells from the top", bin: "Rules it out", misconception: "A clean kernel removes hidden state, so matching output is real evidence." }
+      - { text: "Check that every cell has an output shown", bin: "Does not rule it out", misconception: "Outputs can be stale or from another order. Their presence proves nothing." }
+      - { text: "Run it as a script or batch job in a fresh process", bin: "Rules it out", misconception: "A fresh process starts from nothing, like a colleague's machine would." }
+      - { text: "Run only the last cell again and read the number", bin: "Does not rule it out", misconception: "That reuses everything already in memory, hidden state included." }
   - type: choice
     prompt: "A coding agent replaces a code cell with NotebookEdit. What is the state of that cell afterwards?"
     explain: "In Claude Code, replacing a code cell clears its execution count and saved outputs. To see results again, re-run the cell and the cells that depend on it."
@@ -37,16 +37,16 @@ questions:
       - { text: "It is locked, so further edits need a new notebook", misconception: "Cells can be replaced, inserted or deleted one at a time. Nothing is locked." }
   - type: order
     prompt: "Put the steps for reviewing an agent-edited notebook in order."
-    explain: "Rerun from clean, then check numbers independently of the agent, then share."
+    explain: "Read the code change, rerun from clean, then check numbers independently of the agent and compare, then share."
     items:
-      - "Read the diff of the source cells"
+      - "Read the diff of the source cells before running anything"
       - "Restart the kernel and run all cells top to bottom"
-      - "Compute one or two values with an independent method"
-      - "Compare them with the notebook's numbers"
-      - "Share or commit the notebook"
+      - "After the fresh run, compute one or two values with an independent method"
+      - "Compare your values with the fresh notebook's numbers"
+      - "Share or commit the notebook once they agree"
     why:
-      "Read the diff of the source cells": "Read the code change first so you know what to expect from the run."
+      "Read the diff of the source cells before running anything": "Read the code change first so you know what to expect from the run."
       "Restart the kernel and run all cells top to bottom": "You need a clean run before the numbers mean anything."
-      "Compute one or two values with an independent method": "Get your own answer from something the agent did not write."
-      "Compare them with the notebook's numbers": "Compare once you have both answers."
-      "Share or commit the notebook": "Share last, once the fresh run and the check agree."
+      "After the fresh run, compute one or two values with an independent method": "Get your own answer from something the agent did not write, once the fresh run has given you the notebook's numbers."
+      "Compare your values with the fresh notebook's numbers": "Compare once you have both answers."
+      "Share or commit the notebook once they agree": "Share last, once the fresh run and the check agree."

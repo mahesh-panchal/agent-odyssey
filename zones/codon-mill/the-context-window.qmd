@@ -5,7 +5,7 @@ title: "The Context Window"
 ::: {.quest-dialog}
 **Prerequisites:** Tokens, Not Letters. **Objective:** say what fills the context window, what happens when it is full, and three habits that keep it useful.
 **Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API context-windows docs and Claude Code context-window and how-it-works docs on 2026-11-16 (sources in `research/fundamentals.md`). Compaction details are Claude Code specific.</span>
-Topics in this zone were inspired by Matt Pocock's free video course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
+Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::
 
 The **context window** is all the text the model can look at when it writes its next piece of output, including its own reply. Anthropic's docs compare it to working memory, and say it is separate from what the model learned in training. It is measured in tokens, as in the last quest.
@@ -32,13 +32,13 @@ Useful controls: `/context` shows what is using space, `/compact` with a focus n
 
 ## OpenCode + Ollama
 
-Last verified (docs, not run): we did not check OpenCode's compaction behaviour for this page. The principle holds for any tool: when the window is full, something is dropped or summarised. A local model often runs with a smaller window, so check your model's setting and how your tool reports usage.
+Not checked: OpenCode's compaction behaviour. Compaction is documented here for Claude Code only. General practice: expect any tool to drop or summarise something when the window is full, and note that a local model often runs with a smaller window, so check your model's setting and how your tool reports usage.
 
 :::
 
 ## Three habits
 
-1. **Start fresh for a new task.** An unrelated earlier thread only takes room and can distract.
+1. **Start fresh for a new task.** An unrelated earlier thread only takes room, and can distract (general practice).
 2. **Keep outputs small.** In bioinformatics terms: do not print a big variant table or a whole log into the session. Ask for the head, a count, or a summary script's output (general practice).
 3. **Put durable facts in the instructions file,** such as how to run tests or which folders are off limits. Instructions given only in chat can be lost to compaction. Keep that file short; Anthropic's docs target under 200 lines and say longer files use more context and reduce adherence.
 

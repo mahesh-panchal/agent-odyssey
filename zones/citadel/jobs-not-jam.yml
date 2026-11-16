@@ -12,20 +12,20 @@ questions:
       - { text: "scancel -u your-username", bin: "deny", misconception: "This signals all your jobs, not only the agent's. It is not a command to approve case by case." }
   - type: choice
     prompt: "You have `Bash(scancel -u *)` in `deny`. How far can you rely on it to protect your other jobs?"
-    explain: "The docs say Bash rules are not a security boundary. A different spelling of the command can slip past, so pair the rule with a sandbox or a hook for enforcement."
+    explain: "The docs say Bash rules are not a security boundary, so a differently spelled command can slip past. For enforcement use a PreToolUse hook; the sandbox limits files and network, not Slurm commands."
     options:
-      - { text: "As a speed bump only, since argument-matching rules can be bypassed", correct: true }
+      - { text: "Partly: a rewritten command can slip past the pattern", correct: true }
       - { text: "Fully, because deny rules are checked before any other rule", misconception: "Deny does come first in order, but the pattern still has to match the command that actually runs." }
       - { text: "Fully, provided the rule is in the user settings file", misconception: "File location sets scope, not strength. The matching limitation applies everywhere." }
-      - { text: "Not at all, because deny rules only cover file reads", misconception: "Deny rules apply to Bash commands too. They are just not watertight." }
+      - { text: "Not at all, because deny only matches the first command of a compound line", misconception: "Ask and deny rules apply to every part of a compound command. The weakness is differently spelled commands, not compounds." }
   - type: choice
     prompt: "An agent is told to `/loop` a `squeue` check every 30 seconds for an overnight run. What is the main problem?"
     explain: "Each firing sends the full context again and keeps spending tokens, even when the session is idle."
     options:
       - { text: "Every poll resends the whole conversation and costs tokens", correct: true }
-      - { text: "squeue only updates once an hour, so the polls return stale data", misconception: "The docs make no such claim. The issue is the cost of each poll, not staleness." }
-      - { text: "Looped commands are not allowed to run in the background", misconception: "Loops do run on an interval. That is exactly why they keep spending." }
-      - { text: "Polling cancels the job after three identical checks", misconception: "Reading the queue never changes a job's state." }
+      - { text: "Slurm refuses squeue calls more often than once a minute", misconception: "Slurm can rate-limit sustained high request rates per user, but the docs set no such fixed limit. The main problem here is the token cost of each poll." }
+      - { text: "Loops only fire while you are watching the session, so the run is not monitored", misconception: "The docs say scheduled tasks fire on their interval even while the session is idle. That is exactly why they keep spending." }
+      - { text: "The squeue output is too long to fit in the context window", misconception: "The cost comes from resending the whole conversation with every poll, not from the size of one squeue listing." }
   - type: faulty-line
     prompt: "A teaching permission block for a cluster project. Which line breaks the intended split between agent and human?"
     explain: "Allowing sbatch means the agent can submit jobs without asking you. Submission should be in ask."
@@ -39,8 +39,8 @@ questions:
       - { text: '}', why: "Closes the file." }
   - type: match
     prompt: "Match each OpenCode or Claude Code behaviour to the setting that follows from it."
-    explain: "Know each tool's default, and then add the rule that makes sbatch ask."
+    explain: "Know each tool's default, then add the rule that makes sbatch ask. Rules are a prompt, and a hook is what enforces."
     pairs:
       - { left: "Claude Code: make sbatch prompt every time", right: "Put Bash(sbatch *) in ask", misconception: "Ask rules force a prompt, even when a narrower allow rule exists." }
-      - { left: "OpenCode V2: unmatched action", right: "Asks, but the base policy allows nearly everything", misconception: "The default base policy starts with an allow-all rule, so an explicit ask rule for sbatch is needed." }
-      - { left: "Enforcing a rule beyond Bash matching", right: "Sandbox or PreToolUse hook", misconception: "The docs name the sandbox and hooks for enforcement, because Bash rules are not a security boundary." }
+      - { left: "OpenCode V2: sbatch runs without a prompt", right: "The base policy begins with an allow-all rule, so add an ask rule", misconception: "An unmatched action asks, but per the docs the base policy starts with allow-all, so an explicit ask rule for sbatch is likely needed." }
+      - { left: "Enforcing a rule beyond Bash matching", right: "A PreToolUse hook", misconception: "Bash rules are not a security boundary, so enforcement needs a hook. The sandbox limits files and network, not Slurm commands." }

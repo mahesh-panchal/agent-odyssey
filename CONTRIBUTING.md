@@ -12,6 +12,7 @@ presses (needs `quarto install chrome-headless-shell` once). `pixi run shots` wr
 ## Rules for content
 - **Facts:** check tool facts against official docs. Say "Verified: ran ..." only if you ran it; otherwise
   "Last verified (docs, not run): <tool> <version> on <date>" or "General practice". Record sources in `research/`.
+- **Unchecked claims:** label them "Not checked:" or "General practice", never "Last verified (docs, not run)". Short third-party text, such as the hooks-guide script, is allowed when attributed.
 - **No real company or product used as a villain.** The enemy is the Blight: unchecked plausible-but-false output.
 - **Sceptic-friendly:** never imply LLM use is mandatory. Mitigations over cheerleading.
 - **Exercises** run on a laptop with tiny mock data. No real or sensitive data, ever.

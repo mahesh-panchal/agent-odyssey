@@ -30,12 +30,12 @@ questions:
     lines:
       - { text: "Run seqkit stats on the file, or a short awk length count", why: "A tool counts exactly and the output can be pasted." }
       - { text: "Look at the sequence in the chat and state its length", faulty: true }
-      - { text: "Compare the printed count with the one in the file header", why: "An independent check on the result is good practice." }
+      - { text: "Compare the printed count with a second independent tool", why: "An independent check on the result is good practice." }
       - { text: "Keep the command so the count can be re-run", why: "A kept command makes the answer repeatable." }
   - type: match
     prompt: "Match each claim to what is behind it."
     explain: "Tokens are the unit for limits and cost. Letter-level weakness is our inference from that fact, not an official statement."
     pairs:
-      - { left: "Context window and bill are counted in", right: "Tokens", misconception: "Neither is counted in words or characters. Both use tokens." }
+      - { left: "Context window and cost are measured in", right: "Tokens", misconception: "Neither is measured in words or characters. Both use tokens." }
       - { left: "Token counting endpoint result is", right: "An estimate that may differ slightly", misconception: "Docs call it an estimate, so treat it as approximate, not exact billing." }
       - { left: "Letter counting by reading is unreliable because", right: "The model sees chunks, not letters", misconception: "The weakness comes from how text is cut up, not from carelessness." }

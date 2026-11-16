@@ -5,7 +5,7 @@ title: "Too Many Tools, Too Many Agents"
 ::: {.quest-dialog}
 **Prerequisites:** Who Said What. **Objective:** explain why a large toolset costs context and accuracy, and choose between a single call, a fixed workflow, an agent, and a plain script.
 **Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API tool-search docs, Claude Code MCP docs and Anthropic's "Building effective agents" article on 2026-11-16 (sources in `research/fundamentals.md`). The figures quoted are Anthropic's own claims, not our measurements.</span>
-Topics in this zone were inspired by Matt Pocock's free video course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
+Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::
 
 Every tool you give an agent has a definition: a name and a description of how to use it. The model needs those definitions in its window to choose a tool. That is the cost this quest is about, followed by the related question of whether you need an agent at all.
@@ -24,15 +24,15 @@ Per the docs, MCP tool search is on by default: only tool names and server instr
 
 ## OpenCode + Ollama
 
-Last verified (docs, not run): we did not check whether OpenCode defers tool definitions. Assume tool definitions cost context until you know otherwise, and keep the set small, especially on a local model with a small window (general practice).
+Not checked: whether OpenCode defers tool definitions. Assume tool definitions cost context until you know otherwise, and keep the set small, especially on a local model with a small window (general practice).
 
 :::
 
-The habit that follows: few, clearly named tools, and remove the servers you do not use.
+The habit that follows (general practice, inferred from the above): few, clearly named tools, and remove the servers you do not use.
 
 ## Single call, workflow, agent, or script
 
-Anthropic's article "Building effective agents" separates two things. A **workflow** orchestrates models and tools through paths fixed in code. An **agent** is a system where the model directs its own process and tool use. The article's advice is to start with the simplest solution that works, and it says that building no agentic system at all may be the right choice. For many uses, one well-prepared call is usually enough. It adds that agents trade speed and cost for performance, and that autonomy brings compounding errors, so test with limits such as a maximum number of steps.
+Anthropic's article "Building effective agents" separates two things. A **workflow** orchestrates models and tools through paths fixed in code. An **agent** is a system where the model directs its own process and tool use. The article's advice is to start with the simplest solution that works, and it says that building no agentic system at all may be the right choice. For many uses, one well-prepared call is usually enough. It adds that agents trade speed and cost for performance, and that autonomy brings compounding errors, so test with limits: a **stopping condition** such as a maximum number of steps.
 
 Our reading of that, as general practice:
 

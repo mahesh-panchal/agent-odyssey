@@ -4,7 +4,7 @@ title: "Login Node Manners"
 
 ::: {.quest-dialog}
 **Prerequisites:** Grow the Carapace. **Objective:** keep heavy work and sprawling searches off the shared login node and shared storage, and hand heavy work to the scheduler.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm and Claude Code docs on 2026-11-16 (sources in `research/hpc-and-notebooks.md`)</span>
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm, Claude Code and OpenCode (V2) docs on 2026-11-16 (sources in `research/hpc-and-notebooks.md`)</span>
 :::
 
 Everything below that concerns *etiquette* is **general practice**: the Slurm documentation does not define login nodes, and your site's rules differ. **Follow your own cluster's policy and user guide over this page.** Nothing here says that using an LLM agent on a cluster is allowed or expected. Ask your cluster staff first (see *Keys on Shared Ground*). This quest is read-only: do not run the exercise on a real cluster.
@@ -32,14 +32,14 @@ From the Slurm documentation:
 | `squeue` | report the state of jobs |
 | `scancel` | cancel a pending or running job |
 
-`sbatch --test-only` validates a script and estimates a start time, and "no job is actually submitted". That makes it a dry run, in the same spirit as the Factory's *Dry Run First*. Slurm's default time limit is the partition's default, so set limits in the script rather than trusting it.
+`sbatch --test-only` validates a script and estimates a start time, and "No job is actually submitted". That makes it a dry run, in the same spirit as the Factory's *Dry Run First*. Slurm's default time limit is the partition's default, so set limits in the script rather than trusting it.
 
 *General practice:* set `--time`, `--mem` and `--cpus-per-task`, and prefer a job array to a loop of `sbatch` calls.
 
 ## What the agent's sandbox does and does not cover
 
 - Claude Code's sandbox is shell-only. File tools, MCP servers and hooks run outside it.
-- It fails open by default: if it cannot start, commands run **without** sandboxing, unless `sandbox.failIfUnavailable` is `true`. On Linux it needs `bubblewrap` and `socat`, which you usually cannot install on a cluster yourself. Whether it works there is site-specific.
+- It fails open by default: if it cannot start, commands run **without** sandboxing, unless `sandbox.failIfUnavailable` is `true`. On Linux it needs `bubblewrap` and `socat`. *General practice:* you usually cannot install packages system-wide on a cluster yourself, so a site may have to provide them. Whether it works there is site-specific.
 - So "the sandbox is on" is something to check, not assume.
 
 ::: {.panel-tabset group="companion"}
@@ -51,11 +51,13 @@ Tell the agent where it may run what, in your project instructions or the prompt
 - "Search only inside `./workflow/`. Never run `find` or `grep -r` from `/` or `$HOME`."
 - "Do not run tools in the foreground. Draft an `sbatch` script and show it to me."
 
-Instructions are guidance, not enforcement. Foreground commands also time out by default after 2 minutes (maximum 10 minutes), so a long `srun` in the agent's shell is cut off anyway.
+Instructions are guidance, not enforcement.
+
+From the Claude Code docs: foreground commands time out (default 2 minutes, maximum 10 by default), so a long-running foreground command in the agent's shell is cut off anyway.
 
 ## OpenCode + Ollama
 
-The same habits apply. OpenCode's documented permission model (V2 docs; check your installed version) ends with allow, ask or deny rules, and an unmatched action asks, but its default base policy is permissive. Add explicit rules for the cluster commands rather than relying on the default. A local model through Ollama does not change anything about which node you are on or how the filesystem behaves.
+The same habits apply. OpenCode's documented permission model (V2 docs; check your installed version) ends with allow, ask or deny rules, and an unmatched action asks. Per the docs the base policy begins with an allow-all rule, so `sbatch` is likely to run unprompted; confirm in your version. Add explicit rules for the cluster commands rather than relying on the default. A local model through Ollama does not change anything about which node you are on or how the filesystem behaves.
 
 :::
 

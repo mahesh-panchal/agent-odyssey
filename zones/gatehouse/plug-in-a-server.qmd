@@ -4,7 +4,7 @@ title: "Plug In a Server"
 
 ::: {.quest-dialog}
 **Prerequisites:** the Rules of the Carapace (permission rules) and Know Your Gear (what MCP and a harness are). **Objective:** treat an MCP server as software you install, then scope it, limit it and read what it sends back.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in `research/tools-and-guards.md`)</span>
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in `research/tools-and-guards.md` and `research/terminology.md`)</span>
 :::
 
 **MCP** (Model Context Protocol) is, in its own words, "an open-source standard for connecting AI applications to external systems". A **server** is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. Nothing about this is required to use an agent. It is a way to widen what the agent can reach, and every widening is a decision.
@@ -24,7 +24,7 @@ claude mcp add --transport http mydocs https://example.com/mcp
 claude mcp add --env API_KEY=your-key-here myserver -- <command> [args...]
 ```
 
-Inside a session, `/mcp` lists the servers and their tools. SSE is deprecated in favour of HTTP where a server offers both.
+The `--env` line is an unrun sketch of the syntax; check `claude mcp add --help` for the current flags. Inside a session, `/mcp` lists the servers and their tools. SSE is deprecated in favour of HTTP where a server offers both.
 
 Three **scopes** decide who gets the server (set with `-s`/`--scope`):
 
@@ -57,7 +57,7 @@ In the V2 docs, servers go under `mcp.servers` (V2 does not put server names dir
 
 A local one uses `"type": "local"` and a `command` array. Set `"disabled": true` to switch a server off. The docs say that "MCP tools consume model context, so add only the servers you need."
 
-Permissions are an ordered array where the last match wins and no match means `ask`. An MCP tool's action is `<server>_<tool>` with resource `*`. I did not find a docs statement about project-level approval prompts for OpenCode servers or about how a local Ollama model changes any of this; check the current docs.
+Permissions are an ordered array where the last match wins and no match means `ask`. An MCP tool's action is `<server>_<tool>` with resource `*`. Not checked: project-level approval prompts for OpenCode servers, and how a local Ollama model changes any of this. Check the current docs.
 
 :::
 

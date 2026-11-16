@@ -5,7 +5,7 @@ title: "Tokens, Not Letters"
 ::: {.quest-dialog}
 **Prerequisites:** Know Your Gear. **Objective:** explain that a model reads tokens, not letters, and know which sequence jobs belong to a script.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API glossary and token-counting docs on 2026-11-16 (sources in `research/fundamentals.md`). The DNA examples are general practice and were not measured here.</span>
-Topics in this zone were inspired by Matt Pocock's free video course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
+Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::
 
 You read a read as letters: A, C, G, T. A language model does not. Before your text reaches the model, it is cut into **tokens**, and the model works with those.
@@ -18,7 +18,7 @@ Three consequences:
 
 - **Tokens are not words.** A sentence of ten words is not ten tokens. How many it is depends on the model and the language.
 - **The count changes between models.** The docs say newer tokenizers can produce about 30 percent more tokens for the same text, for Claude 4.7 and later, including Sonnet 5.5. So a count from one model generation should not be reused for another.
-- **Limits and cost are measured in tokens.** The context window and the bill both count tokens, not characters or words. The API has a free token-counting endpoint, and its answer is an estimate that may differ slightly from real use.
+- **Limits and cost are measured in tokens.** The context window is counted in tokens, and the docs frame cost in tokens too: the same prompt can cost different amounts on different models. The API has a free token-counting endpoint, and its answer is an estimate that may differ slightly from real use.
 
 ## Why this matters for sequences
 

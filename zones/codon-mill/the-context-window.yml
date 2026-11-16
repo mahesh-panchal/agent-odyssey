@@ -14,9 +14,9 @@ questions:
     prompt: "What does Anthropic's documentation say happens as the amount of context grows?"
     explain: "The docs say more context is not automatically better: accuracy and recall degrade as tokens grow, and they name it context rot. They give no threshold."
     options:
-      - { text: "Accuracy and recall can degrade, which they call context rot", correct: true }
-      - { text: "Quality rises steadily until the window is completely full", misconception: "The docs say more is not automatically better." }
-      - { text: "Nothing, because the model always weighs all tokens equally", misconception: "The docs describe degradation, so equal weighing is not a safe assumption." }
+      - { text: "Accuracy and recall can degrade (context rot)", correct: true }
+      - { text: "Quality usually rises steadily until the window is full", misconception: "The docs say more is not automatically better." }
+      - { text: "Nothing changes, since the model weighs all tokens equally", misconception: "The docs describe degradation, so equal weighing is not a safe assumption." }
   - type: choice
     prompt: "You told the agent a rule once early in a long session, and after compaction it is ignored. What is the most likely reason?"
     explain: "The docs say detailed instructions from early in the conversation may be lost when history is summarised. Rules that must last belong in the instructions file."
@@ -25,13 +25,13 @@ questions:
       - { text: "The model refuses rules it has been given only once", misconception: "It is not refusal. The text is simply no longer in the window." }
       - { text: "The instructions file was deleted by the compaction", misconception: "The project-root instructions file is supplied again after compaction." }
   - type: order
-    prompt: "Put these steps in a sensible order for a session that is getting heavy."
-    explain: "Look first, then trim what you can, then compact on purpose, and clear when the next task is unrelated."
+    prompt: "Put these steps in order for a session that is getting heavy. Each step builds on the one before."
+    explain: "You cannot trim what you have not measured. Trimming the biggest source comes before compacting, so the summary has less to carry. Clearing comes last because it discards everything, which is only right once the next task is unrelated."
     items:
-      - "Check what is using the window"
-      - "Stop printing large outputs into the session"
+      - "Measure what is using the window"
+      - "Remove the biggest avoidable source, such as large printed outputs"
       - "Compact with a note on what to keep"
-      - "Clear the session before an unrelated task"
+      - "Clear the session once the next task is unrelated"
   - type: faulty-line
     prompt: "A request to an agent during a long session. Which line is the problem for the context window?"
     explain: "Printing a whole large table puts all of it into the window. Ask for a count, the head, or a script output instead."

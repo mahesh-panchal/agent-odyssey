@@ -23,7 +23,7 @@ Hooks go in a `hooks` block in a settings file. `.claude/settings.json` is commi
     "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-drop-table.sh" } ] } ] } }
 ```
 
-The script, as in the Claude Code hooks guide (make it executable with `chmod +x`):
+The script, as in the Claude Code hooks guide (short third-party text, quoted with attribution). It needs `jq` installed to read the JSON, and it must be executable (check the guide for the exact step; `chmod +x` is the usual way):
 
 ```bash
 #!/bin/bash
@@ -38,13 +38,13 @@ exit 0  # exit 0 = no decision; the normal permission flow applies
 
 The hook gets the event as JSON on stdin, including `tool_name` and, for Bash, `tool_input.command`. Exit code 2 on `PreToolUse` blocks the call, and Claude sees the stderr text as the reason. Exit 0 does not approve anything: the call still goes through the normal permission flow.
 
-Two behaviours matter for trust. First, if the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. A broken guard fails **open**, unless the hook is configured to block on failure (the guide names `onFailure: "block"`; check the current docs for where it goes). Second, exit 2 blocks only where the tool has not yet run: on `PostToolUse` the tool already ran and exit 2 only shows stderr to Claude.
+Two behaviours matter for trust. First, if the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. A broken guard fails **open**, unless the hook is configured to block on failure (the guide names `onFailure: "block"`; check the current docs for where it goes). Second, exit 2 does not block everywhere: on `PostToolUse` the tool already ran and exit 2 only shows stderr to Claude, and on `Notification` the exit code is ignored.
 
 ## OpenCode + Ollama
 
 The V2 docs describe plugins (files under `.opencode/plugins/` or `~/.config/opencode/plugins/`) that can register hooks. For refusing an action, the documented route is the permission hook, `ctx.permission.hook("evaluate", ...)`: it runs for `allow` and `ask` decisions, may change the effect to `allow`, `ask` or `deny`, and `event.message` is the denial reason. An explicit configured `deny` is final and never invokes the hook.
 
-I found no exit-code-2 equivalent and no shell-hook configuration in the pages read, and the docs do not describe throwing from a tool hook to block a call. Whether that works is unconfirmed, so do not rely on it. I did not find a trust statement for plugins; treat them as code running with your privileges, which is an inference. I also did not check how any of this behaves with a local Ollama model. Check your installed version's docs.
+Not checked: an exit-code-2 equivalent or shell-hook configuration (neither appears in the pages read), and whether throwing from a tool hook blocks a call (the docs do not describe it, so do not rely on it). Not checked: a trust statement for plugins; treat them as code running with your privileges, which is an inference. Not checked: how any of this behaves with a local Ollama model. Check your installed version's docs.
 
 :::
 

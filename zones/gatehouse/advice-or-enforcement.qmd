@@ -30,7 +30,7 @@ The Gatehouse's rule of thumb: advice for preferences, a prompt for decisions yo
 | Sandbox | Enforces | Off by default, and limits shell commands only (see the Carapace quest). The docs say its restrictions still apply if a prompt injection bypasses the model's decision. |
 | Git history | Recovers | Does not prevent anything. A commit is a restore point that exists whatever the model did next. |
 
-A hook that returns **exit 0 is not a control at all**: it expresses no decision and the normal permission flow runs.
+A hook that **exits 0 with no JSON decision is not a control at all**: it expresses no decision and the normal permission flow runs. (A hook can also exit 0 and print a JSON `deny` decision, which does block.)
 
 ## OpenCode + Ollama
 
@@ -42,7 +42,7 @@ A hook that returns **exit 0 is not a control at all**: it expresses no decision
 | Plugin permission hook (`evaluate`) | Enforces when it denies | Runs for `allow` and `ask` decisions, and can change the effect to `deny`. |
 | Git history | Recovers | Does not prevent anything. |
 
-Unconfirmed for OpenCode: an exit-code-2 equivalent, and whether throwing in a tool hook blocks a call. I also did not check sandboxing for OpenCode or the effect of a local Ollama model, so check the current docs before counting on either.
+Not checked for OpenCode: an exit-code-2 equivalent, whether throwing in a tool hook blocks a call, sandboxing, and the effect of a local Ollama model. Check the current docs before counting on any of them.
 
 :::
 
@@ -52,9 +52,9 @@ Unconfirmed for OpenCode: an exit-code-2 equivalent, and whether throwing in a t
 |---|---|---|
 | Style: prefer `snake_case`, tidy commit messages | Advice | A miss costs a review comment. |
 | Pushing to a shared branch | Ask | You want to decide each time, with context. |
-| Reading `.env` or key files | Deny rule (enforce) | It must never happen, and a rule is cheap to write. |
+| Reading `.env` or key files | Deny rule on the Read tool, plus sandbox or hook for Bash (enforce); still not total | It must never happen, so use enforcement, and cover each route the agent could use. |
 | A specific destructive command you can name | Blocking hook (enforce) | Code refuses it. Accept that it covers only what it matches. |
-| Fetched text telling the agent to act | Least privilege, read-only servers, sceptical reading | Advice cannot beat text the model has already read, so limit what the agent can do. |
+| Fetched text telling the agent to act | Least privilege, read-only servers, sceptical reading | Advice may not hold against text the model has already read, so limit what the agent can do. |
 | An experiment that might wreck your files | Git commit plus a scratch folder | Recovery, not prevention. |
 
 Layer them: advice to steer, enforcement for the non-negotiable, git for the day something slips through. None of them replaces reading the diff.

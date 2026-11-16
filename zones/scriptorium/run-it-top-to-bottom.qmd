@@ -16,7 +16,7 @@ title: "Run It Top to Bottom"
 
 A notebook kernel keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran. The variables stay. The page then shows a result that the file, read from the top, does not produce. This is hidden state, and it needs no agent to appear.
 
-`cells.py` is a mock notebook with four cells, written in the `py:percent` style. `run_cells.py` runs cells in the order you give, sharing one namespace like a kernel. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.
+`cells.py` is a mock notebook with four cells, written in a `py:percent`-like style (the `# %% [1] load` headers carry our own numbers, so this is not standard `py:percent`). `run_cells.py` runs cells in the order you give, sharing one namespace like a kernel. It uses `exec`, so do not point it at files you did not write. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.
 
 ```bash
 python run_cells.py cells.py 1 2 3 4 3
@@ -50,14 +50,14 @@ The file says 3 and the author's screen said 2. Cell 4 changes the cutoff after 
 
 ## The habit
 
-Before you trust or share a notebook, restart the kernel and run all cells from the top ("Restart Kernel and Run All" in Jupyter). If the result changes, the stored output was not a product of the file. Then fix the order so that cells only depend on cells above them.
+Before you trust or share a notebook, restart the kernel and run all cells from the top ("Restart Kernel and Run All" in Jupyter). If the result changes, the stored output was not a product of the file as written. A fresh run rules out hidden state; it does not show the analysis is right. Then fix the order so that cells only depend on cells above them.
 
 Two related options:
 
-- **Run it headless.** On a cluster, run notebooks as a batch job, not as an interactive Jupyter session on the login node (see the Citadel quests).
+- **Run it headless.** *General practice:* on a cluster, run notebooks as a batch job, not as an interactive Jupyter session on the login node. Your cluster's policy decides (see the Citadel quests).
 - **marimo.** Its docs describe a reactive model: deleting a cell scrubs its variables from memory, which the docs say eliminates hidden state, and a notebook can be run as a script with `python your_notebook.py`. Check the docs for how side effects (files, network) behave, because this quest did not test that.
 
-Pin the environment too (a container or lockfile), so a fresh run happens with the same packages. An agent should not `pip install` into a shared environment.
+*General practice:* pin the environment too (a container or lockfile), so a fresh run happens with the same packages, and do not let an agent `pip install` into a shared environment.
 
 ## Reviewing a notebook an agent edited
 

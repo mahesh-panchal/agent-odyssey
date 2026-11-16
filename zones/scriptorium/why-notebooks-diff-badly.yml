@@ -5,9 +5,9 @@ questions:
     explain: "A notebook is one JSON file that stores source, execution counts, outputs and embedded images together, and a re-run changes all of them."
     options:
       - { text: "Outputs and counters are stored beside the code and a re-run rewrites them", correct: true }
-      - { text: "Git cannot compare JSON files properly, so it marks every line of the file as changed", misconception: "Git compares any text file line by line. JSON is fine; the problem is how much of it a re-run rewrites." }
-      - { text: "Jupyter reformats the whole notebook each time it saves the file to disk", misconception: "The unchanged cells stay as they were. The extra lines come from the cell you ran: its counter, text output and images." }
-      - { text: "Notebook cells are stored in a random order, so git sees every cell as moved", misconception: "Cells keep their order in the `cells` list. Moves are not the source of the noise." }
+      - { text: "Notebooks are saved as one long line of JSON, so any change shows as the whole file", misconception: "The notebook spans many lines, and the diff above shows only four changed spots. Git compares line by line, so the problem is how much a re-run rewrites." }
+      - { text: "Jupyter rewrites the source of every cell each time it saves", misconception: "Source of cells you did not touch is saved as written. The extra lines come from the cell you ran: its counter, text output and images." }
+      - { text: "Re-running a cell moves it to the end of the cells list, so git sees it as moved", misconception: "Cells keep their position in the `cells` list when run. The noise comes from the counter, outputs and images rewritten in place." }
   - type: sort
     prompt: "Sort these lines of a notebook diff by whether a reviewer needs to read them."
     bins: ["Review this", "Regenerate, do not review"]
@@ -29,20 +29,20 @@ questions:
     prompt: "A team adopts nbstripout. A new collaborator clones the repository and starts committing notebooks. What is true?"
     explain: "Git cannot install filters on clone, so every collaborator has to set nbstripout up. Otherwise their commits may still contain outputs."
     options:
-      - { text: "They must run the setup themselves, because git does not install filters on clone", correct: true }
+      - { text: "They must run the setup themselves; git does not install filters on clone", correct: true }
       - { text: "The filter arrives with the repository, so their commits are stripped automatically", misconception: "Filters are configured in each local clone. Committing a setup does not turn it on for others." }
-      - { text: "Their notebooks lose all outputs on disk as soon as they clone", misconception: "nbstripout cleans what git stores. Outputs remain in the working file you edit." }
-      - { text: "Only the person who first installed it can commit notebooks to the project", misconception: "Anyone can commit; the issue is whether their own clone has the filter set up." }
+      - { text: "Their commits are stripped as long as they open notebooks in Jupyter, which runs the filter", misconception: "The filter is a git feature that runs when git stores the file. Jupyter does not run it, and outputs remain in the working file you edit." }
+      - { text: "They must wait for a maintainer to enable their clone before committing notebooks", misconception: "No approval step is involved. Anyone can commit; the issue is whether their own clone has the filter set up." }
   - type: order
     prompt: "Put a sensible review of a notebook change in order."
     explain: "Check the size of the change first, then read the source diff, then regenerate the outputs rather than trusting the stored ones."
     items:
       - "Run git diff --stat and look for a huge notebook"
       - "Read the diff of the source cells only"
-      - "Question any changed parameter or cutoff"
-      - "Re-run the notebook to regenerate the outputs"
+      - "Question any changed parameter or cutoff you found in that diff"
+      - "Re-run the notebook and compare its fresh outputs with what you expected from the questioned changes"
     why:
       "Run git diff --stat and look for a huge notebook": "Check the size of the change first to see whether outputs are swamping the code."
       "Read the diff of the source cells only": "Once you know the shape of the change, read the code that changed."
-      "Question any changed parameter or cutoff": "Parameters need a reason, so ask after you have read the code."
-      "Re-run the notebook to regenerate the outputs": "Regenerate outputs last, once you know what the code is meant to do."
+      "Question any changed parameter or cutoff you found in that diff": "Parameters need a reason, so ask after you have read the code."
+      "Re-run the notebook and compare its fresh outputs with what you expected from the questioned changes": "Regenerate outputs last, once you know what the code is meant to do and what you expect."

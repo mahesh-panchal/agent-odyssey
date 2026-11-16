@@ -1,13 +1,13 @@
 pass: 0.8
 questions:
   - type: choice
-    prompt: "`ANTHROPIC_API_KEY` is exported in a shared lab profile, and you also log in with a subscription. What does Claude Code use?"
+    prompt: "`ANTHROPIC_API_KEY` is exported in a shared lab profile, and you also log in with a subscription. In `-p` (non-interactive) mode, which does Claude Code use?"
     explain: "When ANTHROPIC_API_KEY is set it overrides a subscription login, and in -p mode it is always used."
     options:
       - { text: "The API key, which overrides the subscription login", correct: true }
       - { text: "The subscription login, since a personal login outranks an exported key", misconception: "The docs say the API key overrides a subscription login when it is set." }
       - { text: "Whichever was created first, because Claude Code never mixes the two", misconception: "Creation order plays no part. The environment variable takes priority." }
-      - { text: "Neither, because a key in a shared profile is ignored for safety", misconception: "Nothing in the docs ignores a shared-profile key. It is used and billed." }
+      - { text: "Both, splitting requests between the key and the subscription", misconception: "The docs describe an override, not a split. In -p mode the key is always used." }
   - type: choice
     prompt: "The sandbox is on. Which of these can the agent's shell commands still read by default?"
     explain: "Default sandbox reads cover most of the machine, including ~/.ssh and ~/.aws/credentials, so key files need deny rules."
@@ -24,7 +24,7 @@ questions:
       - { text: "A per-user API key in a file readable only by you", bin: "good habit", misconception: "A key kept private to its owner is the safer arrangement on shared ground." }
       - { text: "Check who can read ~/.claude on shared home storage", bin: "good habit", misconception: "Session history can hold pasted data and paths, so checking its permissions is sensible." }
       - { text: "Synthetic test data in the agent's working directory", bin: "good habit", misconception: "Synthetic data carries no agreement risk, so it is the right thing to leave where the agent can read." }
-      - { text: "A lab-wide API key in a shared project directory", bin: "bad habit", misconception: "Anyone who can read the directory can use the key, and usage cannot be traced to one person." }
+      - { text: "A lab-wide API key in a shared project directory", bin: "bad habit", misconception: "Anyone who can read the directory can use the key, and everyone who can read the directory can use it." }
       - { text: "Controlled-access data in the folder the agent works in", bin: "bad habit", misconception: "Reads inside the working directory need no approval, so the agent could read the data into its context." }
   - type: faulty-line
     prompt: "A user's notes for starting an agent on a cluster. Which line is the faulty one?"

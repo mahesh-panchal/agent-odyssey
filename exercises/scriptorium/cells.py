@@ -1,4 +1,4 @@
-# Mock notebook in py:percent style. Cells run in the order you give run_cells.py.
+# Mock notebook in a py:percent-like style (the [n] numbers are our own, not standard py:percent). Cells run in the order you give run_cells.py.
 # %% [1] load
 reads = [12, 35, 41, 28, 50]
 

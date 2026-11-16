@@ -19,7 +19,7 @@ Settings files, from the docs: user `~/.claude/settings.json`, project `.claude/
 
 ## Keys
 
-- `ANTHROPIC_API_KEY`, when set, overrides a subscription login. In `-p` (non-interactive) mode it is always used, and interactive mode asks you once to approve it. If a key is exported in a shared profile, you may be billing a different account from the one you expect.
+- `ANTHROPIC_API_KEY`, when set, overrides a subscription login. In `-p` (non-interactive) mode it is always used, and interactive mode asks you once to approve it. If a key is exported in a shared profile, the key in use may not be the one you expect.
 - *General practice:* never put a key in a script or in a committed `.claude/settings.json`. On a shared account, prefer a per-user key kept in a file readable only by you (mode 600), not a lab-wide key in a shared directory.
 - The sandbox's default reads cover most of the machine, including credential files such as `~/.ssh` and `~/.aws/credentials`. Use `Read(...)` deny rules or `sandbox.filesystem.denyRead` for key files. Remember that the sandbox covers shell commands only.
 
@@ -29,7 +29,7 @@ Not confirmed here: how OpenCode stores keys, and what the `apiKeyHelper` settin
 
 - *General practice:* before any cluster data, paths, logs or code go to an external model API, check your institution's policy. Human genomic, clinical or controlled-access data often has agreements that forbid third-party processing.
 - Read is auto-approved inside the working directory. A project folder holding controlled data is therefore readable by the agent unless a `Read(...)` deny rule or `sandbox.filesystem.denyRead` covers it. *General practice:* keep controlled data outside the agent's working directory and give the agent synthetic or de-identified test data.
-- Many sites restrict internet access from compute nodes, so an agent there may not reach a model API at all. *General practice, ask your site:* a common pattern is the agent on your laptop or a login node, writing scripts, with jobs running offline. A plain `ssh` from inside the Claude Code sandbox does not work as a hop.
+- *General practice, not checked in the docs, so ask your site:* some sites restrict internet access from compute nodes, so an agent there may not reach a model API at all. A common pattern is the agent on your laptop or a login node, writing scripts, with jobs running offline. A plain `ssh` from inside the Claude Code sandbox does not work as a hop.
 - The sandbox's `network.allowedDomains` starts empty, so unlisted hosts prompt (in the default modes).
 
 ::: {.panel-tabset group="companion"}
@@ -40,7 +40,7 @@ Ask staff these before use: is an external model API allowed for my data, which 
 
 ## OpenCode + Ollama
 
-The same questions apply. A local model through Ollama keeps prompts on the machine running it, but you still need to ask whether running it on a login node is allowed, since models are heavy. Where OpenCode keeps its keys is not confirmed here; find it in your version's docs.
+The same questions apply. Not checked here: whether a local model through Ollama changes what your data agreement requires, so ask. *General practice:* also ask whether running it on a login node is allowed, since models are heavy. Where OpenCode keeps its keys is not confirmed here; find it in your version's docs.
 
 :::
 

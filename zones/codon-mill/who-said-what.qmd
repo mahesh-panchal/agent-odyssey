@@ -5,7 +5,7 @@ title: "Who Said What"
 ::: {.quest-dialog}
 **Prerequisites:** The Context Window. **Objective:** tell the system prompt, the instructions file and your own message apart, and know which you control and which only advise.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code glossary, memory and how-it-works docs on 2026-11-16 (sources in `research/fundamentals.md`). Other tools arrange this differently; the ideas carry over.</span>
-Topics in this zone were inspired by Matt Pocock's free video course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
+Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::
 
 When an agent follows a rule, it is fair to ask where that rule came from. There are three common sources, and they differ in who writes them, how long they last and whether anything enforces them.
@@ -24,7 +24,7 @@ The instructions file is different from what many people assume. The docs say `C
 
 ## Rules you did not write
 
-System reminders also carry the skills list, hook output, notes about changed files and commit or pull-request attribution lines. If the agent follows a rule you never wrote, for example adding a co-author line to commits, look at what the harness adds on its own before blaming the model.
+System reminders also carry the skills list, hook `additionalContext`, notes about changed files and commit or pull-request attribution lines. If the agent follows a rule you never wrote, for example adding a co-author line to commits, look at what the harness adds on its own before blaming the model.
 
 ## Advice, not enforcement
 
@@ -40,7 +40,7 @@ Reads `CLAUDE.md`. If a project has only an `AGENTS.md` (and no `CLAUDE.md` in o
 
 ## OpenCode + Ollama
 
-Last verified (docs, not run): we did not check OpenCode's exact loading rules for this page. It also reads project instruction files, but check its own documentation for which names and in what order before relying on it.
+Not checked: OpenCode's instruction-file loading rules (which names, in what order). Check its own documentation before relying on it.
 
 :::
 
