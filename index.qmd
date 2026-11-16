@@ -3,7 +3,7 @@ title: "Agent Odyssey"
 ---
 
 A Blight spreads across the land: plausible-but-false knowledge that grows when nobody checks it.
-Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold **▶ NEXT** marker is the suggested next stop. Other **OPEN** zones can be visited in any order, and 🔒 zones are not built yet.
+Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold **▶ NEXT** marker is the suggested next stop. Other **OPEN** zones can be visited in any order.
 
 <p id="ao-next" class="ao-next" aria-live="polite"></p>
 
@@ -12,13 +12,17 @@ Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold *
 
 <details class="ao-textlist"><summary>Text-only list of zones</summary>
 
-- [Basecamp: Name the Fears](zones/basecamp/name-the-fears.qmd)
-- [Kennel: Recruit the Beast](zones/kennel/recruit-the-beast.qmd) (open)
-- [Ancient DNA Crypt: Save Point](zones/crypt/shield-of-undo.qmd) (open)
-- [Sequence Maze: Spot the Mirage](zones/maze/spot-the-mirage.qmd)
-- [Phylogenetic Forest: Write the Brief](zones/forest/write-the-brief.qmd)
-- [Biodiversity Reef: Send Small, Say So](zones/reef/send-small-say-so.qmd)
+- [Basecamp at the Root](zones/basecamp/name-the-fears.qmd)
+- [The Codon Mill](zones/codon-mill/tokens-not-letters.qmd)
+- [The Kennel](zones/kennel/recruit-the-beast.qmd)
+- [Ancient DNA Crypt](zones/crypt/shield-of-undo.qmd)
+- [Sequence Maze](zones/maze/spot-the-mirage.qmd)
+- [Phylogenetic Forest](zones/forest/write-the-brief.qmd)
+- [The Gatehouse](zones/gatehouse/plug-in-a-server.qmd)
+- [Biodiversity Reef](zones/reef/send-small-say-so.qmd)
+- [Pipeline Factory](zones/factory/dry-run-first.qmd)
+- [The Scriptorium (side quest)](zones/scriptorium/why-notebooks-diff-badly.qmd)
+- [The Cluster Citadel](zones/citadel/login-node-manners.qmd)
 - [Character sheet](character.qmd)
-- [Pipeline Factory: Dry Run First](zones/factory/dry-run-first.qmd)
 
 </details>
