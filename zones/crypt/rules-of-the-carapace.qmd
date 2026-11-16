@@ -1,9 +1,9 @@
 ---
-title: "Rules of the Carapace"
+title: "Grow the Carapace"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** the Shield of Undo, and either companion from the Kennel. **Objective:** write permission rules that hold, and know where they stop holding.
+**Prerequisites:** the Save Point, and either companion from the Kennel. **Objective:** write permission rules that hold, and know where they stop holding.
 **Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode v2.3.0 on 2026-11-13 (sources in `research/kennel-and-crypt.md`).</span>
 :::
 
@@ -59,7 +59,7 @@ Start with the ask-everything rule, then narrow, then put denies last.
 - Claude Code's sandbox is off by default. When on, it limits **shell commands only**; file tools, MCP servers and hooks run outside it, and by default it can still read `~/.ssh`.
 - Your secrets in environment variables are inherited by the commands it runs.
 
-Treat rules as one layer. Git (the Shield) and a throwaway folder are the others.
+Treat rules as one layer. Git (your save point) and a throwaway folder are the others.
 
 ## Battle: harden your carapace
 

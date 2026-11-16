@@ -14,7 +14,7 @@ Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold *
 
 - [Basecamp: Name the Fears](zones/basecamp/name-the-fears.qmd)
 - [Kennel: Recruit the Beast](zones/kennel/recruit-the-beast.qmd) (open)
-- [Ancient DNA Crypt: Shield of Undo](zones/crypt/shield-of-undo.qmd) (open)
+- [Ancient DNA Crypt: Save Point](zones/crypt/shield-of-undo.qmd) (open)
 - [Sequence Maze: Spot the Mirage](zones/maze/spot-the-mirage.qmd)
 - [Phylogenetic Forest: Write the Brief](zones/forest/write-the-brief.qmd)
 - [Biodiversity Reef: Send Small, Say So](zones/reef/send-small-say-so.qmd)

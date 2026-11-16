@@ -36,13 +36,13 @@ gates:
            done: "The Pet curls up on your laptop. Small and local, it needs more room to think and a leash of its own." } ] }
   C: { id: crypt,    name: "Ancient DNA Crypt",     track: "Armour",     status: open,
        quests: [
-         { id: crypt-shield-of-undo, title: "Shield of Undo", page: zones/crypt/shield-of-undo.html,
+         { id: crypt-shield-of-undo, title: "Save Point", page: zones/crypt/shield-of-undo.html,
            story: "The Crypt door is sealed with Murk. A faded note reads: nothing here is safe to touch without a way back.",
-           done: "The first seal cracks. You carry the Shield of Undo: any change can now be reversed." },
-         { id: crypt-rules-of-the-carapace, title: "Rules of the Carapace", page: zones/crypt/rules-of-the-carapace.html,
+           done: "The first seal cracks. You have a save point: any change can now be reversed." },
+         { id: crypt-rules-of-the-carapace, title: "Grow the Carapace", page: zones/crypt/rules-of-the-carapace.html,
            story: "Deeper in the Crypt, bare skin is not enough. You must grow a carapace: rules about what your companions may touch.",
            done: "A carapace hardens over you. Your companions can now only do what your rules allow." },
-         { id: crypt-secrets-and-sensitive-ground, title: "Secrets and Sensitive Ground", page: zones/crypt/secrets-and-sensitive-ground.html,
+         { id: crypt-secrets-and-sensitive-ground, title: "The Locked Cabinet", page: zones/crypt/secrets-and-sensitive-ground.html,
            story: "In the deepest chamber lie sealed relics: keys, tokens and samples under special agreements. Not everything here may leave the room.",
            done: "Your visor closes. Keys and sensitive ground stay out of reach, and you know where the agreement lives." } ] }
   M: { id: maze,     name: "Sequence Maze",         track: "Trust",      status: open,

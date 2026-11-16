@@ -17,7 +17,7 @@ If an LLM call really must be a step (tidying messy free-text labels, say), cont
 - **Cache** results keyed by input, so a re-run does not change them silently.
 - **Validate** each output against a fixed set (a species list, a schema) and fail loudly when it does not match.
 - **Keep a human-check sample**: look at a random handful every time.
-- **Keep it away from data you may not send out.** See Secrets and Sensitive Ground.
+- **Keep it away from data you may not send out.** See The Locked Cabinet.
 
 ## Battle: reproducible runs
 

@@ -67,7 +67,7 @@ try:
     B.click_text("Quest Log"); open1 = B.js("document.getElementById('ao-logbtn').getAttribute('aria-expanded')")
     check("quest log toggles", open0 != open1, f"{open0}->{open1}")
     B.click_text("Quest Log")
-    check("quest log shows cleared quest and story", "✔" in B.js("document.getElementById('ao-log').textContent") and "Shield of Undo" in B.js("document.getElementById('ao-log').textContent"))
+    check("quest log shows cleared quest and story", "✔" in B.js("document.getElementById('ao-log').textContent") and "Save Point" in B.js("document.getElementById('ao-log').textContent"))
     # --- arrow keys ignored inside widgets ---
     B.js("document.querySelector('[data-ao-test]').focus()")
     # --- save/load round trip ---
