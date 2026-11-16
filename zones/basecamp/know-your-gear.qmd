@@ -4,7 +4,7 @@ title: "Know Your Gear"
 
 ::: {.quest-dialog}
 **Prerequisites:** Three Kinds of Machine. **Objective:** use the words this site relies on (model, harness, skill, MCP, hook, plugin, effort, eval, and the context terms below) and say how they fit together.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code and API docs on 2026-11-16 (sources in `research/terminology.md`). Other tools name things differently; the ideas carry over.</span>
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code and API docs on 2026-11-16 (sources in `research/terminology.md`, `research/failure-modes.md` and `research/fundamentals.md`). Other tools name things differently; the ideas carry over.</span>
 :::
 
 People mix these words up, and the mix-ups cause real mistakes, such as blaming "the model" for something a setting did. In this world the **companions are models**, and the **harness is their armour**.
@@ -72,7 +72,7 @@ These get mixed up more than any others. The Codon Mill quests take each one in 
 - **Session (session context).** One running conversation, and the context window it has built up. A new session starts with an empty conversation. Two sessions do not share their context.
 - **Memory.** Notes that the tool loads at the start of every session, such as your instructions file and, in Claude Code, notes the tool writes itself. Memory outlives a session; session context does not. (See *Memory, Sessions and Usage*.)
 - **Session usage.** How much of your allowance or bill a session spends. It climbs with the size of the context, because the whole conversation is sent again with each request.
-- **Context poisoning.** A community term, not vendor documentation: a wrong statement gets into the context, and later answers build on it. Starting a fresh session and keeping unverified claims out of memory files are the usual remedies.
+- **Context poisoning.** A community term, not vendor documentation: a wrong statement gets into the context, and later answers build on it. Starting a fresh session and keeping unverified claims out of memory files are sensible remedies (general practice).
 
 ::: {.callout-note}
 Naming differs between tools. The Claude Code docs define "harness" and "hooks" as above; do not assume another tool's hooks, plugins or effort settings work the same way. Check its docs.

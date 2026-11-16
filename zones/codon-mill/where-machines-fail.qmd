@@ -24,7 +24,7 @@ Models are generally useful where you can read the result, or run it, and judge 
 
 ## Bad job: exact counting and arithmetic
 
-Ask a model: "How many n are in banana?" The right answer is 2 (b-a-n-a-n-a). A model can get this wrong, and can be wrong with full confidence. A leading explanation is the one from the last quest: it reads tokens, not letters (see Tokens, Not Letters). Be honest about the state of the science, though. Some papers propose tokenisation as the cause (arXiv 2505.14172, arXiv 2410.19730), and another study (CharBench, arXiv 2508.02591) finds it only weakly related to correctness, with word length and the true count mattering more. **The cause is debated. The fix is not.**
+Ask a model: "How many n are in banana?" The right answer is 2 (b-a-n-a-n-a). A model can get this wrong, and can be wrong while sounding sure (see the overconfidence row below). A leading explanation is the one from the last quest: it reads tokens, not letters (see Tokens, Not Letters). Be honest about the state of the science, though. Some papers propose tokenisation as the cause (arXiv 2505.14172, arXiv 2410.19730), and another study (CharBench, arXiv 2508.02591) finds it only weakly related to correctness, with word length and the true count mattering more. **The cause is debated. The fix is not.**
 
 The fix is to run a script. Verified: ran this on macOS:
 
@@ -39,7 +39,7 @@ The bioinformatics versions of the same trap:
 | You want | Give it to |
 |---|---|
 | Number of sequences in a FASTA | `grep -c '>' file.fa` (Verified: ran on a three-record mock file, printed 3), or `seqkit stats` |
-| GC content, read length statistics | a script or `seqkit`, run by the agent, with the code visible |
+| GC content, read length statistics | a script, run by the agent, with the code visible |
 | A p-value or any test statistic | a stats library in a script you can read and re-run |
 | Sum or mean of a column | `awk`, or a script, never a number stated in prose |
 
@@ -72,7 +72,7 @@ Same rule. Not checked: how reliable small local models are at this. General pra
 
 ## The decision rule
 
-**Can I check the result cheaply and independently?** If yes, ask the model: a bad answer will show. If the answer must be exactly right and cannot be checked, use a script.
+**Can I check the result cheaply and independently?** If yes, ask the model: a bad answer is likely to show (omissions may not, so check those deliberately). If the answer must be exactly right and cannot be checked, use a script.
 
 <div data-ao-honour="count-letter" data-xp="20">Ask a model to count one letter in a long word (or a mock 40-letter DNA string), then check it with <code>grep -o</code> and <code>wc -l</code>. Note whether it was right, and how sure it sounded. One try proves nothing; it is a demonstration.</div>
 <div data-ao-honour="spot-check-summary" data-xp="20">Have a model summarise a methods paragraph you wrote. Check every number, name and negation against your original, and note anything omitted.</div>

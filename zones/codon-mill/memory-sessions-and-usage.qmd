@@ -25,9 +25,9 @@ People say "it remembers", "the session got long" and "I hit my usage" as if the
 
 Memory is context, not enforced configuration. It also takes room in the window every session. Run `/clear` and the conversation goes but memory stays. Compaction shrinks a session; it does not create memory.
 
-**Session usage.** How much of your allowance a session consumes. In Claude Code, `/usage` shows an estimated session cost (worked out locally from token counts at list price), plan usage limits and activity stats. `/cost` and `/stats` are aliases. Session totals reset on `/clear`. Two billing worlds exist: with a subscription, the dollar figure is not what you are billed and the plan bars are what matter (limits run over a rolling five-hour window and a weekly window); with the API, usage is billed per token, and thinking tokens count as output tokens. This page gives no allowance sizes, because the docs do not state them for the individual plans; see the vendor's pricing page.
+**Session usage.** How much of your allowance a session consumes. In Claude Code, `/usage` shows an estimated session cost (worked out locally from token counts at list price), plan usage limits and activity stats. `/cost` and `/stats` are aliases. The displayed session total resets on `/clear`; whether allowance already spent on a plan comes back is not documented (our inference: it does not). Two billing worlds exist: with a subscription, the dollar figure is not what you are billed and the plan bars are what matter (plans have rolling and weekly limit windows; see your plan docs, as the docs we read confirm the exact windows only for Teams and Enterprise per-seat allowances); with the API, usage is billed per token, and thinking tokens count as output tokens. This page gives no allowance sizes, because the docs do not state them for the individual plans; see the vendor's pricing page.
 
-**Context poisoning.** A wrong or injected statement enters the context and later answers build on it. This is a **community term**, not vendor documentation. It was coined in the post "How Long Contexts Fail" (2025-06-22) credited to Drew Breunig (the byline comes from a reprint listing; the page text we read did not name him). His example is a game-playing agent whose recorded goals became corrupted with false state. Anthropic's docs do not use this term; they do describe the same trap in plain words, below.
+**Context poisoning.** A wrong or injected statement enters the context and later answers build on it. This is a **community term**, not vendor documentation. It was coined in the post "How Long Contexts Fail" (2025-06-22) credited to Drew Breunig (the byline comes from a reprint listing; the page text we read did not name him). His example is a game-playing agent whose recorded goals became corrupted with false state. We found no use of this term in Anthropic's docs; they do describe the same trap in plain words, below.
 
 ## Side by side
 
@@ -36,7 +36,7 @@ Memory is context, not enforced configuration. It also takes room in the window 
 | Session context | The window, this session only | No | `/clear`, `/compact`, what you let in |
 | `CLAUDE.md` | A file you write | Yes | Editing the file |
 | Auto memory | Markdown files the tool writes | Yes | `/memory` (read, edit, delete, toggle) |
-| Session usage | Counted from tokens sent | No (session totals reset) | Smaller outputs, fewer subagents, `/clear` between tasks |
+| Session cost display | Counted locally from tokens sent | Displayed total resets; plan limit use already spent does not come back (our inference) | Smaller outputs, fewer subagents, `/clear` between tasks |
 | Poisoned claim | In the context, or in memory | Gone from the context, stays in memory | Fresh session; delete the memory line |
 
 ## Why usage climbs
@@ -59,7 +59,7 @@ Commands the docs confirm: `/memory` (lists memory files, toggles auto memory, o
 
 ## OpenCode + Ollama
 
-Not checked: OpenCode's memory files, session commands and usage reporting. The research for this page covers Claude Code only. General practice: with a local Ollama model nothing is billed per token by a vendor, but the window is still finite, so the ideas about session context and poisoned claims carry over; find your tool's own commands in its documentation.
+Not checked: OpenCode's memory files, session commands and usage reporting. The research for this page covers Claude Code only. General practice: with a local Ollama model, Not checked: whether anything is billed per token by a vendor, but the window is still finite, so the ideas about session context and poisoned claims carry over; find your tool's own commands in its documentation.
 
 :::
 
