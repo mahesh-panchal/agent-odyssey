@@ -5,22 +5,24 @@ title: "Plan Before You Edit"
 ::: {.quest-dialog}
 **Prerequisites:** Write the Brief. **Objective:** ask an agent for a plan before it edits, review that plan like a reviewer, and know what a plan does and does not guarantee.
 **Time:** about 20 minutes. **Nothing here runs a model;** the exercise uses mock files on your laptop.
-<span class="ao-badge">Last verified (docs, not run): research/plan-mode.md sources on 2026-11-16. Claude Code details come from the official docs; the OpenCode part is deliberately short. Items marked General practice or Not checked are not from the docs.</span>
+<span class="ao-badge">Last verified (docs, not run): research/plan-mode.md sources on 2026-11-16. Claude Code details come from the official docs; the OpenCode part is deliberately short. Items marked General practice or Not checked are not from the docs. The last part of the permission-modes page was not read.</span>
 :::
 
 ## Why plan first
 
-A wrong plan costs you a paragraph to read and reject. A wrong 400-line **diff** (the list of lines a change added and removed) costs you the time to review it, and the longer it is, the more likely you approve something you did not understand. Later in the Maze, the Wall of Output makes the same point: only accept as much output as you can honestly review, and ask for smaller pieces. A plan is the cheapest piece to ask for first.
+A wrong plan costs you a paragraph to read and reject. A wrong 400-line **diff** (the list of lines a change added and removed) costs you the time to review it, and, General practice, the longer it is, the more likely you approve something you did not understand. Later in the Maze, the Wall of Output makes the same point: only accept as much output as you can honestly review, and ask for smaller pieces. A plan is the cheapest piece to ask for first.
 
 The Claude Code docs say to use plan mode "for changes you want to review before they touch disk". That is the only official when-to-plan line we found; the rest of this page says which parts are docs and which are habits.
 
 ## How: plan mode
 
+Words used below. A **session** is one conversation with the agent. **Shell commands** are commands you would type in a terminal, such as `ls` or `git status`. **Context** is everything the model can see in the session. A **subagent** is a helper with its own context window; only its summary comes back. A **deny rule** is a rule that blocks an action, and it applies in every mode. **Auto mode** is a mode where a background check decides what runs without a prompt. **Bypass permissions** is a startup option (`--dangerously-skip-permissions`) that turns most prompts off. `-p` runs one command with no chat (non-interactive mode). The **Agent SDK** is a library for building your own agent programs.
+
 ::: {.panel-tabset group="companion"}
 
 ## Claude Code
 
-**Plan mode** is a **permission mode**: a setting for what the agent may do without asking you. (The Kennel quest *Recruit the Beast* introduced the modes and the first run; this page does not repeat it.) In plan mode the agent reads files, may run shell commands to explore, and writes a plan, but does not edit your source files until you **approve** the plan (tell it to go ahead).
+**Plan mode** is a **permission mode**: a setting for what the agent may do without asking you. (The Kennel quest *Recruit the Beast* introduced the modes and the first run; this page does not repeat it.) In plan mode the agent reads files, may run shell commands to explore, and writes a plan, and is meant not to edit your source files until you **approve** the plan (tell it to go ahead; not always enforced, see the limits below).
 
 Three ways in:
 
@@ -30,11 +32,11 @@ Three ways in:
 
 When the plan is ready, the agent presents it and asks how to proceed. The options, with their exact labels:
 
-- `Yes, and use auto mode`. **Auto mode** is a mode where a **classifier** (a second model that screens each action) decides what runs without a prompt. If auto mode is unavailable, this reads `Yes, auto-accept edits`. If your session started with bypass, it reads `Yes, and switch to BYPASS PERMISSIONS (no further prompts) for this session`. **Bypass** means the agent runs everything without asking.
+- `Yes, and use auto mode`. Auto mode decides what runs without a prompt. If auto mode is unavailable, this reads `Yes, auto-accept edits`. If your session started with bypass, it reads `Yes, and switch to BYPASS PERMISSIONS (no further prompts) for this session`. Bypass skips most prompts.
 - `Yes, manually approve edits`. Each edit still asks you.
 - `No, keep planning`. You say what to change.
 
-A setting, `showClearContextOnPlanAccept`, adds a first option that approves and also clears the planning **context** (everything the model can see in the session). The docs page does not give its label, and we did not confirm whether it is on or off by default.
+A setting, `showClearContextOnPlanAccept`, adds a first option that approves and also clears the planning context . The docs page does not give its label, and we did not confirm whether it is on or off by default.
 
 ::: {.callout-warning}
 **The trap.** At the approval prompt, `Shift+Tab` **approves** the plan. If you want to think, change something or back out, press `Esc` first. To leave plan mode when no prompt is open, press `Shift+Tab`.
@@ -42,11 +44,11 @@ A setting, `showClearContextOnPlanAccept`, adds a first option that approves and
 
 **Where the plan lives.** Plans are written to `~/.claude/plans/` by default (the `plansDirectory` setting changes the folder). `Ctrl+G` opens the proposed plan in your default text editor so you can edit it before the agent proceeds. Approving exits plan mode and switches to the mode you chose; to plan again, use `Shift+Tab` or `/plan`.
 
-**Side helper.** In plan mode the agent can hand research to the built-in `Plan` **subagent** (a helper with its own context window; only its summary comes back). It is read-only, so the main conversation stays read-only too.
+**Side helper.** In plan mode the agent can hand research to the built-in `Plan` subagent. It is read-only, so the main conversation stays read-only too.
 
 ## OpenCode + Ollama
 
-OpenCode has a built-in `plan` agent. Per the docs it explores and plans without editing normal project files, and it can edit only under its plan directory, `~/.opencode/plan`. That edit restriction is a **deny rule** (a rule that blocks an action), and saved approvals do not override a deny. Its shell commands stay under the normal permission rules. The base policy for every agent is allow everything except asking before reading `.env` files, so shell commands are likely to run without a prompt: confirm in your version.
+OpenCode has a built-in `plan` agent. Per the docs it explores and plans without editing normal project files, and it can edit only under its plan directory, `~/.opencode/plan`. That edit restriction is a deny rule, and saved approvals do not override a deny. Its shell commands stay under the normal permission rules. The base policy for every agent is allow everything except asking before reading `.env` files, so shell commands are likely to run without a prompt: confirm in your version.
 
 You can turn the `plan` agent off with `{"agents": {"plan": {"disabled": true}}}`.
 
@@ -69,20 +71,20 @@ If an answer is bad, choose `No, keep planning` and say what to change, or edit 
 
 ## What a plan does not guarantee
 
-- **A plan is advice.** An approved plan is only as good as your review of it.
-- **The agent can deviate.** Approval does not freeze the plan. Afterwards, read the diff against the plan: every changed file should be one the plan named. The docs also describe `/code-review`, which reviews the diff in a fresh subagent that never saw your conversation.
-- **Plan mode may not be enforced.** In an interactive terminal session where bypass permissions is available, the docs say Claude is only *instructed* to plan without editing. Claude Code does not enforce it, and edits and shell commands run without a prompt. With `-p` (non-interactive mode), the Agent SDK and the VS Code chat panel, the blocks stay in place.
-- **Deny rules always apply.** They block in every mode, plan mode included.
+- **A plan is advice.** General practice: an approved plan is only as good as your review of it.
+- **The agent can deviate.** General practice: approval does not freeze the plan. Afterwards, read the diff against the plan: every changed file should be one the plan named. The docs also describe `/code-review`, which reviews the diff in a fresh subagent that never saw your conversation.
+- **Plan mode may not be enforced.** In an interactive terminal session where bypass permissions is available, the docs say Claude is only *instructed* to plan without editing. Claude Code does not enforce it, and edits and shell commands run without a prompt (explicit ask rules and a few critical deletions still prompt). With `-p` (non-interactive mode), the Agent SDK and the VS Code chat panel, the blocks stay in place.
+- **Deny rules always apply.** A deny rule is a rule that blocks an action. It blocks in every mode, plan mode included.
 - **"Read-only" has limits.** Not checked: how MCP tools behave in plan mode, and whether a read-only shell command can have side effects. Do not read "plan mode" as "nothing can happen".
-- **It lives outside your repository.** The plan file sits in `~/.claude/plans/`. Not checked: whether `/rewind` covers it. Keep your own project under Git.
+- **It lives outside your repository by default.** The plan file sits in `~/.claude/plans/`. Not checked: whether `/rewind` covers it. Keep your own project under Git.
 
 ## When to plan, and when not to
 
-From the docs: use plan mode for changes you want to review before they touch disk. Everything below is **General practice**:
+From the docs: use plan mode for changes you want to review before they touch disk, and a vague prompt is fine when exploring, at the cost of more correction. The first two bullets below are **General practice**:
 
 - A one-line fix with an obvious check: just ask for it.
 - Unfamiliar code, changes across several files, and anything that touches paths where your data lives: plan first.
-- Open-ended exploring: a vague prompt is fine, the docs say, at the cost of more correction.
+- Open-ended exploring: a vague prompt is fine (docs, above).
 
 ## Keep the approved plan
 
