@@ -16,7 +16,7 @@ The first branch of the skill tree is the **brief**: what you tell the agent. A 
 
 Two habits make the rest of this safer:
 
-- **Plan first.** In Claude Code, plan mode (`Shift+Tab`, or `/plan`) lets the agent explore the project and propose a plan without editing your source files until you approve. It is a guard on edits, not a promise that nothing runs. Read the plan the way you would read a methods section.
+- **Plan first:** see the next quest, *Plan Before You Edit*.
 - **Ask for evidence.** "Show the command and its output" turns a claim into something you can look at.
 
 ## Context is a budget

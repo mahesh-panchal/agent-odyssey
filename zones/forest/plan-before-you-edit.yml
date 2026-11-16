@@ -1,0 +1,42 @@
+pass: 0.8
+questions:
+  - type: faulty-line
+    prompt: "Which plan step lacks a check that is independent of the code being written?"
+    explain: "A re-read by the same model that wrote the code can share its mistake. An independent check compares against something the agent did not write."
+    lines:
+      - { text: "Step 1: Run the existing tests first and record which pass, as a baseline.", why: "A baseline from existing tests is independent of the new code." }
+      - { text: "Step 4: Verify by reading the new parser code again and confirming it looks correct.", faulty: true }
+      - { text: "Step 5: Compare the parsed row count on samplesheet.csv with wc -l minus the header line.", why: "wc counts rows without using the parser, so the two numbers can disagree." }
+  - type: choice
+    prompt: "The approval prompt is open. You are unsure about step 4 and reach for Shift+Tab to leave plan mode and think. What happens?"
+    explain: "At the approval prompt Shift+Tab approves the plan. Press Esc first. Shift+Tab leaves plan mode only when no prompt is open."
+    options:
+      - { text: "It approves the plan, so press Esc first", correct: true }
+      - { text: "It leaves plan mode and discards the plan", misconception: "That is what Shift+Tab does with no prompt open. At the approval prompt it approves." }
+      - { text: "It selects No, keep planning", misconception: "Nothing in the docs ties Shift+Tab to declining. Choosing that option is a separate selection." }
+  - type: choice
+    prompt: "You run an interactive terminal session where bypass permissions is available, and switch to plan mode. What does plan mode guarantee?"
+    explain: "In that setup the docs say Claude is only instructed to plan without editing. Claude Code does not enforce it, and edits run without a prompt."
+    options:
+      - { text: "Nothing enforced: the agent is only instructed not to edit", correct: true }
+      - { text: "Edits are blocked until you approve, as in non-interactive mode", misconception: "The blocks stay in non-interactive -p mode, the Agent SDK and the VS Code panel, but not in this setup." }
+      - { text: "Deny rules are suspended so the agent can explore freely", misconception: "Deny rules block in every mode, plan mode included." }
+  - type: sort
+    prompt: "Sort these plan details by whether a reviewer should push back."
+    bins: ["Push back", "Fine"]
+    explain: "Push back on vague checks, unrequested files and steps too big to review. Accept small steps with stated checks."
+    items:
+      - { text: "Step 5: Update the modules, the docs and all tests so everything works", bin: "Push back", misconception: "This is several changes in one step, too large to review on its own." }
+      - { text: "Step 6: Check the output looks right", bin: "Push back", misconception: "'Looks right' names no command and no expected value." }
+      - { text: "Step 3: Edit conf/base.config, for a task that only concerns the parser", bin: "Push back", misconception: "A file outside the task needs a stated reason." }
+      - { text: "Step 1: Read the parser and its tests before changing anything", bin: "Fine", misconception: "Reading first changes nothing and informs the later steps." }
+      - { text: "Step 2: Add one column name to the parser, then show the diff for review", bin: "Fine", misconception: "One small change in one file, with a pause for review." }
+      - { text: "Step 4: Compare parsed row counts with awk on the tiny samplesheet", bin: "Fine", misconception: "A specific command with an independent tool." }
+  - type: match
+    prompt: "Match each checklist question to the kind of problem it catches."
+    explain: "Each question targets a different failure: scope creep, wrong guesses about data, self-confirming checks, and silent gaps."
+    pairs:
+      - { left: "What files will it touch?", right: "Edits outside the task, such as a config file", misconception: "This question is about scope, not about the data or the checks." }
+      - { left: "What does it assume about the data?", right: "A guess such as unique IDs that real files may break", misconception: "Assumptions about the data are separate from which files get edited." }
+      - { left: "Is the check independent of the code?", right: "A test that shares the mistake of the code it tests", misconception: "The point is whether the check could disagree with the code." }
+      - { left: "What is not in the plan?", right: "Silent gaps, such as skipped edge cases or missing tests", misconception: "This asks about omissions, not about what the plan states wrongly." }

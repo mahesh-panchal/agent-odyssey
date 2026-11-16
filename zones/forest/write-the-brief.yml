@@ -10,12 +10,12 @@ questions:
       - { text: "Clean up my analysis.", bin: "Vague", misconception: "Nothing says what to keep, change or leave alone." }
       - { text: "The output has 41 rows but the input has 42. Find where one is dropped. Show the command that proves it.", bin: "Checkable", misconception: "A concrete symptom plus a request for evidence." }
   - type: choice
-    prompt: "What does plan mode give you in Claude Code?"
-    explain: "The agent researches and proposes a plan, and makes no source edits until you approve."
+    prompt: "A long session is crowding out the files you need next. Which Claude Code command summarises the conversation and lets you say what to keep?"
+    explain: "/compact summarises the conversation and takes instructions about what to keep. /clear drops it, and /context only shows what is filling the window."
     options:
-      - { text: "A plan to review before any source edits happen", correct: true }
-      - { text: "A verified plan that is guaranteed to be correct", misconception: "A plan can be wrong. Plan mode gives you a chance to catch that before changes." }
-      - { text: "Quicker answers, since the agent skips running commands", misconception: "Plan mode is about control, not speed. The agent still reads files and runs shell commands to explore." }
+      - { text: "/compact", correct: true }
+      - { text: "/clear", misconception: "/clear starts fresh with an empty conversation. It does not summarise anything, so it loses what you wanted to keep." }
+      - { text: "/context", misconception: "/context only shows what is filling the window. It does not shrink it." }
   - type: order
     prompt: "Put this working loop in order."
     items:
