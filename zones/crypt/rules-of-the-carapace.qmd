@@ -7,7 +7,7 @@ title: "Grow the Carapace"
 **Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode v2.3.0 on 2026-11-13 (sources in `research/kennel-and-crypt.md`).</span>
 :::
 
-Rules are enforced by the **tool**, not the model. A line in your instructions file (such as `CLAUDE.md`) asking the agent to avoid something is guidance, and it does not change what is allowed.
+Rules are enforced by the **harness** (the program around the model), not the model. A line in your instructions file (such as `CLAUDE.md`) asking the agent to avoid something is guidance, and it does not change what is allowed.
 
 Sort every action into three bins: **allow** (safe and routine), **ask** (you want to decide each time), **deny** (never).
 

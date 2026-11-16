@@ -26,7 +26,7 @@ The file is `AGENTS.md` in the project root (or `~/.config/opencode/AGENTS.md` f
 Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, "never edit `raw/`". Keep it short (the Claude Code docs aim for under 200 lines per file) because very long instructions are followed less well.
 
 ::: {.callout-warning}
-**Instructions are advice, not enforcement.** Claude Code's docs describe `CLAUDE.md` as context, not enforced configuration. A line saying "never delete files" does not stop a delete. Enforcement comes from permission rules, hooks, or managed settings: the carapace you built in the Crypt.
+**Instructions are advice, not enforcement.** Claude Code's docs describe `CLAUDE.md` as context, not enforced configuration. A line saying "never delete files" does not stop a delete. Enforcement comes from permission rules, hooks, or managed settings (organisation-set rules you cannot override): the carapace you built in the Crypt.
 :::
 
 Write the file yourself first and read what `/init` produces critically. A generated file can contain wrong guesses about your project.

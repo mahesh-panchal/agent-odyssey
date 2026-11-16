@@ -72,11 +72,11 @@ Last verified (docs): the pages read describe OpenCode skills and plugins but no
 
 ## Reading the result
 
-- Six grader types exist. Four are free and computed from the transcript or files (`regex`, `tool_used`, `tool_order`, `file_exists`). Two use a judge model and cost tokens (`llm`, `baseline`). There are no custom-code graders.
+- Six grader types exist. Four are free and computed from the transcript or files (`regex`, `tool_used`, `tool_order`, `file_exists`). Two use a judge model and cost tokens (`llm`, `baseline`; the `baseline` grader type is a different thing from the baseline run). There are no custom-code graders.
 - In a two-arm run, `tool_used: Skill` is shown as an indicator and does not count towards the score unless you set `arm: both`.
 - **Δ near zero with the Skill not firing** is usually a real finding: the description does not trigger on that phrasing. Change the `description`, not the grader.
 - Pair one **result** grader with one **process** grader. Use `llm` graders only for short output, with a concrete PASS/FAIL rubric.
-- Each run happens in an isolated child session with only the plugin loaded: no personal settings, no instructions file, no other plugins. A pass there does not promise the same behaviour in your own setup.
+- Each run happens in an isolated child session (a separate session started just for that run) with only the plugin loaded: no personal settings, no instructions file, no other plugins. A pass there does not promise the same behaviour in your own setup.
 - `claude plugin validate` checks the files are well formed. It does not check behaviour.
 
 ::: {.callout-note}

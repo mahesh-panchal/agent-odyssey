@@ -55,7 +55,7 @@ claude --permission-mode plan
 | `default` | asks the first time each tool is used |
 | `acceptEdits` | auto-accepts file edits and common file commands (`mkdir`, `touch`, `mv`, `cp`) in the working directory |
 | `plan` | reads and runs read-only commands; does not edit source files |
-| `bypassPermissions` | skips prompts. The docs say to use it only in containers or VMs |
+| `bypassPermissions` | skips prompts. The docs say to use it only in containers or VMs (virtual machines, a computer simulated inside yours) |
 
 ## Battle: the Beast's leash
 

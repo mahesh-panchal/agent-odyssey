@@ -6,18 +6,18 @@ questions:
     explain: "The instructions file holds stable rules you write. Auto memory holds notes the tool wrote itself. A handoff note holds the state of one task (what failed, what is next). Git history holds the commits and their messages."
     items:
       - { text: "Never edit files under raw_data/", bin: "Instructions file", misconception: "A standing rule that applies to every session belongs in the file you write and load each time, not in a note about one task." }
-      - { text: "A line the tool saved itself after you corrected a column name twice", bin: "Auto memory", misconception: "You did not write it and the tool decided to keep it, which is what makes it auto memory, not an instructions file." }
+      - { text: "Prefers sample_id over id as the column name: a line you never typed, found listed by /memory after two corrections", bin: "Auto memory", misconception: "You did not write it and the harness decided to keep it, which is what makes it auto memory, not an instructions file." }
       - { text: "Tried a trim at Q15, it dropped 40% of reads, do not retry", bin: "Handoff note", misconception: "This is the state of one task and tells the next session what not to repeat. It is not a standing rule for all work." }
-      - { text: "Commit message: qc: vectorise the mean-quality calculation", bin: "Git history", misconception: "A commit message is stored with the commit, in the repository history, not in a notes file." }
+      - { text: "a1b2c3d qc: vectorise the mean-quality calculation", bin: "Git history", misconception: "A commit message is stored with the commit, in the repository history, not in a notes file." }
       - { text: "Next step: rerun the filter on batch 2 with the new threshold", bin: "Handoff note", misconception: "A next step is only true until it is done. A stable instructions file would soon be wrong if it held it." }
   - type: faulty-line
-    prompt: "Lines from a handoff note written at the end of a session. Which line overstates what was verified?"
-    explain: "A claim of verification must say what was run and on what. This line says every sample matched but admits one was run. The next session would trust it and skip the check."
+    prompt: "Lines from a handoff note written at the end of a session in which only sample_A was compared with the old output. Which line overstates what was verified?"
+    explain: "A claim of verification must say what was run and on what. This line claims every sample matched but names no command and no sample, and only sample_A was compared. The next session would trust it and skip the check."
     lines:
       - { text: "Goal: replace the per-read loop in qc_filter.py with a vectorised version", why: "A plain statement of intent, not a claim about results." }
-      - { text: "Verified: output matches the old script on every sample (only sample_A was run)", faulty: true }
+      - { text: "Verified: matches old output on all samples", faulty: true }
       - { text: "Not verified: behaviour on reads shorter than 30 bases", why: "It says openly what was not checked." }
-      - { text: "Decision: keep the old function as qc_filter_old until all samples are compared", why: "It records a decision and the condition for dropping it." }
+      - { text: "Decision: keep the old function mean_qual() until all samples are compared", why: "It records a decision and the condition for dropping it." }
   - type: choice
     prompt: "The agent drafted your handoff note and wrote: 'All tests pass.' You did not see it run them. What do you do before giving the note to a fresh session?"
     explain: "A drafted note can overstate what was checked. Run the tests yourself, or edit the line to say what was actually run. Then the next session starts from a true statement."
@@ -28,17 +28,17 @@ questions:
       - { text: "Ask the agent in the same session if it is sure", misconception: "A confident yes is not a check. It is the same writer repeating itself." }
   - type: choice
     prompt: "A fresh session starts with your handoff note in the repo. Which first prompt gives you a check on its understanding?"
-    explain: "Asking for a restatement before any change lets you compare it with the real state, an independent check, as in Ground Truth. Starting work at once hides any misunderstanding inside new edits."
+    explain: "Asking for a restatement before any change lets you compare it with the real state: a cheap comprehension check, though not an independent one, since the same model wrote the restatement. Starting work at once can hide a misunderstanding inside new edits."
     options:
       - { text: "Read HANDOFF.md and tell me what you understand before editing", correct: true }
-      - { text: "Read HANDOFF.md and then carry out the listed next steps in order", misconception: "A misreading of the note would then show up only as wrong edits, after the damage is done." }
+      - { text: "Read HANDOFF.md and then carry out the listed next steps in order", misconception: "If the note is misread, the error shows up only as wrong edits you must then find and undo; a restatement first catches it more cheaply." }
       - { text: "Continue where we stopped", misconception: "A fresh session has no history, so the agent has nothing to continue from and may invent it." }
       - { text: "Summarise what you remember of yesterday's session with me", misconception: "A fresh session does not have yesterday's session; it can only guess." }
   - type: match
-    prompt: "Match each item to what it is."
-    explain: "These four carry knowledge across the gap in different ways, with different authors and different trust."
+    prompt: "Match each risk to the habit that counters it."
+    explain: "Each habit answers one risk: check what a draft claims, verify what the tool wrote itself, treat a message as a summary, and compare a restatement with the real state before any edit."
     pairs:
-      - { left: "Instructions file (CLAUDE.md)", right: "Stable rules you write, loaded every session", misconception: "You write it. Notes the tool writes itself are auto memory." }
-      - { left: "Auto memory", right: "Notes the tool writes itself, readable with /memory", misconception: "It is not something you edit as a rule file; it can contain mistakes you never saw." }
-      - { left: "Handoff note", right: "A short file on one task's state and next steps", misconception: "It is general practice, not a feature of the tool, and it is not loaded unless you point to it." }
-      - { left: "Git history", right: "Commits and messages recording what changed", misconception: "It records changes to files, not what you or the agent were thinking." }
+      - { left: "The agent's draft note says 'all tests pass' but you never saw them run", right: "Run them yourself, or edit the line to say what was actually run", misconception: "Keeping the line because the agent wrote it passes an unchecked claim to the next session." }
+      - { left: "Auto memory holds a wrong column name that loads every session", right: "Read it with /memory and verify it before trusting it", misconception: "Memory is loaded as written; nothing checks it for you." }
+      - { left: "A commit message says 'fixed' but only one sample was tried", right: "Treat the message as a summary and check the diff and the checks run", misconception: "A message records what the author chose to say, not what was verified." }
+      - { left: "A fresh session may have misread the handoff note", right: "Ask for its restatement before any edits and compare it with the real state", misconception: "Letting it start work at once hides a misreading inside new edits." }

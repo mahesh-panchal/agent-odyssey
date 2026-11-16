@@ -2,42 +2,42 @@ pass: 0.8
 questions:
   - type: match
     prompt: "Match each new thought to where it should go."
-    explain: "Each destination fits one kind of thought: a one-off question needs no history, a read-only sweep needs only a summary, a competing attempt needs a copy, and an unrelated task needs a fresh start."
+    explain: "Each destination fits one kind of thought: a one-off question about the conversation needs no history (a /btw answer about a tool's flags would be from memory, so check --help), a read-only sweep needs only a summary, a competing attempt needs a copy, and an unrelated task needs a fresh start."
     pairs:
-      - { left: "What does this tool's thread flag do? I just need the answer.", right: "/btw: no tools, nothing added to the history", misconception: "Opening a full side task for a one-line fact adds history you will re-send on every later request." }
+      - { left: "Remind me which sample we excluded earlier in this conversation; I just need the answer.", right: "/btw: sees the conversation, no tools, nothing added to the history", misconception: "Opening a full side task for a one-line fact adds history you will re-send on every later request." }
       - { left: "Search the repo and tell me where sample IDs are split; I only need the list.", right: "An Explore subagent: it reads in its own context and returns a summary", misconception: "Reading everything in the main session fills your context with files you will not reference again." }
       - { left: "Try the competing aligner without losing this conversation.", right: "/branch, a copy of the conversation", misconception: "Trying it in the main thread mixes two approaches and leaves dead ends in the history." }
       - { left: "Unrelated: tidy the figures for a different project.", right: "Commit, then /clear or a new named session", misconception: "Mixing in unrelated work makes every later turn re-read it and costs more." }
   - type: sort
     prompt: "A side experiment went wrong. Which changes can /rewind restore, and which can it not?"
     bins: ["Restored by rewind", "Not restored by rewind"]
-    explain: "Checkpoints track edits made through the tool's own file editing in this session. Changes made only through Bash, by subagents, or outside the session are not tracked, so commit first."
+    explain: "Checkpoints track edits made through the tool's own file editing in this session. Changes made only through Bash or outside the session are not tracked (subagent edits are mostly not restored either), so commit first."
     items:
       - { text: "A parser file Claude edited directly in this session", bin: "Restored by rewind", misconception: "Direct file edits in the session are what checkpoints track." }
       - { text: "A results table rewritten by a sed -i command run through Bash", bin: "Not restored by rewind", misconception: "Bash-only changes are not tracked; a commit is the safety net." }
-      - { text: "A config edit made by a subagent", bin: "Not restored by rewind", misconception: "Subagent edits are mostly not restored." }
+      - { text: "A summary file created by a shell redirect (python summarise.py > summary.tsv) run through Bash", bin: "Not restored by rewind", misconception: "Files changed only through Bash are not tracked, including ones a command writes." }
       - { text: "A file you changed by hand in another editor", bin: "Not restored by rewind", misconception: "Edits outside the session are not tracked." }
   - type: choice
-    prompt: "Mid-fix you wonder whether a stricter QC threshold would help. It is not needed for the fix and can wait. What is the best move?"
-    explain: "A thought that can wait costs almost nothing as a line in a file, and the main context stays focused. Revisit it when its trigger arrives."
+    prompt: "Mid-fix you wonder whether a stricter QC threshold would help. You do not want the answer or the work this session. What is the best move?"
+    explain: "An idea you do not want this session costs almost nothing as a line in a file, and the main context stays focused. Revisit it when its trigger arrives."
     options:
-      - { text: "Add one line to your parking-lot file and carry on" , correct: true }
-      - { text: "Ask about it now in the same session, then return to the fix", misconception: "Every side answer stays in the history and is re-read on all later requests." }
-      - { text: "Start a /branch straight away to test it while the fix is half done", misconception: "A branch is for a real attempt you chose to run now, and nothing here makes it urgent." }
-      - { text: "Keep it in your head; you will remember it", misconception: "An unwritten idea is easy to lose, and also tends to pull you off the task." }
+      - { text: "Add one line to your parking-lot file and carry on", correct: true }
+      - { text: "Type it into the main session as a note to self, then return to the fix", misconception: "Every line typed into the session stays in the history and is re-read on all later requests." }
+      - { text: "Start a /branch straight away to test it while the fix is half done", misconception: "A branch is for a real attempt you chose to run now, and you said you do not want the work this session." }
+      - { text: "Ask it with /btw so that nothing is kept in the history", misconception: "/btw gives an answer now, which you said you do not want this session, and the idea itself is then not written down anywhere." }
   - type: choice
-    prompt: "You want a one-line reminder of a flag's meaning, with no file reading and nothing kept in the conversation history. Which is the documented fit?"
-    explain: "/btw sees the conversation so far, has no tool access, and does not add to the history. /subtask returns its result into the conversation, and /rename only labels a session."
+    prompt: "You want a one-line reminder of which sample was excluded earlier in this conversation, with nothing kept in the conversation history. Which is the documented fit?"
+    explain: "/btw sees the conversation so far, has no tool access, and does not add to the history. /subtask returns its result into the conversation, and a subagent starts with a clean context that does not hold what was said earlier. (For a flag or default, check --help or the docs; /btw cannot.)"
     options:
       - { text: "/btw with your question", correct: true }
       - { text: "/subtask with your question", misconception: "It starts a background helper with the whole conversation and returns its result into your session." }
-      - { text: "/rename the session, then ask", misconception: "Renaming only labels the session; the question would still enter the history." }
-      - { text: "/clear, then ask", misconception: "That throws away the whole conversation, not just this question." }
+      - { text: "Ask the Explore subagent to look for it", misconception: "A subagent works in its own clean context and does not hold what was said earlier in your conversation." }
+      - { text: "Type the question into the main session as an ordinary message", misconception: "The question and its answer then stay in the history and are re-sent on every later request." }
   - type: faulty-line
     prompt: "Habits from a team's notes on working with side ideas. Which line is the problem?"
     explain: "Rewind does not track changes made only through Bash, so shell edits to a results table are not restored. Commit before exploring."
     lines:
       - { text: "Write one line per parked idea, with a reason and a trigger to revisit", why: "A sound, general-practice habit." }
-      - { text: "Explore on a branch with uncommitted work, since /rewind restores any file a shell command changed", faulty: true }
+      - { text: "Explore on a /branch conversation with uncommitted work, since /rewind restores any file a shell command changed", faulty: true }
       - { text: "Ask for a subagent when you only need the summary of a big search", why: "Subagents return a summary instead of filling your context." }
-      - { text: "Commit a checkpoint before starting a different task in a fresh session", why: "It keeps state recoverable." }
+      - { text: "Commit your work before starting a different task in a fresh session", why: "It keeps state recoverable." }

@@ -49,7 +49,7 @@ Rule of thumb: never trust a count the agent states in prose. Ask for the comman
 
 ## Claude Code
 
-It can run Bash and write scripts, so ask: "write and run a command for this, and show me both the command and its output."
+It can run Bash (the shell command tool) and write scripts, so ask: "write and run a command for this, and show me both the command and its output."
 
 ## OpenCode + Ollama
 

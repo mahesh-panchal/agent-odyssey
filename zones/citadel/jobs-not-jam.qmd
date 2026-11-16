@@ -20,7 +20,7 @@ Before approving an `sbatch`, read the script and the resource request: `--time`
 
 ## The permission rules
 
-Rules are enforced by the tool, with deny before ask before allow.
+Rules are enforced by the harness, with deny before ask before allow.
 
 ::: {.panel-tabset group="companion"}
 
@@ -62,7 +62,7 @@ Add similar rules for `srun`, `salloc` and `scancel`, and a `deny` for `scancel 
 
 ## Polling costs money, and attention
 
-Claude Code charges by token use. The whole conversation is sent with every request, and each tool use sends another request. A `/loop` that polls `squeue` keeps firing on its interval, even while the session is idle, and sends your full context each time. Verbose output such as long logs also inflates the context.
+Claude Code charges by token use. The whole conversation is sent with every request, and each tool use sends another request. A `/loop` (a command that re-runs a prompt on a timer) that polls `squeue` keeps firing on its interval, even while the session is idle, and sends your full context each time. Verbose output such as long logs also inflates the context.
 
 *General practice:* poll at intervals of minutes, not seconds, and read job output files or use `sacct` instead of watching the queue. Do not `/loop` a `squeue` poll.
 

@@ -36,7 +36,7 @@ fi
 exit 0  # exit 0 = no decision; the normal permission flow applies
 ```
 
-The hook gets the event as JSON on stdin (its standard input), including `tool_name` and, for Bash, `tool_input.command`. Exit code 2 on `PreToolUse` blocks the call, and Claude sees the stderr text as the reason. Exit 0 does not approve anything: the call still goes through the normal permission flow.
+The hook gets the event as JSON on stdin (its standard input), including `tool_name` and, for Bash, `tool_input.command`. Exit code 2 on `PreToolUse` blocks the call, and Claude sees the stderr text (the program's error output) as the reason. Exit 0 does not approve anything: the call still goes through the normal permission flow.
 
 Two behaviours matter for trust. First, if the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. A broken guard fails **open** (it lets the action through when it breaks), unless the hook is configured to block on failure (the guide names `onFailure: "block"`; check the current docs for where it goes). Second, exit 2 does not block everywhere: on `PostToolUse` the tool already ran and exit 2 only shows stderr to Claude, and on `Notification` the exit code is ignored.
 

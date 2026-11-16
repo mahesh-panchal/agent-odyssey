@@ -22,7 +22,7 @@ questions:
     items:
       - { text: "Confident output that is simply wrong", bin: "Real risk", misconception: "Plausible-but-false output is a well-known failure." }
       - { text: "Code that runs but does the wrong calculation", bin: "Real risk", misconception: "Running without error says nothing about correctness." }
-      - { text: "The agent has opinions and will refuse to follow your instructions out of spite", bin: "Myth", misconception: "The risk is drift and misunderstanding, not spite." }
+      - { text: "The agent has opinions and will refuse to follow your instructions out of spite", bin: "Myth", misconception: "The risk is drift (slowly wandering from your instructions) and misunderstanding, not spite." }
       - { text: "A large change that nobody can realistically review", bin: "Real risk", misconception: "Volume that outruns review capacity is a genuine problem." }
       - { text: "A wrong answer can only come from a badly written prompt", bin: "Myth", misconception: "Wrong output happens even with good prompts, so checking is always needed." }
   - type: choice

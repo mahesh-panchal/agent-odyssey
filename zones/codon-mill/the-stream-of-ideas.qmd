@@ -8,37 +8,37 @@ title: "The Stream of Ideas"
 Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::
 
-Real work does not arrive in a straight line. You start fixing a samplesheet parser and think: "should I switch the aligner? What if I tried a stricter QC threshold? I also want to explore that other idea." If you type every one of those into the same conversation, the **context** (everything the model can see when it writes its next reply, see The Context Window) fills with side tracks. The docs say accuracy and recall degrade as context grows, and the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step. This is how a session ends up with three unrelated tasks that it "re-reads on every turn of the fourth", in the docs' words.
+Real work does not arrive in a straight line. You start fixing a samplesheet parser and think: "should I switch the aligner? What if I tried a stricter QC threshold? I also want to explore that other idea." If you type every one of those into the same conversation, the **context** (everything the model can see when it writes its next reply, see The Context Window) fills with side tracks. Anthropic's writing on context says accuracy and recall degrade as context grows, and the docs say the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step (not checked: how much usage each route below saves; the research documents the mechanisms but gives no numbers). This is how a session ends up with three unrelated tasks that it "re-reads on every turn of the fourth", in the docs' words. A **turn** is one prompt from you plus the model's reply.
 
 The fix is not to stop having ideas. It is to **triage** each one.
 
 ## Terms used here
 
 - **Session:** one saved conversation with the tool, tied to a project folder.
-- **Subagent:** a helper the main agent starts. It works in its own separate context and sends back only a summary, so its reading does not pile up in your conversation.
-- **Branch (fork):** a copy of the conversation from this point, so you can try something in the copy while the original stays as it was.
+- **Subagent:** a helper the main agent starts. It works in its own separate, clean context (it does not know what you discussed unless told) and sends back only a summary, so its reading does not pile up in your conversation.
+- **Conversation branch (`/branch`, not a git branch):** a copy of the conversation from this point, so you can try something in the copy while the original stays as it was. `/fork` is a different command: it copies the conversation into a separate background session.
 - **Git worktree:** a second checkout of the same repository in another folder, so two sessions can edit files without overwriting each other.
 - **Checkpoint:** a snapshot Claude Code takes at each prompt you send, so you can roll back with `/rewind`.
 
 ## The triage
 
-For each new thought, ask in this order:
+For each new thought, ask in this order. The key question is step 2: **do you want the answer or the work during this session?** If not, park it. If you do, steps 3 to 6 are the ways to get it.
 
 1. **Does it block the current task?** Do it now, in this session.
-2. **Can it wait?** Park it: write one line in a file and carry on (general practice, see below).
-3. **Is it a quick question you do not need on record?** Use `/btw <question>`. It sees the conversation so far, has no tool access (it cannot read files or run commands) and adds nothing to the history.
-4. **Is it exploration where you only need a summary?** Ask for a subagent (the built-in Explore helper is a fast read-only searcher), or use `/subtask <task>`, which starts a background helper that inherits the conversation and returns its result here.
-5. **Is it a competing approach you want to try for real?** Use `/branch [name]` to copy the conversation (the original stays reachable via `/resume`), or start a second session in its own worktree with `claude --worktree <name>`.
-6. **Is it a different task entirely?** Finish the current one, commit a checkpoint of your work, then `/clear` or start a new named session (`claude -n <name>`, or `/rename <name>` inside one).
+2. **Do you not want the answer or the work this session?** Park it: write one line in a file and carry on (general practice, see below). Parked ideas leave through the "later session" exit: once the current task is done, pick from the file.
+3. **You want it now: is it a quick question you do not need on record?** Use `/btw <question>`. It sees the conversation so far, has no tool access (it cannot read files, run commands or look at `--help`) and adds nothing to the history. So it suits questions about this conversation. An answer about a tool's flags or defaults comes from the model's memory: verify it against `--help` or the docs.
+4. **You want it now: is it exploration where you only need a summary?** Ask for a subagent (it starts with its own clean context; the built-in Explore helper is a fast read-only searcher), or use `/subtask <task>`, which starts a background helper that inherits the whole conversation and returns its result here.
+5. **You want it now: is it a competing approach you want to try for real?** Use `/branch [name]` to copy the conversation (the original stays reachable via `/resume`), or start a second session in its own worktree with `claude --worktree <name>`.
+6. **You want it now: is it a different task entirely?** Finish the current one, commit your work, then `/clear` or start a new named session (`claude -n <name>`, or `/rename <name>` inside one).
 
 | New thought | Where it goes | Why |
 |---|---|---|
 | "The parser crashes on this sample ID" (it is the task) | Do now | It blocks you |
-| "Maybe we should switch aligner" | Parking-lot line | Cannot change the current fix; no cost to the context |
-| "What does this flag do again?" | `/btw` | One answer, no tools, not kept in the history |
+| "Maybe a stricter QC threshold would help" | Parking-lot line | You do not want the answer this session; no cost to the context |
+| "Which sample did we exclude earlier?" | `/btw` | One answer from the conversation, no tools, not kept in the history |
 | "Where is the aligner configured across the repo?" | Explore subagent or `/subtask` | Heavy reading stays out of your main context; you get a summary |
 | "Try the other aligner and compare" | `/branch` or `claude --worktree <name>` | A real attempt that can fail without spoiling the main path |
-| "Redo the plots for the other project" | Commit, then `/clear` or a new named session | Different task, different files, different context |
+| "Redo the plots for the other project" (you want to start it now) | Commit, then `/clear` or a new named session | Different task, different files, different context |
 
 ## What is and is not shared
 
@@ -48,7 +48,7 @@ A worktree session isolates file edits only. Per the docs, `claude --worktree <n
 
 ## Checkpoints and `/rewind`
 
-Every prompt you send is a checkpoint. `/rewind` (aliases `/checkpoint`, `/undo`; or press `Esc` twice on an empty prompt) lets you restore code and conversation, only the conversation, or only the code. The limits matter to bioinformatics: files changed **only through Bash** are not tracked, subagent edits are mostly not restored, and edits outside the session are not tracked. The docs say checkpoints are "not a replacement for version control". A `sed -i` or a script that rewrites a results table is a Bash change (our inference from the limits), so exploring is safe only if you committed first.
+Every prompt you send is a checkpoint. `/rewind` (aliases `/checkpoint`, `/undo`; or press `Esc` twice on an empty prompt) lets you restore code and conversation, only the conversation, or only the code. The limits matter to bioinformatics: files changed **only through Bash** (the shell command tool) are not tracked, subagent edits are mostly not restored, and edits outside the session are not tracked. The docs say checkpoints are "not a replacement for version control". A `sed -i` or a script that rewrites a results table is a Bash change (our inference from the limits), so exploring is safe only if you committed first.
 
 ## A parking-lot file
 
@@ -56,7 +56,7 @@ Every prompt you send is a checkpoint. `/rewind` (aliases `/checkpoint`, `/undo`
 
 ```markdown
 # IDEAS.md  (one line each: date | idea | why it matters | revisit when)
-2026-11-16 | Switch aligner to X | Might cut runtime on long reads | after parser fix is merged
+2026-11-16 | Add a --dry-run flag to the parser | Check a samplesheet without writing output | after parser fix is merged
 2026-11-16 | Stricter QC threshold (Q30 not Q20) | Fewer false variants in low-depth samples | when the test cohort is ready
 2026-11-16 | Per-sample coverage plot | Spot dropouts faster | before the next batch
 ```
@@ -66,11 +66,11 @@ Every prompt you send is a checkpoint. `/rewind` (aliases `/checkpoint`, `/undo`
 You are fixing a samplesheet parser that rejects sample IDs containing a dot.
 
 - "Does the pipeline require the dot at all?" That blocks the fix: **do it now**.
-- "Should we switch the aligner?" It cannot change today's fix: **park** it as a line in IDEAS.md.
-- "What did `--min-qual` default to again?" A quick fact: **`/btw`**.
+- "Would a stricter QC threshold help?" You do not want the answer today: **park** it as a line in IDEAS.md.
+- "Which sample did we exclude earlier?" A quick question about this conversation: **`/btw`**. (Had it been "what does `--min-qual` default to?", `/btw` could only guess from memory, so you would check `--help` instead.)
 - "Where else do we split sample IDs on dots?" Wide reading, only the list matters: **Explore subagent**.
-- "Would a stricter QC threshold change the results?" A real experiment: commit the fix, then **`/branch`** or a **worktree** session.
-- "I should also tidy the figures for the other project." **Later session**: commit, `/clear`, or `claude -n figures`.
+- "Let's try the other aligner and compare." A real experiment you want now: commit the fix, then **`/branch`** or a **worktree** session.
+- "I should also tidy the figures for the other project." A different task you will start once the parser is done: **later session**: commit, `/clear`, or `claude -n figures`.
 
 The main session ended with the parser fixed and a short, readable history.
 
@@ -78,7 +78,7 @@ The main session ended with the parser fixed and a short, readable history.
 
 ## Claude Code
 
-Commands the docs confirm: `/btw`, `/subtask`, `/branch`, `/fork`, `/rewind`, `/clear`, `/rename`, `/resume`, `claude -n <name>`, `claude --worktree <name>` (or `-w`). Plan mode (`/plan`, or `Shift+Tab` until the bar shows it) makes Claude read and propose without editing until you approve, which suits a side idea you only want to think through.
+Commands the docs confirm: `/btw`, `/subtask`, `/branch`, `/fork`, `/rewind`, `/clear`, `/rename`, `/resume`, `claude -n <name>`, `claude --worktree <name>` (or `-w`). Plan mode (`/plan`, or `Shift+Tab` until the bar shows it) makes Claude read and propose without editing until you approve. General practice (our inference): it suits a side idea you only want to think through.
 
 ## OpenCode + Ollama
 
@@ -88,8 +88,6 @@ Not checked: OpenCode's side-question, branch and worktree features; the researc
 
 <div data-ao-honour="parking-lot" data-xp="20">Start a parking-lot file (or open an issue list) for your current project and add the three ideas on your mind, one line each with a reason and a trigger to revisit.</div>
 <div data-ao-honour="triage-last" data-xp="20">Look back at your last long session. Pick one side thought you followed and say where the triage would have sent it.</div>
-
-Not checked: how much usage each route saves, since the research documents the mechanisms but gives no numbers.
 
 ## Battle: the side channels
 

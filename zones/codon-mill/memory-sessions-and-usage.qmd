@@ -21,11 +21,11 @@ People say "it remembers", "the session got long" and "I hit my usage" as if the
 **Memory.** Text on disk that is read into a new window at the start of every session. In Claude Code there are two kinds, both loaded at session start:
 
 - `CLAUDE.md`: instructions **you** write (scope = who or where a setting applies: project, user or organisation).
-- **Auto memory**: notes the **tool** writes itself from your corrections and preferences. It is per git repository and machine-local, kept in `~/.claude/projects/<project>/memory/` as plain markdown with a `MEMORY.md` index. Only the first 200 lines or 25KB of `MEMORY.md` load at start; topic files are read on demand.
+- **Auto memory**: notes the **harness** writes itself from your corrections and preferences. It is per git repository and machine-local, kept in `~/.claude/projects/<project>/memory/` as plain markdown with a `MEMORY.md` index. Only the first 200 lines or 25KB of `MEMORY.md` load at start; topic files are read on demand.
 
 Memory is context, not enforced configuration. It also takes room in the window every session. Run `/clear` and the conversation goes but memory stays. Compaction shrinks a session; it does not create memory.
 
-**Session usage.** How much of your allowance a session consumes. In Claude Code, `/usage` shows an estimated session cost (worked out locally from token counts at list price), plan usage limits and activity stats. `/cost` and `/stats` are aliases. The displayed session total resets on `/clear`; whether allowance already spent on a plan comes back is not documented (our inference: it does not). Two billing worlds exist: with a subscription, the dollar figure is not what you are billed and the plan bars are what matter (plans have rolling and weekly limit windows; see your plan docs, as the docs we read confirm the exact windows only for Teams and Enterprise per-seat allowances); with the API, usage is billed per token, and thinking tokens count as output tokens. This page gives no allowance sizes, because the docs do not state them for the individual plans; see the vendor's pricing page.
+**Session usage.** How much of your allowance a session consumes. In Claude Code, `/usage` shows an estimated session cost (worked out locally from token counts at list price, the published per-token price), plan usage limits and activity stats. `/cost` and `/stats` are aliases. The displayed session total resets on `/clear`; whether allowance already spent on a plan comes back is not documented (our inference: it does not). Two billing worlds exist: with a subscription, the dollar figure is not what you are billed and the plan bars are what matter (plans have rolling and weekly limit windows; see your plan docs, as the docs we read confirm the exact windows only for Teams and Enterprise per-seat allowances); with the API, usage is billed per token, and thinking tokens (the tokens the model spends reasoning before it answers) count as output tokens. This page gives no allowance sizes, because the docs do not state them for the individual plans; see the vendor's pricing page.
 
 **Context poisoning.** A wrong or injected statement enters the context and later answers build on it. This is a **community term**, not vendor documentation. It was coined in the post "How Long Contexts Fail" (2025-06-22) credited to Drew Breunig (the byline comes from a reprint listing; the page text we read did not name him). His example is a game-playing agent whose recorded goals became corrupted with false state. We found no use of this term in Anthropic's docs; they do describe the same trap in plain words, below.
 
@@ -41,7 +41,7 @@ Memory is context, not enforced configuration. It also takes room in the window 
 
 ## Why usage climbs
 
-The docs give these reasons. Claude Code sends the **whole conversation on every request**, and each tool-using step is another request. Caching makes re-reading cheaper but a short question late in a long session still draws on all of it. Large tool outputs (the docs' example is reading a 10,000-line log) stay in the conversation. Subagents and agent teams each have their own context, and their requests still count. `/compact` itself reads the whole conversation. Remedies from the docs: `/clear` between unrelated tasks, `/compact` with a focus note, `/context` to see what fills the window, and keeping `CLAUDE.md` under 200 lines.
+The docs give these reasons. Claude Code sends the **whole conversation on every request**, and each tool-using step is another request. Caching (a short-term store so repeated text is cheaper to re-read) makes re-reading cheaper but a short question late in a long session still draws on all of it. Large tool outputs (the docs' example is reading a 10,000-line log) stay in the conversation. Subagents each have their own context, and their requests still count. `/compact` itself reads the whole conversation. Remedies from the docs: `/clear` between unrelated tasks, `/compact` with a focus note, `/context` to see what fills the window, and keeping `CLAUDE.md` under 200 lines.
 
 Seeing "rate limited until ..." in `/usage` only means the tool could not fetch plan limits, not that your work is limited.
 
@@ -55,7 +55,7 @@ Memory is the sharper danger because it persists. **General practice (our infere
 
 ## Claude Code
 
-Commands the docs confirm: `/memory` (lists memory files, toggles auto memory, opens the folder), `/clear` (new empty conversation; the old one stays resumable), `/compact`, `/resume` and `claude --resume` (pick an earlier session), `claude --continue` (most recent in this directory), `/usage`, `/context`. Resume restores messages, model and permission mode, but not flags such as `--mcp-config`. Transcripts are deleted after 30 days by default.
+Commands the docs confirm: `/memory` (lists memory files, toggles auto memory, opens the folder), `/clear` (new empty conversation; the old one stays resumable), `/compact`, `/resume` and `claude --resume` (pick an earlier session), `claude --continue` (most recent in this directory), `/usage`, `/context`. Resume restores messages, model and permission mode (what the agent may do without asking), but not flags such as `--mcp-config`. Transcripts are deleted after 30 days by default.
 
 ## OpenCode + Ollama
 

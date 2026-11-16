@@ -20,15 +20,15 @@ When an agent follows a rule, it is fair to ask where that rule came from. There
 
 In Claude Code, the docs describe the system prompt as the instructions sent ahead of your conversation on every request: how to use tools, behave safely and format answers. You can add to it with `--append-system-prompt` or replace it with `--system-prompt`.
 
-The instructions file is different from what many people assume. The docs say `CLAUDE.md` is loaded at the start of every session **as a user message after the system prompt**. It is not part of the system prompt. Output-style instructions are delivered the same way. Both arrive in the conversation as **system reminders**.
+The instructions file is different from what many people assume. The docs say `CLAUDE.md` is loaded at the start of every session **as a user message after the system prompt** (text the model receives in the user's role, not the harness's). It is not part of the system prompt. Output-style instructions (a setting that changes how the model words its replies) are delivered the same way. Both arrive in the conversation as **system reminders** (notes the harness slips into the conversation).
 
 ## Rules you did not write
 
-System reminders also carry the skills list, hook `additionalContext`, notes about changed files and commit or pull-request attribution lines. If the agent follows a rule you never wrote, for example adding a co-author line to commits, look at what the harness adds on its own before blaming the model.
+System reminders also carry the skills list, hook `additionalContext` (text a hook hands back for the harness to add to the conversation), notes about changed files and commit or pull-request attribution lines. If the agent follows a rule you never wrote, for example adding a co-author line to commits, look at what the harness adds on its own before blaming the model.
 
 ## Advice, not enforcement
 
-The docs say the instructions file is context, not enforced configuration. Specific and short instructions are followed more consistently, and longer files use more context and reduce adherence. If an action must be blocked regardless of what the model decides, the docs point to a **PreToolUse hook**, which is code, not prose.
+The docs say the instructions file is context, not enforced configuration. Specific and short instructions are followed more consistently, and longer files use more context and reduce adherence. If an action must be blocked regardless of what the model decides, the docs point to a **PreToolUse hook** (a hook that runs at the point just before a tool runs), which is code, not prose.
 
 We do not know from the docs how the model weighs system prompt against user message internally, so this page does not claim that one always beats the other. Rely on enforcement for what must never happen.
 

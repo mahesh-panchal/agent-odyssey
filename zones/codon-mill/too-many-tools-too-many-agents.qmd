@@ -20,7 +20,7 @@ The same docs describe **tool search**: keep most definitions out of the window 
 
 ## Claude Code
 
-Per the docs, MCP tool search is on by default: only tool names and server instructions load at session start, and a full definition is fetched when needed. So extra MCP servers have a small effect on the window. It can be turned off with `ENABLE_TOOL_SEARCH=false`, and on some older models it falls back to loading everything. Skills work the same way in spirit: only descriptions load at start. `/context` shows what takes space. Whether the 30 to 50 tool accuracy claim still applies behind deferral is not stated in the docs we read.
+Per the docs, MCP tool search is on by default: only tool names and server instructions load at session start, and a full definition is loaded only when needed (deferred). So extra MCP servers have a small effect on the window. It can be turned off with `ENABLE_TOOL_SEARCH=false`, and on some older models it falls back to loading everything. Skills work the same way in spirit: only descriptions load at start. `/context` shows what takes space. Whether the 30 to 50 tool accuracy claim still applies behind deferral is not stated in the docs we read.
 
 ## OpenCode + Ollama
 

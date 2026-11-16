@@ -3,7 +3,7 @@ title: "Handoff Notes"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** The Stream of Ideas. **Objective:** say what a fresh session knows (nothing), list the five things that carry knowledge across the gap, and write a short handoff note a fresh session can act on, with what was checked kept separate from what was not.
+**Prerequisites:** The Stream of Ideas. **Objective:** say what a fresh session knows (nothing about your task except what loads automatically or is written down), list the five things that carry knowledge across the gap, and write a short handoff note a fresh session can act on, with what was checked kept separate from what was not.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16. Claude Code specific unless stated. Handoff-note contents are general practice; there is no official template.</span>
 Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::
@@ -13,21 +13,22 @@ You stop work on Friday with a half-finished refactor. On Monday you open a new 
 ## Five things that cross the gap
 
 1. **The instructions file** (`CLAUDE.md` in Claude Code). A file **you** write that is loaded at the start of every session. Good for stable facts and conventions: how to run the tests, which folders are off limits.
-2. **Auto memory.** Notes the **tool** writes itself, from your corrections and preferences. In Claude Code, `/memory` lists and opens them. See [Memory, Sessions and Usage](memory-sessions-and-usage.qmd) for both kinds of memory.
+2. **Auto memory.** Notes the **harness** writes itself, from your corrections and preferences. In Claude Code, `/memory` lists and opens them. See [Memory, Sessions and Usage](memory-sessions-and-usage.qmd) for both kinds of memory.
 3. **Files in the repository** (the project folder under version control): code, tests, a README, and, if you keep one, a progress or handoff file.
-4. **Git history.** A **commit** is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when. It is the hardest of these to quietly get wrong, because it records changes that really happened (general practice).
+4. **Git history.** A **commit** is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when. It is durable unless rewritten (rebase, amend, force-push), and unpushed commits are local only (general practice).
 5. **Your handoff note.** A short file about the state of one task, written for the next session. This is general practice. We found no official Claude Code page that prescribes a handoff file or its location, so the structure below is ours.
 
 | What | Goes where | Lifetime | Who writes it | Trust |
 |---|---|---|---|---|
 | Stable rules and conventions | Instructions file | Every session until you edit it | You | High, if you keep it checked and short |
 | Preferences the tool picked up | Auto memory | Every session until deleted | The tool | Medium: it can be wrong; read it with `/memory` and verify before trusting |
+| What the code and docs say now | Files in the repository | Until edited or deleted | You or the agent | Medium: files can be stale; check against the code |
 | State of one task | Handoff note | Until the task is done | You, or the agent drafts and you review | Only as good as your review |
-| What changed, and why | Commit messages in git history | Permanent | You or the agent | High for what changed; the message is only a summary |
+| What changed, and why | Commit messages in git history | Durable unless rewritten; local until pushed | You or the agent | High for what changed; the message is only a summary |
 
 Memory the tool wrote can be wrong, and a wrong line is loaded again every session. That is the trap called context poisoning, explained in [Memory, Sessions and Usage](memory-sessions-and-usage.qmd). Check any claim against the source before you rely on it.
 
-Anthropic's engineering article on long-running agents recommends a similar set of habits (our paraphrase): keep a progress notes file, make git commits with descriptive messages so bad changes can be reverted, and begin each session with a startup routine that reads the progress file and the recent git log, then runs a basic check before new work.
+Anthropic's engineering article "Effective harnesses for long-running agents" describes a similar set of habits (our paraphrase): keep a progress notes file, make git commits with descriptive messages so bad changes can be reverted, and begin each session with a startup routine that reads the progress file and the recent git log, then runs a basic check before new work.
 
 ## What a good handoff note contains
 
@@ -52,7 +53,7 @@ This is a mock handoff note for a mock task. The file names and numbers are inve
 ## Goal
 Replace the per-read loop in qc_filter.py with a vectorised version, same output.
 
-## State (branch refactor-qc, last commit a1b2c3d "qc: add vectorised mean quality")
+## State (git branch refactor-qc, last commit a1b2c3d "qc: add vectorised mean quality")
 - New function mean_qual_fast() is written and called from main().
 - Old function mean_qual() is kept for comparison. Do not delete yet.
 
@@ -83,7 +84,7 @@ Replace the per-read loop in qc_filter.py with a vectorised version, same output
 
 ## Where to put it, and how to start the next session
 
-Put the note in a file the next session can find. Two options (general practice): a file in the repo, such as `HANDOFF.md`, if the team should see it; or a file kept out of git if it is personal. The one documented way to keep personal per-project notes out of git is `CLAUDE.local.md` at the project root, with the file added to `.gitignore`; Claude Code loads it after `CLAUDE.md`. Note that anything loaded this way is read every session and takes room in the window, so a handoff note that is finished should be removed from there. Not checked: whether `CLAUDE.local.md` suits short-lived task notes better than an ordinary file you point to.
+Put the note in a file the next session can find. Two options (general practice): a file in the repo, such as `HANDOFF.md`, if the team should see it; or a gitignored ordinary file you point to if it is personal, which is the simpler choice. `CLAUDE.local.md` at the project root (added to `.gitignore`, loaded after `CLAUDE.md`) is the only guidance we found on keeping personal per-project notes out of git, but it is for preferences, not task state, and per the research it exists only in the worktree where it was created. Anything loaded every session takes room in the window, which is why the parking lot in The Stream of Ideas is kept out of it, and a finished handoff note should not stay there. Not checked: whether `CLAUDE.local.md` suits short-lived task notes better than an ordinary file you point to.
 
 Write the note **before** you run `/clear` (which starts a new empty conversation), because `/clear` drops the conversation (general practice). Pairing the note with a commit leaves a matching record in git.
 
@@ -91,9 +92,9 @@ Then start the new session with a prompt like this:
 
 > Read HANDOFF.md, then tell me your understanding before changing anything.
 
-The agent restates the goal and state in its own words, and you compare that with what you know. This is an independent check in the spirit of [Ground Truth](../maze/ground-truth.qmd): you do not take the first reading on trust (general practice).
+The agent restates the goal and state in its own words, and you compare that with what you know. This is a cheap comprehension check (general practice): it can catch a misreading of the note, but the restatement comes from the same model that read it, so it does not verify the note's claims. Checking claims against the source is the idea behind Ground Truth (later in the Maze).
 
-You can ask the agent to draft the note at the end of a session. Review it yourself, though. A draft can overstate what was verified ("all tests pass" when none were run in that session). This site's own authors use handoff notes for their work.
+You can ask the agent to draft the note at the end of a session. Review it yourself, though. A draft can overstate what was verified ("all tests pass" when none were run in that session).
 
 ::: {.panel-tabset group="companion"}
 

@@ -14,7 +14,7 @@ A pipeline earns trust by giving the same answer from the same input. An LLM cal
 If an LLM call really must be a step (tidying messy free-text labels, say), contain it:
 
 - **Record** the model name and version, and the exact prompt, with the outputs. This is necessary but not sufficient: even a pinned model may not return identical text every time.
-- **Cache** results keyed by input, so a re-run does not change them silently.
+- **Cache** results keyed by input (saved outputs; a different sense from the prompt cache used in Claude Code sessions), so a re-run does not change them silently.
 - **Validate** each output against a fixed set (a species list, a schema) and fail loudly when it does not match.
 - **Keep a human-check sample**: look at a random handful every time.
 - **Keep it away from data you may not send out.** See The Locked Cabinet.
