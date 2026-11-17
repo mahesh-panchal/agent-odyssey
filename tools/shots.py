@@ -48,6 +48,31 @@ SHOTS = [
     ("map-midgame-narrow", (600, 900), lambda B: cleared(B, "index.html")),
     ("quest-narrow", (600, 900), lambda B: fresh(B, "zones/kennel/adopt-the-pet.html")),
 ]
+
+def lore_view(B):                      # bring the Lore block into the frame
+    B.js("document.querySelector('.ao-lore').scrollIntoView({block:'center'})"); __import__("time").sleep(0.3)
+def page(name, url, w=1400, h=1400): return (name, (w, h), lambda B: fresh(B, url))
+SHOTS += [
+    page("quest-companion-wide", "zones/kennel/pick-your-companion.html"),
+    page("quest-companion-narrow", "zones/kennel/pick-your-companion.html", 600, 1800),
+    page("quest-cloud-wide", "zones/kennel/claude-in-the-cloud.html"),
+    page("quest-cloud-narrow", "zones/kennel/claude-in-the-cloud.html", 600, 1800),
+    ("quest-lore-wide", (1400, 900), lambda B: (fresh(B, "zones/kennel/claude-in-the-cloud.html"), lore_view(B))),
+    ("quest-lore-narrow", (600, 900), lambda B: (fresh(B, "zones/kennel/claude-in-the-cloud.html"), lore_view(B))),
+    page("lore-library-wide", "lore.html", 1400, 1800),
+    page("lore-library-narrow", "lore.html", 600, 2400),
+]
+for z, slugs in {"citadel": ["jobs-not-jam", "keys-on-shared-ground", "login-node-manners"],
+                 "gatehouse": ["plug-in-a-server", "guard-the-door", "advice-or-enforcement"],
+                 "codon-mill": ["the-context-window", "tokens-not-letters", "memory-sessions-and-usage", "the-stream-of-ideas", "too-many-tools-too-many-agents", "when-to-start-fresh", "where-machines-fail", "who-said-what", "handoff-notes"],
+                 "factory": ["dry-run-first", "read-the-rails", "same-every-time"],
+                 "scriptorium": ["run-it-top-to-bottom", "why-notebooks-diff-badly"],
+                 "maze": ["spot-the-mirage"], "reef": ["send-small-say-so", "teach-and-share-the-load"],
+                 "forest": ["bundle-a-plugin", "close-the-loop", "plan-before-you-edit", "test-the-skill", "write-the-brief"],
+                 "basecamp": ["name-the-fears", "three-kinds-of-machine"], "crypt": []}.items():
+    for sl in slugs:
+        SHOTS.append(page(f"zone-{z}-{sl}-wide", f"zones/{z}/{sl}.html"))
+        if z in ("citadel", "gatehouse"): SHOTS.append(page(f"zone-{z}-{sl}-narrow", f"zones/{z}/{sl}.html", 600, 1800))
 only = set(sys.argv[2:])
 for name, (w, h), steps in SHOTS:
     if only and name not in only: continue

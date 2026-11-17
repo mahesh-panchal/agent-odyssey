@@ -6,11 +6,42 @@ Living document. Update the tactics and the changelog whenever the build gains s
 1. **Build + validate**: `pixi run render` (bank validation fails the build on missing misconception text, bad bins, etc.).
 2. **Behaviour**: `pixi run e2e` drives the built site with real key events (map walking, gates, quest scoring, every
    question type, quest log, save/load). Add a check here whenever a feature is added or a bug is fixed.
-3. **Visual review**: `pixi run shots` writes screenshots to `.shots/`. A fresh reviewer agent sees only the images and
+3. **Facts** (content quests; review these first): see Fact check below.
+4. **Jargon**: see Jargon check below.
+5. **Visual** (last): `pixi run shots` writes screenshots to `.shots/`. A fresh reviewer agent sees only the images and
    the checklist below (not the author's conclusions), so it is not anchored on what the author meant.
-4. **Fact review** (content quests): every command/flag/config key is traced to `research/*.md` with a source URL and read
-   date, or marked UNCONFIRMED. The quest's "last verified" badge must match the research file.
-5. **Human review**: the team lead reads quests for tone and for what the team's own policies actually say.
+6. **Human review**: the team lead reads quests for tone and for what the team's own policies actually say.
+
+## Fact check
+- Every command, flag and config key traces to `research/*.md` with a source URL and read date, or is marked UNCONFIRMED.
+  Facts come from official docs in `research/`, not from third-party material.
+- The quest's "last verified" badge must match the research file.
+- Labels:
+  - "Verified: ran ..." only if the command was actually run.
+  - Read from docs only: "Last verified (docs, not run): <tool> <version> on <date>".
+  - Inference or experience: "General practice".
+  - Anything unread: "Not checked:".
+
+## Jargon check
+- Every term of art is glossed at first use in the quest, or points to the Know Your Gear glossary
+  (`zones/basecamp/know-your-gear.qmd`).
+
+## Lore check
+- Every quest ends with a Lore block (2-8 items; format in `CONTRIBUTING.md`).
+- Every link must appear in a `research/*.md` file (`research/lore-extra*.md` hold the expanded or maintainer-supplied ones).
+- `pixi run lore --require` must report 0 problems. (The `lore` task already passes `--require`.) Warnings about repeated
+  Why-read text mean: write quest-specific lines.
+- Why-read lines are in our words, not copied.
+
+## Third-party material
+Ideas only: own words, credited, never copied.
+- aihero.dev (Matt Pocock): topic list only; link out as further reading.
+- GitHub Blog skills article (Andrea Griffiths): see `research/skills-portability.md`.
+- claude.dev (Addy Osmani): claims are labelled secondary; confirm against official docs before use.
+
+## Cloud rule
+- Cloud agent sessions are for scripts and docs only. Never teach or run data analysis in one.
+- No real or controlled data in a cloud repo.
 
 ## Visual checklist (for the reviewer)
 - Is it obvious where to go and what to do within 5 seconds? Is the next step visible?
@@ -64,3 +95,4 @@ Living document. Update the tactics and the changelog whenever the build gains s
 - Names: done in v7 (Save Point, Grow the Carapace, The Locked Cabinet). Other titles kept on purpose; ids and URLs unchanged.
 - Small nits to batch: (none recorded yet beyond the two fixed in v6).
 - v6: Map button first in the HUD, M/Esc returns to the map, correct answers now show why the others are wrong.
+- Review process (2026-11-17): review order is facts, jargon, then visual; added Lore, third-party and cloud checks; label rules restated.

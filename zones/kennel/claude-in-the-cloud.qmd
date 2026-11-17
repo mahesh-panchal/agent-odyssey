@@ -5,9 +5,9 @@ title: "Claude in the Cloud"
 ::: {.quest-dialog}
 **Prerequisites:** Recruit the Beast and The Locked Cabinet. **Objective:** say what a cloud session is, what leaves your machine when you start one, which jobs suit it and which never do, and review what comes back. **Time:** about 15 minutes. **The exercise needs no cloud account and no model;** it is a worksheet on a mock file tree.
 
-<span class="ao-badge">Last verified (docs, not run): research/claude-cloud.md sources on 2026-11-17; plan terms, limits and retention periods change, check the docs</span>
+<span class="ao-badge">Last verified (docs, not run): research/claude-cloud.md sources on 2026-11-17; the claude-code-on-the-web, cloud-environments, permission-modes and data-usage pages were re-read live that day; plan terms, limits and retention periods change, check the docs</span>
 
-Some ideas below come from a claude.dev article by Addy Osmani on Claude Code in the cloud (title as shown on the page; provenance of the site not confirmed; numbers not verified). The explanations are in our own words, and we mark each idea that comes only from the article.
+Some ideas below come from an article on claude.dev about Claude Code in the cloud (the page shows the byline Addy Osmani and the date 2026-10-06, but the page does not say who runs the site, so we have not verified who wrote it; its numbers are not verified). The explanations are in our own words, and we mark each idea that comes only from the article.
 :::
 
 ## The rule for this page
@@ -26,9 +26,9 @@ You can skip cloud sessions altogether; nothing on this site requires them. If y
 
 A **cloud session** is a Claude Code session that runs on Anthropic's servers instead of your laptop. Each one gets a fresh **virtual machine** (a computer simulated inside a bigger one, thrown away afterwards; the docs say Ubuntu 24.04 on x86_64) with a fresh **clone** (a full copy of a repository) of your code, made from its copy on GitHub. It keeps working after you close your laptop. When it is done, the work comes back as a **branch**, which you can turn into a **pull request** (a proposal on GitHub to merge that branch, with a place to review the changes).
 
-Only **committed** files (changes you have saved into git history with `git commit`) travel, because the clone is made from GitHub. A committed `CLAUDE.md`, `.claude/` rules, skills and agents come along. What does **not** come along, per the docs:
+Only **committed** files (changes you have saved into git history with `git commit`) travel, because the clone is made from GitHub. A committed `CLAUDE.md` (the instructions file Claude Code reads at the start of a session; see *Know Your Gear*), the rules under `.claude/` (the folder where a repository keeps Claude Code settings and instruction files), skills and agents come along. What does **not** come along, per the docs:
 
-- your personal `~/.claude/CLAUDE.md`, skills, agents and commands, and your user-level settings;
+- your personal `~/.claude/CLAUDE.md` (the same kind of file, kept in your home folder), skills, agents and commands, and your user-level settings;
 - MCP servers (add-on connections that give the agent extra tools) you added at local or user scope;
 - `.claude/settings.local.json`;
 - interactive sign-ins such as AWS SSO (single sign-on, one shared login for many services).
@@ -73,7 +73,7 @@ The last two rows on the right are partly our inference: the docs do not mention
 
 **Push first.** `claude --cloud "your task"` starts a cloud session from your terminal, and it clones the GitHub remote at your current branch, not your local folder. **Commit and push** (save snapshots, then upload them to the remote) before you start, or the session will not see your latest work. If the branch is not on GitHub the CLI says `Branch <name> is not on GitHub`, and the session starts from a pushed commit or the default branch. One repository per session. You can also start from claude.ai/code in the browser.
 
-**Write a ticket-style prompt**, that is, a self-contained note like a work ticket: the problem, the expected result, and a command that proves it. The docs say to be specific, name files and paste errors. The proof-command habit is one article's advice, not confirmed in the docs. Example, with no data in it:
+**Write a ticket-style prompt**, that is, a self-contained note like a work ticket: the problem, the expected result, and a command that proves it (in the example, `pytest`, a Python test runner). The docs say to be specific, name files and paste errors. The proof-command habit is one article's advice, not confirmed in the docs. Example, with no data in it:
 
 ```text
 Problem: scripts/validate_samplesheet.py accepts duplicate sample IDs.
@@ -84,11 +84,11 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.
 
 This repository has no `data/` or `results/` folders at all, and that is the point: a line in a prompt such as "do not read data/" is only a request to the model, not protection. If the folder is in the repository, the cloud session can read it.
 
-**If there is no remote.** When a repository has no GitHub remote, or the Claude **GitHub App** (a program you install on a repository or organisation to grant it limited access) is not on it, Claude Code instead **bundles** the repository and uploads it: full history of all branches plus uncommitted changes to tracked files, under 100 MB. Untracked files are left out, and on macOS, Linux and WSL, uncommitted changes to `.env`, `*.pem`, `*.tfvars`, `id_rsa` and Git LFS-managed files (large files stored outside normal git history) are skipped (on native Windows everything tracked uploads). **Do not rely on this for data.** Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your `.gitignore` covers before you go anywhere near this. Non-GitHub hosts can only use the bundle, and cannot push back.
+**If there is no remote.** When a repository has no GitHub remote, or the Claude **GitHub App** (a program you install on a repository or organisation to grant it limited access) is not on it, Claude Code instead **bundles** the repository and uploads it: full history of all branches plus uncommitted changes to tracked files, under 100 MB. Untracked files are left out. On macOS, Linux and WSL the upload also needs **git 2.31 or later**; with an older git the CLI refuses to start the session and tells you to update. On those systems, uncommitted changes to `.env`, `*.pem`, `*.tfvars`, `id_rsa` and Git LFS-managed files (large files stored outside normal git history) are skipped (on native Windows everything tracked uploads). **Do not rely on this for data.** Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your `.gitignore` covers before you go anywhere near this. Non-GitHub hosts can only use the bundle, and cannot push back.
 
 **`/web-setup`**, typed inside Claude Code (not in your shell), sends your `gh auth token` (GitHub's command-line login token) to Anthropic so cloud sessions can reach your repositories without the GitHub App. It needs a claude.ai sign-in; API-key sign-in does not work, and neither does a Bedrock or Vertex-style provider. On Team and Enterprise plans an Owner has to enable it first.
 
-**Getting the session back: teleport.** To **teleport** is to pull a cloud session into your local terminal: `claude --teleport` (shows a picker), `claude --teleport <session-id>`, or `/teleport` (alias `/tp`, a shorter name for the same command) inside a session. It needs a clean git state (it offers to stash your changes), the same repository (not a fork), the branch pushed, and the same claude.ai account.
+**Getting the session back: teleport.** To **teleport** is to pull a cloud session into your local terminal: `claude --teleport` (shows a picker), `claude --teleport <session-id>`, or `/teleport` (alias `/tp`, a shorter name for the same command) inside a session. It needs a clean git state (it offers to **stash** your changes, that is, set them aside temporarily with `git stash`), the same repository (not a **fork**, which is your own copy of someone else's repository), the branch pushed, and the same claude.ai account.
 
 **GitHub access, in short.** Two ways in: the GitHub App or your `/web-setup` token. For Anthropic-hosted sessions, your GitHub credential is stored encrypted on Anthropic's servers and does not enter the VM; the VM holds a short-lived credential, and a GitHub proxy swaps it in. The proxy rejects branch deletions and tag pushes, but **it does not limit which branches a push can update**. To limit that, use GitHub **branch protection or rulesets** (rules on which branches may be changed and by whom); the docs note a rule that the connected access can bypass will not block the push. The docs do not describe a credential limited to one branch, so do not assume one.
 
@@ -140,7 +140,7 @@ Use **Plan** for anything you do not already understand, and read the plan befor
 The result is **a branch**. Treat it like a stranger's pull request: it may be fine and it may be wrong.
 
 1. **Read the diff** (the list of changed lines) as you would any other. The habits are in *The Wall of Output* and *The Reviewer's Code*.
-2. **Look for accidents in the diff:** committed data files, absolute paths, sample IDs in a test or a comment, a `.env`, a notebook saved with outputs.
+2. **Look for accidents in the diff:** committed data files, absolute paths, sample IDs in a test or a comment, a `.env`, a notebook saved with outputs (a **notebook** is a Jupyter document mixing code and results; its saved outputs are the tables and plots stored inside the file).
 3. **Run the tests locally**, on your machine.
 4. **Only then run the script on your data**, locally or on the cluster, under your data agreement. The cloud agent never saw that data and never ran that step.
 
@@ -185,7 +185,7 @@ logs/
 .ipynb_checkpoints/
 ```
 
-**General practice, not a vendor claim:** add a rule for notebooks too (for example, a pre-commit step that clears outputs), because `.gitignore` alone cannot strip outputs from a notebook you do want to commit. Likewise, `.gitignore` only stops files that are **not yet tracked**; anything already committed stays in history until you remove it properly, and rewriting history is its own careful job (see *Save Point*).
+**General practice, not a vendor claim:** add a rule for notebooks too (for example, a **pre-commit** hook, a script git runs automatically before each commit, that clears outputs), because `.gitignore` alone cannot strip outputs from a notebook you do want to commit. Likewise, `.gitignore` only stops files that are **not yet tracked**; anything already committed stays in history until you remove it properly, and rewriting history is its own careful job (see *Save Point*).
 
 **Sample prompt:**
 
@@ -222,5 +222,5 @@ Remember that a prompt line is a request, not protection: the safe version of th
 - [Configure cloud environments](https://code.claude.com/docs/en/cloud-environments): Anthropic, docs. Why read: it covers network access levels, environment variables and setup scripts for a session.
 - [Data usage](https://code.claude.com/docs/en/data-usage): Anthropic, docs. Why read: it states what Anthropic stores from a cloud session and how retention differs by plan.
 - [Security](https://code.claude.com/docs/en/security): Anthropic, docs. Why read: its cloud execution section lists the isolation, credential and audit controls.
-- [Claude Code in the cloud article](https://claude.dev/blog/claude-code-in-the-cloud/): Addy Osmani (claude.dev blog), article. Why read: a secondary field guide whose site provenance we could not confirm and whose numbers we did not verify, so use it for ideas only and trust the official pages above.
+- [Claude Code in the cloud article](https://claude.dev/blog/claude-code-in-the-cloud/): claude.dev blog (byline as shown on the page; not verified), article. Why read: a secondary field guide whose site operator the page does not state and whose numbers we did not verify, so use it for ideas only and trust the official pages above.
 :::

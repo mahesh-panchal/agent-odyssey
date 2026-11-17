@@ -6,7 +6,7 @@ title: "Pick Your Companion"
 **Prerequisites:** Recruit the Beast and Adopt the Pet. **Objective:** set the model and the effort on purpose, especially when you hand work to a subagent, and learn to compare two settings on your own task instead of guessing.
 **Time:** about 15 minutes. **The exercise needs no model;** it is a worksheet.
 
-<span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17</span>
+<span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17; the model-config, effort, sub-agents, costs, choosing-a-model and optimizing-for-cost pages were spot-checked live that day; model names, aliases and defaults change often</span>
 :::
 
 The companions in the Kennel are **models**; the tool around them (the harness, the program that runs the model and its tools) is the armour. This page is about which companion to bring to which job, and how hard to make it think. Model names, aliases and defaults change often, so check the current docs and your own tool before relying on any name here.
@@ -37,7 +37,7 @@ The docs say tuning effort is often a better lever than switching models. One ar
 
 For results that must be reproducible (a lab pipeline, course material), **pin a full model name** such as `claude-opus-5-5`, because an alias moves when a new version ships (our inference from how aliases work). The docs also offer `ANTHROPIC_DEFAULT_OPUS_MODEL`, `ANTHROPIC_DEFAULT_SONNET_MODEL`, `ANTHROPIC_DEFAULT_HAIKU_MODEL` and `ANTHROPIC_DEFAULT_FABLE_MODEL` to pin what each alias means.
 
-**Effort.** `/effort`, `claude --effort`, the environment variable `CLAUDE_CODE_EFFORT_LEVEL`, or the `effortLevel` setting. The levels are `low`, `medium`, `high`, `xhigh` and `max`, and which ones exist depends on the model. The default differs by model and the docs pages disagree for Sonnet 5.5, so I give no default here: run `/effort` in your own tool and read it.
+**Effort.** `/effort`, `claude --effort`, the environment variable `CLAUDE_CODE_EFFORT_LEVEL`, or the `effortLevel` setting. The levels are `low`, `medium`, `high`, `xhigh` and `max`, and which ones exist depends on the model. The default differs by model and by surface. For Sonnet 5.5, the Claude Code model-config page says `medium`, while the API effort page says `high` on the API, so name the surface before quoting a default, and run `/effort` in your own tool to read yours.
 
 **Per skill and per subagent.** Both skill files and subagent files take `model` and `effort` in their frontmatter.
 
@@ -58,7 +58,7 @@ Read the logs you are given. Return: task name, exit status, the first error lin
 Quote lines exactly. If something is unclear, say so instead of guessing.
 ```
 
-A subagent definition can also limit what the helper may use (a `tools` field): see the sub-agents docs in Lore below for the exact syntax, which this sketch leaves out.
+A subagent definition can also limit what the helper may use (a `tools` field): the sub-agents docs in Lore below give the exact syntax, which this sketch leaves out.
 
 Why `medium` and not `low`? The docs say Haiku 5.5 at `low` is more likely to skip a search, stop early or skip a check, which is the wrong trade for reading logs where a missed failure is the whole point.
 
@@ -95,15 +95,15 @@ Climb one rung at a time and re-check after each.
 2. **Raise effort one level.**
 3. **Change the model** to the next tier up.
 
-The order (check, then effort, then model) is one article's advice, not confirmed in the docs, though the docs do say to give the agent something to verify against and that effort is often the better lever. The article is a claude.dev piece by Addy Osmani about choosing a Claude model (title as shown on the page; provenance of the site not confirmed; numbers not verified). I use only its ideas, in my own words.
+The order (check, then effort, then model) is one article's advice, not confirmed in the docs, though the docs do say to give the agent something to verify against and that effort is often the better lever. The article is a claude.dev piece about choosing a Claude model (the page shows the byline Addy Osmani and the date 2026-11-09, but does not say who runs the site, so authorship is unverified; its numbers are not verified). I use only its ideas, in my own words.
 
-**The cheap-then-retry pattern** is in the official cost docs: if outcomes are checkable (tests, or a verifier, which is a separate check that tests the output), run at low effort and re-run only the failures at higher effort. Two caveats from the same page: a checker that passes bad work lets failures through, and a failure costs two runs of waiting time. The docs also say to compare **cost per finished task, not cost per token**, because failed tasks still cost money and a few hard tasks can carry much of the bill.
+**The cheap-then-retry pattern** is in Anthropic's cost-and-intelligence guidance for the API (a docs page, "Optimizing for cost and intelligence"): if outcomes are checkable (tests, or a verifier, which is a separate check that tests the output), run at low effort and re-run only the failures at higher effort. Two caveats from the same page: a checker that passes bad work lets failures through, and a failure costs two runs of waiting time. The docs also say to compare **cost per finished task, not cost per token**, because failed tasks still cost money and a few hard tasks can carry much of the bill.
 
 ## 5. Delegation hygiene
 
 - **Keep the expensive model's context lean.** Sending bulk reading to a subagent keeps that reading out of the main conversation (documented benefit).
 - **A subagent returns only a summary, and summaries omit and distort.** Spot-check: ask for exact quotes or file paths and open two yourself (see Where Machines Fail). Many subagents returning long answers can also fill the main context again, per the docs.
-- **State your rules in the delegation prompt.** Per the docs, the built-in Explore and Plan subagents skip `CLAUDE.md` for speed, so a rule like "never touch `raw/`" must be written into the task you hand them. Custom subagents load it unless set to skip it.
+- **State your rules in the delegation prompt.** Per the docs, the built-in Explore and Plan subagents (Explore is a read-only search helper; Plan is a read-only research helper used in plan mode) skip `CLAUDE.md` (the instructions file the tool loads at session start; see *Know Your Gear*) for speed, so a rule like "never touch `raw/`" must be written into the task you hand them. Custom subagents load it unless set to skip it.
 - **Keep edits on the main model.** One article's advice, not confirmed in the docs: let a cheaper subagent read and report, and make the changes on the model you trust most.
 - **Switching model mid-conversation can change prompt-cache behaviour** (the docs say so and may ask you to confirm). One article's advice, not confirmed in the docs: compact first, or switch at a natural break; compacting means replacing the history with a short summary (see When to Start Fresh).
 - **Change effort between sessions when you are comparing.** The docs note that changing top-level effort mid-session also invalidates the cache.
@@ -160,6 +160,7 @@ No model needed. For each mock job, write down a model (Haiku, Sonnet, Opus or F
 
 - [Model configuration](https://code.claude.com/docs/en/model-config): Anthropic, docs. Why read: it covers model aliases, the effort setting and how to pin a model in Claude Code.
 - [Choosing the right model](https://platform.claude.com/docs/en/about-claude/models/choosing-a-model): Anthropic, docs. Why read: it gives the official way to pick a starting model and to test the choice on your own evaluations.
-- [Effort](https://platform.claude.com/docs/en/build-with-claude/effort): Anthropic, docs. Why read: it defines each effort level and its default per model, with the advice to test on your own tasks.
+- [Effort](https://platform.claude.com/docs/en/build-with-claude/effort): Anthropic, docs. Why read: it defines each effort level and gives per-model starting advice, with the advice to test on your own tasks; its API defaults can differ from the Claude Code defaults on the model-configuration page.
+- [Sub-agents](https://code.claude.com/docs/en/sub-agents): Anthropic, docs. Why read: it gives the exact frontmatter fields for a subagent (`model`, `effort`, `tools`), the order in which a subagent's model is chosen, and how the built-in Explore and Plan helpers behave.
 - [Manage costs effectively](https://code.claude.com/docs/en/costs): Anthropic, docs. Why read: it shows how `/usage` is computed and where model choice, effort and subagents change the bill.
 :::
