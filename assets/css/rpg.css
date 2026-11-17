@@ -97,3 +97,29 @@ img.ao-boss-img { display: block; margin: 1rem auto; width: 192px; max-width: 10
 .ao-ending-on { border: 2px solid var(--ok); background: var(--panel); padding: .8rem 1.2rem; margin: 1.5rem 0; }
 .ao-sealed { border: 2px dashed var(--bad); background: var(--panel); padding: .5rem 1rem; margin: 1rem 0; }
 .ao-sealed[hidden] { display: none; }
+
+/* Start Here overview: two inlined layouts, wide and phone; one is shown. Statuses use words and outline weight, never colour alone. */
+.ao-overview { margin: 1rem 0; }
+.ao-overview svg { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 auto; }
+.ao-overview .ao-ov-narrow { display: none; }
+@media (max-width: 560px) { .ao-overview .ao-ov-wide { display: none; } .ao-overview .ao-ov-narrow { display: block; } }
+.ao-overview .ao-ov text { fill: var(--fg); font: 12px system-ui, sans-serif; }
+.ao-overview .ao-ov .ovt { font: bold 15px system-ui, sans-serif; }
+.ao-overview .ao-ov .ovs { font: 12px ui-monospace, monospace; }
+.ao-overview .ao-ov .ovedge { stroke: var(--fg); stroke-width: 2; fill: none; opacity: .6; }
+.ao-overview .ao-ov .ahead { fill: var(--fg); opacity: .8; }
+.ao-overview .ao-ov .box { fill: var(--bg); stroke: var(--fg); stroke-width: 1; }
+.ao-overview .ao-ov .box2 { fill: none; stroke: var(--accent); stroke-width: 2; }
+.ao-overview .ao-ov .ovbox { cursor: pointer; }
+.ao-overview .ao-ov .ovbox:hover .box { stroke: #fff; stroke-width: 4; }
+.ao-overview .ao-ov .ovbox:focus { outline: none; }
+.ao-overview .ao-ov .ovbox:focus-visible .box { stroke: #fff; stroke-width: 6; }
+.ao-overview .ao-ov .st-progress .box { stroke: var(--accent); stroke-width: 4; }
+.ao-overview .ao-ov .st-complete .box { fill: var(--ok); stroke: var(--ok); }
+.ao-overview .ao-ov .st-complete text { fill: #14101f; }
+.ao-overview .ao-ov .ovhere .ring { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 8 5; }
+.ao-overview .ao-ov .ovhere .tab { fill: var(--accent); }
+.ao-overview .ao-ov .ovhere text { fill: #14101f; font: bold 12px system-ui, sans-serif; }
+.ao-detail { margin: 1rem 0; }
+.ao-detail > summary { cursor: pointer; font-weight: bold; color: var(--fg); }
+.ao-overview .ao-ov a, .ao-overview .ao-ov a text { text-decoration: none; }

@@ -77,6 +77,8 @@ SHOTS += [
     ("path-start-here-midgame-wide", (1400, 1800), lambda B: with_state(B, "start-here.html", _ids(True, _B3[:1]))),
     ("path-start-here-unlocked-wide", (1400, 1800), lambda B: with_state(B, "start-here.html", _ids(True, _B3))),
     ("path-map-unlocked-wide", (1400, 900), lambda B: with_state(B, "index.html", _ids(True, _B3))),
+    ("path-network-wide", (1400, 1500), lambda B: (with_state(B, "start-here.html", _ids(True, _B3[:1])), B.js("document.querySelector('.ao-net, #ao-start-net, svg').scrollIntoView({block:'start'})"))),
+    ("path-network-narrow", (500, 1300), lambda B: (fresh(B, "start-here.html"), B.js("document.querySelector('.ao-net, #ao-start-net, svg').scrollIntoView({block:'start'})"))),
     page("path-finale-sealed-wide", "zones/murk/clear-the-murk.html", 1400, 1800),
     page("path-finale-sealed-narrow", "zones/murk/clear-the-murk.html", 600, 2400),
     ("path-finale-unlocked-wide", (1400, 1800), lambda B: with_state(B, "zones/murk/clear-the-murk.html", _ids(True, _B3))),

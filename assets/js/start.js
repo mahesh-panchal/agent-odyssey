@@ -42,6 +42,60 @@
     svg.appendChild(g);
   }
 
+  // ---- Overview: one box per stage (trunk, each branch, final boss). Both layouts are inlined; CSS shows one. ----
+  var ovSvgs = [];
+  function target(qs) {   // first quest in a stage that is not cleared, else its first quest
+    return qs.filter(function (q) { return !passed(q.id); })[0] || qs[0];
+  }
+  function ovState(kind, id) {
+    var p = P(), done, total, label, cls, word;
+    if (kind === "finale") {
+      var f = p.finale(), fid = f && f.id;
+      if (passed(fid)) return { cls: "st-complete", text: "✔ cleared", word: "cleared", page: f.page };
+      var open = p.finaleUnlocked();
+      return { cls: open ? "st-progress" : "st-none", text: open ? "▶ open" : "○ sealed", word: open ? "open" : "sealed", page: f && f.page };
+    }
+    var qs, name;
+    if (kind === "trunk") { qs = p.trunkQuests(); name = "Trunk"; }
+    else {
+      var b = p.branches().filter(function (x) { return x.id === id; })[0] || {};
+      qs = p.laneQuests(id).filter(function (q) { return !q.optional; }); name = b.name;
+    }
+    done = qs.filter(function (q) { return passed(q.id); }).length; total = qs.length;
+    if (total && done === total) { cls = "st-complete"; label = "✔ complete"; word = "complete"; }
+    else if (done) { cls = "st-progress"; label = "▶ in progress"; word = "in progress"; }
+    else { cls = "st-none"; label = "○ not started"; word = "not started"; }
+    var t = target(qs);
+    return { cls: cls, text: label + " · " + done + "/" + total, word: word, done: done, total: total, name: name, page: t && t.page };
+  }
+  function paintOverview(next) {
+    ovSvgs.forEach(function (svg) {
+      [].forEach.call(svg.querySelectorAll("a.ovbox"), function (a) {
+        var kind = a.getAttribute("data-kind"), id = a.getAttribute("data-id"), s = ovState(kind, id);
+        a.setAttribute("class", "ovbox " + kind + " " + s.cls);
+        var st = a.querySelector(".ovs"); if (st) st.textContent = s.text;
+        var title = (a.querySelector("title") || {}).textContent || "";
+        var base0 = title.replace(/,.*$/, "");
+        a.setAttribute("aria-label", base0 + (s.total != null ? ", " + s.done + " of " + s.total + " quests" : "") + ", " + s.word);
+        if (s.page) a.setAttribute("href", base + s.page);
+      });
+      var old = svg_here(svg); if (old) old.remove();
+      if (!next) return;
+      var fid = P().finale() && P().finale().id;
+      var kind = next.id === fid ? "finale" : next.trunk ? "trunk" : "branch";
+      var sel = kind === "branch" ? 'a.ovbox.branch[data-id="' + next.branch + '"]' : "a.ovbox." + kind;
+      var a = svg.querySelector(sel); if (!a) return;
+      var r = a.querySelector(".box"), x = +r.getAttribute("x"), y = +r.getAttribute("y"), w = +r.getAttribute("width"), h = +r.getAttribute("height");
+      var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "ovhere"); g.setAttribute("aria-hidden", "true");
+      g.innerHTML = '<rect class="ring" x="' + (x - 6) + '" y="' + (y - 6) + '" width="' + (w + 12) + '" height="' + (h + 12) + '" rx="13"/>' +
+        '<rect class="tab" x="' + (x + w / 2 - 50) + '" y="' + (y - 20) + '" width="100" height="18" rx="4"/>' +
+        '<text x="' + (x + w / 2) + '" y="' + (y - 7) + '" text-anchor="middle">You are here</text>';
+      svg.insertBefore(g, a);   // behind the box so the link stays on top
+    });
+  }
+  function svg_here(svg) { return svg.querySelector(".ovhere"); }
+
   function fillCounts() {
     var p = P(), rule = p.finaleRule(), vals = { trunk: p.trunkQuests().length, branches: p.branches().length, any: rule && rule.any };
     [].forEach.call(document.querySelectorAll("[data-ao-n]"), function (el) {
@@ -74,6 +128,7 @@
         "<br>" + esc(b.blurb) + (b.who ? " <em>For: " + esc(b.who) + "</em>" : "") + "</li>";
     }).join(""));
     paintHere(next);
+    paintOverview(next);
     buildList();
   }
 
@@ -116,14 +171,27 @@
     if (l) l.innerHTML = "<p>The path data did not load. Open <a href='" + base + "index.html'>the map</a> and begin with Name the Fears.</p>";
   }
 
-  Promise.all([
-    P().load(),
-    fetch(base + "assets/data/path-network.svg").then(function (r) { return r.ok ? r.text() : ""; }).catch(function () { return ""; })
-  ]).then(function (res) {
+  function grab(name) {
+    return fetch(base + "assets/data/" + name).then(function (r) { return r.ok ? r.text() : ""; }).catch(function () { return ""; });
+  }
+  var detail = document.getElementById("ao-start-detail");
+  if (detail) {   // closed by default; open on wide screens, and keep the "you are here" node in view when it opens
+    if (window.matchMedia && window.matchMedia("(min-width: 900px)").matches) detail.open = true;
+    detail.addEventListener("toggle", function () { if (detail.open) scrollToHere(); });
+  }
+
+  Promise.all([P().load(), grab("path-network.svg"), grab("path-overview.svg"), grab("path-overview-narrow.svg")]).then(function (res) {
     if (!res[0]) { fallback(); return; }
     if (res[1]) { host.innerHTML = res[1]; svg = host.querySelector("svg"); }
     else host.innerHTML = "<p>The map picture did not load. The text version below lists every quest.</p>";
     if (svg) fixLinks();
+    var ov = document.getElementById("ao-start-overview");
+    if (ov) {
+      if (res[2] || res[3]) {
+        ov.innerHTML = (res[2] ? "<div class='ao-ov-wide'>" + res[2] + "</div>" : "") + (res[3] ? "<div class='ao-ov-narrow'>" + res[3] + "</div>" : "");
+        ovSvgs = [].slice.call(ov.querySelectorAll("svg"));
+      } else ov.innerHTML = "<p>The overview picture did not load. The text version of the map below lists every quest.</p>";
+    }
     fillCounts();
     paint();
     AO.hooks.push(function () { paintNodes(); paintSide(); });

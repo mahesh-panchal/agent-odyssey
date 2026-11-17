@@ -18,11 +18,16 @@ The trunk takes about three hours. Each branch adds about one to two more. The o
 
 <p id="ao-start-finale" class="ao-start-finale" aria-live="polite"></p>
 
-## The map
+## The map at a glance
 
-Boxes are quests. Each shows its state in words: **✔ cleared** (filled), **▶ ready** (thick outline), **○ later** (thin outline). Later means a suggested earlier quest is still open. You can open any box. Scroll sideways to see all of it.
+Each box is a stage: the trunk, a branch, or the final boss. A box says its state in words: **✔ complete**, **▶ in progress**, **○ not started**. Every box links to the next quest in that stage.
 
+<div id="ao-start-overview" class="ao-overview"><noscript>The map needs JavaScript. Use <a href="index.html">the zone list</a>.</noscript></div>
+
+<details id="ao-start-detail" class="ao-detail"><summary>The detailed map</summary>
+<p>Boxes are quests. Each shows its state in words: <strong>✔ cleared</strong> (filled), <strong>▶ ready</strong> (thick outline), <strong>○ later</strong> (thin outline). Later means a suggested earlier quest is still open. You can open any box. Scroll sideways to see all of it.</p>
 <div id="ao-start-net" class="ao-start-net" tabindex="0" role="region" aria-label="Quest network. Scroll sideways; every box is a link."><noscript>The map needs JavaScript. Use <a href="index.html">the zone list</a>.</noscript></div>
+</details>
 
 <details class="ao-textlist" open><summary>Text version of the map</summary>
 <div id="ao-start-list" class="ao-start-list"></div>

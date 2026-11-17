@@ -33,7 +33,9 @@
       var h = "<h2>Next steps</h2>";
       if (quest && !onFinale) {
         var s = P.nextSteps(quest.id);
-        h += list("Unlocks", s.unlocks) + list("Recommended next", s.recommended.slice(0, 3)) + list("Optional side quests", s.optional);
+        var seen = {}; s.unlocks.forEach(function (u) { seen[u.id] = true; });
+        var rec = s.recommended.filter(function (r) { return !seen[r.id]; }).slice(0, 3);
+        h += list("Unlocks", s.unlocks) + list("Recommended next", rec) + list("Optional side quests", s.optional);
         var last = G.trunk_order[G.trunk_order.length - 1] === quest.id;
         if (last) {
           var r = P.remainingForFinale(), n = r.branchesNeeded;
