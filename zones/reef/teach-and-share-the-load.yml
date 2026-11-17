@@ -17,6 +17,13 @@ questions:
       - { text: "Ask the agent to explain a concept, then explain it back", bin: "Protects learning", misconception: "Explaining back tests your understanding." }
       - { text: "Let it do every piece of a new skill for you", bin: "Erodes learning", misconception: "Outsourcing everything means you do not acquire it." }
   - type: choice
+    prompt: "You finished a project mostly with an agent and it feels like not really your work. What helps most?"
+    explain: "Ownership grows from your decisions and your understanding, so build those and credit the agent's part openly."
+    options:
+      - { text: "Be able to explain each step, and keep notes on your decisions", correct: true }
+      - { text: "Redo the whole project by hand to prove it is yours", misconception: "Redoing everything repeats the work. Decisions and understanding are what make a result yours." }
+      - { text: "Leave out the agent's role so the work looks like yours", misconception: "Hiding the agent's role misleads readers and tends to deepen the feeling." }
+  - type: choice
     prompt: "You can easily start five agent tasks before lunch. What limits sensible work?"
     explain: "The bottleneck is review capacity. Work you cannot review is a risk."
     options:
