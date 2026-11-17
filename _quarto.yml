@@ -5,6 +5,7 @@ project:
     - "**/*.qmd"
     - "**/*.md"
     - "!exercises/**/*.ipynb"
+    - "!README.md"
   resources:
     - assets/data
     - assets/js
