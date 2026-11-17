@@ -3,7 +3,7 @@ title: "Run It Top to Bottom"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Why Notebooks Diff Badly (helpful, not required), Python 3 and the two exercise files below (about 1 KB).
+**Prerequisites:** Save Point; Why Notebooks Diff Badly (helpful, not required); Python 3 and the two exercise files below (about 1 KB).
 **Objective:** show that a notebook's stored result can differ from a fresh top-to-bottom run, and use that as the check before you trust or share one.
 **Time:** about 15 minutes.
 

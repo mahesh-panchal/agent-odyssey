@@ -6,29 +6,52 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function img(src) { return new Promise(function (r) { var i = new Image(); i.onload = function () { r(i); }; i.src = window.AO_BASE + src; }); }
   Promise.all([fetch(window.AO_BASE + "assets/data/world.json").then(function (r) { return r.json(); }),
-               img("assets/img/tiles.png"), img("assets/img/hero.png")]).then(function (a) { start(a[0], a[1], a[2]); });
+               img("assets/img/tiles.png"), img("assets/img/hero.png"), AO.path ? AO.path.load() : null]).then(function (a) { start(a[0], a[1], a[2]); });
 
   function start(world, tiles, hero) {
     var rows = world.map, W = rows[0].length, H = rows.length;
         var TILE = { ".": 0, "=": 1, "~": 2, "#": 3, "o": 5 };
     var gateAt = {}; Object.keys(world.gates).forEach(function (k) { var g = world.gates[k]; gateAt[g.x + "," + g.y] = g; });
     function walkable(x, y) { var c = (rows[y] || "")[x]; return c !== undefined && c !== "#" && c !== "~" && c !== "o"; }
-    function cleared(g) { return g.quests && g.quests.length && g.quests.every(function (q) { return AO.state.passed[q.id]; }); }
+    function isOptional(q) { var n = world.graph && world.graph.quests[q.id]; return !!(n && n.optional); }
+    // A gate counts as cleared when every required quest is done; side quests never hold the fog in place.
+    function cleared(g) {
+      var req = (g.quests || []).filter(function (q) { return !isOptional(q); });
+      return req.length > 0 && req.every(function (q) { return AO.state.passed[q.id]; });
+    }
     var g0 = world.gates[AO.state.prefs.pos && world.gates[AO.state.prefs.pos] ? AO.state.prefs.pos : world.start];
     var p = { x: g0.x, y: g0.y, px: g0.x, py: g0.y, dir: 0, frame: 1, t: 0 };   // px/py = drawn (tweened) position
     var DIR = { down: 0, left: 1, right: 2, up: 3 };
 
-    function firstOpen() { return Object.keys(gateAt).map(function (k) { return gateAt[k]; }).filter(function (g) { return g.status === "open" && !cleared(g); })[0] || {}; }
+    var P = AO.path || { nextQuest: function () { return null; }, finaleUnlocked: function () { return false; }, status: function () { return "waiting"; }, remainingForFinale: function () { return { trunk: [], branchesNeeded: 0 }; } }, finaleId = world.graph && world.graph.finale.id;
+    // Effective state: the finale gate opens from saved progress, every other gate uses zones.yml.
+    function gst(g) { return finaleId && g.quests && g.quests.some(function (q) { return q.id === finaleId; }) ? (P.finaleUnlocked() ? "open" : "locked") : g.status; }
+    function gateOf(qid) { var q = world.graph && world.graph.quests[qid]; return q && world.gates[q.gate]; }
+    function firstOpen() {
+      var nq = P.nextQuest(), g = nq && gateOf(nq.id);
+      if (g) return g;
+      return Object.keys(gateAt).map(function (k) { return gateAt[k]; }).filter(function (g) { return gst(g) === "open" && !cleared(g); })[0] || {};
+    }
+    function pickQuest(g) {                       // the graph's next quest if it is here, else a ready one, else the first uncleared
+      var left = g.quests.filter(function (q) { return !AO.state.passed[q.id]; }), nq = P.nextQuest();
+      return left.filter(function (q) { return nq && q.id === nq.id; })[0] || left.filter(function (q) { return P.status(q.id) === "ready"; })[0] || left[0] || g.quests[0];
+    }
+    function sealed() {                           // what remains before the finale gate opens
+      var r = P.remainingForFinale(), bits = [];
+      if (r.trunk.length) bits.push("the trunk (" + r.trunk.length + (r.trunk.length === 1 ? " quest" : " quests") + " left)");
+      if (r.branchesNeeded) bits.push(r.branchesNeeded + (r.branchesNeeded === 1 ? " more branch" : " more branches"));
+      return "Finish " + (bits.join(" and ") || "the remaining steps") + ".";
+    }
     function remember(g) { AO.state.prefs.pos = Object.keys(world.gates).find(function (k) { return world.gates[k] === g; }); try { localStorage.setItem("agent-odyssey:v1:state", JSON.stringify(AO.state)); } catch (e) {} }
     function say() {
       var g = gateAt[p.x + "," + p.y];
       var nx = document.getElementById("ao-next"), f = firstOpen();
-      if (nx) nx.textContent = f.name ? "▶ Next: walk to the gold gate — " + f.name + " — and press Enter." : "Every open zone is cleared. More zones open in later versions.";
-      if (g && g.id === world.gates[world.start].id && g.status !== "open") { cap.textContent = "You are at " + g.name + ", where the journey starts."; return; }
+      if (nx) nx.textContent = f.name ? "▶ Next: walk to the gold gate — " + f.name + " — and press Enter." : "Every zone you can enter is cleared.";
+      if (g && g.id === world.gates[world.start].id && gst(g) !== "open") { cap.textContent = "You are at " + g.name + ", where the journey starts."; return; }
       if (!g) { cap.textContent = "Walk with the arrow keys or WASD. Your first quest is at the gold gate: " + firstOpen().name + "."; return; }
       cap.textContent = g.name + " (" + g.track + ") — " +
-        (g.status === "open" ? (cleared(g) ? "cleared. Press Enter to revisit." : "the Murk lingers. Press Enter to enter.")
-                             : "thick Murk. Not open yet. Press Enter to look.") +
+        (gst(g) === "open" ? (cleared(g) ? "cleared. Press Enter to revisit." : "the Murk lingers. Press Enter to enter.")
+                           : "thick Murk. Not open yet. " + (finaleId && gst(g) === "locked" && g.quests[0].id === finaleId ? sealed() + " " : "") + "Press Enter to look.") +
         (Object.keys(AO.state.passed).length ? "" : " Your first quest is at the gold gate: " + firstOpen().name + ".");
     }
     function move(dx, dy, dir) {
@@ -39,11 +62,10 @@
     function enter() {
       var g = gateAt[p.x + "," + p.y]; if (!g) return;
       remember(g);
-      if (g.status === "open") {
-        var q = g.quests.find(function (q) { return !AO.state.passed[q.id]; }) || g.quests[0];
-        location.href = window.AO_BASE + q.page;
+      if (gst(g) === "open") {
+        location.href = window.AO_BASE + pickQuest(g).page;
       } else {
-        cap.textContent = g.name + " lies under thick Murk. It has not opened yet. Come back in a later version.";
+        cap.textContent = g.name + " lies under thick Murk. " + (g.quests && g.quests[0].id === finaleId ? sealed() : "It has not opened yet. Come back in a later version.");
       }
     }
     document.addEventListener("keydown", function (e) {
@@ -62,7 +84,7 @@
       var x = c.getContext("2d"); x.imageSmoothingEnabled = false; return [c, x]; }
     var base = layer(), fog = layer(), lab = layer();
     ctx.imageSmoothingEnabled = false;
-    var COLORS = { Prologue: "#9ad", Companions: "#e98", Armour: "#e8b84a", Trust: "#8e8", Skills: "#6d9", Level: "#7be", Craft: "#c9f" };
+    var COLORS = { Prologue: "#9ad", Companions: "#e98", Armour: "#e8b84a", Trust: "#8e8", Skills: "#6d9", Level: "#7be", Craft: "#c9f", "Final Boss": "#e66" };
 
     function buildBase() {
       var b = base[1];
@@ -78,22 +100,21 @@
       Object.keys(gateAt).forEach(function (k) {
         var g = gateAt[k], done = cleared(g), cx = (g.x + .5) * T * S, cy = (g.y + .5) * T * S;
         if (!done) {
-          var r = 2.6 * T * S, a = g.status === "open" ? .2 : (g.id === "basecamp" ? 0 : .8);
+          var r = 2.6 * T * S, a = gst(g) === "open" ? .2 : (g.id === "basecamp" ? 0 : .8);
           var gr = f.createRadialGradient(cx, cy, 6, cx, cy, r);
           gr.addColorStop(0, "rgba(70,20,110," + a + ")"); gr.addColorStop(1, "rgba(70,20,110,0)");
           f.fillStyle = gr; f.fillRect(cx - r, cy - r, 2 * r, 2 * r);
         }
-        var nxt = firstOpen() === g, txt = (done ? "✔ CLEARED: " : g.id === "basecamp" ? "⌂ START: " : nxt ? "▶ NEXT: " : g.status === "open" ? "OPEN: " : "🔒 ") + g.name, ly = cy - 1.05 * T * S;
+        var nxt = firstOpen() === g, txt = (done ? "✔ CLEARED: " : g.id === "basecamp" ? "⌂ START: " : nxt ? "▶ NEXT: " : gst(g) === "open" ? "OPEN: " : "🔒 ") + g.name, ly = cy - 1.05 * T * S;
         var w = l.measureText(txt).width + 12, lx = Math.min(Math.max(cx, w / 2 + 2), cv.width - w / 2 - 2);
         l.fillStyle = "rgba(20,16,31,.88)"; l.fillRect(lx - w / 2, ly - 14, w, 28);
-        l.fillStyle = done ? "#7bd88f" : g.status === "open" ? "#e8b84a" : "#cfc8e0"; l.fillText(txt, lx, ly);
+        l.fillStyle = done ? "#7bd88f" : gst(g) === "open" ? "#e8b84a" : "#cfc8e0"; l.fillText(txt, lx, ly);
         l.fillStyle = COLORS[g.track] || "#fff"; l.fillRect(lx - w / 2, ly + 14, w, 4);
       });
     }
+    var open = firstOpen();
     buildBase(); buildOverlays();
-    AO.hooks.push(function () { buildOverlays(); say(); });
-
-    var open = Object.keys(gateAt).map(function (k) { return gateAt[k]; }).filter(function (g) { return g.status === "open" && !cleared(g); })[0];
+    AO.hooks.push(function () { open = firstOpen(); buildOverlays(); say(); });
     function draw(now) {
       p.px += (p.x - p.px) * (reduce ? 1 : 0.35); p.py += (p.y - p.py) * (reduce ? 1 : 0.35);
       ctx.drawImage(base[0], 0, 0);
@@ -102,7 +123,7 @@
       ctx.drawImage(hero, (moving ? p.frame : 1) * T, p.dir * T, T, T, hx - T * S * .125, hy - T * S * .25, T * S * 1.25, T * S * 1.25);
       ctx.globalAlpha = reduce ? 1 : .85 + .15 * Math.sin(now / 800); ctx.drawImage(fog[0], 0, 0); ctx.globalAlpha = 1;
       ctx.drawImage(lab[0], 0, 0);
-      if (open) {                                           // gold marker over the open zone: "start here"
+      if (open && open.name) {                                           // gold marker over the open zone: "start here"
         var bob = reduce ? 0 : Math.sin(now / 250) * 3, mx = (open.x + .5) * T * S, my = (open.y + 1.55) * T * S + bob;
         ctx.fillStyle = "#e8b84a"; ctx.beginPath(); ctx.moveTo(mx - 9, my + 12); ctx.lineTo(mx + 9, my + 12); ctx.lineTo(mx, my - 4); ctx.fill();
       }

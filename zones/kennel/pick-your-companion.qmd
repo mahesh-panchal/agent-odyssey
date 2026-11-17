@@ -3,7 +3,7 @@ title: "Pick Your Companion"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Recruit the Beast and Adopt the Pet. **Objective:** set the model and the effort on purpose, especially when you hand work to a subagent, and learn to compare two settings on your own task.
+**Prerequisites:** Recruit the Beast. Adopt the Pet is advised, not required. **Objective:** set the model and the effort on purpose, especially when you hand work to a subagent, and learn to compare two settings on your own task.
 **Time:** about 15 minutes. **The exercise is a worksheet and needs no model.**
 
 <span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17; the model-config, effort, sub-agents, costs, choosing-a-model and optimizing-for-cost pages were spot-checked live that day; model names, aliases and defaults change often</span>

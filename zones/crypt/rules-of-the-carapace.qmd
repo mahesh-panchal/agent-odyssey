@@ -3,7 +3,7 @@ title: "Grow the Carapace"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** the Save Point, and either companion from the Kennel. **Objective:** write permission rules that hold, and know where they stop holding.
+**Prerequisites:** Recruit the Beast, or Adopt the Pet if you only run a local model. **Objective:** write permission rules that hold, and know where they stop holding.
 **Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode v2.3.0 on 2026-11-13 (sources in `research/kennel-and-crypt.md`).</span>
 :::
 

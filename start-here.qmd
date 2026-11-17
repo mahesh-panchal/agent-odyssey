@@ -1,0 +1,35 @@
+---
+title: "Start Here"
+---
+
+Agent Odyssey is a short role-playing course on using coding agents (LLM tools that read and run code for you) safely in bioinformatics work. You need no LLM experience. Nothing here says you must use these tools: it shows how to do so with care if you choose to.
+
+The trunk takes about three hours. Each branch adds about one to two more. The order below is advice. Every quest stays open, and only the final boss, the Murk's Heart, waits for its conditions.
+
+<p id="ao-start-next" class="ao-next" aria-live="polite"><noscript>Open <a href="index.html">the map</a> and begin with Name the Fears.</noscript></p>
+
+## How to walk it
+
+1. **Walk the trunk.** The spine of the map is <span data-ao-n="trunk">13</span> quests in order: fears, kinds of machine, gear, tokens, context, an undo point, your first agent, its armour, then trust in output.
+2. **Pick branches by interest.** Branches hang off the trunk. Choose the ones that match your work: memory, skills, guards, pipelines, notebooks, clusters, people, models. Dashed boxes are optional side quests.
+3. **Meet the mid-boss.** The Wall of Output ends the trunk.
+4. **Clear the Murk.** The final boss opens when the whole trunk and any <span data-ao-n="any">3</span> of the <span data-ao-n="branches">8</span> branches are done.
+5. **Save your progress.** It lives in this browser. Press **Save code** in the top bar to copy a code, and **Load code** to restore it elsewhere.
+
+<p id="ao-start-finale" class="ao-start-finale" aria-live="polite"></p>
+
+## The map
+
+Boxes are quests. Each shows its state in words: **✔ cleared** (filled), **▶ ready** (thick outline), **○ later** (thin outline). Later means a suggested earlier quest is still open. You can open any box. Scroll sideways to see all of it.
+
+<div id="ao-start-net" class="ao-start-net" tabindex="0" role="region" aria-label="Quest network. Scroll sideways; every box is a link."><noscript>The map needs JavaScript. Use <a href="index.html">the zone list</a>.</noscript></div>
+
+<details class="ao-textlist" open><summary>Text version of the map</summary>
+<div id="ao-start-list" class="ao-start-list"></div>
+</details>
+
+## The branches
+
+<ul id="ao-start-branches" class="ao-start-branches"></ul>
+
+Back to [the overworld map](index.qmd).

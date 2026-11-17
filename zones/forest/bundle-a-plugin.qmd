@@ -3,7 +3,7 @@ title: "Bundle a Plugin"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Test the Skill. **Objective:** package Skills (and their evals) as a plugin, validate it, and know why installing one is a trust decision.
+**Prerequisites:** Test the Skill. This is an optional side quest. **Objective:** package Skills (and their evals) as a plugin, validate it, and know why installing one is a trust decision.
 **Time:** about 20 minutes. <span class="ao-badge">Verified: ran `claude plugin validate .` and `--strict` on `exercises/forge/fasta-tools` (Claude Code 2.1.325). Other claims: last verified (docs, not run) on 2026-11-13, sources in `research/forge.md`.</span>
 :::
 

@@ -62,6 +62,29 @@ SHOTS += [
     page("lore-library-wide", "lore.html", 1400, 1800),
     page("lore-library-narrow", "lore.html", 600, 2400),
 ]
+# Guided path: Start Here, the sealed and unlocked finale, the ending and the Wall boss.
+_G = json.loads((ROOT / "assets/data/world.json").read_text())["graph"]
+_QS = _G["quests"]; _FIN = _G["finale"]["id"]
+def _ids(trunk=True, branches=()):
+    return [i for i, q in _QS.items() if (trunk and q["trunk"]) or q.get("branch") in branches]
+def with_state(B, url, ids):
+    st = {"v": 1, "xp": 500, "passed": {i: True for i in ids}, "prefs": {}}
+    B.go(base + "index.html"); B.js("localStorage.setItem('agent-odyssey:v1:state', %s)" % json.dumps(json.dumps(st))); B.go(base + url)
+_B3 = [b["id"] for b in _G["branches"]][:3]
+SHOTS += [
+    page("path-start-here-wide", "start-here.html", 1400, 1800),
+    page("path-start-here-narrow", "start-here.html", 600, 2400),
+    ("path-start-here-midgame-wide", (1400, 1800), lambda B: with_state(B, "start-here.html", _ids(True, _B3[:1]))),
+    ("path-start-here-unlocked-wide", (1400, 1800), lambda B: with_state(B, "start-here.html", _ids(True, _B3))),
+    ("path-map-unlocked-wide", (1400, 900), lambda B: with_state(B, "index.html", _ids(True, _B3))),
+    page("path-finale-sealed-wide", "zones/murk/clear-the-murk.html", 1400, 1800),
+    page("path-finale-sealed-narrow", "zones/murk/clear-the-murk.html", 600, 2400),
+    ("path-finale-unlocked-wide", (1400, 1800), lambda B: with_state(B, "zones/murk/clear-the-murk.html", _ids(True, _B3))),
+    ("path-finale-cleared-wide", (1400, 1800), lambda B: with_state(B, "zones/murk/clear-the-murk.html", _ids(True, _B3) + [_FIN])),
+    page("path-boss-wall-wide", "zones/maze/wall-of-output.html"),
+    ("path-quest-nextsteps-wide", (1400, 900), lambda B: (with_state(B, "zones/basecamp/name-the-fears.html", ["basecamp-name-the-fears"]),
+        B.js("(document.querySelector('.ao-nextsteps')||document.body).scrollIntoView({block:'center'})"))),
+]
 for z, slugs in {"citadel": ["jobs-not-jam", "keys-on-shared-ground", "login-node-manners"],
                  "gatehouse": ["plug-in-a-server", "guard-the-door", "advice-or-enforcement"],
                  "codon-mill": ["the-context-window", "tokens-not-letters", "memory-sessions-and-usage", "the-stream-of-ideas", "too-many-tools-too-many-agents", "when-to-start-fresh", "where-machines-fail", "who-said-what", "handoff-notes"],

@@ -3,7 +3,7 @@ title: "Ground Truth"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** a terminal with Python 3 and `awk`, and the two exercise files below (about 1 KB in total). Nothing here touches your own data.
+**Prerequisites:** Spot the Mirage, a terminal with Python 3 and `awk`, and the two exercise files below (about 1 KB in total). Nothing here touches your own data.
 **Objective:** find out whether a script an agent called "tested" is actually right, using a check the agent did not write.
 **Time:** about 15 minutes.
 

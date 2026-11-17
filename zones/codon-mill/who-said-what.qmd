@@ -3,7 +3,7 @@ title: "Who Said What"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** The Context Window. **Objective:** tell the system prompt, the instructions file and your own message apart, and know which you control and which only advise.
+**Prerequisites:** The Context Window. This is an optional side quest. **Objective:** tell the system prompt, the instructions file and your own message apart, and know which you control and which only advise.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code glossary, memory and how-it-works docs on 2026-11-16 (sources in `research/fundamentals.md`). Other tools arrange this differently; the ideas carry over.</span>
 Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::

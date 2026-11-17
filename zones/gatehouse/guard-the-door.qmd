@@ -3,7 +3,7 @@ title: "Guard the Door"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Plug In a Server and the Rules of the Carapace. **Objective:** write a hook that refuses a command, and know where a hook's coverage ends.
+**Prerequisites:** Plug In a Server. **Objective:** write a hook that refuses a command, and know where a hook's coverage ends.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in `research/tools-and-guards.md`)</span>
 :::
 

@@ -3,7 +3,7 @@ title: "Plug In a Server"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** the Rules of the Carapace (permission rules) and Know Your Gear (what MCP and a harness are). **Objective:** treat an MCP server as software you install, then scope it, limit it and read what it sends back.
+**Prerequisites:** Grow the Carapace (permission rules). Walk the trunk first. **Objective:** treat an MCP server as software you install, then scope it, limit it and read what it sends back.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in `research/tools-and-guards.md` and `research/terminology.md`)</span>
 :::
 

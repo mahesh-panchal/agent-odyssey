@@ -3,7 +3,7 @@ title: "The Project Charter"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Write the Brief. **Objective:** give the agent standing instructions for a project, and know where they end and enforcement begins.
+**Prerequisites:** Write the Brief. Who Said What is advised. **Objective:** give the agent standing instructions for a project, and know where they end and enforcement begins.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in `research/forest-and-reef.md` and `research/doctor.md`).</span>
 :::
 

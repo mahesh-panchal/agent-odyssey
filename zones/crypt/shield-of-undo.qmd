@@ -3,7 +3,7 @@ title: "Save Point"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** a terminal and `git`. **Objective:** make any change reversible before an agent touches it.
+**Prerequisites:** Know Your Gear, a terminal and `git`. The Context Window is advised. **Objective:** make any change reversible before an agent touches it.
 
 <span class="ao-badge">Verified: ran these commands with git 2.54.0 on 2026-11-13</span>
 :::

@@ -14,13 +14,16 @@
       gates.forEach(function (g) { (g.quests || []).forEach(function (q) {
         if (done[q.id]) chron.push(q.done); else { if (!cur) cur = { g: g, q: q }; if (location.pathname.endsWith(q.page)) onPage = { g: g, q: q }; }
       }); });
+      // Off a quest page, "Now" follows the path's next quest; on a quest page it shows that page's quest.
+      var nq = !onPage && AO.path && AO.path.nextQuest && AO.path.nextQuest();
+      if (nq) gates.forEach(function (g) { (g.quests || []).forEach(function (q) { if (q.id === nq.id) cur = { g: g, q: q }; }); });
       cur = onPage || cur;
       var html = "<h2>Chronicle</h2>";
       html += cur ? "<div class='ao-now'><strong>Now:</strong> " + esc(cur.g.name) + " — " + link(cur.q) + "<p>" + esc(cur.q.story || "") + "</p></div>"
                   : "<div class='ao-now'><strong>Now:</strong> every open quest is cleared. More zones open in later versions.</div>";
       gates.forEach(function (g) {
         var qs = g.quests || [], open = cur && cur.g === g;
-        html += "<details" + (open ? " open" : "") + "><summary>" + esc(g.name) + (g.status !== "open" ? " 🔒" : qs.length && qs.every(function (q) { return done[q.id]; }) ? " ✔" : "") + "</summary>";
+        html += "<details" + (open ? " open" : "") + "><summary>" + esc(g.name) + (g.status !== "open" && !(g.id === "murk" && AO.path && AO.path.finaleUnlocked && AO.path.finaleUnlocked()) ? " 🔒" : (function () { var req = qs.filter(function (q) { var n = AO.path && AO.path.quest(q.id); return !(n && n.optional); }); return req.length && req.every(function (q) { return done[q.id]; }); })() ? " ✔" : "") + "</summary>";
         if (!qs.length) html += "<p class='ao-soft'>" + esc(g.blurb || "") + "</p>";
         qs.forEach(function (q) {
           var st = done[q.id] ? "✔" : (cur && cur.q === q ? "➜" : "○");
@@ -46,5 +49,6 @@
     }
     AO.hooks.push(function () { paint(); bind(); });
     paint(); bind();
+    if (window.AO && AO.path && AO.path.load) AO.path.load().then(function () { paint(); bind(); });
   });
 })();

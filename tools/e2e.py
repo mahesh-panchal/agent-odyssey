@@ -59,6 +59,24 @@ try:
     for q in quests:
         B.go(base + q["page"], 1.0)
         check("quest page renders a test: " + q["id"], B.js("!!document.querySelector('.ao-round')"))
+    # --- path graph: shared helper loads, finale starts locked, next quest follows the trunk ---
+    B.go(base + "index.html", 1.0)
+    check("path graph loads and the finale gate starts locked", B.js("AO.path.load().then(() => AO.path.finaleUnlocked() === false && AO.path.quest('murk-clear-the-murk').branch === 'finale')") is True)
+    check("next quest follows the trunk, not zones.yml order", B.js("AO.path.load().then(() => AO.path.nextQuest().id)") == "basecamp-name-the-fears", B.js("AO.path.load().then(() => AO.path.nextQuest().id)"))
+    # Three progress states, injected in the page only (restored afterwards, never saved).
+    probe = """AO.path.load().then(G => {
+      const old = AO.state.passed, rule = G.finale.requires.branches, f = G.finale.id;
+      const build = (nb, withFinale) => { const p = {}; G.trunk_order.forEach(id => p[id] = true);
+        rule.of.slice(0, nb).forEach(b => Object.keys(G.quests).forEach(id => { const q = G.quests[id]; if (q.branch === b && !q.optional) p[id] = true; }));
+        if (withFinale) p[f] = true; return p; };
+      const run = (nb, wf) => { AO.state.passed = build(nb, wf); const n = AO.path.nextQuest();
+        return { unlocked: AO.path.finaleUnlocked(), next: n && n.id, nextBranch: n && G.quests[n.id] && G.quests[n.id].branch }; };
+      const out = { f: f, short: run(rule.any - 1, false), full: run(rule.any, false), done: run(rule.any, true) };
+      AO.state.passed = old; return JSON.stringify(out); })"""
+    st = json.loads(B.js(probe))
+    check("finale stays locked with the trunk and one branch too few", st["short"]["unlocked"] is False and st["short"]["next"] != st["f"], json.dumps(st["short"]))
+    check("trunk plus the needed branches unlocks the finale and points to it", st["full"]["unlocked"] is True and st["full"]["next"] == st["f"], json.dumps(st["full"]))
+    check("after the finale the next quest returns to a branch", st["done"]["next"] not in (None, st["f"]) and st["done"]["nextBranch"] not in ("trunk", "finale"), json.dumps(st["done"]))
     B.go(base + "zones/maze/wall-of-output.html", 1.0)
     check("boss fight shows a name and HP bar", B.js("!!document.querySelector('.ao-boss progress')") and "Wall of Output" in B.js("document.querySelector('.ao-boss').textContent"))
     check("exercise files are published", B.js("Promise.all(['tiny.fasta','gc.py'].map(f=>fetch('/exercises/maze/'+f).then(r=>r.ok)))").__class__ is list and all(B.js("Promise.all(['tiny.fasta','gc.py'].map(f=>fetch('/exercises/maze/'+f).then(r=>r.ok)))")))

@@ -3,7 +3,7 @@ title: "Spot the Mirage"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** none beyond a terminal and Python. **Objective:** learn how plausible-but-false output looks, and how to check it without asking the thing that produced it.
+**Prerequisites:** Where Machines Fail, a terminal and Python. **Objective:** learn how plausible-but-false output looks, and how to check it without asking the thing that produced it.
 **Time:** about 10 minutes.
 
 <span class="ao-badge">Verified: ran the Python example below on 2026-11-13. The rest is general practice, not a vendor claim.</span>

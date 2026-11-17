@@ -3,7 +3,7 @@ title: "Why Notebooks Diff Badly"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** basic git (`git diff`). Jupyter experience helps but is not required.
+**Prerequisites:** Save Point (for `git diff`). Jupyter experience helps but is not required.
 **Objective:** explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable.
 **Time:** about 15 minutes.
 

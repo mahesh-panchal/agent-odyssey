@@ -3,7 +3,7 @@ title: "Forge a Skill"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** The Project Charter. **Objective:** package a repeatable procedure as a Skill, and know what a Skill covers and where its limits lie.
+**Prerequisites:** The Project Charter. Plan Before You Edit is advised. **Objective:** package a repeatable procedure as a Skill, and know what a Skill covers and where its limits lie.
 **Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in `research/forest-and-reef.md` and `research/doctor.md`).</span>
 :::
 

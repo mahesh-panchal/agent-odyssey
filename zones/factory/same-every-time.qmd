@@ -3,7 +3,7 @@ title: "Same Every Time"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Three Kinds of Machine. **Objective:** decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does.
+**Prerequisites:** Three Kinds of Machine. Where Machines Fail is advised. **Objective:** decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does.
 **Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim.</span>
 :::
 

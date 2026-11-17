@@ -59,3 +59,41 @@ pre::-webkit-scrollbar { height: 8px; } pre::-webkit-scrollbar-thumb { backgroun
 table { display: block; max-width: 100%; overflow-x: auto; }
 .quest-dialog > :last-child { margin-bottom: 0; }
 [data-ao-honour] code { color: var(--fg); background: rgba(255,255,255,.12); }
+/* Boss portraits: 48x48 art px scaled up crisply. */
+img.ao-boss-img { display: block; margin: 1rem auto; width: 192px; max-width: 100%; height: auto; image-rendering: pixelated; }
+/* Start Here network and Next steps (scoped to .ao-start-*, .ao-net, .ao-nextsteps, .ao-ending, .ao-sealed). */
+.ao-start-btn { display: inline-block; background: var(--accent); color: #14101f !important; font-weight: bold; padding: .5rem 1rem; border-radius: 4px; text-decoration: none; }
+.ao-start-finale { border-left: 4px solid var(--accent); background: var(--panel); padding: .5rem .9rem; }
+.ao-start-net { overflow-x: auto; border: 2px solid var(--accent); background: var(--panel); padding: .5rem; margin: 1rem 0; scrollbar-width: thin; scrollbar-color: var(--accent) var(--panel); }
+.ao-start-net:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.ao-net { display: block; max-width: none; }
+.ao-net text { fill: var(--fg); font: 13px system-ui, sans-serif; }
+.ao-net .st { font: 12px ui-monospace, monospace; }
+.ao-net .lane-label { fill: var(--accent); font: bold 14px ui-monospace, monospace; }
+.ao-net .edge { stroke: var(--fg); stroke-width: 2; fill: none; opacity: .6; }
+.ao-net .edge.optional { stroke-dasharray: 4 4; }
+.ao-net .ahead { fill: var(--fg); opacity: .8; }
+.ao-net .box { fill: var(--bg); stroke: var(--fg); stroke-width: 1; }
+.ao-net .box2 { fill: none; stroke: var(--accent); stroke-width: 2; }
+.ao-net .node.optional .box { stroke-dasharray: 5 4; }
+.ao-net .node { cursor: pointer; }
+.ao-net .node:hover .box, .ao-net .node:focus .box { stroke: #fff; stroke-width: 4; }
+.ao-net .node:focus { outline: none; }
+.ao-net .node:focus-visible .box { stroke: #fff; stroke-width: 6; }
+.ao-net .st-ready .box { stroke: var(--accent); stroke-width: 4; }
+.ao-net .st-cleared .box { fill: var(--ok); stroke: var(--ok); }
+.ao-net .st-cleared text { fill: #14101f; }
+.ao-net .here .ring { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 8 5; }
+.ao-net .here .tab { fill: var(--accent); }
+.ao-net .here text { fill: #14101f; font-weight: bold; font-size: 11px; }
+.ao-start-branches li { margin: .6rem 0; }
+.ao-prog { font: 14px ui-monospace, monospace; border: 1px solid var(--accent); padding: 0 .4rem; border-radius: 3px; }
+.ao-nextsteps { border: 2px solid var(--accent); background: var(--panel); padding: .6rem 1rem; margin: 2rem 0 1rem; font-size: 16px; }
+.ao-nextsteps h2 { font-size: 1.1rem; margin: 0 0 .3rem; border: 0; }
+.ao-nextsteps h3 { font-size: 1rem; margin: .6rem 0 .1rem; color: var(--fg); }
+.ao-nextsteps ul { margin: 0; padding-left: 1.2rem; }
+.ao-nextsteps .ao-soft, .ao-start-list .ao-soft { opacity: .8; font-size: .9em; }
+[data-ao-ending]:not(.ao-ending-on) { display: none; }
+.ao-ending-on { border: 2px solid var(--ok); background: var(--panel); padding: .8rem 1.2rem; margin: 1.5rem 0; }
+.ao-sealed { border: 2px dashed var(--bad); background: var(--panel); padding: .5rem 1rem; margin: 1rem 0; }
+.ao-sealed[hidden] { display: none; }

@@ -6,6 +6,11 @@ gitignored and rebuilt at pre-render.
 |---|---|---|---|---|
 | `assets/img/tiles.png` | overworld tiles (grass, path, tree, water, stone, gates) | 16px tiles | `make_art.py` | CC BY 4.0 |
 | `assets/img/hero.png` | player sprite | 16px | `make_art.py` | CC BY 4.0 |
+| `assets/img/boss-wall.png` | Maze boss, The Wall of Output (full health) | 48x48 | `make_art.py` | CC BY 4.0 |
+| `assets/img/boss-wall-cracked.png` | The Wall, damaged frame | 48x48 | `make_art.py` | CC BY 4.0 |
+| `assets/img/boss-wall-broken.png` | The Wall, broken frame | 48x48 | `make_art.py` | CC BY 4.0 |
+| `assets/img/boss-murk.png` | final boss, The Murk | 48x48 | `make_art.py` | CC BY 4.0 |
+| `assets/img/boss-murk-cleared.png` | The Murk cleared (ending screen) | 48x48 | `make_art.py` | CC BY 4.0 |
 
-Companion and enemy portraits are not yet drawn; the pages describe them in text. Replacement art (hand-drawn or generated)
+Boss portraits are drawn at 48x48 and shown with the `ao-boss-img` image class (`image-rendering: pixelated`, about 192px wide). Companion and other enemy portraits are not yet drawn; the pages describe them in text. Replacement art (hand-drawn or generated)
 can drop into the same slots. Do not imitate any existing game's characters or sprites.

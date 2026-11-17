@@ -3,7 +3,7 @@ title: "Too Many Tools, Too Many Agents"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Who Said What. **Objective:** explain why a large toolset costs context and accuracy, and choose between a single call, a fixed workflow, an agent, and a plain script.
+**Prerequisites:** Who Said What. This is an optional side quest; Plug In a Server (advised) puts it to use. **Objective:** explain why a large toolset costs context and accuracy, and choose between a single call, a fixed workflow, an agent, and a plain script.
 **Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API tool-search docs, Claude Code MCP docs and Anthropic's "Building effective agents" article on 2026-11-16 (sources in `research/fundamentals.md`). The figures quoted are Anthropic's own claims and were not measured here.</span>
 Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::

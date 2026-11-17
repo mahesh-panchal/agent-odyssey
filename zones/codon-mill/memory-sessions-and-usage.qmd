@@ -3,7 +3,7 @@ title: "Memory, Sessions and Usage"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Tokens, Not Letters; The Context Window. **Objective:** use six terms precisely (token, context window, session context, memory, session usage, context poisoning), and say what to do when a wrong claim has got into a session or into memory.
+**Prerequisites:** The Context Window. **Objective:** use six terms precisely (token, context window, session context, memory, session usage, context poisoning), and say what to do when a wrong claim has got into a session or into memory.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/failure-modes.md sources on 2026-11-16 (Claude Code memory, sessions, costs, commands and best-practices docs). Claude Code specific unless stated.</span>
 Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::

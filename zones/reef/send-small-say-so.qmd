@@ -3,7 +3,7 @@ title: "Send Small, Say So"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Spot the Mirage. **Objective:** hand work to collaborators, whether or not they use LLMs, without passing them your review burden.
+**Prerequisites:** Spot the Mirage. The Wall of Output is advised. **Objective:** hand work to collaborators, whether or not they use LLMs, without passing them your review burden.
 **Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Not checked: any venue's disclosure policy. Team norms you agree locally override these defaults.</span>
 :::
 

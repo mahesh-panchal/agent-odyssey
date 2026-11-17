@@ -3,11 +3,13 @@ title: "Boss: The Wall of Output"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Spot the Mirage and Ground Truth recommended. **Objective:** survive a wall of agent output without reading all of it and without trusting all of it.
+**Prerequisites:** Ground Truth. This is the boss at the end of the trunk. **Objective:** survive a wall of agent output without reading all of it and without trusting all of it.
 **Time:** about 10 minutes. Each right answer on the first try damages the boss.
 
 <span class="ao-badge">Practice guidance, not a vendor claim. Based on the habits taught in this zone.</span>
 :::
+
+![](../../assets/img/boss-wall.png){.ao-boss-img fig-alt="Pixel-art portrait of the Wall of Output: a tall wall of terminal-style bricks filled with green scrolling text, with two glowing amber cursor eyes."}
 
 ## The Wall
 

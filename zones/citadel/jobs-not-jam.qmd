@@ -3,7 +3,7 @@ title: "Jobs, Not Jam"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Login Node Manners and Grow the Carapace. **Objective:** let the agent draft job scripts while you keep submitting and cancelling under your own approval, and know what polling costs.
+**Prerequisites:** Login Node Manners. **Objective:** let the agent draft job scripts while you keep submitting and cancelling under your own approval, and know what polling costs.
 **Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm, Claude Code and OpenCode (V2) docs on 2026-11-16 (sources in `research/hpc-and-notebooks.md`)</span>
 :::
 

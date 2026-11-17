@@ -3,7 +3,7 @@ title: "Write the Brief"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** a companion from the Kennel. **Objective:** write prompts that make output checkable, and manage the context window so the agent stays on task.
+**Prerequisites:** Recruit the Beast. The Context Window is advised. **Objective:** write prompts that make output checkable, and manage the context window so the agent stays on task.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in `research/forest-and-reef.md`).</span>
 :::
 

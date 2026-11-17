@@ -3,7 +3,7 @@ title: "Adopt the Pet"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** a laptop with about 16 GB of memory, a terminal, and roughly 5 GB of free disk. WSL (Windows Subsystem for Linux) users: see the unconfirmed list at the end.
+**Prerequisites:** Save Point, a laptop with about 16 GB of memory, a terminal, and roughly 5 GB of free disk. This is an optional side quest. WSL (Windows Subsystem for Linux) users: see the unconfirmed list at the end.
 **Objective:** run a small local model with Ollama, give it enough context, and point OpenCode at it.
 **Time:** about 20 minutes. Everything stays on your machine.
 
