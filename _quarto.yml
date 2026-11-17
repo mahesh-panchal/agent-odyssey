@@ -6,6 +6,8 @@ project:
     - "**/*.md"
     - "!exercises/**/*.ipynb"
     - "!README.md"
+    - "!CONTRIBUTING.md"
+    - "!REVIEW.md"
   resources:
     - assets/data
     - assets/js
