@@ -1,0 +1,40 @@
+pass: 0.8
+questions:
+  - type: match
+    prompt: "Match each source to who controls it."
+    explain: "The harness writes the system prompt. You write the instructions file and your message, with different lifetimes."
+    pairs:
+      - { left: "System prompt", right: "Written by the harness, sent on every request", misconception: "You can append to it; the base text belongs to the harness." }
+      - { left: "Instructions file", right: "Written by you, loaded at the start of each session", misconception: "It persists across tasks, which is why it costs context every time." }
+      - { left: "Your message", right: "Written by you, applies to this task", misconception: "A chat message lasts for this task unless it is saved elsewhere." }
+  - type: choice
+    prompt: "According to the Claude Code docs, how does CLAUDE.md reach the model?"
+    explain: "The docs say it is loaded as a user message after the system prompt."
+    options:
+      - { text: "As a user message after the system prompt", correct: true }
+      - { text: "As the first lines of the system prompt itself", misconception: "The docs place it outside the system prompt." }
+      - { text: "It is compiled into a setting the harness enforces", misconception: "The docs call it context." }
+  - type: choice
+    prompt: "A rule must hold even if the model decides otherwise, such as never running a certain command. What do the docs point to?"
+    explain: "A PreToolUse hook is code and can block the action. The instructions file can only influence the model."
+    options:
+      - { text: "A PreToolUse hook that blocks the action", correct: true }
+      - { text: "A longer, more forceful line in CLAUDE.md for it", misconception: "Prose is advice, and forceful wording leaves it as advice." }
+      - { text: "Repeating the rule in every message you send it", misconception: "Repetition can nudge behaviour but still does not guarantee it." }
+  - type: sort
+    prompt: "Where does each of these most likely live?"
+    bins: ["Harness", "Instructions file", "Your message"]
+    explain: "The harness adds tool and safety guidance and its own reminders. The file holds lasting project facts. Your message holds the task."
+    items:
+      - { text: "How to format answers and use tools safely", bin: "Harness", misconception: "That guidance ships in the harness's system prompt." }
+      - { text: "Always run the unit tests with the project's own command", bin: "Instructions file", misconception: "A lasting project fact belongs in the file, so each chat starts with it." }
+      - { text: "Fix the failing step in this one pipeline run", bin: "Your message", misconception: "That is a single task, so it belongs to your message." }
+      - { text: "A co-author line added to commits", bin: "Harness", misconception: "Attribution lines can arrive as system reminders from the harness." }
+  - type: faulty-line
+    prompt: "Statements a teammate wrote in a guide. Which one the docs do not support?"
+    explain: "The docs describe the instructions file as context. Calling it a guarantee is the error."
+    lines:
+      - { text: "The instructions file spends context in every session", why: "It is loaded at the start of every session." }
+      - { text: "Anything written in the instructions file is guaranteed to be obeyed", faulty: true }
+      - { text: "Specific, short instructions are followed more consistently", why: "The docs say this directly." }
+      - { text: "A rule the agent follows may have come from a harness reminder", why: "System reminders carry rules you did not write." }

@@ -1,0 +1,35 @@
+---
+title: "Same Every Time"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Three Kinds of Machine. **Objective:** decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does.
+**Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim.</span>
+:::
+
+A pipeline earns trust by giving the same answer from the same input. An LLM call can return different text from run to run, so putting one inside a step changes what the pipeline is.
+
+**Prefer to keep the LLM out of the run.** Use it to *write* a script, then test the script and run the script. The script is deterministic and reviewable.
+
+If an LLM call really must be a step (tidying messy free-text labels, say), contain it:
+
+- **Record** the model name and version, and the exact prompt, with the outputs. This is a necessary start, and even a pinned model may not return identical text every time.
+- **Cache** results keyed by input (saved outputs; a different sense from the prompt cache used in Claude Code sessions), so a re-run does not change them silently.
+- **Validate** each output against a fixed set (a species list, a schema) and fail loudly when it does not match.
+- **Keep a human-check sample**: look at a random handful every time.
+- **Keep it away from data you may not send out.** See The Locked Cabinet.
+
+## Battle: reproducible runs
+
+<div data-ao-test="factory-same-every-time" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Anthropic, docs. Why read: it suggests comparing repeated runs, a cheap way to see whether an LLM step gives the same answer each time, and admits such habits reduce but do not remove errors.
+- [Containers](https://docs.seqera.io/nextflow/container): Seqera (Nextflow docs), docs. Why read: it says containerizing a pipeline makes it self-contained and reproducible, and shows setting the container per process.
+- [Distribution and Reproducibility](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html): Snakemake, docs. Why read: it covers per-rule conda environments, containers and pinning, the answer to unpinned tools.
+- [Conda environments](https://docs.seqera.io/nextflow/conda): Seqera (Nextflow docs), docs. Why read: it shows pinning tool versions by name in the spec and using lock files for more reproducible environments.
+:::

@@ -1,0 +1,54 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "What is preloaded from every Skill, before it is used?"
+    explain: "Only descriptions are preloaded. The body loads when the Skill is used, which keeps context small."
+    options:
+      - { text: "Only its short description", correct: true }
+      - { text: "The whole SKILL.md and all bundled files", misconception: "Loading everything would crowd the context, which is why descriptions load first." }
+      - { text: "Nothing at all", misconception: "The description must be loaded or the agent could not know when to use it." }
+  - type: choice
+    prompt: "In Claude Code, what does allowed-tools in a Skill do?"
+    explain: "It pre-approves the listed tools for that turn. Other tools stay available."
+    options:
+      - { text: "Pre-approves the listed tools. It is not a restriction", correct: true }
+      - { text: "Restricts the agent to only the tools listed in the Skill", misconception: "It leaves the agent free to use other tools, so it offers no security boundary." }
+      - { text: "Installs the listed tools if they are missing on the machine", misconception: "It only affects permission prompts." }
+  - type: faulty-line
+    prompt: "Which line in this Skill's frontmatter will make it hard for the agent to use at the right time?"
+    explain: "The description is how the agent decides whether the Skill applies. 'Stuff' gives no hint of when to use it."
+    lines:
+      - { text: 'name: check-fasta', why: "A clear short name." }
+      - { text: 'description: Stuff for files.', faulty: true }
+      - { text: '---', why: "Closes the frontmatter." }
+  - type: sort
+    prompt: "Instructions file or Skill?"
+    bins: ["Instructions file", "Skill"]
+    explain: "Standing facts about the project go in the instructions file. A longer procedure used occasionally is a Skill."
+    items:
+      - { text: "How to run this project's tests", bin: "Instructions file", misconception: "A short fact needed in every session." }
+      - { text: "A ten-step procedure for preparing a submission bundle, used twice a year", bin: "Skill", misconception: "A long, occasional procedure belongs in a Skill so it only loads when needed." }
+      - { text: "'raw/ is read-only'", bin: "Instructions file", misconception: "A standing rule that applies throughout." }
+  - type: choice
+    prompt: "You find a Skill online that promises to speed up your analysis. What first?"
+    explain: "A Skill can contain instructions and scripts. Read it as you would read any code before running it."
+    options:
+      - { text: "Read the SKILL.md and any bundled scripts before installing", correct: true }
+      - { text: "Install it and watch the first run closely for anything odd", misconception: "Watching a run happens after any harm is done. Skills can bundle scripts and steer the agent to run commands." }
+      - { text: "Ask the agent to read it and tell you whether it is safe", misconception: "The agent reading the Skill is the thing at risk, since its instructions can steer the agent. Review it yourself." }
+      - { text: "Check how popular it is and read the reviews before installing", misconception: "Popularity is no substitute for review. A widely shared Skill can still contain harmful instructions or scripts." }
+  - type: choice
+    prompt: "A skill sits in your listing, but Claude never uses it. Which command shows whether it has ever been invoked, and what it costs in context?"
+    explain: "/skill-doctor reports per-skill context cost and usage and flags never-invoked skills. /skills lists them, and /permissions shows tool rules."
+    options:
+      - { text: "/skill-doctor", correct: true }
+      - { text: "/permissions", misconception: "/permissions shows allow, ask and deny rules. It leaves out how often a skill is used." }
+      - { text: "/skills, which lists every skill with its call count", misconception: "/skills lists skills and can sort by token count. It leaves out how often each was invoked." }
+      - { text: "/hooks, which lists the skills hooked to each event", misconception: "/hooks shows configured hooks grouped by event, which is a different list from skills." }
+  - type: choice
+    prompt: "You want a Skill that checks FASTA files, and later another that trims adapters. How do you scope them?"
+    explain: "A Skill with one job, a stated input and a stated output is easier to trigger, review and change. Mixed jobs blur the description."
+    options:
+      - { text: "Two Skills, each with one job, input and output", correct: true }
+      - { text: "One Skill named helpers that covers every sequence chore", misconception: "A vague catch-all gives the agent little to match on, and a change to one chore risks the others." }
+      - { text: "One Skill, with a loosely worded description so it always fires", misconception: "A loose description makes the Skill trigger at the wrong times and hides what it is for." }

@@ -1,0 +1,41 @@
+pass: 0.8
+questions:
+  - type: sort
+    prompt: "Sort these jobs by where to start: a smaller, cheaper setup (possibly a subagent), or a stronger model."
+    bins: ["Smaller tier or subagent", "Stronger model"]
+    explain: "General practice. Bulk, checkable or read-only work suits a small tier or a subagent. Planning, hard debugging and unfamiliar science suit a stronger model, because errors there are costly and hard to spot."
+    items:
+      - { text: "Classify 5,000 tissue labels, with 200 hand-labelled rows to check against", bin: "Smaller tier or subagent", misconception: "Volume alone does not need a strong tier when a checker catches mistakes, and re-running only failures is cheap." }
+      - { text: "Skim a large log folder and report which tasks failed", bin: "Smaller tier or subagent", misconception: "Reading bulk text is the job the docs give to subagents, which keeps the main context clean." }
+      - { text: "Plan a refactor of a shared QC script", bin: "Stronger model", misconception: "A flawed plan misdirects every later step, so the thinking is worth more than the saving." }
+      - { text: "Work out why a statistical method fails on an unfamiliar assay", bin: "Stronger model", misconception: "Unfamiliar science is a knowledge gap, which a small tier is more likely to have and which (per one article) effort alone does not fill." }
+  - type: match
+    prompt: "Match each symptom to the next step on the upgrade ladder."
+    explain: "Add a check first so you can see what helps. Raise effort when the agent stops early or skips checks. Re-run only failures when outcomes are checkable. Change model when a verified, higher-effort run still lacks the needed knowledge (the idea that effort cannot add knowledge is from one article, not confirmed in the docs)."
+    pairs:
+      - { left: "The output looks plausible but you cannot tell if it is right", right: "Add a way to verify it, such as a test or a count", misconception: "Raising effort or the tier cannot tell you whether the answer is right; without a check you cannot see any change." }
+      - { left: "A checkable job mostly passes and a few items fail", right: "Re-run only the failures at higher effort", misconception: "Re-running everything at higher effort pays again for the work that already passed." }
+      - { left: "The agent stops early and skips checks, with a test in place", right: "Raise effort one level", misconception: "Switching model is the later rung; stopping early is a thoroughness symptom that effort addresses first." }
+      - { left: "At high effort and a good check, it still lacks the domain knowledge", right: "Try the next model tier up", misconception: "Per one article, more thinking cannot supply knowledge the model lacks, so another effort level is the wrong next step." }
+  - type: choice
+    prompt: "An agent's rewrite of a samplesheet parser looks wrong, and you have no tests. What do you do first?"
+    explain: "Without a way to verify, you cannot tell whether a stronger model or higher effort improved anything. Build the check first, then climb."
+    options:
+      - { text: "Write a check, such as a row-count comparison", correct: true }
+      - { text: "Switch to the strongest model, then ask the same question again", misconception: "Without a check you cannot see whether the new answer is better, so the extra cost buys nothing you can verify." }
+      - { text: "Set effort to the maximum level, then ask the same question again", misconception: "Higher effort adds thoroughness and cost, and gives you no way to judge the result." }
+      - { text: "Ask the same agent to read its own code and confirm it", misconception: "A re-read by the same model can share the original mistake, so it is not an independent check." }
+  - type: faulty-line
+    prompt: "Which line in this delegation plan will most likely go wrong?"
+    explain: "Per the docs, the built-in Explore and Plan subagents skip CLAUDE.md, so rules in it do not reach them. State the rule in the task you hand them."
+    lines:
+      - { text: "Define a log-reader subagent with model: haiku and effort: medium for reading pipeline logs.", why: "A named model and effort are set in the definition, which the docs allow." }
+      - { text: "Ask the built-in Explore subagent to survey the repo; it will obey the 'never edit raw/' rule from our CLAUDE.md, so the prompt need not mention it.", faulty: true }
+      - { text: "Ask the subagent to return exact file paths with its summary, then open two of them to spot-check.", why: "A summary can omit or distort, so cited paths let you check it." }
+  - type: order
+    prompt: "Put the upgrade ladder in the order one article suggests when output is not good enough."
+    explain: "This is one article's order (not confirmed in the docs as a sequence). Check first so you can see changes, then the cheaper lever, effort, then the model."
+    items:
+      - "Add a way to verify the output"
+      - "Raise effort by one level"
+      - "Change to a stronger model"

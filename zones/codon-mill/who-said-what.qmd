@@ -1,0 +1,62 @@
+---
+title: "Who Said What"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** The Context Window. **Objective:** tell the system prompt, the instructions file and your own message apart, and know which you control and which only advise.
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code glossary, memory and how-it-works docs on 2026-11-16 (sources in `research/fundamentals.md`). Other tools arrange this differently; the ideas carry over.</span>
+Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
+:::
+
+When an agent follows a rule, it is fair to ask where that rule came from. There are three common sources, and they differ in who writes them, how long they last and whether anything enforces them.
+
+## The three voices
+
+| Voice | Who writes it | How long it lasts | Can you edit it? |
+|---|---|---|---|
+| **System prompt** | The harness | Sent ahead of the conversation on every request | Rarely; you can append or replace it with flags |
+| **Instructions file** (`CLAUDE.md`) | You or your team | Loaded at the start of every session | Yes |
+| **Your message** | You, now | This task | Yes |
+
+In Claude Code, the docs describe the system prompt as the instructions sent ahead of your conversation on every request: how to use tools, behave safely and format answers. You can add to it with `--append-system-prompt` or replace it with `--system-prompt`.
+
+The instructions file is different from what many people assume. The docs say `CLAUDE.md` is loaded at the start of every session **as a user message after the system prompt** (text the model receives in the user's role). It sits outside the system prompt. Output-style instructions (a setting that changes how the model words its replies) are delivered the same way. Both arrive in the conversation as **system reminders** (notes the harness slips into the conversation).
+
+## Rules you did not write
+
+System reminders also carry the skills list, hook `additionalContext` (text a hook hands back for the harness to add to the conversation), notes about changed files and commit or pull-request attribution lines. If the agent follows a rule you never wrote, for example adding a co-author line to commits, look at what the harness adds on its own first.
+
+## Advice, not enforcement
+
+The docs say the instructions file is context. Specific and short instructions are followed more consistently, and longer files use more context and reduce adherence. If an action must be blocked regardless of what the model decides, the docs point to a **PreToolUse hook** (a hook that runs at the point just before a tool runs), which is code that enforces the rule.
+
+We do not know from the docs how the model weighs system prompt against user message internally, so which one wins is left open here. For what must never happen, use enforcement: a hook or a deny rule.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Reads `CLAUDE.md`. If a project has only an `AGENTS.md` (and no `CLAUDE.md` in or above the working directory), it is read instead, from v2.1.277 per the docs. To share one file, import it from `CLAUDE.md` with `@AGENTS.md`.
+
+## OpenCode + Ollama
+
+Not checked: OpenCode's instruction-file loading rules (which names, in what order). Check its own documentation before relying on it.
+
+:::
+
+<div data-ao-honour="trace-rule" data-xp="20">Pick one behaviour of your agent that you did not expect. Decide whether it came from the harness, your instructions file, or your message. Say how you could tell.</div>
+<div data-ao-honour="trim-file" data-xp="20">Check your instructions file's length. If it is long, cut one line that is vague or duplicated.</div>
+
+## Battle: the three voices
+
+<div data-ao-test="codon-mill-who-said-what" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works): Anthropic, docs. Why read: it describes what the harness adds to the conversation, useful for tracing where a behaviour came from.
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it says CLAUDE.md is context that advises, which is why the instructions file sits at the "advises" end of this quest.
+- [Hooks reference](https://code.claude.com/docs/en/hooks): Anthropic, docs. Why read: it is the reference for the one control here that enforces, while the others ask; skim it to see what hooks can act on.
+:::

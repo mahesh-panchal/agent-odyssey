@@ -1,0 +1,46 @@
+pass: 0.8
+questions:
+  - type: faulty-line
+    prompt: "A plugin's skill never loads. Which line of its layout is the problem?"
+    explain: "Only plugin.json belongs in .claude-plugin/. Skills go at the plugin root, so a Skill placed inside it is not loaded."
+    lines:
+      - { text: ".claude-plugin/plugin.json", why: "The manifest belongs here." }
+      - { text: ".claude-plugin/skills/check-fasta/SKILL.md", faulty: true }
+      - { text: "evals/skill-triggers/prompt.md", why: "Evals live at the plugin root." }
+  - type: choice
+    prompt: "claude plugin validate exits 0 on your plugin. What does that show?"
+    explain: "validate checks syntax and schema. Behaviour needs evals, and safety needs you to read the code."
+    options:
+      - { text: "The files are well formed", correct: true }
+      - { text: "The Skill triggers correctly on real user requests", misconception: "Validation never runs the model, so it cannot tell you that." }
+      - { text: "The plugin is safe to install and share with others", misconception: "Safety needs a human to read the hooks, servers and scripts." }
+  - type: sort
+    prompt: "Which plugin parts run code, and which are instructions?"
+    bins: ["Runs code on your machine", "Instructions to the agent"]
+    explain: "Hooks, local servers and bin/ scripts execute. Skills and agent files are text the agent reads."
+    items:
+      - { text: "A hook in hooks/hooks.json", bin: "Runs code on your machine", misconception: "Hooks run commands and sit outside the sandbox and permission rules." }
+      - { text: "A SKILL.md file", bin: "Instructions to the agent", misconception: "A Skill is text read into the context, though its text may tell the agent to run commands." }
+      - { text: "A script in bin/", bin: "Runs code on your machine", misconception: "Scripts in bin/ are executables, so they are code." }
+  - type: choice
+    prompt: "A colleague shares a plugin from a marketplace you have not used before. What first?"
+    explain: "The marketplace name says who publishes it. Reading the plugin shows what it does. Read the parts that run code before enabling it."
+    options:
+      - { text: "Read its hooks, .mcp.json and bin/ folder, then decide", correct: true }
+      - { text: "Install it, since it came from a colleague", misconception: "A colleague may not have read it either. Hooks run with your privileges." }
+      - { text: "Run the eval suite shipped with it as proof it is safe", misconception: "Running an eval is itself a trust decision, and safety needs a separate review." }
+      - { text: "Install it and ask the agent whether it looks risky", misconception: "The agent reading it is influenced by its text. A person should read it." }
+  - type: choice
+    prompt: "Your group uses Claude Code and OpenCode. Which Skill location do the docs say both tools read?"
+    explain: "OpenCode documents .claude/skills as a compatible location, so the same SKILL.md can serve both."
+    options:
+      - { text: ".claude/skills/<name>/SKILL.md", correct: true }
+      - { text: ".claude-plugin/skills/<name>/SKILL.md", misconception: "Components inside .claude-plugin/ do not load, and OpenCode does not document this path." }
+      - { text: "hooks/hooks.json", misconception: "That is a Claude Code plugin hooks file, which sits apart from Skill locations." }
+  - type: choice
+    prompt: "Several team Skills all need the same project and database names. Where should those live?"
+    explain: "One shared file that every Skill reads means a rename touches one place, and another team can reuse the Skills with its own file."
+    options:
+      - { text: "In one shared file that each Skill reads", correct: true }
+      - { text: "Copied into every SKILL.md so each Skill stands alone", misconception: "Copies drift apart over time, and a rename then needs many edits." }
+      - { text: "Left out, so the agent rediscovers them on each run", misconception: "Rediscovered details can differ between runs, and a pattern found in code still needs a person to confirm it as a team rule." }

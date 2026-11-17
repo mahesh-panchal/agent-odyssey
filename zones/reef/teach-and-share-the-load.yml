@@ -1,0 +1,67 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "A colleague wants to learn how to use an agent. Where do you start?"
+    explain: "Start from their real problem, and put verification habits ahead of clever prompting."
+    options:
+      - { text: "Their actual task, and how they will check the result", correct: true }
+      - { text: "A walkthrough of the advanced prompting tricks you rely on", misconception: "Tricks without checks produce confident errors faster." }
+      - { text: "A demo of the biggest time saving you have had so far", misconception: "Speed without verification is exactly the worry sceptics have." }
+  - type: sort
+    prompt: "Which protects your own learning?"
+    bins: ["Protects learning", "Erodes learning"]
+    explain: "Learning needs you to attempt, predict or explain as well as receive."
+    items:
+      - { text: "Write the first version yourself, then compare with the agent's", bin: "Protects learning", misconception: "Attempting first builds the skill." }
+      - { text: "Accept every suggestion without reading it", bin: "Erodes learning", misconception: "You learn nothing from output you never engaged with." }
+      - { text: "Ask the agent to explain a concept, then explain it back", bin: "Protects learning", misconception: "Explaining back tests your understanding." }
+      - { text: "Let it do every piece of a new skill for you", bin: "Erodes learning", misconception: "Outsourcing everything means you do not acquire it." }
+  - type: choice
+    prompt: "You finished a project mostly with an agent and it feels like not really your work. What helps most?"
+    explain: "Ownership grows from your decisions and your understanding, so build those and credit the agent's part openly."
+    options:
+      - { text: "Be able to explain each step, and keep notes on your decisions", correct: true }
+      - { text: "Redo the whole project by hand to prove it is yours", misconception: "Redoing everything repeats the work. Decisions and understanding are what make a result yours." }
+      - { text: "Leave out the agent's role so the work looks like yours", misconception: "Hiding the agent's role misleads readers and tends to deepen the feeling." }
+  - type: choice
+    prompt: "You can easily start five agent tasks before lunch. What limits sensible work?"
+    explain: "The bottleneck is review capacity. Work you cannot review is a risk."
+    options:
+      - { text: "How much of their output you can actually review", correct: true }
+      - { text: "How many your computer can run at once", misconception: "Machine capacity is not the bottleneck. Your attention is." }
+      - { text: "The number of tasks you can think of to give them", misconception: "Starting is cheap. Checking is the cost." }
+  - type: choice
+    prompt: "A collaborator sees you drafted an analysis in minutes and asks for the finished, checked version tomorrow. What helps most?"
+    explain: "Drafting got faster. Checking takes the time it always took, so the agreed date needs to include it."
+    options:
+      - { text: "Share how long checking takes and agree a date with review in it", correct: true }
+      - { text: "Agree to tomorrow and trim the checks to meet it", misconception: "Skipped checks move the cost to whoever finds the error later." }
+      - { text: "Send the draft as finished and fix problems as they come in", misconception: "Unchecked output looks reviewed once it reaches others." }
+  - type: choice
+    prompt: "Your drafts have begun to sound like everyone else's. What helps most?"
+    explain: "Your own words first keep the voice yours, and the agent can still check structure and consistency."
+    options:
+      - { text: "Draft in your own words, read it aloud, then use the agent for structure checks", correct: true }
+      - { text: "Ask the agent to write it all, then pick the best of several versions", misconception: "Choosing among generic drafts still leaves the voice generic." }
+      - { text: "Stop writing emails and letters yourself and let the agent send them", misconception: "Handing over your correspondence removes your voice where collaborators most expect it." }
+  - type: choice
+    prompt: "Checking agent drafts fills your week and the design work gets squeezed. What helps most?"
+    explain: "Routine drafting can go to the agent while you keep the creative decisions and give checking its own time."
+    options:
+      - { text: "Keep the question and interpretation, and schedule checking as real work", correct: true }
+      - { text: "Let the agent choose the study design, since you will check it afterwards", misconception: "Design is the creative core, and checking a design after the fact is weaker than making it." }
+      - { text: "Check only the parts that look unusual, to save time", misconception: "Plausible-looking errors do not look unusual, so a partial check misses them." }
+  - type: choice
+    prompt: "You are unsure which method suits your data. How do you keep your own judgement in practice?"
+    explain: "Deciding first gives you a call to compare with the second opinion."
+    options:
+      - { text: "Write down your choice, then ask for a second opinion and compare", correct: true }
+      - { text: "Ask the agent first, then adopt its choice if it sounds convincing", misconception: "Convincing wording is not evidence, and an early answer anchors your own thinking." }
+      - { text: "Never ask for a second opinion, so your judgement stays pure", misconception: "A second opinion is useful when you decided first, and refusing all help discards a good check." }
+  - type: choice
+    prompt: "A colleague chooses not to use LLMs. How do you respond?"
+    explain: "People can be excellent collaborators and reviewers without using the tools."
+    options:
+      - { text: "Respect it, and make your work reviewable without any tool", correct: true }
+      - { text: "Keep explaining the benefits until they are ready to try it", misconception: "Pressure damages trust." }
+      - { text: "Route your reviews to LLM users, who can better judge the work", misconception: "Reviewing does not need the tool. Their review is valuable, and excluding them removes a good independent check." }

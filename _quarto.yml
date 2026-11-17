@@ -1,0 +1,23 @@
+project:
+  type: website
+  pre-render: python tools/prerender.py
+  render:
+    - "**/*.qmd"
+    - "**/*.md"
+    - "!exercises/**/*.ipynb"
+  resources:
+    - assets/data
+    - assets/js
+    - assets/img
+    - exercises
+
+website:
+  title: "Agent Odyssey"
+  navbar: false
+
+format:
+  html:
+    theme: darkly
+    css: assets/css/rpg.css
+    include-after-body: assets/html/footer.html
+    toc: false

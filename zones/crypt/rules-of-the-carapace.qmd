@@ -1,0 +1,76 @@
+---
+title: "Grow the Carapace"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** the Save Point, and either companion from the Kennel. **Objective:** write permission rules that hold, and know where they stop holding.
+**Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode v2.3.0 on 2026-11-13 (sources in `research/kennel-and-crypt.md`).</span>
+:::
+
+The **harness** (the program around the model) enforces rules. A line in your instructions file (such as `CLAUDE.md`) asking the agent to avoid something is guidance, and it does not change what is allowed.
+
+Sort every action into three bins: **allow** (safe and routine), **ask** (you want to decide each time), **deny** (never).
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Rules live in a settings file, as `Tool(specifier)`:
+
+```json
+{
+  "permissions": {
+    "allow": ["Bash(git status)", "Bash(pytest *)"],
+    "ask":   ["Bash(git push *)"],
+    "deny":  ["Read(./.env)", "Read(./.env.*)"]
+  }
+}
+```
+
+| File | Who it affects |
+|---|---|
+| `~/.claude/settings.json` | all your projects |
+| `.claude/settings.json` | everyone on the project, if you commit it |
+| `.claude/settings.local.json` | only you, in this project |
+
+A deny from any file beats an allow from any file. A space before the `*` matters: `Bash(ls *)` matches `ls -la` but not `lsof`. There is no `.claudeignore` that restricts access. Use `Read(...)` deny rules.
+
+## OpenCode
+
+Rules are an ordered array and the **last match wins**:
+
+```json
+{
+  "permissions": [
+    { "action": "*", "resource": "*", "effect": "ask" },
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "git push *", "effect": "deny" }
+  ]
+}
+```
+
+Start with the ask-everything rule, then narrow, then put denies last.
+
+:::
+
+## Where the carapace has gaps
+
+- Rules that match command **arguments** are fragile: `Bash(rm *)` does not match `/bin/rm` or `bash -c 'rm ...'`.
+- Claude Code's sandbox is off by default. When on, it limits **shell commands only**; file tools, MCP servers and hooks run outside it, and by default it can still read `~/.ssh`.
+- Your secrets in environment variables are inherited by the commands it runs.
+
+Treat rules as one layer. Git (your save point) and a throwaway folder are the others.
+
+## Battle: harden your carapace
+
+<div data-ao-test="crypt-rules-of-the-carapace" data-xp="80"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it documents allow, ask and deny rules and how settings files combine, which is the core of this quest.
+- [Sandboxing](https://code.claude.com/docs/en/sandboxing): Anthropic, docs. Why read: it states what the sandbox covers and what it does not, so you do not over-trust it.
+- [Security](https://code.claude.com/docs/en/security): Anthropic, docs. Why read: it summarises the built-in protections and the advice for untrusted content and sensitive code.
+:::

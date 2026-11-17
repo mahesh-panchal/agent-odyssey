@@ -1,0 +1,127 @@
+---
+title: "Handoff Notes"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** The Stream of Ideas. **Objective:** say what a fresh session knows (nothing about your task except what loads automatically or is written down), list the five things that carry knowledge across the gap, and write a short handoff note a fresh session can act on, with what was checked kept separate from what was not.
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16. Claude Code specific unless stated. Handoff-note contents are general practice; there is no official template.</span>
+Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
+:::
+
+You stop work on Friday with a half-finished refactor. On Monday you open a new **session** (one conversation with the agent, which has its own **context**: the text it can see right now). Claude Code's docs say each session begins with a fresh context window. Anthropic's article on long-running agents says the same in other words: a new session begins with no memory of what came before. So the new session does not know your goal, what you tried, or what you checked. Anything it should know has to cross the gap in writing.
+
+## Five things that cross the gap
+
+1. **The instructions file** (`CLAUDE.md` in Claude Code). A file **you** write that is loaded at the start of every session. Good for stable facts and conventions: how to run the tests, which folders are off limits.
+2. **Auto memory.** Notes the **harness** writes itself, from your corrections and preferences. In Claude Code, `/memory` lists and opens them. See [Memory, Sessions and Usage](memory-sessions-and-usage.qmd) for both kinds of memory.
+3. **Files in the repository** (the project folder under version control): code, tests, a README, and, if you keep one, a progress or handoff file.
+4. **Git history.** A **commit** is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when. It is durable unless rewritten (rebase, amend, force-push), and unpushed commits are local only (general practice).
+5. **Your handoff note.** A short file about the state of one task, written for the next session. This is general practice. We found no official Claude Code page that prescribes a handoff file or its location, so the structure below is ours.
+
+| What | Goes where | Lifetime | Who writes it | Trust |
+|---|---|---|---|---|
+| Stable rules and conventions | Instructions file | Every session until you edit it | You | High, if you keep it checked and short |
+| Preferences the tool picked up | Auto memory | Every session until deleted | The tool | Medium: it can be wrong; read it with `/memory` and verify before trusting |
+| What the code and docs say now | Files in the repository | Until edited or deleted | You or the agent | Medium: files can be stale; check against the code |
+| State of one task | Handoff note | Until the task is done | You, or the agent drafts and you review | Only as good as your review |
+| What changed, and why | Commit messages in git history | Durable unless rewritten; local until pushed | You or the agent | High for what changed; the message is only a summary |
+
+Memory the tool wrote can be wrong, and a wrong line is loaded again every session. That is the trap called context poisoning, explained in [Memory, Sessions and Usage](memory-sessions-and-usage.qmd). Check any claim against the source before you rely on it.
+
+Anthropic's engineering article "Effective harnesses for long-running agents" describes a similar set of habits (our paraphrase): keep a progress notes file, make git commits with descriptive messages so bad changes can be reverted, and begin each session with a startup routine that reads the progress file and the recent git log, then runs a basic check before new work.
+
+## What a good handoff note contains
+
+General practice; there is no official format. Keep it short, so reading it costs less than rediscovering the state. Point to files and commands, and let the next session run them for fresh output.
+
+- **Goal** in one line.
+- **Current state:** branch, last commit, what runs and what does not.
+- **Decisions and the reasons**, including options you rejected.
+- **Verified, and how; not verified.** Two separate lists. For each verified item, the command and what it showed.
+- **What failed and should not be retried.**
+- **Next steps, in order.**
+- **Pointers:** file paths, commands, job IDs, work directories.
+- **Open questions and parked ideas** (see The Stream of Ideas).
+
+## Mock example
+
+This is a mock handoff note for a mock task. The file names and numbers are invented.
+
+```markdown
+# HANDOFF: qc_filter.py refactor (mock example)
+
+## Goal
+Replace the per-read loop in qc_filter.py with a vectorised version, same output.
+
+## State (git branch refactor-qc, last commit a1b2c3d "qc: add vectorised mean quality")
+- New function mean_qual_fast() is written and called from main().
+- Old function mean_qual() is kept for comparison. Do not delete yet.
+
+## Decisions
+- Keep both functions until all samples are compared (a bug here would silently change which reads pass).
+- Threshold stays at mean Q20, as in the lab protocol.
+
+## Verified
+- tests/test_filter.py: ran `pytest -q`, 6 passed.
+- sample_A: `diff <(python qc_filter.py A.fq) old_out/A.txt` gave no output.
+
+## Not verified
+- Samples B and C have not been compared with the old output.
+- Reads shorter than 30 bases: no test covers them.
+- Speed gain: not measured.
+
+## Failed, do not retry
+- Using numpy on the raw quality string: wrong values for the Phred offset. Convert to integers first.
+
+## Next steps
+1. Compare B and C against old_out/ with the same diff command.
+2. Add a test for a 10-base read.
+3. Only then delete mean_qual().
+
+## Open questions / parked
+- Should the threshold be a command-line option? Parked for a later task.
+```
+
+## Where to put it, and how to start the next session
+
+Put the note in a file the next session can find. Two options (general practice): a file in the repo, such as `HANDOFF.md`, if the team should see it; or a gitignored ordinary file you point to if it is personal, which is the simpler choice. `CLAUDE.local.md` at the project root (added to `.gitignore`, loaded after `CLAUDE.md`) is the only guidance we found on keeping personal per-project notes out of git, and it is meant for preferences; per the research it exists only in the worktree where it was created. Anything loaded every session takes room in the window, which is why the parking lot in The Stream of Ideas is kept out of it, and a finished handoff note is best taken out of it. Not checked: whether `CLAUDE.local.md` suits short-lived task notes better than an ordinary file you point to.
+
+Write the note **before** you run `/clear` (which starts a new empty conversation), because `/clear` drops the conversation (general practice). Pairing the note with a commit leaves a matching record in git.
+
+Then start the new session with a prompt like this:
+
+> Read HANDOFF.md, then tell me your understanding before changing anything.
+
+The agent restates the goal and state in its own words, and you compare that with what you know. This is a cheap comprehension check (general practice): it can catch a misreading of the note. The restatement comes from the same model that read it, so the note's claims still need checking against the source. Checking claims against the source is the idea behind Ground Truth (later in the Maze).
+
+You can ask the agent to draft the note at the end of a session. A good habit is to review it yourself, since a draft can overstate what was verified ("all tests pass" when none were run in that session).
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Commands the research confirms: `/memory` (see memory files), `/clear` (new empty conversation), `/resume` and `claude --resume` (reopen an earlier session), `claude --continue` (most recent session in this directory), `/export` (writes the conversation as plain text for a person to read). There is no documented `/handoff` or `/save` command. Not checked: whether `/export` output makes a good handoff; transcripts are long, so a short curated note is probably better (our inference).
+
+## OpenCode + Ollama
+
+Not checked: OpenCode's memory files and how it loads project instructions. The research confirms these OpenCode commands: `/new` (alias `/clear`), `/sessions` (aliases `/resume` and `/continue`), `/compact` and `/export`. The handoff note itself is just a file, so the practice carries over. Not checked: how a local model with a small window copes with a long note, so keep it short.
+
+:::
+
+<div data-ao-honour="write-handoff" data-xp="20">Write a handoff note for a task you are on and give it to a fresh session with the prompt above. Does its restatement match your own?</div>
+<div data-ao-honour="review-draft" data-xp="20">Ask an agent to draft a handoff note, then mark each line in your own words as checked by you, or not checked. Count how many lines it overstated.</div>
+
+## Battle: the handoff
+
+<div data-ao-test="codon-mill-handoff-notes" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it separates CLAUDE.md from auto memory, two of the things that carry knowledge across to a fresh session.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.
+- [Explore the context window](https://code.claude.com/docs/en/context-window): Anthropic, docs. Why read: a walk through what loads before you type, what a file read costs and what survives compaction.
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: it explains why long contexts degrade and why curating what goes in matters; compaction trade-offs are discussed.
+:::

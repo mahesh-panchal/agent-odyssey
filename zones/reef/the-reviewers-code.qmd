@@ -1,0 +1,33 @@
+---
+title: "The Reviewer's Code"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Send Small, Say So. **Objective:** review work that involved an LLM, kindly and effectively, and choose formats that review well.
+**Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Team norms you agree locally override these defaults.</span>
+:::
+
+You will also be on the receiving end. Reviewing LLM-assisted work is the same craft as any review, with a few shifts in attention.
+
+- **Ask for the evidence.** "Which test shows this works?" works better than "are you sure?".
+- **Watch for the usual tells.** Plausible but unused code, tests weakened to pass, and confident comments that do not match the code.
+- **Ask for understanding.** "Can you explain why this branch exists?" is fair for any author.
+- **Say when it is too big.** "Please split this" is a legitimate review comment, and the Wall of Output taught why.
+- **Be kind.** The aim is better science, so keep the tone friendly and aim at the work, not at catching a person out.
+
+## Formats that review well
+
+Notebooks are one example. A [marimo](https://marimo.io/) notebook is stored as a plain `.py` file, so a diff shows what changed. A Jupyter `.ipynb` is JSON that also stores outputs and run counts, so diffs are noisy and hard to read, though stripping tools exist. If you ask an agent to produce analysis, prefer a format your reviewer can actually diff.
+
+## Battle: the review
+
+<div data-ao-test="reef-the-reviewers-code" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Jupytext](https://github.com/jupytext/jupytext): jupytext project (GitHub), repo. Why read: it pairs an .ipynb with a plain .py, which is the format to ask a collaborator for when you will review their notebook.
+- [nbdime](https://nbdime.readthedocs.io/en/latest/): nbdime project, docs. Why read: it gives notebook-aware diff and merge tools if you must keep .ipynb in Git.
+:::

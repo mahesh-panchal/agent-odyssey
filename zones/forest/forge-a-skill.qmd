@@ -1,0 +1,99 @@
+---
+title: "Forge a Skill"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** The Project Charter. **Objective:** package a repeatable procedure as a Skill, and know what a Skill covers and where its limits lie.
+**Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in `research/forest-and-reef.md` and `research/doctor.md`).</span>
+:::
+
+An instructions file is read every session. A **Skill** is a procedure loaded only when it is relevant, so it can be long without crowding the context.
+
+## What a Skill is
+
+A Skill is a folder with a `SKILL.md` file. Only each Skill's short `description` is preloaded. The body is read when the Skill is used. A Skill can also bundle scripts and other files. In Claude Code, both you (by name, such as `/check-fasta`) and the agent (by matching the description) can start one.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Place it at `.claude/skills/<name>/SKILL.md` (project) or `~/.claude/skills/<name>/SKILL.md` (all projects). All frontmatter fields (frontmatter: the settings block between the two `---` lines at the top of the file) are optional, but write a clear `description` so it triggers at the right time. Keep the body under about 500 lines. The older `.claude/commands/` format still works but is merged into Skills.
+
+## OpenCode + Ollama
+
+OpenCode reads skills from `.opencode/skills`, `.claude/skills` and `.agents/skills`, so the same `SKILL.md` can serve both tools. Custom agents live in `.opencode/agents/*.md`.
+
+:::
+
+An example you can write by hand in a scratch folder:
+
+```markdown
+---
+name: check-fasta
+description: Count the records in a FASTA file and find duplicate IDs. Use before running any analysis on a new FASTA.
+---
+
+1. Run `grep -c '>' FILE` to count records.
+2. Run `grep '>' FILE | sort | uniq -d` to find duplicate IDs.
+3. Report what you ran and its output. Leave FILE unchanged.
+```
+
+## Do it: install it, then confirm it loaded
+
+Writing the file is half the job. A Skill with a typo in its frontmatter loads silently with no fields set, so always check.
+
+1. In a scratch folder (never a real project), save the example above as `.claude/skills/check-fasta/SKILL.md`. The `---` must be the very first line of the file.
+2. Make a tiny test file: `printf '>a\nACGT\n>a\nGGCC\n' > reads.fa` (two records, one duplicated ID).
+3. Confirm the tool can see it:
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Start `claude` in the scratch folder. Type `/` and look for `check-fasta` in the menu, or run `/skills`. If you created a top-level skills folder after the session started, run `/reload-skills`. Then ask in plain words, leaving the Skill unnamed: *"I just got reads.fa from a collaborator. Is it OK to analyse?"* The agent should load the Skill and report the commands it ran.
+
+## OpenCode + Ollama
+
+Start `opencode` in the scratch folder. OpenCode finds `.claude/skills` too. The model loads a Skill through its `skill` tool, and you can load one yourself by writing `@check-fasta` in a prompt. Then ask the same question and check whether the Skill was used.
+
+:::
+
+4. If it did not trigger, check in this order: the file starts with `---` on line 1; the YAML (the `key: value` text format used in that block) parses; field names are spelled right; the `description` says *when* to use it, with the key use case first (long descriptions are cut off in the listing).
+
+A Skill that is listed but never picked up is a finding about the description or the prompt. Next you will learn to measure that.
+
+If a Skill never fires, two **slash commands** (a `/command` typed inside the running tool) help you look. `/skills` lists the skills the tool can see, and `t` sorts them by token count (how many tokens, the chunks of text a model reads, each one takes). `/skill-doctor` (v2.1.252 or later) shows each skill's context cost (how much of the model's limited reading space its text takes up) and how often it is used, and flags skills that sit in the listing but are never invoked. It excludes bundled and enterprise skills.
+
+::: {.callout-warning}
+In Claude Code, `allowed-tools` in a Skill **pre-approves** tools for that turn (one prompt and its reply). Other tools stay available to the agent. A Skill offers no sandbox, and a Skill you download is code you choose to trust. Read it before installing it, as you would read a script.
+:::
+
+## Design the Skill like a small job
+
+**Idea from the GitHub Blog article** "Build once, run on any agent: a practical guide to agent skills" by Andrea Griffiths (GitHub Blog). The points below are our own wording of its advice, and the Agent Skills standard itself is outside the article's scope.
+
+- **One Skill, one job.** Give it a defined **input** (what it is handed, such as a FASTA path) and a defined **output** (what it must return, such as a count and a list of duplicate IDs). If you need "and also" in the description, you probably have two Skills.
+- **Say what it does and when to use it.** The `name` and `description` should state the task and its purpose. In the body, add a short **When to use** part, and a **What evidence to report** part (the commands run and their output), so a reviewer can see what happened.
+- **Start from a task you keep explaining.** If you re-explain the same check each session, such as how to confirm a FASTQ file has no truncated records, that check is your first Skill. Write down its inputs, its limits and what a reviewer needs to see.
+- **A Skill describes the method.** The tool that runs it still supplies the tools, credentials and permissions. A Skill that says "submit this to the cluster" brings no cluster account or allocation with it.
+- **Know when a Skill is the wrong fit.** Skills suit bounded, repeatable work such as a pre-submission checklist for a samplesheet. Work that needs a stable interface, shared state, an audit trail or permissions enforced from outside, such as a lab's shared sample-tracking service, suits an **application** (a separate program with its own tests and access rules) better than instructions.
+
+**Portability.** The Claude Code and OpenCode docs listed in Lore below say both read `.claude/skills`, so one `SKILL.md` can serve both. The article's advice, which is a sensible habit, is to verify in **each client** (the tool that runs the agent, such as Claude Code or OpenCode) you use after installing: does it trigger on the right request, load the files the Skill refers to, use the tools it needs, and return the evidence you asked for? Clients differ in models, tools and permissions, so a Skill that works in one can fail in another.
+
+<div data-ao-honour="write-skill" data-xp="20">Write a `SKILL.md` for one chore you repeat (checking an input, summarising a log). Make the description say when to use it.</div>
+
+## Battle: the Skill
+
+<div data-ao-test="forest-forge-a-skill" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Extend Claude with skills](https://code.claude.com/docs/en/skills): Anthropic, docs. Why read: the reference for SKILL.md fields, where skills live and how to confirm one loaded.
+- [Agent Skills Overview](https://agentskills.io): Agent Skills, docs. Why read: the open format behind SKILL.md and how skills load in stages.
+- [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices): Anthropic, docs. Why read: practical rules for descriptions, size and structure.
+- [Skills](https://opencode.ai/docs/skills/): OpenCode, docs. Why read: it lists where OpenCode looks for skills, including the shared .claude/skills path.
+- [Build once, run on any agent: a practical guide to agent skills](https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/): Andrea Griffiths, GitHub Blog, article. Why read: a vendor article whose advice on one job per Skill, naming inputs and outputs, reporting evidence and knowing when not to use a Skill is paraphrased in "Design the Skill like a small job"; secondary to the docs.
+:::

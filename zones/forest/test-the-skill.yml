@@ -1,0 +1,44 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "Why does the eval prompt say 'check this FASTA file' and not 'use the check-fasta skill'?"
+    explain: "Real users rarely name the Skill. A test that names it cannot show whether the description triggers it."
+    options:
+      - { text: "It checks the description fires on a natural request", correct: true }
+      - { text: "Naming a Skill in a prompt is not allowed by the tool at all", misconception: "You can name a Skill. The point is that users usually will not." }
+      - { text: "It makes the run cheaper by shortening the prompt text", misconception: "Cost comes from the number of runs and judge calls, so prompt length matters little." }
+  - type: choice
+    prompt: "Which grader types cost no model calls?"
+    explain: "regex, tool_used, tool_order and file_exists are computed from the transcript or files. llm and baseline use a judge model."
+    options:
+      - { text: "regex, tool_used, tool_order, file_exists", correct: true }
+      - { text: "llm and baseline", misconception: "These two ask a judge model, which is a paid call." }
+      - { text: "All of them, since the agent is already running", misconception: "Judge-model graders add extra paid calls on top of the run." }
+  - type: choice
+    prompt: "In a with/without run the difference is near zero and the Skill never fires. What is the most likely cause?"
+    explain: "A Skill that never fires cannot change anything. The description probably does not match how the request was phrased."
+    options:
+      - { text: "The description does not trigger on that phrasing", correct: true }
+      - { text: "The grader is too strict and needs loosening", misconception: "A strict grader would lower both arms. A zero difference with no firing points at the trigger." }
+      - { text: "Evals cannot measure Skills", misconception: "They can, and this pattern is one of the things they are good at showing." }
+  - type: faulty-line
+    prompt: "Which line makes this cheap first run costly?"
+    explain: "Raising runs and cases multiplies paid calls. For first iterations use one case, one run and no baseline arm."
+    lines:
+      - { text: "claude plugin eval . --case skill-triggers --runs 1 --ablation none", why: "One case, one run, no baseline arm: the cheap form." }
+      - { text: "claude plugin eval . --runs 20", faulty: true }
+      - { text: "claude plugin eval . --max-cost-usd 2", why: "A cost ceiling makes spending predictable." }
+  - type: choice
+    prompt: "Your eval case passes. What have you learned?"
+    explain: "The case passed in an isolated session with only this plugin. It says little about your own setup, and safety needs a review of its own."
+    options:
+      - { text: "It behaved on that case, in isolation", correct: true }
+      - { text: "The plugin is safe to share with the whole group", misconception: "Evals measure behaviour on cases. Hooks or scripts could still do harm, so safety needs its own review." }
+      - { text: "The Skill will behave the same in every project you open", misconception: "The run had no personal settings, instructions file or other plugins, so your own setup may differ." }
+  - type: choice
+    prompt: "An agent finishes a task and writes 'all checks passed'. What is the stronger way to confirm it?"
+    explain: "An agent marking its own work is a self-check. A script, a separate verifier or a person gives an independent check of the changed files and cites evidence."
+    options:
+      - { text: "A separate verifier or script checks the files and cites evidence", correct: true }
+      - { text: "Ask the same agent to read its answer again and confirm it", misconception: "The same agent can repeat its own mistake, so this is a self-check and falls short of an independent one." }
+      - { text: "Trust the claim, because the Skill told the agent to verify its work", misconception: "Instructions guide the agent. Tests and review do the verifying." }

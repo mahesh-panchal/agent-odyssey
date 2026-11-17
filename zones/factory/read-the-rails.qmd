@@ -1,0 +1,32 @@
+---
+title: "Read the Rails"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Dry Run First. **Objective:** spot the common mistakes in agent-written pipeline rules by reading them.
+**Time:** about 10 minutes. <span class="ao-badge">General practice. The snippets were reasoned through, not run.</span>
+:::
+
+Pipelines fail quietly in a few recurring ways. When you review a rule, ask: *where does each input come from, where does each output go, and what would change if I re-ran it?*
+
+Common mistakes:
+
+- A **hard-coded path** to someone's home directory or one sample.
+- An **output not declared**, so the manager cannot tell what a step made.
+- A **tool without a pinned version**, so results change when the environment does.
+- **Overwriting inputs** in place, so there is no way back.
+
+## Battle: spot the flaw
+
+<div data-ao-test="factory-read-the-rails" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Distribution and Reproducibility](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html): Snakemake, docs. Why read: it covers per-rule conda environments, containers and pinning, the answer to unpinned tools.
+- [Conda environments](https://docs.seqera.io/nextflow/conda): Seqera (Nextflow), docs. Why read: it shows pinning by version and lock files that record every package.
+- [Containers](https://docs.seqera.io/nextflow/container): Seqera (Nextflow), docs. Why read: it shows setting a container per process; it gives no rule on tags or digests, so pin by your own policy.
+- [Caching and resuming](https://docs.seqera.io/nextflow/cache-and-resume): Seqera (Nextflow), docs. Why read: it lists what goes into a task hash, including the stub-run flag, and why a process that edits its inputs cannot resume.
+:::

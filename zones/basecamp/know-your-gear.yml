@@ -1,0 +1,57 @@
+pass: 0.8
+questions:
+  - type: match
+    prompt: "Match each term to what it is."
+    explain: "Keep the layers apart: the model thinks, the harness acts and enforces, extensions add to the harness, evals measure."
+    pairs:
+      - { left: "Model", right: "The LLM that reads and writes text", misconception: "The model is the reasoning part, not the surrounding program." }
+      - { left: "Harness", right: "The program that gives the model tools, context and permissions", misconception: "The harness is what turns text prediction into an agent that can act." }
+      - { left: "Eval", right: "A repeatable test of behaviour, with and without a change", misconception: "An eval measures behaviour from outside. It does not add behaviour." }
+      - { left: "Plugin", right: "A bundle of skills, hooks, servers and more", misconception: "A plugin packages other extensions. It is not a single instruction file." }
+  - type: choice
+    prompt: "The same model gives a careful answer in one tool and a sloppy one in another. Which is the better first suspicion?"
+    explain: "The harness decides tools, permissions, loop and context. Different armour can change behaviour even with the same model."
+    options:
+      - { text: "The harness differs: tools, context, permissions or settings", correct: true }
+      - { text: "One copy of the model must be defective", misconception: "Copies of a model are identical. The surroundings are what differ." }
+      - { text: "The effort setting cannot matter, since it is the same model", misconception: "Effort is a setting. It can differ between tools, and it changes how much the model reasons." }
+  - type: choice
+    prompt: "You want to guarantee that the agent never runs a command matching a dangerous pattern. What is the stronger tool?"
+    explain: "A hook that blocks the call acts whatever the model decides. Instruction text can only influence it."
+    options:
+      - { text: "A hook that blocks matching commands", correct: true }
+      - { text: "A line in the instructions file saying never to run it", misconception: "Instructions advise the model. They do not enforce anything." }
+      - { text: "A skill that describes the dangerous pattern", misconception: "A skill is advice loaded into context, and is not enforced." }
+      - { text: "Turning effort up to max so it thinks harder about it", misconception: "More thinking is not a guarantee. It still decides for itself." }
+  - type: choice
+    prompt: "What does raising the effort setting do?"
+    explain: "Effort changes how much the model reasons. That can cost more and take longer, and past a point it adds little."
+    options:
+      - { text: "Reasons more per step, costing more time, with diminishing returns", correct: true }
+      - { text: "Guarantees correct output on hard tasks, so you can skip checking", misconception: "More reasoning improves care but nothing guarantees correctness. Check results independently." }
+      - { text: "Gives it more tools and extra permissions to act with", misconception: "Tools and permissions belong to the harness, not to effort." }
+  - type: sort
+    prompt: "Which of these is the model, and which is the harness?"
+    bins: ["Model", "Harness"]
+    explain: "The model produces text. The harness runs commands, asks permission and manages the context window."
+    items:
+      - { text: "Asks you to approve a command before running it", bin: "Harness", misconception: "Permission prompts are a harness feature." }
+      - { text: "Decides what code to suggest", bin: "Model", misconception: "Choosing the text is the model's job." }
+      - { text: "Compacts old messages when the context fills", bin: "Harness", misconception: "Managing context is done by the harness." }
+  - type: match
+    prompt: "Match each term about what the model can see to what it is."
+    explain: "The window is what the model sees now. A session is the conversation that fills it. Memory is what carries over between sessions."
+    pairs:
+      - { left: "Context window", right: "Everything the model can see right now, up to a size limit", misconception: "The window is a live limit on what is visible, not a record of past sessions." }
+      - { left: "Memory", right: "Notes loaded at the start of every new session", misconception: "Memory persists beyond one conversation, which is its whole point." }
+      - { left: "Session usage", right: "How much allowance a session spends, rising as context grows", misconception: "Usage is a cost measure, not a storage area." }
+      - { left: "Context poisoning", right: "A wrong statement in context that later answers build on", misconception: "Poisoning is about a wrong claim spreading through later answers, not about a setting or a bug in the tool itself." }
+  - type: match
+    prompt: "Match each term to what it means."
+    explain: "These words describe the parts around the model: who sends text, who acts, and what can go wrong with text that arrives."
+    pairs:
+      - { left: "Prompt", right: "The text you send to the model", misconception: "A prompt is input from you, not a setting or a program." }
+      - { left: "Agent", right: "A model in a harness that picks and runs tools in a loop", misconception: "An agent is more than a bare model: the harness and the loop are what let it act." }
+      - { left: "Subagent", right: "A helper with its own context window that returns a summary", misconception: "A subagent has a separate window, so only its summary comes back to the main session." }
+      - { left: "Prompt injection", right: "Text from a file or page that the model treats as an instruction", misconception: "Injection arrives through content the model reads, not through a bug in the harness." }
+      - { left: "Hallucination", right: "A plausible statement that is false, such as an invented DOI", misconception: "A hallucination is a confident false output, not a crash or a slow reply." }

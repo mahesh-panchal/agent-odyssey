@@ -1,0 +1,66 @@
+---
+title: "Tokens, Not Letters"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Know Your Gear. **Objective:** explain that a model reads tokens (chunks of text), and know which sequence jobs belong to a script.
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API glossary and token-counting docs on 2026-11-16 (sources in `research/fundamentals.md`). The DNA examples are general practice and were not measured here.</span>
+Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
+:::
+
+You read a read as letters: A, C, G, T. A language model reads tokens. Before your text reaches the model, it is cut into **tokens**, and the model works with those.
+
+## What a token is
+
+Anthropic's glossary describes tokens as the smallest units a model works with. A token can be a whole word, part of a word, a single character or a byte. Common strings get larger tokens because that is efficient. Rare or unseen words are broken into smaller pieces so the model can still handle them.
+
+Three consequences:
+
+- **Tokens are not words.** A sentence of ten words rarely comes to ten tokens; the count depends on the model and the language.
+- **The count changes between models.** The docs say newer tokenizers (the part that cuts text into tokens) can produce about 30 percent more tokens for the same text, for Claude 4.7 and later, including Sonnet 5.5. So count again for each model generation.
+- **Limits and cost are measured in tokens.** The context window is counted in tokens, and the docs frame cost in tokens too: the same prompt can cost different amounts on different models. The API (programmatic access to the model, billed per token, as opposed to a chat plan) has a free token-counting endpoint, and its answer is an estimate that may differ slightly from real use.
+
+## Why this matters for sequences
+
+The model sees chunks of letters. As general practice (we found no official page that says this about DNA), expect these problems:
+
+- A DNA string is not read one base per token. It is cut into chunks of several letters that follow no biological rule.
+- **Counting letters** ("how many Gs in this read") means counting inside chunks the model cannot see into. Answers are often close and sometimes wrong.
+- **Copying exactly** a long string, retyping a barcode or an accession, can drop or swap a character without any sign.
+- **Positions, reverse complements and checksums** depend on every single letter.
+
+So the rule: if the answer has to be exact and a rule for it exists, have the agent **run a script or a tool** and report what it printed. Check any sequence the model retyped against the source file.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Ask it to write and run the counting command and read its output. You can then read the command and the output yourself.
+
+## OpenCode + Ollama
+
+Same advice. Small local models tend to be less reliable at exact tasks, so the case for running code is even stronger (general practice).
+
+:::
+
+## Optional exercise (laptop, no real data)
+
+Take this mock line, which is not real data: `>read1 ACGTTGCAAGGCTTAGGCCATTAGC`. Count the letters yourself with a command you already have, for example `echo ACGTTGCAAGGCTTAGGCCATTAGC | grep -o G | wc -l`. Then paste the same line and a plain English sentence of similar length into any tokenizer page you trust, or a token counter you have. Compare the token counts. Keep real or sensitive sequences out of web tools.
+
+<div data-ao-honour="compare-tokens" data-xp="20">Compare the token count of a mock FASTA line and an English sentence of the same character length, using a tool you trust and only mock data. Note which one used more tokens.</div>
+<div data-ao-honour="script-count" data-xp="20">Replace one "ask the model to count" habit of yours with a script the model writes and runs, and check its output against a hand count on a tiny file.</div>
+
+## Battle: the mill
+
+<div data-ao-test="codon-mill-tokens-not-letters" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting): Anthropic, docs. Why read: it documents the free count endpoint and says models from Claude 4.7 onward use a newer tokenizer, so the same text gives roughly 30 percent more tokens than on earlier models (the exact increase depends on the content).
+- [The Strawberry Problem](https://arxiv.org/abs/2505.14172): Cosma et al., EMNLP 2025, paper. Why read: it argues character-level information is weakly available inside tokens, a leading explanation for miscounted letters.
+- [Counting Ability of LLMs and Impact of Tokenization](https://arxiv.org/abs/2410.19730): Zhang et al., arXiv, paper. Why read: it studies how tokenisation affects counting; its abstract says step-by-step reasoning (chain of thought) can help, and its full text still reports failures with it in modern models. A preprint.
+- [CharBench: Evaluating the Role of Tokenization in Character-Level Tasks](https://arxiv.org/abs/2508.02591): arXiv, paper. Why read: a counter-view finding tokenisation only weakly tied to errors, so treat the tokens explanation as likely but disputed. A preprint.
+:::

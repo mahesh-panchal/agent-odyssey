@@ -1,0 +1,31 @@
+---
+title: "Three Kinds of Machine"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Name the Fears. **Objective:** tell apart a deterministic program, a trained model, and an LLM, and pick the right one.
+**Time:** about 10 minutes. <span class="ao-badge">General practice, not a vendor claim.</span>
+:::
+
+## Three kinds
+
+- **A deterministic program** (a script, `awk`, `samtools`): the same input always gives the same output, and you can read why. Use it whenever the rule is known.
+- **A trained model** (a classifier, a gene-finder, a structure predictor): learned from data to do **one task**, with measured accuracy on that task. Use it when the rule is unknown but the task is narrow and validated.
+- **A large language model (LLM)**: trained on large amounts of text, then tuned to follow instructions. Flexible and fluent, with no built-in guarantee of correctness. Use it where the task is open-ended and you can check the result, such as drafting, explaining, or writing a first version of code that you then test.
+
+Two common mistakes: using an LLM to do something a one-line script does exactly (slow, costly, and sometimes wrong), and trusting a model outside the task it was validated for.
+
+An LLM can also be called **inside a script** (for example to tidy free-text labels). That makes your pipeline non-deterministic, so the result needs its own checks and the exact model and version recorded.
+
+## Battle: pick the right machine
+
+<div data-ao-test="basecamp-three-kinds-of-machine" data-xp="40"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents): Anthropic, article. Why read: it separates fixed workflows from agents and argues for the simplest option, which is the choice this quest asks you to make.
+- [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: it shows how to turn "it seems fine" into a measurable check, which is how you test an LLM step.
+:::

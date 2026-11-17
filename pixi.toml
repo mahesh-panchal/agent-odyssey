@@ -9,3 +9,41 @@ version = "0.1.0"
 
 [dependencies]
 quarto = ">=1.11.9,<2"
+python = ">=3.15.2,<3.16"
+pyyaml = ">=6.0.3,<7"
+pillow = ">=13.0.0,<14"
+numpy = ">=2.5.4,<3"
+websocket-client = ">=1.9.2,<2"
+
+[tasks.banks]
+cmd = "python tools/build_banks.py"
+description = "Convert YAML test banks to JSON (validates them)"
+
+[tasks.preview]
+cmd = "quarto preview"
+depends-on = ["banks"]
+
+[tasks.render]
+cmd = "quarto render"
+
+[tasks.publish]
+cmd = "quarto publish gh-pages --no-prompt"
+description = "Publish to GitHub Pages (needs a git remote)"
+
+[tasks.lore]
+cmd = "python tools/lint_lore.py --require"
+description = "Lint the Lore blocks: every quest needs 2-8 sourced items"
+
+[tasks.e2e]
+cmd = "python tools/e2e.py"
+depends-on = ["lore", "render"]
+description = "Drive the built site with real key presses (needs: quarto install chrome-headless-shell)"
+
+[tasks.shots]
+cmd = "python tools/shots.py"
+depends-on = ["render"]
+description = "Screenshots of key pages into a directory for visual review"
+
+[tasks.new-quest]
+cmd = "python tools/new_quest.py"
+description = "Scaffold a quest: pixi run new-quest <zone> <slug> \"<Title>\""

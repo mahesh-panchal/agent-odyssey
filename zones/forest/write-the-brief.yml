@@ -1,0 +1,42 @@
+pass: 0.8
+questions:
+  - type: sort
+    prompt: "Sort each prompt by whether it gives the agent something checkable."
+    bins: ["Checkable", "Vague"]
+    explain: "A checkable prompt names the target and a test of success. A vague one leaves the agent guessing what 'good' means."
+    items:
+      - { text: "Make the script better.", bin: "Vague", misconception: "'Better' has no test. The agent will pick its own meaning." }
+      - { text: "Add a test for empty input to parse.py and make it pass without changing existing tests.", bin: "Checkable", misconception: "It names a file, a case and a pass condition." }
+      - { text: "Clean up my analysis.", bin: "Vague", misconception: "Nothing says what to keep, change or leave alone." }
+      - { text: "The output has 41 rows but the input has 42. Find where one is dropped. Show the command that proves it.", bin: "Checkable", misconception: "A concrete symptom plus a request for evidence." }
+  - type: choice
+    prompt: "A long session is crowding out the files you need next. Which Claude Code command summarises the conversation and lets you say what to keep?"
+    explain: "/compact summarises the conversation and takes instructions about what to keep. /clear drops it, and /context only shows what is filling the window."
+    options:
+      - { text: "/compact", correct: true }
+      - { text: "/clear", misconception: "/clear starts fresh with an empty conversation, so it drops what you wanted to keep." }
+      - { text: "/context", misconception: "/context shows what is filling the window and leaves its size unchanged." }
+  - type: order
+    prompt: "Put this working loop in order."
+    items:
+      - "State the symptom and what done looks like"
+      - "Ask for a plan, with no edits yet"
+      - "Read and correct the plan"
+      - "Let it implement in small steps"
+      - "Run the check yourself"
+    why:
+      "Ask for a plan, with no edits yet": "A plan has to exist before you can review it, and edits follow approval."
+  - type: choice
+    prompt: "You finish one task and start an unrelated one in the same long session. What is the sensible move?"
+    explain: "Starting fresh avoids carrying irrelevant context. The docs describe clearing for exactly this."
+    options:
+      - { text: "Clear or start a new session for the new task", correct: true }
+      - { text: "Keep going so the agent remembers everything", misconception: "Old, unrelated material can crowd out what matters now." }
+      - { text: "Repeat the whole old conversation in the new prompt", misconception: "That carries the same clutter into the new task." }
+  - type: choice
+    prompt: "Which request best asks the agent for evidence?"
+    explain: "A command and its output are something you can inspect or re-run."
+    options:
+      - { text: "Ask it to run the check and show the command and its output", correct: true }
+      - { text: "Ask it to summarise what it changed and why it should work", misconception: "A summary reports what it did and believes. A command and its output show whether it works." }
+      - { text: "Ask it to say how confident it is that the result is correct", misconception: "An answer to that question is a claim, and a command's output is an observation." }

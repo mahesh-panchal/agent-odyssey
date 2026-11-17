@@ -1,0 +1,43 @@
+pass: 0.8
+questions:
+  - type: match
+    prompt: "Match each term to its definition."
+    explain: "Each term names a different thing: the window is what the model sees now, memory is text re-read each session, usage is consumption, poisoning is a wrong statement that later answers build on."
+    pairs:
+      - { left: "Context window", right: "Everything the model can see when it writes its next output", misconception: "It lives in the session, and a new session starts with a fresh one." }
+      - { left: "Memory", right: "Files read into a new window at the start of each session", misconception: "Memory is text on disk that gets reloaded; the live conversation is the context window." }
+      - { left: "Session usage", right: "How much of your allowance a session consumes", misconception: "Usage is about consumption, and it grows because the whole conversation is re-sent each request." }
+      - { left: "Context poisoning", right: "A wrong statement that later answers build on", misconception: "It is a community term for errors persisting in context." }
+  - type: sort
+    prompt: "In Claude Code, which of these survive /clear and which do not?"
+    bins: ["Survives /clear", "Does not survive"]
+    explain: "Project memory (CLAUDE.md and auto memory) is files on disk and is loaded again. The conversation, and what was read into it, is dropped, and session usage totals reset."
+    items:
+      - { text: "A rule written in CLAUDE.md", bin: "Survives /clear", misconception: "It is a file outside the conversation, so clearing leaves it alone." }
+      - { text: "A note the tool saved in its auto memory folder", bin: "Survives /clear", misconception: "Auto memory is on disk and loads again at the next session start." }
+      - { text: "A correction typed in chat that was never saved to any file", bin: "Does not survive", misconception: "Chat text lives only in the session context. Only what was saved to memory persists." }
+      - { text: "The contents of a log file the agent read earlier", bin: "Does not survive", misconception: "Tool output is part of the conversation and goes when it is cleared." }
+      - { text: "The running session cost shown by /usage", bin: "Does not survive", misconception: "Session totals reset on /clear." }
+  - type: choice
+    prompt: "You have corrected the agent twice and it still repeats a wrong claim about your sample sheet. What does the official guidance suggest?"
+    explain: "A third correction adds to a conversation that already holds two failed attempts. The docs suggest /clear and one new prompt that includes what you learned."
+    options:
+      - { text: "Run /clear and write one better prompt", correct: true }
+      - { text: "Correct it a third time, more firmly, so it finally sticks", misconception: "The docs say a third correction mostly adds to the failed attempts the model keeps re-reading." }
+      - { text: "Run /compact so the history is shortened and the claim fades", misconception: "It stays the same conversation, and a summary of it can still carry the wrong claim (our inference)." }
+  - type: faulty-line
+    prompt: "Lines from a team's CLAUDE.md after a month of use. Which line is the problem?"
+    explain: "A line copied from an unchecked chat guess becomes a fact that loads in every session. Unverified claims should be checked before they go into a memory or instructions file (general practice)."
+    lines:
+      - { text: "Run the tests with the project's own test command before saying a change is done", why: "A checkable working rule that makes no claim about the data." }
+      - { text: "All libraries are reverse-stranded (the agent's guess in the first session, not looked up)", faulty: true }
+      - { text: "Reference is GRCh38; confirmed against the assembly report", why: "It records where the claim was checked." }
+      - { text: "Never write to the raw_data folder", why: "A rule, which holds no factual claim that could be wrong." }
+  - type: order
+    prompt: "A wrong claim has entered the session and may have been saved to memory. Put the recovery steps in order, with the memory check after /clear and before the new prompt."
+    explain: "After two failed corrections, stop and run /clear to get a fresh conversation. Then, before your new prompt, check /memory and delete any line that records the wrong claim (general practice), so it is not loaded again. Last, give one prompt that folds in the checked fact."
+    items:
+      - "Stop correcting after two failed attempts"
+      - "Run /clear to start a fresh conversation"
+      - "Open /memory and delete any line that records the wrong claim"
+      - "Write one new prompt that includes the checked fact"

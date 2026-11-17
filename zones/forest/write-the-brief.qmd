@@ -1,0 +1,50 @@
+---
+title: "Write the Brief"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** a companion from the Kennel. **Objective:** write prompts that make output checkable, and manage the context window so the agent stays on task.
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in `research/forest-and-reef.md`).</span>
+:::
+
+The first branch of the skill tree is the **brief**: what you tell the agent. A vague brief invites a plausible guess. A good brief names the file and the symptom, says what "done" looks like, and gives the agent a **check it can run**.
+
+| Vague | Specific |
+|---|---|
+| "Fix the GC script." | "`gc.py` reports 20.0 for `seq2` in `tiny.fasta` but `awk` gives 60.0. Find why and fix it. Done when both agree." |
+| "Make it faster." | "Profile `align.py` on `small.fa`, name the slowest function, and propose a change. Hold off on edits for now." |
+
+Two habits make the rest of this safer:
+
+- **Plan first:** see the next quest, *Plan Before You Edit*.
+- **Ask for evidence.** "Show the command and its output" turns a claim into something you can look at.
+
+## Context is a budget
+
+Everything in the conversation takes up room in the context window. The Claude Code docs note that old conversation can crowd out the files you need next.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+`/context` shows what is filling the window. `/compact` summarises the conversation (you can say what to keep). `/clear` starts fresh, which is right when you switch to an unrelated task. Claude Code also compacts automatically near the limit.
+
+## OpenCode + Ollama
+
+`/compact` (alias `/summarize`, meaning another name for the same command) summarises the session and `/new` (alias `/clear`) starts a new one. The docs show no `/context` equivalent in the TUI (the text user interface, OpenCode's terminal screen).
+
+:::
+
+## Battle: the brief
+
+<div data-ao-test="forest-write-the-brief" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it explains why a brief needs a check the agent can run, and how to keep context and cost down.
+- [Explore the context window](https://code.claude.com/docs/en/context-window): Anthropic, docs. Why read: an interactive timeline of what fills the window and what survives compaction.
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: background on why more context is not always better and what compaction can lose.
+:::

@@ -1,0 +1,93 @@
+---
+title: "Plug In a Server"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** the Rules of the Carapace (permission rules) and Know Your Gear (what MCP and a harness are). **Objective:** treat an MCP server as software you install, then scope it, limit it and read what it sends back.
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in `research/tools-and-guards.md` and `research/terminology.md`)</span>
+:::
+
+**MCP** (Model Context Protocol) is, in its own words, "an open-source standard for connecting AI applications to external systems". A **server** is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. MCP is optional. It widens what the agent can reach, and every widening is a decision.
+
+## A server is software you installed
+
+A stdio server (a program the harness starts locally and talks to over its input/output) is a command that Claude Code launches on your machine (`claude mcp add ... -- <command>`), and secrets can be passed to it as environment variables. So a reasonable working assumption, offered as general practice (our wording, outside the docs), is that it can do whatever that command can do with the credentials you gave it. The docs' one security sentence is short: "Verify you trust each server before connecting it. Servers that fetch external content can expose you to prompt injection risk." (Prompt injection: text from a file, web page or tool that the model treats as an instruction.)
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Adding a remote server over HTTP (the transport: how the harness talks to the server; an http server is remote), and a local one (everything after `--` is passed to the server untouched):
+
+```bash
+claude mcp add --transport http mydocs https://example.com/mcp
+claude mcp add --env API_KEY=your-key-here myserver -- <command> [args...]
+```
+
+The `--env` line is an unrun sketch of the syntax; check `claude mcp add --help` for the current flags. Inside a session, `/mcp` lists the servers and their tools. An older transport called SSE (server-sent events, one-way streaming over HTTP) is deprecated in favour of HTTP where a server offers both.
+
+Three **scopes** (scope = who or where a setting applies) decide who gets the server (set with `-s`/`--scope`):
+
+| Scope | Where it applies |
+|---|---|
+| Local (the default) | this project only, for you alone; stored in `~/.claude.json` |
+| Project | everyone on the project, via `.mcp.json` in the project root |
+| User | all your projects; stored in `~/.claude.json` |
+
+A project-scoped server is a file in the repository:
+
+```json
+{ "mcpServers": { "shared-server": { "type": "http", "url": "https://example.com/mcp" } } }
+```
+
+For security reasons, Claude Code asks for approval in interactive sessions before using project-scoped servers from `.mcp.json`. `claude mcp reset-project-choices` resets your answers. Read that file as you would read a script from a stranger's repository, because it asks to start something on your machine. In `claude -p` and Agent SDK (software development kit) runs, which are headless (non-interactive), there is no prompt: the docs say project-scoped servers load without asking, and name `--strict-mcp-config` among the mitigations.
+
+Each server's tools appear in permission rules as `mcp__<server>__<tool>`, and `mcp__<server>__*` (a matcher, a pattern that selects names) matches every tool of one server. Tool definitions are deferred (loaded only when needed) by default, so only tool names and server instructions take up context until a tool is used.
+
+## OpenCode + Ollama
+
+In the V2 docs, servers go under `mcp.servers`, and V2 does not put server names directly under `mcp` (check which version you have installed). A remote server:
+
+```json
+{ "mcp": { "servers": { "mydocs": {
+    "type": "remote",
+    "url": "https://example.com/mcp",
+    "headers": { "Authorization": "Bearer {env:MCP_API_KEY}" } } } } }
+```
+
+A local one uses `"type": "local"` and a `command` array. Set `"disabled": true` to switch a server off. The docs say that "MCP tools consume model context, so add only the servers you need."
+
+Permissions are an ordered array where the last match wins and no match means `ask`. An MCP tool's action is `<server>_<tool>` with resource `*`. Not checked: project-level approval prompts for OpenCode servers, and how a local Ollama model changes any of this. Check the current docs.
+
+:::
+
+## What comes back is text to read
+
+A server that fetches web pages, tickets or messages hands text written by someone else to the model. Prompt injection means that text can contain sentences aimed at the agent ("ignore the above and ...") and the model may follow them. The docs give one sentence on this, so the rest is general practice:
+
+- Prefer **read-only** servers and read-only credentials. A server that cannot write cannot be talked into writing.
+- Give it the **least privilege** (only the access the job needs) that does the job: one project, one scope, a token limited to what you need.
+- **Read before adding**: who publishes it, what tools it lists, what it asks for. Unneeded servers are also unneeded context.
+- Read fetched content sceptically, and supervise any write access an agent uses on it.
+- Permission rules still apply to server tools, so deny the dangerous ones by name.
+
+::: {.callout-note}
+Claude Code's docs also say that sandbox restrictions still apply even if a prompt injection bypasses the model's decision-making. The sandbox covers shell commands, and a server might take other routes, so treat it as one layer.
+:::
+
+<div data-ao-honour="gatehouse-read-a-server" data-xp="20">Pick an MCP server you might use. Write down who publishes it, the tools it lists, the credential it needs, and whether a read-only version exists. Hold off installing it for now.</div>
+
+## Battle: the heavy door
+
+<div data-ao-test="gatehouse-plug-in-a-server" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Introduction to the Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro): Model Context Protocol, docs. Why read: it explains MCP as an open standard, so you know what a server is before you plug one in.
+- [Connect Claude Code to tools via MCP](https://code.claude.com/docs/en/mcp): Anthropic, docs. Why read: it is the reference for adding HTTP and stdio servers and for the local, project and user scopes.
+- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it shows how to allow or deny a server's tools by name, the way to grant read-only access.
+- [Configure the sandboxed Bash tool](https://code.claude.com/docs/en/sandboxing): Anthropic, docs. Why read: it states what the sandbox limits and where that limit ends, so you can judge it as one layer.
+:::

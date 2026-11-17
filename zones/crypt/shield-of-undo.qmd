@@ -1,0 +1,27 @@
+---
+title: "Save Point"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** a terminal and `git`. **Objective:** make any change reversible before an agent touches it.
+
+<span class="ao-badge">Verified: ran these commands with git 2.54.0 on 2026-11-13</span>
+:::
+
+Before any agent edits your files, put them under version control: `git init`, then `git add -A && git commit -m "before agent"`.
+If the agent breaks something, `git restore .` returns every **tracked** file to that commit.
+
+::: {.callout-warning}
+Two things `git restore .` does *not* do for you. It also throws away **your own** uncommitted edits to tracked files, so commit before you start. And it leaves **new, untracked** files the agent created where they are; `git status` shows them and you delete them yourself.
+:::
+
+<div data-ao-test="crypt-shield-of-undo" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Checkpointing](https://code.claude.com/docs/en/checkpointing): Anthropic, docs. Why read: it explains `/rewind` and its limits, including that Bash-made changes need version control, so you see why git is the real save point.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the commands for naming, resuming and clearing sessions, including `claude --resume`, a companion when work is interrupted.
+:::

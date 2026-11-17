@@ -1,0 +1,34 @@
+pass: 0.8
+questions:
+  - type: faulty-line
+    prompt: "A Snakemake rule an agent wrote. Which line will cause the quiet failure?"
+    explain: "The input is a hard-coded path, so every sample is silently computed from sample1.fa on a machine that has it, and the rule fails on machines without that path."
+    lines:
+      - { text: 'rule count_gc:', why: "The rule header." }
+      - { text: '    input: "/home/anna/data/sample1.fa"', faulty: true }
+      - { text: '    output: "results/{sample}.gc.txt"', why: "The output uses the sample wildcard." }
+      - { text: '    shell: "python gc.py {input} > {output}"', why: "The command uses the declared input and output." }
+  - type: faulty-line
+    prompt: "A shell step in a pipeline. Which line is the most dangerous?"
+    explain: "The shell empties the file before sort reads it, so the data is lost. Write to a new output path."
+    lines:
+      - { text: 'mkdir -p results', why: "Creating a results folder is harmless." }
+      - { text: 'sort reads.txt > reads.txt', faulty: true }
+      - { text: 'wc -l reads.txt', why: "Counting lines is read-only." }
+  - type: sort
+    prompt: "Sort each pipeline habit."
+    bins: ["Reproducible", "Fragile"]
+    explain: "Declared inputs and outputs and pinned environments repeat. Hidden state does not."
+    items:
+      - { text: "Every output is declared by the step that makes it", bin: "Reproducible", misconception: "Declared outputs let the manager track and re-run correctly." }
+      - { text: "Tool versions are pinned in the environment file", bin: "Reproducible", misconception: "A pinned version gives the same tool version. Lock files pin the whole environment, including dependencies." }
+      - { text: "The step reads a file from the author's home directory", bin: "Fragile", misconception: "It will fail or differ on any other machine." }
+      - { text: "A step edits its input file in place", bin: "Fragile", misconception: "A re-run starts from altered data, and there is no way back." }
+  - type: choice
+    prompt: "An agent offers to 'fix' a failing pipeline step by deleting the check that fails. What do you do?"
+    explain: "A failing check is information. Find out why it fails before removing it."
+    options:
+      - { text: "Find out why it fails, then decide whether the check or the step is wrong", correct: true }
+      - { text: "Accept the change, since the pipeline now runs to the end without errors", misconception: "A run that finishes can still be wrong. The check may have found a real problem." }
+      - { text: "Ask the agent to relax the check's threshold just enough for it to pass", misconception: "A check bent to pass no longer tests anything." }
+      - { text: "Rerun the step several times in case the failure was a one-off glitch", misconception: "A check that failed may be flagging a real problem. A lucky pass does not remove the cause." }

@@ -1,0 +1,50 @@
+pass: 0.8
+questions:
+  - type: sort
+    prompt: "Sort each action into the bin you would set for a companion working in a project folder."
+    explain: "Allow routine or self-checking actions, ask for outward-facing ones, and deny what is destructive or secret."
+    bins: ["allow", "ask", "deny"]
+    items:
+      - { text: "git status", bin: "allow", misconception: "Reading repository status changes nothing, so it can run without interrupting you." }
+      - { text: "pytest (run the tests)", bin: "allow", misconception: "Running your own tests is routine and is how you check the agent's work. Constant prompts would train you to click yes without reading." }
+      - { text: "git push origin main", bin: "ask", misconception: "Pushing publishes work for others to review, so you want to decide each time. Allowing it silently passes the risk on to collaborators; denying it entirely blocks normal work." }
+      - { text: "cat .env (a file holding secrets)", bin: "deny", misconception: "Files holding secrets should be unreadable to the agent. Anything it reads can end up in its output or its logs." }
+      - { text: "rm -rf ~", bin: "deny", misconception: "This deletes your whole home folder. It should never run, so a deny rule catches it even if you miss it in a prompt." }
+  - type: choice
+    prompt: "You add `.env` to a file called `.claudeignore` to hide your secrets from Claude Code. Does that restrict it?"
+    explain: "Only permission rules restrict reads."
+    options:
+      - { text: "No. Use a `Read(./.env)` rule under `permissions.deny` instead", correct: true }
+      - { text: "Yes, it works like .gitignore and hides the file from the agent", misconception: "The docs state .claudeignore has no effect. Only permission rules restrict reads." }
+      - { text: "Yes, but only for shell commands, not for the file read tool", misconception: "There is no such file-based restriction for any tool; permission rules are what count." }
+  - type: faulty-line
+    prompt: "This settings file is meant to keep a companion away from destructive commands. Which line undermines it?"
+    explain: "An allow for rm * defeats the purpose of the file."
+    lines:
+      - { text: '{', why: "Opens the file." }
+      - { text: '  "permissions": {', why: "Opens the permissions block." }
+      - { text: '    "allow": ["Bash(git status)", "Bash(rm *)"],', faulty: true }
+      - { text: '    "deny":  ["Read(./.env)"]', why: "A deny on the secrets file is a good rule." }
+      - { text: '  }', why: "Closes the permissions block." }
+      - { text: '}', why: "Closes the file." }
+  - type: match
+    prompt: "Match each settings file to who it affects."
+    explain: "Scope decides who is affected: you everywhere, the project, or only you locally."
+    pairs:
+      - { left: "~/.claude/settings.json", right: "All your projects", misconception: "The home-folder file is your personal default everywhere." }
+      - { left: ".claude/settings.json", right: "Everyone on the project, if committed", misconception: "The shared project file travels with the repository." }
+      - { left: ".claude/settings.local.json", right: "Only you, in this project", misconception: "The .local file is personal and is not meant to be committed." }
+  - type: choice
+    prompt: "Your instructions file says 'never run rm'. Is that enforced?"
+    explain: "Enforcement lives in the tool's rules; text the model reads is guidance."
+    options:
+      - { text: "No. Instructions are guidance; only permission rules are enforced", correct: true }
+      - { text: "Yes, an explicit 'never' in the instructions file is always obeyed", misconception: "Models can miss or misread instructions, which is why enforcement lives in the tool's rules." }
+      - { text: "Yes, if the line is in the project file rather than your user file", misconception: "Neither file location turns instruction text into a rule; only permission rules are enforced." }
+  - type: choice
+    prompt: "Claude Code's sandbox is switched on. What still runs OUTSIDE it?"
+    explain: "The sandbox covers shell commands. Other tools need their own rules."
+    options:
+      - { text: "File tools (read, edit, write), MCP servers and hooks", correct: true }
+      - { text: "Nothing: the sandbox wraps every tool Claude Code uses", misconception: "The sandbox covers shell commands and their child processes. Other tools are separate and need their own permission rules." }
+      - { text: "Only shell commands run with elevated privileges such as sudo", misconception: "The boundary follows the tool type, whatever the command wording." }
