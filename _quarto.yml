@@ -2,12 +2,7 @@ project:
   type: website
   pre-render: python tools/prerender.py
   render:
-    - "**/*.qmd"
-    - "**/*.md"
-    - "!exercises/**/*.ipynb"
-    - "!README.md"
-    - "!CONTRIBUTING.md"
-    - "!REVIEW.md"
+    - "**/*.qmd"    # only quest and top-level pages; .md and .ipynb files (docs, research, exercises) ship as plain files
   resources:
     - assets/data
     - assets/js
