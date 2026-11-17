@@ -75,7 +75,7 @@ Not checked: OpenCode's memory files, session commands and usage reporting. The 
 
 *Further reading. Optional.*
 
-- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it separates CLAUDE.md from auto memory and says both are context, not enforced rules.
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it defines CLAUDE.md and auto memory, the "memory" term this quest sets beside session context.
 - [Manage costs effectively](https://code.claude.com/docs/en/costs): Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.
-- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it covers naming and resuming sessions, which is what makes a session's context something you carry forward on purpose.
 :::

@@ -23,5 +23,5 @@ Two things `git restore .` does *not* do for you. It also throws away **your own
 *Further reading. Optional.*
 
 - [Checkpointing](https://code.claude.com/docs/en/checkpointing): Anthropic, docs. Why read: it explains `/rewind` and its limits, including that Bash-made changes need version control, so you see why git is the real save point.
-- [Troubleshooting](https://code.claude.com/docs/en/troubleshooting): Anthropic, docs. Why read: it covers `claude --resume` and what survives a restart, a useful companion when work is interrupted.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the commands for naming, resuming and clearing sessions, including `claude --resume`, a companion when work is interrupted.
 :::

@@ -25,7 +25,8 @@ rnaseq-mini/
 |   `-- slurm-482913.out              (job log with sample IDs and cluster paths)
 |-- notebooks/
 |   |-- 01_qc.ipynb                   (saved with outputs: tables of real sample IDs)
-|   `-- 02_diffexp.ipynb              (saved with outputs: plots and a gene table)
+|   |-- 02_diffexp.ipynb              (saved with outputs: plots and a gene table)
+|   `-- .ipynb_checkpoints/           (autosave copies of the two notebooks, outputs included)
 |-- results/
 |   |-- de_genes.csv
 |   `-- figures/

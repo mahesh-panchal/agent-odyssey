@@ -28,8 +28,8 @@ If an LLM call really must be a step (tidying messy free-text labels, say), cont
 
 *Further reading. Optional.*
 
-- [Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Anthropic, docs. Why read: it lists concrete habits (allow "I don't know", quote first, retract unsupported claims, compare repeated runs) and admits they reduce but do not remove errors.
-- [On Faithfulness and Factuality in Abstractive Summarization](https://aclanthology.org/2020.acl-main.173): ACL Anthology (ACL 2020), paper. Why read: it found invented content in every neural summary tested; the models are pre-chat-era, so read it for the direction, not current rates.
-- [Mitigating prompt injections in browser use](https://www.anthropic.com/research/prompt-injection-defenses): Anthropic, article. Why read: it is a vendor's own admission that prompt injection is unsolved, useful when deciding what data an agent may read.
+- [Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Anthropic, docs. Why read: it suggests comparing repeated runs, a cheap way to see whether an LLM step gives the same answer each time, and admits such habits reduce but do not remove errors.
+- [Containers](https://docs.seqera.io/nextflow/container): Seqera (Nextflow docs), docs. Why read: it says containerizing a pipeline makes it self-contained and reproducible, and shows setting the container per process.
 - [Distribution and Reproducibility](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html): Snakemake, docs. Why read: it covers per-rule conda environments, containers and pinning, the answer to unpinned tools.
+- [Conda environments](https://docs.seqera.io/nextflow/conda): Seqera (Nextflow docs), docs. Why read: it shows pinning tool versions by name in the spec and using lock files for more reproducible environments.
 :::

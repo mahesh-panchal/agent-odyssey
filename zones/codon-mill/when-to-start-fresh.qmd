@@ -78,8 +78,8 @@ The OpenCode terminal-interface docs list `/new` (alias `/clear`), `/sessions` (
 
 *Further reading. Optional.*
 
-- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it covers giving the agent a check to run and when to clear after repeated failed corrections.
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it gives the check-to-run habit and the rule to clear after repeated failed corrections, the trigger for starting fresh.
 - [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.
-- [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html): Drew Breunig, blog, article. Why read: it coined the community terms context poisoning and distraction; a personal blog, not vendor documentation.
+- [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html): Drew Breunig, blog, article. Why read: it names context poisoning and distraction, the failure modes behind starting fresh; a personal blog, not vendor documentation.
 - [Manage costs effectively](https://code.claude.com/docs/en/costs): Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.
 :::

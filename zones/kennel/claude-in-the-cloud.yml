@@ -15,9 +15,9 @@ questions:
     explain: "The clone, the prompts and the session transcript are stored by Anthropic, so real counts are real data sent to a third party. Have the cloud draft the script on mock data, then run it on your own machine or the cluster, under your data agreement."
     options:
       - { text: "Draft the script on mock data, then run it yourself on the real table", correct: true }
-      - { text: "Fine, as long as the network access level is set to None for the session", misconception: "The Anthropic API stays reachable even at None, and the docs say that may allow data to exit the VM; the data is already in the clone and transcript anyway." }
-      - { text: "Fine, if you delete the session as soon as the analysis is done", misconception: "Deleting removes the stored session data later, but the data has already been sent and processed by then." }
-      - { text: "Fine, if the repository is private on GitHub and only you can see it", misconception: "A private repository limits who can browse it on GitHub; it does not stop the contents being cloned into the VM and stored in the transcript." }
+      - { text: "Yes, once the session's network access level is set to None", misconception: "The Anthropic API stays reachable even at None, and the docs say that may allow data to exit the VM; the data is already in the clone and transcript anyway." }
+      - { text: "Yes, provided you delete the session as soon as the analysis is done", misconception: "Deleting removes the stored session data later, but the data has already been sent and processed by then." }
+      - { text: "Go ahead, because the repository is private on GitHub and only you can see it", misconception: "A private repository limits who can browse it on GitHub; it does not stop the contents being cloned into the VM and stored in the transcript." }
   - type: faulty-line
     prompt: "Which line of this ticket-style prompt exposes data to the cloud session?"
     explain: "The task is fine, but pasting rows from the real samplesheet puts identifiers and genotype calls into the prompt and the stored transcript. Use invented rows."
@@ -28,17 +28,16 @@ questions:
       - { text: "Check: run pytest tests/test_validate_samplesheet.py, which uses only data/mock/.", why: "A proof command that touches only mock data is safe to run in the VM." }
   - type: match
     prompt: "Match each item to what happens to it when you start a cloud session on a repository."
-    explain: "Only committed files in the repository travel with the clone. Your personal settings, local-only files and anything not on the pushed branch do not. Your prompts and the transcript go to Anthropic regardless."
+    explain: "When you start with --cloud from a pushed GitHub branch, only committed files in the repository travel with the clone. Your personal settings and anything not on the pushed branch do not (a bundle upload, used when there is no GitHub remote, behaves differently and can include uncommitted changes to tracked files). Your prompts and the transcript go to Anthropic regardless."
     pairs:
       - { left: "A committed CLAUDE.md in the repository", right: "Present in the fresh clone", misconception: "Committed project files are cloned, so project instructions do reach the VM." }
       - { left: "Your personal ~/.claude/CLAUDE.md", right: "Not copied to the VM", misconception: "User-level settings, skills and instructions stay on your machine; only the repository's own files are cloned." }
-      - { left: "Edits you have not committed and pushed", right: "Absent from the clone", misconception: "The clone comes from the GitHub remote at your pushed branch, so uncommitted work is not in it." }
+      - { left: "Edits not committed and pushed, when started with --cloud from a pushed GitHub branch", right: "Absent from the clone", misconception: "The clone comes from the GitHub remote at your pushed branch, so uncommitted work is not in it." }
       - { left: "The prompt you type and the session transcript", right: "Stored by Anthropic", misconception: "Prompts are not private to the VM; the docs say Anthropic stores the transcript so you can return to the session." }
   - type: order
     prompt: "A cloud session has finished and pushed a branch. Put your steps in a sensible order."
-    explain: "Read the diff first, so you catch stray data or paths before anything runs. Run the tests locally to check the code, then run the script on your real data where it lives. Merge only after that."
+    explain: "Read the diff first, so you catch stray data or paths before anything runs. Run the tests locally to check the code, then run the script on your real data where it lives. Merge only after all three."
     items:
       - "Read the diff, looking for committed data, paths or secrets"
       - "Run the tests on your own machine"
-      - "Run the script on your real data, locally or on the cluster"
-      - "Open the pull request and merge it"
+      - "Run the script on your real data, locally or on the cluster, before you merge"

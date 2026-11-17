@@ -27,6 +27,5 @@ An LLM can also be called **inside a script** (for example to tidy free-text lab
 *Further reading. Optional.*
 
 - [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents): Anthropic, article. Why read: it separates fixed workflows from agents and argues for the simplest option, which is the choice this quest asks you to make.
-- [On Faithfulness and Factuality in Abstractive Summarization](https://aclanthology.org/2020.acl-main.173): Maynez et al., ACL 2020, paper. Why read: it found hallucinated content in neural summaries; older models, but it shows why summaries need a spot check.
 - [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: it shows how to turn "it seems fine" into a measurable check, which is how you test an LLM step.
 :::

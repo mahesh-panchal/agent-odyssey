@@ -27,7 +27,6 @@ These help reviewers who use LLMs and those who do not. A non-user should never 
 
 *Further reading. Optional.*
 
-- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it says agents miss errors when they cannot check their own work, and tells you to give them a check to run.
-- [Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Anthropic, docs. Why read: it lists concrete habits (allow "I don't know", quote first, retract unsupported claims, compare repeated runs) and admits they reduce but do not remove errors.
-- [Security](https://code.claude.com/docs/en/security): Anthropic, docs. Why read: it states that you are responsible for reviewing proposed commands and changes before approving them.
+- [Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Anthropic, docs. Why read: it suggests asking for quotes and allowing "I don't know", habits you can request from a collaborator who sends you LLM-assisted work.
+- [Security](https://code.claude.com/docs/en/security): Anthropic, docs. Why read: it says you are responsible for reviewing proposed commands and changes, a duty you cannot hand to a collaborator unseen.
 :::

@@ -9,14 +9,14 @@ title: "Pick Your Companion"
 <span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17</span>
 :::
 
-The companions in the Kennel are **models**; the tool around them (the harness) is the armour. This page is about which companion to bring to which job, and how hard to make it think. Model names, aliases and defaults change often, so check the current docs and your own tool before relying on any name here.
+The companions in the Kennel are **models**; the tool around them (the harness, the program that runs the model and its tools) is the armour. This page is about which companion to bring to which job, and how hard to make it think. Model names, aliases and defaults change often, so check the current docs and your own tool before relying on any name here.
 
 A few words first. A **model tier** is a size class of model: a smaller one is faster and cheaper, a larger one is more capable and costs more. An **alias** is a short nickname (such as `sonnet`) that the tool maps to a concrete model version. **Effort** is how much the model thinks before each step. A **subagent** is a helper the main agent starts with its own fresh context, which does a side task and returns only a summary. To **delegate** is to hand a task to a subagent. A **token** is a chunk of text, the unit that usage and cost are counted in, and **context** is the text the model can see right now. **Frontmatter** is the small settings block at the top of a Markdown file. To **pin** a model is to name one exact version so it never silently changes, and **inherit** means "use whatever the parent is using". The **prompt cache** is a short-term store that makes re-reading an unchanged conversation cheaper.
 
 ## 1. Two dials
 
 - **Model** is what the companion knows and can do.
-- **Effort** is how much it thinks per step. Lower effort means fewer and terser tool calls; higher effort means more thoroughness.
+- **Effort** is how much it thinks per step. Lower effort means fewer and terser tool calls (the actions the agent takes, such as reading a file or running a command); higher effort means more thoroughness.
 
 The docs say tuning effort is often a better lever than switching models. One article's advice, not confirmed in the docs: effort cannot add knowledge the model lacks, so a model that does not know an unusual method will not find it by thinking longer. Treat that as a hypothesis to test, not a law.
 
@@ -26,7 +26,7 @@ The docs say tuning effort is often a better lever than switching models. One ar
 
 ## Claude Code
 
-**Model.** Aliases the docs list: `default` (clears an override; it is not itself a model alias), `best` (same as `opus`), `fable`, `sonnet`, `opus`, `haiku`, `sonnet[1m]`, `opus[1m]` (the `[1m]` forms ask for a longer context window), and `opusplan` (the opus model in plan mode, then sonnet for the execution). On the Anthropic API the docs map `opus`, `sonnet` and `haiku` to the current 5.5 versions; other providers can resolve the same alias to older versions.
+**Model.** Aliases the docs list: `default` (clears an override; it is not itself a model alias), `best` (same as `opus`), `fable`, `sonnet`, `opus`, `haiku`, `sonnet[1m]`, `opus[1m]` (the `[1m]` forms ask for a longer context window), and `opusplan` (the opus model in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API the docs map `opus`, `sonnet` and `haiku` to the current 5.5 versions; other providers can resolve the same alias to older versions.
 
 | Way | How | Note |
 |---|---|---|
@@ -58,6 +58,8 @@ Read the logs you are given. Return: task name, exit status, the first error lin
 Quote lines exactly. If something is unclear, say so instead of guessing.
 ```
 
+A subagent definition can also limit what the helper may use (a `tools` field): see the sub-agents docs in Lore below for the exact syntax, which this sketch leaves out.
+
 Why `medium` and not `low`? The docs say Haiku 5.5 at `low` is more likely to skip a search, stop early or skip a check, which is the wrong trade for reading logs where a missed failure is the whole point.
 
 ## OpenCode + Ollama
@@ -74,16 +76,16 @@ Not checked: which model OpenCode's built-in `general` and `explore` subagents u
 
 ## 3. A decision ladder
 
-Where the docs speak, I say so: the docs list the smallest tier as suited to subagent tasks and say most workloads start with the mid-high tier. Everything else is **General practice**: a starting point to test on your own jobs, not a rule. The docs name four tiers in this order of capability: Haiku (lowest latency and cost), Sonnet (everyday coding and agent work), Opus (complex agentic coding), Fable (hardest, long-running work). Check the current docs; models change.
+Where the docs speak, I say so: the docs list the smallest tier (Haiku) as suited to subagent tasks and say most workloads start with Opus. Everything else is **General practice**: a starting point to test on your own jobs, not a rule. The docs name four tiers in this order of capability: Haiku (fastest replies and lowest cost), Sonnet (everyday coding and agent work), Opus (complex agentic coding), Fable (hardest, long-running work). Check the current docs; models change.
 
 | Job | Start with | Effort | Why (General practice unless noted) |
 |---|---|---|---|
-| Most everyday work, no better information | mid-high tier (Opus, per the docs) | the tool's default | the docs say most workloads start here |
-| Bulk reading, classifying or extracting with output you can check | smallest tier, often as a subagent | `medium`, or `low` if you re-run failures | cheap per item; a checker catches errors |
+| Most everyday work, no better information | Opus (per the docs) | the tool's default | the docs say most workloads start here |
+| Bulk reading, classifying or extracting with output you can check | Haiku, often as a subagent | `medium`, or `low` if you re-run failures | cheap per item; a checker catches errors |
 | Exploratory reading ("where is X handled?") | a subagent | `low` or `medium` | the main context stays clean; only a summary returns |
-| Planning a change (see Plan Before You Edit) | consider the stronger model | `medium` to `high` | a bad plan makes every later step wrong |
-| Mechanical edits with tests that fail loudly | mid tier | `medium` | the tests do the judging |
-| Hardest multi-file change, or unfamiliar science | stronger model | `high`, then up only if a check says it helps | more knowledge and more care both matter |
+| Planning a change (see Plan Before You Edit) | consider Opus or Fable | `medium` to `high` | a bad plan makes every later step wrong |
+| Mechanical edits with tests that fail loudly | Sonnet | `medium` | the tests do the judging |
+| Hardest multi-file change, or unfamiliar science | Opus or Fable | `high`, then up only if a check says it helps | per one article, effort cannot add knowledge the model lacks, so the model matters too |
 
 ## 4. When the output is not good enough: the upgrade ladder
 
@@ -93,9 +95,9 @@ Climb one rung at a time and re-check after each.
 2. **Raise effort one level.**
 3. **Change the model** to the next tier up.
 
-The order (check, then effort, then model) is one article's advice, not confirmed in the docs, though the docs do say to give the agent something to verify against and that effort is often the better lever. The article is Addy Osmani's claude.dev piece "Which Claude model should you build with?" (provenance of the site not confirmed; numbers not verified). I use only its ideas, in my own words.
+The order (check, then effort, then model) is one article's advice, not confirmed in the docs, though the docs do say to give the agent something to verify against and that effort is often the better lever. The article is a claude.dev piece by Addy Osmani about choosing a Claude model (title as shown on the page; provenance of the site not confirmed; numbers not verified). I use only its ideas, in my own words.
 
-**The cheap-then-retry pattern** is in the official cost docs: if outcomes are checkable (tests, a verifier), run at low effort and re-run only the failures at higher effort. Two caveats from the same page: a checker that passes bad work lets failures through, and a failure costs two runs of waiting time. The docs also say to compare **cost per finished task, not cost per token**, because failed tasks still cost money and a few hard tasks can carry much of the bill.
+**The cheap-then-retry pattern** is in the official cost docs: if outcomes are checkable (tests, or a verifier, which is a separate check that tests the output), run at low effort and re-run only the failures at higher effort. Two caveats from the same page: a checker that passes bad work lets failures through, and a failure costs two runs of waiting time. The docs also say to compare **cost per finished task, not cost per token**, because failed tasks still cost money and a few hard tasks can carry much of the bill.
 
 ## 5. Delegation hygiene
 
@@ -123,7 +125,7 @@ Choosing wrongly costs you in both directions. **Too small or too low:** the com
 
 ## Exercise: assign six jobs
 
-No model needed. For each mock job, write down a tier (smallest, mid, strong), an effort (`low`, `medium`, `high`) and whether you would use a subagent, then open the key.
+No model needed. For each mock job, write down a model (Haiku, Sonnet, Opus or Fable), an effort (`low`, `medium`, `high`) and whether you would use a subagent, then open the key.
 
 1. Rename 200 sample IDs in a samplesheet to a new scheme, given a mapping table.
 2. Summarise the methods section of one paper into five bullets for your lab notes.
@@ -135,12 +137,12 @@ No model needed. For each mock job, write down a tier (smallest, mid, strong), a
 <details>
 <summary>Answer key (General practice, not from the docs; several answers are defensible)</summary>
 
-1. **Probably no model at all.** A mapping table and a script do this exactly, and a script cannot invent an ID. If you use one, the smallest tier at `low` or `medium`, with a diff or count check; no subagent needed.
-2. **Mid tier, `medium`, no subagent.** The text is short, so there is no context to protect. Check two claims against the paper yourself.
-3. **Mid tier at `medium`, raised to `high` or a stronger model if the first attempt fails and a test says so.** Keep it in the main conversation, because the debugging needs the history. Add a failing test first (rung 1).
-4. **Smallest tier, a subagent or a batch script, `medium`.** The 200 hand-labelled rows are your outcome check; re-run only the rows that disagree at a higher setting. Spot-check a sample of the rest.
-5. **Stronger model, `high`, in plan mode, main conversation.** A weak plan is expensive downstream and other people depend on the script. Ask for a test plan too (see Plan Before You Edit).
-6. **Mid tier, `low` or `medium`, no subagent.** It is a short, checkable question: try the suggested fix. Escalate only if the explanation does not hold up.
+1. **Probably no model at all.** A mapping table and a script do this exactly, and a script cannot invent an ID. If you use one, Haiku at `low` or `medium`, with a diff or count check; no subagent needed.
+2. **Sonnet, `medium`, no subagent.** The text is short, so there is no context to protect. Check two claims against the paper yourself.
+3. **Sonnet at `medium`, raised to `high` or Opus if the first attempt fails and a test says so.** Keep it in the main conversation, because the debugging needs the history. Add a failing test first (rung 1).
+4. **Haiku, a subagent or a batch script, `medium`.** The 200 hand-labelled rows are your outcome check; re-run only the rows that disagree at a higher setting. Spot-check a sample of the rest.
+5. **Opus, `high`, in plan mode, main conversation.** A weak plan is expensive downstream and other people depend on the script. Ask for a test plan too (see Plan Before You Edit).
+6. **Sonnet, `low` or `medium`, no subagent.** It is a short, checkable question: try the suggested fix. Escalate only if the explanation does not hold up.
 
 </details>
 

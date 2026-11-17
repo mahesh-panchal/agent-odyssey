@@ -96,8 +96,8 @@ The idea is the same: review the source cells. This quest has no tool-specific c
 *Further reading. Optional.*
 
 - [The Notebook file format](https://nbformat.readthedocs.io/en/latest/format_description.html): nbformat, docs. Why read: it is the spec showing that a notebook is JSON holding outputs, execution counts and base64 images, which explains the noisy diffs.
-- [nbstripout](https://github.com/kynan/nbstripout): nbstripout project (GitHub), repo. Why read: it removes outputs before Git sees them; the README notes each collaborator must install the filter.
-- [Jupytext](https://github.com/mwouts/jupytext): jupytext project (GitHub), repo. Why read: it pairs an .ipynb with a plain .py so reviewers diff the code only.
+- [nbstripout](https://github.com/kynan/nbstripout): nbstripout project (GitHub), repo. Why read: it strips outputs from a notebook with a Git filter set up by `nbstripout --install`, so Git never sees them.
+- [Jupytext](https://github.com/jupytext/jupytext): jupytext project (GitHub), repo. Why read: it pairs an .ipynb with a plain .py so reviewers diff the code only.
 - [nbdime](https://nbdime.readthedocs.io/en/latest/): nbdime project, docs. Why read: it gives notebook-aware diff and merge tools if you must keep .ipynb in Git.
-- [marimo documentation](https://docs.marimo.io/): marimo, docs. Why read: it describes a notebook stored as plain Python with reactive cells, the format option the quest compares.
+- [marimo documentation](https://docs.marimo.io/): marimo, docs. Why read: it describes a notebook stored as plain Python, so Git diffs show code only; this is the format option the quest compares.
 :::

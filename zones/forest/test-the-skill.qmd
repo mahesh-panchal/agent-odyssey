@@ -87,9 +87,9 @@ Running an eval is the same trust decision as loading the plugin with `--plugin-
 
 **Idea from the GitHub Blog article** "Build once, run on any agent: a practical guide to agent skills" by Andrea Griffiths (GitHub Blog), in our own words. The article does not describe eval design; the grader and baseline method above comes from the Claude Code docs.
 
-- **Use a separate verifier.** An agent that marks its own work is not an independent check. Have a different agent, a script or a person check the changed files, and make the verifier cite evidence (for example PASS, FAIL or PARTIAL, each with the lines it relied on).
-- **Check the Skill in each client you use.** Passing in one tool says little about another. After installing, confirm that the client triggers the Skill for the right task, loads its files, uses the tools it needs and returns the evidence you expect.
-- **Instructions guide; tests and people verify.** A line in a Skill saying "check your work" steers the agent but proves nothing. Tests, CI checks and human review are what verify.
+- **Use a separate verifier**, a check done by something other than the agent that did the work. An agent that marks its own work is not an independent check. For a QC skill that edits a samplesheet, have a script or a person diff the changed file against the original, and make the verifier cite the lines it relied on.
+- **Check the Skill in each client you use** (the tool that runs the agent, such as Claude Code or OpenCode). Passing in one tool says little about another. After installing, confirm that the client triggers the Skill for the right task, loads its files, uses the tools it needs and returns the evidence you expect.
+- **Instructions guide; tests and people verify.** A line in a Skill saying "check your work" steers the agent but proves nothing. Tests, CI checks (continuous integration: automatic checks that run when code is pushed) and human review are what verify.
 
 <div data-ao-honour="run-eval" data-xp="30">Run the cheap one-case command above on `exercises/forge/fasta-tools` with a cost ceiling, and open the `report.html`. Note whether the Skill fired.</div>
 <div data-ao-honour="write-case" data-xp="20">Write an eval case for your own Skill from the previous quest: a prompt that does not name it, and one grader.</div>
@@ -105,5 +105,5 @@ Running an eval is the same trust decision as loading the plugin with `--plugin-
 
 - [Test plugins with evals](https://code.claude.com/docs/en/plugin-evals): Anthropic, docs. Why read: the reference for case files, grader types, cost limits and the with-and-without delta.
 - [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: how to write criteria and graders that discriminate.
-- [Build once, run on any agent: a practical guide to agent skills](https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/): Andrea Griffiths, GitHub Blog, article. Why read: a vendor article on writing skills for several agent clients; it is secondary to the docs, and its advice is summarised in this quest.
+- [Build once, run on any agent: a practical guide to agent skills](https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/): Andrea Griffiths, GitHub Blog, article. Why read: a vendor article whose points on a separate verifier, checking a Skill in each client and "instructions guide, tests verify" are paraphrased in "Who checks the work"; secondary to the docs.
 :::

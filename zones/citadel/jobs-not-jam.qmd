@@ -84,5 +84,5 @@ From the Claude Code docs: foreground commands time out (default 2 minutes, maxi
 - [sbatch](https://slurm.schedmd.com/sbatch.html): SchedMD (Slurm), docs. Why read: it is the manual for submitting jobs, including --test-only to validate a request without submitting.
 - [scancel](https://slurm.schedmd.com/scancel.html): SchedMD (Slurm), docs. Why read: it shows that user and state filters cancel everything they match, so an agent's cleanup can kill your other jobs.
 - [High Throughput Computing Administration Guide](https://slurm.schedmd.com/high_throughput.html): SchedMD (Slurm), docs. Why read: it is an administrator guide that mentions per-user rate limits on scheduler requests; read it for why floods of commands matter, not as user advice.
-- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it shows allow, ask and deny rules (for example asking before sbatch) and warns that Bash rules are not a security boundary.
+- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it shows how to make sbatch ask while read-only checks such as squeue are allowed, with the warning that Bash rules are not a security boundary.
 :::

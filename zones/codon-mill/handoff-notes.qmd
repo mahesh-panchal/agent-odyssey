@@ -120,7 +120,7 @@ Not checked: OpenCode's memory files and how it loads project instructions. The 
 
 *Further reading. Optional.*
 
-- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it separates CLAUDE.md from auto memory and says both are context, not enforced rules.
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it separates CLAUDE.md from auto memory, two of the things that carry knowledge across to a fresh session.
 - [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.
 - [Explore the context window](https://code.claude.com/docs/en/context-window): Anthropic, docs. Why read: a walk through what loads before you type, what a file read costs and what survives compaction.
 - [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: it explains why long contexts degrade and why curating what goes in matters; compaction trade-offs are discussed.
