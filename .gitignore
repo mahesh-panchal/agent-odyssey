@@ -10,3 +10,4 @@ _site/
 assets/img/
 assets/data/
 __pycache__/
+lore.qmd

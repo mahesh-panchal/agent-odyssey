@@ -65,7 +65,10 @@ gates:
            done: "The Beast stirs and falls in beside you. It is powerful and will do exactly what its permissions allow." },
          { id: kennel-adopt-the-pet, title: "Adopt the Pet", page: zones/kennel/adopt-the-pet.html,
            story: "In a corner, a small pet blinks at you. It lives on your own machine, costs nothing to feed, and forgets things easily.",
-           done: "The Pet curls up on your laptop. Small and local, it needs more room to think and a leash of its own." } ] }
+           done: "The Pet curls up on your laptop. Small and local, it needs more room to think and a leash of its own." },
+         { id: kennel-pick-your-companion, title: "Pick Your Companion", page: zones/kennel/pick-your-companion.html,
+           story: "The Kennel keeps companions of every size. A big one is slow and costly to feed; a small one is quick and cheap but loses the trail. You must choose per job, and decide how hard each should think.",
+           done: "You choose a model and effort for each job, delegate bulk reading to a cheaper helper, and measure before you commit." } ] }
   C: { id: crypt,    name: "Ancient DNA Crypt",     track: "Armour",     status: open,
        quests: [
          { id: crypt-shield-of-undo, title: "Save Point", page: zones/crypt/shield-of-undo.html,

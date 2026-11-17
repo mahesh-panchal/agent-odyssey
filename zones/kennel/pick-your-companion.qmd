@@ -1,0 +1,152 @@
+---
+title: "Pick Your Companion"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Recruit the Beast and Adopt the Pet. **Objective:** set the model and the effort on purpose, especially when you hand work to a subagent, and learn to compare two settings on your own task instead of guessing.
+**Time:** about 15 minutes. **The exercise needs no model;** it is a worksheet.
+
+<span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17</span>
+:::
+
+The companions in the Kennel are **models**; the tool around them (the harness) is the armour. This page is about which companion to bring to which job, and how hard to make it think. Model names, aliases and defaults change often, so check the current docs and your own tool before relying on any name here.
+
+A few words first. A **model tier** is a size class of model: a smaller one is faster and cheaper, a larger one is more capable and costs more. An **alias** is a short nickname (such as `sonnet`) that the tool maps to a concrete model version. **Effort** is how much the model thinks before each step. A **subagent** is a helper the main agent starts with its own fresh context, which does a side task and returns only a summary. To **delegate** is to hand a task to a subagent. A **token** is a chunk of text, the unit that usage and cost are counted in, and **context** is the text the model can see right now. **Frontmatter** is the small settings block at the top of a Markdown file. To **pin** a model is to name one exact version so it never silently changes, and **inherit** means "use whatever the parent is using". The **prompt cache** is a short-term store that makes re-reading an unchanged conversation cheaper.
+
+## 1. Two dials
+
+- **Model** is what the companion knows and can do.
+- **Effort** is how much it thinks per step. Lower effort means fewer and terser tool calls; higher effort means more thoroughness.
+
+The docs say tuning effort is often a better lever than switching models. One article's advice, not confirmed in the docs: effort cannot add knowledge the model lacks, so a model that does not know an unusual method will not find it by thinking longer. Treat that as a hypothesis to test, not a law.
+
+## 2. How to set them
+
+::::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+**Model.** Aliases the docs list: `default` (clears an override; it is not itself a model alias), `best` (same as `opus`), `fable`, `sonnet`, `opus`, `haiku`, `sonnet[1m]`, `opus[1m]` (the `[1m]` forms ask for a longer context window), and `opusplan` (the opus model in plan mode, then sonnet for the execution). On the Anthropic API the docs map `opus`, `sonnet` and `haiku` to the current 5.5 versions; other providers can resolve the same alias to older versions.
+
+| Way | How | Note |
+|---|---|---|
+| In a session | `/model <alias or name>` | alone, it opens a picker; Enter saves it as your default, `s` keeps it for this session only |
+| Per launch | `claude --model <alias or name>` | |
+| Environment | `ANTHROPIC_MODEL` | |
+| Settings file | `model` field | |
+
+For results that must be reproducible (a lab pipeline, course material), **pin a full model name** such as `claude-opus-5-5`, because an alias moves when a new version ships (our inference from how aliases work). The docs also offer `ANTHROPIC_DEFAULT_OPUS_MODEL`, `ANTHROPIC_DEFAULT_SONNET_MODEL`, `ANTHROPIC_DEFAULT_HAIKU_MODEL` and `ANTHROPIC_DEFAULT_FABLE_MODEL` to pin what each alias means.
+
+**Effort.** `/effort`, `claude --effort`, the environment variable `CLAUDE_CODE_EFFORT_LEVEL`, or the `effortLevel` setting. The levels are `low`, `medium`, `high`, `xhigh` and `max`, and which ones exist depends on the model. The default differs by model and the docs pages disagree for Sonnet 5.5, so I give no default here: run `/effort` in your own tool and read it.
+
+**Per skill and per subagent.** Both skill files and subagent files take `model` and `effort` in their frontmatter.
+
+- A skill's `model` takes the same values as `/model`, or `inherit`. A skill's `model` and `effort` apply for the rest of that one turn and are not saved. A skill's `effort` overrides the session level but not `CLAUDE_CODE_EFFORT_LEVEL`.
+- A subagent's `model` takes `sonnet`, `opus`, `haiku`, `fable`, a full model ID, or `inherit`. Its `effort` takes `low` to `max`. If the subagent's model differs from the main one and you give no `effort`, the session level does not apply to it, so set it.
+- **Which model a subagent gets, first match wins:** the per-call `model` parameter, then the definition's `model`, then the environment variable `CLAUDE_CODE_SUBAGENT_MODEL`, then the main conversation's model.
+
+A subagent is a Markdown file with frontmatter in `.claude/agents/` (project) or `~/.claude/agents/` (yours). Sketch, not run:
+
+```markdown
+---
+name: log-reader
+description: Reads long pipeline logs and reports only failed tasks with their error lines.
+model: haiku
+effort: medium
+---
+Read the logs you are given. Return: task name, exit status, the first error line.
+Quote lines exactly. If something is unclear, say so instead of guessing.
+```
+
+Why `medium` and not `low`? The docs say Haiku 5.5 at `low` is more likely to skip a search, stop early or skip a check, which is the wrong trade for reading logs where a missed failure is the whole point.
+
+## OpenCode + Ollama
+
+- `/models` picks a model for the current session only; the config file is unchanged.
+- `opencode run --model provider/model-id` sets it for one run. The format is `provider/model-id`, with an optional `#variant` such as `#high`. IDs are case-sensitive.
+- The `model` key in `opencode.json` (or `opencode.jsonc`) sets your default.
+- An agent can have its own `model` key. A subagent with no `model` inherits the parent session's model. The docs' frontmatter example is `mode: subagent` plus `model: anthropic/claude-sonnet-5-5#high` (sketch, not run).
+- A local Ollama model is selectable like any other, for example `ollama/gemma3:4b`, as the Adopt the Pet quest showed.
+
+Not checked: which model OpenCode's built-in `general` and `explore` subagents use, whether a `small_model` key exists, the file location for OpenCode agent files, and whether a local model is good enough as a cheap delegate (the docs only say it can be selected). Not checked: any way to run an Ollama model as a Claude Code subagent; Claude Code's documented subagent `model` values are Claude aliases or Claude IDs only.
+
+:::::
+
+## 3. A decision ladder
+
+Where the docs speak, I say so: the docs list the smallest tier as suited to subagent tasks and say most workloads start with the mid-high tier. Everything else is **General practice**: a starting point to test on your own jobs, not a rule. The docs name four tiers in this order of capability: Haiku (lowest latency and cost), Sonnet (everyday coding and agent work), Opus (complex agentic coding), Fable (hardest, long-running work). Check the current docs; models change.
+
+| Job | Start with | Effort | Why (General practice unless noted) |
+|---|---|---|---|
+| Most everyday work, no better information | mid-high tier (Opus, per the docs) | the tool's default | the docs say most workloads start here |
+| Bulk reading, classifying or extracting with output you can check | smallest tier, often as a subagent | `medium`, or `low` if you re-run failures | cheap per item; a checker catches errors |
+| Exploratory reading ("where is X handled?") | a subagent | `low` or `medium` | the main context stays clean; only a summary returns |
+| Planning a change (see Plan Before You Edit) | consider the stronger model | `medium` to `high` | a bad plan makes every later step wrong |
+| Mechanical edits with tests that fail loudly | mid tier | `medium` | the tests do the judging |
+| Hardest multi-file change, or unfamiliar science | stronger model | `high`, then up only if a check says it helps | more knowledge and more care both matter |
+
+## 4. When the output is not good enough: the upgrade ladder
+
+Climb one rung at a time and re-check after each.
+
+1. **Add a way to verify.** A test, a script, a count against an independent tool, a second look that does not share the first one's blind spot (the idea behind Ground Truth). Without it you cannot tell whether the next rungs helped.
+2. **Raise effort one level.**
+3. **Change the model** to the next tier up.
+
+The order (check, then effort, then model) is one article's advice, not confirmed in the docs, though the docs do say to give the agent something to verify against and that effort is often the better lever. The article is Addy Osmani's claude.dev piece "Which Claude model should you build with?" (provenance of the site not confirmed; numbers not verified). I use only its ideas, in my own words.
+
+**The cheap-then-retry pattern** is in the official cost docs: if outcomes are checkable (tests, a verifier), run at low effort and re-run only the failures at higher effort. Two caveats from the same page: a checker that passes bad work lets failures through, and a failure costs two runs of waiting time. The docs also say to compare **cost per finished task, not cost per token**, because failed tasks still cost money and a few hard tasks can carry much of the bill.
+
+## 5. Delegation hygiene
+
+- **Keep the expensive model's context lean.** Sending bulk reading to a subagent keeps that reading out of the main conversation (documented benefit).
+- **A subagent returns only a summary, and summaries omit and distort.** Spot-check: ask for exact quotes or file paths and open two yourself (see Where Machines Fail). Many subagents returning long answers can also fill the main context again, per the docs.
+- **State your rules in the delegation prompt.** Per the docs, the built-in Explore and Plan subagents skip `CLAUDE.md` for speed, so a rule like "never touch `raw/`" must be written into the task you hand them. Custom subagents load it unless set to skip it.
+- **Keep edits on the main model.** One article's advice, not confirmed in the docs: let a cheaper subagent read and report, and make the changes on the model you trust most.
+- **Switching model mid-conversation can change prompt-cache behaviour** (the docs say so and may ask you to confirm). One article's advice, not confirmed in the docs: compact first, or switch at a natural break; compacting means replacing the history with a short summary (see When to Start Fresh).
+- **Change effort between sessions when you are comparing.** The docs note that changing top-level effort mid-session also invalidates the cache.
+
+## 6. Measure, do not guess
+
+Pick one small real task that has an outcome check (a test that passes, a count that matches).
+
+1. Choose two settings to compare, for example the same model at `medium` and `high`. Change only one thing.
+2. For each, start a fresh session, run the task **three times**, and record pass or fail from the outcome check, not from how confident the agent sounds.
+3. After each run, open `/usage` and note the "Usage by model" block. The dollar figure is an estimate computed locally at list price, and on a subscription you may see plan usage bars instead. `/usage` resets on `/clear`.
+4. Compare cost per *passing* run. Three runs is a small sample: it can expose a big difference, not prove a small one.
+
+This is the same habit as the Forest quests Close the Loop (give the agent something to check against) and Test the Skill (compare behaviour with and without a change).
+
+## 7. What you gave up
+
+Choosing wrongly costs you in both directions. **Too small or too low:** the companion loses the thread, skips checks or stops early, and you redo the work, often after you have already trusted it. **Too big or too high:** the same job costs more and runs slower, and you may not notice because the answer looks fine. The checks above are how you notice either mistake.
+
+## Exercise: assign six jobs
+
+No model needed. For each mock job, write down a tier (smallest, mid, strong), an effort (`low`, `medium`, `high`) and whether you would use a subagent, then open the key.
+
+1. Rename 200 sample IDs in a samplesheet to a new scheme, given a mapping table.
+2. Summarise the methods section of one paper into five bullets for your lab notes.
+3. Debug a Nextflow stage that fails on one sample and passes on the others.
+4. Classify 5,000 free-text tissue labels into 12 categories, with 200 hand-labelled rows to check against.
+5. Plan a refactor of a 600-line QC script that three other people depend on.
+6. Explain an error message you have not seen before.
+
+<details>
+<summary>Answer key (General practice, not from the docs; several answers are defensible)</summary>
+
+1. **Probably no model at all.** A mapping table and a script do this exactly, and a script cannot invent an ID. If you use one, the smallest tier at `low` or `medium`, with a diff or count check; no subagent needed.
+2. **Mid tier, `medium`, no subagent.** The text is short, so there is no context to protect. Check two claims against the paper yourself.
+3. **Mid tier at `medium`, raised to `high` or a stronger model if the first attempt fails and a test says so.** Keep it in the main conversation, because the debugging needs the history. Add a failing test first (rung 1).
+4. **Smallest tier, a subagent or a batch script, `medium`.** The 200 hand-labelled rows are your outcome check; re-run only the rows that disagree at a higher setting. Spot-check a sample of the rest.
+5. **Stronger model, `high`, in plan mode, main conversation.** A weak plan is expensive downstream and other people depend on the script. Ask for a test plan too (see Plan Before You Edit).
+6. **Mid tier, `low` or `medium`, no subagent.** It is a short, checkable question: try the suggested fix. Escalate only if the explanation does not hold up.
+
+</details>
+
+<div data-ao-honour="check-model-effort" data-xp="25">Check what model and effort your tool is using right now (<code>/model</code>, <code>/effort</code>) and write them down.</div>
+<div data-ao-honour="compare-two-settings" data-xp="25">Run the same small task at two settings and compare the result and <code>/usage</code>.</div>
+
+## Battle
+
+<div data-ao-test="kennel-pick-your-companion" data-xp="50"></div>

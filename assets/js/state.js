@@ -25,7 +25,7 @@
       var h = document.getElementById("ao-hud");
       if (!h) { h = document.createElement("header"); h.id = "ao-hud"; (document.getElementById("quarto-document-content") || document.body).prepend(h); }
       var n = Object.keys(AO.state.passed).length;
-      h.innerHTML = "<a class='ao-mapbtn' href='" + (window.AO_BASE || "./") + "index.html'>◀ Map</a> <button id='ao-logbtn' aria-expanded='false' aria-controls='ao-log'>Quest Log ▾</button> <a href='" + (window.AO_BASE || "./") + "character.html'>Character</a> <span style='white-space:nowrap'>XP " + AO.state.xp + " · Quests cleared " + n + "</span> " +
+      h.innerHTML = "<a class='ao-mapbtn' href='" + (window.AO_BASE || "./") + "index.html'>◀ Map</a> <button id='ao-logbtn' aria-expanded='false' aria-controls='ao-log'>Quest Log ▾</button> <a href='" + (window.AO_BASE || "./") + "character.html'>Character</a> <a href='" + (window.AO_BASE || "./") + "lore.html'>Lore</a> <span style='white-space:nowrap'>XP " + AO.state.xp + " · Quests cleared " + n + "</span> " +
         "<button id='ao-exp'>Save code</button> <button id='ao-imp'>Load code</button>";
       (AO.hooks || []).forEach(function (f) { f(); });
       document.getElementById("ao-exp").onclick = function () { prompt("Copy your save code:", AO.exportCode()); };

@@ -24,5 +24,6 @@ Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold *
 - [The Scriptorium (side quest)](zones/scriptorium/why-notebooks-diff-badly.qmd)
 - [The Cluster Citadel](zones/citadel/login-node-manners.qmd)
 - [Character sheet](character.qmd)
+- [Lore library](lore.qmd)
 
 </details>

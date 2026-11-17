@@ -23,6 +23,16 @@ TODO: teach the idea. Use `::: {{.panel-tabset group="companion"}}` for Claude C
 ## Battle
 
 <div data-ao-test="{zone}-{slug}" data-xp="60"></div>
+
+::: {{.ao-lore}}
+## Lore
+
+*Further reading. Optional.*
+
+<!-- TODO: 2-8 items, one per line, only URLs from research/*.md or research/lore-extra.md:
+- [Title](https://url): Publisher, docs. Why read: one line.
+-->
+:::
 ''')
 y.write_text('''pass: 0.8
 questions:

@@ -93,3 +93,15 @@ Naming differs between tools. The Claude Code docs define "harness" and "hooks" 
 ## Battle: the gear
 
 <div data-ao-test="basecamp-know-your-gear" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works): Anthropic, docs. Why read: it is the page that defines the agentic harness and the gather, act, check loop used in this quest.
+- [Model configuration](https://code.claude.com/docs/en/model-config): Anthropic, docs. Why read: it covers model aliases and the effort setting, so you can pin a model and see what `/effort` changes.
+- [Skills](https://code.claude.com/docs/en/skills): Anthropic, docs. Why read: it shows the `SKILL.md` format and how only descriptions load at startup.
+- [Introduction to the Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro): Model Context Protocol, docs. Why read: it explains what MCP is as an open standard before you connect a server.
+- [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: it gives the guidance on specific, measurable criteria that evals need.
+:::

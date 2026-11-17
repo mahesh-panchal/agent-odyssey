@@ -30,9 +30,13 @@ cmd = "quarto render"
 cmd = "quarto publish gh-pages --no-prompt"
 description = "Publish to GitHub Pages (needs a git remote)"
 
+[tasks.lore]
+cmd = "python tools/lint_lore.py"
+description = "Lint the Lore blocks (sources per quest); add --require once every quest has Lore"
+
 [tasks.e2e]
 cmd = "python tools/e2e.py"
-depends-on = ["render"]
+depends-on = ["lore", "render"]
 description = "Drive the built site with real key presses (needs: quarto install chrome-headless-shell)"
 
 [tasks.shots]
