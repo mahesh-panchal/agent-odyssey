@@ -31,14 +31,14 @@ Egress means data leaving the machine.
 
 - *General practice:* before any cluster data, paths, logs or code go to an external model API, check your institution's policy. Human genomic, clinical or controlled-access data often has agreements that forbid third-party processing.
 - Read is auto-approved inside the working directory. A project folder holding controlled data is therefore readable by the agent unless a `Read(...)` deny rule or `sandbox.filesystem.denyRead` covers it. *General practice:* keep controlled data outside the agent's working directory and give the agent synthetic or de-identified test data.
-- *General practice, not checked in the docs, so ask your site:* some sites restrict internet access from compute nodes, so an agent there may not reach a model API at all. A common pattern is the agent on your laptop or a login node, writing scripts, with jobs running offline. A plain `ssh` from inside the Claude Code sandbox does not work as a hop.
+- *General practice, not checked in the docs, so ask your site:* some sites restrict internet access from compute nodes, so an agent there may not reach a model API at all. A common pattern is the agent on your laptop, writing scripts, with jobs running offline. Some sites forbid agents on login nodes and allow them only in an interactive compute allocation, where internet access may be restricted. Ask staff which applies. A plain `ssh` from inside the Claude Code sandbox does not work as a hop.
 - The sandbox's `network.allowedDomains` starts empty, so unlisted hosts prompt (in the default modes).
 
 ::: {.panel-tabset group="companion"}
 
 ## Claude Code
 
-Ask staff these before use: is an external model API allowed for my data, which tools are allowed on login nodes, what outbound access exists, and where are my home and scratch backed up and who can read them? For restricted networks, `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` turns off auto-updates, telemetry, error reporting and feedback traffic.
+If your project has an instruction file (`AGENTS.md` or `CLAUDE.md`) stricter than a generic skill, the stricter one wins, and your cluster's policy outranks both. Ask staff these before use: is an external model API allowed for my data, which tools are allowed on login nodes, what outbound access exists, and where are my home and scratch backed up and who can read them? For restricted networks, `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` turns off auto-updates, telemetry, error reporting and feedback traffic.
 
 ## OpenCode + Ollama
 

@@ -13,11 +13,13 @@ Everything below that concerns *etiquette* is **general practice**: the Slurm do
 
 *General practice.* A login node is shared by everyone who logs in. Compute nodes are where the scheduler places your jobs. Light work (editing text, `git`, listing one directory, checking a log with `head` or `tail`) is normally fine on the login node. Heavy work is not: aligners, long foreground pipelines, compressing or indexing big files, building large environments, or running a test suite at scale.
 
-An agent does not know which node it is on or what your site tolerates. It will happily run a long command if you let it, so the rule is yours to set.
+An agent does not know which node it is on or what your site tolerates. It will happily run a long command if you let it, so the rule is yours to set. It also misjudges "this will only take a few seconds", so when a command's cost is unclear, tell it to ask.
+
+Some sites forbid agents on login nodes altogether, or allow them only inside an interactive compute allocation (where internet access may be restricted). Ask your staff before you start one. Do not assume the site runs Slurm either: submission syntax, partitions and accounting differ, so if a scheduler command is missing, ask rather than trying near-matches.
 
 ## Shared storage does not like sweeping searches
 
-*General practice.* Network filesystems can slow down for everyone when something touches huge numbers of files. Agents explore by searching, so a careless `find /` or a recursive `grep -r` from your home or project root is the classic mistake. Ask for searches scoped to one subdirectory, and never from `/`.
+*General practice.* Network filesystems can slow down for everyone when something touches huge numbers of files. Agents explore by searching, so a careless `find /` or a recursive `grep -r` from your home or project root is the classic mistake. Ask for searches scoped to one known directory, and never from `/`. The same goes for `du`, `ls --recursive`, `ls --format=long` (it stats every file) and wide globs on big directories, and avoid making many small files in one directory. Do not let the agent read or list other users' or other projects' paths unless you named them or the site documents them as shared (reference data).
 
 Claude Code's own search tools (Glob, Grep) are file tools, and its documentation does not describe them as a control on filesystem load. Scoping the search is on you.
 
@@ -34,7 +36,13 @@ From the Slurm documentation:
 
 `sbatch --test-only` validates a script and estimates a start time, and "No job is actually submitted". That makes it a dry run, in the same spirit as the Factory's *Dry Run First*. Slurm's default time limit is the partition's default, so set limits in the script rather than trusting it.
 
-*General practice:* set `--time`, `--mem` and `--cpus-per-task`, and prefer a job array to a loop of `sbatch` calls.
+*General practice:* set `--time`, `--mem` and `--cpus-per-task`, and prefer a job array to a loop of `sbatch` calls. Write options in their long form (`--dry-run`, not `-n`) so you can read what the agent proposes.
+
+Resources are billed by what is *allocated*, not used. If `--mem` is more than the CPUs you asked for allow (partition limit `MaxMemPerCPU`), Slurm may raise the CPU count to fit, with no error. It can also reject the job instead. Per the `sbatch` page, `--mem-per-cpu` above that limit is reduced and `--cpus-per-task` raised to compensate. Read the limits with `scontrol show partition <name>`, and afterwards compare request, allocation and use with `sacct --jobs=<id> --format=JobID,State,ReqMem,AllocCPUS,MaxRSS`. A job killed for memory shows `OUT_OF_MEMORY`, often with exit code `0:125` (tools report 137); `MaxRSS` then understates the need, so raise the request above the failed one. *Not checked:* the `0:125` code and the `--mem` widening rule against the Slurm pages.
+
+Scratch means throwaway files. Ask where the project's scratch is. Do not default to `/tmp`, which is shared on a login node and often small, and a set `$TMPDIR` proves nothing (Slurm can set it to `/tmp`). Scripts, logs and final outputs stay in the project directory.
+
+Before a copy or a delete, find out what it touches. Run `rsync --dry-run --itemize-changes` first, with the same arguments, and read the list. `cp`, `scp` and `rm` have no dry run, so list the exact path or glob and delete only those names. Send large transfers through the scheduler or the site's data-transfer node. The Factory's *Dry Run First* is the same habit.
 
 ## What the agent's sandbox does and does not cover
 
@@ -51,7 +59,7 @@ Tell the agent where it may run what, in your project instructions or the prompt
 - "Search only inside `./workflow/`. Never run `find` or `grep -r` from `/` or `$HOME`."
 - "Do not run tools in the foreground. Draft an `sbatch` script and show it to me."
 
-Instructions are guidance, not enforcement.
+Instructions are guidance, not enforcement. If a project instruction file (`AGENTS.md` or `CLAUDE.md`) is stricter than a generic skill or these lines, the stricter one wins.
 
 From the Claude Code docs: foreground commands time out (default 2 minutes, maximum 10 by default), so a long-running foreground command in the agent's shell is cut off anyway.
 

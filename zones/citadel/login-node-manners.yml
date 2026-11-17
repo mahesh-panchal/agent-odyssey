@@ -38,6 +38,22 @@ questions:
       - { text: "Claude Code refuses every shell command until the sandbox is fixed", misconception: "That is the behaviour of failIfUnavailable set to true, not the default." }
       - { text: "Claude Code switches to a stricter permission mode on its own", misconception: "The docs describe no automatic tightening. It simply runs unsandboxed." }
       - { text: "Only commands that use sbatch or srun are stopped", misconception: "The sandbox does not know about scheduler commands, and a failed start blocks nothing by default." }
+  - type: choice
+    prompt: "A job asked for `--mem=120G` and 1 CPU on a partition with `MaxMemPerCPU=4000` (MB). What may Slurm do?"
+    explain: "Memory above CPUs times the per-CPU limit can make Slurm raise the CPU count (about 31 here), or reject the job. Billing follows allocation, so compare request, allocation and use with sacct."
+    options:
+      - { text: "Widen the CPUs or reject it; billing follows allocation", correct: true }
+      - { text: "Run it as asked on one CPU, billed for the memory used", misconception: "Billing follows what is allocated, not what is used, and the per-CPU limit is not ignored." }
+      - { text: "Always accept it and silently cap the memory at 4000 MB", misconception: "Slurm may adjust the CPU count instead of shrinking a --mem request, which is why it costs more with no error." }
+      - { text: "Queue it forever, since an over-limit request never starts", misconception: "That can happen under some limits, but with a per-CPU limit Slurm tries to widen the request first." }
+  - type: choice
+    prompt: "Before copying results to another storage area with rsync, what do you do first?"
+    explain: "rsync can show what it would transfer without doing it. Read the list for surprises, then run the same command without the flag."
+    options:
+      - { text: "Run it with --dry-run --itemize-changes and read the list", correct: true }
+      - { text: "Run it once for real and delete the copy if it looks wrong", misconception: "A real copy may already have sent secrets or overwritten files, and it cannot be undone." }
+      - { text: "Use cp instead, because it has a dry run of its own", misconception: "cp, scp and rm have no dry run. List the exact paths yourself." }
+      - { text: "Run it on the login node with no checks, since copying is light", misconception: "Large transfers are heavy I/O. Send them through the scheduler or a data-transfer node." }
   - type: faulty-line
     prompt: "This is an instruction block for an agent on a shared cluster. Which line is the faulty one?"
     explain: "A recursive grep from the home directory sweeps shared storage. Searches should be scoped to one subdirectory."
