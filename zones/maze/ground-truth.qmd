@@ -47,3 +47,14 @@ Work out the percentages and compare them row by row with the script. Two of the
 ## Battle: the lantern
 
 <div data-ao-test="maze-ground-truth" data-xp="80"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it says agents miss errors when they cannot check their own work, and tells you to give them a check to run.
+- [Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Anthropic, docs. Why read: it lists concrete habits (allow "I don't know", quote first, retract unsupported claims, compare repeated runs) and admits they reduce but do not remove errors.
+- [The Strawberry Problem](https://arxiv.org/abs/2505.14172): arXiv (EMNLP 2025), paper. Why read: it studies why models miscount letters and links it to tokens, which is the idea behind miscounted bases.
+- [Counting Ability of LLMs and Impact of Tokenization](https://arxiv.org/abs/2410.19730): arXiv, paper. Why read: it shows counting failures persist even with step-by-step reasoning, a preprint that argues for letting code do the counting.
+:::

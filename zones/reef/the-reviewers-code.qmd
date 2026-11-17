@@ -22,3 +22,14 @@ Notebooks are one example. A [marimo](https://marimo.io/) notebook is stored as 
 ## Battle: the review
 
 <div data-ao-test="reef-the-reviewers-code" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [marimo documentation](https://docs.marimo.io/): marimo, docs. Why read: it describes a notebook stored as plain Python with reactive cells, the format option the quest compares.
+- [The Notebook file format](https://nbformat.readthedocs.io/en/latest/format_description.html): nbformat, docs. Why read: it is the spec showing that a notebook is JSON holding outputs, execution counts and base64 images, which explains the noisy diffs.
+- [Jupytext](https://github.com/mwouts/jupytext): jupytext project (GitHub), repo. Why read: it pairs an .ipynb with a plain .py so reviewers diff the code only.
+- [nbdime](https://nbdime.readthedocs.io/en/latest/): nbdime project, docs. Why read: it gives notebook-aware diff and merge tools if you must keep .ipynb in Git.
+:::

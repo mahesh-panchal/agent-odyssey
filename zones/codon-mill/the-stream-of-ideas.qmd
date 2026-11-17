@@ -92,3 +92,13 @@ Not checked: OpenCode's side-question, branch and worktree features; the researc
 ## Battle: the side channels
 
 <div data-ao-test="codon-mill-the-stream-of-ideas" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Create custom subagents](https://code.claude.com/docs/en/sub-agents): Anthropic, docs. Why read: it shows how a subagent keeps noisy work in its own context and returns only a summary.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it covers giving the agent a check to run and when to clear after repeated failed corrections.
+:::

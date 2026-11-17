@@ -19,3 +19,14 @@ Common mistakes:
 ## Battle: spot the flaw
 
 <div data-ao-test="factory-read-the-rails" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Distribution and Reproducibility](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html): Snakemake, docs. Why read: it covers per-rule conda environments, containers and pinning, the answer to unpinned tools.
+- [Conda environments](https://docs.seqera.io/nextflow/conda): Seqera (Nextflow), docs. Why read: it shows pinning by version and lock files that record every package.
+- [Containers](https://docs.seqera.io/nextflow/container): Seqera (Nextflow), docs. Why read: it shows setting a container per process; it gives no rule on tags or digests, so pin by your own policy.
+- [Caching and resuming](https://docs.seqera.io/nextflow/cache-and-resume): Seqera (Nextflow), docs. Why read: it lists what goes into a task hash, including the stub-run flag, and why a process that edits its inputs cannot resume.
+:::

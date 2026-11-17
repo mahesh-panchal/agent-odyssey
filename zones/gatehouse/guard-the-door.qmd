@@ -64,3 +64,13 @@ If a repository commits hooks in `.claude/settings.json`, they are code from its
 ## Battle: the watchman
 
 <div data-ao-test="gatehouse-guard-the-door" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Hooks reference](https://code.claude.com/docs/en/hooks): Anthropic, docs. Why read: it lists the hook events, handler types and the exit-code rules, including exit 2 to block.
+- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it covers deny and ask rules, which still apply when a hook says allow.
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it says when to reach for a PreToolUse hook instead of an instruction.
+:::

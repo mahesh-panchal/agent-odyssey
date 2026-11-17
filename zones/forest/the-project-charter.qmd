@@ -38,3 +38,14 @@ Write the file yourself first and read what `/init` produces critically. A gener
 ## Battle: the charter
 
 <div data-ao-test="forest-the-project-charter" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it covers CLAUDE.md placement, AGENTS.md and auto memory, and says these are context, not enforcement.
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it shows what belongs in an instructions file and what to enforce another way.
+- [Hooks reference](https://code.claude.com/docs/en/hooks): Anthropic, docs. Why read: hooks are the way to enforce a rule that an instructions file can only request.
+- [Rules](https://opencode.ai/docs/rules/): OpenCode, docs. Why read: it explains AGENTS.md and the instructions setting for the OpenCode side.
+:::

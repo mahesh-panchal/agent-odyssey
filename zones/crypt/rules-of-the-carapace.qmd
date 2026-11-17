@@ -64,3 +64,13 @@ Treat rules as one layer. Git (your save point) and a throwaway folder are the o
 ## Battle: harden your carapace
 
 <div data-ao-test="crypt-rules-of-the-carapace" data-xp="80"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it documents allow, ask and deny rules and how settings files combine, which is the core of this quest.
+- [Sandboxing](https://code.claude.com/docs/en/sandboxing): Anthropic, docs. Why read: it states what the sandbox covers and what it does not, so you do not over-trust it.
+- [Security](https://code.claude.com/docs/en/security): Anthropic, docs. Why read: it summarises the built-in protections and the advice for untrusted content and sensitive code.
+:::

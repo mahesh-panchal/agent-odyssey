@@ -28,7 +28,7 @@ Each quest ends with a `Lore` block after the Battle div (`pixi run new-quest` s
 - **One-line why:** each item is `- [Title](https://url): Publisher, kind. Why read: one line.` with kind one of docs, article, paper, repo. Use https only, no duplicate URL in a quest.
 - **2-8 items** per quest. Keep to the best few.
 - **Third-party text is not copied.** Link and say in your own words why it is worth reading.
-- `pixi run lore` lints the blocks; the Lore library page (`lore.qmd`, generated, gitignored) is built from them on render. It runs without `--require` for now, so quests without Lore only warn. Once all quests have Lore, add `--require` to the `lore` task so it fails on a missing block (it already runs before `e2e`).
+- `pixi run lore` lints the blocks; the Lore library page (`lore.qmd`, generated, gitignored) is built from them on render. It runs with `--require`, so a quest without Lore fails the lint (it runs before `e2e`).
 
 ## Review before merging
 Run `pixi run shots` right before review, then check `REVIEW.md` for the checklist.

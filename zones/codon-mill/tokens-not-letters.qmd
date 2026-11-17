@@ -53,3 +53,14 @@ Take this mock line, which is not real data: `>read1 ACGTTGCAAGGCTTAGGCCATTAGC`.
 ## Battle: the mill
 
 <div data-ao-test="codon-mill-tokens-not-letters" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting): Anthropic, docs. Why read: it documents the free count endpoint and warns that the same text gives about 30 percent more tokens on newer models.
+- [The Strawberry Problem](https://arxiv.org/abs/2505.14172): Cosma et al., EMNLP 2025, paper. Why read: it argues character-level information is weakly available inside tokens, a leading explanation for miscounted letters.
+- [Counting Ability of LLMs and Impact of Tokenization](https://arxiv.org/abs/2410.19730): Zhang et al., arXiv, paper. Why read: it tests counting and finds failures persist even with step-by-step reasoning. A preprint.
+- [CharBench: Evaluating the Role of Tokenization in Character-Level Tasks](https://arxiv.org/abs/2508.02591): arXiv, paper. Why read: a counter-view finding tokenisation only weakly tied to errors, so treat the tokens explanation as likely but disputed. A preprint.
+:::

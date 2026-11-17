@@ -32,3 +32,14 @@ Sometimes the right answer is not to use an LLM at all. Part of the skill is kno
 ## Battle: name the counter-habit
 
 <div data-ao-test="basecamp-name-the-fears" data-xp="40"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Anthropic, docs. Why read: it lists concrete habits such as allowing "I don't know" and checking claims against quotes, and says plainly that none of them remove errors.
+- [Towards Understanding Sycophancy in Language Models](https://arxiv.org/abs/2310.13548): Sharma et al. (Anthropic authors), ICLR 2024, paper. Why read: it shows assistants often agree with a user's stated view, so you can see why asking for the case against your idea helps.
+- [Mitigating prompt injections in browser use](https://www.anthropic.com/research/prompt-injection-defenses): Anthropic, article. Why read: a vendor's own account that injection is not solved and what defences exist; the attack figures are Anthropic's own tests.
+- [Security](https://code.claude.com/docs/en/security): Anthropic, docs. Why read: it covers permissions, sandboxing and advice on untrusted content, the practical side of treating fetched text as data.
+:::

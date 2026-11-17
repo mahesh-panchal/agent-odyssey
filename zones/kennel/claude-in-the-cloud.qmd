@@ -166,7 +166,7 @@ No cloud account and no model needed. Open [tree.txt](../../exercises/kennel/clo
 
 **Fine to send** (they hold no real data): `README.md`, `environment.yml`, `samplesheet_template.csv`, `config/params.yaml` (check it for real paths), `data/mock/`, `docs/`, `scripts/`, `tests/`.
 
-**Ignore lines** that would help:
+**Ignore lines** that would help (general practice, not from the docs):
 
 ```text
 .env
@@ -175,10 +175,10 @@ data/raw/
 data/processed/
 results/
 logs/
-*.ipynb_checkpoints
+.ipynb_checkpoints/
 ```
 
-Add a rule for notebooks too (for example, a pre-commit step that clears outputs), because `.gitignore` alone cannot strip outputs from a notebook you do want to commit. Note that `.gitignore` only stops files that are **not yet tracked**; anything already committed stays in history until you remove it properly, and rewriting history is its own careful job (see *Save Point*).
+**General practice, not a vendor claim:** add a rule for notebooks too (for example, a pre-commit step that clears outputs), because `.gitignore` alone cannot strip outputs from a notebook you do want to commit. Likewise, `.gitignore` only stops files that are **not yet tracked**; anything already committed stays in history until you remove it properly, and rewriting history is its own careful job (see *Save Point*).
 
 **Sample prompt:**
 
@@ -209,7 +209,9 @@ Check: the example command in the new section runs on data/mock/counts_mock.tsv.
 
 *Further reading. Optional.*
 
-<!-- TODO: 2-8 items, one per line, only URLs from research/*.md or research/lore-extra.md:
-- [Title](https://url): Publisher, docs. Why read: one line.
--->
+- [Use Claude Code in the cloud](https://code.claude.com/docs/en/claude-code-on-the-web): Anthropic, docs. Why read: it is the main page on cloud sessions, including what gets uploaded when a repository has no GitHub remote.
+- [Configure cloud environments](https://code.claude.com/docs/en/cloud-environments): Anthropic, docs. Why read: it covers network access levels, environment variables and setup scripts for a session.
+- [Data usage](https://code.claude.com/docs/en/data-usage): Anthropic, docs. Why read: it states what Anthropic stores from a cloud session and how retention differs by plan.
+- [Security](https://code.claude.com/docs/en/security): Anthropic, docs. Why read: its cloud execution section lists the isolation, credential and audit controls.
+- [Claude Code in the cloud: a field guide to cloud sessions](https://claude.dev/blog/claude-code-in-the-cloud/): claude.dev, article. Why read: a secondary field guide whose site provenance we could not confirm and whose numbers we did not verify, so use it for ideas only and trust the official pages above.
 :::

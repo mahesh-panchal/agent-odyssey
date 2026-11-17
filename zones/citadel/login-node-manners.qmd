@@ -68,3 +68,13 @@ The same habits apply. OpenCode's documented permission model (V2 docs; check yo
 ## Battle: mind your manners
 
 <div data-ao-test="citadel-login-node-manners" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Quick Start User Guide](https://slurm.schedmd.com/quickstart.html): SchedMD (Slurm), docs. Why read: it explains sbatch, srun, squeue and scancel; it does not define login-node rules, so read your own site's guide too.
+- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it shows allow, ask and deny rules (for example asking before sbatch) and warns that Bash rules are not a security boundary.
+- [sbatch](https://slurm.schedmd.com/sbatch.html): SchedMD (Slurm), docs. Why read: it is the manual for submitting jobs, including --test-only to validate a request without submitting.
+:::

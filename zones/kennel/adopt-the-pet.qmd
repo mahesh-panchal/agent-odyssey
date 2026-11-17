@@ -80,3 +80,15 @@ OpenCode's default policy is **allow everything** (except reading `.env` files, 
 ## Battle: the Pet's leash
 
 <div data-ao-test="kennel-adopt-the-pet" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [OpenCode](https://docs.ollama.com/integrations/opencode): Ollama, docs. Why read: it is the vendor guide to running OpenCode against a local Ollama model, including the context length it needs. It still shows older OpenCode install commands, so check the OpenCode docs too.
+- [Providers](https://opencode.ai/docs/providers/): OpenCode, docs. Why read: it shows how to connect Ollama or an OpenAI-compatible gateway in the current config format.
+- [Config](https://opencode.ai/docs/config/): OpenCode, docs. Why read: it lists where `opencode.json` lives and how global and project files override each other.
+- [Permissions](https://opencode.ai/docs/permissions/): OpenCode, docs. Why read: it explains how to control what the agent may do, which matters more with a small local model.
+- [anomalyco/opencode](https://github.com/anomalyco/opencode): GitHub, repo. Why read: it is the source and release list, useful when the docs and your installed version disagree.
+:::

@@ -69,3 +69,13 @@ Not checked: OpenCode's memory files, session commands and usage reporting. The 
 ## Battle: the three ledgers
 
 <div data-ao-test="codon-mill-memory-sessions-and-usage" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it separates CLAUDE.md from auto memory and says both are context, not enforced rules.
+- [Manage costs effectively](https://code.claude.com/docs/en/costs): Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.
+:::

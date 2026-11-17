@@ -37,3 +37,10 @@ questions:
       - { text: ".claude/skills/<name>/SKILL.md", correct: true }
       - { text: ".claude-plugin/skills/<name>/SKILL.md", misconception: "Components inside .claude-plugin/ do not load, and OpenCode does not document this path." }
       - { text: "hooks/hooks.json", misconception: "That is a Claude Code plugin hooks file, not a Skill location." }
+  - type: choice
+    prompt: "Several team Skills all need the same project and database names. Where should those live?"
+    explain: "One shared file that every Skill reads means a rename touches one place, and another team can reuse the Skills with its own file."
+    options:
+      - { text: "In one shared file that each Skill reads", correct: true }
+      - { text: "Copied into every SKILL.md so each Skill stands alone", misconception: "Copies drift apart over time, and a rename then needs many edits." }
+      - { text: "Left out, so the agent rediscovers them on each run", misconception: "Rediscovered details can differ between runs, and a pattern found in code is not automatically a team rule." }

@@ -38,3 +38,13 @@ Everything in the conversation takes up room in the context window. The Claude C
 ## Battle: the brief
 
 <div data-ao-test="forest-write-the-brief" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it explains why a brief needs a check the agent can run, and how to keep context and cost down.
+- [Explore the context window](https://code.claude.com/docs/en/context-window): Anthropic, docs. Why read: an interactive timeline of what fills the window and what survives compaction.
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: background on why more context is not always better and what compaction can lose.
+:::

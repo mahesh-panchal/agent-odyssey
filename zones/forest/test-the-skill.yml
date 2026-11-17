@@ -35,3 +35,10 @@ questions:
       - { text: "It behaved on that case, in isolation", correct: true }
       - { text: "The plugin is safe to share with the whole group", misconception: "Evals measure behaviour on cases, not safety. Hooks or scripts could still do harm." }
       - { text: "The Skill will behave the same in every project you open", misconception: "The run had no personal settings, instructions file or other plugins, so your own setup may differ." }
+  - type: choice
+    prompt: "An agent finishes a task and writes 'all checks passed'. What is the stronger way to confirm it?"
+    explain: "An agent marking its own work is not independent. A script, a separate verifier or a person should check the changed files and cite evidence."
+    options:
+      - { text: "A separate verifier or script checks the files and cites evidence", correct: true }
+      - { text: "Ask the same agent to read its answer again and confirm it", misconception: "The same agent can repeat its own mistake, so this is not an independent check." }
+      - { text: "Trust the claim, because the Skill told the agent to verify its work", misconception: "Instructions guide the agent but prove nothing. Tests and review do the verifying." }

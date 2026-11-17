@@ -29,3 +29,13 @@ Agents make it easy to start many things. Count the cost of **reviewing** what t
 ## Battle: the community
 
 <div data-ao-test="reef-teach-and-share-the-load" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it says agents miss errors when they cannot check their own work, and tells you to give them a check to run.
+- [Create custom subagents](https://code.claude.com/docs/en/sub-agents): Anthropic, docs. Why read: it shows how side tasks run in their own context, so you can see what parallel agents add that you must still review.
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it covers CLAUDE.md files that a team can share, and notes they are advisory rather than enforced.
+:::

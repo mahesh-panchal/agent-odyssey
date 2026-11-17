@@ -50,3 +50,13 @@ Not checked: OpenCode's instruction-file loading rules (which names, in what ord
 ## Battle: the three voices
 
 <div data-ao-test="codon-mill-who-said-what" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works): Anthropic, docs. Why read: it describes what the harness adds to the conversation, useful for tracing where a behaviour came from.
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it separates CLAUDE.md from auto memory and says both are context, not enforced rules.
+- [Hooks reference](https://code.claude.com/docs/en/hooks): Anthropic, docs. Why read: hooks are the way to enforce a rule that instruction text cannot guarantee; this is the full reference.
+:::

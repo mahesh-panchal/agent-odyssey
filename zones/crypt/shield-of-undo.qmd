@@ -16,3 +16,12 @@ Two things `git restore .` does *not* do for you. It also throws away **your own
 :::
 
 <div data-ao-test="crypt-shield-of-undo" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Checkpointing](https://code.claude.com/docs/en/checkpointing): Anthropic, docs. Why read: it explains `/rewind` and its limits, including that Bash-made changes need version control, so you see why git is the real save point.
+- [Troubleshooting](https://code.claude.com/docs/en/troubleshooting): Anthropic, docs. Why read: it covers `claude --resume` and what survives a restart, a useful companion when work is interrupted.
+:::

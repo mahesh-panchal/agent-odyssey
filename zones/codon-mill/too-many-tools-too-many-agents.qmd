@@ -48,3 +48,14 @@ Using none of these is also a fine decision.
 ## Battle: the wall of tools
 
 <div data-ao-test="codon-mill-too-many-tools-too-many-agents" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool): Anthropic, docs. Why read: it gives the tool-definition token cost and the 30-50 tool figure; those numbers are Anthropic's own claims, not independent measurements.
+- [Connect Claude Code to tools via MCP](https://code.claude.com/docs/en/mcp): Anthropic, docs. Why read: it explains how MCP tools load and how to scale or limit them in Claude Code.
+- [Introduction to the Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro): Model Context Protocol, docs. Why read: it explains what MCP is before you decide which servers to connect.
+- [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents): Anthropic, article. Why read: it separates fixed workflows from agents and argues for the simplest option, which is the choice this quest asks you to make.
+:::

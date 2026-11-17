@@ -92,3 +92,14 @@ The docs say a bug report should include your OS, the install command and the **
 ## Battle: the Beast's leash
 
 <div data-ao-test="kennel-recruit-the-beast" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Advanced setup](https://code.claude.com/docs/en/setup): Anthropic, docs. Why read: it holds the install commands for every platform, WSL notes and how updates work.
+- [Authentication](https://code.claude.com/docs/en/authentication): Anthropic, docs. Why read: it explains login methods and which credential wins when a subscription and an API key are both present.
+- [Troubleshooting](https://code.claude.com/docs/en/troubleshooting): Anthropic, docs. Why read: it maps symptoms to the right fix page and says when to use `/doctor` or `claude doctor`.
+- [Data usage](https://code.claude.com/docs/en/data-usage): Anthropic, docs. Why read: it states what `/feedback` sends and how long it is kept, which matters before you paste a bug report.
+:::

@@ -64,3 +64,14 @@ Layer them: advice to steer, enforcement for the non-negotiable, git for the day
 ## Battle: signs and locks
 
 <div data-ao-test="gatehouse-advice-or-enforcement" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it states that instructions are context, not enforced configuration, which is this quest's core split.
+- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it explains deny, ask and allow rules and permission modes, the built-in enforcement layer.
+- [Hooks reference](https://code.claude.com/docs/en/hooks): Anthropic, docs. Why read: it documents how a hook blocks a tool call, the code-level lock.
+- [Configure the sandboxed Bash tool](https://code.claude.com/docs/en/sandboxing): Anthropic, docs. Why read: it shows an operating-system limit on shell commands and where that limit ends.
+:::

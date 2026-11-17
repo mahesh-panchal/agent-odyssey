@@ -31,8 +31,8 @@ cmd = "quarto publish gh-pages --no-prompt"
 description = "Publish to GitHub Pages (needs a git remote)"
 
 [tasks.lore]
-cmd = "python tools/lint_lore.py"
-description = "Lint the Lore blocks (sources per quest); add --require once every quest has Lore"
+cmd = "python tools/lint_lore.py --require"
+description = "Lint the Lore blocks: every quest needs 2-8 sourced items"
 
 [tasks.e2e]
 cmd = "python tools/e2e.py"

@@ -111,3 +111,13 @@ Everything here is a mock on your laptop. Nothing is run through a model. Save [
 ## Battle: the plan
 
 <div data-ao-test="forest-plan-before-you-edit" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Choose a permission mode](https://code.claude.com/docs/en/permission-modes): Anthropic, docs. Why read: it is the source for how plan mode is entered, approved and (not always) enforced.
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it says when planning pays off and describes the interview-then-spec pattern.
+- [Agents](https://opencode.ai/docs/agents/): OpenCode, docs. Why read: it covers OpenCode agent profiles, including the built-in plan agent; our notes could not confirm how to switch to it.
+:::

@@ -36,3 +36,14 @@ A dry run passing means a plan could be built. A stub run passing means the decl
 ## Battle: layers of checking
 
 <div data-ao-test="factory-dry-run-first" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Command line interface](https://snakemake.readthedocs.io/en/stable/executing/cli.html): Snakemake, docs. Why read: it documents --dry-run and --lint, and what they print rather than execute.
+- [Processes](https://docs.seqera.io/nextflow/process): Seqera (Nextflow), docs. Why read: it defines the stub block used by -stub-run and notes that a process without one runs its real script.
+- [Caching and resuming](https://docs.seqera.io/nextflow/cache-and-resume): Seqera (Nextflow), docs. Why read: it lists what goes into a task hash, including the stub-run flag, and why a process that edits its inputs cannot resume.
+- [Basics: An example workflow](https://snakemake.readthedocs.io/en/stable/tutorial/basics.html): Snakemake, docs. Why read: it walks a small workflow, including the dry run and a local run with --cores.
+:::

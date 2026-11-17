@@ -48,3 +48,14 @@ Not checked: OpenCode's compaction behaviour. Compaction is documented here for 
 ## Battle: the hopper
 
 <div data-ao-test="codon-mill-the-context-window" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Explore the context window](https://code.claude.com/docs/en/context-window): Anthropic, docs. Why read: a walk through what loads before you type, what a file read costs and what survives compaction.
+- [Context windows](https://platform.claude.com/docs/en/build-with-claude/context-windows): Anthropic, docs. Why read: it states what counts toward the window and names context rot, the page's own warning that more context is not better.
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: it explains why long contexts degrade and why curating what goes in matters; compaction trade-offs are discussed.
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it separates CLAUDE.md from auto memory and says both are context, not enforced rules.
+:::

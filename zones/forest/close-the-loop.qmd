@@ -34,3 +34,13 @@ Evals can be wrong too. A check that always passes, or that fails correct answer
 ## Battle: the loop
 
 <div data-ao-test="forest-close-the-loop" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: general guidance on specific, measurable criteria and on automating the grading.
+- [Test plugins with evals](https://code.claude.com/docs/en/plugin-evals): Anthropic, docs. Why read: it explains the with-and-without comparison and how to gate changes on a score.
+- [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices): Anthropic, docs. Why read: its evaluation-first workflow builds the baseline before writing the Skill.
+:::

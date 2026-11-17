@@ -45,3 +45,10 @@ questions:
       - { text: "/permissions", misconception: "/permissions shows allow, ask and deny rules. It says nothing about how often a skill is used." }
       - { text: "/skills, which lists every skill with its call count", misconception: "/skills lists skills and can sort by token count. It does not report how often each was invoked." }
       - { text: "/hooks, which lists the skills hooked to each event", misconception: "/hooks shows configured hooks grouped by event, not skills or their usage." }
+  - type: choice
+    prompt: "You want a Skill that checks FASTA files, and later another that trims adapters. How do you scope them?"
+    explain: "A Skill with one job, a stated input and a stated output is easier to trigger, review and change. Mixed jobs blur the description."
+    options:
+      - { text: "Two Skills, each with one job, input and output", correct: true }
+      - { text: "One Skill named helpers that covers every sequence chore", misconception: "A vague catch-all gives the agent little to match on, and a change to one chore risks the others." }
+      - { text: "One Skill, with a loosely worded description so it always fires", misconception: "A loose description makes the Skill trigger at the wrong times and hides what it is for." }

@@ -25,3 +25,14 @@ The cure is not suspicion of everything. It is **checking against something the 
 ## Battle: the Mirage
 
 <div data-ao-test="maze-spot-the-mirage" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Anthropic, docs. Why read: it lists concrete habits (allow "I don't know", quote first, retract unsupported claims, compare repeated runs) and admits they reduce but do not remove errors.
+- [Towards Understanding Sycophancy in Language Models](https://arxiv.org/abs/2310.13548): arXiv (ICLR 2024), paper. Why read: it shows assistants often agree with a user's stated view, which is why asking an agent "are you sure?" proves little.
+- [On Faithfulness and Factuality in Abstractive Summarization](https://aclanthology.org/2020.acl-main.173): ACL Anthology (ACL 2020), paper. Why read: it found invented content in every neural summary tested; the models are pre-chat-era, so read it for the direction, not current rates.
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it says agents miss errors when they cannot check their own work, and tells you to give them a check to run.
+:::

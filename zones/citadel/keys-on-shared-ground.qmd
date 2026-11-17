@@ -53,3 +53,13 @@ The same questions apply. Not checked here: whether a local model through Ollama
 ## Battle: guard the keys
 
 <div data-ao-test="citadel-keys-on-shared-ground" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Configure the sandboxed Bash tool](https://code.claude.com/docs/en/sandboxing): Anthropic, docs. Why read: it states the sandbox reads most of the machine, including ~/.ssh, unless you deny it, and it fails open by default.
+- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it shows allow, ask and deny rules (for example asking before sbatch) and warns that Bash rules are not a security boundary.
+- [Security](https://code.claude.com/docs/en/security): Anthropic, docs. Why read: it states that you are responsible for reviewing proposed commands and changes before approving them.
+:::

@@ -150,3 +150,14 @@ No model needed. For each mock job, write down a tier (smallest, mid, strong), a
 ## Battle
 
 <div data-ao-test="kennel-pick-your-companion" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Model configuration](https://code.claude.com/docs/en/model-config): Anthropic, docs. Why read: it covers model aliases, the effort setting and how to pin a model in Claude Code.
+- [Choosing the right model](https://platform.claude.com/docs/en/about-claude/models/choosing-a-model): Anthropic, docs. Why read: it gives the official way to pick a starting model and to test the choice on your own evaluations.
+- [Effort](https://platform.claude.com/docs/en/build-with-claude/effort): Anthropic, docs. Why read: it defines each effort level and its default per model, with the advice to test on your own tasks.
+- [Manage costs effectively](https://code.claude.com/docs/en/costs): Anthropic, docs. Why read: it shows how `/usage` is computed and where model choice, effort and subagents change the bill.
+:::
