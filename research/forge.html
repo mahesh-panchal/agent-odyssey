@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>forge – Agent Odyssey</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-977c00f727d934aaf92f33c3e4ecd871.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../assets/css/rpg.css">
+</head>
+
+<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<section id="forge-zone-skills-skill-evals-plugins-opencode-trust" class="level1">
+<h1>Forge zone: skills, skill evals, plugins, OpenCode, trust</h1>
+<p>Read 2026-11-13. Official docs only. Local <code>claude --version</code>: 2.1.325. Docs pages show no publish date; skills page cites versions up to v2.1.319. Method: pages fetched via a summarising fetch tool (quotes as returned). Base: C = https://code.claude.com/docs/en/ ; O = https://opencode.ai/docs/ Decision fed: accuracy of quest text for Skills -&gt; Evals -&gt; Plugins -&gt; OpenCode -&gt; Security.</p>
+<section id="skills" class="level2">
+<h2 class="anchored" data-anchor-id="skills">1. Skills</h2>
+<ul>
+<li>CONFIRMED: project skill path <code>.claude/skills/&lt;skill-name&gt;/SKILL.md</code> (“loads in sessions in this repository”); personal <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code>. C skills</li>
+<li>CONFIRMED: “All fields are optional. Only <code>description</code> is recommended.” Smallest skill = frontmatter with <code>description:</code> + a body. Dir name becomes <code>/&lt;name&gt;</code> unless <code>name</code> is set. C skills</li>
+<li>CONFIRMED: edits under <code>.claude/skills/</code> are picked up without restart; a top-level skills dir created mid-session needs <code>/reload-skills</code>. C skills</li>
+<li>CONFIRMED: confirm pickup by typing <code>/</code> (menu), running <code>/skills</code>, then asking something matching the description. <code>claude --debug</code> + search <code>[names]</code> for refused names. C skills</li>
+<li>CONFIRMED: <code>/skill-doctor</code> shows skills in the listing but never invoked; <code>/doctor</code> for setup check. C skills</li>
+<li>CONFIRMED reasons it does not trigger (all from C skills):
+<ul>
+<li>Frontmatter only read if opening <code>---</code> is the file’s first line.</li>
+<li>YAML that fails to parse: skill loads with no fields set.</li>
+<li>Misspelled field names ignored silently.</li>
+<li><code>description</code>+<code>when_to_use</code> truncated at 1,536 chars in the listing; put key use case first.</li>
+<li><code>disable-model-invocation: true</code> means Claude cannot invoke it itself.</li>
+<li>Names with zero-width/control chars or <code>&lt;</code>/<code>&gt;</code> refused.</li>
+<li>Skills in subdirectories load only after Claude touches a file there.</li>
+</ul></li>
+<li>UNCONFIRMED: the page’s own “Skill not triggering” troubleshooting section (last ~19.5k chars of the page were not read). Re-read with offset 100000 before quoting.</li>
+</ul>
+</section>
+<section id="skill-evals" class="level2">
+<h2 class="anchored" data-anchor-id="skill-evals">2. Skill evals</h2>
+<ul>
+<li>CONFIRMED: <code>claude plugin eval [target] [options]</code>; requires Claude Code v2.1.269+, git 2.31+ if git installed. C plugin-evals, C plugins/cli-reference#plugin-eval</li>
+<li>CONFIRMED: target is a plugin dir (<code>.</code>), a single <code>prompt.md</code>/<code>case.yaml</code>, or installed <code>name[@marketplace]</code>/<code>name@skills-dir</code>. A skills-directory plugin (folder with <code>.claude-plugin/plugin.json</code>) qualifies. A bare <code>.claude/skills/x/SKILL.md</code> with no manifest is not stated to qualify. C plugin-evals</li>
+<li>CONFIRMED layout: <code>evals/&lt;case&gt;/prompt.md</code> (frontmatter = run fields, body = prompt), <code>evals/&lt;case&gt;/graders/&lt;name&gt;.md</code> (frontmatter <code>type</code> + options), optional <code>case.yaml</code>, <code>evals/results/&lt;timestamp&gt;/{aggregate-result.json,report.html}</code>. A case with no grader fails to load. <code>claude plugin eval init --bare &lt;name&gt;</code> writes a blank case. C plugin-evals</li>
+<li>CONFIRMED prompt.md fields: <code>max_turns</code> (10), <code>timeout_seconds</code> (300), <code>runs</code> (3), <code>model</code>, <code>allowed_tools</code>, <code>tags</code>, <code>env</code> (EVAL_* only). C plugin-evals</li>
+<li>CONFIRMED six grader types: <code>regex</code>, <code>tool_used</code>, <code>tool_order</code>, <code>file_exists</code> (free, computed from transcript/files); <code>llm</code>, <code>baseline</code> (judge model, cost). “There are no custom-code graders.” C plugin-evals</li>
+<li>CONFIRMED skill-fired grader: <code>type: tool_used</code>, <code>tool: Skill</code>, <code>input_match: '"skill"\s*:\s*"(?:[\w-]+:)?your-skill-name"'</code>; passes if invoked at least once. <code>tool_used</code> has <code>min</code>/<code>max</code> (<code>min: 0, max: 0</code> = never called). C plugin-evals</li>
+<li>CONFIRMED scoring: 3 runs per case per arm; run score = fraction of graders passed; case passes when mean &gt;= <code>--threshold</code> (default 1.0). Default also runs a no-plugin arm: <code>WITH</code>, <code>W/OUT</code>, <code>Δ</code>. <code>tool_used: Skill</code> is excluded from score in two-arm runs (indicator only) unless <code>arm: both</code>. C plugin-evals</li>
+<li>CONFIRMED flags: <code>--runs</code>, <code>--case &lt;glob&gt;</code>, <code>--tag</code>, <code>--model</code>, <code>--judge-model</code>, <code>--ablation none|with-without</code>, <code>--threshold</code>, <code>--max-cost-usd</code>, <code>--allow-tools</code>, <code>--scaffold</code>, <code>--trust-plugin</code>, <code>--mocks</code>, <code>--json [path]</code>, <code>--output-dir</code>, <code>--no-publish</code>, <code>--keep-temp</code>, <code>--eval-dir</code>. Iterate cheaply: <code>claude plugin eval . --case &lt;name&gt; --runs 1 --ablation none</code>. C plugin-evals</li>
+<li>CONFIRMED exit codes: 0 pass; 1 below threshold/load failure/untrusted/API error; 2 partial (cost ceiling or auth); 130 interrupted; 143 terminated. C plugin-evals</li>
+<li>CONFIRMED cost: “Every eval run and every judge grader is a real model call on your account”; cost shown is a list-price estimate. About cases x runs x 2 arms agent runs, plus 3 judge calls per <code>llm</code>/<code>baseline</code> grader per run. C plugin-evals</li>
+<li>CONFIRMED isolation: each run is a <code>claude -p</code> child with temp home/cwd/config, only the plugin loaded; no user settings, CLAUDE.md, MCP, other plugins; case files hidden from agent. Read-only tools only unless granted; granting <code>Bash</code> runs it under the OS sandbox (writes confined to workspace, network limited); with no sandbox backend (native Windows) runs are refused. First run asks “Trust this plugin directory?”. C plugin-evals</li>
+<li>CONFIRMED guidance: phrase prompts as a user would, not naming the skill; pair one result grader with one process grader (<code>tool_used</code>/<code>tool_order</code>); use <code>regex</code> on files for long output, <code>llm</code> only for short output with concrete PASS/FAIL rubric; pin <code>--model</code>/<code>--judge-model</code> in CI. C plugin-evals</li>
+<li>CONFIRMED: Δ near zero with failing <code>tool_used: Skill</code> “usually a real finding”: the description does not trigger on that phrasing. C plugin-evals</li>
+<li>CONFIRMED: <code>claude plugin validate</code> checks syntax/schema, not behavior. C plugin-evals</li>
+<li>CONFIRMED: skill-creator plugin has a separate <code>evals/evals.json</code> format; neither tool reads the other’s cases. C plugin-evals</li>
+</ul>
+</section>
+<section id="plugins" class="level2">
+<h2 class="anchored" data-anchor-id="plugins">3. Plugins</h2>
+<ul>
+<li>CONFIRMED: plugin = directory of skills, agents, hooks, MCP servers etc. loaded as one unit; manifest optional, at <code>.claude-plugin/plugin.json</code>. C plugins (overview), C plugins/manifest-reference</li>
+<li>CONFIRMED manifest: only <code>name</code> required (kebab-case; namespaces components, e.g.&nbsp;<code>/my-first-plugin:hello</code>). Others: <code>displayName</code>, <code>version</code> (pins updates), <code>description</code>, <code>author{name,email,url}</code>, <code>homepage</code>, <code>repository</code>, <code>license</code>, <code>keywords</code>, <code>defaultEnabled</code>, <code>dependencies</code>, <code>userConfig</code>, <code>skills</code>, <code>commands</code>, <code>agents</code>, <code>hooks</code>, <code>mcpServers</code>, <code>lspServers</code>, <code>outputStyles</code>, <code>workflows</code>, <code>experimental.{themes,monitors,evals}</code>. Names starting <code>claude-</code>/<code>anthropic-</code> are a validate error. C plugins/manifest-reference</li>
+<li>CONFIRMED layout: <code>skills/&lt;name&gt;/SKILL.md</code>, <code>commands/</code> (older; prefer skills), <code>agents/*.md</code>, <code>hooks/hooks.json</code> (top-level <code>"hooks"</code> key), <code>.mcp.json</code>, <code>.lsp.json</code>, <code>bin/</code>, <code>output-styles/</code>. Only <code>plugin.json</code> goes inside <code>.claude-plugin/</code>; components there do not load. C manifest-reference</li>
+<li>CONFIRMED local test without marketplace: <code>claude --plugin-dir ./my-first-plugin</code>; <code>/reload-plugins</code> after edits; <code>/plugin</code> Installed/Errors tabs; <code>claude plugin list</code>. <code>CLAUDE_CODE_PLUGIN_DIRS</code> needs v2.1.280+. C plugins/create</li>
+<li>CONFIRMED: <code>claude plugin validate &lt;path&gt; [--strict] [--json]</code>; exit 0 pass, 1 fail, 2 unexpected error. <code>--strict</code> fails on warnings. C plugins/cli-reference#plugin-validate, C manifest-reference</li>
+<li>CONFIRMED subcommands listed: init, install, uninstall, enable, disable, update, list, details, configure, prune, eval, eval init, tag, test (mods), validate; <code>plugin marketplace add|list|remove|update</code>. <code>claude plugins</code> is an alias. C plugins/cli-reference</li>
+<li>CONFIRMED marketplace: a repo/dir with <code>.claude-plugin/marketplace.json</code> listing plugins and where to fetch each; a catalog, not a hosted store. Add once (<code>claude plugin marketplace add &lt;source&gt;</code>), install by name (<code>commit-commands@claude-plugins-official</code>). Official marketplace auto-added on first interactive start. Install scopes: user, project, local. C plugins (overview)</li>
+<li>CONFIRMED: <code>claude plugin init &lt;name&gt;</code> scaffolds under <code>~/.claude/skills/</code> (auto-loads as <code>&lt;name&gt;@skills-dir</code>). C plugins/create</li>
+</ul>
+</section>
+<section id="opencode-docs-as-fetched-2026-11-13-no-version-shown" class="level2">
+<h2 class="anchored" data-anchor-id="opencode-docs-as-fetched-2026-11-13-no-version-shown">4. OpenCode (docs as fetched 2026-11-13; no version shown)</h2>
+<ul>
+<li>CONFIRMED: OpenCode has plugins AND skills AND agents. O plugins, O skills, O agents</li>
+<li>CONFIRMED plugins: code plugins (“add tools, hooks, integrations, commands, agents”); auto-load <code>.ts</code>/<code>.js</code> or package folders from <code>.opencode/plugins/</code> (project) or <code>~/.config/opencode/plugins/</code> (global); or listed in config as npm packages (versioned/scoped), git repos, or local directories. O plugins</li>
+<li>UNCONFIRMED: config key spelling. The fetched page example shows <code>"plugins": [...]</code>; I recall <code>plugin</code> (singular) from older docs. Check the page raw before teaching.</li>
+<li>CONFIRMED skills: <code>.opencode/skills</code>, plus compat <code>.claude/skills</code> and <code>.agents/skills</code> (project); <code>~/.config/opencode/skills</code>, <code>~/.claude/skills</code>, <code>~/.agents/skills</code> (global). Found as <code>SKILL.md</code> in dirs (or flat <code>*.md</code>). Skill ID comes from file path; <code>name</code> is display only; skills without <code>description</code> are not advertised. Model loads via <code>skill</code> tool; <code>@skill-id</code> in a prompt loads one yourself. Permissions <code>allow|ask|deny</code> on <code>skill</code>. O skills</li>
+<li>CONFIRMED agents: markdown with frontmatter (body = system prompt) in <code>.opencode/agents/&lt;name&gt;.md</code> or <code>~/.config/opencode/agents/</code>, or JSONC under <code>agents</code>. O agents</li>
+<li>UNCONFIRMED: whether OpenCode reads Claude plugin <code>.claude-plugin/plugin.json</code>; docs read say nothing. Only plain <code>.claude/skills</code> is documented as compatible.</li>
+<li>UNCONFIRMED: any OpenCode equivalent of <code>claude plugin eval</code>/validate (not looked for beyond the three pages).</li>
+</ul>
+</section>
+<section id="security" class="level2">
+<h2 class="anchored" data-anchor-id="security">5. Security</h2>
+<ul>
+<li>CONFIRMED: “A Claude Code plugin you install can execute arbitrary code on your machine with your user privileges.” Hooks, monitors, mods, stdio MCP/LSP servers and <code>bin/</code> run; hooks/monitors/servers run outside the sandbox and permission rules. Skills/commands/agents enter context as instructions. C plugins/security</li>
+<li>CONFIRMED: trust warning text: “Make sure you trust a plugin before installing, updating, or using it. Anthropic does not control what MCP servers, files, or other software are included in plugins…” C plugins/security</li>
+<li>CONFIRMED review steps: <code>claude plugin marketplace list</code> (source); <code>/plugin</code> details pane “Will install”; read <code>hooks/hooks.json</code>, <code>.mcp.json</code>, <code>bin/</code>; <code>claude --plugin-dir &lt;dir&gt; plugin details &lt;name&gt;</code> prints a Component inventory without a session. C plugins/security</li>
+<li>CONFIRMED: tiers official / community / third-party; official and community names accepted only from <code>github.com/anthropics/</code> sources; marketplace name says who publishes, not what a plugin does. Auto-update can change reviewed files. Remove with <code>claude plugin uninstall</code>; cache stays 14 days. C plugins/security</li>
+<li>CONFIRMED: admins can allowlist/block marketplaces, force-enable plugins, disable <code>--plugin-dir</code>/<code>--plugin-url</code>. C plugins/security</li>
+<li>CONFIRMED: <code>plugin eval</code> “is the same trust decision as <code>claude --plugin-dir</code>”; passing suite says nothing about plugin safety; hooks you did not write make scores advisory unless run isolated. C plugin-evals</li>
+<li>UNCONFIRMED: official guidance specific to untrusted standalone skills (outside plugins). Not found in pages read.</li>
+</ul>
+</section>
+<section id="tested" class="level2">
+<h2 class="anchored" data-anchor-id="tested">Tested</h2>
+<ul>
+<li><code>claude --version</code> -&gt; 2.1.325 (Claude Code). No plugin or eval was run (would spend tokens). All behavior above is from docs, not executed.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+(function () {
+  var l = document.querySelector('link[href$="assets/css/rpg.css"]');
+  var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
+  window.AO_BASE = base;
+  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+    return p.then(function () {
+      return new Promise(function (res) {
+        var s = document.createElement("script");
+        s.src = base + "assets/js/" + n + ".js"; s.onload = res; document.body.appendChild(s);
+      });
+    });
+  }, Promise.resolve());
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mahesh-panchal\.github\.io\/agent-odyssey\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

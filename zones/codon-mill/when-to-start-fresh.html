@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>When to Start Fresh – Agent Odyssey</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-977c00f727d934aaf92f33c3e4ecd871.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../assets/css/rpg.css">
+</head>
+
+<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">When to Start Fresh</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quest-dialog">
+<p><strong>Prerequisites:</strong> Memory, Sessions and Usage. <strong>Objective:</strong> name the signals that say “start a new session”, the signals that say “carry on”, and when the middle path (compacting) fits better than either. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16 (Claude Code best-practices, context-window, sessions and commands docs; OpenCode TUI docs). Claude Code specific unless stated.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
+</div>
+<p>You have a conversation open with an agent. It has read files, tried things and been corrected. Do you keep typing into it, or start over? Neither answer is always right, and the cost of getting it wrong runs both ways. This page gives you signals, not a formula.</p>
+<p>A few words first. A <strong>session</strong> is one saved conversation with the tool. Its <strong>context</strong> is the text the model can see right now (the context window, from The Context Window quest). <strong>Compacting</strong> means replacing the long history with a short summary and carrying on in the same conversation. <strong>Starting fresh</strong> means a new, empty conversation. Nothing else changes: your files stay as they are.</p>
+<section id="signals-to-start-fresh" class="level2">
+<h2 class="anchored" data-anchor-id="signals-to-start-fresh">Signals to start fresh</h2>
+<ol type="1">
+<li><strong>A new, unrelated task.</strong> The docs recommend <code>/clear</code> between unrelated tasks. They say it costs nothing, and the next task then does not keep paying for the previous one’s history. A session holding three unrelated tasks re-reads all three on every turn (one prompt from you plus the model’s reply) of the fourth. (<code>/clear</code> starts a new empty conversation. Giving it a name, as in <code>/clear oauth-migration</code>, labels the one you leave so you can find it again.)</li>
+<li><strong>The agent repeats a wrong claim after two corrections.</strong> The docs’ advice is to clear and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts. See Memory, Sessions and Usage.</li>
+<li><strong>You notice it forgetting early instructions or contradicting itself.</strong> <strong>General practice:</strong> treat this as a symptom of a crowded or degraded context and start fresh, with the instruction moved into the instructions file. The docs back the underlying mechanism: Anthropic calls the loss of accuracy and recall as context grows <strong>context rot</strong>, and notes that after compaction, detailed early instructions may be lost. They give no number at which either begins.</li>
+<li><strong>You have been away for a while and the next task is new.</strong> The harness keeps a <strong>cache</strong>, a short-term store that makes re-reading the conversation cheaper. Per the docs it lasts about an hour on a subscription and five minutes with an API key. Idle compaction is documented together with the one-hour cache: a very long session (past about 200 thousand tokens) that sits idle may be compacted shortly before the cache expires, so you return to a summary. The docs add: if you do not need the history at all, a fresh session still costs less. If you do need it, resume or carry on (see the table).</li>
+<li><strong>The context is crowded.</strong> Run <code>/context</code>: it shows what fills the window, with suggestions and capacity warnings. A crowded window with a task you still need is a reason to compact (below); a crowded window full of dead ends is a reason to clear.</li>
+<li><strong>A task is finished and a verified result is committed.</strong> The result lives in your files and in git, so the conversation has done its job. The docs make the same move after a spec: write it down (the spec: a written description of what to build), then start a fresh session to build from it, so the build begins with a clean context and a written definition of done.</li>
+</ol>
+</section>
+<section id="signals-to-carry-on" class="level2">
+<h2 class="anchored" data-anchor-id="signals-to-carry-on">Signals to carry on</h2>
+<ul>
+<li><strong>Same task, and early decisions still matter.</strong> The next step needs the same files, the decisions you made and what was already tried. That is the rule of thumb in this site’s research (an inference from the docs, not an official rule).</li>
+<li><strong>The agent is on track.</strong> Nothing is being repeated or contradicted. Clearing a working session throws away good context to solve a problem you do not have.</li>
+<li><strong>You are returning to a named session.</strong> <code>/resume</code> (or <code>claude --resume &lt;name&gt;</code>) reopens a session you chose; <code>claude --continue</code> reopens the most recent one in this directory. Resume restores the messages, model and permission mode (what the agent may do without asking), not startup flags such as <code>--mcp-config</code>, which you pass again. If that session was compacted, it continues from the last summary.</li>
+<li><strong>The tool offers to resume after a long break.</strong> On some plans a dialog estimates how much of your usage limit the saved conversation alone would use, and lets you resume or start a new conversation. The docs’ advice: choose by whether your next task still needs the saved conversation.</li>
+</ul>
+</section>
+<section id="the-middle-path-compact" class="level2">
+<h2 class="anchored" data-anchor-id="the-middle-path-compact">The middle path: compact</h2>
+<p><code>/compact</code> replaces the history with a summary and stays in the same conversation. Give it a focus note, as in the docs’ example <code>/compact focus on the auth bug fix</code>, so the summary spends its words on what you still need.</p>
+<p>What the summary keeps and loses, per the docs: it keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost. Afterwards the tool re-supplies the system prompt, the project-root <code>CLAUDE.md</code>, auto memory and skill descriptions, and re-reads up to five recently used files. The docs note that the tool also compacts automatically as you approach the limit. A manual <code>/compact</code> with a focus lets you choose the moment and the emphasis. It is not free: compacting itself reads the whole conversation once.</p>
+</section>
+<section id="the-decision-ladder" class="level2">
+<h2 class="anchored" data-anchor-id="the-decision-ladder">The decision ladder</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>Action</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>New task, unrelated to this conversation</td>
+<td><code>/clear</code></td>
+<td>Old history would be re-read for nothing, and it can distract</td>
+</tr>
+<tr class="even">
+<td>Same task, context crowded, early decisions still matter</td>
+<td><code>/compact</code> with a focus note</td>
+<td>Keeps the thread, drops the bulk (details from early on may be lost, so restate any that matter)</td>
+</tr>
+<tr class="odd">
+<td>Same task, agent on track, plenty of room</td>
+<td>Carry on</td>
+<td>Nothing to fix</td>
+</tr>
+<tr class="even">
+<td>Wrong claim repeated after two corrections</td>
+<td><code>/clear</code>, then one new prompt with what you learned</td>
+<td>A third correction sits on top of two failed attempts</td>
+</tr>
+<tr class="odd">
+<td>Back after a long break, still need the conversation</td>
+<td><code>/resume</code> or <code>claude --continue</code></td>
+<td>You get the saved messages (or the last summary)</td>
+</tr>
+<tr class="even">
+<td>Back after a long break, next task is new</td>
+<td>Fresh session</td>
+<td>Docs: a fresh session still costs less if you do not need the history</td>
+</tr>
+<tr class="odd">
+<td>Task done, verified result committed</td>
+<td>Write down what matters, then <code>/clear</code></td>
+<td>The state is in your files and git, not in the chat</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="before-you-clear" class="level2">
+<h2 class="anchored" data-anchor-id="before-you-clear">Before you clear</h2>
+<p>Starting fresh loses the conversation, not your files and not memory. The instructions file (<code>CLAUDE.md</code>) and auto memory load again in the new session. But anything you only said in chat is gone: the decisions, what failed and why, which sample misbehaved. <strong>General practice:</strong> write that down before you clear, because <code>/clear</code> drops the conversation, and commit the result so the state is recoverable. The Handoff Notes quest shows what such a note should contain. If you clear by mistake, <code>/resume</code> can reopen the old conversation.</p>
+</section>
+<section id="the-cost-of-both-mistakes" class="level2">
+<h2 class="anchored" data-anchor-id="the-cost-of-both-mistakes">The cost of both mistakes</h2>
+<p><strong>Clearing too early</strong> loses useful context. The agent must re-read files and rediscover decisions, which costs time and usage, and you may need to repeat yourself. <strong>Clearing too late</strong> costs too: the whole conversation is sent again on every request, so usage climbs, and per the docs a focused context gives better answers than a crowded one, even with a large window. Both errors are cheap to recover from if you wrote things down. That is the real argument for notes. Not checked: the default auto-compact threshold (the docs defer to a model-configuration page we did not read), so this page gives no percentage to aim for.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Commands the docs confirm for this page: <code>/clear</code> (alias <code>/new</code>), <code>/compact [instructions]</code>, <code>/context</code>, <code>/resume [session]</code>, <code>claude --continue</code>, <code>claude --resume [name]</code>, <code>/rename</code>. To check how full the window is, use <code>/context</code>. Not checked: whether the status line (the strip of information below the prompt) can show a context-fullness figure.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The OpenCode terminal-interface docs list <code>/new</code> (alias <code>/clear</code>), <code>/sessions</code> (aliases <code>/resume</code>, <code>/continue</code>) and <code>/compact</code> (alias <code>/summarize</code>). Not checked: what OpenCode keeps or loses when it compacts, whether it has a <code>/context</code>-style display, and how a local Ollama model’s smaller window changes the advice. General practice: the same signals apply to any tool, because every model has a finite window; just expect to start fresh sooner with a smaller one.</p>
+</div>
+</div>
+</div>
+<div data-ao-honour="paste-twice" data-xp="20">
+Next time you notice yourself pasting the same background twice, note it: that was the moment to put it in the instructions file.
+</div>
+<div data-ao-honour="name-signal" data-xp="20">
+At the end of your next working session, write one line saying which signal (new task, repeated error, forgotten instruction, long break, crowded context, finished and committed) would have told you to start fresh, or that none applied.
+</div>
+</section>
+<section id="battle-empty-the-hopper-or-not" class="level2">
+<h2 class="anchored" data-anchor-id="battle-empty-the-hopper-or-not">Battle: empty the hopper or not</h2>
+<div data-ao-test="codon-mill-when-to-start-fresh" data-xp="50">
+
+</div>
+</section>
+<section id="lore" class="level2 ao-lore">
+<h2 class="anchored" data-anchor-id="lore">Lore</h2>
+<p><em>Further reading. Optional.</em></p>
+<ul>
+<li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it gives the check-to-run habit and the rule to clear after repeated failed corrections, the trigger for starting fresh.</li>
+<li><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.</li>
+<li><a href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts Fail</a>: Drew Breunig, blog, article. Why read: it names context poisoning and distraction, the failure modes behind starting fresh; a personal blog, not vendor documentation.</li>
+<li><a href="https://code.claude.com/docs/en/costs">Manage costs effectively</a>: Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.</li>
+</ul>
+</section>
+
+
+
+</main> <!-- /main -->
+<script>
+(function () {
+  var l = document.querySelector('link[href$="assets/css/rpg.css"]');
+  var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
+  window.AO_BASE = base;
+  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+    return p.then(function () {
+      return new Promise(function (res) {
+        var s = document.createElement("script");
+        s.src = base + "assets/js/" + n + ".js"; s.onload = res; document.body.appendChild(s);
+      });
+    });
+  }, Promise.resolve());
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mahesh-panchal\.github\.io\/agent-odyssey\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>model-and-effort – Agent Odyssey</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-977c00f727d934aaf92f33c3e4ecd871.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../assets/css/rpg.css">
+</head>
+
+<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<section id="model-choice-effort-and-delegation" class="level1">
+<h1>Model choice, effort and delegation</h1>
+<p>Live spot-check, 2026-11-17 (later the same day, via summarising fetch): model-config (aliases, set order, pinning variables, effort levels, defaults), effort (platform), sub-agents (frontmatter, resolution order, Explore/Plan skip CLAUDE.md, Explore model), costs (/usage), choosing-a-model and optimizing-for-cost (cheap-then-retry, cost per completed task) were re-read; the first fetch of model-config and sub-agents each covered only the first 100k characters, and optimizing-for-cost the first 100k of about 216k, so later sections remain unread. Everything below was otherwise first-pass. Finding: Claude Code model-config says the default effort for Sonnet 5.5 (and Opus 5.5, Haiku 5.5, Fable 5.2) is <code>medium</code>; the API effort page and choosing-a-model say Sonnet 5.5 is <code>high</code> on the API. So the pages differ by surface (Claude Code vs API) rather than contradicting each other; the quest names the surface. The Nov 9 claude.dev article’s table says the same (high on the API, medium in Claude Code).</p>
+<p>Checked 2026-11-17. Official docs only, plus one flagged secondary article. Pages came through a summarising fetch tool (quotes as returned; paraphrase on the site). Docs pages show no publish date; model-config, sub-agents, skills and choosing-a-model pages were read only in their first ~100k characters. Base: P = https://platform.claude.com/docs/en/ ; C = https://code.claude.com/docs/en/ ; O = https://opencode.ai/docs/ Not repeated: effort levels list, API effort wording, Claude Code effort defaults, <code>max</code> overthinking quotes, <code>ultrathink</code> (research/terminology.md section 6); <code>/context</code>, <code>/clear</code>, subagent context isolation, <code>/usage</code> cost basics (session-management.md, fundamentals.md). Decision fed: quest text on picking a model, tuning effort, delegating reading to cheaper subagents.</p>
+<section id="model-families-p-about-claudemodelschoosing-a-model" class="level2">
+<h2 class="anchored" data-anchor-id="model-families-p-about-claudemodelschoosing-a-model">1. Model families (P about-claude/models/choosing-a-model)</h2>
+<ul>
+<li>CONFIRMED: four tiers in the selection matrix. Fable 5.2 (<code>claude-fable-5-2</code>): highest capability, hours-long agent sessions and deep research. Opus 5.5 (<code>claude-opus-5-5</code>): complex agentic coding. Sonnet 5.5: “speed and capability for everyday coding, agent, and enterprise workloads”. Haiku 5.5: lowest latency and price, lists “subagent tasks”.</li>
+<li>CONFIRMED: “Most workloads start with Claude Opus 5.5.” Fable 5.2 is “most capable model open to all customers”; Mythos 5.2 has the same capabilities for verified organisations only.</li>
+<li>CONFIRMED relative cost: Opus 5.5 costs half as much per token as Fable 5.2 (stated in the article only; P fast-mode shows fast prices of $8/$40 per MTok Opus 5.5 vs $16/$80 Fable 5.2, which is the fast-mode rate, not standard). Standard prices live in the models overview table (not fetched). Do not print per-token prices on the site.</li>
+<li>UNCONFIRMED: Haiku 5.5 price rising above 100K-token prompts (article claim only).</li>
+<li>CONFIRMED: two start strategies: efficiency-first (Haiku, upgrade if needed) or capability-first (Opus 5.5, then lower effort or downgrade). Move to Fable 5.2 if evals at <code>xhigh</code>/<code>max</code> still fall short.</li>
+<li>CONFIRMED: fast mode = same model, “up to 2.5x higher output tokens per second” at premium pricing, on Fable 5.2, Mythos 5.2, Opus 5.5 (Opus 5 research preview; Opus 4.8 deprecated, removal 2026-11-30). API field <code>speed: "fast"</code>; not with Batch API or Priority Tier; falling back to standard misses the prompt cache. P build-with-claude/fast-mode</li>
+<li>UNCONFIRMED: how fast mode is switched on in Claude Code (costs page links to C fast-mode, not fetched). Leave it out of quests.</li>
+</ul>
+</section>
+<section id="aliases-and-setting-the-model-c-model-config" class="level2">
+<h2 class="anchored" data-anchor-id="aliases-and-setting-the-model-c-model-config">2. Aliases and setting the model (C model-config)</h2>
+<ul>
+<li>CONFIRMED aliases, exactly: <code>default</code> (clears an override; “not itself a model alias”), <code>best</code> (same as <code>opus</code>), <code>fable</code>, <code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>sonnet[1m]</code>, <code>opus[1m]</code>, <code>opusplan</code> (opus in plan mode, then sonnet for execution).</li>
+<li>CONFIRMED: on the Anthropic API <code>opus</code> = Opus 5.5, <code>sonnet</code> = Sonnet 5.5, <code>haiku</code> = Haiku 5.5. Other providers resolve aliases to earlier versions (example: Foundry gives Opus 4.6 / Sonnet 4.5).</li>
+<li>CONFIRMED set-model order of priority: <code>/model &lt;alias|name&gt;</code> in session (alone opens picker; Enter saves as default, <code>s</code> for this session only); <code>claude --model &lt;alias|name&gt;</code>; env <code>ANTHROPIC_MODEL</code>; settings field <code>model</code>; <code>ANTHROPIC_DEFAULT_MODEL</code> for new sessions (v2.1.236+).</li>
+<li>CONFIRMED pinning: use a full name such as <code>claude-opus-5-5</code>, or set <code>ANTHROPIC_DEFAULT_OPUS_MODEL</code>, <code>ANTHROPIC_DEFAULT_SONNET_MODEL</code>, <code>ANTHROPIC_DEFAULT_HAIKU_MODEL</code>, <code>ANTHROPIC_DEFAULT_FABLE_MODEL</code>.</li>
+<li>CONFIRMED default model: Opus 5.5 on Pro, Max, Ultra, Team, Enterprise and API; Sonnet 4.5 on Foundry; an admin default overrides. Admins restrict with <code>availableModels</code> (+ <code>enforceAvailableModels</code>).</li>
+<li>CONFIRMED: switching models “can change how prompt caching behaves”; Claude Code may ask you to confirm. <code>/model</code> switches also reach subagents that inherit.</li>
+<li>Reproducibility (inference): aliases move when a new version ships, so a lab pipeline or course material that must give the same results pins a full name.</li>
+</ul>
+</section>
+<section id="effort-in-claude-code-and-skills" class="level2">
+<h2 class="anchored" data-anchor-id="effort-in-claude-code-and-skills">3. Effort in Claude Code and skills</h2>
+<ul>
+<li>CONFIRMED set methods: <code>/effort</code>, <code>--effort</code>, <code>CLAUDE_CODE_EFFORT_LEVEL</code>, settings <code>effortLevel</code>, per-model <code>modelSettings</code>; <code>CLAUDE_CODE_EFFORT_LEVEL=auto</code> sends no level. <code>ultracode</code> is a Claude Code setting for dynamic workflows, “not a model effort level”. C model-config</li>
+<li>CONFIRMED skill frontmatter <code>model</code>: same values as <code>/model</code>, or <code>inherit</code>; applies for the rest of the turn only, not saved; ignored if <code>availableModels</code> excludes it. <code>effort</code>: <code>low|medium|high|xhigh|max</code> (levels depend on the model); turn-only; overrides session effort but not <code>CLAUDE_CODE_EFFORT_LEVEL</code>. With <code>context: fork</code> both apply to the forked subagent instead. Example in the docs: <code>model: opus</code>, <code>effort: high</code>. C skills</li>
+<li>CONFIRMED API defaults (differs from the Claude Code list in terminology.md): <code>high</code> everywhere except <code>medium</code> on Opus 5.5 and Haiku 5.5, so Sonnet 5.5 is <code>high</code> on the API page. P effort. The Claude Code default for Sonnet 5.5 is <code>medium</code> per terminology.md; the two pages disagree, so name the surface.</li>
+<li>CONFIRMED model-specific advice: Opus 5.5 default <code>medium</code>; Sonnet 5.5: <code>medium</code> for well-specified agentic coding, <code>high</code> for harder or longer, <code>xhigh</code>/<code>max</code> only where evals show a gain; Haiku 5.5: start <code>medium</code>, and at <code>low</code> it “is more likely to skip a search, stop early, or skip a check”. P effort</li>
+<li>CONFIRMED: <code>low</code> listed for “simpler tasks… such as subagents”. Lower effort means fewer, terser tool calls. P effort</li>
+<li>CONFIRMED: “Tuning effort is often a better lever than switching models.” P choosing-a-model</li>
+<li>CONFIRMED cost data (Anthropic-internal, “directional”): Sonnet 5.5 <code>medium</code> scored about 7 points below <code>high</code> for about 59% of the cost on long-horizon coding. P optimizing-for-cost</li>
+<li>CONFIRMED: sweep effort in separate sessions; changing effort mid-session invalidates the cache (top-level effort; per-message effort on supported models keeps it). P optimizing-for-cost, effort</li>
+<li>CONFIRMED: at <code>xhigh</code>/<code>max</code> Sonnet 5.5 may start extra review rounds; a scoping prompt keeps it on task. P optimizing-for-cost</li>
+<li>CONFIRMED: Opus 4.7 at low/medium scopes work to what was asked; if reasoning looks shallow on hard problems, raise effort rather than prompt around it. P effort</li>
+<li>CONFIRMED (cost-saving pattern): if outcomes are checkable (tests, a verifier), run at <code>low</code>, re-run only failures at <code>high</code>. Anthropic measure: Opus 5.5 about 97% solved at ~$0.17/task vs 95.3% at $0.29 all-<code>high</code> (SWE-bench Pro subset). Caveats: a checker that passes bad work lets failures through; failures take two runs of wall time. P optimizing-for-cost</li>
+<li>CONFIRMED: compare “cost per completed task, not cost per token”; “price the tail” (two of 20 problems carried 43% of spend); failed tasks still bill. P optimizing-for-cost</li>
+</ul>
+</section>
+<section id="delegation-c-sub-agents-c-costs-p-optimizing-for-cost" class="level2">
+<h2 class="anchored" data-anchor-id="delegation-c-sub-agents-c-costs-p-optimizing-for-cost">4. Delegation (C sub-agents; C costs; P optimizing-for-cost)</h2>
+<ul>
+<li>CONFIRMED subagent <code>model</code> accepts <code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>fable</code>, a full ID (e.g.&nbsp;<code>claude-opus-5-5</code>), or <code>inherit</code>. Omitted = resolution order, not literally <code>inherit</code>. <code>effort</code> accepts <code>low|medium|high|xhigh|max</code>; it overrides session effort but not <code>CLAUDE_CODE_EFFORT_LEVEL</code>. If the subagent’s model differs from the main one and has no <code>effort</code>, the session level does not apply, so set it.</li>
+<li>CONFIRMED resolution order (first wins): per-invocation <code>model</code> parameter; definition <code>model</code>; env <code>CLAUDE_CODE_SUBAGENT_MODEL</code>; the main conversation’s model. <code>CLAUDE_CODE_SUBAGENT_MODEL</code> alone does not change built-in Explore/Plan. Forcing: <code>CLAUDE_CODE_SUBAGENT_MODEL_FORCE=1</code> (v2.1.257+) ignores definition and per-call models.</li>
+<li>CONFIRMED built-ins: general-purpose and Plan follow the parent model; <code>statusline-setup</code> Sonnet; <code>claude-code-guide</code> Haiku. Explore: page says “the parent conversation’s model”, then (as returned) that with a subscription/Console/gateway it runs on the Opus the alias resolves to. A user subagent named <code>Explore</code> overrides it (example <code>model: haiku</code>). The Explore wording is contradictory in the summary; re-read before quoting.</li>
+<li>CONFIRMED context/cost benefits: exploration stays out of the main conversation; only a summary returns; “control costs by routing tasks to faster, lower-cost models like Haiku”. Caveats: subagent requests count toward the same usage limits; many subagents returning detailed results “can consume significant context”.</li>
+<li>CONFIRMED CLAUDE.md: non-fork subagents load the CLAUDE.md hierarchy, except built-in Explore and Plan (skipped for speed); <code>omitClaudeMd: true</code> skips it in a custom one. Subagents do not inherit output style or auto memory. Restate must-have rules in the delegation prompt.</li>
+<li>CONFIRMED: subagents inherit the session thinking setting (no per-subagent setting); nested subagents inherit their spawner’s model; <code>/tasks</code> shows each running subagent’s model and effort (v2.1.242+).</li>
+<li>CONFIRMED: orchestrator pattern helped only for routine work with a long cost tail or work larger than one context; for one dependent chain that fits in one context, single model at lower effort won. Opus 5.5 over Sonnet 5.5 subagents cost about a third less on defect search with similar score; Haiku 5.5 subagents on coding “were not better than simply lowering effort”. P optimizing-for-cost</li>
+<li>CONFIRMED: build a multimodel setup only if it beats the single model’s whole score-vs-spend curve. P optimizing-for-cost</li>
+<li>CONFIRMED: Agent teams: “Use Sonnet for teammates”; about 7x tokens of a standard session in plan mode (C costs).</li>
+</ul>
+</section>
+<section id="cost-visibility-c-costs" class="level2">
+<h2 class="anchored" data-anchor-id="cost-visibility-c-costs">5. Cost visibility (C costs)</h2>
+<ul>
+<li>CONFIRMED <code>/usage</code>: Session block shows total cost, API and wall duration, lines changed, and “Usage by model” (input, output, cache read/write tokens, $ per model). Dollar figure is computed locally at list price (or admin <code>modelPricing</code>), an estimate. Resets on <code>/clear</code> (v2.1.211+). Subscribers see plan usage bars instead of meaningful $.</li>
+<li>CONFIRMED: <code>/usage</code> Session block also has a <code>Prompt cache (main)</code> line (v2.1.251+; main conversation only, not subagents). Plan breakdown attributes usage to skills, subagents, plugins, MCP servers, with recommendations (<code>f</code> applies, v2.1.305+).</li>
+<li>CONFIRMED: <code>/insights</code> writes an HTML report of how you work. Status line can show cost/context.</li>
+<li>NOT FOUND in these pages: a <code>/cost</code> command. Do not teach <code>/cost</code>; use <code>/usage</code>.</li>
+<li>CONFIRMED: Anthropic average about $13 per developer per active day (enterprise deployments); 90% below $30.</li>
+</ul>
+</section>
+<section id="opencode-o-models-o-agents" class="level2">
+<h2 class="anchored" data-anchor-id="opencode-o-models-o-agents">6. OpenCode (O models, O agents)</h2>
+<ul>
+<li>CONFIRMED: <code>/models</code> picks for this session only (config unchanged); <code>opencode run --model provider/model-id</code>; <code>model</code> key in <code>opencode.json</code>/<code>opencode.jsonc</code> sets the default, falling back to the newest available model if unavailable. Format <code>provider/model-id</code>, optional <code>#variant</code> (e.g.&nbsp;<code>...#high</code>); IDs case-sensitive.</li>
+<li>CONFIRMED per-agent: <code>model</code> key on an agent (markdown frontmatter string, or JSONC object with <code>providerID</code>, <code>model</code>, <code>variant</code>). Frontmatter example: <code>mode: subagent</code>, <code>model: anthropic/claude-sonnet-5-5#high</code>. A subagent without <code>model</code> inherits the parent session model. Built-ins: <code>build</code>, <code>plan</code> (primary), <code>general</code>, <code>explore</code> (subagents). The page does not say which model each built-in uses.</li>
+<li>UNCONFIRMED: a <code>small_model</code> key (not on the page). Note the JSONC example uses top-level key <code>agents</code>; verify against the schema before copying.</li>
+<li>CONFIRMED local models: Ollama at <code>http://127.0.0.1:11434</code> is auto-discovered under provider <code>ollama</code> (e.g.&nbsp;<code>ollama/gemma3:4b</code>); change host with <code>providers.ollama.settings.baseURL</code>; LM Studio and vLLM likewise; disable discovery with <code>"plugins": ["-opencode.provider.ollama"]</code>.</li>
+<li>UNCONFIRMED: that a local model is good enough as a cheap delegate, its cost, or tool-use quality. The docs only say it can be selected.</li>
+</ul>
+</section>
+<section id="local-models-with-claude-code" class="level2">
+<h2 class="anchored" data-anchor-id="local-models-with-claude-code">7. Local models with Claude Code</h2>
+<ul>
+<li>UNCONFIRMED: any Claude doc page on running Ollama as a Claude Code subagent. Claude Code subagent <code>model</code> values are Claude aliases or Claude IDs only (section 4). Ollama is an OpenCode-only claim on these pages. (Gateway use via <code>ANTHROPIC_BASE_URL</code> appears on the sub-agents page but was not pursued.)</li>
+</ul>
+</section>
+<section id="preserved-thinking-and-switching-p-preserved-thinking" class="level2">
+<h2 class="anchored" data-anchor-id="preserved-thinking-and-switching-p-preserved-thinking">8. Preserved thinking and switching (P preserved-thinking)</h2>
+<ul>
+<li>CONFIRMED: on the API, a thinking block is tied to the preceding prompt, the model and the account. A model that cannot read another’s blocks drops them for that request, no error, no billing; switching back reads them again. Haiku 5.5 to Opus 5.5 keeps reasoning; Opus 5.5 to Sonnet 5.5 or Haiku 5.5 does not; Fable 5.2 to anything else drops it. Useful only as “switching down loses earlier reasoning”; Claude Code handles this itself.</li>
+<li>CONFIRMED: per-turn model overrides in skills last one turn; <code>/model</code> switch persists.</li>
+</ul>
+</section>
+<section id="secondary-source-claude.dev-blog-which-claude-model-should-you-build-with-fable-opus-sonnet-or-haiku-byline-addy-osmani-shown-on-the-page-2026-11-09-httpsclaude.devblogwhich-claude-model-should-you-build-with" class="level2">
+<h2 class="anchored" data-anchor-id="secondary-source-claude.dev-blog-which-claude-model-should-you-build-with-fable-opus-sonnet-or-haiku-byline-addy-osmani-shown-on-the-page-2026-11-09-httpsclaude.devblogwhich-claude-model-should-you-build-with">9. Secondary source: claude.dev blog, “Which Claude model should you build with? Fable, Opus, Sonnet, or Haiku” (byline “Addy Osmani” shown on the page, 2026-11-09; https://claude.dev/blog/which-claude-model-should-you-build-with/)</h2>
+<p>This is a different article from the cloud field guide dated 2026-10-06 in research/claude-cloud.md; the two dates belong to two articles. The blog index lists no byline for this post, the article page does. The page does not say who runs the site. Provenance not confirmed, no reuse licence, benchmark numbers vendor-run and unverified. Ideas paraphrased only; cite as “one article” or not at all. Mapped to the official docs: - Default Opus 5.5 at <code>medium</code>; step down to Sonnet 5.5 for well-scoped fixes; Haiku for classification and extraction and as subagent; Fable 5.2 for hardest work. Official docs support this tiering (P choosing-a-model, optimizing). The per-task-type table is ARTICLE-ONLY in detail (bug fixes vs migrations). - Raise effort before switching models. Official: partly (P choosing-a-model “better lever”). “Past <code>high</code> one more level can cost as much as a larger model; test the next model up at lower effort” is ARTICLE-ONLY. - Effort cannot add knowledge the model lacks: ARTICLE-ONLY (the docs say higher effort adds thoroughness, not this). - Order: give a check first, then raise effort, then change model: ARTICLE-ONLY as a sequence; the docs do say to give verification targets (C costs). - Run checkable tasks at low, re-run failures at high: official (section 3). - Cost per finished task, not per token; price the hardest tasks: official. - Keep expensive-model context lean, push bulk reading to cheaper subagents; edits stay on the main model: official for delegation benefits; “keep edits on the main model” is ARTICLE-ONLY. - Switching models mid-conversation misses the cache; compact or start fresh first: partly official (model-config note, preserved-thinking). The specific “compact first” tip is ARTICLE-ONLY. - Pin a subagent’s model in its definition (article example <code>model: haiku</code>, tools <code>Read, Grep, Glob, Bash</code>, “log-reader”), and define your own <code>Explore</code> on Haiku: official (section 4). - <code>opusplan</code> caution (puts edits on the smaller model; measure on own tasks): the alias is official; the caution is ARTICLE-ONLY. - Test on your own tasks with outcome checks, separate sessions per effort level: official (P optimizing-for-cost, choosing-a-model).</p>
+</section>
+<section id="exact-names" class="level2">
+<h2 class="anchored" data-anchor-id="exact-names">10. Exact names</h2>
+<ul>
+<li>Documented: aliases above; <code>/model</code>, <code>--model</code>, <code>ANTHROPIC_MODEL</code>, <code>ANTHROPIC_DEFAULT_MODEL</code>, settings <code>model</code>; <code>ANTHROPIC_DEFAULT_{OPUS,SONNET,HAIKU,FABLE}_MODEL</code>; <code>/effort</code>, <code>--effort</code>, <code>CLAUDE_CODE_EFFORT_LEVEL</code>, <code>effortLevel</code>, <code>modelSettings</code>; frontmatter <code>model</code>, <code>effort</code> (skills and subagents), <code>omitClaudeMd</code>; <code>CLAUDE_CODE_SUBAGENT_MODEL</code>, <code>CLAUDE_CODE_SUBAGENT_MODEL_FORCE</code>; <code>availableModels</code>; <code>/usage</code>, <code>/insights</code>, <code>/tasks</code>; <code>MAX_THINKING_TOKENS</code> (fixed-budget models only; adaptive models ignore it); API <code>output_config.effort</code>, <code>speed: "fast"</code>.</li>
+<li>NOT documented in these pages: <code>/cost</code>, <code>--subagent-model</code>, a per-subagent thinking setting, <code>small_model</code>, any Ollama-via-Claude-Code route, a documented price table in these pages.</li>
+</ul>
+</section>
+<section id="open-items" class="level2">
+<h2 class="anchored" data-anchor-id="open-items">Open items</h2>
+<ul>
+<li>Read C model-config past 100k (effort resolution order, auto-compact window) and C fast-mode before quoting.</li>
+<li>Re-read Explore wording on C sub-agents.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+(function () {
+  var l = document.querySelector('link[href$="assets/css/rpg.css"]');
+  var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
+  window.AO_BASE = base;
+  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+    return p.then(function () {
+      return new Promise(function (res) {
+        var s = document.createElement("script");
+        s.src = base + "assets/js/" + n + ".js"; s.onload = res; document.body.appendChild(s);
+      });
+    });
+  }, Promise.resolve());
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mahesh-panchal\.github\.io\/agent-odyssey\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

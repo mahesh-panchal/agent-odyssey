@@ -1,0 +1,125 @@
+{
+ "pass": 0.8,
+ "questions": [
+  {
+   "type": "choice",
+   "prompt": "Why can a large set of tool definitions be a problem even before the agent does any work?",
+   "explain": "Tool definitions count toward the context window, and Anthropic says tool selection degrades with very many tools.",
+   "options": [
+    {
+     "text": "Definitions take context and can make tool choice worse",
+     "correct": true
+    },
+    {
+     "text": "Tools may keep running in the background even when they are not called",
+     "misconception": "Tools run only when called. The cost is the definition text in the window."
+    },
+    {
+     "text": "The model might forget how to use any tool it has not seen before",
+     "misconception": "The issue is crowding and selection, not forgetting."
+    }
+   ]
+  },
+  {
+   "type": "sort",
+   "prompt": "Which approach fits each task best?",
+   "bins": [
+    "Plain script",
+    "Single call",
+    "Agent"
+   ],
+   "explain": "Known rule: script. Pasted input, text answer: one call. Next step depends on findings: agent, with checks and limits.",
+   "items": [
+    {
+     "text": "Count the sequences in 40 FASTA files",
+     "bin": "Plain script",
+     "misconception": "The rule is exact and known. A script is cheaper and exact."
+    },
+    {
+     "text": "Explain a stack trace you paste in",
+     "bin": "Single call",
+     "misconception": "One call with the input is enough. No tools needed."
+    },
+    {
+     "text": "Find why a pipeline fails on only some samples",
+     "bin": "Agent",
+     "misconception": "Each step depends on what the last one revealed, which suits an agent."
+    },
+    {
+     "text": "Convert all 300 samplesheets in a folder",
+     "bin": "Plain script",
+     "misconception": "A known rule applied to many files is what a script is for."
+    },
+    {
+     "text": "Reformat a pasted paragraph into a methods sentence",
+     "bin": "Single call",
+     "misconception": "It is a one-shot text task on supplied input."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "What does Anthropic's article on agents advise as a starting point?",
+   "explain": "The article says to start with the simplest solution, and that building no agentic system at all may be the right choice.",
+   "options": [
+    {
+     "text": "Start with the simplest solution that works",
+     "correct": true
+    },
+    {
+     "text": "Build an agent first and simplify later if it costs too much",
+     "misconception": "The advice runs the other way: start simple and add complexity when it pays."
+    },
+    {
+     "text": "Usually use several agents, since one rarely handles real tasks",
+     "misconception": "The article warns about cost and compounding errors from autonomy."
+    }
+   ]
+  },
+  {
+   "type": "match",
+   "prompt": "Match each term to its meaning in Anthropic's article.",
+   "explain": "In a workflow the code sets the path. In an agent the model decides its own steps and tool use.",
+   "pairs": [
+    {
+     "left": "Workflow",
+     "right": "Models and tools follow paths fixed in code",
+     "misconception": "A workflow's path is predefined, so it is predictable."
+    },
+    {
+     "left": "Agent",
+     "right": "The model directs its own steps and tool use",
+     "misconception": "Here the model chooses what to do next, which is why limits matter."
+    },
+    {
+     "left": "Stopping condition",
+     "right": "A limit such as a maximum number of iterations",
+     "misconception": "It is a guard that keeps an autonomous loop from running without end."
+    }
+   ]
+  },
+  {
+   "type": "faulty-line",
+   "prompt": "A teammate's plan for a tool setup. Which line goes against the advice on this page?",
+   "explain": "Installing every server up front adds tool names (and full definitions on setups without tool search), and is unneeded attack surface. Add what the work needs and remove the rest.",
+   "lines": [
+    {
+     "text": "Keep the few tools used every day, with clear names",
+     "why": "A small, well-named set is the advice."
+    },
+    {
+     "text": "Install every MCP server in the catalogue just in case",
+     "faulty": true
+    },
+    {
+     "text": "Check what is using the window with a usage command",
+     "why": "Measuring first shows what actually costs space."
+    },
+    {
+     "text": "Disable servers that have not been used this month",
+     "why": "Unused definitions only cost room."
+    }
+   ]
+  }
+ ]
+}

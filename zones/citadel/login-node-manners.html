@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Login Node Manners – Agent Odyssey</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-977c00f727d934aaf92f33c3e4ecd871.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../assets/css/rpg.css">
+</head>
+
+<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Login Node Manners</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quest-dialog">
+<p><strong>Prerequisites:</strong> Grow the Carapace. <strong>Objective:</strong> keep heavy work and sprawling searches off the shared login node and shared storage, and hand heavy work to the scheduler. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm, Claude Code and OpenCode (V2) docs on 2026-11-16 (sources in <code>research/hpc-and-notebooks.md</code>)</span></p>
+</div>
+<p>Everything below that concerns <em>etiquette</em> is <strong>general practice</strong>: the Slurm documentation does not define login nodes, and your site’s rules differ. <strong>Follow your own cluster’s policy and user guide over this page.</strong> Nothing here says that using an LLM agent on a cluster is allowed or expected. Ask your cluster staff first (see <em>Keys on Shared Ground</em>). This quest is read-only: do not run the exercise on a real cluster.</p>
+<section id="login-node-versus-compute-node" class="level2">
+<h2 class="anchored" data-anchor-id="login-node-versus-compute-node">Login node versus compute node</h2>
+<p><em>General practice.</em> A login node is shared by everyone who logs in. Compute nodes are where the scheduler places your jobs. Light work (editing text, <code>git</code>, listing one directory, checking a log with <code>head</code> or <code>tail</code>) is normally fine on the login node. Heavy work is not: aligners, long foreground pipelines, compressing or indexing big files, building large environments, or running a test suite at scale.</p>
+<p>An agent does not know which node it is on or what your site tolerates. It will happily run a long command if you let it, so the rule is yours to set. It also misjudges “this will only take a few seconds”, so when a command’s cost is unclear, tell it to ask.</p>
+<p>Some sites forbid agents on login nodes altogether, or allow them only inside an interactive compute allocation (where internet access may be restricted). Ask your staff before you start one. Do not assume the site runs Slurm either: submission syntax, partitions and accounting differ, so if a scheduler command is missing, ask rather than trying near-matches.</p>
+</section>
+<section id="shared-storage-does-not-like-sweeping-searches" class="level2">
+<h2 class="anchored" data-anchor-id="shared-storage-does-not-like-sweeping-searches">Shared storage does not like sweeping searches</h2>
+<p><em>General practice.</em> Network filesystems can slow down for everyone when something touches huge numbers of files. Agents explore by searching, so a careless <code>find /</code> or a recursive <code>grep -r</code> from your home or project root is the classic mistake. Ask for searches scoped to one known directory, and never from <code>/</code>. The same goes for <code>du</code>, <code>ls --recursive</code>, <code>ls --format=long</code> (it stats every file) and wide globs on big directories, and avoid making many small files in one directory. Do not let the agent read or list other users’ or other projects’ paths unless you named them or the site documents them as shared (reference data).</p>
+<p>Claude Code’s own search tools (Glob, Grep) are file tools, and its documentation does not describe them as a control on filesystem load. Scoping the search is on you.</p>
+</section>
+<section id="the-schedulers-four-commands" class="level2">
+<h2 class="anchored" data-anchor-id="the-schedulers-four-commands">The scheduler’s four commands</h2>
+<p>From the Slurm documentation:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>What it is for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sbatch</code></td>
+<td>submit a job script for later execution. It returns once the script has a job ID</td>
+</tr>
+<tr class="even">
+<td><code>srun</code></td>
+<td>run a job or job step in real time. If needed it first creates a resource allocation</td>
+</tr>
+<tr class="odd">
+<td><code>squeue</code></td>
+<td>report the state of jobs</td>
+</tr>
+<tr class="even">
+<td><code>scancel</code></td>
+<td>cancel a pending or running job</td>
+</tr>
+</tbody>
+</table>
+<p><code>sbatch --test-only</code> validates a script and estimates a start time, and “No job is actually submitted”. That makes it a dry run, in the same spirit as the Factory’s <em>Dry Run First</em>. Slurm’s default time limit is the partition’s default, so set limits in the script rather than trusting it.</p>
+<p><em>General practice:</em> set <code>--time</code>, <code>--mem</code> and <code>--cpus-per-task</code>, and prefer a job array to a loop of <code>sbatch</code> calls. Write options in their long form (<code>--dry-run</code>, not <code>-n</code>) so you can read what the agent proposes.</p>
+<p>Resources are billed by what is <em>allocated</em>, not used. If <code>--mem</code> is more than the CPUs you asked for allow (partition limit <code>MaxMemPerCPU</code>), Slurm may raise the CPU count to fit, with no error. It can also reject the job instead. Per the <code>sbatch</code> page, <code>--mem-per-cpu</code> above that limit is reduced and <code>--cpus-per-task</code> raised to compensate. Read the limits with <code>scontrol show partition &lt;name&gt;</code>, and afterwards compare request, allocation and use with <code>sacct --jobs=&lt;id&gt; --format=JobID,State,ReqMem,AllocCPUS,MaxRSS</code>. A job killed for memory shows <code>OUT_OF_MEMORY</code>, often with exit code <code>0:125</code> (tools report 137); <code>MaxRSS</code> then understates the need, so raise the request above the failed one. <em>Not checked:</em> the <code>0:125</code> code and the <code>--mem</code> widening rule against the Slurm pages.</p>
+<p>Scratch means throwaway files. Ask where the project’s scratch is. Do not default to <code>/tmp</code>, which is shared on a login node and often small, and a set <code>$TMPDIR</code> proves nothing (Slurm can set it to <code>/tmp</code>). Scripts, logs and final outputs stay in the project directory.</p>
+<p>Before a copy or a delete, find out what it touches. Run <code>rsync --dry-run --itemize-changes</code> first, with the same arguments, and read the list. <code>cp</code>, <code>scp</code> and <code>rm</code> have no dry run, so list the exact path or glob and delete only those names. Send large transfers through the scheduler or the site’s data-transfer node. The Factory’s <em>Dry Run First</em> is the same habit.</p>
+</section>
+<section id="what-the-agents-sandbox-does-and-does-not-cover" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-agents-sandbox-does-and-does-not-cover">What the agent’s sandbox does and does not cover</h2>
+<ul>
+<li>Claude Code’s sandbox is shell-only. File tools, MCP servers and hooks run outside it.</li>
+<li>It fails open by default: if it cannot start, commands run <strong>without</strong> sandboxing, unless <code>sandbox.failIfUnavailable</code> is <code>true</code>. On Linux it needs <code>bubblewrap</code> and <code>socat</code>. <em>General practice:</em> you usually cannot install packages system-wide on a cluster yourself, so a site may have to provide them. Whether it works there is site-specific.</li>
+<li>So “the sandbox is on” is something to check, not assume.</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Tell the agent where it may run what, in your project instructions or the prompt, and back it with a permission rule where you can (see <em>Jobs, Not Jam</em>). Useful instructions:</p>
+<ul>
+<li>“Search only inside <code>./workflow/</code>. Never run <code>find</code> or <code>grep -r</code> from <code>/</code> or <code>$HOME</code>.”</li>
+<li>“Do not run tools in the foreground. Draft an <code>sbatch</code> script and show it to me.”</li>
+</ul>
+<p>Instructions are guidance, not enforcement. If a project instruction file (<code>AGENTS.md</code> or <code>CLAUDE.md</code>) is stricter than a generic skill or these lines, the stricter one wins.</p>
+<p>From the Claude Code docs: foreground commands time out (default 2 minutes, maximum 10 by default), so a long-running foreground command in the agent’s shell is cut off anyway.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The same habits apply. OpenCode’s documented permission model (V2 docs; check your installed version) ends with allow, ask or deny rules, and an unmatched action asks. Per the docs the base policy begins with an allow-all rule, so <code>sbatch</code> is likely to run unprompted; confirm in your version. Add explicit rules for the cluster commands rather than relying on the default. A local model through Ollama does not change anything about which node you are on or how the filesystem behaves.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="honour-system-side-quest" class="level2">
+<h2 class="anchored" data-anchor-id="honour-system-side-quest">Honour-system side quest</h2>
+<div data-ao-honour="read-site-guide" data-xp="20">
+Find your cluster’s user guide page on login-node rules (or ask the staff). Write down in your own notes what it says may and may not run on the login node.
+</div>
+</section>
+<section id="battle-mind-your-manners" class="level2">
+<h2 class="anchored" data-anchor-id="battle-mind-your-manners">Battle: mind your manners</h2>
+<div data-ao-test="citadel-login-node-manners" data-xp="50">
+
+</div>
+</section>
+<section id="lore" class="level2 ao-lore">
+<h2 class="anchored" data-anchor-id="lore">Lore</h2>
+<p><em>Further reading. Optional.</em></p>
+<ul>
+<li><a href="https://slurm.schedmd.com/quickstart.html">Quick Start User Guide</a>: SchedMD (Slurm), docs. Why read: it explains sbatch, srun, squeue and scancel; it does not define login-node rules, so read your own site’s guide too.</li>
+<li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Why read: it shows allow, ask and deny rules by command pattern, the way to make heavy or sprawling commands ask first, and warns Bash rules are not a security boundary.</li>
+<li><a href="https://slurm.schedmd.com/sbatch.html">sbatch</a>: SchedMD (Slurm), docs. Why read: it is the manual for submitting jobs, including –test-only to validate a request without submitting.</li>
+</ul>
+</section>
+
+
+
+</main> <!-- /main -->
+<script>
+(function () {
+  var l = document.querySelector('link[href$="assets/css/rpg.css"]');
+  var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
+  window.AO_BASE = base;
+  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+    return p.then(function () {
+      return new Promise(function (res) {
+        var s = document.createElement("script");
+        s.src = base + "assets/js/" + n + ".js"; s.onload = res; document.body.appendChild(s);
+      });
+    });
+  }, Promise.resolve());
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mahesh-panchal\.github\.io\/agent-odyssey\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,66 @@
+{
+ "pass": 0.8,
+ "questions": [
+  {
+   "type": "choice",
+   "prompt": "An agent rewrote your analysis script and the results look wrong. Which command returns tracked files to your last commit?",
+   "explain": "Restore reverts tracked files to the last commit immediately; no new commit is needed.",
+   "options": [
+    {
+     "text": "git restore .",
+     "correct": true
+    },
+    {
+     "text": "git commit -a",
+     "misconception": "Committing records the broken state as a new snapshot; it does not revert your working files."
+    },
+    {
+     "text": "git stash pop",
+     "misconception": "Pop re-applies earlier stashed changes on top of your files; it does not discard the agent's edits."
+    },
+    {
+     "text": "git add -A",
+     "misconception": "Staging records the broken state; it does not undo it."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "When should you commit a snapshot?",
+   "explain": "A snapshot only protects you if it exists before the mistake happens.",
+   "options": [
+    {
+     "text": "Before letting the agent make changes",
+     "correct": true
+    },
+    {
+     "text": "After the agent finishes",
+     "misconception": "Committing afterwards snapshots the possibly broken state, so you lose your undo point."
+    },
+    {
+     "text": "Only when the project is finished",
+     "misconception": "A snapshot only protects you if it exists before the mistake happens."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "The agent made a new file `scratch.py` and also edited `analysis.py`. You run `git restore .`. What state are you in?",
+   "explain": "Restore reverts tracked files. New files stay, so check `git status` for leftovers.",
+   "options": [
+    {
+     "text": "analysis.py is reverted; scratch.py remains, untracked",
+     "correct": true
+    },
+    {
+     "text": "Both files are reverted, scratch.py is deleted too",
+     "misconception": "restore only reverts tracked files. New untracked files stay until you remove them."
+    },
+    {
+     "text": "Nothing changes until you also run git add on the files",
+     "misconception": "restore acts on your working files immediately; no commit is needed."
+    }
+   ]
+  }
+ ]
+}

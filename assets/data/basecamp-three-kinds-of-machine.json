@@ -1,0 +1,99 @@
+{
+ "pass": 0.8,
+ "questions": [
+  {
+   "type": "sort",
+   "prompt": "Which machine fits each job best?",
+   "bins": [
+    "Deterministic program",
+    "Trained model",
+    "LLM (with checking)"
+   ],
+   "explain": "Known rule: a program. Narrow, validated task with no known rule: a trained model. Open-ended draft you can check: an LLM.",
+   "items": [
+    {
+     "text": "Count sequences in a FASTA file",
+     "bin": "Deterministic program",
+     "misconception": "The rule is exact and known, so use a program. An LLM may miscount."
+    },
+    {
+     "text": "Predict gene locations in a new bacterial genome",
+     "bin": "Trained model",
+     "misconception": "That is a narrow task with validated tools trained for it."
+    },
+    {
+     "text": "Draft a first version of a plotting script you will test",
+     "bin": "LLM (with checking)",
+     "misconception": "Open-ended drafting that you can run and verify suits an LLM."
+    },
+    {
+     "text": "Convert a GFF file to BED with a fixed rule",
+     "bin": "Deterministic program",
+     "misconception": "A fixed conversion rule is exactly what a script is for."
+    },
+    {
+     "text": "Explain an unfamiliar error message",
+     "bin": "LLM (with checking)",
+     "misconception": "Explaining text is a strength, and you can check the explanation by trying it."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "You put an LLM call inside a pipeline step that cleans species names. What must you do that you would not for a plain script?",
+   "explain": "The step is no longer deterministic, so you need to check outputs and record which model produced them.",
+   "options": [
+    {
+     "text": "Validate outputs and record the model and version, since runs can differ",
+     "correct": true
+    },
+    {
+     "text": "Write one unit test once, since the function will behave the same every time",
+     "misconception": "An LLM call can return different text each time and can be wrong, so one test proves little."
+    },
+    {
+     "text": "Run it once, cache the result for reuse, and skip checking it afterwards",
+     "misconception": "Caching a wrong answer preserves the error. Validate it first."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A published trained model predicts protein domains with a measured accuracy on a benchmark. When is it reasonable to trust it?",
+   "explain": "A trained model's accuracy applies to the kind of data it was validated on.",
+   "options": [
+    {
+     "text": "On data similar to what it was validated on, with spot-checks",
+     "correct": true
+    },
+    {
+     "text": "On any organism, since the benchmark score already covers them",
+     "misconception": "Accuracy does not transfer automatically to very different data."
+    },
+    {
+     "text": "Only if an LLM independently reaches the same answer",
+     "misconception": "An LLM agreeing is not validation."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A rule is exact and known (rename columns by a fixed mapping). Which is best?",
+   "explain": "When you know the rule, writing it down gives a result you can read and rerun.",
+   "options": [
+    {
+     "text": "A short script, perhaps LLM-drafted and then tested",
+     "correct": true
+    },
+    {
+     "text": "Paste the table into a chat and ask it to rename the columns",
+     "misconception": "That is slow, unrepeatable and might alter values silently."
+    },
+    {
+     "text": "Train a small model on examples of old and new names",
+     "misconception": "Training is overkill for a rule you can write in one line."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,131 @@
+{
+ "pass": 0.8,
+ "questions": [
+  {
+   "type": "sort",
+   "prompt": "Where would the docs and this page point you in each situation?",
+   "bins": [
+    "Start fresh",
+    "Carry on"
+   ],
+   "explain": "A new unrelated task, two failed corrections and a verified committed result all mean the conversation has done its job or is hurting. Same task, on track, or returning to a named session all need the history you already built.",
+   "items": [
+    {
+     "text": "You finish aligning samples and move to an unrelated question about a figure for a different project",
+     "bin": "Start fresh",
+     "misconception": "Old history would be re-read on every turn of the new task and can distract; the docs recommend /clear between unrelated tasks."
+    },
+    {
+     "text": "The agent has repeated the same wrong claim after two corrections",
+     "bin": "Start fresh",
+     "misconception": "A third correction adds to two failed attempts the model keeps re-reading; the docs suggest clearing and writing one better prompt."
+    },
+    {
+     "text": "A task is done, the result has been checked, and it is committed",
+     "bin": "Start fresh",
+     "misconception": "The result lives in your files and git, so the conversation is no longer needed to hold it."
+    },
+    {
+     "text": "You are halfway through debugging one failing step and the agent is making progress",
+     "bin": "Carry on",
+     "misconception": "Clearing a working session discards good context to fix a problem you do not have."
+    },
+    {
+     "text": "Next step depends on reference-build decisions you made earlier in this same task",
+     "bin": "Carry on",
+     "misconception": "Those early decisions live only in the conversation; clearing would lose them unless written down."
+    },
+    {
+     "text": "You reopen a named session with /resume to finish the same piece of work",
+     "bin": "Carry on",
+     "misconception": "Resuming is the carry-on route: it restores the saved messages rather than starting empty."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "Two hours into one analysis, /context shows the window is crowded. The agent is on track, and decisions made early still matter. What fits best?",
+   "explain": "The task and its early decisions still matter, so a fresh start would lose them. A compact with a focus note keeps the thread and drops bulk. Early detailed instructions can be lost, so restate any that matter.",
+   "options": [
+    {
+     "text": "Run /compact with a focus note naming what you still need",
+     "correct": true
+    },
+    {
+     "text": "Run /clear and start again from a short prompt",
+     "misconception": "The early decisions live only in the conversation, so clearing loses them and you pay to rediscover them."
+    },
+    {
+     "text": "Keep typing, since a crowded window is harmless while the agent is on track",
+     "misconception": "The whole conversation is re-sent every request, so usage climbs, and the docs say accuracy and recall degrade as context grows (context rot)."
+    },
+    {
+     "text": "Run /resume to reload the same conversation with more room",
+     "misconception": "Resume reopens a saved conversation; it does not make space in a window that is already full."
+    }
+   ]
+  },
+  {
+   "type": "match",
+   "prompt": "Match each situation to the action the docs support.",
+   "explain": "Each action fits one situation: clear for an unrelated task, compact to keep a crowded thread, resume to return to saved work, /context to see what fills the window.",
+   "pairs": [
+    {
+     "left": "A new task unrelated to the current conversation",
+     "right": "/clear",
+     "misconception": "/compact keeps a summary of the old task in the new one, which is the clutter you are trying to avoid."
+    },
+    {
+     "left": "Same task, crowded window, early decisions still matter",
+     "right": "/compact with a focus note",
+     "misconception": "/clear would drop the decisions you still need."
+    },
+    {
+     "left": "Back after a break, and you still need yesterday's conversation",
+     "right": "/resume or claude --continue",
+     "misconception": "A fresh session starts empty and would not have the saved messages."
+    },
+    {
+     "left": "You want to see what is filling the window",
+     "right": "/context",
+     "misconception": "/usage reports cost and plan limits, not what is inside the window."
+    }
+   ]
+  },
+  {
+   "type": "faulty-line",
+   "prompt": "Notes someone wrote for their team about starting fresh. Which line is wrong?",
+   "explain": "Clearing drops the conversation, so anything only said in chat is gone. The instructions file and auto memory stay and load again. The decisions and failed attempts need writing down first (general practice).",
+   "lines": [
+    {
+     "text": "/clear drops the conversation, but CLAUDE.md and auto memory load again in the new session",
+     "why": "This matches the docs: project memory survives /clear."
+    },
+    {
+     "text": "Before I clear, I need not note anything, because memory keeps everything we discussed",
+     "faulty": true
+    },
+    {
+     "text": "After a long break, a fresh session can cost less than resuming if I do not need the history",
+     "why": "The docs say this about long idle sessions."
+    },
+    {
+     "text": "If I clear by mistake, /resume can reopen the old conversation",
+     "why": "The docs say /clear leaves the old conversation resumable."
+    }
+   ]
+  },
+  {
+   "type": "order",
+   "prompt": "A task is done and you plan to clear. The note must name the commit, and the conversation must not be cleared before the note exists. Put the steps in order.",
+   "explain": "Check the result first, because you only commit what you have verified. Commit so the state is recoverable. Write the note naming that commit while the conversation still holds the details. Only then clear, since /clear drops the conversation. The new session's first prompt points to the note.",
+   "items": [
+    "Check the result against the source or a test",
+    "Commit the verified result",
+    "Write a note that names the commit and what remains",
+    "Run /clear",
+    "Start the new session by pointing it to the note"
+   ]
+  }
+ ]
+}

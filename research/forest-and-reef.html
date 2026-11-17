@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>forest-and-reef – Agent Odyssey</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-977c00f727d934aaf92f33c3e4ecd871.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../assets/css/rpg.css">
+</head>
+
+<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<section id="forest-and-reef-claude-code-and-opencode-facts" class="level1">
+<h1>Forest and Reef: Claude Code and OpenCode facts</h1>
+<p>Question: what do official docs say about instruction files, skills, context management, plan mode and subagents in Claude Code and OpenCode? Decision it feeds: accuracy of the “Forest” and “Reef” zone content in Agent Odyssey.</p>
+<p>Read on 2026-11-13. Local <code>claude --version</code>: 2.1.323. The doc pages show no “last updated” date; the version read is “live site as of 2026-11-13”. OpenCode version was not recorded and its GitHub repo was NOT read (docs site only). OpenCode docs describe some V2 behaviour (“accepted in V2”), so verify against the installed version. Note: the fetch tool summarises pages with a small model; quotes marked “…” are as returned, long pages (skills, sub-agents, permission-modes) had their last ~15% unread.</p>
+<section id="claude-code-claude.md-source-httpscode.claude.comdocsenmemory" class="level2">
+<h2 class="anchored" data-anchor-id="claude-code-claude.md-source-httpscode.claude.comdocsenmemory">1. Claude Code: CLAUDE.md (source: https://code.claude.com/docs/en/memory)</h2>
+<ul>
+<li>CONFIRMED User file: <code>~/.claude/CLAUDE.md</code> (personal, all projects).</li>
+<li>CONFIRMED Project file: <code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code> (team-shared via source control).</li>
+<li>CONFIRMED Local file: <code>./CLAUDE.local.md</code>, personal per-project, add to <code>.gitignore</code>.</li>
+<li>CONFIRMED Org-wide managed CLAUDE.md also exists (same page, “Deploy organization-wide”).</li>
+<li>CONFIRMED Loading: CLAUDE.md and CLAUDE.local.md in the working directory and every directory above it load at launch; all are concatenated (not overriding), ordered root-down so the closest is read last.</li>
+<li>CONFIRMED Subdirectory CLAUDE.md files load on demand, once Claude reads/writes/edits a file in that subdirectory.</li>
+<li>CONFIRMED Imports: <code>@path/to/import</code> syntax; imported files are expanded into context with the importing file. Import parsing skips code spans/fenced blocks (wrap <code>@README</code> in backticks to keep literal). Imports “don’t reduce its context cost”. Imports outside the working directory prompt for approval.</li>
+<li>CONFIRMED <code>/init</code>: “Run <code>/init</code> to generate a starting CLAUDE.md automatically”; it analyses the codebase (build commands, test instructions, conventions); if one exists it suggests improvements instead of overwriting. <code>CLAUDE_CODE_NEW_INIT=1</code> gives an interactive multi-phase flow.</li>
+<li>CONFIRMED <code>/memory</code>: lists CLAUDE.md, CLAUDE.local.md and memory file locations, toggles auto memory, opens files in editor.</li>
+<li>CONFIRMED Size guidance: “target under 200 lines per CLAUDE.md file. Longer files consume more context and reduce adherence.” Use <code>.claude/rules/</code> (with <code>paths:</code> frontmatter) for part-of-codebase rules. A file over 4 MiB is skipped.</li>
+<li>CONFIRMED Advisory, not enforced: “Claude treats them as context, not enforced configuration. To block an action regardless of what Claude decides, use a PreToolUse hook instead.” Best-practices page (https://code.claude.com/docs/en/best-practices) agrees: “<code>CLAUDE.md</code> is for guidelines, and Claude is allowed to decide a guideline doesn’t apply”; things that must always happen belong in hooks, deny rules or managed settings.</li>
+<li>CONFIRMED Best-practices test for what to write: “Could it find this by reading the code? Would it actually go and look? If both are yes, leave it out.” Also <code>/context all</code> confirms the file loaded; <code>/doctor prompt-audit</code> audits instruction files.</li>
+<li>CONFIRMED AGENTS.md: Claude Code reads <code>AGENTS.md</code> only when no CLAUDE.md/CLAUDE.local.md exists in the working directory or above (default <code>claude-md-or-agents-md</code>); otherwise CLAUDE.md only.</li>
+<li>CONFIRMED Auto memory (separate from CLAUDE.md): Claude-written notes at <code>~/.claude/projects/&lt;project&gt;/memory/</code>; first 200 lines or 25KB of MEMORY.md load each session.</li>
+</ul>
+</section>
+<section id="claude-code-skills-source-httpscode.claude.comdocsenskills" class="level2">
+<h2 class="anchored" data-anchor-id="claude-code-skills-source-httpscode.claude.comdocsenskills">2. Claude Code: Skills (source: https://code.claude.com/docs/en/skills)</h2>
+<ul>
+<li>CONFIRMED Layout: a directory with required <code>SKILL.md</code> plus optional files. Locations: personal <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code>; project <code>.claude/skills/&lt;name&gt;/SKILL.md</code>; nested <code>&lt;subdir&gt;/.claude/skills/...</code>; plugin <code>&lt;plugin&gt;/skills/&lt;name&gt;/SKILL.md</code>; enterprise via managed settings; <code>--add-dir</code> directories.</li>
+<li>CONFIRMED Frontmatter: “All fields are optional. Only <code>description</code> is recommended so Claude knows when to use the skill.” <code>name</code> defaults to the directory name. Other fields: <code>when_to_use</code>, <code>allowed-tools</code>, <code>disallowed-tools</code>, <code>disable-model-invocation</code>, <code>user-invocable</code>, <code>arguments</code>, <code>argument-hint</code>, <code>context</code>/<code>agent</code> (fork to subagent), <code>model</code>, <code>effort</code>, <code>hooks</code>, <code>paths</code>, <code>shell</code>. description+when_to_use truncated at 1,536 chars in the listing.</li>
+<li>CONFIRMED Invocation: default = both user (<code>/name</code>) and Claude (automatic, by matching <code>description</code>). <code>disable-model-invocation: true</code> = user only; <code>user-invocable: false</code> = Claude only.</li>
+<li>CONFIRMED Progressive loading: “in a regular session, skill descriptions are loaded into context so Claude knows what’s available, but full skill content only loads when invoked”; body then stays in context. Recommended <code>SKILL.md</code> under 500 lines.</li>
+<li>CONFIRMED Bundling: supporting files (reference.md, examples.md, <code>scripts/helper.py</code>) allowed; scripts are “executed, not loaded”; reference with <code>${CLAUDE_SKILL_DIR}</code>.</li>
+<li>CONFIRMED <code>allowed-tools</code>: tools Claude may use without asking permission during the turn that invokes the skill; it “does not restrict which tools are available”.</li>
+<li>CONFIRMED Custom commands merged into skills: <code>.claude/commands/deploy.md</code> and <code>.claude/skills/deploy/SKILL.md</code> both create <code>/deploy</code>; commands are “the older format and still works”; “Prefer a skill for new work.”</li>
+<li>CONFIRMED Open standard note: the page links the Agent Skills spec (https://agentskills.io) which accepts <code>name</code>, <code>description</code>, <code>license</code>, <code>compatibility</code>, <code>metadata</code>, <code>allowed-tools</code>.</li>
+<li>CONFIRMED Skill bodies survive compaction, capped 5,000 tokens/skill, 25,000 total (https://code.claude.com/docs/en/context-window).</li>
+</ul>
+</section>
+<section id="opencode-sources-httpsopencode.aidocsrules-skills-agents-config-tui-commands" class="level2">
+<h2 class="anchored" data-anchor-id="opencode-sources-httpsopencode.aidocsrules-skills-agents-config-tui-commands">3. OpenCode (sources: https://opencode.ai/docs/rules/, /skills/, /agents/, /config/, /tui/, /commands/)</h2>
+<ul>
+<li>CONFIRMED AGENTS.md: project root <code>AGENTS.md</code> (applies to that directory and subdirectories); global <code>~/.config/opencode/AGENTS.md</code>.</li>
+<li>CONFIRMED <code>/init</code>: “Guided setup for creating or updating <code>AGENTS.md</code>” (tui page); scans repo, may ask questions; improves an existing file in place (rules page).</li>
+<li>CONFIRMED Extra instructions: <code>instructions</code> array in <code>opencode.json</code> (project) or <code>~/.config/opencode/opencode.json</code>; globs and remote URLs (5 s timeout) supported; loaded alongside AGENTS.md.</li>
+<li>CONFIRMED Claude Code compatibility: falls back to project <code>CLAUDE.md</code> if no <code>AGENTS.md</code>, and to <code>~/.claude/CLAUDE.md</code> if no global AGENTS.md; first match wins per category (AGENTS.md beats CLAUDE.md). Env variables can disable the fallbacks (names not captured; see rules page).</li>
+<li>CONFIRMED Skills locations: global <code>~/.config/opencode/skills</code>, plus <code>~/.claude/skills</code> and <code>~/.agents/skills</code>; project <code>.opencode/skills</code>, plus <code>.claude/skills</code> and <code>.agents/skills</code>; extra dirs/HTTP catalogs via <code>skills</code> array in config. Directory name is plural <code>skills</code> (not <code>.opencode/skill</code>).</li>
+<li>CONFIRMED Skill format: file named <code>SKILL.md</code>; the file path determines the skill ID, frontmatter <code>name</code> is only a display label; skills without <code>description</code> are not advertised; <code>disable-model-invocation: true</code> or <code>metadata.opencode/autoinvoke: false</code> hides from model.</li>
+<li>CONFIRMED Skill loading: model sees ID/name/description list, then calls the <code>skill</code> tool to load the body (plus base dir and up to ten supporting file paths); supporting files read only when the skill directs. Permissions via <code>skill</code> rules allow/ask/deny; user can mention <code>@skill-id</code>.</li>
+<li>CONFIRMED Custom agents: Markdown files in <code>~/.config/opencode/agents/&lt;name&gt;.md</code> or <code>.opencode/agents/&lt;name&gt;.md</code> (frontmatter <code>description</code>, <code>mode</code>, <code>permissions</code>; body = system prompt), or <code>agents</code> key in <code>opencode.jsonc</code>. Built-in primary agents <code>build</code> and <code>plan</code>; subagents <code>general</code> and <code>explore</code>.</li>
+<li>CONFIRMED Custom commands exist: <code>.opencode/commands/*.md</code> (commands page).</li>
+</ul>
+</section>
+<section id="context-windows" class="level2">
+<h2 class="anchored" data-anchor-id="context-windows">4. Context windows</h2>
+<p>Claude Code (https://code.claude.com/docs/en/context-window, best-practices): - CONFIRMED Context window holds “your instructions, the files it reads, its own responses, and content that never appears in your terminal”. Before you type: CLAUDE.md, auto memory, MCP tool names and skill descriptions load. - CONFIRMED <code>/compact</code> “replaces the conversation with a structured summary”; accepts focus text (<code>/compact focus on the auth bug fix</code>). Project-root CLAUDE.md, auto memory, plan-mode plan re-injected from disk; nested CLAUDE.md and <code>paths:</code> rules reload on demand; up to five recently touched files re-read. - CONFIRMED Auto-compaction: “Claude Code compacts automatically as you approach the limit, so a full context window doesn’t end your session.” Threshold configurable (<code>/autocompact 500k</code>); per-model defaults on model-config page (not read). - CONFIRMED <code>/clear</code>: use between unrelated tasks; “Old conversation crowds out the files you need next and costs tokens on every message.” <code>/clear &lt;name&gt;</code> names the session left; <code>--resume</code> returns to it. - CONFIRMED <code>/context</code>: “live breakdown by category with optimization suggestions, including which CLAUDE.md and auto memory files loaded”. - CONFIRMED <code>/rewind</code> (or Esc Esc): roll back code/conversation, or “Summarize from here”. - CONFIRMED Degradation, as stated by docs: a longer CLAUDE.md “reduce[s] adherence”; after two failed corrections, “a third correction mostly adds to a conversation that already contains two failed attempts for Claude to keep re-reading”, so <code>/clear</code> and re-prompt; “a focused context gets you better answers and costs less”. The docs do NOT give a mechanism (e.g.&nbsp;attention dilution) beyond this. - CONFIRMED Window size: best-practices says “Most current models have a 1M-token window and compaction happens on its own, so running out is rare” and lists “manage context aggressively” as an outdated tip, while <code>/clear</code> between tasks is still worth doing.</p>
+<p>OpenCode (https://opencode.ai/docs/tui/, /config/): - CONFIRMED <code>/compact</code> (alias <code>/summarize</code>): “Compact the current session.” <code>/new</code> (alias <code>/clear</code>): “Start a new session.” <code>/undo</code> and <code>/redo</code> need Git. <code>/sessions</code> (aliases <code>/resume</code>, <code>/continue</code>) switches sessions. - CONFIRMED Config <code>compaction</code>: <code>auto</code> on/off, <code>keep.tokens</code> (recent context kept), <code>buffer</code> (share of context window kept free before auto-compaction starts). “Automatic compaction uses the selected model’s usable input budget.” - UNCONFIRMED OpenCode has no <code>/context</code> equivalent in the TUI doc fetched (not listed); <code>prune</code>/<code>reserved</code> options (from older versions) not on config page. - UNCONFIRMED OpenCode docs’ stated reason why long sessions degrade; none found.</p>
+</section>
+<section id="plan-mode-and-workflow-httpscode.claude.comdocsenpermission-modes-best-practices" class="level2">
+<h2 class="anchored" data-anchor-id="plan-mode-and-workflow-httpscode.claude.comdocsenpermission-modes-best-practices">5. Plan mode and workflow (https://code.claude.com/docs/en/permission-modes, best-practices)</h2>
+<ul>
+<li>CONFIRMED Plan mode: “tells Claude to research and propose changes without making them. Claude reads files, runs shell commands to explore, and writes a plan, but does not edit your source.” Enter with Shift+Tab, <code>/plan &lt;prompt&gt;</code>, or <code>claude --permission-mode plan</code>; default via <code>defaultMode: plan</code>. Ctrl+G opens plan in editor. On approval choose auto mode or manual edit approval, or keep planning.</li>
+<li>CONFIRMED Page’s use-case summary: “Explore before changing anything | <code>claude --permission-mode plan</code> | Claude Code blocks edits until you approve a plan.”</li>
+<li>UNCONFIRMED A named four-phase “explore, plan, implement, commit” recipe in the current best-practices page. The 2026-11-13 page text does not contain it (grep for “plan mode” found none); the workflow is implied by plan mode only. The previous version of that recipe is from memory and must not be cited.</li>
+<li>CONFIRMED Verification: best-practices lists a check Claude can run: in the prompt (“run the auth tests after, and keep going until they pass”), <code>/goal &lt;condition&gt;</code>, <code>/code-review</code> (fresh subagent). “ask Claude for <em>evidence</em>: the command it ran and its output… ‘All tests pass’ on its own tells you very little.” “the single most useful line in your CLAUDE.md is the command that runs [the test suite].”</li>
+<li>CONFIRMED Specific prompts: “If you name the file, describe the symptom, and say what ‘fixed’ looks like up front, you usually save yourself a round of corrections later.” Example: replace “fix the login bug” with “users report login fails after the session times out. look at token refresh in src/auth/, write a failing test that reproduces it, then fix it”. Vague prompts are fine for open exploration.</li>
+<li>CONFIRMED Course correction: Esc to interrupt; after two failed corrections <code>/clear</code> and rewrite the prompt.</li>
+<li>OpenCode: CONFIRMED <code>plan</code> primary agent “explores and plans without editing normal project files” (agents page). No OpenCode best-practices page was read.</li>
+</ul>
+</section>
+<section id="subagents" class="level2">
+<h2 class="anchored" data-anchor-id="subagents">6. Subagents</h2>
+<p>Claude Code (https://code.claude.com/docs/en/sub-agents): “Subagents are specialized AI assistants that handle specific types of tasks.” Each “runs in its own context window with a custom system prompt, specific tool access, and independent permissions.” Use one when a side task “would flood your main conversation with search results, logs, or file contents you won’t reference again: the subagent does that work in its own context and returns only the summary.” A non-fork subagent does not see the conversation history, invoked skills or files already read. Defined as Markdown with YAML frontmatter (<code>name</code>, <code>description</code> required) in <code>.claude/agents/</code> or <code>~/.claude/agents/</code>. Cost caveat (best-practices): each subagent spends its own tokens and can be slower than doing it inline; a fresh reviewer helps because it has not seen your reasoning, but delegating does not itself improve the answer. CONFIRMED.</p>
+<p>OpenCode (https://opencode.ai/docs/agents/): subagents “run with fresh context in their own child sessions”, launched via the <code>subagent</code> tool; they run in the background and the parent receives a report when the child goes idle. Built-ins: <code>general</code> (broad tools, cannot launch more subagents) and <code>explore</code> (read-only search). CONFIRMED.</p>
+</section>
+<section id="tested" class="level2">
+<h2 class="anchored" data-anchor-id="tested">Tested</h2>
+<ul>
+<li><code>claude --version</code> -&gt; 2.1.323 (Claude Code). No commands run against OpenCode.</li>
+</ul>
+</section>
+<section id="unconfirmed-not-checked" class="level2">
+<h2 class="anchored" data-anchor-id="unconfirmed-not-checked">Unconfirmed / not checked</h2>
+<ul>
+<li>OpenCode GitHub repo and installed version not read; the docs mention V2, so some behaviour may differ per version.</li>
+<li>Names of the OpenCode env vars that disable Claude compatibility.</li>
+<li>Per-model default auto-compact thresholds (model-config page not read).</li>
+<li>Final ~15% of the skills, sub-agents and permission-modes pages was not read by the fetch tool.</li>
+<li>Explicit explore-plan-code recipe in current Claude Code best-practices (see section 5).</li>
+<li>Official mechanism for why long sessions degrade (only the statements above exist).</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+(function () {
+  var l = document.querySelector('link[href$="assets/css/rpg.css"]');
+  var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
+  window.AO_BASE = base;
+  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+    return p.then(function () {
+      return new Promise(function (res) {
+        var s = document.createElement("script");
+        s.src = base + "assets/js/" + n + ".js"; s.onload = res; document.body.appendChild(s);
+      });
+    });
+  }, Promise.resolve());
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mahesh-panchal\.github\.io\/agent-odyssey\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

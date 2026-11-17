@@ -1,0 +1,106 @@
+{
+ "pass": 0.8,
+ "questions": [
+  {
+   "type": "match",
+   "prompt": "Match each worry to the habit that makes it smaller.",
+   "explain": "Every habit here is a way of putting a check or a limit between the agent and the result.",
+   "pairs": [
+    {
+     "left": "It will make things up",
+     "right": "Check against something the agent did not write",
+     "misconception": "Fabrication is answered by independent checks, not by trusting more or asking the agent again."
+    },
+    {
+     "left": "It could delete my files",
+     "right": "Use git, permission rules and a sandbox or scratch directory",
+     "misconception": "Damage is limited by what the agent is allowed to touch and whether you can undo it."
+    },
+    {
+     "left": "My collaborators will have to review it all",
+     "right": "Review it yourself first and send small changes",
+     "misconception": "The review burden belongs to the person who sends the change."
+    },
+    {
+     "left": "I will stop learning",
+     "right": "Write it yourself first, or ask it to explain rather than do",
+     "misconception": "Learning is protected by deciding when you attempt the work yourself."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A colleague says: 'I will never use these tools because they make mistakes.' What is the most useful reply?",
+   "explain": "Mistakes are the reason for checking habits, not a reason that nobody may ever use a tool. Choosing not to use it is also a legitimate decision.",
+   "options": [
+    {
+     "text": "Mistakes are real; the habits limit the cost, and using it at all is your call",
+     "correct": true
+    },
+    {
+     "text": "Newer models are much better now, so that worry is mostly outdated",
+     "misconception": "Models improve, but wrong output has not gone away, so checks are still needed."
+    },
+    {
+     "text": "Everyone is adopting them, so you will eventually have to use them too",
+     "misconception": "Social pressure is not an argument, and it makes sceptics less likely to engage."
+    }
+   ]
+  },
+  {
+   "type": "sort",
+   "prompt": "Which of these is a real risk to plan for, and which is a myth?",
+   "bins": [
+    "Real risk",
+    "Myth"
+   ],
+   "explain": "Plan for the real ones with habits. Do not spend effort on the myths.",
+   "items": [
+    {
+     "text": "Confident output that is simply wrong",
+     "bin": "Real risk",
+     "misconception": "Plausible-but-false output is a well-known failure."
+    },
+    {
+     "text": "Code that runs but does the wrong calculation",
+     "bin": "Real risk",
+     "misconception": "Running without error says nothing about correctness."
+    },
+    {
+     "text": "The agent has opinions and will refuse to follow your instructions out of spite",
+     "bin": "Myth",
+     "misconception": "The risk is drift (slowly wandering from your instructions) and misunderstanding, not spite."
+    },
+    {
+     "text": "A large change that nobody can realistically review",
+     "bin": "Real risk",
+     "misconception": "Volume that outruns review capacity is a genuine problem."
+    },
+    {
+     "text": "A wrong answer can only come from a badly written prompt",
+     "bin": "Myth",
+     "misconception": "Wrong output happens even with good prompts, so checking is always needed."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "Which statement about this odyssey is true?",
+   "explain": "The site never calls an LLM and every exercise runs locally on mock data.",
+   "options": [
+    {
+     "text": "Everything runs locally on mock data, and the site never calls an LLM",
+     "correct": true
+    },
+    {
+     "text": "You must send some of your own data to an LLM service for the quests",
+     "misconception": "No exercise needs real or sensitive data."
+    },
+    {
+     "text": "You must finish every quest before using any tool safely at work",
+     "misconception": "Gating is soft. Take the quests that match your worry first."
+    }
+   ]
+  }
+ ]
+}

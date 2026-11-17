@@ -1,0 +1,152 @@
+{
+ "pass": 0.8,
+ "questions": [
+  {
+   "type": "faulty-line",
+   "prompt": "An agent wrote this snippet to reverse-complement a plain Python string. Which line is a Mirage?",
+   "explain": "Python strings have no reverse_complement method. The call fails with AttributeError; you would need your own code or a library that provides it.",
+   "lines": [
+    {
+     "text": "seq = \"ATGCGC\"",
+     "why": "Just a string assignment."
+    },
+    {
+     "text": "rc = seq.reverse_complement()",
+     "faulty": true
+    },
+    {
+     "text": "print(rc)",
+     "why": "Printing is fine. The problem is the line before it."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "An agent cites a paper with a full author list, journal and DOI. What is the right check?",
+   "explain": "A reference is real only if an index you trust returns the same paper for that DOI or title.",
+   "options": [
+    {
+     "text": "Look the DOI or title up yourself in an index you trust",
+     "correct": true
+    },
+    {
+     "text": "Trust it, since the author list and DOI are hard to invent",
+     "misconception": "A DOI-shaped string is easy to fabricate, and a real DOI can belong to a different paper than the one claimed."
+    },
+    {
+     "text": "Ask the agent to re-check the citation and quote the abstract",
+     "misconception": "The agent can confirm its own error as fluently as it made it, and can invent a quote too. Check against a source it did not write."
+    },
+    {
+     "text": "Check that the journal name exists and treat the citation as real",
+     "misconception": "A real journal does not mean the paper exists in it. Look up the specific paper."
+    }
+   ]
+  },
+  {
+   "type": "match",
+   "prompt": "Match each kind of claim to the check that actually tests it.",
+   "explain": "Each check uses something independent of the agent: your shell, an index, your own data or your own test run.",
+   "pairs": [
+    {
+     "left": "A command-line flag the agent says exists",
+     "right": "Run the command with --help, or just run it",
+     "misconception": "The fastest test of a flag is to run it and read the error."
+    },
+    {
+     "left": "A paper the agent says supports a claim",
+     "right": "Find the paper yourself and read the relevant part",
+     "misconception": "A citation is checked by reading the source, not by re-asking."
+    },
+    {
+     "left": "A number the agent says it computed",
+     "right": "Recompute it with an independent method",
+     "misconception": "A computed value is checked by computing it a second, different way."
+    },
+    {
+     "left": "'All tests pass'",
+     "right": "Run the tests yourself and read the output",
+     "misconception": "A claim about a run is checked by doing the run."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "The agent's answer is long, detailed and confident. What does that tell you about whether it is correct?",
+   "explain": "Fluency and correctness are separate properties of the output.",
+   "options": [
+    {
+     "text": "Nothing reliable. Wrong answers can be just as fluent",
+     "correct": true
+    },
+    {
+     "text": "It is probably right, since it took effort to write",
+     "misconception": "Generating text costs the model the same whether or not it is true."
+    },
+    {
+     "text": "It is probably wrong, since real answers are short",
+     "misconception": "Length is not evidence in either direction. Check the claims."
+    }
+   ]
+  },
+  {
+   "type": "sort",
+   "prompt": "Sort each item by whether it counts as evidence that the agent's result is correct.",
+   "bins": [
+    "Counts as evidence",
+    "Does not count"
+   ],
+   "explain": "Evidence comes from observation or independent computation. The agent's own statements, however fluent, are not observations.",
+   "items": [
+    {
+     "text": "The agent says 'I verified this'",
+     "bin": "Does not count",
+     "misconception": "A statement that verification happened is not verification. It can be wrong or invented."
+    },
+    {
+     "text": "You re-ran the command yourself and read the output",
+     "bin": "Counts as evidence",
+     "misconception": "Running it yourself is an observation you made, so it is evidence."
+    },
+    {
+     "text": "The explanation sounds confident and detailed",
+     "bin": "Does not count",
+     "misconception": "Tone and detail do not separate right from wrong."
+    },
+    {
+     "text": "An independent method gives the same number",
+     "bin": "Counts as evidence",
+     "misconception": "Agreement from a method that does not share the agent's assumptions is real evidence."
+    },
+    {
+     "text": "The agent explains its reasoning step by step",
+     "bin": "Does not count",
+     "misconception": "A step-by-step story can be wrong at any step, and it may be written to fit the answer."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "An agent's script imports a package you have never heard of, and suggests 'pip install' for it. What is the first step?",
+   "explain": "Agents can name packages that do not exist or that are not the one you want, and an installed package runs with your permissions. Check that it exists and is the right one before installing.",
+   "options": [
+    {
+     "text": "Look the package up on its official index and check it is the right one",
+     "correct": true
+    },
+    {
+     "text": "Install it in a fresh environment first and see whether the script runs",
+     "misconception": "Installing runs its code. A look-up comes first, and a clean environment only limits the mess afterwards."
+    },
+    {
+     "text": "Ask the agent to confirm the package is real and show its documentation",
+     "misconception": "The same system that named it will answer fluently either way, and the documentation can be invented too."
+    },
+    {
+     "text": "Install it with --no-deps so its dependencies cannot do any harm",
+     "misconception": "The package itself can still run code when installed, and you have not checked it exists or is the right one."
+    }
+   ]
+  }
+ ]
+}

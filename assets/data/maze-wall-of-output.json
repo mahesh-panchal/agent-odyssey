@@ -1,0 +1,154 @@
+{
+ "pass": 0.8,
+ "boss": {
+  "name": "The Wall of Output"
+ },
+ "questions": [
+  {
+   "type": "choice",
+   "prompt": "The agent finished and reports a 2,000-line change across 40 files. What is your first move?",
+   "explain": "A change you cannot review is a change you cannot trust. Reduce it to pieces you can.",
+   "options": [
+    {
+     "text": "Do not accept one big change. Ask for a plan and small pieces, each with a check",
+     "correct": true
+    },
+    {
+     "text": "Read the agent's summary and merge it if every claim in it sounds right",
+     "misconception": "The summary is the agent's description of its own work. It is a claim, not evidence."
+    },
+    {
+     "text": "Read all 2,000 lines carefully tonight and merge once you reach the end",
+     "misconception": "Review quality drops as volume grows, so you will approve things you did not really read."
+    },
+    {
+     "text": "Run the whole test suite and merge the change if everything passes",
+     "misconception": "Passing tests on a 40-file change prove little, and the agent may have weakened the tests. You still cannot review the change."
+    }
+   ]
+  },
+  {
+   "type": "order",
+   "prompt": "Put a review-budget routine in order.",
+   "explain": "Plan small, define success first, run it yourself, then review and keep each piece.",
+   "items": [
+    "Ask for a plan before any code",
+    "Split the work into small reviewable pieces",
+    "Decide how you will check each piece",
+    "Run the checks yourself",
+    "Review the piece, then commit it"
+   ],
+   "why": {
+    "Split the work into small reviewable pieces": "You need the plan before you can split it into pieces.",
+    "Decide how you will check each piece": "Decide the check before you see the result, so you cannot rationalise afterwards.",
+    "Run the checks yourself": "Run the checks after the piece exists.",
+    "Review the piece, then commit it": "Commit after review, so each commit is something you vouch for.",
+    "Ask for a plan before any code": "A plan first lets you redirect cheaply, before a wall of code exists."
+   }
+  },
+  {
+   "type": "faulty-line",
+   "prompt": "This is the agent's summary of its change. Which line should make you stop?",
+   "explain": "Deleting failing tests makes 'all tests pass' true and meaningless. Always check what happened to the tests.",
+   "lines": [
+    {
+     "text": "Refactored the parser (3 files)",
+     "why": "A plausible, checkable claim about scope."
+    },
+    {
+     "text": "Updated the config loader",
+     "why": "A normal change that you can inspect in its own small diff."
+    },
+    {
+     "text": "Removed 4 failing tests",
+     "faulty": true
+    },
+    {
+     "text": "All tests pass \u2714",
+     "why": "This is only meaningful if the tests were not weakened. See the line above."
+    }
+   ]
+  },
+  {
+   "type": "sort",
+   "prompt": "Before you ask a collaborator to review AI-assisted work, who does each job?",
+   "bins": [
+    "You, before asking",
+    "Collaborator's job"
+   ],
+   "explain": "Review is a shared check, not a place to dump work. The author owns the first pass.",
+   "items": [
+    {
+     "text": "Read your own diff and delete what you do not understand",
+     "bin": "You, before asking",
+     "misconception": "If you have not read it, you are asking someone else to be the first reader."
+    },
+    {
+     "text": "Run the tests and the pipeline on the mock data",
+     "bin": "You, before asking",
+     "misconception": "Running the checks is cheap for you and costs a collaborator an afternoon."
+    },
+    {
+     "text": "Tell them which parts the agent wrote",
+     "bin": "You, before asking",
+     "misconception": "Disclosure lets the reviewer aim their attention. Hiding it makes their job harder."
+    },
+    {
+     "text": "Independently judge whether the approach is sound for the project",
+     "bin": "Collaborator's job",
+     "misconception": "A second opinion on design is what review is for. It is not for catching typos you could have caught."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A chunk of the agent's code works, but you cannot explain what it does. What now?",
+   "explain": "Code you cannot explain is a Black-box husk. If you cannot explain it back, simplify or drop it.",
+   "options": [
+    {
+     "text": "Get an explanation, then say it back yourself. If you cannot, simplify or drop it",
+     "correct": true
+    },
+    {
+     "text": "Keep it for now: it works on the test input, so you can understand it later",
+     "misconception": "'It works' on one input does not mean you can maintain, debug or defend it."
+    },
+    {
+     "text": "Ask the agent to add comments to it and merge it once they read well",
+     "misconception": "Comments are the agent's own account of the code and can be wrong. You still cannot explain it yourself."
+    },
+    {
+     "text": "Ask a second AI model to check it, and keep it if the second model agrees",
+     "misconception": "A second model can share the same blind spots. The test is whether you can explain it, not whether another model nods."
+    }
+   ]
+  },
+  {
+   "type": "match",
+   "prompt": "Match each enemy to the habit that defeats it.",
+   "explain": "Each enemy is a failure of checking or ownership, and each habit gives the check or ownership back.",
+   "pairs": [
+    {
+     "left": "Slop-ooze (too much output)",
+     "right": "Small pieces and a review budget",
+     "misconception": "Volume is beaten by refusing to take it in one go."
+    },
+    {
+     "left": "Mirage (confident falsehood)",
+     "right": "Independent verification",
+     "misconception": "A false claim is beaten by checking it against something the agent did not write."
+    },
+    {
+     "left": "Review-leech (work pushed to others)",
+     "right": "Self-review and disclosure before asking",
+     "misconception": "Pushing work onto others is beaten by owning the first pass."
+    },
+    {
+     "left": "Black-box husk (nobody understands it)",
+     "right": "Explain it back, or drop it",
+     "misconception": "Code nobody understands is beaten by understanding it, or removing it."
+    }
+   ]
+  }
+ ]
+}

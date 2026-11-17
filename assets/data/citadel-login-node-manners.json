@@ -1,0 +1,173 @@
+{
+ "pass": 0.8,
+ "questions": [
+  {
+   "type": "sort",
+   "prompt": "Sort each action by where it belongs on a typical cluster (general practice; your site's guide decides).",
+   "explain": "Light, one-directory or read-only actions are usually fine on the login node. Heavy compute and sweeping searches go to the scheduler or get scoped.",
+   "bins": [
+    "fine on the login node",
+    "hand to the scheduler",
+    "never, or scope it first"
+   ],
+   "items": [
+    {
+     "text": "git status in your project",
+     "bin": "fine on the login node",
+     "misconception": "A quick repository check is light work. Routing it through a job would only waste queue time."
+    },
+    {
+     "text": "tail of one job log",
+     "bin": "fine on the login node",
+     "misconception": "Reading the end of one file is light. It does not need a compute allocation."
+    },
+    {
+     "text": "aligning a whole sample set in the foreground",
+     "bin": "hand to the scheduler",
+     "misconception": "Long heavy compute is what compute nodes are for. Running it on the shared login node slows everyone down."
+    },
+    {
+     "text": "compressing a large directory of FASTQ files",
+     "bin": "hand to the scheduler",
+     "misconception": "Compression is sustained CPU and disk work, so it belongs in a job, not on the shared node."
+    },
+    {
+     "text": "find / -name '*.bam' from the filesystem root",
+     "bin": "never, or scope it first",
+     "misconception": "A search from the root touches enormous numbers of files on shared storage. Scope it to one subdirectory instead."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "What does `sbatch --test-only` do, according to the Slurm documentation?",
+   "explain": "It validates the request and estimates a start time without submitting anything, which makes it a dry run.",
+   "options": [
+    {
+     "text": "Validates the script and estimates a start, but submits no job",
+     "correct": true
+    },
+    {
+     "text": "Submits the job at the lowest priority so it cannot disturb others",
+     "misconception": "Test-only never submits. It is not a low-priority submission."
+    },
+    {
+     "text": "Runs the script once on the login node to check its output",
+     "misconception": "Nothing is executed. The script is validated, not run anywhere."
+    },
+    {
+     "text": "Submits the job but cancels it automatically after one minute",
+     "misconception": "No job is created at all, so there is nothing to cancel."
+    }
+   ]
+  },
+  {
+   "type": "order",
+   "prompt": "Put these steps in order for handing a heavy task to the scheduler with an agent.",
+   "items": [
+    "Ask the agent to draft a job script with --time, --mem and --cpus-per-task",
+    "Read the script and the resource request",
+    "Check it with sbatch --test-only",
+    "Submit it yourself with sbatch",
+    "Check state with squeue at a modest interval"
+   ],
+   "why": {
+    "Read the script and the resource request": "You must read what will run before anything is validated or submitted.",
+    "Check it with sbatch --test-only": "The dry run comes before the real submission.",
+    "Submit it yourself with sbatch": "Submission is the step you keep under your own approval."
+   }
+  },
+  {
+   "type": "choice",
+   "prompt": "Claude Code's sandbox cannot start on a cluster node because a dependency is missing. With default settings, what happens?",
+   "explain": "The default is fail-open: commands run unsandboxed unless sandbox.failIfUnavailable is true.",
+   "options": [
+    {
+     "text": "Commands run without sandboxing, unless failIfUnavailable is true",
+     "correct": true
+    },
+    {
+     "text": "Claude Code refuses every shell command until the sandbox is fixed",
+     "misconception": "That is the behaviour of failIfUnavailable set to true, not the default."
+    },
+    {
+     "text": "Claude Code switches to a stricter permission mode on its own",
+     "misconception": "The docs describe no automatic tightening. It simply runs unsandboxed."
+    },
+    {
+     "text": "Only commands that use sbatch or srun are stopped",
+     "misconception": "The sandbox does not know about scheduler commands, and a failed start blocks nothing by default."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A job asked for `--mem=120G` and 1 CPU on a partition with `MaxMemPerCPU=4000` (MB). What may Slurm do?",
+   "explain": "Memory above CPUs times the per-CPU limit can make Slurm raise the CPU count (about 31 here), or reject the job. Billing follows allocation, so compare request, allocation and use with sacct.",
+   "options": [
+    {
+     "text": "Widen the CPUs or reject it; billing follows allocation",
+     "correct": true
+    },
+    {
+     "text": "Run it as asked on one CPU, billed for the memory used",
+     "misconception": "Billing follows what is allocated, not what is used, and the per-CPU limit is not ignored."
+    },
+    {
+     "text": "Always accept it and silently cap the memory at 4000 MB",
+     "misconception": "Slurm may adjust the CPU count instead of shrinking a --mem request, which is why it costs more with no error."
+    },
+    {
+     "text": "Queue it forever, since an over-limit request never starts",
+     "misconception": "That can happen under some limits, but with a per-CPU limit Slurm tries to widen the request first."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "Before copying results to another storage area with rsync, what do you do first?",
+   "explain": "rsync can show what it would transfer without doing it. Read the list for surprises, then run the same command without the flag.",
+   "options": [
+    {
+     "text": "Run it with --dry-run --itemize-changes and read the list",
+     "correct": true
+    },
+    {
+     "text": "Run it once for real and delete the copy if it looks wrong",
+     "misconception": "A real copy may already have sent secrets or overwritten files, and it cannot be undone."
+    },
+    {
+     "text": "Use cp instead, because it has a dry run of its own",
+     "misconception": "cp, scp and rm have no dry run. List the exact paths yourself."
+    },
+    {
+     "text": "Run it on the login node with no checks, since copying is light",
+     "misconception": "Large transfers are heavy I/O. Send them through the scheduler or a data-transfer node."
+    }
+   ]
+  },
+  {
+   "type": "faulty-line",
+   "prompt": "This is an instruction block for an agent on a shared cluster. Which line is the faulty one?",
+   "explain": "A recursive grep from the home directory sweeps shared storage. Searches should be scoped to one subdirectory.",
+   "lines": [
+    {
+     "text": "Draft job scripts, and show them to me before anything is submitted.",
+     "why": "Keeps submission under your approval."
+    },
+    {
+     "text": "Search for the config key with grep -r from $HOME.",
+     "faulty": true
+    },
+    {
+     "text": "Set --time, --mem and --cpus-per-task in every script.",
+     "why": "Explicit resource requests are general good practice."
+    },
+    {
+     "text": "Do not run pipelines in the foreground.",
+     "why": "Heavy work goes to the scheduler."
+    }
+   ]
+  }
+ ]
+}

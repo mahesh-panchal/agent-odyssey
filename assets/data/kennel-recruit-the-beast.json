@@ -1,0 +1,145 @@
+{
+ "pass": 0.8,
+ "questions": [
+  {
+   "type": "order",
+   "prompt": "Put the first-contact steps in the safest order.",
+   "explain": "Install, verify, enter a throwaway folder, then start the agent: each step makes the next one safer.",
+   "items": [
+    "Run the installer",
+    "Confirm with claude --version",
+    "cd into an empty scratch folder",
+    "Start claude in plan mode"
+   ],
+   "why": {
+    "Confirm with claude --version": "Install first, then confirm; you cannot check a version of something not yet installed.",
+    "cd into an empty scratch folder": "Move into the scratch folder after the install is confirmed and before you start the agent.",
+    "Start claude in plan mode": "Start the agent last, after you are standing in a throwaway folder.",
+    "Run the installer": "The installer comes first; everything else depends on it."
+   }
+  },
+  {
+   "type": "choice",
+   "prompt": "After installing, your shell says `claude: command not found`. What is the most likely cause?",
+   "explain": "The launcher is in ~/.local/bin, so add that folder to PATH.",
+   "options": [
+    {
+     "text": "~/.local/bin, where the launcher lives, is not on your PATH",
+     "correct": true
+    },
+    {
+     "text": "Your Team plan login expired, so the shell blocks the program",
+     "misconception": "Login happens after the program starts. A 'command not found' means the shell cannot find the program at all."
+    },
+    {
+     "text": "The installer needs sudo, so it quietly installed nothing",
+     "misconception": "The launcher is installed under your own home folder and does not need root. The shell just cannot see that folder."
+    },
+    {
+     "text": "The ~/.claude folder is missing, so the command cannot be found",
+     "misconception": "~/.claude holds settings and credentials, not the launcher. The launcher is in ~/.local/bin, which the shell must be able to find."
+    }
+   ]
+  },
+  {
+   "type": "match",
+   "prompt": "Match each permission mode to what it does.",
+   "explain": "Modes trade convenience for control. Plan mode is the safest for first contact.",
+   "pairs": [
+    {
+     "left": "default",
+     "right": "Asks the first time each tool is used",
+     "misconception": "default is the ask-first mode."
+    },
+    {
+     "left": "acceptEdits",
+     "right": "Auto-accepts file edits and common file commands in the working directory",
+     "misconception": "acceptEdits accepts edits without prompting; it is not the read-only mode."
+    },
+    {
+     "left": "plan",
+     "right": "Reads and runs read-only commands, no source edits",
+     "misconception": "plan is the look-but-don't-touch mode."
+    },
+    {
+     "left": "bypassPermissions",
+     "right": "Skips prompts; use only in containers or VMs",
+     "misconception": "bypassPermissions removes the safety prompts, which is why it belongs in disposable environments."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "You have a Team subscription login AND `ANTHROPIC_API_KEY` exported. What is the problem?",
+   "explain": "Run /status to see which credential is active.",
+   "options": [
+    {
+     "text": "The key wins once approved, so usage bills to your API account, not your plan",
+     "correct": true
+    },
+    {
+     "text": "None: the subscription always takes priority, so the key is simply ignored",
+     "misconception": "The docs say the key wins once approved. Check /status and unset the variable if you did not mean to use it."
+    },
+    {
+     "text": "Claude Code refuses to start until you unset one of the two credentials",
+     "misconception": "It starts fine, which is why the mix-up is easy to miss."
+    },
+    {
+     "text": "It asks you to pick a credential each session and bills whichever you choose",
+     "misconception": "It asks once to approve the key. After that the key is used, so check /status."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "What does `claude doctor` do?",
+   "explain": "doctor reports; you decide what to fix.",
+   "options": [
+    {
+     "text": "Prints read-only diagnostics about your installation",
+     "correct": true
+    },
+    {
+     "text": "Repairs a broken install and reinstalls the launcher",
+     "misconception": "doctor reports; it does not repair. Read what it prints and fix the cause yourself."
+    },
+    {
+     "text": "Sends your session history to Anthropic for review",
+     "misconception": "The shell command prints diagnostics without starting a session, so there is no session history to review."
+    },
+    {
+     "text": "Scans your project files for secrets before each session",
+     "misconception": "doctor reports on the installation, not on your project files. It does not scan for secrets."
+    }
+   ]
+  },
+  {
+   "type": "match",
+   "prompt": "Match each question to the command that answers it.",
+   "explain": "Each command shows one slice of the setup. Pick by the question you have.",
+   "pairs": [
+    {
+     "left": "Which MCP servers are connected?",
+     "right": "/mcp",
+     "misconception": "/mcp lists MCP servers and their connection status."
+    },
+    {
+     "left": "What is filling my context window?",
+     "right": "/context",
+     "misconception": "/context breaks context use down by category."
+    },
+    {
+     "left": "Which installed skills never get used?",
+     "right": "/skill-doctor",
+     "misconception": "/skill-doctor reports per-skill cost and usage and flags skills that were never invoked."
+    },
+    {
+     "left": "claude will not even start. What do I run in the shell?",
+     "right": "claude doctor",
+     "misconception": "claude doctor runs without starting a session, so it still works when a session cannot start."
+    }
+   ]
+  }
+ ]
+}
