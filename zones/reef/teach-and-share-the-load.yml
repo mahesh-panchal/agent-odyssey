@@ -24,6 +24,13 @@ questions:
       - { text: "How many your computer can run at once", misconception: "Machine capacity is not the bottleneck. Your attention is." }
       - { text: "The number of tasks you can think of to give them", misconception: "Starting is cheap. Checking is the cost." }
   - type: choice
+    prompt: "A collaborator sees you drafted an analysis in minutes and asks for the finished, checked version tomorrow. What helps most?"
+    explain: "Drafting got faster. Checking takes the time it always took, so the agreed date needs to include it."
+    options:
+      - { text: "Share how long checking takes and agree a date with review in it", correct: true }
+      - { text: "Agree to tomorrow and trim the checks to meet it", misconception: "Skipped checks move the cost to whoever finds the error later." }
+      - { text: "Send the draft as finished and fix problems as they come in", misconception: "Unchecked output looks reviewed once it reaches others." }
+  - type: choice
     prompt: "A colleague chooses not to use LLMs. How do you respond?"
     explain: "People can be excellent collaborators and reviewers without using the tools."
     options:

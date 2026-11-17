@@ -22,6 +22,7 @@ Each worry below is a real enemy in this land. Each has a counter-habit, and the
 | "Someone else has to review all this." | Review-leech | Review it yourself first, say that you used an LLM, send small changes. | Biodiversity Reef |
 | "It could delete my work or leak my data." | Data-wipe | Undo (git), permissions, a sandbox (an operating-system layer that limits what commands can touch) or scratch directory, no secrets in prompts (a prompt is the text you send to the model). | Ancient DNA Crypt |
 | "I do not understand what it did." | Black-box husk | Ask for a changelog and explain it back before you keep it. | Sequence Maze |
+| "Everyone will expect work to be done faster now." | Clock-shifter | Say where the time goes, agree timelines that include review, share how long checking took. | Biodiversity Reef |
 
 *Slop* is low-quality bulk output. A *review budget* means you only produce as much as you can honestly review today.
 

@@ -24,6 +24,18 @@ An agent can quietly take over the parts you wanted to learn. Pick a rule that s
 
 Agents make it easy to start many things. Count the cost of **reviewing** what they produce. A simple rule: start only as much as you can review today.
 
+## Keeping timelines honest
+
+A quick draft can quietly raise what everyone expects. A first version that once took a day now arrives in an hour, and the time for reading, checking and understanding it stays what it always was. These habits help keep the pace realistic:
+
+- **Say where the time goes.** Drafting is fast. Reading the diff, running the checks and making sense of the result take the time they take.
+- **Agree timelines before you start**, and put review time in the estimate.
+- **Share the whole picture** with the people asking: how long the draft took and how long checking took.
+- **Hand over a quick draft as a draft**, and say so.
+- **Spend the time you saved on checking.**
+
+<span class="ao-badge">General practice. Nothing here depends on a tool or a version.</span>
+
 <div data-ao-honour="teach-one" data-xp="25">Show one colleague one verification habit from this odyssey, such as re-running the check, or running `awk` against a script's output. Teach the habit; the tool is optional.</div>
 
 ## Battle: the community
