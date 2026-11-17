@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Who Said What. <strong>Objective:</strong> explain why a large toolset costs context and accuracy, and choose between a single call, a fixed workflow, an agent, and a plain script. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API tool-search docs, Claude Code MCP docs and Anthropic’s “Building effective agents” article on 2026-11-16 (sources in <code>research/fundamentals.md</code>). The figures quoted are Anthropic’s own claims and were not measured here.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
+<p><strong>Prerequisites:</strong> Who Said What. This is an optional side quest; Plug In a Server (advised) puts it to use. <strong>Objective:</strong> explain why a large toolset costs context and accuracy, and choose between a single call, a fixed workflow, an agent, and a plain script. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API tool-search docs, Claude Code MCP docs and Anthropic’s “Building effective agents” article on 2026-11-16 (sources in <code>research/fundamentals.md</code>). The figures quoted are Anthropic’s own claims and were not measured here.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
 </div>
 <p>Every tool you give an agent has a definition: a name and a description of how to use it. The model needs those definitions in its window to choose a tool. That is the cost this quest is about, followed by the related question of whether you need an agent at all.</p>
 <section id="tools-cost-context" class="level2">
@@ -171,7 +171,7 @@ Take one task you gave an agent that had a known rule. Write down the script tha
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

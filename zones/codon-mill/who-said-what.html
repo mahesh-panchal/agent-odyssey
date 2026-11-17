@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> The Context Window. <strong>Objective:</strong> tell the system prompt, the instructions file and your own message apart, and know which you control and which only advise. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code glossary, memory and how-it-works docs on 2026-11-16 (sources in <code>research/fundamentals.md</code>). Other tools arrange this differently; the ideas carry over.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
+<p><strong>Prerequisites:</strong> The Context Window. This is an optional side quest. <strong>Objective:</strong> tell the system prompt, the instructions file and your own message apart, and know which you control and which only advise. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code glossary, memory and how-it-works docs on 2026-11-16 (sources in <code>research/fundamentals.md</code>). Other tools arrange this differently; the ideas carry over.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
 </div>
 <p>When an agent follows a rule, it is fair to ask where that rule came from. There are three common sources, and they differ in who writes them, how long they last and whether anything enforces them.</p>
 <section id="the-three-voices" class="level2">
@@ -203,7 +203,7 @@ Check your instructions file’s length. If it is long, cut one line that is vag
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

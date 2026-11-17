@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> basic git (<code>git diff</code>). Jupyter experience helps but is not required. <strong>Objective:</strong> explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable. <strong>Time:</strong> about 15 minutes.</p>
+<p><strong>Prerequisites:</strong> Save Point (for <code>git diff</code>). Jupyter experience helps but is not required. <strong>Objective:</strong> explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable. <strong>Time:</strong> about 15 minutes.</p>
 <p><span class="ao-badge">Verified: ran <code>diff</code> and <code>git diff --no-index --stat</code> on the mock notebooks on 2026-11-16 (macOS, Python 3.9.6). Tool facts: Last verified (docs, not run): nbformat, nbstripout, jupytext, nbdime and marimo docs on 2026-11-16.</span></p>
 <p><strong>Files:</strong> <a href="../../exercises/scriptorium/before.ipynb">before.ipynb</a> and <a href="../../exercises/scriptorium/after.ipynb">after.ipynb</a>, two tiny mock notebooks (about 2.5 KB each). They are mock files: they omit cell ids, so they are not strictly valid nbformat 4.5. Save both into an empty folder.</p>
 </div>
@@ -271,7 +271,7 @@ Write one sentence naming which of the four options your team could adopt this w
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

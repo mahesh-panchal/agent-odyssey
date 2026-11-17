@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> a companion from the Kennel. <strong>Objective:</strong> write prompts that make output checkable, and manage the context window so the agent stays on task. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code>).</span></p>
+<p><strong>Prerequisites:</strong> Recruit the Beast. The Context Window is advised. <strong>Objective:</strong> write prompts that make output checkable, and manage the context window so the agent stays on task. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code>).</span></p>
 </div>
 <p>The first branch of the skill tree is the <strong>brief</strong>: what you tell the agent. A vague brief invites a plausible guess. A good brief names the file and the symptom, says what “done” looks like, and gives the agent a <strong>check it can run</strong>.</p>
 <table class="caption-top table">
@@ -178,7 +178,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

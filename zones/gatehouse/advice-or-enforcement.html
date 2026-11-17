@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Plug In a Server, Guard the Door and the Rules of the Carapace. <strong>Objective:</strong> sort every control on this site by whether it advises, asks or enforces, and choose the right one for each risk. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in <code>research/tools-and-guards.md</code>)</span></p>
+<p><strong>Prerequisites:</strong> Guard the Door. <strong>Objective:</strong> sort every control on this site by whether it advises, asks or enforces, and choose the right one for each risk. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in <code>research/tools-and-guards.md</code>)</span></p>
 </div>
 <p>Every control you have met does one of three things.</p>
 <ul>
@@ -297,7 +297,7 @@ List five controls in your own setup, such as an instructions file, a hook or a 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

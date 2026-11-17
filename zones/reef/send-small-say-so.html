@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Spot the Mirage. <strong>Objective:</strong> hand work to collaborators, whether or not they use LLMs, without passing them your review burden. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Not checked: any venue’s disclosure policy. Team norms you agree locally override these defaults.</span></p>
+<p><strong>Prerequisites:</strong> Spot the Mirage. The Wall of Output is advised. <strong>Objective:</strong> hand work to collaborators, whether or not they use LLMs, without passing them your review burden. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Not checked: any venue’s disclosure policy. Team norms you agree locally override these defaults.</span></p>
 </div>
 <p>A reef is a community. When you use an agent, the cost of checking its output must not silently land on the next person. The <strong>Review-leech</strong> feeds on exactly that.</p>
 <p>Four habits:</p>
@@ -154,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

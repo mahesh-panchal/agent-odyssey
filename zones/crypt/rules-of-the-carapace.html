@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> the Save Point, and either companion from the Kennel. <strong>Objective:</strong> write permission rules that hold, and know where they stop holding. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode v2.3.0 on 2026-11-13 (sources in <code>research/kennel-and-crypt.md</code>).</span></p>
+<p><strong>Prerequisites:</strong> Recruit the Beast, or Adopt the Pet if you only run a local model. <strong>Objective:</strong> write permission rules that hold, and know where they stop holding. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode v2.3.0 on 2026-11-13 (sources in <code>research/kennel-and-crypt.md</code>).</span></p>
 </div>
 <p>The <strong>harness</strong> (the program around the model) enforces rules. A line in your instructions file (such as <code>CLAUDE.md</code>) asking the agent to avoid something is guidance, and it does not change what is allowed.</p>
 <p>Sort every action into three bins: <strong>allow</strong> (safe and routine), <strong>ask</strong> (you want to decide each time), <strong>deny</strong> (never).</p>
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

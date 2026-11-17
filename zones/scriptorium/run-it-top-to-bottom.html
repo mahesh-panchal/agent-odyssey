@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Why Notebooks Diff Badly (helpful, not required), Python 3 and the two exercise files below (about 1 KB). <strong>Objective:</strong> show that a notebook’s stored result can differ from a fresh top-to-bottom run, and use that as the check before you trust or share one. <strong>Time:</strong> about 15 minutes.</p>
+<p><strong>Prerequisites:</strong> Save Point; Why Notebooks Diff Badly (helpful, not required); Python 3 and the two exercise files below (about 1 KB). <strong>Objective:</strong> show that a notebook’s stored result can differ from a fresh top-to-bottom run, and use that as the check before you trust or share one. <strong>Time:</strong> about 15 minutes.</p>
 <p><span class="ao-badge">Verified: ran run_cells.py on 2026-11-16 (macOS, Python 3.9.6). Output below is the real output. Tool facts: Last verified (docs, not run): marimo and Claude Code docs on 2026-11-16.</span></p>
 <p><strong>Files:</strong> <a href="../../exercises/scriptorium/cells.py">cells.py</a> and <a href="../../exercises/scriptorium/run_cells.py">run_cells.py</a>. Save both into an empty folder.</p>
 </div>
@@ -223,7 +223,7 @@ Take one of your own notebooks and run Restart and Run All. Note whether any out
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

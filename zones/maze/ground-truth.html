@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> a terminal with Python 3 and <code>awk</code>, and the two exercise files below (about 1 KB in total). Nothing here touches your own data. <strong>Objective:</strong> find out whether a script an agent called “tested” is actually right, using a check the agent did not write. <strong>Time:</strong> about 15 minutes.</p>
+<p><strong>Prerequisites:</strong> Spot the Mirage, a terminal with Python 3 and <code>awk</code>, and the two exercise files below (about 1 KB in total). Nothing here touches your own data. <strong>Objective:</strong> find out whether a script an agent called “tested” is actually right, using a check the agent did not write. <strong>Time:</strong> about 15 minutes.</p>
 <p><span class="ao-badge">Verified: ran gc.py and the awk check on 2026-11-13 (macOS, Python 3.15, Apple awk). Output below is the real output.</span></p>
 <p><strong>Files:</strong> <a href="../../exercises/maze/tiny.fasta">tiny.fasta</a> and <a href="../../exercises/maze/gc.py">gc.py</a>. Save both into an empty folder.</p>
 </div>
@@ -190,7 +190,7 @@ seq3    2 GC of 8 total</code></pre>
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

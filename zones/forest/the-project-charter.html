@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Write the Brief. <strong>Objective:</strong> give the agent standing instructions for a project, and know where they end and enforcement begins. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code> and <code>research/doctor.md</code>).</span></p>
+<p><strong>Prerequisites:</strong> Write the Brief. Who Said What is advised. <strong>Objective:</strong> give the agent standing instructions for a project, and know where they end and enforcement begins. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code> and <code>research/doctor.md</code>).</span></p>
 </div>
 <p>Typing the same background every session is wasteful. A <strong>project instructions file</strong> is read at the start so the agent already knows the project’s conventions.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
@@ -170,7 +170,7 @@ Write a short instructions file (about ten lines) for one of your real projects:
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

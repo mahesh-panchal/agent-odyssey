@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> a terminal (macOS, Linux, or WSL 2, the Windows Subsystem for Linux, on Windows), internet, and a Claude Team plan login <em>or</em> an Anthropic API key (API = programmatic access to the models, billed per token; a plan is a subscription with usage limits). <strong>Objective:</strong> install Claude Code, confirm it works, and start it somewhere safe in read-only style. <strong>Time:</strong> about 15 minutes. <strong>Nothing here edits your files.</strong></p>
+<p><strong>Prerequisites:</strong> Save Point, a terminal (macOS, Linux, or WSL 2, the Windows Subsystem for Linux, on Windows), internet, and a Claude Team plan login <em>or</em> an Anthropic API key (API = programmatic access to the models, billed per token; a plan is a subscription with usage limits). <strong>Objective:</strong> install Claude Code, confirm it works, and start it somewhere safe in read-only style. <strong>Time:</strong> about 15 minutes. <strong>Nothing here edits your files.</strong></p>
 <p><span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 on 2026-11-13, against code.claude.com/docs (sources in <code>research/kennel-and-crypt.md</code> and <code>research/doctor.md</code>). Docs change quickly; if a command differs, trust the official page and tell the maintainers.</span></p>
 </div>
 <section id="the-beast" class="level2">
@@ -318,7 +318,7 @@ Warning
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

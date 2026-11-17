@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Login Node Manners and Grow the Carapace. <strong>Objective:</strong> let the agent draft job scripts while you keep submitting and cancelling under your own approval, and know what polling costs. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm, Claude Code and OpenCode (V2) docs on 2026-11-16 (sources in <code>research/hpc-and-notebooks.md</code>)</span></p>
+<p><strong>Prerequisites:</strong> Login Node Manners. <strong>Objective:</strong> let the agent draft job scripts while you keep submitting and cancelling under your own approval, and know what polling costs. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm, Claude Code and OpenCode (V2) docs on 2026-11-16 (sources in <code>research/hpc-and-notebooks.md</code>)</span></p>
 </div>
 <p>Whether an agent should be anywhere near your cluster account is a decision for you and your cluster staff. <strong>Follow your own cluster’s policy and data agreement over this page.</strong> This page makes no claim that agent use is allowed or expected on any cluster. Read this quest on your laptop. Do not try the rules on a real cluster.</p>
 <section id="draft-versus-submit" class="level2">
@@ -232,7 +232,7 @@ Find your cluster’s page on job limits (maximum jobs, array sizes, time limits
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

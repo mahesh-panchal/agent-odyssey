@@ -127,9 +127,44 @@ ul.task-list li input[type="checkbox"] {
 <td><code>make_art.py</code></td>
 <td>CC BY 4.0</td>
 </tr>
+<tr class="odd">
+<td><code>assets/img/boss-wall.png</code></td>
+<td>Maze boss, The Wall of Output (full health)</td>
+<td>48x48</td>
+<td><code>make_art.py</code></td>
+<td>CC BY 4.0</td>
+</tr>
+<tr class="even">
+<td><code>assets/img/boss-wall-cracked.png</code></td>
+<td>The Wall, damaged frame</td>
+<td>48x48</td>
+<td><code>make_art.py</code></td>
+<td>CC BY 4.0</td>
+</tr>
+<tr class="odd">
+<td><code>assets/img/boss-wall-broken.png</code></td>
+<td>The Wall, broken frame</td>
+<td>48x48</td>
+<td><code>make_art.py</code></td>
+<td>CC BY 4.0</td>
+</tr>
+<tr class="even">
+<td><code>assets/img/boss-murk.png</code></td>
+<td>final boss, The Murk</td>
+<td>48x48</td>
+<td><code>make_art.py</code></td>
+<td>CC BY 4.0</td>
+</tr>
+<tr class="odd">
+<td><code>assets/img/boss-murk-cleared.png</code></td>
+<td>The Murk cleared (ending screen)</td>
+<td>48x48</td>
+<td><code>make_art.py</code></td>
+<td>CC BY 4.0</td>
+</tr>
 </tbody>
 </table>
-<p>Companion and enemy portraits are not yet drawn; the pages describe them in text. Replacement art (hand-drawn or generated) can drop into the same slots. Do not imitate any existing game’s characters or sprites.</p>
+<p>Boss portraits are drawn at 48x48 and shown with the <code>ao-boss-img</code> image class (<code>image-rendering: pixelated</code>, about 192px wide). Companion and other enemy portraits are not yet drawn; the pages describe them in text. Replacement art (hand-drawn or generated) can drop into the same slots. Do not imitate any existing game’s characters or sprites.</p>
 
 
 </section>
@@ -140,7 +175,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> none beyond a terminal and Python. <strong>Objective:</strong> learn how plausible-but-false output looks, and how to check it without asking the thing that produced it. <strong>Time:</strong> about 10 minutes.</p>
+<p><strong>Prerequisites:</strong> Where Machines Fail, a terminal and Python. <strong>Objective:</strong> learn how plausible-but-false output looks, and how to check it without asking the thing that produced it. <strong>Time:</strong> about 10 minutes.</p>
 <p><span class="ao-badge">Verified: ran the Python example below on 2026-11-13. The rest is general practice, not a vendor claim.</span></p>
 </div>
 <section id="the-mirage" class="level2">
@@ -149,7 +149,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

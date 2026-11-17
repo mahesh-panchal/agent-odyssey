@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Three Kinds of Machine. <strong>Objective:</strong> decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">General practice, not a vendor claim.</span></p>
+<p><strong>Prerequisites:</strong> Three Kinds of Machine. Where Machines Fail is advised. <strong>Objective:</strong> decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">General practice, not a vendor claim.</span></p>
 </div>
 <p>A pipeline earns trust by giving the same answer from the same input. An LLM call can return different text from run to run, so putting one inside a step changes what the pipeline is.</p>
 <p><strong>Prefer to keep the LLM out of the run.</strong> Use it to <em>write</em> a script, then test the script and run the script. The script is deterministic and reviewable.</p>
@@ -146,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

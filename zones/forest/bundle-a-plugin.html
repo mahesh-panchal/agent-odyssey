@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Test the Skill. <strong>Objective:</strong> package Skills (and their evals) as a plugin, validate it, and know why installing one is a trust decision. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Verified: ran <code>claude plugin validate .</code> and <code>--strict</code> on <code>exercises/forge/fasta-tools</code> (Claude Code 2.1.325). Other claims: last verified (docs, not run) on 2026-11-13, sources in <code>research/forge.md</code>.</span></p>
+<p><strong>Prerequisites:</strong> Test the Skill. This is an optional side quest. <strong>Objective:</strong> package Skills (and their evals) as a plugin, validate it, and know why installing one is a trust decision. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Verified: ran <code>claude plugin validate .</code> and <code>--strict</code> on <code>exercises/forge/fasta-tools</code> (Claude Code 2.1.325). Other claims: last verified (docs, not run) on 2026-11-13, sources in <code>research/forge.md</code>.</span></p>
 </div>
 <p>A single Skill in your folder helps you. A <strong>plugin</strong> is a folder that bundles Skills, and optionally agents, hooks and MCP servers (add-on connections that give the agent extra tools), so a whole group can install the same set and get updates.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
@@ -238,7 +238,7 @@ Turn the Skill you wrote into a plugin folder with a <code>plugin.json</code>, t
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> a terminal and <code>git</code>. <strong>Objective:</strong> make any change reversible before an agent touches it.</p>
+<p><strong>Prerequisites:</strong> Know Your Gear, a terminal and <code>git</code>. The Context Window is advised. <strong>Objective:</strong> make any change reversible before an agent touches it.</p>
 <p><span class="ao-badge">Verified: ran these commands with git 2.54.0 on 2026-11-13</span></p>
 </div>
 <p>Before any agent edits your files, put them under version control: <code>git init</code>, then <code>git add -A &amp;&amp; git commit -m "before agent"</code>. If the agent breaks something, <code>git restore .</code> returns every <strong>tracked</strong> file to that commit.</p>
@@ -146,7 +146,7 @@ Warning
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

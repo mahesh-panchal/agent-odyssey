@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Recruit the Beast and Adopt the Pet. <strong>Objective:</strong> set the model and the effort on purpose, especially when you hand work to a subagent, and learn to compare two settings on your own task. <strong>Time:</strong> about 15 minutes. <strong>The exercise is a worksheet and needs no model.</strong></p>
+<p><strong>Prerequisites:</strong> Recruit the Beast. Adopt the Pet is advised, not required. <strong>Objective:</strong> set the model and the effort on purpose, especially when you hand work to a subagent, and learn to compare two settings on your own task. <strong>Time:</strong> about 15 minutes. <strong>The exercise is a worksheet and needs no model.</strong></p>
 <p><span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17; the model-config, effort, sub-agents, costs, choosing-a-model and optimizing-for-cost pages were spot-checked live that day; model names, aliases and defaults change often</span></p>
 </div>
 <p>The companions in the Kennel are <strong>models</strong>; the tool around them (the harness, the program that runs the model and its tools) is the armour. This page is about which companion to bring to which job, and how hard to make it think. Model names, aliases and defaults change often, so check the current docs and your own tool before relying on any name here.</p>
@@ -385,7 +385,7 @@ Run the same small task at two settings and compare the result and <code>/usage<
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> a laptop with about 16 GB of memory, a terminal, and roughly 5 GB of free disk. WSL (Windows Subsystem for Linux) users: see the unconfirmed list at the end. <strong>Objective:</strong> run a small local model with Ollama, give it enough context, and point OpenCode at it. <strong>Time:</strong> about 20 minutes. Everything stays on your machine.</p>
+<p><strong>Prerequisites:</strong> Save Point, a laptop with about 16 GB of memory, a terminal, and roughly 5 GB of free disk. This is an optional side quest. WSL (Windows Subsystem for Linux) users: see the unconfirmed list at the end. <strong>Objective:</strong> run a small local model with Ollama, give it enough context, and point OpenCode at it. <strong>Time:</strong> about 20 minutes. Everything stays on your machine.</p>
 <p><span class="ao-badge">Last verified (docs, not run): Ollama v0.40.16 and OpenCode v2.3.0 on 2026-11-13. Sources: research/kennel-and-crypt.md</span></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -234,7 +234,7 @@ Warning
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> the Rules of the Carapace (permission rules) and Know Your Gear (what MCP and a harness are). <strong>Objective:</strong> treat an MCP server as software you install, then scope it, limit it and read what it sends back. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in <code>research/tools-and-guards.md</code> and <code>research/terminology.md</code>)</span></p>
+<p><strong>Prerequisites:</strong> Grow the Carapace (permission rules). Walk the trunk first. <strong>Objective:</strong> treat an MCP server as software you install, then scope it, limit it and read what it sends back. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in <code>research/tools-and-guards.md</code> and <code>research/terminology.md</code>)</span></p>
 </div>
 <p><strong>MCP</strong> (Model Context Protocol) is, in its own words, “an open-source standard for connecting AI applications to external systems”. A <strong>server</strong> is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. MCP is optional. It widens what the agent can reach, and every widening is a decision.</p>
 <section id="a-server-is-software-you-installed" class="level2">
@@ -254,7 +254,7 @@ Pick an MCP server you might use. Write down who publishes it, the tools it list
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

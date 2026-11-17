@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Plug In a Server and the Rules of the Carapace. <strong>Objective:</strong> write a hook that refuses a command, and know where a hook’s coverage ends. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in <code>research/tools-and-guards.md</code>)</span></p>
+<p><strong>Prerequisites:</strong> Plug In a Server. <strong>Objective:</strong> write a hook that refuses a command, and know where a hook’s coverage ends. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in <code>research/tools-and-guards.md</code>)</span></p>
 </div>
 <p>A <strong>hook</strong> is a user-defined handler that runs automatically at a set point in the harness’s lifecycle. In Claude Code it can be a shell command, an HTTP endpoint and other kinds, and it receives JSON (a structured text format) about the event. An instructions file asks the model to behave. A command hook is ordinary code that the harness runs, so what it decides does not depend on what the model wants. That contrast is our inference from how exit code 2 works (a nonzero exit code is how a script signals failure; a hook uses 2 to mean block), not a phrase from the docs.</p>
 <section id="a-hook-that-refuses" class="level2">
@@ -216,7 +216,7 @@ In a throwaway folder with mock files, add the Bash-blocking hook above and ask 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

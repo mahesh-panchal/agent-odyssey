@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> The Project Charter. <strong>Objective:</strong> package a repeatable procedure as a Skill, and know what a Skill covers and where its limits lie. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code> and <code>research/doctor.md</code>).</span></p>
+<p><strong>Prerequisites:</strong> The Project Charter. Plan Before You Edit is advised. <strong>Objective:</strong> package a repeatable procedure as a Skill, and know what a Skill covers and where its limits lie. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code> and <code>research/doctor.md</code>).</span></p>
 </div>
 <p>An instructions file is read every session. A <strong>Skill</strong> is a procedure loaded only when it is relevant, so it can be long without crowding the context.</p>
 <section id="what-a-skill-is" class="level2">
@@ -250,7 +250,7 @@ Write a <code>SKILL.md</code> for one chore you repeat (checking an input, summa
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "log", "world", "nav", "tests", "honour", "character"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");
