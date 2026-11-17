@@ -38,6 +38,27 @@ questions:
       - { text: "Agree to tomorrow and trim the checks to meet it", misconception: "Skipped checks move the cost to whoever finds the error later." }
       - { text: "Send the draft as finished and fix problems as they come in", misconception: "Unchecked output looks reviewed once it reaches others." }
   - type: choice
+    prompt: "Your drafts have begun to sound like everyone else's. What helps most?"
+    explain: "Your own words first keep the voice yours, and the agent can still check structure and consistency."
+    options:
+      - { text: "Draft in your own words, read it aloud, then use the agent for structure checks", correct: true }
+      - { text: "Ask the agent to write it all, then pick the best of several versions", misconception: "Choosing among generic drafts still leaves the voice generic." }
+      - { text: "Stop writing emails and letters yourself and let the agent send them", misconception: "Handing over your correspondence removes your voice where collaborators most expect it." }
+  - type: choice
+    prompt: "Checking agent drafts fills your week and the design work gets squeezed. What helps most?"
+    explain: "Routine drafting can go to the agent while you keep the creative decisions and give checking its own time."
+    options:
+      - { text: "Keep the question and interpretation, and schedule checking as real work", correct: true }
+      - { text: "Let the agent choose the study design, since you will check it afterwards", misconception: "Design is the creative core, and checking a design after the fact is weaker than making it." }
+      - { text: "Check only the parts that look unusual, to save time", misconception: "Plausible-looking errors do not look unusual, so a partial check misses them." }
+  - type: choice
+    prompt: "You are unsure which method suits your data. How do you keep your own judgement in practice?"
+    explain: "Deciding first gives you a call to compare with the second opinion."
+    options:
+      - { text: "Write down your choice, then ask for a second opinion and compare", correct: true }
+      - { text: "Ask the agent first, then adopt its choice if it sounds convincing", misconception: "Convincing wording is not evidence, and an early answer anchors your own thinking." }
+      - { text: "Never ask for a second opinion, so your judgement stays pure", misconception: "A second opinion is useful when you decided first, and refusing all help discards a good check." }
+  - type: choice
     prompt: "A colleague chooses not to use LLMs. How do you respond?"
     explain: "People can be excellent collaborators and reviewers without using the tools."
     options:

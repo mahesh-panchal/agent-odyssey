@@ -30,3 +30,11 @@ questions:
       - { text: "Understand it or replace it before sending, since you vouch for it", correct: true }
       - { text: "Send it, with a clear note that the LLM wrote that particular block", misconception: "Disclosure is good but does not remove your responsibility for the content." }
       - { text: "Send it and ask the reviewer to say whether it looks right to them", misconception: "This hands the reviewer the understanding work you skipped (the Review-leech pattern)." }
+  - type: choice
+    prompt: "A colleague hints that using an agent makes your work unoriginal. What helps most?"
+    explain: "Plain disclosure and visible checks let people judge the work on its evidence."
+    options:
+      - { text: "Say what the agent did, show what you checked, and follow your team's norm", correct: true }
+      - { text: "Leave the agent out of any note and hope nobody asks about it", misconception: "Hiding it invites the suspicion you want to avoid and removes the reader's ability to judge the work." }
+      - { text: "Argue that every serious group already uses agents and should say nothing", misconception: "Your team and venue set the norm. A general claim about other groups does not settle it." }
+      - { text: "Write a long apology at the top of every document you share", misconception: "An apology signals doubt without telling readers what was done or checked." }

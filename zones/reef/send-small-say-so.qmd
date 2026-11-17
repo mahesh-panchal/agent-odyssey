@@ -4,7 +4,7 @@ title: "Send Small, Say So"
 
 ::: {.quest-dialog}
 **Prerequisites:** Spot the Mirage. **Objective:** hand work to collaborators, whether or not they use LLMs, without passing them your review burden.
-**Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Team norms you agree locally override these defaults.</span>
+**Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Not checked: any venue's disclosure policy. Team norms you agree locally override these defaults.</span>
 :::
 
 A reef is a community. When you use an agent, the cost of checking its output must not silently land on the next person. The **Review-leech** feeds on exactly that.
@@ -17,6 +17,16 @@ Four habits:
 4. **Bring evidence.** Include the test, the command, or the check that shows it works.
 
 These help reviewers who use LLMs and those who do not. A colleague who does not use LLMs can review your work without learning a tool.
+
+## When you worry about looking lazy
+
+A common worry: *people will think I am lazy or unoriginal for using it.* You can make the facts easy to see.
+
+- **Say plainly what the agent did and what you checked.** "The agent drafted the plotting code. I read it and compared the output with a hand calculation."
+- **Follow your team's norm.** Some groups want a note in the commit message, some in the methods. Use what yours agrees on.
+- **Let the evidence speak.** Tests, checks and your ability to explain every line show the work is yours.
+- **Ask.** A lead or a journal editor can tell you what they expect.
+- **Check the venue.** Some venues have disclosure policies. If you name one, read its own page and cite it.
 
 ## Battle: the hand-off
 

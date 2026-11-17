@@ -49,6 +49,34 @@ A quick draft can quietly raise what everyone expects. A first version that once
 
 <span class="ao-badge">General practice. Nothing here depends on a tool or a version.</span>
 
+## Keeping your voice
+
+Heavy use of an agent can smooth your writing into a general style. These habits keep it yours:
+
+- **Draft the first version in your own words**, then edit.
+- **Read it aloud.** Your ear spots phrases you would never say.
+- **Keep a sample of your earlier writing** as a reference for how you sound.
+- **Use the agent for structure and consistency checks**, such as headings, terms and abbreviations.
+- **The same goes for emails to collaborators**, and for your voice in letters and reviews.
+
+## Keeping the creative part
+
+Checking drafts can crowd out the thinking you enjoy. These habits protect it:
+
+- **Keep the question, the design and the interpretation** for yourself.
+- **Give the agent the routine drafting**, such as boilerplate, formatting and first-pass summaries.
+- **Schedule checking as real work**, with time in your calendar.
+
+## Trusting your own judgement
+
+A ready second opinion can wear down confidence in your own call. Keep it in practice:
+
+- **Decide first and write your call down**, then ask for a second opinion.
+- **Keep some decisions agent-free.**
+- **Compare afterwards.** Note where your call held up and where the agent saw something you missed.
+
+<span class="ao-badge">General practice. Nothing here depends on a tool or a version.</span>
+
 <div data-ao-honour="teach-one" data-xp="25">Show one colleague one verification habit from this odyssey, such as re-running the check, or running `awk` against a script's output. Teach the habit; the tool is optional.</div>
 
 ## Battle: the community

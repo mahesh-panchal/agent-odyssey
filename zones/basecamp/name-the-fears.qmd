@@ -24,6 +24,11 @@ Each worry below is a real enemy in this land. Each has a counter-habit, and the
 | "I do not understand what it did." | Black-box husk | Ask for a changelog and explain it back before you keep it. | Sequence Maze |
 | "Finishing this with an agent will feel hollow, as if it was not really my work." | Hollow-victory | Make the decisions, be able to explain each step, keep a short decision log, credit the agent's part openly. | Biodiversity Reef |
 | "Everyone will expect work to be done faster now." | Clock-shifter | Say where the time goes, agree timelines that include review, share how long checking took. | Biodiversity Reef |
+| "Everything I write will start to sound the same." | Echo-bland | Draft the first version in your own words, then edit; keep a style you recognise; use the agent for structure and checks. | Biodiversity Reef |
+| "I will spend my days checking drafts and lose the creative part of my work." | Draft-warden | Keep the question, the design and the interpretation for yourself; give the agent routine drafting; count checking time as part of the work. | Biodiversity Reef |
+| "People will think I am lazy or unoriginal for using it." | Side-eye | Say plainly what the agent did and what you checked; follow your team's norm; let the evidence speak. | Biodiversity Reef |
+| "I will stop trusting my own judgement." | Doubt-fog | Decide first, then ask for a second opinion; keep a few decisions agent-free; note the times your own call was right. | Biodiversity Reef |
+| "My unpublished results or ideas will leak and someone will get there first." | Leak-shade | Learn what your tool's data terms say about retention and training use, keep unpublished work out of consumer chat tools, prefer an agreement your institution has reviewed or a local model, date-stamp your work. | Ancient DNA Crypt |
 
 *Slop* is low-quality bulk output. A *review budget* means you only produce as much as you can honestly review today.
 
