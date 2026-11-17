@@ -53,3 +53,9 @@ select:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 .ao-lore ul { padding-left: 1.2rem; }
 .ao-lore li { margin: .4rem 0; }
 .ao-lore a { text-decoration: underline; }
+/* Code blocks scroll sideways with a visible bar; tables scroll instead of squeezing columns. */
+pre { overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--accent) var(--panel); }
+pre::-webkit-scrollbar { height: 8px; } pre::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; } pre::-webkit-scrollbar-track { background: var(--panel); }
+table { display: block; max-width: 100%; overflow-x: auto; }
+.quest-dialog > :last-child { margin-bottom: 0; }
+[data-ao-honour] code { color: var(--fg); background: rgba(255,255,255,.12); }
