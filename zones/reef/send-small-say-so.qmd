@@ -16,7 +16,7 @@ Four habits:
 3. **Send small.** One idea per change, small enough to review in one sitting.
 4. **Bring evidence.** Include the test, the command, or the check that shows it works.
 
-These help reviewers who use LLMs and those who do not. A non-user should never have to learn a tool to review your work.
+These help reviewers who use LLMs and those who do not. A colleague who does not use LLMs can review your work without learning a tool.
 
 ## Battle: the hand-off
 

@@ -6,7 +6,7 @@ questions:
     options:
       - { text: "About 4k tokens, far below the 64k that agents need, so the Pet forgets instructions", correct: true }
       - { text: "32k tokens, which is enough for most agent work, so the Pet needs no change at all", misconception: "32k is the default only with 24-48 GiB of video memory. A 16 GB laptop gets 4k, well below the 64k Ollama recommends for agents." }
-      - { text: "The model's own maximum, often 128k or more, so memory is the only limit you meet", misconception: "The default is a memory-based tier, not the model's maximum. You raise it on purpose when you start the server." }
+      - { text: "The model's own maximum, often 128k or more, so memory is the only limit you meet", misconception: "The default is a memory-based tier, lower than the model's maximum. You raise it on purpose when you start the server." }
       - { text: "256k tokens, the largest default, so a laptop can run long agent sessions as is", misconception: "256k is the default only with 48 GiB or more of video memory. A 16 GB laptop gets the small default." }
   - type: order
     prompt: "Put the Pet's set-up in order."
@@ -28,7 +28,7 @@ questions:
     explain: "Add an ask-everything rule first so the starting point is safe."
     options:
       - { text: "Allow everything, except reading .env files, which it asks about", correct: true }
-      - { text: "Ask before every action, except reading files, which is allowed", misconception: "The default is permissive, not cautious. You have to add the ask-everything rule yourself, first in the list." }
+      - { text: "Ask before every action, except reading files, which is allowed", misconception: "The default is permissive. Add the ask-everything rule yourself, first in the list." }
       - { text: "Deny edits and shell commands until you allow each one in config", misconception: "Nothing is denied by default. That is why you set the leash yourself." }
       - { text: "Allow everything, including reading .env files, with no exceptions", misconception: "Reading .env and .env.* files is set to ask by default, though the rest is allowed." }
   - type: faulty-line
@@ -41,8 +41,8 @@ questions:
       - { text: ']', why: "Just the end of the list." }
   - type: choice
     prompt: "A small local model proposes running `rm -rf data/`. Who is supposed to stop it?"
-    explain: "The tool's rules are the control. A model's good behaviour is not."
+    explain: "The tool's rules are the control, so set them before you start."
     options:
-      - { text: "Your permission rules in the tool, not the model", correct: true }
-      - { text: "The model, because a small model is cautious", misconception: "A model's caution is not a control. Small models can propose destructive commands, so the rules in the tool have to catch them." }
+      - { text: "Your permission rules in the tool", correct: true }
+      - { text: "The model, because a small model is cautious", misconception: "Small models can propose destructive commands, so the rules in the tool have to catch them." }
       - { text: "Nobody; local models cannot run commands", misconception: "OpenCode runs shell commands with your authority regardless of which model asked for them." }

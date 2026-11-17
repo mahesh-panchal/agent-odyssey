@@ -7,7 +7,7 @@ questions:
       - { text: "Write the reason to stderr and exit with code 2", correct: true }
       - { text: "Write the reason to stdout and exit with code 1", misconception: "Exit 1 is a non-blocking error: the action proceeds." }
       - { text: "Write the reason to stderr and exit with code 0", misconception: "Exit 0 means no decision. The normal permission flow still applies." }
-      - { text: "Add a line to the instructions file asking Claude to stop", misconception: "Instructions influence the model. They do not stop the tool call." }
+      - { text: "Add a line to the instructions file asking Claude to stop", misconception: "Instructions influence the model, and the tool call goes ahead unless something enforces a stop." }
   - type: order
     prompt: "Put the steps of a blocking PreToolUse hook in order."
     explain: "Each step needs the one before: the call must be requested before the event exists, the hook can only test what it has been sent, and the refusal and reason follow from the exit."
@@ -28,12 +28,12 @@ questions:
     explain: "Any exit code other than 2, with no valid JSON, is a non-blocking error on most events, so the action proceeds. The guard fails open unless configured to block on failure."
     options:
       - { text: "The hook does not block it", correct: true }
-      - { text: "It is blocked, because a failing guard stops everything", misconception: "Only exit 2 (or a JSON deny decision) blocks. A crash does not." }
+      - { text: "It is blocked, because a failing guard stops everything", misconception: "Exit 2 (or a JSON deny decision) blocks, and a crash leaves the action to proceed." }
       - { text: "It is held until you answer a prompt about the crash", misconception: "The docs say the action proceeds on most events. They describe no prompt about the crash." }
       - { text: "It runs in the sandbox instead of normally", misconception: "The docs describe no sandbox fallback for hooks. They say the action proceeds." }
   - type: faulty-line
     prompt: "A colleague describes what their grep hook protects. Which line overclaims?"
-    explain: "A hook that greps the command text sees only that text. It is not a sandbox, and a differently spelled or script-hidden command passes it."
+    explain: "A hook that greps the command text sees only that text. A differently spelled or script-hidden command passes it, and a sandbox is a separate control."
     lines:
       - { text: "It runs before the Bash tool and can refuse the call", why: "A PreToolUse hook fires before the tool runs." }
       - { text: "It cannot see files added with an @ reference in the prompt", why: "No tool call happens, so no hook fires." }

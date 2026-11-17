@@ -10,7 +10,7 @@ questions:
   - type: sort
     prompt: "Which protects your own learning?"
     bins: ["Protects learning", "Erodes learning"]
-    explain: "Learning needs you to attempt, predict or explain, not only to receive."
+    explain: "Learning needs you to attempt, predict or explain as well as receive."
     items:
       - { text: "Write the first version yourself, then compare with the agent's", bin: "Protects learning", misconception: "Attempting first builds the skill." }
       - { text: "Accept every suggestion without reading it", bin: "Erodes learning", misconception: "You learn nothing from output you never engaged with." }
@@ -18,7 +18,7 @@ questions:
       - { text: "Let it do every piece of a new skill for you", bin: "Erodes learning", misconception: "Outsourcing everything means you do not acquire it." }
   - type: choice
     prompt: "You can easily start five agent tasks before lunch. What limits sensible work?"
-    explain: "The bottleneck is review capacity. Work you cannot review is a risk, not progress."
+    explain: "The bottleneck is review capacity. Work you cannot review is a risk."
     options:
       - { text: "How much of their output you can actually review", correct: true }
       - { text: "How many your computer can run at once", misconception: "Machine capacity is not the bottleneck. Your attention is." }

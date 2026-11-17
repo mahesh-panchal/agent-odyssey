@@ -5,7 +5,7 @@ questions:
     bins: ["Smaller tier or subagent", "Stronger model"]
     explain: "General practice. Bulk, checkable or read-only work suits a small tier or a subagent. Planning, hard debugging and unfamiliar science suit a stronger model, because errors there are costly and hard to spot."
     items:
-      - { text: "Classify 5,000 tissue labels, with 200 hand-labelled rows to check against", bin: "Smaller tier or subagent", misconception: "Volume alone does not need a strong model when a checker catches mistakes, and re-running only failures is cheap." }
+      - { text: "Classify 5,000 tissue labels, with 200 hand-labelled rows to check against", bin: "Smaller tier or subagent", misconception: "Volume alone does not need a strong tier when a checker catches mistakes, and re-running only failures is cheap." }
       - { text: "Skim a large log folder and report which tasks failed", bin: "Smaller tier or subagent", misconception: "Reading bulk text is the job the docs give to subagents, which keeps the main context clean." }
       - { text: "Plan a refactor of a shared QC script", bin: "Stronger model", misconception: "A flawed plan misdirects every later step, so the thinking is worth more than the saving." }
       - { text: "Work out why a statistical method fails on an unfamiliar assay", bin: "Stronger model", misconception: "Unfamiliar science is a knowledge gap, which a small tier is more likely to have and which (per one article) effort alone does not fill." }
@@ -23,7 +23,7 @@ questions:
     options:
       - { text: "Write a check, such as a row-count comparison", correct: true }
       - { text: "Switch to the strongest model, then ask the same question again", misconception: "Without a check you cannot see whether the new answer is better, so the extra cost buys nothing you can verify." }
-      - { text: "Set effort to the maximum level, then ask the same question again", misconception: "Higher effort adds thoroughness, not a way to judge the result, and it costs more." }
+      - { text: "Set effort to the maximum level, then ask the same question again", misconception: "Higher effort adds thoroughness and cost, and gives you no way to judge the result." }
       - { text: "Ask the same agent to read its own code and confirm it", misconception: "A re-read by the same model can share the original mistake, so it is not an independent check." }
   - type: faulty-line
     prompt: "Which line in this delegation plan will most likely go wrong?"

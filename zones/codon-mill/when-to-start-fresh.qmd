@@ -8,13 +8,13 @@ title: "When to Start Fresh"
 Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::
 
-You have a conversation open with an agent. It has read files, tried things and been corrected. Do you keep typing into it, or start over? Neither answer is always right, and the cost of getting it wrong runs both ways. This page gives you signals, not a formula.
+You have a conversation open with an agent. It has read files, tried things and been corrected. Do you keep typing into it, or start over? Each answer fits some situations, and a wrong choice costs something either way. This page offers signals to weigh.
 
 A few words first. A **session** is one saved conversation with the tool. Its **context** is the text the model can see right now (the context window, from The Context Window quest). **Compacting** means replacing the long history with a short summary and carrying on in the same conversation. **Starting fresh** means a new, empty conversation. Nothing else changes: your files stay as they are.
 
 ## Signals to start fresh
 
-1. **A new, unrelated task.** The docs recommend `/clear` between unrelated tasks. They say it costs nothing, and the next task then does not keep paying for the previous one's history. A session holding three unrelated tasks re-reads all three on every turn (one prompt from you plus the model's reply) of the fourth. (`/clear` starts a new empty conversation. Giving it a name, as in `/clear oauth-migration`, labels the one you leave so you can find it again.)
+1. **A new, unrelated task.** The docs recommend `/clear` between unrelated tasks. They say it costs nothing, and the next task stops paying for the previous one's history. A session holding three unrelated tasks re-reads all three on every turn (one prompt from you plus the model's reply) of the fourth. (`/clear` starts a new empty conversation. Giving it a name, as in `/clear oauth-migration`, labels the one you leave so you can find it again.)
 2. **The agent repeats a wrong claim after two corrections.** The docs' advice is to clear and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts. See Memory, Sessions and Usage.
 3. **You notice it forgetting early instructions or contradicting itself.** **General practice:** treat this as a symptom of a crowded or degraded context and start fresh, with the instruction moved into the instructions file. The docs back the underlying mechanism: Anthropic calls the loss of accuracy and recall as context grows **context rot**, and notes that after compaction, detailed early instructions may be lost. They give no number at which either begins.
 4. **You have been away for a while and the next task is new.** The harness keeps a **cache**, a short-term store that makes re-reading the conversation cheaper. Per the docs it lasts about an hour on a subscription and five minutes with an API key. Idle compaction is documented together with the one-hour cache: a very long session (past about 200 thousand tokens) that sits idle may be compacted shortly before the cache expires, so you return to a summary. The docs add: if you do not need the history at all, a fresh session still costs less. If you do need it, resume or carry on (see the table).
@@ -23,16 +23,16 @@ A few words first. A **session** is one saved conversation with the tool. Its **
 
 ## Signals to carry on
 
-- **Same task, and early decisions still matter.** The next step needs the same files, the decisions you made and what was already tried. That is the rule of thumb in this site's research (an inference from the docs, not an official rule).
-- **The agent is on track.** Nothing is being repeated or contradicted. Clearing a working session throws away good context to solve a problem you do not have.
-- **You are returning to a named session.** `/resume` (or `claude --resume <name>`) reopens a session you chose; `claude --continue` reopens the most recent one in this directory. Resume restores the messages, model and permission mode (what the agent may do without asking), not startup flags such as `--mcp-config`, which you pass again. If that session was compacted, it continues from the last summary.
+- **Same task, and early decisions still matter.** The next step needs the same files, the decisions you made and what was already tried. That is the rule of thumb in this site's research (our inference from the docs).
+- **The agent is on track.** Nothing is being repeated or contradicted. A working session is worth keeping, since clearing it throws away good context.
+- **You are returning to a named session.** `/resume` (or `claude --resume <name>`) reopens a session you chose; `claude --continue` reopens the most recent one in this directory. Resume restores the messages, model and permission mode (what the agent may do without asking), and leaves startup flags such as `--mcp-config` for you to pass again. If that session was compacted, it continues from the last summary.
 - **The tool offers to resume after a long break.** On some plans a dialog estimates how much of your usage limit the saved conversation alone would use, and lets you resume or start a new conversation. The docs' advice: choose by whether your next task still needs the saved conversation.
 
 ## The middle path: compact
 
 `/compact` replaces the history with a summary and stays in the same conversation. Give it a focus note, as in the docs' example `/compact focus on the auth bug fix`, so the summary spends its words on what you still need.
 
-What the summary keeps and loses, per the docs: it keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost. Afterwards the tool re-supplies the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions, and re-reads up to five recently used files. The docs note that the tool also compacts automatically as you approach the limit. A manual `/compact` with a focus lets you choose the moment and the emphasis. It is not free: compacting itself reads the whole conversation once.
+What the summary keeps and loses, per the docs: it keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost. Afterwards the tool re-supplies the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions, and re-reads up to five recently used files. The docs note that the tool also compacts automatically as you approach the limit. A manual `/compact` with a focus lets you choose the moment and the emphasis. It costs usage, since compacting itself reads the whole conversation once.
 
 ## The decision ladder
 
@@ -48,11 +48,11 @@ What the summary keeps and loses, per the docs: it keeps your requests and key c
 
 ## Before you clear
 
-Starting fresh loses the conversation, not your files and not memory. The instructions file (`CLAUDE.md`) and auto memory load again in the new session. But anything you only said in chat is gone: the decisions, what failed and why, which sample misbehaved. **General practice:** write that down before you clear, because `/clear` drops the conversation, and commit the result so the state is recoverable. The Handoff Notes quest shows what such a note should contain. If you clear by mistake, `/resume` can reopen the old conversation.
+Starting fresh drops the conversation. Your files and memory remain, and the instructions file (`CLAUDE.md`) and auto memory load again in the new session. Anything you only said in chat is gone: the decisions, what failed and why, which sample misbehaved. **General practice:** write that down before you clear, because `/clear` drops the conversation, and commit the result so the state is recoverable. The Handoff Notes quest shows what such a note should contain. If you clear by mistake, `/resume` can reopen the old conversation.
 
 ## The cost of both mistakes
 
-**Clearing too early** loses useful context. The agent must re-read files and rediscover decisions, which costs time and usage, and you may need to repeat yourself. **Clearing too late** costs too: the whole conversation is sent again on every request, so usage climbs, and per the docs a focused context gives better answers than a crowded one, even with a large window. Both errors are cheap to recover from if you wrote things down. That is the real argument for notes. Not checked: the default auto-compact threshold (the docs defer to a model-configuration page we did not read), so this page gives no percentage to aim for.
+**Clearing too early** loses useful context. The agent must re-read files and rediscover decisions, which costs time and usage, and you may need to repeat yourself. **Clearing too late** costs too: the whole conversation is sent again on every request, so usage climbs, and per the docs a focused context gives better answers than a crowded one, even with a large window. Both errors are cheap to recover from if you wrote things down. That is the argument for notes. Not checked: the default auto-compact threshold (the docs defer to a model-configuration page we did not read), so this page gives no percentage to aim for.
 
 ::: {.panel-tabset group="companion"}
 
@@ -62,7 +62,7 @@ Commands the docs confirm for this page: `/clear` (alias `/new`), `/compact [ins
 
 ## OpenCode + Ollama
 
-The OpenCode terminal-interface docs list `/new` (alias `/clear`), `/sessions` (aliases `/resume`, `/continue`) and `/compact` (alias `/summarize`). Not checked: what OpenCode keeps or loses when it compacts, whether it has a `/context`-style display, and how a local Ollama model's smaller window changes the advice. General practice: the same signals apply to any tool, because every model has a finite window; just expect to start fresh sooner with a smaller one.
+The OpenCode terminal-interface docs list `/new` (alias `/clear`), `/sessions` (aliases `/resume`, `/continue`) and `/compact` (alias `/summarize`). Not checked: what OpenCode keeps or loses when it compacts, whether it has a `/context`-style display, and how a local Ollama model's smaller window changes the advice. General practice: the same signals apply to any tool, because every model has a finite window; expect to start fresh sooner with a smaller one.
 
 :::
 

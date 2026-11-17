@@ -32,7 +32,7 @@ Anthropic's engineering article "Effective harnesses for long-running agents" de
 
 ## What a good handoff note contains
 
-General practice, not an official format. Keep it short: reading it should cost less than rediscovering the state. Point to files and commands instead of pasting their output.
+General practice; there is no official format. Keep it short, so reading it costs less than rediscovering the state. Point to files and commands, and let the next session run them for fresh output.
 
 - **Goal** in one line.
 - **Current state:** branch, last commit, what runs and what does not.
@@ -79,12 +79,12 @@ Replace the per-read loop in qc_filter.py with a vectorised version, same output
 3. Only then delete mean_qual().
 
 ## Open questions / parked
-- Should the threshold be a command-line option? Parked, not for this task.
+- Should the threshold be a command-line option? Parked for a later task.
 ```
 
 ## Where to put it, and how to start the next session
 
-Put the note in a file the next session can find. Two options (general practice): a file in the repo, such as `HANDOFF.md`, if the team should see it; or a gitignored ordinary file you point to if it is personal, which is the simpler choice. `CLAUDE.local.md` at the project root (added to `.gitignore`, loaded after `CLAUDE.md`) is the only guidance we found on keeping personal per-project notes out of git, but it is for preferences, not task state, and per the research it exists only in the worktree where it was created. Anything loaded every session takes room in the window, which is why the parking lot in The Stream of Ideas is kept out of it, and a finished handoff note should not stay there. Not checked: whether `CLAUDE.local.md` suits short-lived task notes better than an ordinary file you point to.
+Put the note in a file the next session can find. Two options (general practice): a file in the repo, such as `HANDOFF.md`, if the team should see it; or a gitignored ordinary file you point to if it is personal, which is the simpler choice. `CLAUDE.local.md` at the project root (added to `.gitignore`, loaded after `CLAUDE.md`) is the only guidance we found on keeping personal per-project notes out of git, and it is meant for preferences; per the research it exists only in the worktree where it was created. Anything loaded every session takes room in the window, which is why the parking lot in The Stream of Ideas is kept out of it, and a finished handoff note is best taken out of it. Not checked: whether `CLAUDE.local.md` suits short-lived task notes better than an ordinary file you point to.
 
 Write the note **before** you run `/clear` (which starts a new empty conversation), because `/clear` drops the conversation (general practice). Pairing the note with a commit leaves a matching record in git.
 
@@ -92,9 +92,9 @@ Then start the new session with a prompt like this:
 
 > Read HANDOFF.md, then tell me your understanding before changing anything.
 
-The agent restates the goal and state in its own words, and you compare that with what you know. This is a cheap comprehension check (general practice): it can catch a misreading of the note, but the restatement comes from the same model that read it, so it does not verify the note's claims. Checking claims against the source is the idea behind Ground Truth (later in the Maze).
+The agent restates the goal and state in its own words, and you compare that with what you know. This is a cheap comprehension check (general practice): it can catch a misreading of the note. The restatement comes from the same model that read it, so the note's claims still need checking against the source. Checking claims against the source is the idea behind Ground Truth (later in the Maze).
 
-You can ask the agent to draft the note at the end of a session. Review it yourself, though. A draft can overstate what was verified ("all tests pass" when none were run in that session).
+You can ask the agent to draft the note at the end of a session. A good habit is to review it yourself, since a draft can overstate what was verified ("all tests pass" when none were run in that session).
 
 ::: {.panel-tabset group="companion"}
 
@@ -104,7 +104,7 @@ Commands the research confirms: `/memory` (see memory files), `/clear` (new empt
 
 ## OpenCode + Ollama
 
-Not checked: OpenCode's memory files and how it loads project instructions. The research confirms only these OpenCode commands: `/new` (alias `/clear`), `/sessions` (aliases `/resume` and `/continue`), `/compact` and `/export`. The handoff note itself is just a file, so the practice carries over. Not checked: how a local model with a small window copes with a long note, so keep it short.
+Not checked: OpenCode's memory files and how it loads project instructions. The research confirms these OpenCode commands: `/new` (alias `/clear`), `/sessions` (aliases `/resume` and `/continue`), `/compact` and `/export`. The handoff note itself is just a file, so the practice carries over. Not checked: how a local model with a small window copes with a long note, so keep it short.
 
 :::
 

@@ -6,16 +6,16 @@ questions:
     options:
       - { text: "Tokens, which can be whole words or pieces of them", correct: true }
       - { text: "Individual letters, one at a time, in the order typed", misconception: "The model works on tokens. Letter-by-letter reading is what a script does." }
-      - { text: "Whole words, always, with one token for each word", misconception: "Rare words are split into pieces, and punctuation also takes tokens. Tokens are not words." }
+      - { text: "Whole words, always, with one token for each word", misconception: "Rare words are split into pieces, and punctuation also takes tokens. Tokens and words differ." }
   - type: sort
     prompt: "Which of these jobs should you hand to a script or tool, and which can the model do by reading?"
     bins: ["Script or tool", "Model by reading"]
     explain: "Exact counting and exact copying need every letter. Summarising or explaining text does not."
     items:
-      - { text: "Count the Gs in each of 500 reads", bin: "Script or tool", misconception: "Counting letters is exact work. A script does not miscount." }
+      - { text: "Count the Gs in each of 500 reads", bin: "Script or tool", misconception: "Counting letters is exact work. A script counts reliably." }
       - { text: "Explain what a FASTQ quality line means", bin: "Model by reading", misconception: "Explaining a format is language work. You can check it against the spec." }
       - { text: "Produce the reverse complement of a 2 kb sequence", bin: "Script or tool", misconception: "Every letter matters here, and a retyped string can silently change." }
-      - { text: "Suggest a clearer name for a pipeline step", bin: "Model by reading", misconception: "A naming suggestion has no exact answer to get wrong." }
+      - { text: "Suggest a clearer name for a pipeline step", bin: "Model by reading", misconception: "A naming suggestion has no single exact answer." }
       - { text: "Compute a checksum of a reference file", bin: "Script or tool", misconception: "A checksum changes completely with one wrong character." }
   - type: choice
     prompt: "You count tokens for a prompt on one model generation. You switch to a newer one. What should you do?"
@@ -34,8 +34,8 @@ questions:
       - { text: "Keep the command so the count can be re-run", why: "A kept command makes the answer repeatable." }
   - type: match
     prompt: "Match each claim to what is behind it."
-    explain: "Tokens are the unit for limits and cost. Letter-level weakness is our inference from that fact, not an official statement."
+    explain: "Tokens are the unit for limits and cost. Letter-level weakness is our inference from that fact."
     pairs:
-      - { left: "Context window and cost are measured in", right: "Tokens", misconception: "Neither is measured in words or characters. Both use tokens." }
-      - { left: "Token counting endpoint result is", right: "An estimate that may differ slightly", misconception: "Docs call it an estimate, so treat it as approximate, not exact billing." }
-      - { left: "Letter counting by reading is unreliable because", right: "The model sees chunks, not letters", misconception: "The weakness comes from how text is cut up, not from carelessness." }
+      - { left: "Context window and cost are measured in", right: "Tokens", misconception: "Both are measured in tokens." }
+      - { left: "Token counting endpoint result is", right: "An estimate that may differ slightly", misconception: "Docs call it an estimate, so treat it as approximate." }
+      - { left: "Letter counting by reading is unreliable because", right: "The model sees chunks, not letters", misconception: "The weakness comes from how text is cut up." }

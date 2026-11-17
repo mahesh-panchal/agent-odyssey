@@ -62,21 +62,21 @@ People mix these words up, and the mix-ups cause real mistakes, such as blaming 
 - **Tool.** An action the model can request and the harness runs, such as reading a file or running a shell command. A tool call is one such request; tool output is what comes back. (We also say "the tool" for the program you run; see Harness.)
 - **Subagent.** A helper agent with its own context window; only its summary comes back.
 - **Instructions file.** A text file (`CLAUDE.md` in Claude Code, `AGENTS.md` in OpenCode where read) that the harness loads at session start. It advises; it does not enforce.
-- **Sandbox.** An operating-system layer that limits what commands can touch. Not the same as a scratch folder, which is just a throwaway directory.
+- **Sandbox.** An operating-system layer that limits what commands can touch. A scratch folder is a different thing: a throwaway directory.
 - **Hallucination** (called a **Mirage** in the Sequence Maze). A plausible-looking statement that is false, such as an invented DOI (a paper's permanent identifier).
 - **Prompt injection.** Text from a file, web page or tool that the model treats as an instruction.
 - **Skill.** A folder with a `SKILL.md`. Only its short description is preloaded; the body loads when it is used. It advises. (You wrote one in Forge a Skill, later in this world.)
 - **MCP (Model Context Protocol).** An open standard for connecting the harness to outside tools and data, such as a database or a literature search. A server you connect can act on your behalf, so treat it like software you install.
 - **Hook.** Your own command, request or prompt that the harness runs automatically at a set point, such as before a tool call. A command hook that exits with code 2 before a tool runs stops that action whatever the model wants (a nonzero exit code is how a script signals failure; a hook uses 2 to mean block). A rule in an instructions file can only ask. That is why hooks are the stronger guard.
 - **Plugin.** A folder that bundles skills, hooks, MCP servers and more, installed as one unit. It can run code, so it is a trust decision.
-- **Effort.** A setting for how much the model reasons per step, from `low` to `max` in Claude Code (`/effort`, `--effort`; a `/command` is typed inside the running tool, a `--flag` when you start it). Low is faster and cheaper; high thinks longer and checks more. It is a behavioural signal, not an exact budget. The docs warn that `max` can show diminishing returns and overthink, so raise it only where you measure a gain. It makes answers more careful, not guaranteed correct.
+- **Effort.** A setting for how much the model reasons per step, from `low` to `max` in Claude Code (`/effort`, `--effort`; a `/command` is typed inside the running tool, a `--flag` when you start it). Low is faster and cheaper; high thinks longer and checks more. It acts as a behavioural signal, with no exact budget behind it. The docs warn that `max` can show diminishing returns and overthink, so raise it only where you measure a gain. It makes answers more careful, and correctness is still yours to check.
 - **Eval.** A repeatable test of agent behaviour: a prompt plus checks on the result. Comparing runs **with** and **without** something (a skill, a rule) shows what it contributed. A score of 100% both ways means it contributed nothing.
 
 ## Words about what the model can see
 
 These get mixed up more than any others. The Codon Mill quests take each one in turn.
 
-- **Token.** The chunk of text a model actually reads and writes. Not a letter and not quite a word. Limits and costs are counted in tokens. (See *Tokens, Not Letters*.)
+- **Token.** The chunk of text a model actually reads and writes. Somewhere between a letter and a word. Limits and costs are counted in tokens. (See *Tokens, Not Letters*.)
 - **Context window.** Everything the model can see at once right now: instructions, files it has read, tool output and the conversation so far. It has a size limit, and a fuller window is not automatically a better one. (See *The Context Window*.)
 - **Session (session context).** One running conversation, and the context window it has built up. A new session starts with an empty conversation. Two sessions do not share their context.
 - **Memory.** Notes that the harness loads at the start of every session, such as your instructions file and, in Claude Code, notes the tool writes itself. Memory outlives a session; session context does not. (See *Memory, Sessions and Usage*.)
@@ -85,7 +85,7 @@ These get mixed up more than any others. The Codon Mill quests take each one in 
 - **Context poisoning.** A community term, not vendor documentation: a wrong statement gets into the context, and later answers build on it. Starting a fresh session and keeping unverified claims out of memory files are sensible remedies (general practice).
 
 ::: {.callout-note}
-Naming differs between tools. The Claude Code docs define "harness" and "hooks" as above; do not assume another tool's hooks, plugins or effort settings work the same way. Check its docs.
+Naming differs between tools. The Claude Code docs define "harness" and "hooks" as above; a good habit is to check another tool's docs for how its hooks, plugins and effort settings work.
 :::
 
 <div data-ao-honour="gear-map" data-xp="20">Redraw the picture from memory for the tool you actually use: which model, which harness, which extensions are loaded right now?</div>

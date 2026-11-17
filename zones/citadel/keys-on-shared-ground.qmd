@@ -7,7 +7,7 @@ title: "Keys on Shared Ground"
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm and Claude Code docs on 2026-11-16 (sources in `research/hpc-and-notebooks.md`)</span>
 :::
 
-Where a claim below is **general practice**, it is advice and not a documented fact. **Follow your own cluster's policy and data agreement over this page.** Nothing here says that using an LLM agent on a cluster is allowed or expected. Many sites have rules, and some forbid it for certain data. **Ask your cluster staff.** This quest is reading only: do not test anything on a real cluster.
+A claim marked **general practice** is advice and is not a documented fact. **Follow your own cluster's policy and data agreement over this page.** This page makes no claim that using an LLM agent on a cluster is allowed or expected. Many sites have rules, and some forbid it for certain data. **Ask your cluster staff.** This quest is reading only. Do not test anything on a real cluster.
 
 ## What lives where
 
@@ -20,7 +20,7 @@ Settings files, from the docs: user `~/.claude/settings.json`, project `.claude/
 ## Keys
 
 - `ANTHROPIC_API_KEY`, when set, overrides a subscription login. In `-p` (non-interactive) mode it is always used, and interactive mode asks you once to approve it. If a key is exported in a shared profile, the key in use may not be the one you expect.
-- *General practice:* never put a key in a script or in a committed `.claude/settings.json`. On a shared account, prefer a per-user key kept in a file readable only by you (mode 600), not a lab-wide key in a shared directory.
+- *General practice:* never put a key in a script or in a committed `.claude/settings.json`. On a shared account, use a per-user key kept in a file readable only by you (mode 600), and do not keep a lab-wide key in a shared directory.
 - The sandbox's default reads cover most of the machine, including credential files such as `~/.ssh` and `~/.aws/credentials`. Use `Read(...)` deny rules or `sandbox.filesystem.denyRead` for key files. Remember that the sandbox covers shell commands only.
 
 Not confirmed here: how OpenCode stores keys, and what the `apiKeyHelper` setting does. Check the docs for your version.

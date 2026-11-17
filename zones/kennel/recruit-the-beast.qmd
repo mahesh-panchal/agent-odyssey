@@ -41,7 +41,7 @@ If you have **both** a subscription login and `ANTHROPIC_API_KEY` set, the key i
 
 ## 3. Start on a short lead
 
-Make a throwaway folder and start in **plan mode**, which reads files and runs read-only commands but does not edit your source:
+Make a throwaway folder and start in **plan mode**, which reads files and runs read-only commands and leaves your source untouched:
 
 ```bash
 mkdir -p ~/odyssey-scratch && cd ~/odyssey-scratch
@@ -54,7 +54,7 @@ claude --permission-mode plan
 |---|---|
 | `default` | asks the first time each tool is used |
 | `acceptEdits` | auto-accepts file edits and common file commands (`mkdir`, `touch`, `mv`, `cp`) in the working directory |
-| `plan` | reads and runs read-only commands; does not edit source files |
+| `plan` | reads and runs read-only commands; leaves source files untouched |
 | `bypassPermissions` | skips prompts. The docs say to use it only in containers or VMs (virtual machines, a computer simulated inside yours) |
 
 ## 4. Check the setup

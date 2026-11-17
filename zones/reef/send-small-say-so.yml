@@ -18,7 +18,7 @@ questions:
       - { text: "Generated comments that restate every line", bin: "Adds burden", misconception: "Noise makes the real issues harder to find." }
   - type: choice
     prompt: "A collaborator does not use LLMs and is uneasy that you do. Which response respects them?"
-    explain: "Respecting a collaborator means not requiring them to adopt your tools, and making your work easy for them to check."
+    explain: "Respecting a collaborator means letting them keep their own tools and making your work easy to check."
     options:
       - { text: "Say when you used one and make your changes reviewable without any tool", correct: true }
       - { text: "Keep encouraging them to try it, so they can see for themselves how it helps", misconception: "Pressuring someone to adopt a tool makes collaboration worse." }

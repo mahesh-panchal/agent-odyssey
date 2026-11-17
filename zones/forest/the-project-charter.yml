@@ -2,18 +2,18 @@ pass: 0.8
 questions:
   - type: choice
     prompt: "Your CLAUDE.md says 'never delete files'. What does that guarantee?"
-    explain: "The file is context the model reads. It does not change what the tool allows. Permission rules or hooks enforce."
+    explain: "The file is context the model reads. The tool's permissions stay as they are. Permission rules or hooks enforce."
     options:
       - { text: "Nothing: it is context for the model. Permission rules or hooks enforce", correct: true }
-      - { text: "Claude Code will refuse every delete command while the rule is present", misconception: "Instruction files are not enforcement. Use deny rules for that." }
-      - { text: "Deletes will need your approval, because the rule makes the agent ask first", misconception: "The file does not change permission prompts. The agent can decide a guideline does not apply, so use permission settings for approval." }
+      - { text: "Claude Code will refuse every delete command while the rule is present", misconception: "Instruction files guide the agent. Deny rules enforce." }
+      - { text: "Deletes will need your approval, because the rule makes the agent ask first", misconception: "The file leaves permission prompts as they are, and the agent can decide a guideline does not apply, so permission settings handle approval." }
   - type: sort
     prompt: "Which belong in a project instructions file?"
     bins: ["Belongs", "Leave out"]
     explain: "Keep what the agent cannot guess and what stays true. Leave out secrets and long prose."
     items:
       - { text: "The command that runs the test suite", bin: "Belongs", misconception: "A command the agent cannot guess is ideal content." }
-      - { text: "Your API key", bin: "Leave out", misconception: "Secrets must never go in a file that is read and often committed." }
+      - { text: "Your API key", bin: "Leave out", misconception: "Secrets stay out of a file that is read and often committed." }
       - { text: "'raw/ is read-only data. Never edit it.'", bin: "Belongs", misconception: "A boundary the agent should know, though enforce it with a deny rule too." }
       - { text: "A 40-page methods description", bin: "Leave out", misconception: "Long instructions are followed less well and fill the context." }
   - type: match
@@ -33,9 +33,9 @@ questions:
       - { text: "Delete it, since instruction files rarely help anyone", misconception: "A short, correct file saves repeated explanation." }
   - type: choice
     prompt: "Two of your instruction files give conflicting advice about the test command. What does `/doctor prompt-audit` do about it?"
-    explain: "It flags outdated or conflicting content in a report with proposed edits and changes nothing until you ask. It is not a size audit, and its suggestions come from a model, so you still review them."
+    explain: "It flags outdated or conflicting content in a report with proposed edits and changes nothing until you ask. It checks content only, and its suggestions come from a model, so you still review them."
     options:
       - { text: "Reports the conflict with proposed edits, and changes nothing until you ask", correct: true }
       - { text: "Rewrites both files at once to remove the conflict", misconception: "The audit proposes edits. Nothing in your files changes until you ask Claude to apply them." }
-      - { text: "Measures how many tokens the files use and trims the longest", misconception: "It checks for outdated or conflicting instructions, not size or cost." }
+      - { text: "Measures how many tokens the files use and trims the longest", misconception: "It checks for outdated or conflicting instructions; size and cost are outside its scope." }
       - { text: "Does nothing, because the model resolves conflicts reliably on its own", misconception: "The docs say Claude may pick one conflicting instruction arbitrarily, which is why an audit is useful." }

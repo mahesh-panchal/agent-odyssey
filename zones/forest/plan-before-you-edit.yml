@@ -27,7 +27,7 @@ questions:
     explain: "Push back on vague checks, unrequested files and steps too big to review. Accept small steps with stated checks."
     items:
       - { text: "Step 5: Update the modules, the docs and all tests so everything works", bin: "Push back", misconception: "This is several changes in one step, too large to review on its own." }
-      - { text: "In another plan, step 6: Check the output looks right", bin: "Push back", misconception: "'Looks right' names no command and no expected value." }
+      - { text: "In another plan, step 6: Check the output looks right", bin: "Push back", misconception: "'Looks right' leaves out a command and an expected value." }
       - { text: "Step 4: Edit conf/base.config, for a task that only concerns the parser", bin: "Push back", misconception: "A file outside the task needs a stated reason." }
       - { text: "Step 1: Read the parser and its tests before changing anything", bin: "Fine", misconception: "Reading first changes nothing and informs the later steps." }
       - { text: "In another plan, step 2: Add one column name to the parser, then show the diff for review", bin: "Fine", misconception: "One small change in one file, with a pause for review." }

@@ -10,13 +10,13 @@ Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihe
 
 Real work does not arrive in a straight line. You start fixing a samplesheet parser and think: "should I switch the aligner? What if I tried a stricter QC threshold? I also want to explore that other idea." If you type every one of those into the same conversation, the **context** (everything the model can see when it writes its next reply, see The Context Window) fills with side tracks. Anthropic's writing on context says accuracy and recall degrade as context grows, and the docs say the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step (not checked: how much usage each route below saves; the research documents the mechanisms but gives no numbers). This is how a session ends up with three unrelated tasks that it "re-reads on every turn of the fourth", in the docs' words. A **turn** is one prompt from you plus the model's reply.
 
-The fix is not to stop having ideas. It is to **triage** each one.
+Ideas are welcome. The fix is to **triage** each one.
 
 ## Terms used here
 
 - **Session:** one saved conversation with the tool, tied to a project folder.
-- **Subagent:** a helper the main agent starts. It works in its own separate, clean context (it does not know what you discussed unless told) and sends back only a summary, so its reading does not pile up in your conversation.
-- **Conversation branch (`/branch`, not a git branch):** a copy of the conversation from this point, so you can try something in the copy while the original stays as it was. `/fork` is a different command: it copies the conversation into a separate background session.
+- **Subagent:** a helper the main agent starts. It works in its own separate, clean context (it knows what you tell it) and sends back a summary, so its reading stays out of your conversation.
+- **Conversation branch (`/branch`, which is separate from a git branch):** a copy of the conversation from this point, so you can try something in the copy while the original stays as it was. `/fork` is a different command: it copies the conversation into a separate background session.
 - **Git worktree:** a second checkout of the same repository in another folder, so two sessions can edit files without overwriting each other.
 - **Checkpoint:** a snapshot Claude Code takes at each prompt you send, so you can roll back with `/rewind`.
 
@@ -35,7 +35,7 @@ For each new thought, ask in this order. The key question is step 2: **do you wa
 |---|---|---|
 | "The parser crashes on this sample ID" (it is the task) | Do now | It blocks you |
 | "Maybe a stricter QC threshold would help" | Parking-lot line | You do not want the answer this session; no cost to the context |
-| "Which sample did we exclude earlier?" | `/btw` | One answer from the conversation, no tools, not kept in the history |
+| "Which sample did we exclude earlier?" | `/btw` | One answer from the conversation; no tools; stays out of the history |
 | "Where is the aligner configured across the repo?" | Explore subagent or `/subtask` | Heavy reading stays out of your main context; you get a summary |
 | "Try the other aligner and compare" | `/branch` or `claude --worktree <name>` | A real attempt that can fail without spoiling the main path |
 | "Redo the plots for the other project" (you want to start it now) | Commit, then `/clear` or a new named session | Different task, different files, different context |
@@ -44,11 +44,11 @@ For each new thought, ask in this order. The key question is step 2: **do you wa
 
 A worktree session isolates file edits only. Per the docs, `claude --worktree <name>` creates `.claude/worktrees/<name>/` on a branch called `worktree-<name>`. Worktrees share the repository's `.git`, and auto memory is per repository, so all worktrees share it. A fresh checkout does not contain gitignored files such as `.env` unless you list them in `.worktreeinclude`, and large data folders need `worktree.symlinkDirectories` or a setup step. Plan for that before you start a pipeline test in one.
 
-`/branch` copies the conversation. Any background helpers still running keep reporting into the branch, not the original.
+`/branch` copies the conversation. Any background helpers still running keep reporting into the branch.
 
 ## Checkpoints and `/rewind`
 
-Every prompt you send is a checkpoint. `/rewind` (aliases `/checkpoint`, `/undo`; or press `Esc` twice on an empty prompt) lets you restore code and conversation, only the conversation, or only the code. The limits matter to bioinformatics: files changed **only through Bash** (the shell command tool) are not tracked, subagent edits are mostly not restored, and edits outside the session are not tracked. The docs say checkpoints are "not a replacement for version control". A `sed -i` or a script that rewrites a results table is a Bash change (our inference from the limits), so exploring is safe only if you committed first.
+Every prompt you send is a checkpoint. `/rewind` (aliases `/checkpoint`, `/undo`; or press `Esc` twice on an empty prompt) lets you restore code and conversation, only the conversation, or only the code. The limits matter to bioinformatics: files changed **only through Bash** (the shell command tool) are not tracked, subagent edits are mostly not restored, and edits outside the session are not tracked. The docs say checkpoints are "not a replacement for version control". A `sed -i` or a script that rewrites a results table is a Bash change (our inference from the limits), so exploring is safe only after you have committed.
 
 ## A parking-lot file
 

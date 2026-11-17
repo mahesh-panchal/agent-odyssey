@@ -26,7 +26,7 @@ ollama pull qwen3:4b                              # about 2.5 GB
 ollama run qwen3:4b "Say hello in one sentence."
 ```
 
-`qwen3:4b` is one example of a small model that Ollama lists with tool support. Model names change quickly, so check the "tools" badge on the model's page at ollama.com/library. Whether a model really fits your RAM (ordinary memory) is something you test, not something these docs promise: use `ollama ps` while it runs.
+`qwen3:4b` is one example of a small model that Ollama lists with tool support. Model names change quickly, so check the "tools" badge on the model's page at ollama.com/library. The docs make no promise that a model fits your RAM (ordinary memory), so test it: `ollama ps` shows what loaded while it runs.
 
 ## 2. Give it room to think
 
@@ -36,7 +36,7 @@ Ollama's docs say the default context (the context length, which is the same thi
 OLLAMA_CONTEXT_LENGTH=64000 ollama serve
 ```
 
-Check what loaded with `ollama ps`. A bigger context needs more memory and can push work onto the CPU (the main processor, instead of faster graphics hardware), which is slow, so the Pet may be a patient companion.
+Check what loaded with `ollama ps`. A bigger context needs more memory and can push work onto the CPU (the main processor; graphics hardware is faster), which is slow, so the Pet may be a patient companion.
 
 ## 3. Point OpenCode at it
 
@@ -73,9 +73,9 @@ OpenCode's default policy is **allow everything** (except reading `.env` files, 
 
 ## Unconfirmed (check before relying on it)
 
-- WSL: neither Ollama nor OpenCode publishes WSL guidance. Installing both inside your WSL distro is our best guess, not a documented path.
+- WSL: neither Ollama nor OpenCode publishes WSL guidance. Installing both inside your WSL distro is our best guess, and no vendor documents it.
 - OpenCode is in a version change: its pages differ on some config keys, so if a snippet errors, check the current docs.
-- Small models are more error-prone than large ones. That is common experience, not something the vendors document.
+- Small models are more error-prone than large ones. That comes from common experience, and the vendors do not document it.
 
 ## Battle: the Pet's leash
 

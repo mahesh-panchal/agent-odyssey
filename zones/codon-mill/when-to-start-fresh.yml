@@ -8,7 +8,7 @@ questions:
       - { text: "You finish aligning samples and move to an unrelated question about a figure for a different project", bin: "Start fresh", misconception: "Old history would be re-read on every turn of the new task and can distract; the docs recommend /clear between unrelated tasks." }
       - { text: "The agent has repeated the same wrong claim after two corrections", bin: "Start fresh", misconception: "A third correction adds to two failed attempts the model keeps re-reading; the docs suggest clearing and writing one better prompt." }
       - { text: "A task is done, the result has been checked, and it is committed", bin: "Start fresh", misconception: "The result lives in your files and git, so the conversation is no longer needed to hold it." }
-      - { text: "You are halfway through debugging one failing step and the agent is making progress", bin: "Carry on", misconception: "Clearing a working session discards good context to fix a problem you do not have." }
+      - { text: "You are halfway through debugging one failing step and the agent is making progress", bin: "Carry on", misconception: "Clearing a working session discards good context, and nothing needs fixing." }
       - { text: "Next step depends on reference-build decisions you made earlier in this same task", bin: "Carry on", misconception: "Those early decisions live only in the conversation; clearing would lose them unless written down." }
       - { text: "You reopen a named session with /resume to finish the same piece of work", bin: "Carry on", misconception: "Resuming is the carry-on route: it restores the saved messages rather than starting empty." }
   - type: choice
@@ -18,7 +18,7 @@ questions:
       - { text: "Run /compact with a focus note naming what you still need", correct: true }
       - { text: "Run /clear and start again from a short prompt", misconception: "The early decisions live only in the conversation, so clearing loses them and you pay to rediscover them." }
       - { text: "Keep typing, since a crowded window is harmless while the agent is on track", misconception: "The whole conversation is re-sent every request, so usage climbs, and the docs say accuracy and recall degrade as context grows (context rot)." }
-      - { text: "Run /resume to reload the same conversation with more room", misconception: "Resume reopens a saved conversation; it does not make space in a window that is already full." }
+      - { text: "Run /resume to reload the same conversation with more room", misconception: "Resume reopens a saved conversation; a full window stays full." }
   - type: match
     prompt: "Match each situation to the action the docs support."
     explain: "Each action fits one situation: clear for an unrelated task, compact to keep a crowded thread, resume to return to saved work, /context to see what fills the window."
@@ -26,7 +26,7 @@ questions:
       - { left: "A new task unrelated to the current conversation", right: "/clear", misconception: "/compact keeps a summary of the old task in the new one, which is the clutter you are trying to avoid." }
       - { left: "Same task, crowded window, early decisions still matter", right: "/compact with a focus note", misconception: "/clear would drop the decisions you still need." }
       - { left: "Back after a break, and you still need yesterday's conversation", right: "/resume or claude --continue", misconception: "A fresh session starts empty and would not have the saved messages." }
-      - { left: "You want to see what is filling the window", right: "/context", misconception: "/usage reports cost and plan limits, not what is inside the window." }
+      - { left: "You want to see what is filling the window", right: "/context", misconception: "/usage reports cost and plan limits, and /context shows what is inside the window." }
   - type: faulty-line
     prompt: "Notes someone wrote for their team about starting fresh. Which line is wrong?"
     explain: "Clearing drops the conversation, so anything only said in chat is gone. The instructions file and auto memory stay and load again. The decisions and failed attempts need writing down first (general practice)."

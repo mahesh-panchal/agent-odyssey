@@ -14,11 +14,11 @@ The **context window** is all the text the model can look at when it writes its 
 
 In Claude Code the docs list: your instructions, the files it reads, its own responses, and content that never appears in your terminal. Before you type anything, the window already holds the instructions file (`CLAUDE.md`, the text file the harness loads at session start; see Know Your Gear), auto memory, the names of MCP tools and skill descriptions. Every file it reads and every tool output then adds more. At the API level (programmatic access to the model) the same idea holds: system prompt (the harness's own instructions, sent with every request), every message, tool results, tool definitions and the output all count.
 
-Sizes depend on the model, up to 1 million tokens for some and 200 thousand for others, per the docs. A big window is room, not a promise of quality.
+Sizes depend on the model, up to 1 million tokens for some and 200 thousand for others, per the docs. A big window gives room for more text, and quality depends on what fills it.
 
 ## Bigger is not better
 
-Anthropic's docs put it directly: more context is not automatically better, and as the token count grows, accuracy and recall degrade. They call this **context rot**. The docs give no number at which it starts, so do not trust any figure you see quoted without a source. The practical point: what you put in matters as much as how much fits.
+Anthropic's docs put it directly: as the token count grows, accuracy and recall degrade. They call this **context rot**. The docs give no number at which it starts, so treat any quoted figure without a source as unverified. The practical point: what you put in matters as much as how much fits.
 
 ## When it fills up
 
@@ -28,18 +28,18 @@ Anthropic's docs put it directly: more context is not automatically better, and 
 
 It **compacts** automatically as the limit nears: the history is replaced by a summary. The docs say the summary keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost. What is re-supplied afterwards: the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions; up to five recently read or edited files are read again (a file over 5,000 tokens comes back as a path only). Nested instruction files are summarised away and reload on demand.
 
-Useful controls: `/context` shows what is using space, `/compact` with a focus note compacts on purpose, `/clear` starts clean between unrelated tasks. A subagent (a helper agent) has its own window and only a summary comes back. If one file or output is so big that the window refills after every summary, auto-compaction stops with an error rather than looping.
+Useful controls: `/context` shows what is using space, `/compact` with a focus note compacts on purpose, `/clear` starts clean between unrelated tasks. A subagent (a helper agent) has its own window and only a summary comes back. If one file or output is so big that the window refills after every summary, auto-compaction stops with an error.
 
 ## OpenCode + Ollama
 
-Not checked: OpenCode's compaction behaviour. Compaction is documented here for Claude Code only. General practice: expect any tool to drop or summarise something when the window is full, and note that a local model often runs with a smaller window, so check your model's setting and how your tool reports usage.
+Not checked: OpenCode's compaction behaviour. Compaction is documented here for Claude Code only. General practice: expect any tool to drop or summarise something when the window is full, and a local model often runs with a smaller window, so check your model's setting and how your tool reports usage.
 
 :::
 
 ## Three habits
 
-1. **Start fresh for a new task.** An unrelated earlier thread only takes room, and can distract (general practice).
-2. **Keep outputs small.** In bioinformatics terms: do not print a big variant table or a whole log into the session. Ask for the head, a count, or a summary script's output (general practice).
+1. **Start fresh for a new task.** An unrelated earlier thread takes room and can distract (general practice).
+2. **Keep outputs small.** In bioinformatics terms: ask for the head, a count, or a summary script's output when the file is a big variant table or a whole log (general practice).
 3. **Put durable facts in the instructions file,** such as how to run tests or which folders are off limits. Instructions given only in chat can be lost to compaction. Keep that file short; Anthropic's docs target under 200 lines and say longer files use more context and reduce adherence.
 
 <div data-ao-honour="check-context" data-xp="20">In a session you already have, look at what is using the window (in Claude Code, run <code>/context</code>). Note the largest item and whether you chose it.</div>

@@ -8,15 +8,15 @@ questions:
       - { text: "git status in your project", bin: "fine on the login node", misconception: "A quick repository check is light work. Routing it through a job would only waste queue time." }
       - { text: "tail of one job log", bin: "fine on the login node", misconception: "Reading the end of one file is light. It does not need a compute allocation." }
       - { text: "aligning a whole sample set in the foreground", bin: "hand to the scheduler", misconception: "Long heavy compute is what compute nodes are for. Running it on the shared login node slows everyone down." }
-      - { text: "compressing a large directory of FASTQ files", bin: "hand to the scheduler", misconception: "Compression is sustained CPU and disk work, so it belongs in a job, not on the shared node." }
+      - { text: "compressing a large directory of FASTQ files", bin: "hand to the scheduler", misconception: "Compression is sustained CPU and disk work, so it belongs in a job on a compute node." }
       - { text: "find / -name '*.bam' from the filesystem root", bin: "never, or scope it first", misconception: "A search from the root touches enormous numbers of files on shared storage. Scope it to one subdirectory instead." }
   - type: choice
     prompt: "What does `sbatch --test-only` do, according to the Slurm documentation?"
     explain: "It validates the request and estimates a start time without submitting anything, which makes it a dry run."
     options:
       - { text: "Validates the script and estimates a start, but submits no job", correct: true }
-      - { text: "Submits the job at the lowest priority so it cannot disturb others", misconception: "Test-only never submits. It is not a low-priority submission." }
-      - { text: "Runs the script once on the login node to check its output", misconception: "Nothing is executed. The script is validated, not run anywhere." }
+      - { text: "Submits the job at the lowest priority so it cannot disturb others", misconception: "Test-only submits nothing at any priority." }
+      - { text: "Runs the script once on the login node to check its output", misconception: "Nothing is executed; the script is only validated." }
       - { text: "Submits the job but cancels it automatically after one minute", misconception: "No job is created at all, so there is nothing to cancel." }
   - type: order
     prompt: "Put these steps in order for handing a heavy task to the scheduler with an agent."
@@ -35,7 +35,7 @@ questions:
     explain: "The default is fail-open: commands run unsandboxed unless sandbox.failIfUnavailable is true."
     options:
       - { text: "Commands run without sandboxing, unless failIfUnavailable is true", correct: true }
-      - { text: "Claude Code refuses every shell command until the sandbox is fixed", misconception: "That is the behaviour of failIfUnavailable set to true, not the default." }
+      - { text: "Claude Code refuses every shell command until the sandbox is fixed", misconception: "That is the behaviour when failIfUnavailable is true; the default runs unsandboxed." }
       - { text: "Claude Code switches to a stricter permission mode on its own", misconception: "The docs describe no automatic tightening. It simply runs unsandboxed." }
       - { text: "Only commands that use sbatch or srun are stopped", misconception: "The sandbox does not know about scheduler commands, and a failed start blocks nothing by default." }
   - type: choice
@@ -43,7 +43,7 @@ questions:
     explain: "Memory above CPUs times the per-CPU limit can make Slurm raise the CPU count (about 31 here), or reject the job. Billing follows allocation, so compare request, allocation and use with sacct."
     options:
       - { text: "Widen the CPUs or reject it; billing follows allocation", correct: true }
-      - { text: "Run it as asked on one CPU, billed for the memory used", misconception: "Billing follows what is allocated, not what is used, and the per-CPU limit is not ignored." }
+      - { text: "Run it as asked on one CPU, billed for the memory used", misconception: "Billing follows what is allocated, and the per-CPU limit still applies." }
       - { text: "Always accept it and silently cap the memory at 4000 MB", misconception: "Slurm may adjust the CPU count instead of shrinking a --mem request, which is why it costs more with no error." }
       - { text: "Queue it forever, since an over-limit request never starts", misconception: "That can happen under some limits, but with a per-CPU limit Slurm tries to widen the request first." }
   - type: choice

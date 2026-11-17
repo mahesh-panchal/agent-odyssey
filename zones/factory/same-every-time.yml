@@ -2,7 +2,7 @@ pass: 0.8
 questions:
   - type: choice
     prompt: "You need to rename 40 columns by a fixed mapping in every run. What is the sturdiest design?"
-    explain: "A known rule belongs in a script. An LLM can help write it, but it should not be in the run."
+    explain: "A known rule belongs in a script. An LLM can help write it, and the script does the run."
     options:
       - { text: "A short script with the mapping written out, tested once", correct: true }
       - { text: "An LLM call in the pipeline that renames them each run", misconception: "Each run could produce different names, and you would not notice." }

@@ -14,8 +14,8 @@ questions:
     explain: "/compact summarises the conversation and takes instructions about what to keep. /clear drops it, and /context only shows what is filling the window."
     options:
       - { text: "/compact", correct: true }
-      - { text: "/clear", misconception: "/clear starts fresh with an empty conversation. It does not summarise anything, so it loses what you wanted to keep." }
-      - { text: "/context", misconception: "/context only shows what is filling the window. It does not shrink it." }
+      - { text: "/clear", misconception: "/clear starts fresh with an empty conversation, so it drops what you wanted to keep." }
+      - { text: "/context", misconception: "/context shows what is filling the window and leaves its size unchanged." }
   - type: order
     prompt: "Put this working loop in order."
     items:
@@ -25,7 +25,7 @@ questions:
       - "Let it implement in small steps"
       - "Run the check yourself"
     why:
-      "Ask for a plan, with no edits yet": "You cannot review a plan that does not exist yet, and edits come after approval."
+      "Ask for a plan, with no edits yet": "A plan has to exist before you can review it, and edits follow approval."
   - type: choice
     prompt: "You finish one task and start an unrelated one in the same long session. What is the sensible move?"
     explain: "Starting fresh avoids carrying irrelevant context. The docs describe clearing for exactly this."
@@ -38,5 +38,5 @@ questions:
     explain: "A command and its output are something you can inspect or re-run."
     options:
       - { text: "Ask it to run the check and show the command and its output", correct: true }
-      - { text: "Ask it to summarise what it changed and why it should work", misconception: "A summary says what it did and what it believes, not that it works. Ask for a command and its output." }
-      - { text: "Ask it to say how confident it is that the result is correct", misconception: "An answer to that question is a claim, not an observation." }
+      - { text: "Ask it to summarise what it changed and why it should work", misconception: "A summary reports what it did and believes. A command and its output show whether it works." }
+      - { text: "Ask it to say how confident it is that the result is correct", misconception: "An answer to that question is a claim, and a command's output is an observation." }

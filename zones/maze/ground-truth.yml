@@ -10,7 +10,7 @@ questions:
       - { text: "It counts lowercase a and t as if they were G or C, which inflates the result", misconception: "That would push the number up, but 20.0 is below the true 60%. The script is ignoring lowercase G and C, not over-counting." }
   - type: choice
     prompt: "For seq3 (`GCNNNNAT`) the script prints 25.0, i.e. 2 GC out of all 8 positions, N included. Is this a bug?"
-    explain: "Whether to count N in the denominator is a decision. Make it deliberately, state it, and test it. Do not let an agent decide silently."
+    explain: "Whether to count N in the denominator is a decision. Make it deliberately, state it, and test it, so the agent never decides it silently."
     options:
       - { text: "A policy choice: decide if N counts in the length, then document and test it", correct: true }
       - { text: "Definitely a bug: 50% is the only right answer, so fix the script to exclude N", misconception: "Both 2/8 and 2/4 are defensible. The point is that the choice is made on purpose and written down." }

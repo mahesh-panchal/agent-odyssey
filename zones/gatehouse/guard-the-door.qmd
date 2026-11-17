@@ -3,7 +3,7 @@ title: "Guard the Door"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Plug In a Server and the Rules of the Carapace. **Objective:** write a hook that refuses a command, and know what a hook can and cannot stop.
+**Prerequisites:** Plug In a Server and the Rules of the Carapace. **Objective:** write a hook that refuses a command, and know where a hook's coverage ends.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in `research/tools-and-guards.md`)</span>
 :::
 
@@ -36,24 +36,24 @@ fi
 exit 0  # exit 0 = no decision; the normal permission flow applies
 ```
 
-The hook gets the event as JSON on stdin (its standard input), including `tool_name` and, for Bash, `tool_input.command`. Exit code 2 on `PreToolUse` blocks the call, and Claude sees the stderr text (the program's error output) as the reason. Exit 0 does not approve anything: the call still goes through the normal permission flow.
+The hook gets the event as JSON on stdin (its standard input), including `tool_name` and, for Bash, `tool_input.command`. Exit code 2 on `PreToolUse` blocks the call, and Claude sees the stderr text (the program's error output) as the reason. Exit 0 expresses no decision: the call goes through the normal permission flow.
 
-Two behaviours matter for trust. First, if the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. A broken guard fails **open** (it lets the action through when it breaks), unless the hook is configured to block on failure (the guide names `onFailure: "block"`; check the current docs for where it goes). Second, exit 2 does not block everywhere: on `PostToolUse` the tool already ran and exit 2 only shows stderr to Claude, and on `Notification` the exit code is ignored.
+Two behaviours matter for trust. First, if the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. A broken guard fails **open** (it lets the action through when it breaks), unless the hook is configured to block on failure (the guide names `onFailure: "block"`; check the current docs for where it goes). Second, exit 2 blocks on some events only: on `PostToolUse` the tool already ran and exit 2 shows stderr to Claude, and on `Notification` the exit code is ignored.
 
 ## OpenCode + Ollama
 
 The V2 docs describe plugins (files under `.opencode/plugins/` or `~/.config/opencode/plugins/`) that can register hooks. For refusing an action, the documented route is the permission hook, `ctx.permission.hook("evaluate", ...)`: it runs for `allow` and `ask` decisions, may change the effect to `allow`, `ask` or `deny`, and `event.message` is the denial reason. An explicit configured `deny` is final and never invokes the hook.
 
-Not checked: an exit-code-2 equivalent or shell-hook configuration (neither appears in the pages read), and whether throwing from a tool hook blocks a call (the docs do not describe it, so do not rely on it). Not checked: a trust statement for plugins; treat them as code running with your privileges, which is an inference. Not checked: how any of this behaves with a local Ollama model. Check your installed version's docs.
+Not checked: an exit-code-2 equivalent or shell-hook configuration (neither appears in the pages read), and whether throwing from a tool hook blocks a call (the docs leave it undescribed, so do not rely on it until you have verified it). Not checked: a trust statement for plugins; treat them as code running with your privileges, which is an inference. Not checked: how any of this behaves with a local Ollama model. Check your installed version's docs.
 
 :::
 
-## What a hook is not
+## What a hook covers
 
-- **Not a sandbox.** The example matches the literal string "drop table" in one command. A matcher filters by tool name, not by content. If the model runs a script that contains the dangerous command, or spells it differently, a grep on the command text never sees it (our inference; the docs do not discuss evasion).
-- **Not triggered by everything.** `PreToolUse` fires when Claude calls a tool. A file added with an `@` reference in your prompt is read without a tool call, so no hook fires.
-- **Not a veto over your permission rules.** A hook returning allow skips the prompt, but deny and ask rules are still evaluated.
-- **Not safe by default.** The docs say command hooks "execute shell commands with your full user permissions", so review and test them before adding them.
+- **Not a sandbox.** The example matches the literal string "drop table" in one command. A matcher selects by tool name, not by content. If the model runs a script that contains the dangerous command, or spells it differently, a grep on the command text never sees it (our inference; the docs do not discuss evasion).
+- **Fires only on tool calls.** `PreToolUse` fires when Claude calls a tool. A file added with an `@` reference in your prompt is read without a tool call, so no hook fires.
+- **Cannot override your deny and ask rules.** A hook returning allow skips the prompt, and deny and ask rules are still evaluated.
+- **Runs with your full permissions.** The docs say command hooks "execute shell commands with your full user permissions", so review and test them before adding them.
 
 ## A hook in a repository is code you did not write
 

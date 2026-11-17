@@ -29,6 +29,6 @@ questions:
     explain: "A failing check is information. Find out why it fails before removing it."
     options:
       - { text: "Find out why it fails, then decide whether the check or the step is wrong", correct: true }
-      - { text: "Accept the change, since the pipeline now runs to the end without errors", misconception: "Running is not correctness. The check may have found a real problem." }
+      - { text: "Accept the change, since the pipeline now runs to the end without errors", misconception: "A run that finishes can still be wrong. The check may have found a real problem." }
       - { text: "Ask the agent to relax the check's threshold just enough for it to pass", misconception: "A check bent to pass no longer tests anything." }
       - { text: "Rerun the step several times in case the failure was a one-off glitch", misconception: "A check that failed may be flagging a real problem. A lucky pass does not remove the cause." }

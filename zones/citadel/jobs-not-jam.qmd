@@ -7,7 +7,7 @@ title: "Jobs, Not Jam"
 **Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm, Claude Code and OpenCode (V2) docs on 2026-11-16 (sources in `research/hpc-and-notebooks.md`)</span>
 :::
 
-Whether an agent should be anywhere near your cluster account is a decision for you and your cluster staff. **Follow your own cluster's policy and data agreement over this page.** Nothing here says that agent use is allowed or expected on any cluster. This quest is laptop-only reading: never try the rules on a real cluster to see what happens.
+Whether an agent should be anywhere near your cluster account is a decision for you and your cluster staff. **Follow your own cluster's policy and data agreement over this page.** This page makes no claim that agent use is allowed or expected on any cluster. Read this quest on your laptop. Do not try the rules on a real cluster.
 
 ## Draft versus submit
 
@@ -26,7 +26,7 @@ Rules are enforced by the harness, with deny before ask before allow.
 
 ## Claude Code
 
-A teaching configuration, derived from the permission rules in the docs rather than copied from them:
+A teaching configuration, adapted from the permission rules in the docs:
 
 ```json
 {
@@ -40,7 +40,7 @@ A teaching configuration, derived from the permission rules in the docs rather t
 
 An `ask` rule prompts even when a narrower `allow` rule matches. Ask and deny rules apply to every part of a compound command (`&&`, `;`, `|`, loops, `$(...)`).
 
-**The caveat:** the docs say Bash rules are not a security boundary. `Bash(rm *)` does not stop `/bin/rm` or `bash -c 'rm ...'`, and by the same logic a `scancel` rule is not watertight. For real enforcement use a PreToolUse hook (the sandbox limits files and network, not Slurm commands). Treat the rules above as a prompt that keeps you in the loop, not as a lock.
+**The caveat:** the docs say Bash rules are not a security boundary. `Bash(rm *)` does not stop `/bin/rm` or `bash -c 'rm ...'`, and by the same logic a `scancel` rule is not watertight. For real enforcement use a PreToolUse hook (the sandbox limits files and network and leaves Slurm commands alone). Treat the rules above as a prompt that keeps you in the loop.
 
 ## OpenCode + Ollama
 
@@ -52,13 +52,13 @@ OpenCode (V2 docs; check your installed version) accepts `allow`, `ask` and `den
 ]
 ```
 
-Add similar rules for `srun`, `salloc` and `scancel`, and a `deny` for `scancel -u *` and `scancel --me*`. Rules are ordered, so check where they sit relative to the broad allow. As in Claude Code, a rule that fails to match does not stop a destructive command: shell rules are not a sandbox.
+Add similar rules for `srun`, `salloc` and `scancel`, and a `deny` for `scancel -u *` and `scancel --me*`. Rules are ordered, so check where they sit relative to the broad allow. As in Claude Code, a rule that fails to match lets the command through, and shell rules are no sandbox.
 
 :::
 
 ## Why `scancel -u` is the dangerous one
 
-`scancel -u <you>` signals **all** your jobs, not just the ones the agent submitted. Whole jobs are terminated, and other work of yours dies with them. `scancel --me` does the same in a longer spelling. The man page lists more bulk selectors too: `--name`, `--state`, `--partition`, plus account, QOS, reservation and node list. Each acts on every job it matches, and combined filters must all match. Denying a few spellings cannot cover them all, so the single `ask` rule on `scancel *` is the net, and the deny rules catch the worst two. Prefer `scancel <jobid>` for an ID the agent itself submitted. Slurm can also rate-limit requests per user when they come in at a sustained high rate, so a runaway loop of commands is a problem for the scheduler as well as for you.
+`scancel -u <you>` signals **all** your jobs, including ones the agent did not submit. Whole jobs are terminated, and other work of yours dies with them. `scancel --me` does the same in a longer spelling. The man page lists more bulk selectors too: `--name`, `--state`, `--partition`, plus account, QOS, reservation and node list. Each acts on every job it matches, and combined filters must all match. Denying a few spellings cannot cover them all, so the single `ask` rule on `scancel *` is the net, and the deny rules catch the worst two. Prefer `scancel <jobid>` for an ID the agent itself submitted. Slurm can also rate-limit requests per user when they come in at a sustained high rate, so a runaway loop of commands is a problem for the scheduler as well as for you.
 
 ## Polling costs money, and attention
 
@@ -68,10 +68,10 @@ The scheduler pays too. The `squeue` and `sacct` pages warn against running them
 
 *General practice* (the site owner's own skill, `research/hpc-and-notebooks.md`):
 
-- Poll no faster than about once a minute, less for long jobs. Run one loop at a time and scope it: `squeue --user=$USER` or `--jobs=<id>`.
-- Prefer `sbatch --parsable --wait`, or the pipeline's own poller, to a `sleep` loop. This replaces a `/loop` of `squeue`: do not `/loop` one.
-- A wait can outlast the tool's timeout. Run it in the background, and never resubmit just because the wait timed out. Check `State` with `sacct`: `--wait` passes the job's exit code through, but a signal-killed job gives 1, so the code alone is a poor proof of success.
-- Submit many similar tasks as one array with a concurrency cap (`--array=1-100%10`), not a loop of `sbatch` calls.
+- Poll no more than about once a minute, less often for long jobs. Run one loop at a time and scope it: `squeue --user=$USER` or `--jobs=<id>`.
+- Prefer `sbatch --parsable --wait`, or the pipeline's own poller, to a `sleep` loop. This replaces a `/loop` of `squeue`, so skip the loop.
+- A wait can outlast the tool's timeout. Run it in the background. Never resubmit because the wait timed out; check `State` with `sacct` first: `--wait` passes the job's exit code through, but a signal-killed job gives 1, so the code alone is a poor proof of success.
+- Submit many similar tasks as one array with a concurrency cap (`--array=1-100%10`) instead of a loop of `sbatch` calls.
 
 From the Claude Code docs: foreground commands time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an `srun` that blocks until it finishes, gets cut off.
 
@@ -90,6 +90,6 @@ From the Claude Code docs: foreground commands time out (default 2 minutes, maxi
 
 - [sbatch](https://slurm.schedmd.com/sbatch.html): SchedMD (Slurm), docs. Why read: it is the manual for submitting jobs, including --test-only to validate a request without submitting.
 - [scancel](https://slurm.schedmd.com/scancel.html): SchedMD (Slurm), docs. Why read: it lists the user, state and name filters and says combined filters must all match, so a broad filter cancels every job it matches, including jobs that are not the agent's.
-- [High Throughput Computing Administration Guide](https://slurm.schedmd.com/high_throughput.html): SchedMD (Slurm), docs. Why read: it is an administrator guide that mentions per-user rate limits on scheduler requests; read it for why floods of commands matter, not as user advice.
+- [High Throughput Computing Administration Guide](https://slurm.schedmd.com/high_throughput.html): SchedMD (Slurm), docs. Why read: it is an administrator guide that mentions per-user rate limits on scheduler requests; read it for why floods of commands matter; it is written for administrators.
 - [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it shows how to make sbatch ask while read-only checks such as squeue are allowed, with the warning that Bash rules are not a security boundary.
 :::

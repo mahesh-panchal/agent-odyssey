@@ -12,7 +12,7 @@ The first branch of the skill tree is the **brief**: what you tell the agent. A 
 | Vague | Specific |
 |---|---|
 | "Fix the GC script." | "`gc.py` reports 20.0 for `seq2` in `tiny.fasta` but `awk` gives 60.0. Find why and fix it. Done when both agree." |
-| "Make it faster." | "Profile `align.py` on `small.fa`, name the slowest function, and propose a change. Do not edit files yet." |
+| "Make it faster." | "Profile `align.py` on `small.fa`, name the slowest function, and propose a change. Hold off on edits for now." |
 
 Two habits make the rest of this safer:
 

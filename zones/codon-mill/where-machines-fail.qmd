@@ -8,7 +8,7 @@ title: "Where Machines Fail"
 Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::
 
-A language model is good at some jobs and bad at others. The skill is knowing which is which before you trust the output. This quest does not say you must use a model for anything. It says where the risk sits if you do.
+A language model is good at some jobs and bad at others. The skill is knowing which is which before you trust the output. Using a model is always your choice. This quest shows where the risk sits if you do.
 
 ## Good jobs: the result is checkable
 
@@ -20,11 +20,11 @@ Models are generally useful where you can read the result, or run it, and judge 
 - converting formats, for example a samplesheet CSV to JSON (a structured text format)
 - first drafts of code that you will then test
 
-**Caveat for summaries.** A summary can leave things out or bend them. A peer-reviewed study of the older, pre-chat generation of summarisation models (Maynez et al., ACL 2020) found substantial unfaithful content in every system tested. That evidence is dated, but the direction still applies. We found no published faithfulness rate for current Claude on scientific papers. So spot-check against the source: numbers, gene and sample names, direction of effect, negations. Omissions are harder to see, so skim the abstract and limitations yourself. Asking the model to quote the supporting lines first also helps; the Anthropic docs recommend quote-first extraction.
+**Caveat for summaries.** A summary can leave things out or bend them. A peer-reviewed study of the older, pre-chat generation of summarisation models (Maynez et al., ACL 2020) found substantial unfaithful content in every system tested. That evidence is dated; the direction still applies. We found no published faithfulness rate for current Claude on scientific papers. So spot-check against the source: numbers, gene and sample names, direction of effect, negations. Omissions are harder to see, so skim the abstract and limitations yourself. Asking the model to quote the supporting lines first also helps; the Anthropic docs recommend quote-first extraction.
 
 ## Bad job: exact counting and arithmetic
 
-Ask a model: "How many n are in banana?" The right answer is 2 (b-a-n-a-n-a). A model can get this wrong, and can be wrong while sounding sure (see the overconfidence row below). A leading explanation is the one from the last quest: it reads tokens, not letters (see Tokens, Not Letters). Be honest about the state of the science, though. Some papers propose tokenisation as the cause (arXiv 2505.14172, arXiv 2410.19730), and another study (CharBench, arXiv 2508.02591) finds it only weakly related to correctness, with word length and the true count mattering more. **The cause is debated. The fix is not.**
+Ask a model: "How many n are in banana?" The right answer is 2 (b-a-n-a-n-a). A model can get this wrong, and can be wrong while sounding sure (see the overconfidence row below). A leading explanation is the one from the last quest: it reads tokens, which are chunks of letters (see Tokens, Not Letters). The state of the science is mixed. Some papers propose tokenisation as the cause (arXiv 2505.14172, arXiv 2410.19730), and another study (CharBench, arXiv 2508.02591) finds it only weakly related to correctness, with word length and the true count mattering more. **The cause is debated. The fix works whichever cause is right.**
 
 The fix is to run a script. Verified: ran this on macOS:
 
@@ -32,7 +32,7 @@ The fix is to run a script. Verified: ran this on macOS:
 echo banana | grep -o n | wc -l
 ```
 
-It printed `       2` (the macOS `wc` pads with spaces; the number is 2). One preprint (arXiv 2410.14166, by Xu and Ma; its full text, not its abstract) reports that coding models asked to write Python for such counting tasks do them perfectly, while the same models fail when answering open-endedly. *General practice:* so for exact counts, have the model **write the script** and read the script and its output. Do not trust a count it states from "doing the sum in its head".
+It printed `       2` (the macOS `wc` pads with spaces; the number is 2). One preprint (arXiv 2410.14166, by Xu and Ma; its full text, not its abstract) reports that coding models asked to write Python for such counting tasks do them perfectly, while the same models fail when answering open-endedly. *General practice:* so for exact counts, have the model **write the script** and read the script and its output. Treat a count it states from "doing the sum in its head" as a guess to check.
 
 The bioinformatics versions of the same trap:
 
@@ -41,9 +41,9 @@ The bioinformatics versions of the same trap:
 | Number of sequences in a FASTA | `grep -c '>' file.fa` (Verified: ran on a three-record mock file, printed 3), or `seqkit stats` |
 | GC content, read length statistics | a script, run by the agent, with the code visible |
 | A p-value or any test statistic | a stats library in a script you can read and re-run |
-| Sum or mean of a column | `awk`, or a script, never a number stated in prose |
+| Sum or mean of a column | `awk`, or a script that prints the number; a number stated in prose is a guess |
 
-Rule of thumb: never trust a count the agent states in prose. Ask for the command and its output.
+Rule of thumb: ask for the command and its output, and treat a count stated in prose as a guess to check.
 
 ::: {.panel-tabset group="companion"}
 
@@ -53,7 +53,7 @@ It can run Bash (the shell command tool) and write scripts, so ask: "write and r
 
 ## OpenCode + Ollama
 
-Same rule. Not checked: how reliable small local models are at this. General practice: assume they are no better at counting, and insist on a script.
+Same rule. Not checked: how reliable small local models are at this. General practice: assume they count about as poorly, and ask for a script.
 
 :::
 
@@ -62,19 +62,19 @@ Same rule. Not checked: how reliable small local models are at this. General pra
 | Failure mode | What it looks like | What to do | Quest |
 |---|---|---|---|
 | Hallucination | A confident statement that is false. For example a plausible DOI, gene ID or tool flag that does not exist | Allow "I don't know"; ask for word-for-word quotes first; restrict to supplied documents; look up every ID in PubMed or Ensembl, or run the tool's `--help` | Spot the Mirage |
-| Sycophancy | Telling you what you want to hear. It agrees with your wrong hypothesis, or softens a correct criticism when you push back (Sharma et al., arXiv 2310.13548) | General practice: ask for the strongest case against your idea, and do not reveal your preferred answer | none yet |
+| Sycophancy | Telling you what you want to hear. It agrees with your wrong hypothesis, or softens a correct criticism when you push back (Sharma et al., arXiv 2310.13548) | General practice: ask for the strongest case against your idea, and hold back your preferred answer | none yet |
 | Long-context degradation | Accuracy and recall drop as input grows ("context rot", per Anthropic's docs: the longer the input, the worse the recall); relevant text in the middle is used less (arXiv 2307.03172) | Curate input: head, counts, filtered tables; start fresh for a new task | The Context Window |
 | Instruction drift | An early instruction is forgotten, for example after compaction (the harness replacing old conversation with a summary to free room) | Short instructions file (`CLAUDE.md` or similar, loaded at session start); a hook for must-never rules (Claude Code) | The Context Window |
 | Non-determinism | The same prompt can give different answers | Not checked in the official docs. General practice: run twice and compare; record command, model and version; treat the script it wrote as the reproducible part | Same Every Time |
-| Overconfidence | Says it is done when it is not, often because it had no way to check | Give it a check to run (tests, row counts, md5) and read the output | none yet |
-| Prompt injection | Text the model treats as an instruction although it came from content, not from you. For example a README, PDF or FASTA header contains instructions the agent follows | Treat fetched content as data; review commands before approving; no system is fully immune | Plug In a Server |
+| Overconfidence | Reports a task as done while it is unfinished, often because it had no way to check | Give it a check to run (tests, row counts, md5) and read the output | none yet |
+| Prompt injection | Text from fetched content that the model treats as an instruction. For example a README, PDF or FASTA header contains instructions the agent follows | Treat fetched content as data; review commands before approving; no system is fully immune | Plug In a Server |
 | Stale knowledge | Newer tool versions or database releases postdate its training | Check `--version` and the current docs. Current Claude models list a June 2026 cutoff | none yet |
 
 ## The decision rule
 
 **Can I check the result cheaply and independently?** If yes, ask the model: a bad answer is likely to show (omissions may not, so check those deliberately). If the answer must be exactly right and cannot be checked, use a script.
 
-<div data-ao-honour="count-letter" data-xp="20">Ask a model to count one letter in a long word (or a mock 40-letter DNA string), then check it with <code>grep -o</code> and <code>wc -l</code>. Note whether it was right, and how sure it sounded. One try proves nothing; it is a demonstration.</div>
+<div data-ao-honour="count-letter" data-xp="20">Ask a model to count one letter in a long word (or a mock 40-letter DNA string), then check it with <code>grep -o</code> and <code>wc -l</code>. Note whether it was right, and how sure it sounded. One try is a demonstration and falls short of proof.</div>
 <div data-ao-honour="spot-check-summary" data-xp="20">Have a model summarise a methods paragraph you wrote. Check every number, name and negation against your original, and note anything omitted.</div>
 
 ## Battle: the sign over the door

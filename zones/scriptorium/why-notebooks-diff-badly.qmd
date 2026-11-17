@@ -47,24 +47,24 @@ The risk with a coding agent is the same as with a human: a reviewer who cannot 
 
 ## Four ways to make changes reviewable
 
-None of these is the only answer. Each moves the noise somewhere else.
+Each of these is one option among several. Each moves the noise somewhere else.
 
 | Option | What it does | Cost |
 |---|---|---|
 | **nbstripout** | Strips outputs and some metadata when git stores the notebook. Outputs stay in your working file, so on its own it does not change what an agent reads. | Git cannot set up the filter on clone, so each collaborator runs `nbstripout --install` themselves. |
 | **jupytext** | Pairs the `.ipynb` with a `.py` (the `py:percent` format is recommended for code). You review the `.py`; outputs stay in the `.ipynb`. | Two files to keep in sync. |
 | **nbdime** | A notebook-aware diff: `nbdiff` in the terminal, `nbdiff-web` in the browser, with git integration and a merge driver. | Everyone reviewing needs it installed. |
-| **marimo** | Notebooks are stored as pure Python, so ordinary git diffs work. | A different notebook tool, not Jupyter. `marimo convert your_notebook.ipynb > your_notebook.py` converts an existing one. |
+| **marimo** | Notebooks are stored as pure Python, so ordinary git diffs work. | A different notebook tool from Jupyter. `marimo convert your_notebook.ipynb > your_notebook.py` converts an existing one. |
 
 *General practice:* the costs above are our judgement, except the nbstripout clone limit, which is from its docs. Pick by what your team can adopt; stripping outputs is likely the smallest change and a different notebook tool the largest.
 
-## Review the code cells, not the outputs
+## Review the code cells
 
 Whatever you choose, the review habit is the same:
 
-- Look at the source cells. Treat outputs as something to regenerate, not to approve.
+- Look at the source cells. Treat outputs as something to regenerate.
 - Run `git diff --stat` before committing and look for a notebook that grew by megabytes.
-- An output in a diff proves only that something ran once. It does not prove the code produces it.
+- An output in a diff shows that something ran once; a re-run shows whether the code produces it.
 
 ## With a companion
 

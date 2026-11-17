@@ -9,7 +9,7 @@ questions:
       - { text: "pytest (run the tests)", bin: "allow", misconception: "Running your own tests is routine and is how you check the agent's work. Constant prompts would train you to click yes without reading." }
       - { text: "git push origin main", bin: "ask", misconception: "Pushing publishes work for others to review, so you want to decide each time. Allowing it silently passes the risk on to collaborators; denying it entirely blocks normal work." }
       - { text: "cat .env (a file holding secrets)", bin: "deny", misconception: "Files holding secrets should be unreadable to the agent. Anything it reads can end up in its output or its logs." }
-      - { text: "rm -rf ~", bin: "deny", misconception: "This deletes your whole home folder. It should never run, so deny it rather than relying on yourself to spot it in a prompt." }
+      - { text: "rm -rf ~", bin: "deny", misconception: "This deletes your whole home folder. It should never run, so a deny rule catches it even if you miss it in a prompt." }
   - type: choice
     prompt: "You add `.env` to a file called `.claudeignore` to hide your secrets from Claude Code. Does that restrict it?"
     explain: "Only permission rules restrict reads."
@@ -36,7 +36,7 @@ questions:
       - { left: ".claude/settings.local.json", right: "Only you, in this project", misconception: "The .local file is personal and is not meant to be committed." }
   - type: choice
     prompt: "Your instructions file says 'never run rm'. Is that enforced?"
-    explain: "Enforcement lives in the tool's rules, not in text the model reads."
+    explain: "Enforcement lives in the tool's rules; text the model reads is guidance."
     options:
       - { text: "No. Instructions are guidance; only permission rules are enforced", correct: true }
       - { text: "Yes, an explicit 'never' in the instructions file is always obeyed", misconception: "Models can miss or misread instructions, which is why enforcement lives in the tool's rules." }
@@ -47,4 +47,4 @@ questions:
     options:
       - { text: "File tools (read, edit, write), MCP servers and hooks", correct: true }
       - { text: "Nothing: the sandbox wraps every tool Claude Code uses", misconception: "The sandbox covers shell commands and their child processes. Other tools are separate and need their own permission rules." }
-      - { text: "Only shell commands run with elevated privileges such as sudo", misconception: "The boundary is by tool type, not by command wording." }
+      - { text: "Only shell commands run with elevated privileges such as sudo", misconception: "The boundary follows the tool type, whatever the command wording." }

@@ -10,13 +10,13 @@ title: "Name the Fears"
 ## Why start with fears
 
 You do not have to like these tools. Many careful people in science are wary of them, and most of the wariness is reasonable.
-This odyssey does not ask you to stop worrying. It gives each worry a **habit** that makes the risk smaller, so you can decide with your eyes open.
+This odyssey keeps your worries and gives each one a **habit** that makes the risk smaller, so you can decide with your eyes open.
 
 Each worry below is a real enemy in this land. Each has a counter-habit, and the rest of the odyssey trains them.
 
 | The worry | The enemy | The counter-habit | Where you learn it |
 |---|---|---|---|
-| "It will stop me learning." | Learning-drain | Write it first, predict before you look, ask it to explain instead of do. | Biodiversity Reef |
+| "It will stop me learning." | Learning-drain | Write it first, predict before you look, ask it to explain while you do the work. | Biodiversity Reef |
 | "It produces slop in bulk." | Slop-ooze | Small steps, tests before code, a review budget. | Sequence Maze |
 | "It makes things up." | Mirage | Check against something the agent did not write. | Sequence Maze |
 | "Someone else has to review all this." | Review-leech | Review it yourself first, say that you used an LLM, send small changes. | Biodiversity Reef |
@@ -26,7 +26,7 @@ Each worry below is a real enemy in this land. Each has a counter-habit, and the
 *Slop* is low-quality bulk output. A *review budget* means you only produce as much as you can honestly review today.
 
 ::: {.callout-note}
-Sometimes the right answer is not to use an LLM at all. Part of the skill is knowing when.
+Sometimes the right answer is to skip the LLM. Part of the skill is knowing when.
 :::
 
 ## Battle: name the counter-habit

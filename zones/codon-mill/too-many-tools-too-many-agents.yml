@@ -6,7 +6,7 @@ questions:
     options:
       - { text: "Definitions take context and can make tool choice worse", correct: true }
       - { text: "Tools may keep running in the background even when they are not called", misconception: "Tools run only when called. The cost is the definition text in the window." }
-      - { text: "The model might forget how to use any tool it has not seen before", misconception: "The issue is crowding and selection, not forgetting." }
+      - { text: "The model might forget how to use any tool it has not seen before", misconception: "The issue is crowding and selection." }
   - type: sort
     prompt: "Which approach fits each task best?"
     bins: ["Plain script", "Single call", "Agent"]

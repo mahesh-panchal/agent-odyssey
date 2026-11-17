@@ -8,16 +8,16 @@ questions:
       - { text: "squeue --user=$USER", bin: "allow", misconception: "It only reports job state, so prompting for each call would train you to click yes without reading." }
       - { text: "sacct for a finished job", bin: "allow", misconception: "It only reads accounting records. It changes nothing." }
       - { text: "sbatch run_alignment.sh", bin: "ask", misconception: "Submitting spends shared resources, so you want to read the script and resources each time. Allowing it silently hands that decision to the agent." }
-      - { text: "scancel 123456", bin: "ask", misconception: "Cancelling one named job is legitimate but destructive, so you decide each time rather than deny it outright." }
-      - { text: "scancel --user=your-username", bin: "deny", misconception: "This signals all your jobs, not only the agent's. It is not a command to approve case by case." }
+      - { text: "scancel 123456", bin: "ask", misconception: "Cancelling one named job is legitimate but destructive, so ask lets you decide each time." }
+      - { text: "scancel --user=your-username", bin: "deny", misconception: "This signals all your jobs, including ones the agent did not start. It belongs in deny." }
   - type: choice
     prompt: "You have `Bash(scancel -u *)` in `deny`. How far can you rely on it to protect your other jobs?"
     explain: "The docs say Bash rules are not a security boundary, so a differently spelled command (scancel --me, --name, --state, --partition) can slip past. A single ask rule on scancel * is the net. For enforcement use a PreToolUse hook; the sandbox limits files and network, not Slurm commands."
     options:
       - { text: "Partly: a rewritten command can slip past the pattern", correct: true }
       - { text: "Fully, because deny rules are checked before any other rule", misconception: "Deny does come first in order, but the pattern still has to match the command that actually runs." }
-      - { text: "Fully, provided the rule is in the user settings file", misconception: "File location sets scope, not strength. The matching limitation applies everywhere." }
-      - { text: "Not at all, because deny only matches the first command of a compound line", misconception: "Ask and deny rules apply to every part of a compound command. The weakness is differently spelled commands, not compounds." }
+      - { text: "Fully, provided the rule is in the user settings file", misconception: "File location sets scope and leaves strength unchanged. The matching limitation applies everywhere." }
+      - { text: "Not at all, because deny only matches the first command of a compound line", misconception: "Ask and deny rules apply to every part of a compound command. The weakness is differently spelled commands, and a compound line changes nothing." }
   - type: choice
     prompt: "An agent is told to `/loop` a `squeue` check every 30 seconds for an overnight run. What is the main problem?"
     explain: "Each firing sends the full context again and keeps spending tokens, even when the session is idle. A sleep-style loop at that rate also hits the scheduler, so prefer sbatch --wait or a poll about once a minute."
@@ -25,7 +25,7 @@ questions:
       - { text: "Every poll resends the whole conversation and costs tokens", correct: true }
       - { text: "Slurm refuses squeue calls more often than once a minute", misconception: "Slurm can rate-limit sustained high request rates per user, but the docs set no such fixed limit. The main problem here is the token cost of each poll." }
       - { text: "Loops only fire while you are watching the session, so the run is not monitored", misconception: "The docs say scheduled tasks fire on their interval even while the session is idle. That is exactly why they keep spending." }
-      - { text: "The squeue output is too long to fit in the context window", misconception: "The cost comes from resending the whole conversation with every poll, not from the size of one squeue listing." }
+      - { text: "The squeue output is too long to fit in the context window", misconception: "The cost comes from resending the whole conversation with every poll, whatever the size of one squeue listing." }
   - type: choice
     prompt: "An agent submitted a job with `sbatch --parsable --wait`, and the agent's tool call timed out after ten minutes. What should it do?"
     explain: "The job is probably still running, so resubmitting would duplicate it. State from sacct is the evidence. Also, --wait passes the job's exit code through, but a signal-killed job gives 1."

@@ -2,7 +2,7 @@ pass: 0.8
 questions:
   - type: order
     prompt: "Put the improvement loop in order."
-    explain: "You cannot fix what you have not noticed, and you cannot trust a fix you have not measured against a baseline."
+    explain: "A fix starts with noticing the problem, and a baseline measurement makes the fix trustworthy."
     items:
       - "Notice the agent did the wrong thing and save the prompt"
       - "Write or edit a Skill that steers it"
@@ -22,7 +22,7 @@ questions:
     options:
       - { text: "One run each cannot separate the effect from random variation", correct: true }
       - { text: "Nothing, since a better result is simply a better result", misconception: "Models vary between runs, so one better run can be chance." }
-      - { text: "Evals are only valid when they are run on a shared cluster", misconception: "Where it runs does not matter. The number of runs does." }
+      - { text: "Evals are only valid when they are run on a shared cluster", misconception: "The number of runs is what matters here." }
   - type: sort
     prompt: "Check the result, or check the process?"
     bins: ["Result", "Process"]

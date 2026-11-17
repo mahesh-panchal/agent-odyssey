@@ -28,9 +28,9 @@ The Gatehouse's rule of thumb: advice for preferences, a prompt for decisions yo
 | `deny` rule | Enforces | Matching on command arguments is fragile (see the Carapace quest). Deny and ask rules are still evaluated when a hook returns allow. |
 | `PreToolUse` hook, exit 2 | Enforces | Fires only on tool calls, sees the literal text, fails open if it crashes. |
 | Sandbox | Enforces | Off by default, and limits shell commands only (see the Carapace quest). The docs say its restrictions still apply if a prompt injection bypasses the model's decision. |
-| Git history | Recovers | Does not prevent anything. A commit is a restore point that exists whatever the model did next. |
+| Git history | Recovers | Recovery only, with no prevention: a commit is a restore point that exists whatever the model did next. |
 
-A hook that **exits 0 with no JSON decision is not a control at all**: it expresses no decision and the normal permission flow runs. (A hook can also exit 0 and print a JSON `deny` decision, which does block.)
+A hook that **exits 0 with no JSON decision adds no control**: it expresses no decision and the normal permission flow runs. (A hook can also exit 0 and print a JSON `deny` decision, which does block.)
 
 ## OpenCode + Ollama
 
@@ -40,7 +40,7 @@ A hook that **exits 0 with no JSON decision is not a control at all**: it expres
 | Permission rule with effect `ask`; no matching rule | Asks | No match means `ask`. |
 | Permission rule with effect `deny` | Enforces | An explicit configured `deny` is final and does not invoke the hook. |
 | Plugin permission hook (`evaluate`) | Enforces when it denies | Runs for `allow` and `ask` decisions, and can change the effect to `deny`. |
-| Git history | Recovers | Does not prevent anything. |
+| Git history | Recovers | Recovery only; it prevents nothing. |
 
 Not checked for OpenCode: an exit-code-2 equivalent, whether throwing in a tool hook blocks a call, sandboxing, and the effect of a local Ollama model. Check the current docs before counting on any of them.
 
@@ -53,9 +53,9 @@ Not checked for OpenCode: an exit-code-2 equivalent, whether throwing in a tool 
 | Style: prefer `snake_case`, tidy commit messages | Advice | A miss costs a review comment. |
 | Pushing to a shared branch | Ask | You want to decide each time, with context. |
 | Reading `.env` or key files | Deny rule on the Read tool, plus sandbox or hook for Bash (enforce); still not total | It must never happen, so use enforcement, and cover each route the agent could use. |
-| A specific destructive command you can name | Blocking hook (enforce) | Code refuses it. Accept that it covers only what it matches. |
+| A specific destructive command you can name | Blocking hook (enforce) | Code refuses it. It covers only what it matches. |
 | Fetched text telling the agent to act | Least privilege, read-only servers, sceptical reading | Advice may not hold against text the model has already read, so limit what the agent can do. |
-| An experiment that might wreck your files | Git commit plus a scratch folder | Recovery, not prevention. |
+| An experiment that might wreck your files | Git commit plus a scratch folder | Recovery only; it prevents nothing. |
 
 Layer them: advice to steer, enforcement for the non-negotiable, git for the day something slips through. None of them replaces reading the diff.
 
@@ -70,7 +70,7 @@ Layer them: advice to steer, enforcement for the non-negotiable, git for the day
 
 *Further reading. Optional.*
 
-- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it states that instructions are context, not enforced configuration, which is this quest's core split.
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it describes instructions as context and not as enforced configuration, which is this quest's core split.
 - [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it explains deny, ask and allow rules and permission modes, the built-in enforcement layer.
 - [Hooks reference](https://code.claude.com/docs/en/hooks): Anthropic, docs. Why read: it documents how a hook blocks a tool call, the code-level lock.
 - [Configure the sandboxed Bash tool](https://code.claude.com/docs/en/sandboxing): Anthropic, docs. Why read: it shows an operating-system limit on shell commands and where that limit ends.

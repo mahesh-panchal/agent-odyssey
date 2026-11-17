@@ -9,22 +9,22 @@ title: "Teach and Share the Load"
 
 ## Teaching
 
-You do not need to be an expert to help. When teaching a colleague:
+You can help without being an expert. When teaching a colleague:
 
-- **Start from their problem**, not from the tool.
+- **Start from their problem**; the tool comes later.
 - **Teach the checks first.** Verification habits matter more than clever prompts.
 - **Let them predict, then reveal.** Ask "what do you expect this to do?" before running it.
 - **Welcome opt-outs.** A colleague may choose not to use LLMs, and may still be an excellent reviewer.
 
 ## Protecting your own learning
 
-An agent can quietly take over the parts you wanted to learn. Pick a rule that suits you, such as: write the first version of anything new yourself, then compare; ask the agent to **explain** rather than **do**; and keep one area of your work agent-free.
+An agent can quietly take over the parts you wanted to learn. Pick a rule that suits you, such as: write the first version of anything new yourself, then compare; ask the agent to **explain** while you do the work; and keep one area of your work agent-free.
 
 ## Managing workload
 
-Agents make it easy to start many things. Count the cost of **reviewing** what they produce. A simple rule: start no more than you can review today.
+Agents make it easy to start many things. Count the cost of **reviewing** what they produce. A simple rule: start only as much as you can review today.
 
-<div data-ao-honour="teach-one" data-xp="25">Show one colleague one verification habit from this odyssey, such as re-running the check, or running `awk` against a script's output. Teach the habit, not the tool.</div>
+<div data-ao-honour="teach-one" data-xp="25">Show one colleague one verification habit from this odyssey, such as re-running the check, or running `awk` against a script's output. Teach the habit; the tool is optional.</div>
 
 ## Battle: the community
 

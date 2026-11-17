@@ -12,21 +12,21 @@ questions:
       - { text: "A terminal command you ran before the session started", bin: "Does not", misconception: "Only what reaches the session counts." }
   - type: choice
     prompt: "What does Anthropic's documentation say happens as the amount of context grows?"
-    explain: "The docs say more context is not automatically better: accuracy and recall degrade as tokens grow, and they name it context rot. They give no threshold."
+    explain: "The docs say accuracy and recall degrade as tokens grow, and they name it context rot. They give no threshold."
     options:
       - { text: "Accuracy and recall can degrade (context rot)", correct: true }
-      - { text: "Quality usually rises steadily until the window is full", misconception: "The docs say more is not automatically better." }
-      - { text: "Nothing changes, since the model weighs all tokens equally", misconception: "The docs describe degradation, so equal weighing is not a safe assumption." }
+      - { text: "Quality usually rises steadily until the window is full", misconception: "The docs describe accuracy and recall degrading as context grows." }
+      - { text: "Nothing changes, since the model weighs all tokens equally", misconception: "The docs describe degradation, so equal weighing is a risky assumption." }
   - type: choice
     prompt: "You told the agent a rule once early in a long session, and after compaction it is ignored. What is the most likely reason?"
     explain: "The docs say detailed instructions from early in the conversation may be lost when history is summarised. Rules that must last belong in the instructions file."
     options:
       - { text: "The summary dropped it, since it only lived in chat", correct: true }
-      - { text: "The model refuses rules it has been given only once", misconception: "It is not refusal. The text is simply no longer in the window." }
+      - { text: "The model refuses rules it has been given only once", misconception: "The cause is the window: the text is no longer in it." }
       - { text: "The instructions file was deleted by the compaction", misconception: "The project-root instructions file is supplied again after compaction." }
   - type: order
     prompt: "Put these steps in order for a session that is getting heavy. Each step builds on the one before."
-    explain: "You cannot trim what you have not measured. Trimming the biggest source comes before compacting, so the summary has less to carry. Clearing comes last because it discards everything, which is only right once the next task is unrelated."
+    explain: "Measuring comes first, since you can only trim what you can see. Trimming the biggest source comes before compacting, so the summary has less to carry. Clearing comes last because it discards everything, which fits once the next task is unrelated."
     items:
       - "Measure what is using the window"
       - "Remove the biggest avoidable source, such as large printed outputs"
@@ -34,7 +34,7 @@ questions:
       - "Clear the session once the next task is unrelated"
   - type: faulty-line
     prompt: "A request to an agent during a long session. Which line is the problem for the context window?"
-    explain: "Printing a whole large table puts all of it into the window. Ask for a count, the head, or a script output instead."
+    explain: "Printing a whole large table puts all of it into the window. Ask for a count, the head, or a script output."
     lines:
       - { text: "Count the rows in variants.tsv with a command and show the number", why: "A count is a tiny output." }
       - { text: "Run cat on variants.tsv and read it all", faulty: true }

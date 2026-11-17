@@ -3,7 +3,7 @@ title: "Claude in the Cloud"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Recruit the Beast and The Locked Cabinet. **Objective:** say what a cloud session is, what leaves your machine when you start one, which jobs suit it and which never do, and review what comes back. **Time:** about 15 minutes. **The exercise needs no cloud account and no model;** it is a worksheet on a mock file tree.
+**Prerequisites:** Recruit the Beast and The Locked Cabinet. **Objective:** say what a cloud session is, what leaves your machine when you start one, which jobs suit it and which stay local, and review what comes back. **Time:** about 15 minutes. **The exercise is a worksheet on a mock file tree and needs no cloud account or model.**
 
 <span class="ao-badge">Last verified (docs, not run): research/claude-cloud.md sources on 2026-11-17; the claude-code-on-the-web, cloud-environments, permission-modes and data-usage pages were re-read live that day; plan terms, limits and retention periods change, check the docs</span>
 
@@ -13,20 +13,20 @@ Some ideas below come from an article on claude.dev about Claude Code in the clo
 ## The rule for this page
 
 ::: {.callout-important}
-## Cloud sessions are for drafting scripts and documentation. Data analysis does not happen in the cloud.
+## Cloud sessions are for drafting scripts and documentation. Data analysis stays on your machine or the cluster.
 
-Use a cloud session for **writing scripts, updating documentation and similar low-risk text work**. **No real data, controlled data, sample sheets with identifiers, genotypes or results go into a cloud session or its repository.** Analysis runs on your own machine or the cluster, under your data agreement.
+Use a cloud session for **writing scripts, updating documentation and similar low-risk text work**. **Real data, controlled data, sample sheets with identifiers, genotypes and results stay out of a cloud session and its repository.** Analysis runs on your own machine or the cluster, under your data agreement.
 
 Think of the cloud agent as a **drafting helper that returns a branch** (a named line of commits in git) which you review and then run yourself, where the data lives.
 :::
 
-You can skip cloud sessions altogether; nothing on this site requires them. If you do use one, the rest of the page is about doing it without sending anything you should not.
+You can skip cloud sessions altogether; nothing on this site requires them. If you do use one, the rest of the page shows how to keep sensitive material at home.
 
 ## 1. What a cloud session is
 
-A **cloud session** is a Claude Code session that runs on Anthropic's servers instead of your laptop. Each one gets a fresh **virtual machine** (a computer simulated inside a bigger one, thrown away afterwards; the docs say Ubuntu 24.04 on x86_64) with a fresh **clone** (a full copy of a repository) of your code, made from its copy on GitHub. It keeps working after you close your laptop. When it is done, the work comes back as a **branch**, which you can turn into a **pull request** (a proposal on GitHub to merge that branch, with a place to review the changes).
+A **cloud session** is a Claude Code session that runs on Anthropic's servers, away from your laptop. Each one gets a fresh **virtual machine** (a computer simulated inside a bigger one, thrown away afterwards; the docs say Ubuntu 24.04 on x86_64) with a fresh **clone** (a full copy of a repository) of your code, made from its copy on GitHub. It keeps working after you close your laptop. When it is done, the work comes back as a **branch**, which you can turn into a **pull request** (a proposal on GitHub to merge that branch, with a place to review the changes).
 
-Only **committed** files (changes you have saved into git history with `git commit`) travel, because the clone is made from GitHub. A committed `CLAUDE.md` (the instructions file Claude Code reads at the start of a session; see *Know Your Gear*), the rules under `.claude/` (the folder where a repository keeps Claude Code settings and instruction files), skills and agents come along. What does **not** come along, per the docs:
+Only **committed** files (changes you have saved into git history with `git commit`) travel, because the clone is made from GitHub. A committed `CLAUDE.md` (the instructions file Claude Code reads at the start of a session; see *Know Your Gear*), the rules under `.claude/` (the folder where a repository keeps Claude Code settings and instruction files), skills and agents come along. What stays behind, per the docs:
 
 - your personal `~/.claude/CLAUDE.md` (the same kind of file, kept in your home folder), skills, agents and commands, and your user-level settings;
 - MCP servers (add-on connections that give the agent extra tools) you added at local or user scope;
@@ -44,17 +44,17 @@ This is the part to read twice. When you start a cloud session:
 - **The session transcript** (the saved record of the whole conversation, including tool output) is stored by Anthropic so you can return to it later.
 - **Retention** (how long Anthropic keeps stored data) follows your account type. The docs say: consumer plans keep it 5 years if you allow training and 30 days if you do not; commercial plans (Team, Enterprise, API) keep it 30 days as standard. **These figures are time-sensitive. Check your own plan and the current docs.** Deleting a cloud session permanently removes its event data.
 - **All outbound traffic** from Anthropic-hosted sessions passes through a **proxy** (a go-between server that forwards requests, here for audit logging and abuse prevention).
-- **Network level None is not a data seal.** A **network access level** is the setting that says which internet hosts the VM may reach (None, Limited or Full; see section 5). The docs say the Anthropic API stays reachable even at None, "which may allow data to exit the VM".
+- **Network level None may still let data exit.** A **network access level** is the setting that says which internet hosts the VM may reach (None, Limited or Full; see section 5). The docs say the Anthropic API stays reachable even at None, "which may allow data to exit the VM".
 - **Environment variables** (named settings handed to programs, often used for keys) set in a cloud environment can be read by any command Claude runs, and the docs say anyone who uses that environment can read the values.
 - **Sharing:** a session can be visible to others. The docs warn sessions may contain code and credentials from private repositories.
 
 Three organisation settings block cloud sessions outright, per the docs: compliance configurations, namely **Zero Data Retention**, a **HIPAA configuration** (HIPAA is the US health-data privacy law) and **customer-managed encryption keys** (your organisation holds the keys). If your organisation uses one of them, cloud sessions are not available. Your administrator can also switch cloud sessions off (the `allow_remote_sessions` policy).
 
-**This site's rule (our own rule, not a claim from the docs): keep controlled data out of the cloud repository.** The docs read for this page give no guidance for genomic, patient or other controlled-access data, and no statement on where cloud-session data is stored. Treat the clone, the transcript and anything you paste as held by Anthropic. The guidance on data agreements is in *The Locked Cabinet*; read it before you push anything to a remote that a cloud session can see (a **remote** is the copy of a repository hosted elsewhere, such as on GitHub).
+**This site's rule (our own rule; the docs make no such claim): keep controlled data out of the cloud repository.** The docs read for this page give no guidance for genomic, patient or other controlled-access data, and no statement on where cloud-session data is stored. Treat the clone, the transcript and anything you paste as held by Anthropic. The guidance on data agreements is in *The Locked Cabinet*; read it before you push anything to a remote that a cloud session can see (a **remote** is the copy of a repository hosted elsewhere, such as on GitHub).
 
 ## 3. Good uses and bad uses
 
-| Fine for a cloud session (code and mock data only) | Not in a cloud session |
+| Fine for a cloud session (code and mock data only) | Keep for your machine or the cluster |
 |---|---|
 | Write a samplesheet validator, tested on a three-row mock file | Run the analysis |
 | Write a QC summary plotting script, developed on mock data | Load real counts, genotypes or results |
@@ -71,7 +71,7 @@ The last two rows on the right are partly our inference: the docs do not mention
 
 ## Claude Code
 
-**Push first.** `claude --cloud "your task"` starts a cloud session from your terminal, and it clones the GitHub remote at your current branch, not your local folder. **Commit and push** (save snapshots, then upload them to the remote) before you start, or the session will not see your latest work. If the branch is not on GitHub the CLI says `Branch <name> is not on GitHub`, and the session starts from a pushed commit or the default branch. One repository per session. You can also start from claude.ai/code in the browser.
+**Push first.** `claude --cloud "your task"` starts a cloud session from your terminal, and it clones the GitHub remote at your current branch (your local folder is not used). **Commit and push** (save snapshots, then upload them to the remote) before you start, so the session sees your latest work. If the branch is not on GitHub the CLI says `Branch <name> is not on GitHub`, and the session starts from a pushed commit or the default branch. One repository per session. You can also start from claude.ai/code in the browser.
 
 **Write a ticket-style prompt**, that is, a self-contained note like a work ticket: the problem, the expected result, and a command that proves it (in the example, `pytest`, a Python test runner). The docs say to be specific, name files and paste errors. The proof-command habit is one article's advice, not confirmed in the docs. Example, with no data in it:
 
@@ -82,15 +82,15 @@ Check: pytest tests/test_validate_samplesheet.py (mock rows only).
 Add a test for the duplicate case. Only change files under scripts/ and tests/.
 ```
 
-This repository has no `data/` or `results/` folders at all, and that is the point: a line in a prompt such as "do not read data/" is only a request to the model, not protection. If the folder is in the repository, the cloud session can read it.
+This repository has no `data/` or `results/` folders, and that is deliberate: a prompt line such as "do not read data/" is a request to the model and gives no protection. If the folder is in the repository, the cloud session can read it.
 
-**If there is no remote.** When a repository has no GitHub remote, or the Claude **GitHub App** (a program you install on a repository or organisation to grant it limited access) is not on it, Claude Code instead **bundles** the repository and uploads it: full history of all branches plus uncommitted changes to tracked files, under 100 MB. Untracked files are left out. On macOS, Linux and WSL the upload also needs **git 2.31 or later**; with an older git the CLI refuses to start the session and tells you to update. On those systems, uncommitted changes to `.env`, `*.pem`, `*.tfvars`, `id_rsa` and Git LFS-managed files (large files stored outside normal git history) are skipped (on native Windows everything tracked uploads). **Do not rely on this for data.** Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your `.gitignore` covers before you go anywhere near this. Non-GitHub hosts can only use the bundle, and cannot push back.
+**If there is no remote.** When a repository has no GitHub remote, or the Claude **GitHub App** (a program you install on a repository or organisation to grant it limited access) is not on it, Claude Code instead **bundles** the repository and uploads it: full history of all branches plus uncommitted changes to tracked files, under 100 MB. Untracked files are left out. On macOS, Linux and WSL the upload also needs **git 2.31 or later**; with an older git the CLI refuses to start the session and tells you to update. On those systems, uncommitted changes to `.env`, `*.pem`, `*.tfvars`, `id_rsa` and Git LFS-managed files (large files stored outside normal git history) are skipped (on native Windows everything tracked uploads). **Keep data out of this route entirely.** Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your `.gitignore` covers before you go anywhere near this. Non-GitHub hosts can only use the bundle, and cannot push back.
 
 **`/web-setup`**, typed inside Claude Code (not in your shell), sends your `gh auth token` (GitHub's command-line login token) to Anthropic so cloud sessions can reach your repositories without the GitHub App. It needs a claude.ai sign-in; API-key sign-in does not work, and neither does a Bedrock or Vertex-style provider. On Team and Enterprise plans an Owner has to enable it first.
 
 **Getting the session back: teleport.** To **teleport** is to pull a cloud session into your local terminal: `claude --teleport` (shows a picker), `claude --teleport <session-id>`, or `/teleport` (alias `/tp`, a shorter name for the same command) inside a session. It needs a clean git state (it offers to **stash** your changes, that is, set them aside temporarily with `git stash`), the same repository (not a **fork**, which is your own copy of someone else's repository), the branch pushed, and the same claude.ai account.
 
-**GitHub access, in short.** Two ways in: the GitHub App or your `/web-setup` token. For Anthropic-hosted sessions, your GitHub credential is stored encrypted on Anthropic's servers and does not enter the VM; the VM holds a short-lived credential, and a GitHub proxy swaps it in. The proxy rejects branch deletions and tag pushes, but **it does not limit which branches a push can update**. To limit that, use GitHub **branch protection or rulesets** (rules on which branches may be changed and by whom); the docs note a rule that the connected access can bypass will not block the push. The docs do not describe a credential limited to one branch, so do not assume one.
+**GitHub access, in short.** Two ways in: the GitHub App or your `/web-setup` token. For Anthropic-hosted sessions, your GitHub credential is stored encrypted on Anthropic's servers and does not enter the VM; the VM holds a short-lived credential, and a GitHub proxy swaps it in. The proxy rejects branch deletions and tag pushes, but **it does not limit which branches a push can update**. To limit that, use GitHub **branch protection or rulesets** (rules on which branches may be changed and by whom); the docs note a rule that the connected access can bypass will not block the push. The docs do not describe a credential limited to one branch, so plan without one.
 
 ## OpenCode + Ollama
 
@@ -118,17 +118,17 @@ One article's advice, not confirmed in the docs: pick the narrowest level that l
 
 **Environment variables versus network secrets.** Environment variables are readable (see section 2). **Network secrets** are the docs' safer option where possible: the key stays outside the VM, and Anthropic's agent proxy adds it to requests to hosts you list.
 
-**Preinstalled tools.** The docs list Python with pip, uv, poetry and pytest, Node, Ruby, PHP, Java, Go, Rust, C and C++, Docker, PostgreSQL 16, Redis, git, gh and jq. **No R, conda or bioinformatics tools are listed.** This is a statement about what the VM contains, not a suggestion to analyse there. Ask Claude to run `check-tools` to see what is actually present.
+**Preinstalled tools.** The docs list Python with pip, uv, poetry and pytest, Node, Ruby, PHP, Java, Go, Rust, C and C++, Docker, PostgreSQL 16, Redis, git, gh and jq. **No R, conda or bioinformatics tools are listed.** This describes what the VM contains; analysis stays local. Ask Claude to run `check-tools` to see what is actually present.
 
 ## 6. Permission modes in the cloud
 
-A **permission mode** says how much the agent may do before asking you (see *Grow the Carapace*). Cloud sessions offer three: **Accept edits**, **Plan** and **Auto** (Auto can be switched off by your organisation). There is **no Manual and no Bypass** mode in the cloud, and a `bypassPermissions` setting in your files is ignored there. You pick the mode in the dropdown, not with a `--cloud` flag.
+A **permission mode** says how much the agent may do before asking you (see *Grow the Carapace*). Cloud sessions offer three: **Accept edits**, **Plan** and **Auto** (Auto can be switched off by your organisation). There is **no Manual and no Bypass** mode in the cloud, and a `bypassPermissions` setting in your files is ignored there. You pick the mode in the dropdown; there is no `--cloud` flag for it.
 
 Use **Plan** for anything you do not already understand, and read the plan before it edits: see *Plan Before You Edit*. The docs also describe planning locally with `claude --permission-mode plan`, committing and pushing the plan, and then starting `claude --cloud`.
 
 ## 7. Limits and failure modes
 
-- **A fresh machine every time.** The docs say an idle VM pauses and may later be **reclaimed** (taken back by the system). Files are kept while it is paused; do not count on them afterwards (our inference). Reopening restores the conversation, but running commands and subagents (helper agents the main agent started) are lost. One article's habit, not confirmed in the docs: commit as you go, so work is not lost if the machine is reclaimed.
+- **A fresh machine every time.** The docs say an idle VM pauses and may later be **reclaimed** (taken back by the system). Files are kept while it is paused; plan on them being gone afterwards (our inference). Reopening restores the conversation, but running commands and subagents (helper agents the main agent started) are lost. One article's habit, not confirmed in the docs: commit as you go, so work is not lost if the machine is reclaimed.
 - **Timeouts.** A foreground command defaults to 2 minutes (up to 10), then moves to the background for up to 30 more.
 - **Size.** The docs give approximate ceilings of 4 vCPUs, 16 GB RAM and 30 GB disk, and say heavy jobs may be stopped.
 - **Shared usage.** Cloud work counts against the same plan limits as all your other Claude Code use (time-sensitive: check your plan). One article's claim, not confirmed in the docs: several parallel sessions use the limit proportionately faster.
@@ -144,7 +144,7 @@ The result is **a branch**. Treat it like a stranger's pull request: it may be f
 3. **Run the tests locally**, on your machine.
 4. **Only then run the script on your data**, locally or on the cluster, under your data agreement. The cloud agent never saw that data and never ran that step.
 
-A green test in the cloud is a claim, not proof. A test passing on mock data says the script runs; it does not say your real data will be handled correctly.
+A green test in the cloud is a claim to verify. A test passing on mock data tells you the script runs; your real data is the next check, run locally.
 
 ## Exercise: the safe-to-send checklist
 
@@ -161,7 +161,7 @@ No cloud account and no model needed. Open [tree.txt](../../exercises/kennel/clo
 
 **Paths to remove:**
 
-- `.env`: a secret. It was already committed, so ignoring it is not enough: remove it from history and replace the token.
+- `.env`: a secret. It was already committed, so remove it from history and replace the token; ignoring it helps only from now on.
 - `samplesheet_real.csv`: identifiers and genotype calls.
 - `data/raw/` and `data/processed/`: real reads and real counts.
 - `notebooks/01_qc.ipynb` and `notebooks/02_diffexp.ipynb`: outputs saved inside them contain real sample IDs, tables and plots. Clear the outputs, or keep the notebooks out.
@@ -196,7 +196,7 @@ command using data/mock/ only.
 Check: the example command in the new section runs on data/mock/counts_mock.tsv. Only edit docs/usage.md.
 ```
 
-Remember that a prompt line is a request, not protection: the safe version of this repository has no real data folders to read.
+Remember that a prompt line is a request. The safe version of this repository has no real data folders to read.
 
 </details>
 
@@ -205,8 +205,8 @@ Remember that a prompt line is a request, not protection: the safe version of th
 
 ## What to remember
 
-- **Cloud sessions are for drafting scripts and documentation, not for analysis.** No real data, controlled data, sample sheets with identifiers, genotypes or results go in a cloud session or its repository.
-- Your repository contents, prompts and session transcript go to Anthropic, and network level None does not seal the VM.
+- **Cloud sessions are for drafting scripts and documentation; analysis stays on your machine or the cluster.** Real data, controlled data, sample sheets with identifiers, genotypes and results stay out of a cloud session and its repository.
+- Your repository contents, prompts and session transcript go to Anthropic, and network level None may still let data exit the VM.
 - Return is a branch: read the diff, look for stray data, run the tests locally, then run on your data where it lives, under your data agreement.
 
 ## Battle

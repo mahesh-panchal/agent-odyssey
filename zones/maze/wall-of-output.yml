@@ -35,7 +35,7 @@ questions:
   - type: sort
     prompt: "Before you ask a collaborator to review AI-assisted work, who does each job?"
     bins: ["You, before asking", "Collaborator's job"]
-    explain: "Review is a shared check, not a place to dump work. The author owns the first pass."
+    explain: "Review is a shared check. The author owns the first pass."
     items:
       - { text: "Read your own diff and delete what you do not understand", bin: "You, before asking", misconception: "If you have not read it, you are asking someone else to be the first reader." }
       - { text: "Run the tests and the pipeline on the mock data", bin: "You, before asking", misconception: "Running the checks is cheap for you and costs a collaborator an afternoon." }

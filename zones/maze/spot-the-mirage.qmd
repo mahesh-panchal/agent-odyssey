@@ -20,7 +20,7 @@ Common Mirages in analysis work:
 - **Invented values and paths**: a plausible number, column name or file path that was never in your data.
 - **Self-confirmation**: asking the same agent "are you sure?" often gets a fluent yes.
 
-The cure is not suspicion of everything. It is **checking against something the agent did not write**: run it, look it up, recompute it another way.
+The cure is **checking against something the agent did not write**: run it, look it up, recompute it another way.
 
 ## Battle: the Mirage
 

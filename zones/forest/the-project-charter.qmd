@@ -3,7 +3,7 @@ title: "The Project Charter"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Write the Brief. **Objective:** give the agent standing instructions for a project, and know what those instructions cannot do.
+**Prerequisites:** Write the Brief. **Objective:** give the agent standing instructions for a project, and know where they end and enforcement begins.
 **Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in `research/forest-and-reef.md` and `research/doctor.md`).</span>
 :::
 
@@ -13,7 +13,7 @@ Typing the same background every session is wasteful. A **project instructions f
 
 ## Claude Code
 
-The file is `CLAUDE.md`. It can live in `~/.claude/CLAUDE.md` (all your projects), `./CLAUDE.md` or `./.claude/CLAUDE.md` (the project, shared if committed), and `./CLAUDE.local.md` (yours, not committed). Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. `/init` drafts one from your project and `/memory` lists and edits them. `@path` imports another file, but that does not save context.
+The file is `CLAUDE.md`. It can live in `~/.claude/CLAUDE.md` (all your projects), `./CLAUDE.md` or `./.claude/CLAUDE.md` (the project, shared if committed), and `./CLAUDE.local.md` (yours, not committed). Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. `/init` drafts one from your project and `/memory` lists and edits them. `@path` imports another file, and the imported text still uses context.
 
 ## OpenCode + Ollama
 
@@ -26,14 +26,14 @@ The file is `AGENTS.md` in the project root (or `~/.config/opencode/AGENTS.md` f
 Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, "never edit `raw/`". Keep it short (the Claude Code docs aim for under 200 lines per file) because very long instructions are followed less well.
 
 ::: {.callout-warning}
-**Instructions are advice, not enforcement.** Claude Code's docs describe `CLAUDE.md` as context, not enforced configuration. A line saying "never delete files" does not stop a delete. Enforcement comes from permission rules, hooks, or managed settings (organisation-set rules you cannot override): the carapace you built in the Crypt.
+**Instructions are advice.** Claude Code's docs describe `CLAUDE.md` as context, and not as enforced configuration. A line saying "never delete files" cannot stop a delete. Enforcement comes from permission rules, hooks, or managed settings (organisation-set rules you cannot override): the carapace you built in the Crypt.
 :::
 
-Instruction files go stale too: a rule written for an older model, a path that no longer exists, two files that disagree. The docs warn that when instructions contradict each other, Claude may pick one arbitrarily. In Claude Code (v2.1.283 or later), `/doctor prompt-audit` (`/doctor` is a **bundled skill**, a ready-made skill that ships inside the tool) checks your instruction files for outdated or conflicting content and writes a report with proposed edits. It changes nothing until you ask. It is not a size or cost audit. The audit is itself a model reading your files, so review its suggestions like any other output. Not checked: an OpenCode equivalent.
+Instruction files go stale too: a rule written for an older model, a path that no longer exists, two files that disagree. The docs warn that when instructions contradict each other, Claude may pick one arbitrarily. In Claude Code (v2.1.283 or later), `/doctor prompt-audit` (`/doctor` is a **bundled skill**, a ready-made skill that ships inside the tool) checks your instruction files for outdated or conflicting content and writes a report with proposed edits. It changes nothing until you ask. It checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. Not checked: an OpenCode equivalent.
 
 Write the file yourself first and read what `/init` produces critically. A generated file can contain wrong guesses about your project.
 
-<div data-ao-honour="write-charter" data-xp="15">Write a short instructions file (about ten lines) for one of your real projects: how to run its tests, where data lives, and one thing the agent must never touch.</div>
+<div data-ao-honour="write-charter" data-xp="15">Write a short instructions file (about ten lines) for one of your real projects: how to run its tests, where data lives, and one thing the agent should leave alone.</div>
 
 ## Battle: the charter
 
@@ -44,7 +44,7 @@ Write the file yourself first and read what `/init` produces critically. A gener
 
 *Further reading. Optional.*
 
-- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it covers CLAUDE.md placement, AGENTS.md and auto memory, and says these are context, not enforcement.
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it covers CLAUDE.md placement, AGENTS.md and auto memory, and describes these as context that guides the agent.
 - [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it shows what belongs in an instructions file and what to enforce another way.
 - [Hooks reference](https://code.claude.com/docs/en/hooks): Anthropic, docs. Why read: hooks are the way to enforce a rule that an instructions file can only request.
 - [Rules](https://opencode.ai/docs/rules/): OpenCode, docs. Why read: it explains AGENTS.md and the instructions setting for the OpenCode side.
