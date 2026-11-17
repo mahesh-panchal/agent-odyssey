@@ -26,7 +26,7 @@
    "explain": "validate checks syntax and schema. Behaviour needs evals, and safety needs you to read the code.",
    "options": [
     {
-     "text": "The files are well formed, and nothing more",
+     "text": "The files are well formed",
      "correct": true
     },
     {
@@ -68,7 +68,7 @@
   {
    "type": "choice",
    "prompt": "A colleague shares a plugin from a marketplace you have not used before. What first?",
-   "explain": "The marketplace name says who publishes it, not what it does. Read the parts that run code before enabling it.",
+   "explain": "The marketplace name says who publishes it. Reading the plugin shows what it does. Read the parts that run code before enabling it.",
    "options": [
     {
      "text": "Read its hooks, .mcp.json and bin/ folder, then decide",
@@ -80,7 +80,7 @@
     },
     {
      "text": "Run the eval suite shipped with it as proof it is safe",
-     "misconception": "Running an eval is itself a trust decision, and passing says nothing about safety."
+     "misconception": "Running an eval is itself a trust decision, and safety needs a separate review."
     },
     {
      "text": "Install it and ask the agent whether it looks risky",
@@ -103,7 +103,7 @@
     },
     {
      "text": "hooks/hooks.json",
-     "misconception": "That is a Claude Code plugin hooks file, not a Skill location."
+     "misconception": "That is a Claude Code plugin hooks file, which sits apart from Skill locations."
     }
    ]
   },
@@ -122,7 +122,7 @@
     },
     {
      "text": "Left out, so the agent rediscovers them on each run",
-     "misconception": "Rediscovered details can differ between runs, and a pattern found in code is not automatically a team rule."
+     "misconception": "Rediscovered details can differ between runs, and a pattern found in code still needs a person to confirm it as a team rule."
     }
    ]
   }

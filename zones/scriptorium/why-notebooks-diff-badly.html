@@ -174,7 +174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="four-ways-to-make-changes-reviewable" class="level2">
 <h2 class="anchored" data-anchor-id="four-ways-to-make-changes-reviewable">Four ways to make changes reviewable</h2>
-<p>None of these is the only answer. Each moves the noise somewhere else.</p>
+<p>Each of these is one option among several. Each moves the noise somewhere else.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -207,19 +207,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td><strong>marimo</strong></td>
 <td>Notebooks are stored as pure Python, so ordinary git diffs work.</td>
-<td>A different notebook tool, not Jupyter. <code>marimo convert your_notebook.ipynb &gt; your_notebook.py</code> converts an existing one.</td>
+<td>A different notebook tool from Jupyter. <code>marimo convert your_notebook.ipynb &gt; your_notebook.py</code> converts an existing one.</td>
 </tr>
 </tbody>
 </table>
 <p><em>General practice:</em> the costs above are our judgement, except the nbstripout clone limit, which is from its docs. Pick by what your team can adopt; stripping outputs is likely the smallest change and a different notebook tool the largest.</p>
 </section>
-<section id="review-the-code-cells-not-the-outputs" class="level2">
-<h2 class="anchored" data-anchor-id="review-the-code-cells-not-the-outputs">Review the code cells, not the outputs</h2>
+<section id="review-the-code-cells" class="level2">
+<h2 class="anchored" data-anchor-id="review-the-code-cells">Review the code cells</h2>
 <p>Whatever you choose, the review habit is the same:</p>
 <ul>
-<li>Look at the source cells. Treat outputs as something to regenerate, not to approve.</li>
+<li>Look at the source cells. Treat outputs as something to regenerate.</li>
 <li>Run <code>git diff --stat</code> before committing and look for a notebook that grew by megabytes.</li>
-<li>An output in a diff proves only that something ran once. It does not prove the code produces it.</li>
+<li>An output in a diff shows that something ran once; a re-run shows whether the code produces it.</li>
 </ul>
 </section>
 <section id="with-a-companion" class="level2">

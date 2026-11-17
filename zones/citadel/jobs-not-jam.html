@@ -146,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quest-dialog">
 <p><strong>Prerequisites:</strong> Login Node Manners and Grow the Carapace. <strong>Objective:</strong> let the agent draft job scripts while you keep submitting and cancelling under your own approval, and know what polling costs. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm, Claude Code and OpenCode (V2) docs on 2026-11-16 (sources in <code>research/hpc-and-notebooks.md</code>)</span></p>
 </div>
-<p>Whether an agent should be anywhere near your cluster account is a decision for you and your cluster staff. <strong>Follow your own cluster’s policy and data agreement over this page.</strong> Nothing here says that agent use is allowed or expected on any cluster. This quest is laptop-only reading: never try the rules on a real cluster to see what happens.</p>
+<p>Whether an agent should be anywhere near your cluster account is a decision for you and your cluster staff. <strong>Follow your own cluster’s policy and data agreement over this page.</strong> This page makes no claim that agent use is allowed or expected on any cluster. Read this quest on your laptop. Do not try the rules on a real cluster.</p>
 <section id="draft-versus-submit" class="level2">
 <h2 class="anchored" data-anchor-id="draft-versus-submit">Draft versus submit</h2>
 <p>A job script is text. Letting an agent <em>draft</em> one is low risk, because you read it before anything runs. <em>Submitting</em> spends shared resources, and cancelling can destroy work. A sensible split:</p>
@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>A teaching configuration, derived from the permission rules in the docs rather than copied from them:</p>
+<p>A teaching configuration, adapted from the permission rules in the docs:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"permissions"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"allow"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"Bash(squeue *)"</span><span class="ot">,</span> <span class="st">"Bash(sinfo *)"</span><span class="ot">,</span> <span class="st">"Bash(sacct *)"</span><span class="ot">]</span><span class="fu">,</span></span>
@@ -172,21 +172,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>An <code>ask</code> rule prompts even when a narrower <code>allow</code> rule matches. Ask and deny rules apply to every part of a compound command (<code>&amp;&amp;</code>, <code>;</code>, <code>|</code>, loops, <code>$(...)</code>).</p>
-<p><strong>The caveat:</strong> the docs say Bash rules are not a security boundary. <code>Bash(rm *)</code> does not stop <code>/bin/rm</code> or <code>bash -c 'rm ...'</code>, and by the same logic a <code>scancel</code> rule is not watertight. For real enforcement use a PreToolUse hook (the sandbox limits files and network, not Slurm commands). Treat the rules above as a prompt that keeps you in the loop, not as a lock.</p>
+<p><strong>The caveat:</strong> the docs say Bash rules are not a security boundary. <code>Bash(rm *)</code> does not stop <code>/bin/rm</code> or <code>bash -c 'rm ...'</code>, and by the same logic a <code>scancel</code> rule is not watertight. For real enforcement use a PreToolUse hook (the sandbox limits files and network and leaves Slurm commands alone). Treat the rules above as a prompt that keeps you in the loop.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>OpenCode (V2 docs; check your installed version) accepts <code>allow</code>, <code>ask</code> and <code>deny</code>, and an unmatched action asks. But per the docs its base policy begins with an allow-all rule, so <code>sbatch</code> is likely to run unprompted; confirm in your version. Add this to the permissions array in <code>opencode.jsonc</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="st">"permissions"</span><span class="er">:</span> <span class="ot">[</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span> <span class="dt">"action"</span><span class="fu">:</span> <span class="st">"shell"</span><span class="fu">,</span> <span class="dt">"resource"</span><span class="fu">:</span> <span class="st">"sbatch *"</span><span class="fu">,</span> <span class="dt">"effect"</span><span class="fu">:</span> <span class="st">"ask"</span> <span class="fu">}</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Add similar rules for <code>srun</code>, <code>salloc</code> and <code>scancel</code>, and a <code>deny</code> for <code>scancel -u *</code> and <code>scancel --me*</code>. Rules are ordered, so check where they sit relative to the broad allow. As in Claude Code, a rule that fails to match does not stop a destructive command: shell rules are not a sandbox.</p>
+<p>Add similar rules for <code>srun</code>, <code>salloc</code> and <code>scancel</code>, and a <code>deny</code> for <code>scancel -u *</code> and <code>scancel --me*</code>. Rules are ordered, so check where they sit relative to the broad allow. As in Claude Code, a rule that fails to match lets the command through, and shell rules are no sandbox.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="why-scancel--u-is-the-dangerous-one" class="level2">
 <h2 class="anchored" data-anchor-id="why-scancel--u-is-the-dangerous-one">Why <code>scancel -u</code> is the dangerous one</h2>
-<p><code>scancel -u &lt;you&gt;</code> signals <strong>all</strong> your jobs, not just the ones the agent submitted. Whole jobs are terminated, and other work of yours dies with them. <code>scancel --me</code> does the same in a longer spelling. The man page lists more bulk selectors too: <code>--name</code>, <code>--state</code>, <code>--partition</code>, plus account, QOS, reservation and node list. Each acts on every job it matches, and combined filters must all match. Denying a few spellings cannot cover them all, so the single <code>ask</code> rule on <code>scancel *</code> is the net, and the deny rules catch the worst two. Prefer <code>scancel &lt;jobid&gt;</code> for an ID the agent itself submitted. Slurm can also rate-limit requests per user when they come in at a sustained high rate, so a runaway loop of commands is a problem for the scheduler as well as for you.</p>
+<p><code>scancel -u &lt;you&gt;</code> signals <strong>all</strong> your jobs, including ones the agent did not submit. Whole jobs are terminated, and other work of yours dies with them. <code>scancel --me</code> does the same in a longer spelling. The man page lists more bulk selectors too: <code>--name</code>, <code>--state</code>, <code>--partition</code>, plus account, QOS, reservation and node list. Each acts on every job it matches, and combined filters must all match. Denying a few spellings cannot cover them all, so the single <code>ask</code> rule on <code>scancel *</code> is the net, and the deny rules catch the worst two. Prefer <code>scancel &lt;jobid&gt;</code> for an ID the agent itself submitted. Slurm can also rate-limit requests per user when they come in at a sustained high rate, so a runaway loop of commands is a problem for the scheduler as well as for you.</p>
 </section>
 <section id="polling-costs-money-and-attention" class="level2">
 <h2 class="anchored" data-anchor-id="polling-costs-money-and-attention">Polling costs money, and attention</h2>
@@ -194,10 +194,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The scheduler pays too. The <code>squeue</code> and <code>sacct</code> pages warn against running them from loops: it can slow <code>slurmctld</code> (the scheduler daemon) or <code>slurmdbd</code> (the accounting database) for everyone.</p>
 <p><em>General practice</em> (the site owner’s own skill, <code>research/hpc-and-notebooks.md</code>):</p>
 <ul>
-<li>Poll no faster than about once a minute, less for long jobs. Run one loop at a time and scope it: <code>squeue --user=$USER</code> or <code>--jobs=&lt;id&gt;</code>.</li>
-<li>Prefer <code>sbatch --parsable --wait</code>, or the pipeline’s own poller, to a <code>sleep</code> loop. This replaces a <code>/loop</code> of <code>squeue</code>: do not <code>/loop</code> one.</li>
-<li>A wait can outlast the tool’s timeout. Run it in the background, and never resubmit just because the wait timed out. Check <code>State</code> with <code>sacct</code>: <code>--wait</code> passes the job’s exit code through, but a signal-killed job gives 1, so the code alone is a poor proof of success.</li>
-<li>Submit many similar tasks as one array with a concurrency cap (<code>--array=1-100%10</code>), not a loop of <code>sbatch</code> calls.</li>
+<li>Poll no more than about once a minute, less often for long jobs. Run one loop at a time and scope it: <code>squeue --user=$USER</code> or <code>--jobs=&lt;id&gt;</code>.</li>
+<li>Prefer <code>sbatch --parsable --wait</code>, or the pipeline’s own poller, to a <code>sleep</code> loop. This replaces a <code>/loop</code> of <code>squeue</code>, so skip the loop.</li>
+<li>A wait can outlast the tool’s timeout. Run it in the background. Never resubmit because the wait timed out; check <code>State</code> with <code>sacct</code> first: <code>--wait</code> passes the job’s exit code through, but a signal-killed job gives 1, so the code alone is a poor proof of success.</li>
+<li>Submit many similar tasks as one array with a concurrency cap (<code>--array=1-100%10</code>) instead of a loop of <code>sbatch</code> calls.</li>
 </ul>
 <p>From the Claude Code docs: foreground commands time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an <code>srun</code> that blocks until it finishes, gets cut off.</p>
 </section>
@@ -219,7 +219,7 @@ Find your cluster’s page on job limits (maximum jobs, array sizes, time limits
 <ul>
 <li><a href="https://slurm.schedmd.com/sbatch.html">sbatch</a>: SchedMD (Slurm), docs. Why read: it is the manual for submitting jobs, including –test-only to validate a request without submitting.</li>
 <li><a href="https://slurm.schedmd.com/scancel.html">scancel</a>: SchedMD (Slurm), docs. Why read: it lists the user, state and name filters and says combined filters must all match, so a broad filter cancels every job it matches, including jobs that are not the agent’s.</li>
-<li><a href="https://slurm.schedmd.com/high_throughput.html">High Throughput Computing Administration Guide</a>: SchedMD (Slurm), docs. Why read: it is an administrator guide that mentions per-user rate limits on scheduler requests; read it for why floods of commands matter, not as user advice.</li>
+<li><a href="https://slurm.schedmd.com/high_throughput.html">High Throughput Computing Administration Guide</a>: SchedMD (Slurm), docs. Why read: it is an administrator guide that mentions per-user rate limits on scheduler requests; read it for why floods of commands matter; it is written for administrators.</li>
 <li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Why read: it shows how to make sbatch ask while read-only checks such as squeue are allowed, with the warning that Bash rules are not a security boundary.</li>
 </ul>
 </section>

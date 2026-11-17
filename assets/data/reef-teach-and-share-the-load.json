@@ -27,7 +27,7 @@
     "Protects learning",
     "Erodes learning"
    ],
-   "explain": "Learning needs you to attempt, predict or explain, not only to receive.",
+   "explain": "Learning needs you to attempt, predict or explain as well as receive.",
    "items": [
     {
      "text": "Write the first version yourself, then compare with the agent's",
@@ -53,8 +53,27 @@
   },
   {
    "type": "choice",
+   "prompt": "You finished a project mostly with an agent and it feels like not really your work. What helps most?",
+   "explain": "Ownership grows from your decisions and your understanding, so build those and credit the agent's part openly.",
+   "options": [
+    {
+     "text": "Be able to explain each step, and keep notes on your decisions",
+     "correct": true
+    },
+    {
+     "text": "Redo the whole project by hand to prove it is yours",
+     "misconception": "Redoing everything repeats the work. Decisions and understanding are what make a result yours."
+    },
+    {
+     "text": "Leave out the agent's role so the work looks like yours",
+     "misconception": "Hiding the agent's role misleads readers and tends to deepen the feeling."
+    }
+   ]
+  },
+  {
+   "type": "choice",
    "prompt": "You can easily start five agent tasks before lunch. What limits sensible work?",
-   "explain": "The bottleneck is review capacity. Work you cannot review is a risk, not progress.",
+   "explain": "The bottleneck is review capacity. Work you cannot review is a risk.",
    "options": [
     {
      "text": "How much of their output you can actually review",
@@ -67,6 +86,82 @@
     {
      "text": "The number of tasks you can think of to give them",
      "misconception": "Starting is cheap. Checking is the cost."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A collaborator sees you drafted an analysis in minutes and asks for the finished, checked version tomorrow. What helps most?",
+   "explain": "Drafting got faster. Checking takes the time it always took, so the agreed date needs to include it.",
+   "options": [
+    {
+     "text": "Share how long checking takes and agree a date with review in it",
+     "correct": true
+    },
+    {
+     "text": "Agree to tomorrow and trim the checks to meet it",
+     "misconception": "Skipped checks move the cost to whoever finds the error later."
+    },
+    {
+     "text": "Send the draft as finished and fix problems as they come in",
+     "misconception": "Unchecked output looks reviewed once it reaches others."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "Your drafts have begun to sound like everyone else's. What helps most?",
+   "explain": "Your own words first keep the voice yours, and the agent can still check structure and consistency.",
+   "options": [
+    {
+     "text": "Draft in your own words, read it aloud, then use the agent for structure checks",
+     "correct": true
+    },
+    {
+     "text": "Ask the agent to write it all, then pick the best of several versions",
+     "misconception": "Choosing among generic drafts still leaves the voice generic."
+    },
+    {
+     "text": "Stop writing emails and letters yourself and let the agent send them",
+     "misconception": "Handing over your correspondence removes your voice where collaborators most expect it."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "Checking agent drafts fills your week and the design work gets squeezed. What helps most?",
+   "explain": "Routine drafting can go to the agent while you keep the creative decisions and give checking its own time.",
+   "options": [
+    {
+     "text": "Keep the question and interpretation, and schedule checking as real work",
+     "correct": true
+    },
+    {
+     "text": "Let the agent choose the study design, since you will check it afterwards",
+     "misconception": "Design is the creative core, and checking a design after the fact is weaker than making it."
+    },
+    {
+     "text": "Check only the parts that look unusual, to save time",
+     "misconception": "Plausible-looking errors do not look unusual, so a partial check misses them."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "You are unsure which method suits your data. How do you keep your own judgement in practice?",
+   "explain": "Deciding first gives you a call to compare with the second opinion.",
+   "options": [
+    {
+     "text": "Write down your choice, then ask for a second opinion and compare",
+     "correct": true
+    },
+    {
+     "text": "Ask the agent first, then adopt its choice if it sounds convincing",
+     "misconception": "Convincing wording is not evidence, and an early answer anchors your own thinking."
+    },
+    {
+     "text": "Never ask for a second opinion, so your judgement stays pure",
+     "misconception": "A second opinion is useful when you decided first, and refusing all help discards a good check."
     }
    ]
   },

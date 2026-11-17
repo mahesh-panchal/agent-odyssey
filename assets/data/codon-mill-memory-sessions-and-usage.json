@@ -9,22 +9,22 @@
     {
      "left": "Context window",
      "right": "Everything the model can see when it writes its next output",
-     "misconception": "It is not saved between sessions; a new session starts with a fresh one."
+     "misconception": "It lives in the session, and a new session starts with a fresh one."
     },
     {
      "left": "Memory",
      "right": "Files read into a new window at the start of each session",
-     "misconception": "Memory is not the live conversation; it is text on disk that gets reloaded."
+     "misconception": "Memory is text on disk that gets reloaded; the live conversation is the context window."
     },
     {
      "left": "Session usage",
      "right": "How much of your allowance a session consumes",
-     "misconception": "It is not the size of the window; it grows because the whole conversation is re-sent each request."
+     "misconception": "Usage is about consumption, and it grows because the whole conversation is re-sent each request."
     },
     {
      "left": "Context poisoning",
      "right": "A wrong statement that later answers build on",
-     "misconception": "It is a community term for errors persisting in context, not a security feature or an official setting."
+     "misconception": "It is a community term for errors persisting in context."
     }
    ]
   },
@@ -40,7 +40,7 @@
     {
      "text": "A rule written in CLAUDE.md",
      "bin": "Survives /clear",
-     "misconception": "It is a file, not part of the conversation, so clearing does not touch it."
+     "misconception": "It is a file outside the conversation, so clearing leaves it alone."
     },
     {
      "text": "A note the tool saved in its auto memory folder",
@@ -90,7 +90,7 @@
    "lines": [
     {
      "text": "Run the tests with the project's own test command before saying a change is done",
-     "why": "A checkable working rule, not a claim about the data."
+     "why": "A checkable working rule that makes no claim about the data."
     },
     {
      "text": "All libraries are reverse-stranded (the agent's guess in the first session, not looked up)",
@@ -102,7 +102,7 @@
     },
     {
      "text": "Never write to the raw_data folder",
-     "why": "A rule, not a factual claim that could be wrong."
+     "why": "A rule, which holds no factual claim that could be wrong."
     }
    ]
   },

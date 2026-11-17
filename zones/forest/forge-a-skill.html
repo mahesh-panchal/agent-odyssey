@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> The Project Charter. <strong>Objective:</strong> package a repeatable procedure as a Skill, and know what a Skill does and does not do. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code> and <code>research/doctor.md</code>).</span></p>
+<p><strong>Prerequisites:</strong> The Project Charter. <strong>Objective:</strong> package a repeatable procedure as a Skill, and know what a Skill covers and where its limits lie. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code> and <code>research/doctor.md</code>).</span></p>
 </div>
 <p>An instructions file is read every session. A <strong>Skill</strong> is a procedure loaded only when it is relevant, so it can be long without crowding the context.</p>
 <section id="what-a-skill-is" class="level2">
@@ -169,13 +169,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Run <span class="in">`grep -c '&gt;' FILE`</span> to count records.</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Run <span class="in">`grep '&gt;' FILE | sort | uniq -d`</span> to find duplicate IDs.</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Report what you ran and its output. Do not modify FILE.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Report what you ran and its output. Leave FILE unchanged.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="do-it-install-it-then-confirm-it-loaded" class="level2">
 <h2 class="anchored" data-anchor-id="do-it-install-it-then-confirm-it-loaded">Do it: install it, then confirm it loaded</h2>
 <p>Writing the file is half the job. A Skill with a typo in its frontmatter loads silently with no fields set, so always check.</p>
 <ol type="1">
-<li>In a scratch folder (not a real project), save the example above as <code>.claude/skills/check-fasta/SKILL.md</code>. The <code>---</code> must be the very first line of the file.</li>
+<li>In a scratch folder (never a real project), save the example above as <code>.claude/skills/check-fasta/SKILL.md</code>. The <code>---</code> must be the very first line of the file.</li>
 <li>Make a tiny test file: <code>printf '&gt;a\nACGT\n&gt;a\nGGCC\n' &gt; reads.fa</code> (two records, one duplicated ID).</li>
 <li>Confirm the tool can see it:</li>
 </ol>
@@ -183,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>Start <code>claude</code> in the scratch folder. Type <code>/</code> and look for <code>check-fasta</code> in the menu, or run <code>/skills</code>. If you created a top-level skills folder after the session started, run <code>/reload-skills</code>. Then ask, without naming the Skill: <em>“I just got reads.fa from a collaborator. Is it OK to analyse?”</em> The agent should load the Skill and report the commands it ran.</p>
+<p>Start <code>claude</code> in the scratch folder. Type <code>/</code> and look for <code>check-fasta</code> in the menu, or run <code>/skills</code>. If you created a top-level skills folder after the session started, run <code>/reload-skills</code>. Then ask in plain words, leaving the Skill unnamed: <em>“I just got reads.fa from a collaborator. Is it OK to analyse?”</em> The agent should load the Skill and report the commands it ran.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>Start <code>opencode</code> in the scratch folder. OpenCode finds <code>.claude/skills</code> too. The model loads a Skill through its <code>skill</code> tool, and you can load one yourself by writing <code>@check-fasta</code> in a prompt. Then ask the same question and check whether the Skill was used.</p>
@@ -193,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol start="4" type="1">
 <li>If it did not trigger, check in this order: the file starts with <code>---</code> on line 1; the YAML (the <code>key: value</code> text format used in that block) parses; field names are spelled right; the <code>description</code> says <em>when</em> to use it, with the key use case first (long descriptions are cut off in the listing).</li>
 </ol>
-<p>A Skill that is listed but never picked up is a finding, not a failure of the model. Next you will learn to measure that instead of guessing.</p>
+<p>A Skill that is listed but never picked up is a finding about the description or the prompt. Next you will learn to measure that.</p>
 <p>If a Skill never fires, two <strong>slash commands</strong> (a <code>/command</code> typed inside the running tool) help you look. <code>/skills</code> lists the skills the tool can see, and <code>t</code> sorts them by token count (how many tokens, the chunks of text a model reads, each one takes). <code>/skill-doctor</code> (v2.1.252 or later) shows each skill’s context cost (how much of the model’s limited reading space its text takes up) and how often it is used, and flags skills that sit in the listing but are never invoked. It excludes bundled and enterprise skills.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -205,19 +205,19 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In Claude Code, <code>allowed-tools</code> in a Skill <strong>pre-approves</strong> tools for that turn (one prompt and its reply). It does not restrict the agent to them. A Skill is not a sandbox, and a Skill you download is code you are choosing to trust. Read it before installing it, as you would read a script.</p>
+<p>In Claude Code, <code>allowed-tools</code> in a Skill <strong>pre-approves</strong> tools for that turn (one prompt and its reply). Other tools stay available to the agent. A Skill offers no sandbox, and a Skill you download is code you choose to trust. Read it before installing it, as you would read a script.</p>
 </div>
 </div>
 </section>
 <section id="design-the-skill-like-a-small-job" class="level2">
 <h2 class="anchored" data-anchor-id="design-the-skill-like-a-small-job">Design the Skill like a small job</h2>
-<p><strong>Idea from the GitHub Blog article</strong> “Build once, run on any agent: a practical guide to agent skills” by Andrea Griffiths (GitHub Blog). The points below are our own wording of its advice, and the article does not cover the Agent Skills standard itself.</p>
+<p><strong>Idea from the GitHub Blog article</strong> “Build once, run on any agent: a practical guide to agent skills” by Andrea Griffiths (GitHub Blog). The points below are our own wording of its advice, and the Agent Skills standard itself is outside the article’s scope.</p>
 <ul>
 <li><strong>One Skill, one job.</strong> Give it a defined <strong>input</strong> (what it is handed, such as a FASTA path) and a defined <strong>output</strong> (what it must return, such as a count and a list of duplicate IDs). If you need “and also” in the description, you probably have two Skills.</li>
 <li><strong>Say what it does and when to use it.</strong> The <code>name</code> and <code>description</code> should state the task and its purpose. In the body, add a short <strong>When to use</strong> part, and a <strong>What evidence to report</strong> part (the commands run and their output), so a reviewer can see what happened.</li>
 <li><strong>Start from a task you keep explaining.</strong> If you re-explain the same check each session, such as how to confirm a FASTQ file has no truncated records, that check is your first Skill. Write down its inputs, its limits and what a reviewer needs to see.</li>
-<li><strong>A Skill describes the method, not the access.</strong> The tool that runs it still supplies the tools, credentials and permissions. A Skill that says “submit this to the cluster” does not give anyone a cluster account or an allocation.</li>
-<li><strong>Know when not to use a Skill.</strong> Skills suit bounded, repeatable work such as a pre-submission checklist for a samplesheet. Work that needs a stable interface, shared state, an audit trail or permissions enforced from outside, such as a lab’s shared sample-tracking service, is better built as an <strong>application</strong> (a separate program with its own tests and access rules), not as instructions.</li>
+<li><strong>A Skill describes the method.</strong> The tool that runs it still supplies the tools, credentials and permissions. A Skill that says “submit this to the cluster” brings no cluster account or allocation with it.</li>
+<li><strong>Know when a Skill is the wrong fit.</strong> Skills suit bounded, repeatable work such as a pre-submission checklist for a samplesheet. Work that needs a stable interface, shared state, an audit trail or permissions enforced from outside, such as a lab’s shared sample-tracking service, suits an <strong>application</strong> (a separate program with its own tests and access rules) better than instructions.</li>
 </ul>
 <p><strong>Portability.</strong> The Claude Code and OpenCode docs listed in Lore below say both read <code>.claude/skills</code>, so one <code>SKILL.md</code> can serve both. The article’s advice, which is a sensible habit, is to verify in <strong>each client</strong> (the tool that runs the agent, such as Claude Code or OpenCode) you use after installing: does it trigger on the right request, load the files the Skill refers to, use the tools it needs, and return the evidence you asked for? Clients differ in models, tools and permissions, so a Skill that works in one can fail in another.</p>
 <div data-ao-honour="write-skill" data-xp="20">

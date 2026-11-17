@@ -179,7 +179,7 @@ Warning
 </section>
 <section id="start-on-a-short-lead" class="level2">
 <h2 class="anchored" data-anchor-id="start-on-a-short-lead">3. Start on a short lead</h2>
-<p>Make a throwaway folder and start in <strong>plan mode</strong>, which reads files and runs read-only commands but does not edit your source:</p>
+<p>Make a throwaway folder and start in <strong>plan mode</strong>, which reads files and runs read-only commands and leaves your source untouched:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/odyssey-scratch <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/odyssey-scratch</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--permission-mode</span> plan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>Shift+Tab</code> cycles <code>default</code>, <code>acceptEdits</code> and <code>plan</code> inside a session; the status bar shows the current mode.</p>
@@ -205,7 +205,7 @@ Warning
 </tr>
 <tr class="odd">
 <td><code>plan</code></td>
-<td>reads and runs read-only commands; does not edit source files</td>
+<td>reads and runs read-only commands; leaves source files untouched</td>
 </tr>
 <tr class="even">
 <td><code>bypassPermissions</code></td>

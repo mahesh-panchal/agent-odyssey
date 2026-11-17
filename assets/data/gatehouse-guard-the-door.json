@@ -20,7 +20,7 @@
     },
     {
      "text": "Add a line to the instructions file asking Claude to stop",
-     "misconception": "Instructions influence the model. They do not stop the tool call."
+     "misconception": "Instructions influence the model, and the tool call goes ahead unless something enforces a stop."
     }
    ]
   },
@@ -54,7 +54,7 @@
     },
     {
      "text": "It is blocked, because a failing guard stops everything",
-     "misconception": "Only exit 2 (or a JSON deny decision) blocks. A crash does not."
+     "misconception": "Exit 2 (or a JSON deny decision) blocks, and a crash leaves the action to proceed."
     },
     {
      "text": "It is held until you answer a prompt about the crash",
@@ -69,7 +69,7 @@
   {
    "type": "faulty-line",
    "prompt": "A colleague describes what their grep hook protects. Which line overclaims?",
-   "explain": "A hook that greps the command text sees only that text. It is not a sandbox, and a differently spelled or script-hidden command passes it.",
+   "explain": "A hook that greps the command text sees only that text. A differently spelled or script-hidden command passes it, and a sandbox is a separate control.",
    "lines": [
     {
      "text": "It runs before the Bash tool and can refuse the call",

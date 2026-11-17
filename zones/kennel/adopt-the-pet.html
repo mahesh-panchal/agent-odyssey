@@ -169,13 +169,13 @@ Warning
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://ollama.com/install.sh <span class="kw">|</span> <span class="fu">sh</span>     <span class="co"># macOS and Linux</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull qwen3:4b                              <span class="co"># about 2.5 GB</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> run qwen3:4b <span class="st">"Say hello in one sentence."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>qwen3:4b</code> is one example of a small model that Ollama lists with tool support. Model names change quickly, so check the “tools” badge on the model’s page at ollama.com/library. Whether a model really fits your RAM (ordinary memory) is something you test, not something these docs promise: use <code>ollama ps</code> while it runs.</p>
+<p><code>qwen3:4b</code> is one example of a small model that Ollama lists with tool support. Model names change quickly, so check the “tools” badge on the model’s page at ollama.com/library. The docs make no promise that a model fits your RAM (ordinary memory), so test it: <code>ollama ps</code> shows what loaded while it runs.</p>
 </section>
 <section id="give-it-room-to-think" class="level2">
 <h2 class="anchored" data-anchor-id="give-it-room-to-think">2. Give it room to think</h2>
 <p>Ollama’s docs say the default context (the context length, which is the same thing as the context window: how much text the model can see at once) is <strong>4k tokens</strong> on machines with under 24 GiB of video memory (VRAM, the memory on the graphics card or shared with it), which includes a 16 GB laptop. Agents and coding tools need <strong>at least 64k</strong>, and OpenCode says it requires 64k or higher. Set it when you start the server:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">OLLAMA_CONTEXT_LENGTH</span><span class="op">=</span>64000 <span class="ex">ollama</span> serve</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Check what loaded with <code>ollama ps</code>. A bigger context needs more memory and can push work onto the CPU (the main processor, instead of faster graphics hardware), which is slow, so the Pet may be a patient companion.</p>
+<p>Check what loaded with <code>ollama ps</code>. A bigger context needs more memory and can push work onto the CPU (the main processor; graphics hardware is faster), which is slow, so the Pet may be a patient companion.</p>
 </section>
 <section id="point-opencode-at-it" class="level2">
 <h2 class="anchored" data-anchor-id="point-opencode-at-it">3. Point OpenCode at it</h2>
@@ -203,9 +203,9 @@ Warning
 <section id="unconfirmed-check-before-relying-on-it" class="level2">
 <h2 class="anchored" data-anchor-id="unconfirmed-check-before-relying-on-it">Unconfirmed (check before relying on it)</h2>
 <ul>
-<li>WSL: neither Ollama nor OpenCode publishes WSL guidance. Installing both inside your WSL distro is our best guess, not a documented path.</li>
+<li>WSL: neither Ollama nor OpenCode publishes WSL guidance. Installing both inside your WSL distro is our best guess, and no vendor documents it.</li>
 <li>OpenCode is in a version change: its pages differ on some config keys, so if a snippet errors, check the current docs.</li>
-<li>Small models are more error-prone than large ones. That is common experience, not something the vendors document.</li>
+<li>Small models are more error-prone than large ones. That comes from common experience, and the vendors do not document it.</li>
 </ul>
 </section>
 <section id="battle-the-pets-leash" class="level2">

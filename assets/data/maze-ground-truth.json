@@ -27,7 +27,7 @@
   {
    "type": "choice",
    "prompt": "For seq3 (`GCNNNNAT`) the script prints 25.0, i.e. 2 GC out of all 8 positions, N included. Is this a bug?",
-   "explain": "Whether to count N in the denominator is a decision. Make it deliberately, state it, and test it. Do not let an agent decide silently.",
+   "explain": "Whether to count N in the denominator is a decision. Make it deliberately, state it, and test it, so the agent never decides it silently.",
    "options": [
     {
      "text": "A policy choice: decide if N counts in the length, then document and test it",

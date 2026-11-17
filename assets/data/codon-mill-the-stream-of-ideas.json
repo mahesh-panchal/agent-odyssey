@@ -78,7 +78,7 @@
     },
     {
      "text": "Ask it with /btw so that nothing is kept in the history",
-     "misconception": "/btw gives an answer now, which you said you do not want this session, and the idea itself is then not written down anywhere."
+     "misconception": "/btw gives an answer now, which you said you do not want this session, and the idea itself is left unrecorded."
     }
    ]
   },
@@ -120,7 +120,7 @@
     },
     {
      "text": "Ask for a subagent when you only need the summary of a big search",
-     "why": "Subagents return a summary instead of filling your context."
+     "why": "Subagents return a summary, which keeps your context light."
     },
     {
      "text": "Commit your work before starting a different task in a fresh session",

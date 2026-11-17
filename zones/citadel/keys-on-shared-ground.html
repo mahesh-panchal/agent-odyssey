@@ -111,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quest-dialog">
 <p><strong>Prerequisites:</strong> Login Node Manners, and The Locked Cabinet. <strong>Objective:</strong> keep keys and agent settings private on shared storage, keep data within its agreement, and know what to ask your cluster staff. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm and Claude Code docs on 2026-11-16 (sources in <code>research/hpc-and-notebooks.md</code>)</span></p>
 </div>
-<p>Where a claim below is <strong>general practice</strong>, it is advice and not a documented fact. <strong>Follow your own cluster’s policy and data agreement over this page.</strong> Nothing here says that using an LLM agent on a cluster is allowed or expected. Many sites have rules, and some forbid it for certain data. <strong>Ask your cluster staff.</strong> This quest is reading only: do not test anything on a real cluster.</p>
+<p>A claim marked <strong>general practice</strong> is advice and is not a documented fact. <strong>Follow your own cluster’s policy and data agreement over this page.</strong> This page makes no claim that using an LLM agent on a cluster is allowed or expected. Many sites have rules, and some forbid it for certain data. <strong>Ask your cluster staff.</strong> This quest is reading only. Do not test anything on a real cluster.</p>
 <section id="what-lives-where" class="level2">
 <h2 class="anchored" data-anchor-id="what-lives-where">What lives where</h2>
 <p>Claude Code keeps sessions, settings and plugins in <code>~/.claude</code>, and writes <code>~/.claude.json</code> (account details, MCP configuration, trust decisions). <code>CLAUDE_CONFIG_DIR</code> relocates the first of these.</p>
@@ -122,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="keys">Keys</h2>
 <ul>
 <li><code>ANTHROPIC_API_KEY</code>, when set, overrides a subscription login. In <code>-p</code> (non-interactive) mode it is always used, and interactive mode asks you once to approve it. If a key is exported in a shared profile, the key in use may not be the one you expect.</li>
-<li><em>General practice:</em> never put a key in a script or in a committed <code>.claude/settings.json</code>. On a shared account, prefer a per-user key kept in a file readable only by you (mode 600), not a lab-wide key in a shared directory.</li>
+<li><em>General practice:</em> never put a key in a script or in a committed <code>.claude/settings.json</code>. On a shared account, use a per-user key kept in a file readable only by you (mode 600), and do not keep a lab-wide key in a shared directory.</li>
 <li>The sandbox’s default reads cover most of the machine, including credential files such as <code>~/.ssh</code> and <code>~/.aws/credentials</code>. Use <code>Read(...)</code> deny rules or <code>sandbox.filesystem.denyRead</code> for key files. Remember that the sandbox covers shell commands only.</li>
 </ul>
 <p>Not confirmed here: how OpenCode stores keys, and what the <code>apiKeyHelper</code> setting does. Check the docs for your version.</p>

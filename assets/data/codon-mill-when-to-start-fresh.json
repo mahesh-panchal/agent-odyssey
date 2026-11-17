@@ -28,7 +28,7 @@
     {
      "text": "You are halfway through debugging one failing step and the agent is making progress",
      "bin": "Carry on",
-     "misconception": "Clearing a working session discards good context to fix a problem you do not have."
+     "misconception": "Clearing a working session discards good context, and nothing needs fixing."
     },
     {
      "text": "Next step depends on reference-build decisions you made earlier in this same task",
@@ -61,7 +61,7 @@
     },
     {
      "text": "Run /resume to reload the same conversation with more room",
-     "misconception": "Resume reopens a saved conversation; it does not make space in a window that is already full."
+     "misconception": "Resume reopens a saved conversation; a full window stays full."
     }
    ]
   },
@@ -88,7 +88,7 @@
     {
      "left": "You want to see what is filling the window",
      "right": "/context",
-     "misconception": "/usage reports cost and plan limits, not what is inside the window."
+     "misconception": "/usage reports cost and plan limits, and /context shows what is inside the window."
     }
    ]
   },

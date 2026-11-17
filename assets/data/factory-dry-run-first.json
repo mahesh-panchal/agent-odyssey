@@ -45,7 +45,7 @@
     "Can catch",
     "Cannot catch"
    ],
-   "explain": "These runs exercise the graph, not the commands.",
+   "explain": "These runs exercise the graph; checking the commands takes a real run.",
    "items": [
     {
      "text": "A step needs an input that no step produces",

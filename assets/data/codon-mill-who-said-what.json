@@ -9,24 +9,24 @@
     {
      "left": "System prompt",
      "right": "Written by the harness, sent on every request",
-     "misconception": "You can append to it, but the base text belongs to the harness."
+     "misconception": "You can append to it; the base text belongs to the harness."
     },
     {
      "left": "Instructions file",
      "right": "Written by you, loaded at the start of each session",
-     "misconception": "It is persistent, not per task. That is why it costs context every time."
+     "misconception": "It persists across tasks, which is why it costs context every time."
     },
     {
      "left": "Your message",
      "right": "Written by you, applies to this task",
-     "misconception": "A chat message is not remembered across sessions unless it is saved elsewhere."
+     "misconception": "A chat message lasts for this task unless it is saved elsewhere."
     }
    ]
   },
   {
    "type": "choice",
    "prompt": "According to the Claude Code docs, how does CLAUDE.md reach the model?",
-   "explain": "The docs say it is loaded as a user message after the system prompt, not as part of the system prompt.",
+   "explain": "The docs say it is loaded as a user message after the system prompt.",
    "options": [
     {
      "text": "As a user message after the system prompt",
@@ -34,11 +34,11 @@
     },
     {
      "text": "As the first lines of the system prompt itself",
-     "misconception": "The docs say it is not part of the system prompt."
+     "misconception": "The docs place it outside the system prompt."
     },
     {
      "text": "It is compiled into a setting the harness enforces",
-     "misconception": "The docs call it context, not enforced configuration."
+     "misconception": "The docs call it context."
     }
    ]
   },
@@ -53,7 +53,7 @@
     },
     {
      "text": "A longer, more forceful line in CLAUDE.md for it",
-     "misconception": "Prose is advice. Forceful wording does not turn it into enforcement."
+     "misconception": "Prose is advice, and forceful wording leaves it as advice."
     },
     {
      "text": "Repeating the rule in every message you send it",
@@ -79,12 +79,12 @@
     {
      "text": "Always run the unit tests with the project's own command",
      "bin": "Instructions file",
-     "misconception": "A lasting project fact belongs in the file, not in each chat."
+     "misconception": "A lasting project fact belongs in the file, so each chat starts with it."
     },
     {
      "text": "Fix the failing step in this one pipeline run",
      "bin": "Your message",
-     "misconception": "That is a single task, not a lasting rule."
+     "misconception": "That is a single task, so it belongs to your message."
     },
     {
      "text": "A co-author line added to commits",
@@ -96,7 +96,7 @@
   {
    "type": "faulty-line",
    "prompt": "Statements a teammate wrote in a guide. Which one the docs do not support?",
-   "explain": "The docs describe the instructions file as context, not enforced configuration. Calling it a guarantee is the error.",
+   "explain": "The docs describe the instructions file as context. Calling it a guarantee is the error.",
    "lines": [
     {
      "text": "The instructions file spends context in every session",

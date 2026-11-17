@@ -75,7 +75,7 @@
     {
      "text": "In another plan, step 6: Check the output looks right",
      "bin": "Push back",
-     "misconception": "'Looks right' names no command and no expected value."
+     "misconception": "'Looks right' leaves out a command and an expected value."
     },
     {
      "text": "Step 4: Edit conf/base.config, for a task that only concerns the parser",

@@ -242,8 +242,8 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/codon-mill/the-context-window.html">The Context Window</a>: it says CLAUDE.md and auto memory are context, which is why they take up room in the window.</li>
 <li><a href="./zones/codon-mill/memory-sessions-and-usage.html">Memory, Sessions and Usage</a>: it defines CLAUDE.md and auto memory, the “memory” term this quest sets beside session context.</li>
 <li><a href="./zones/codon-mill/handoff-notes.html">Handoff Notes</a>: it separates CLAUDE.md from auto memory, two of the things that carry knowledge across to a fresh session.</li>
-<li><a href="./zones/codon-mill/who-said-what.html">Who Said What</a>: it says CLAUDE.md is context, not enforced rules, which is why the instructions file sits at the “advises” end of this quest.</li>
-<li><a href="./zones/forest/the-project-charter.html">The Project Charter</a>: it covers CLAUDE.md placement, AGENTS.md and auto memory, and says these are context, not enforcement.</li>
+<li><a href="./zones/codon-mill/who-said-what.html">Who Said What</a>: it says CLAUDE.md is context that advises, which is why the instructions file sits at the “advises” end of this quest.</li>
+<li><a href="./zones/forest/the-project-charter.html">The Project Charter</a>: it covers CLAUDE.md placement, AGENTS.md and auto memory, and describes these as context that guides the agent.</li>
 <li><a href="./zones/reef/teach-and-share-the-load.html">Teach and Share the Load</a>: it covers CLAUDE.md files a team can share, and notes they advise rather than enforce, which matters when teaching a lab shared rules.</li>
 </ul></li>
 <li><p><a href="https://code.claude.com/docs/en/costs">Manage costs effectively</a>: Anthropic, docs. Cited by 3 quests; each quest says what to read it for.</p>
@@ -274,7 +274,7 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/forest/plan-before-you-edit.html">Plan Before You Edit</a>: it says when planning pays off and describes the interview-then-spec pattern.</li>
 <li><a href="./zones/forest/the-project-charter.html">The Project Charter</a>: it shows what belongs in an instructions file and what to enforce another way.</li>
 <li><a href="./zones/gatehouse/guard-the-door.html">Guard the Door</a>: it says when to reach for a PreToolUse hook instead of an instruction.</li>
-<li><a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: it states that instructions are context, not enforced configuration, which is this quest’s core split.</li>
+<li><a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: it describes instructions as context and not as enforced configuration, which is this quest’s core split.</li>
 </ul></li>
 <li><p><a href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts Fail</a>: Drew Breunig, blog, article. Why read: it names context poisoning and distraction, the failure modes behind starting fresh; a personal blog, not vendor documentation. Cited in: <a href="./zones/codon-mill/when-to-start-fresh.html">When to Start Fresh</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/sub-agents">Create custom subagents</a>: Anthropic, docs. Cited by 3 quests; each quest says what to read it for.</p>
@@ -287,13 +287,13 @@ ul.task-list li input[type="checkbox"] {
 <li><p><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Cited by 5 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
-<li><a href="./zones/codon-mill/who-said-what.html">Who Said What</a>: it is the reference for the one control here that enforces rather than asks; skim it to see what hooks can act on.</li>
+<li><a href="./zones/codon-mill/who-said-what.html">Who Said What</a>: it is the reference for the one control here that enforces, while the others ask; skim it to see what hooks can act on.</li>
 <li><a href="./zones/forest/the-project-charter.html">The Project Charter</a>: hooks are the way to enforce a rule that an instructions file can only request.</li>
 <li><a href="./zones/forest/bundle-a-plugin.html">Bundle a Plugin</a>: hooks are the plugin part that runs code, so read this before trusting one.</li>
 <li><a href="./zones/gatehouse/guard-the-door.html">Guard the Door</a>: it lists the hook events, handler types and the exit-code rules, including exit 2 to block.</li>
 <li><a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: it documents how a hook blocks a tool call, the code-level lock.</li>
 </ul></li>
-<li><p><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool">Tool search tool</a>: Anthropic, docs. Why read: it is where Anthropic states a roughly 55k-token example for tool definitions and says tool selection degrades past 30 to 50 tools; it gives no method for either figure, so read them as Anthropic’s own claims about the API, not independent measurements. Cited in: <a href="./zones/codon-mill/too-many-tools-too-many-agents.html">Too Many Tools, Too Many Agents</a>.</p></li>
+<li><p><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool">Tool search tool</a>: Anthropic, docs. Why read: it is where Anthropic states a roughly 55k-token example for tool definitions and says tool selection degrades past 30 to 50 tools; it gives no method for either figure, so read them as Anthropic’s own claims about the API, with no independent measurement. Cited in: <a href="./zones/codon-mill/too-many-tools-too-many-agents.html">Too Many Tools, Too Many Agents</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/mcp">Connect Claude Code to tools via MCP</a>: Anthropic, docs. Cited by 2 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
@@ -352,10 +352,11 @@ ul.task-list li input[type="checkbox"] {
 <p>Cited in:</p>
 <ul>
 <li><a href="./zones/crypt/rules-of-the-carapace.html">Grow the Carapace</a>: it states what the sandbox covers and what it does not, so you do not over-trust it.</li>
-<li><a href="./zones/gatehouse/plug-in-a-server.html">Plug In a Server</a>: it states what the sandbox limits and what it does not, so you can judge it as one layer.</li>
+<li><a href="./zones/gatehouse/plug-in-a-server.html">Plug In a Server</a>: it states what the sandbox limits and where that limit ends, so you can judge it as one layer.</li>
 <li><a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: it shows an operating-system limit on shell commands and where that limit ends.</li>
 <li><a href="./zones/citadel/keys-on-shared-ground.html">Keys on Shared Ground</a>: it states the sandbox reads most of the machine, including ~/.ssh, unless you deny it, and it fails open by default.</li>
 </ul></li>
+<li><p><a href="https://docs.ollama.com/faq">Ollama FAQ</a>: Ollama, docs. Why read: it says what stays on your machine when you run a model locally, and what it says about prompts sent to Ollama’s cloud models. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
 </ul>
 </section>
 <section id="phylogenetic-forest" class="level2">
@@ -444,10 +445,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="the-cluster-citadel" class="level2">
 <h2 class="anchored" data-anchor-id="the-cluster-citadel">The Cluster Citadel</h2>
 <ul>
-<li><a href="https://slurm.schedmd.com/quickstart.html">Quick Start User Guide</a>: SchedMD (Slurm), docs. Why read: it explains sbatch, srun, squeue and scancel; it does not define login-node rules, so read your own site’s guide too. Cited in: <a href="./zones/citadel/login-node-manners.html">Login Node Manners</a>.</li>
+<li><a href="https://slurm.schedmd.com/quickstart.html">Quick Start User Guide</a>: SchedMD (Slurm), docs. Why read: it explains sbatch, srun, squeue and scancel; it leaves login-node rules to your site, so read your own site’s guide too. Cited in: <a href="./zones/citadel/login-node-manners.html">Login Node Manners</a>.</li>
 <li><a href="https://slurm.schedmd.com/sbatch.html">sbatch</a>: SchedMD (Slurm), docs. Why read: it is the manual for submitting jobs, including –test-only to validate a request without submitting. Cited in: <a href="./zones/citadel/login-node-manners.html">Login Node Manners</a>, <a href="./zones/citadel/jobs-not-jam.html">Jobs, Not Jam</a>.</li>
 <li><a href="https://slurm.schedmd.com/scancel.html">scancel</a>: SchedMD (Slurm), docs. Why read: it lists the user, state and name filters and says combined filters must all match, so a broad filter cancels every job it matches, including jobs that are not the agent’s. Cited in: <a href="./zones/citadel/jobs-not-jam.html">Jobs, Not Jam</a>.</li>
-<li><a href="https://slurm.schedmd.com/high_throughput.html">High Throughput Computing Administration Guide</a>: SchedMD (Slurm), docs. Why read: it is an administrator guide that mentions per-user rate limits on scheduler requests; read it for why floods of commands matter, not as user advice. Cited in: <a href="./zones/citadel/jobs-not-jam.html">Jobs, Not Jam</a>.</li>
+<li><a href="https://slurm.schedmd.com/high_throughput.html">High Throughput Computing Administration Guide</a>: SchedMD (Slurm), docs. Why read: it is an administrator guide that mentions per-user rate limits on scheduler requests; read it for why floods of commands matter; it is written for administrators. Cited in: <a href="./zones/citadel/jobs-not-jam.html">Jobs, Not Jam</a>.</li>
 </ul>
 
 

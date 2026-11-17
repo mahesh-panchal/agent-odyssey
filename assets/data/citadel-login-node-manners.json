@@ -29,7 +29,7 @@
     {
      "text": "compressing a large directory of FASTQ files",
      "bin": "hand to the scheduler",
-     "misconception": "Compression is sustained CPU and disk work, so it belongs in a job, not on the shared node."
+     "misconception": "Compression is sustained CPU and disk work, so it belongs in a job on a compute node."
     },
     {
      "text": "find / -name '*.bam' from the filesystem root",
@@ -49,11 +49,11 @@
     },
     {
      "text": "Submits the job at the lowest priority so it cannot disturb others",
-     "misconception": "Test-only never submits. It is not a low-priority submission."
+     "misconception": "Test-only submits nothing at any priority."
     },
     {
      "text": "Runs the script once on the login node to check its output",
-     "misconception": "Nothing is executed. The script is validated, not run anywhere."
+     "misconception": "Nothing is executed; the script is only validated."
     },
     {
      "text": "Submits the job but cancels it automatically after one minute",
@@ -88,7 +88,7 @@
     },
     {
      "text": "Claude Code refuses every shell command until the sandbox is fixed",
-     "misconception": "That is the behaviour of failIfUnavailable set to true, not the default."
+     "misconception": "That is the behaviour when failIfUnavailable is true; the default runs unsandboxed."
     },
     {
      "text": "Claude Code switches to a stricter permission mode on its own",
@@ -111,7 +111,7 @@
     },
     {
      "text": "Run it as asked on one CPU, billed for the memory used",
-     "misconception": "Billing follows what is allocated, not what is used, and the per-CPU limit is not ignored."
+     "misconception": "Billing follows what is allocated, and the per-CPU limit still applies."
     },
     {
      "text": "Always accept it and silently cap the memory at 4000 MB",

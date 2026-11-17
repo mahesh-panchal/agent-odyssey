@@ -146,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quest-dialog">
 <p><strong>Prerequisites:</strong> Tokens, Not Letters. <strong>Objective:</strong> sort jobs into “ask the model” and “run a script”, and name the other ways a model fails with one mitigation each. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): the sources listed in <code>research/failure-modes.md</code> (sections 6 and 7) on 2026-11-16. Verified: ran <code>echo banana | grep -o n | wc -l</code> and <code>grep -c '&gt;'</code> on a three-record mock file. Items marked “general practice” or “Not checked:” are not from a source.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
 </div>
-<p>A language model is good at some jobs and bad at others. The skill is knowing which is which before you trust the output. This quest does not say you must use a model for anything. It says where the risk sits if you do.</p>
+<p>A language model is good at some jobs and bad at others. The skill is knowing which is which before you trust the output. Using a model is always your choice. This quest shows where the risk sits if you do.</p>
 <section id="good-jobs-the-result-is-checkable" class="level2">
 <h2 class="anchored" data-anchor-id="good-jobs-the-result-is-checkable">Good jobs: the result is checkable</h2>
 <p>Models are generally useful where you can read the result, or run it, and judge it yourself (our inference from the research notes):</p>
@@ -157,14 +157,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>converting formats, for example a samplesheet CSV to JSON (a structured text format)</li>
 <li>first drafts of code that you will then test</li>
 </ul>
-<p><strong>Caveat for summaries.</strong> A summary can leave things out or bend them. A peer-reviewed study of the older, pre-chat generation of summarisation models (Maynez et al., ACL 2020) found substantial unfaithful content in every system tested. That evidence is dated, but the direction still applies. We found no published faithfulness rate for current Claude on scientific papers. So spot-check against the source: numbers, gene and sample names, direction of effect, negations. Omissions are harder to see, so skim the abstract and limitations yourself. Asking the model to quote the supporting lines first also helps; the Anthropic docs recommend quote-first extraction.</p>
+<p><strong>Caveat for summaries.</strong> A summary can leave things out or bend them. A peer-reviewed study of the older, pre-chat generation of summarisation models (Maynez et al., ACL 2020) found substantial unfaithful content in every system tested. That evidence is dated; the direction still applies. We found no published faithfulness rate for current Claude on scientific papers. So spot-check against the source: numbers, gene and sample names, direction of effect, negations. Omissions are harder to see, so skim the abstract and limitations yourself. Asking the model to quote the supporting lines first also helps; the Anthropic docs recommend quote-first extraction.</p>
 </section>
 <section id="bad-job-exact-counting-and-arithmetic" class="level2">
 <h2 class="anchored" data-anchor-id="bad-job-exact-counting-and-arithmetic">Bad job: exact counting and arithmetic</h2>
-<p>Ask a model: “How many n are in banana?” The right answer is 2 (b-a-n-a-n-a). A model can get this wrong, and can be wrong while sounding sure (see the overconfidence row below). A leading explanation is the one from the last quest: it reads tokens, not letters (see Tokens, Not Letters). Be honest about the state of the science, though. Some papers propose tokenisation as the cause (arXiv 2505.14172, arXiv 2410.19730), and another study (CharBench, arXiv 2508.02591) finds it only weakly related to correctness, with word length and the true count mattering more. <strong>The cause is debated. The fix is not.</strong></p>
+<p>Ask a model: “How many n are in banana?” The right answer is 2 (b-a-n-a-n-a). A model can get this wrong, and can be wrong while sounding sure (see the overconfidence row below). A leading explanation is the one from the last quest: it reads tokens, which are chunks of letters (see Tokens, Not Letters). The state of the science is mixed. Some papers propose tokenisation as the cause (arXiv 2505.14172, arXiv 2410.19730), and another study (CharBench, arXiv 2508.02591) finds it only weakly related to correctness, with word length and the true count mattering more. <strong>The cause is debated. The fix works whichever cause is right.</strong></p>
 <p>The fix is to run a script. Verified: ran this on macOS:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> banana <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-o</span> n <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>It printed <code>2</code> (the macOS <code>wc</code> pads with spaces; the number is 2). One preprint (arXiv 2410.14166, by Xu and Ma; its full text, not its abstract) reports that coding models asked to write Python for such counting tasks do them perfectly, while the same models fail when answering open-endedly. <em>General practice:</em> so for exact counts, have the model <strong>write the script</strong> and read the script and its output. Do not trust a count it states from “doing the sum in its head”.</p>
+<p>It printed <code>2</code> (the macOS <code>wc</code> pads with spaces; the number is 2). One preprint (arXiv 2410.14166, by Xu and Ma; its full text, not its abstract) reports that coding models asked to write Python for such counting tasks do them perfectly, while the same models fail when answering open-endedly. <em>General practice:</em> so for exact counts, have the model <strong>write the script</strong> and read the script and its output. Treat a count it states from “doing the sum in its head” as a guess to check.</p>
 <p>The bioinformatics versions of the same trap:</p>
 <table class="caption-top table">
 <colgroup>
@@ -192,11 +192,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td>Sum or mean of a column</td>
-<td><code>awk</code>, or a script, never a number stated in prose</td>
+<td><code>awk</code>, or a script that prints the number; a number stated in prose is a guess</td>
 </tr>
 </tbody>
 </table>
-<p>Rule of thumb: never trust a count the agent states in prose. Ask for the command and its output.</p>
+<p>Rule of thumb: ask for the command and its output, and treat a count stated in prose as a guess to check.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -204,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It can run Bash (the shell command tool) and write scripts, so ask: “write and run a command for this, and show me both the command and its output.”</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Same rule. Not checked: how reliable small local models are at this. General practice: assume they are no better at counting, and insist on a script.</p>
+<p>Same rule. Not checked: how reliable small local models are at this. General practice: assume they count about as poorly, and ask for a script.</p>
 </div>
 </div>
 </div>
@@ -236,7 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td>Sycophancy</td>
 <td>Telling you what you want to hear. It agrees with your wrong hypothesis, or softens a correct criticism when you push back (Sharma et al., arXiv 2310.13548)</td>
-<td>General practice: ask for the strongest case against your idea, and do not reveal your preferred answer</td>
+<td>General practice: ask for the strongest case against your idea, and hold back your preferred answer</td>
 <td>none yet</td>
 </tr>
 <tr class="odd">
@@ -259,13 +259,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td>Overconfidence</td>
-<td>Says it is done when it is not, often because it had no way to check</td>
+<td>Reports a task as done while it is unfinished, often because it had no way to check</td>
 <td>Give it a check to run (tests, row counts, md5) and read the output</td>
 <td>none yet</td>
 </tr>
 <tr class="odd">
 <td>Prompt injection</td>
-<td>Text the model treats as an instruction although it came from content, not from you. For example a README, PDF or FASTA header contains instructions the agent follows</td>
+<td>Text from fetched content that the model treats as an instruction. For example a README, PDF or FASTA header contains instructions the agent follows</td>
 <td>Treat fetched content as data; review commands before approving; no system is fully immune</td>
 <td>Plug In a Server</td>
 </tr>
@@ -282,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="the-decision-rule">The decision rule</h2>
 <p><strong>Can I check the result cheaply and independently?</strong> If yes, ask the model: a bad answer is likely to show (omissions may not, so check those deliberately). If the answer must be exactly right and cannot be checked, use a script.</p>
 <div data-ao-honour="count-letter" data-xp="20">
-Ask a model to count one letter in a long word (or a mock 40-letter DNA string), then check it with <code>grep -o</code> and <code>wc -l</code>. Note whether it was right, and how sure it sounded. One try proves nothing; it is a demonstration.
+Ask a model to count one letter in a long word (or a mock 40-letter DNA string), then check it with <code>grep -o</code> and <code>wc -l</code>. Note whether it was right, and how sure it sounded. One try is a demonstration and falls short of proof.
 </div>
 <div data-ao-honour="spot-check-summary" data-xp="20">
 Have a model summarise a methods paragraph you wrote. Check every number, name and negation against your original, and note anything omitted.

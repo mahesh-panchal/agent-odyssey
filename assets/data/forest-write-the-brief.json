@@ -43,11 +43,11 @@
     },
     {
      "text": "/clear",
-     "misconception": "/clear starts fresh with an empty conversation. It does not summarise anything, so it loses what you wanted to keep."
+     "misconception": "/clear starts fresh with an empty conversation, so it drops what you wanted to keep."
     },
     {
      "text": "/context",
-     "misconception": "/context only shows what is filling the window. It does not shrink it."
+     "misconception": "/context shows what is filling the window and leaves its size unchanged."
     }
    ]
   },
@@ -62,7 +62,7 @@
     "Run the check yourself"
    ],
    "why": {
-    "Ask for a plan, with no edits yet": "You cannot review a plan that does not exist yet, and edits come after approval."
+    "Ask for a plan, with no edits yet": "A plan has to exist before you can review it, and edits follow approval."
    }
   },
   {
@@ -95,11 +95,11 @@
     },
     {
      "text": "Ask it to summarise what it changed and why it should work",
-     "misconception": "A summary says what it did and what it believes, not that it works. Ask for a command and its output."
+     "misconception": "A summary reports what it did and believes. A command and its output show whether it works."
     },
     {
      "text": "Ask it to say how confident it is that the result is correct",
-     "misconception": "An answer to that question is a claim, not an observation."
+     "misconception": "An answer to that question is a claim, and a command's output is an observation."
     }
    ]
   }

@@ -29,12 +29,12 @@
     {
      "text": "scancel 123456",
      "bin": "ask",
-     "misconception": "Cancelling one named job is legitimate but destructive, so you decide each time rather than deny it outright."
+     "misconception": "Cancelling one named job is legitimate but destructive, so ask lets you decide each time."
     },
     {
      "text": "scancel --user=your-username",
      "bin": "deny",
-     "misconception": "This signals all your jobs, not only the agent's. It is not a command to approve case by case."
+     "misconception": "This signals all your jobs, including ones the agent did not start. It belongs in deny."
     }
    ]
   },
@@ -53,11 +53,11 @@
     },
     {
      "text": "Fully, provided the rule is in the user settings file",
-     "misconception": "File location sets scope, not strength. The matching limitation applies everywhere."
+     "misconception": "File location sets scope and leaves strength unchanged. The matching limitation applies everywhere."
     },
     {
      "text": "Not at all, because deny only matches the first command of a compound line",
-     "misconception": "Ask and deny rules apply to every part of a compound command. The weakness is differently spelled commands, not compounds."
+     "misconception": "Ask and deny rules apply to every part of a compound command. The weakness is differently spelled commands, and a compound line changes nothing."
     }
    ]
   },
@@ -80,7 +80,7 @@
     },
     {
      "text": "The squeue output is too long to fit in the context window",
-     "misconception": "The cost comes from resending the whole conversation with every poll, not from the size of one squeue listing."
+     "misconception": "The cost comes from resending the whole conversation with every poll, whatever the size of one squeue listing."
     }
    ]
   },

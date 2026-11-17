@@ -108,7 +108,7 @@
   {
    "type": "order",
    "prompt": "Put a sensible review of a notebook change in order.",
-   "explain": "Check the size of the change first, then read the source diff, then regenerate the outputs rather than trusting the stored ones.",
+   "explain": "Check the size of the change first, then read the source diff, then regenerate the outputs and use those over the stored ones.",
    "items": [
     "Run git diff --stat and look for a huge notebook",
     "Read the diff of the source cells only",

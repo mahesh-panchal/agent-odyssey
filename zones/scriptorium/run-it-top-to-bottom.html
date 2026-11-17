@@ -171,13 +171,13 @@ reads kept: 3
 </section>
 <section id="the-habit" class="level2">
 <h2 class="anchored" data-anchor-id="the-habit">The habit</h2>
-<p>Before you trust or share a notebook, restart the kernel and run all cells from the top (“Restart Kernel and Run All” in Jupyter). If the result changes, the stored output was not a product of the file as written. A fresh run rules out hidden state; it does not show the analysis is right. Then fix the order so that cells only depend on cells above them.</p>
+<p>Before you trust or share a notebook, restart the kernel and run all cells from the top (“Restart Kernel and Run All” in Jupyter). If the result changes, the stored output was not a product of the file as written. A fresh run rules out hidden state, and a separate check shows whether the analysis is right. Then fix the order so that cells only depend on cells above them.</p>
 <p>Two related options:</p>
 <ul>
-<li><strong>Run it headless</strong> (non-interactive, no one at the screen). <em>General practice:</em> on a cluster, run notebooks as a batch job, not as an interactive Jupyter session on the login node. Your cluster’s policy decides (see the Citadel quests).</li>
+<li><strong>Run it headless</strong> (non-interactive, no one at the screen). <em>General practice:</em> on a cluster, run notebooks as a batch job, and keep interactive Jupyter sessions off the login node. Your cluster’s policy decides (see the Citadel quests).</li>
 <li><strong>marimo.</strong> Its docs describe a reactive model: deleting a cell scrubs its variables from memory, which the docs say eliminates hidden state, and a notebook can be run as a script with <code>python your_notebook.py</code>. Check the docs for how side effects (files, network) behave, because this quest did not test that.</li>
 </ul>
-<p><em>General practice:</em> pin the environment too (a container or lockfile), so a fresh run happens with the same packages, and do not let an agent <code>pip install</code> into a shared environment.</p>
+<p><em>General practice:</em> pin the environment too (a container or lockfile), so a fresh run happens with the same packages, and keep an agent from running <code>pip install</code> into a shared environment.</p>
 </section>
 <section id="reviewing-a-notebook-an-agent-edited" class="level2">
 <h2 class="anchored" data-anchor-id="reviewing-a-notebook-an-agent-edited">Reviewing a notebook an agent edited</h2>
@@ -186,10 +186,10 @@ reads kept: 3
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p><code>NotebookEdit</code> changes one cell at a time. When it replaces a code cell, that cell’s execution count and saved outputs are cleared. To get outputs back, re-run the cell and the cells that depend on it. So a notebook an agent touched shows either empty outputs or old outputs from cells it did not touch, which no longer match the new code. Re-run top to bottom yourself.</p>
-<p>Then check the numbers with something the agent did not write, as in the Ground Truth quest in the Maze: compute one or two values independently and compare. A fresh run that completes is not proof that the analysis is right.</p>
+<p>Then check the numbers with something the agent did not write, as in the Ground Truth quest in the Maze: compute one or two values independently and compare. A fresh run that completes still needs a check that the analysis is right.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>The habit does not depend on the tool: restart, run all, and check a few numbers independently. This quest makes no claims about how OpenCode edits notebooks; check its docs.</p>
+<p>The habit works with any tool: restart, run all, and check a few numbers independently. This quest makes no claims about how OpenCode edits notebooks; check its docs.</p>
 </div>
 </div>
 </div>

@@ -111,14 +111,14 @@ ul.task-list li input[type="checkbox"] {
 <div class="quest-dialog">
 <p><strong>Prerequisites:</strong> Forge a Skill. <strong>Objective:</strong> turn “it did the wrong thing” into a measured fix, and know when the fix has stopped working. <strong>Time:</strong> about 10 minutes. <span class="ao-badge">General practice.</span></p>
 </div>
-<p>Sooner or later the agent does something you did not want: it skips a check, names files badly, or uses a method your lab avoids. Complaining in chat fixes that one reply. A <strong>Skill</strong> fixes it for next time. An <strong>eval</strong> tells you whether the fix works, and keeps telling you after the model or tool changes.</p>
+<p>Sooner or later the agent does something you did not want: it skips a check, names files badly, or uses a method your lab avoids. A chat correction helps that one reply, and a <strong>Skill</strong> helps next time. An <strong>eval</strong> tells you whether the fix works, and keeps telling you after the model or tool changes.</p>
 <section id="the-loop" class="level2">
 <h2 class="anchored" data-anchor-id="the-loop">The loop</h2>
 <ol type="1">
 <li><strong>Notice.</strong> Something did not go your way. Write down the prompt you used and what was wrong with the result.</li>
 <li><strong>Steer.</strong> Write or edit a Skill (or an instructions-file line) that says what to do instead. Keep it short and concrete.</li>
-<li><strong>Measure.</strong> Run the same prompt <strong>with</strong> the Skill and <strong>without</strong> it, several times each. Models vary between runs, so one try proves nothing.</li>
-<li><strong>Compare.</strong> If <em>with</em> is clearly better than <em>without</em>, the Skill earns its place. If they are about the same, the Skill is not doing anything: it is not triggering, it repeats what the model already does, or it is too vague.</li>
+<li><strong>Measure.</strong> Run the same prompt <strong>with</strong> the Skill and <strong>without</strong> it, several times each. Models vary between runs, so several tries give a fairer picture than one.</li>
+<li><strong>Compare.</strong> If <em>with</em> is clearly better than <em>without</em>, the Skill earns its place. If they are about the same, the Skill adds little: it may not be triggering, it may repeat what the model already does, or it may be too vague.</li>
 <li><strong>Repeat later.</strong> A new model version can make a Skill unnecessary, or break it. Re-run the evals when the model, the tool, or the Skill changes.</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -131,7 +131,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The unit that matters is the <strong>difference</strong> between <em>with</em> and <em>without</em>. The <em>without</em> run is the <strong>baseline</strong>: the run without the change, which tells you what the model does on its own. A Skill that scores 100% both ways has taught the model nothing it did not know.</p>
+<p>The unit that matters is the <strong>difference</strong> between <em>with</em> and <em>without</em>. The <em>without</em> run is the <strong>baseline</strong>: the run without the change, which tells you what the model does on its own. A Skill that scores 100% both ways has added nothing the model lacked.</p>
 </div>
 </div>
 </section>
@@ -142,7 +142,7 @@ Note
 <li><strong>The process:</strong> was the Skill actually used? A good-looking answer without the Skill loading means the Skill is not the reason.</li>
 <li><strong>Cost:</strong> every run is a real model call. Start with few cases and few runs, and raise them only for a Skill you will rely on.</li>
 </ul>
-<p>Evals can be wrong too. A check that always passes, or that fails correct answers, teaches you nothing. Read a few raw outputs by hand before trusting a score.</p>
+<p>Evals can be wrong too. A check that always passes, or that fails correct answers, tells you little. Read a few raw outputs by hand before trusting a score.</p>
 <div data-ao-honour="loop-notes" data-xp="20">
 Keep a short list of the times an agent went wrong for you. Each entry is a candidate Skill and a ready-made eval case.
 </div>

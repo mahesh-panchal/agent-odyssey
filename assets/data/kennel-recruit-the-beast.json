@@ -12,7 +12,7 @@
     "Start claude in plan mode"
    ],
    "why": {
-    "Confirm with claude --version": "Install first, then confirm; you cannot check a version of something not yet installed.",
+    "Confirm with claude --version": "Install first, then confirm; a version cannot be checked until something is installed.",
     "cd into an empty scratch folder": "Move into the scratch folder after the install is confirmed and before you start the agent.",
     "Start claude in plan mode": "Start the agent last, after you are standing in a throwaway folder.",
     "Run the installer": "The installer comes first; everything else depends on it."
@@ -37,7 +37,7 @@
     },
     {
      "text": "The ~/.claude folder is missing, so the command cannot be found",
-     "misconception": "~/.claude holds settings and credentials, not the launcher. The launcher is in ~/.local/bin, which the shell must be able to find."
+     "misconception": "~/.claude holds settings and credentials. The launcher is in ~/.local/bin, which the shell must be able to find."
     }
    ]
   },
@@ -54,12 +54,12 @@
     {
      "left": "acceptEdits",
      "right": "Auto-accepts file edits and common file commands in the working directory",
-     "misconception": "acceptEdits accepts edits without prompting; it is not the read-only mode."
+     "misconception": "acceptEdits accepts edits without prompting. plan is the read-only mode."
     },
     {
      "left": "plan",
-     "right": "Reads and runs read-only commands, no source edits",
-     "misconception": "plan is the look-but-don't-touch mode."
+     "right": "Reads and runs read-only commands, leaves source untouched",
+     "misconception": "plan is the look-only mode."
     },
     {
      "left": "bypassPermissions",
@@ -74,7 +74,7 @@
    "explain": "Run /status to see which credential is active.",
    "options": [
     {
-     "text": "The key wins once approved, so usage bills to your API account, not your plan",
+     "text": "The key wins once approved, so usage bills to your API account rather than your plan",
      "correct": true
     },
     {
@@ -102,7 +102,7 @@
     },
     {
      "text": "Repairs a broken install and reinstalls the launcher",
-     "misconception": "doctor reports; it does not repair. Read what it prints and fix the cause yourself."
+     "misconception": "doctor reports and leaves repairs to you. Read what it prints and fix the cause yourself."
     },
     {
      "text": "Sends your session history to Anthropic for review",
@@ -110,7 +110,7 @@
     },
     {
      "text": "Scans your project files for secrets before each session",
-     "misconception": "doctor reports on the installation, not on your project files. It does not scan for secrets."
+     "misconception": "doctor reports on the installation only. It does not scan project files for secrets."
     }
    ]
   },

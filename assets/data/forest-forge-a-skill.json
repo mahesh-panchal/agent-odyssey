@@ -23,7 +23,7 @@
   {
    "type": "choice",
    "prompt": "In Claude Code, what does allowed-tools in a Skill do?",
-   "explain": "It pre-approves the listed tools for that turn. It does not restrict others.",
+   "explain": "It pre-approves the listed tools for that turn. Other tools stay available.",
    "options": [
     {
      "text": "Pre-approves the listed tools. It is not a restriction",
@@ -31,7 +31,7 @@
     },
     {
      "text": "Restricts the agent to only the tools listed in the Skill",
-     "misconception": "It does not limit the agent, so it is not a security boundary."
+     "misconception": "It leaves the agent free to use other tools, so it offers no security boundary."
     },
     {
      "text": "Installs the listed tools if they are missing on the machine",
@@ -42,7 +42,7 @@
   {
    "type": "faulty-line",
    "prompt": "Which line in this Skill's frontmatter will make it hard for the agent to use at the right time?",
-   "explain": "The description is how the agent decides whether the Skill applies. 'Stuff' says nothing about when to use it.",
+   "explain": "The description is how the agent decides whether the Skill applies. 'Stuff' gives no hint of when to use it.",
    "lines": [
     {
      "text": "name: check-fasta",
@@ -103,14 +103,14 @@
     },
     {
      "text": "Check how popular it is and read the reviews before installing",
-     "misconception": "Popularity is not review. A widely shared Skill can still contain harmful instructions or scripts."
+     "misconception": "Popularity is no substitute for review. A widely shared Skill can still contain harmful instructions or scripts."
     }
    ]
   },
   {
    "type": "choice",
    "prompt": "A skill sits in your listing, but Claude never uses it. Which command shows whether it has ever been invoked, and what it costs in context?",
-   "explain": "/skill-doctor reports per-skill context cost and usage and flags never-invoked skills. /skills only lists them, and /permissions shows tool rules.",
+   "explain": "/skill-doctor reports per-skill context cost and usage and flags never-invoked skills. /skills lists them, and /permissions shows tool rules.",
    "options": [
     {
      "text": "/skill-doctor",
@@ -118,15 +118,15 @@
     },
     {
      "text": "/permissions",
-     "misconception": "/permissions shows allow, ask and deny rules. It says nothing about how often a skill is used."
+     "misconception": "/permissions shows allow, ask and deny rules. It leaves out how often a skill is used."
     },
     {
      "text": "/skills, which lists every skill with its call count",
-     "misconception": "/skills lists skills and can sort by token count. It does not report how often each was invoked."
+     "misconception": "/skills lists skills and can sort by token count. It leaves out how often each was invoked."
     },
     {
      "text": "/hooks, which lists the skills hooked to each event",
-     "misconception": "/hooks shows configured hooks grouped by event, not skills or their usage."
+     "misconception": "/hooks shows configured hooks grouped by event, which is a different list from skills."
     }
    ]
   },

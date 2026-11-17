@@ -166,11 +166,11 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td>Git history</td>
 <td>Recovers</td>
-<td>Does not prevent anything. A commit is a restore point that exists whatever the model did next.</td>
+<td>Recovery only, with no prevention: a commit is a restore point that exists whatever the model did next.</td>
 </tr>
 </tbody>
 </table>
-<p>A hook that <strong>exits 0 with no JSON decision is not a control at all</strong>: it expresses no decision and the normal permission flow runs. (A hook can also exit 0 and print a JSON <code>deny</code> decision, which does block.)</p>
+<p>A hook that <strong>exits 0 with no JSON decision adds no control</strong>: it expresses no decision and the normal permission flow runs. (A hook can also exit 0 and print a JSON <code>deny</code> decision, which does block.)</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <table class="caption-top table">
@@ -210,7 +210,7 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td>Git history</td>
 <td>Recovers</td>
-<td>Does not prevent anything.</td>
+<td>Recovery only; it prevents nothing.</td>
 </tr>
 </tbody>
 </table>
@@ -253,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td>A specific destructive command you can name</td>
 <td>Blocking hook (enforce)</td>
-<td>Code refuses it. Accept that it covers only what it matches.</td>
+<td>Code refuses it. It covers only what it matches.</td>
 </tr>
 <tr class="odd">
 <td>Fetched text telling the agent to act</td>
@@ -263,7 +263,7 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td>An experiment that might wreck your files</td>
 <td>Git commit plus a scratch folder</td>
-<td>Recovery, not prevention.</td>
+<td>Recovery only; it prevents nothing.</td>
 </tr>
 </tbody>
 </table>
@@ -282,7 +282,7 @@ List five controls in your own setup, such as an instructions file, a hook or a 
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
-<li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it states that instructions are context, not enforced configuration, which is this quest’s core split.</li>
+<li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it describes instructions as context and not as enforced configuration, which is this quest’s core split.</li>
 <li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Why read: it explains deny, ask and allow rules and permission modes, the built-in enforcement layer.</li>
 <li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Why read: it documents how a hook blocks a tool call, the code-level lock.</li>
 <li><a href="https://code.claude.com/docs/en/sandboxing">Configure the sandboxed Bash tool</a>: Anthropic, docs. Why read: it shows an operating-system limit on shell commands and where that limit ends.</li>

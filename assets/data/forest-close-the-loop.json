@@ -4,7 +4,7 @@
   {
    "type": "order",
    "prompt": "Put the improvement loop in order.",
-   "explain": "You cannot fix what you have not noticed, and you cannot trust a fix you have not measured against a baseline.",
+   "explain": "A fix starts with noticing the problem, and a baseline measurement makes the fix trustworthy.",
    "items": [
     "Notice the agent did the wrong thing and save the prompt",
     "Write or edit a Skill that steers it",
@@ -50,7 +50,7 @@
     },
     {
      "text": "Evals are only valid when they are run on a shared cluster",
-     "misconception": "Where it runs does not matter. The number of runs does."
+     "misconception": "The number of runs is what matters here."
     }
    ]
   },

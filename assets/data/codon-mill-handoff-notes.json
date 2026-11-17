@@ -15,22 +15,22 @@
     {
      "text": "Never edit files under raw_data/",
      "bin": "Instructions file",
-     "misconception": "A standing rule that applies to every session belongs in the file you write and load each time, not in a note about one task."
+     "misconception": "A standing rule that applies to every session belongs in the instructions file, which loads every session; a handoff note covers one task."
     },
     {
      "text": "Prefers sample_id over id as the column name: a line you never typed, found listed by /memory after two corrections",
      "bin": "Auto memory",
-     "misconception": "You did not write it and the harness decided to keep it, which is what makes it auto memory, not an instructions file."
+     "misconception": "You did not write it and the harness decided to keep it, which is what makes it auto memory."
     },
     {
      "text": "Tried a trim at Q15, it dropped 40% of reads, do not retry",
      "bin": "Handoff note",
-     "misconception": "This is the state of one task and tells the next session what not to repeat. It is not a standing rule for all work."
+     "misconception": "This is the state of one task and tells the next session what not to repeat. A standing rule would apply to all work."
     },
     {
      "text": "a1b2c3d qc: vectorise the mean-quality calculation",
      "bin": "Git history",
-     "misconception": "A commit message is stored with the commit, in the repository history, not in a notes file."
+     "misconception": "A commit message is stored with the commit, in the repository history, so it does not belong in a notes file."
     },
     {
      "text": "Next step: rerun the filter on batch 2 with the new threshold",
@@ -46,7 +46,7 @@
    "lines": [
     {
      "text": "Goal: replace the per-read loop in qc_filter.py with a vectorised version",
-     "why": "A plain statement of intent, not a claim about results."
+     "why": "A plain statement of intent that makes no claim about results."
     },
     {
      "text": "Verified: matches old output on all samples",
@@ -73,22 +73,22 @@
     },
     {
      "text": "Keep it, since the agent wrote it with the whole session in view",
-     "misconception": "Having seen the session does not mean it checked; models can state more certainty than the work supports."
+     "misconception": "Having seen the session is different from having checked it; models can state more certainty than the work supports."
     },
     {
      "text": "Delete the note and let auto memory carry the state",
-     "misconception": "Auto memory is not a record of task state; the tool chooses what to save and it may have saved nothing."
+     "misconception": "Auto memory holds what the tool chose to save, so it may hold nothing about this task's state."
     },
     {
      "text": "Ask the agent in the same session if it is sure",
-     "misconception": "A confident yes is not a check. It is the same writer repeating itself."
+     "misconception": "A confident yes comes from the same writer, so a check needs a command or a test."
     }
    ]
   },
   {
    "type": "choice",
    "prompt": "A fresh session starts with your handoff note in the repo. Which first prompt gives you a check on its understanding?",
-   "explain": "Asking for a restatement before any change lets you compare it with the real state: a cheap comprehension check, though not an independent one, since the same model wrote the restatement. Starting work at once can hide a misunderstanding inside new edits.",
+   "explain": "Asking for a restatement before any change lets you compare it with the real state: a cheap comprehension check that works best alongside your own look at the real state, since the same model wrote the restatement. Starting work at once can hide a misunderstanding inside new edits.",
    "options": [
     {
      "text": "Read HANDOFF.md and tell me what you understand before editing",
@@ -104,7 +104,7 @@
     },
     {
      "text": "Summarise what you remember of yesterday's session with me",
-     "misconception": "A fresh session does not have yesterday's session; it can only guess."
+     "misconception": "A fresh session has no copy of yesterday's session, so it can only guess."
     }
    ]
   },
@@ -126,7 +126,7 @@
     {
      "left": "A commit message says 'fixed' but only one sample was tried",
      "right": "Treat the message as a summary and check the diff and the checks run",
-     "misconception": "A message records what the author chose to say, not what was verified."
+     "misconception": "A message records what the author chose to say, and verification is a separate step."
     },
     {
      "left": "A fresh session may have misread the handoff note",

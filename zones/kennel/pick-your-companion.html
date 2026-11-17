@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Recruit the Beast and Adopt the Pet. <strong>Objective:</strong> set the model and the effort on purpose, especially when you hand work to a subagent, and learn to compare two settings on your own task instead of guessing. <strong>Time:</strong> about 15 minutes. <strong>The exercise needs no model;</strong> it is a worksheet.</p>
+<p><strong>Prerequisites:</strong> Recruit the Beast and Adopt the Pet. <strong>Objective:</strong> set the model and the effort on purpose, especially when you hand work to a subagent, and learn to compare two settings on your own task. <strong>Time:</strong> about 15 minutes. <strong>The exercise is a worksheet and needs no model.</strong></p>
 <p><span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17; the model-config, effort, sub-agents, costs, choosing-a-model and optimizing-for-cost pages were spot-checked live that day; model names, aliases and defaults change often</span></p>
 </div>
 <p>The companions in the Kennel are <strong>models</strong>; the tool around them (the harness, the program that runs the model and its tools) is the armour. This page is about which companion to bring to which job, and how hard to make it think. Model names, aliases and defaults change often, so check the current docs and your own tool before relying on any name here.</p>
@@ -155,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Model</strong> is what the companion knows and can do.</li>
 <li><strong>Effort</strong> is how much it thinks per step. Lower effort means fewer and terser tool calls (the actions the agent takes, such as reading a file or running a command); higher effort means more thoroughness.</li>
 </ul>
-<p>The docs say tuning effort is often a better lever than switching models. One article’s advice, not confirmed in the docs: effort cannot add knowledge the model lacks, so a model that does not know an unusual method will not find it by thinking longer. Treat that as a hypothesis to test, not a law.</p>
+<p>The docs say tuning effort is often a better lever than switching models. One article’s advice, not confirmed in the docs: effort cannot add knowledge the model lacks, so a model that does not know an unusual method will not find it by thinking longer. Treat that as a hypothesis to test.</p>
 </section>
 <section id="how-to-set-them" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-set-them">2. How to set them</h2>
@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p><strong>Model.</strong> Aliases the docs list: <code>default</code> (clears an override; it is not itself a model alias), <code>best</code> (same as <code>opus</code>), <code>fable</code>, <code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>sonnet[1m]</code>, <code>opus[1m]</code> (the <code>[1m]</code> forms ask for a longer context window), and <code>opusplan</code> (the opus model in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API the docs map <code>opus</code>, <code>sonnet</code> and <code>haiku</code> to the current 5.5 versions; other providers can resolve the same alias to older versions.</p>
+<p><strong>Model.</strong> Aliases the docs list: <code>default</code> (clears an override and names no model), <code>best</code> (same as <code>opus</code>), <code>fable</code>, <code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>sonnet[1m]</code>, <code>opus[1m]</code> (the <code>[1m]</code> forms ask for a longer context window), and <code>opusplan</code> (the opus model in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API the docs map <code>opus</code>, <code>sonnet</code> and <code>haiku</code> to the current 5.5 versions; other providers can resolve the same alias to older versions.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -216,9 +216,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">effort:</span><span class="co"> medium</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Read the logs you are given. Return: task name, exit status, the first error line.</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Quote lines exactly. If something is unclear, say so instead of guessing.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Quote lines exactly. If something is unclear, say so.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A subagent definition can also limit what the helper may use (a <code>tools</code> field): the sub-agents docs in Lore below give the exact syntax, which this sketch leaves out.</p>
-<p>Why <code>medium</code> and not <code>low</code>? The docs say Haiku 5.5 at <code>low</code> is more likely to skip a search, stop early or skip a check, which is the wrong trade for reading logs where a missed failure is the whole point.</p>
+<p>Why <code>medium</code>? The docs say Haiku 5.5 at <code>low</code> is more likely to skip a search, stop early or skip a check, a poor trade for reading logs, where catching every failure is the point.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <ul>
@@ -235,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="a-decision-ladder" class="level2">
 <h2 class="anchored" data-anchor-id="a-decision-ladder">3. A decision ladder</h2>
-<p>Where the docs speak, I say so: the docs list the smallest tier (Haiku) as suited to subagent tasks and say most workloads start with Opus. Everything else is <strong>General practice</strong>: a starting point to test on your own jobs, not a rule. The docs name four tiers in this order of capability: Haiku (fastest replies and lowest cost), Sonnet (everyday coding and agent work), Opus (complex agentic coding), Fable (hardest, long-running work). Check the current docs; models change.</p>
+<p>Where the docs speak, I say so: the docs list the smallest tier (Haiku) as suited to subagent tasks and say most workloads start with Opus. Everything else is <strong>General practice</strong>: a starting point to test on your own jobs. The docs name four tiers in this order of capability: Haiku (fastest replies and lowest cost), Sonnet (everyday coding and agent work), Opus (complex agentic coding), Fable (hardest, long-running work). Check the current docs; models change.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -300,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Change the model</strong> to the next tier up.</li>
 </ol>
 <p>The order (check, then effort, then model) is one article’s advice, not confirmed in the docs, though the docs do say to give the agent something to verify against and that effort is often the better lever. The article is a claude.dev piece about choosing a Claude model (the page shows the byline Addy Osmani and the date 2026-11-09, but does not say who runs the site, so authorship is unverified; its numbers are not verified). I use only its ideas, in my own words.</p>
-<p><strong>The cheap-then-retry pattern</strong> is in Anthropic’s cost-and-intelligence guidance for the API (a docs page, “Optimizing for cost and intelligence”): if outcomes are checkable (tests, or a verifier, which is a separate check that tests the output), run at low effort and re-run only the failures at higher effort. Two caveats from the same page: a checker that passes bad work lets failures through, and a failure costs two runs of waiting time. The docs also say to compare <strong>cost per finished task, not cost per token</strong>, because failed tasks still cost money and a few hard tasks can carry much of the bill.</p>
+<p><strong>The cheap-then-retry pattern</strong> is in Anthropic’s cost-and-intelligence guidance for the API (a docs page, “Optimizing for cost and intelligence”): if outcomes are checkable (tests, or a verifier, which is a separate check that tests the output), run at low effort and re-run only the failures at higher effort. Two caveats from the same page: a checker that passes bad work lets failures through, and a failure costs two runs of waiting time. The docs also say to compare <strong>cost per finished task</strong>, because failed tasks still cost money and a few hard tasks can carry much of the bill.</p>
 </section>
 <section id="delegation-hygiene" class="level2">
 <h2 class="anchored" data-anchor-id="delegation-hygiene">5. Delegation hygiene</h2>
@@ -313,14 +313,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Change effort between sessions when you are comparing.</strong> The docs note that changing top-level effort mid-session also invalidates the cache.</li>
 </ul>
 </section>
-<section id="measure-do-not-guess" class="level2">
-<h2 class="anchored" data-anchor-id="measure-do-not-guess">6. Measure, do not guess</h2>
+<section id="measure-on-your-own-task" class="level2">
+<h2 class="anchored" data-anchor-id="measure-on-your-own-task">6. Measure on your own task</h2>
 <p>Pick one small real task that has an outcome check (a test that passes, a count that matches).</p>
 <ol type="1">
 <li>Choose two settings to compare, for example the same model at <code>medium</code> and <code>high</code>. Change only one thing.</li>
-<li>For each, start a fresh session, run the task <strong>three times</strong>, and record pass or fail from the outcome check, not from how confident the agent sounds.</li>
+<li>For each, start a fresh session, run the task <strong>three times</strong>, and record pass or fail from the outcome check.</li>
 <li>After each run, open <code>/usage</code> and note the “Usage by model” block. The dollar figure is an estimate computed locally at list price, and on a subscription you may see plan usage bars instead. <code>/usage</code> resets on <code>/clear</code>.</li>
-<li>Compare cost per <em>passing</em> run. Three runs is a small sample: it can expose a big difference, not prove a small one.</li>
+<li>Compare cost per <em>passing</em> run. Three runs is a small sample: it can expose a big difference, and a small one needs more runs.</li>
 </ol>
 <p>This is the same habit as the Forest quests Close the Loop (give the agent something to check against) and Test the Skill (compare behaviour with and without a change).</p>
 </section>
@@ -344,12 +344,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Answer key (General practice, not from the docs; several answers are defensible)
 </summary>
 <ol type="1">
-<li><strong>Probably no model at all.</strong> A mapping table and a script do this exactly, and a script cannot invent an ID. If you use one, Haiku at <code>low</code> or <code>medium</code>, with a diff or count check; no subagent needed.</li>
+<li><strong>Probably no model at all.</strong> A mapping table and a script do this exactly, and a script cannot invent an ID. If you use a model, Haiku at <code>low</code> or <code>medium</code>, with a diff or count check; no subagent needed.</li>
 <li><strong>Sonnet, <code>medium</code>, no subagent.</strong> The text is short, so there is no context to protect. Check two claims against the paper yourself.</li>
 <li><strong>Sonnet at <code>medium</code>, raised to <code>high</code> or Opus if the first attempt fails and a test says so.</strong> Keep it in the main conversation, because the debugging needs the history. Add a failing test first (rung 1).</li>
 <li><strong>Haiku, a subagent or a batch script, <code>medium</code>.</strong> The 200 hand-labelled rows are your outcome check; re-run only the rows that disagree at a higher setting. Spot-check a sample of the rest.</li>
 <li><strong>Opus, <code>high</code>, in plan mode, main conversation.</strong> A weak plan is expensive downstream and other people depend on the script. Ask for a test plan too (see Plan Before You Edit).</li>
-<li><strong>Sonnet, <code>low</code> or <code>medium</code>, no subagent.</strong> It is a short, checkable question: try the suggested fix. Escalate only if the explanation does not hold up.</li>
+<li><strong>Sonnet, <code>low</code> or <code>medium</code>, no subagent.</strong> It is a short, checkable question: try the suggested fix. Escalate when the explanation does not hold up.</li>
 </ol>
 </details>
 <div data-ao-honour="check-model-effort" data-xp="25">

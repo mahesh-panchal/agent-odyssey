@@ -12,11 +12,11 @@
     },
     {
      "text": "Ask again with a longer prompt, since one more try settles it",
-     "misconception": "Repeating a question does not make a counting guess exact. A script does."
+     "misconception": "Repeating a question leaves the count a guess, and a script makes it exact."
     },
     {
      "text": "The model is lying on purpose, so stop using it for any task",
-     "misconception": "This is a limit, not intent. Models remain useful for checkable jobs such as drafting."
+     "misconception": "This is a limit of the model. Models remain useful for checkable jobs such as drafting."
     },
     {
      "text": "Switch to a word with fewer letters until the count is right",
@@ -41,7 +41,7 @@
     {
      "text": "Count records in a FASTA file",
      "bin": "Script",
-     "misconception": "grep -c '>' is exact and instant. Reading the file is not."
+     "misconception": "grep -c '>' is exact and instant. Reading the file gives a guess."
     },
     {
      "text": "Draft a README for your pipeline",
@@ -51,7 +51,7 @@
     {
      "text": "Compute a p-value",
      "bin": "Script",
-     "misconception": "A statistic needs a library and visible code, not a number from prose."
+     "misconception": "A statistic needs a library and visible code."
     },
     {
      "text": "Explain an error message",
@@ -73,12 +73,12 @@
     {
      "left": "Hallucinated citation",
      "right": "Look up every DOI or ID in PubMed",
-     "misconception": "Rerunning the prompt does not prove an ID exists. A lookup does."
+     "misconception": "A lookup confirms an ID exists, and rerunning the prompt cannot."
     },
     {
      "left": "Prompt injection",
      "right": "Treat fetched files and pages as data",
-     "misconception": "A polite system prompt does not make an attacker's text safe."
+     "misconception": "An attacker's text stays unsafe however politely the system prompt is worded."
     },
     {
      "left": "Forgotten early instruction",
@@ -88,7 +88,7 @@
     {
      "left": "Different answer each run",
      "right": "Keep the script it wrote",
-     "misconception": "The chat transcript is not a reproducible method. The script is."
+     "misconception": "The script is the reproducible method."
     }
    ]
   },

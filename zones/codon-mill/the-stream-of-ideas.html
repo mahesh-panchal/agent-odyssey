@@ -147,13 +147,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Prerequisites:</strong> When to Start Fresh. <strong>Objective:</strong> triage each new thought during a task into the right place (do now, park, quick question, helper, branch, or later session), and know what undo can and cannot restore. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16 (Claude Code commands, sessions, worktrees, checkpointing and best-practices docs). Claude Code specific unless stated. Parking-lot files are general practice.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
 </div>
 <p>Real work does not arrive in a straight line. You start fixing a samplesheet parser and think: “should I switch the aligner? What if I tried a stricter QC threshold? I also want to explore that other idea.” If you type every one of those into the same conversation, the <strong>context</strong> (everything the model can see when it writes its next reply, see The Context Window) fills with side tracks. Anthropic’s writing on context says accuracy and recall degrade as context grows, and the docs say the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step (not checked: how much usage each route below saves; the research documents the mechanisms but gives no numbers). This is how a session ends up with three unrelated tasks that it “re-reads on every turn of the fourth”, in the docs’ words. A <strong>turn</strong> is one prompt from you plus the model’s reply.</p>
-<p>The fix is not to stop having ideas. It is to <strong>triage</strong> each one.</p>
+<p>Ideas are welcome. The fix is to <strong>triage</strong> each one.</p>
 <section id="terms-used-here" class="level2">
 <h2 class="anchored" data-anchor-id="terms-used-here">Terms used here</h2>
 <ul>
 <li><strong>Session:</strong> one saved conversation with the tool, tied to a project folder.</li>
-<li><strong>Subagent:</strong> a helper the main agent starts. It works in its own separate, clean context (it does not know what you discussed unless told) and sends back only a summary, so its reading does not pile up in your conversation.</li>
-<li><strong>Conversation branch (<code>/branch</code>, not a git branch):</strong> a copy of the conversation from this point, so you can try something in the copy while the original stays as it was. <code>/fork</code> is a different command: it copies the conversation into a separate background session.</li>
+<li><strong>Subagent:</strong> a helper the main agent starts. It works in its own separate, clean context (it knows what you tell it) and sends back a summary, so its reading stays out of your conversation.</li>
+<li><strong>Conversation branch (<code>/branch</code>, which is separate from a git branch):</strong> a copy of the conversation from this point, so you can try something in the copy while the original stays as it was. <code>/fork</code> is a different command: it copies the conversation into a separate background session.</li>
 <li><strong>Git worktree:</strong> a second checkout of the same repository in another folder, so two sessions can edit files without overwriting each other.</li>
 <li><strong>Checkpoint:</strong> a snapshot Claude Code takes at each prompt you send, so you can roll back with <code>/rewind</code>.</li>
 </ul>
@@ -196,7 +196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>“Which sample did we exclude earlier?”</td>
 <td><code>/btw</code></td>
-<td>One answer from the conversation, no tools, not kept in the history</td>
+<td>One answer from the conversation; no tools; stays out of the history</td>
 </tr>
 <tr class="even">
 <td>“Where is the aligner configured across the repo?”</td>
@@ -219,11 +219,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="what-is-and-is-not-shared" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-and-is-not-shared">What is and is not shared</h2>
 <p>A worktree session isolates file edits only. Per the docs, <code>claude --worktree &lt;name&gt;</code> creates <code>.claude/worktrees/&lt;name&gt;/</code> on a branch called <code>worktree-&lt;name&gt;</code>. Worktrees share the repository’s <code>.git</code>, and auto memory is per repository, so all worktrees share it. A fresh checkout does not contain gitignored files such as <code>.env</code> unless you list them in <code>.worktreeinclude</code>, and large data folders need <code>worktree.symlinkDirectories</code> or a setup step. Plan for that before you start a pipeline test in one.</p>
-<p><code>/branch</code> copies the conversation. Any background helpers still running keep reporting into the branch, not the original.</p>
+<p><code>/branch</code> copies the conversation. Any background helpers still running keep reporting into the branch.</p>
 </section>
 <section id="checkpoints-and-rewind" class="level2">
 <h2 class="anchored" data-anchor-id="checkpoints-and-rewind">Checkpoints and <code>/rewind</code></h2>
-<p>Every prompt you send is a checkpoint. <code>/rewind</code> (aliases <code>/checkpoint</code>, <code>/undo</code>; or press <code>Esc</code> twice on an empty prompt) lets you restore code and conversation, only the conversation, or only the code. The limits matter to bioinformatics: files changed <strong>only through Bash</strong> (the shell command tool) are not tracked, subagent edits are mostly not restored, and edits outside the session are not tracked. The docs say checkpoints are “not a replacement for version control”. A <code>sed -i</code> or a script that rewrites a results table is a Bash change (our inference from the limits), so exploring is safe only if you committed first.</p>
+<p>Every prompt you send is a checkpoint. <code>/rewind</code> (aliases <code>/checkpoint</code>, <code>/undo</code>; or press <code>Esc</code> twice on an empty prompt) lets you restore code and conversation, only the conversation, or only the code. The limits matter to bioinformatics: files changed <strong>only through Bash</strong> (the shell command tool) are not tracked, subagent edits are mostly not restored, and edits outside the session are not tracked. The docs say checkpoints are “not a replacement for version control”. A <code>sed -i</code> or a script that rewrites a results table is a Bash change (our inference from the limits), so exploring is safe only after you have committed.</p>
 </section>
 <section id="a-parking-lot-file" class="level2">
 <h2 class="anchored" data-anchor-id="a-parking-lot-file">A parking-lot file</h2>

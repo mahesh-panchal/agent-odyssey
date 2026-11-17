@@ -85,7 +85,7 @@
     },
     {
      "text": "Accept the change, since the pipeline now runs to the end without errors",
-     "misconception": "Running is not correctness. The check may have found a real problem."
+     "misconception": "A run that finishes can still be wrong. The check may have found a real problem."
     },
     {
      "text": "Ask the agent to relax the check's threshold just enough for it to pass",

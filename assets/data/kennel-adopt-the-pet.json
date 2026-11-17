@@ -16,7 +16,7 @@
     },
     {
      "text": "The model's own maximum, often 128k or more, so memory is the only limit you meet",
-     "misconception": "The default is a memory-based tier, not the model's maximum. You raise it on purpose when you start the server."
+     "misconception": "The default is a memory-based tier, lower than the model's maximum. You raise it on purpose when you start the server."
     },
     {
      "text": "256k tokens, the largest default, so a laptop can run long agent sessions as is",
@@ -54,7 +54,7 @@
     },
     {
      "text": "Ask before every action, except reading files, which is allowed",
-     "misconception": "The default is permissive, not cautious. You have to add the ask-everything rule yourself, first in the list."
+     "misconception": "The default is permissive. Add the ask-everything rule yourself, first in the list."
     },
     {
      "text": "Deny edits and shell commands until you allow each one in config",
@@ -92,15 +92,15 @@
   {
    "type": "choice",
    "prompt": "A small local model proposes running `rm -rf data/`. Who is supposed to stop it?",
-   "explain": "The tool's rules are the control. A model's good behaviour is not.",
+   "explain": "The tool's rules are the control, so set them before you start.",
    "options": [
     {
-     "text": "Your permission rules in the tool, not the model",
+     "text": "Your permission rules in the tool",
      "correct": true
     },
     {
      "text": "The model, because a small model is cautious",
-     "misconception": "A model's caution is not a control. Small models can propose destructive commands, so the rules in the tool have to catch them."
+     "misconception": "Small models can propose destructive commands, so the rules in the tool have to catch them."
     },
     {
      "text": "Nobody; local models cannot run commands",

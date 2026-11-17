@@ -137,14 +137,14 @@ Models think. The harness decides what they can touch and runs the loop. Extensi
 <li><strong>Tool.</strong> An action the model can request and the harness runs, such as reading a file or running a shell command. A tool call is one such request; tool output is what comes back. (We also say “the tool” for the program you run; see Harness.)</li>
 <li><strong>Subagent.</strong> A helper agent with its own context window; only its summary comes back.</li>
 <li><strong>Instructions file.</strong> A text file (<code>CLAUDE.md</code> in Claude Code, <code>AGENTS.md</code> in OpenCode where read) that the harness loads at session start. It advises; it does not enforce.</li>
-<li><strong>Sandbox.</strong> An operating-system layer that limits what commands can touch. Not the same as a scratch folder, which is just a throwaway directory.</li>
+<li><strong>Sandbox.</strong> An operating-system layer that limits what commands can touch. A scratch folder is a different thing: a throwaway directory.</li>
 <li><strong>Hallucination</strong> (called a <strong>Mirage</strong> in the Sequence Maze). A plausible-looking statement that is false, such as an invented DOI (a paper’s permanent identifier).</li>
 <li><strong>Prompt injection.</strong> Text from a file, web page or tool that the model treats as an instruction.</li>
 <li><strong>Skill.</strong> A folder with a <code>SKILL.md</code>. Only its short description is preloaded; the body loads when it is used. It advises. (You wrote one in Forge a Skill, later in this world.)</li>
 <li><strong>MCP (Model Context Protocol).</strong> An open standard for connecting the harness to outside tools and data, such as a database or a literature search. A server you connect can act on your behalf, so treat it like software you install.</li>
 <li><strong>Hook.</strong> Your own command, request or prompt that the harness runs automatically at a set point, such as before a tool call. A command hook that exits with code 2 before a tool runs stops that action whatever the model wants (a nonzero exit code is how a script signals failure; a hook uses 2 to mean block). A rule in an instructions file can only ask. That is why hooks are the stronger guard.</li>
 <li><strong>Plugin.</strong> A folder that bundles skills, hooks, MCP servers and more, installed as one unit. It can run code, so it is a trust decision.</li>
-<li><strong>Effort.</strong> A setting for how much the model reasons per step, from <code>low</code> to <code>max</code> in Claude Code (<code>/effort</code>, <code>--effort</code>; a <code>/command</code> is typed inside the running tool, a <code>--flag</code> when you start it). Low is faster and cheaper; high thinks longer and checks more. It is a behavioural signal, not an exact budget. The docs warn that <code>max</code> can show diminishing returns and overthink, so raise it only where you measure a gain. It makes answers more careful, not guaranteed correct.</li>
+<li><strong>Effort.</strong> A setting for how much the model reasons per step, from <code>low</code> to <code>max</code> in Claude Code (<code>/effort</code>, <code>--effort</code>; a <code>/command</code> is typed inside the running tool, a <code>--flag</code> when you start it). Low is faster and cheaper; high thinks longer and checks more. It acts as a behavioural signal, with no exact budget behind it. The docs warn that <code>max</code> can show diminishing returns and overthink, so raise it only where you measure a gain. It makes answers more careful, and correctness is still yours to check.</li>
 <li><strong>Eval.</strong> A repeatable test of agent behaviour: a prompt plus checks on the result. Comparing runs <strong>with</strong> and <strong>without</strong> something (a skill, a rule) shows what it contributed. A score of 100% both ways means it contributed nothing.</li>
 </ul>
 </section>
@@ -152,7 +152,7 @@ Models think. The harness decides what they can touch and runs the loop. Extensi
 <h2 class="anchored" data-anchor-id="words-about-what-the-model-can-see">Words about what the model can see</h2>
 <p>These get mixed up more than any others. The Codon Mill quests take each one in turn.</p>
 <ul>
-<li><strong>Token.</strong> The chunk of text a model actually reads and writes. Not a letter and not quite a word. Limits and costs are counted in tokens. (See <em>Tokens, Not Letters</em>.)</li>
+<li><strong>Token.</strong> The chunk of text a model actually reads and writes. Somewhere between a letter and a word. Limits and costs are counted in tokens. (See <em>Tokens, Not Letters</em>.)</li>
 <li><strong>Context window.</strong> Everything the model can see at once right now: instructions, files it has read, tool output and the conversation so far. It has a size limit, and a fuller window is not automatically a better one. (See <em>The Context Window</em>.)</li>
 <li><strong>Session (session context).</strong> One running conversation, and the context window it has built up. A new session starts with an empty conversation. Two sessions do not share their context.</li>
 <li><strong>Memory.</strong> Notes that the harness loads at the start of every session, such as your instructions file and, in Claude Code, notes the tool writes itself. Memory outlives a session; session context does not. (See <em>Memory, Sessions and Usage</em>.)</li>
@@ -170,7 +170,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Naming differs between tools. The Claude Code docs define “harness” and “hooks” as above; do not assume another tool’s hooks, plugins or effort settings work the same way. Check its docs.</p>
+<p>Naming differs between tools. The Claude Code docs define “harness” and “hooks” as above; a good habit is to check another tool’s docs for how its hooks, plugins and effort settings work.</p>
 </div>
 </div>
 <div data-ao-honour="gear-map" data-xp="20">

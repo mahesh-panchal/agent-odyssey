@@ -16,7 +16,7 @@
     },
     {
      "text": "Whole words, always, with one token for each word",
-     "misconception": "Rare words are split into pieces, and punctuation also takes tokens. Tokens are not words."
+     "misconception": "Rare words are split into pieces, and punctuation also takes tokens. Tokens and words differ."
     }
    ]
   },
@@ -32,7 +32,7 @@
     {
      "text": "Count the Gs in each of 500 reads",
      "bin": "Script or tool",
-     "misconception": "Counting letters is exact work. A script does not miscount."
+     "misconception": "Counting letters is exact work. A script counts reliably."
     },
     {
      "text": "Explain what a FASTQ quality line means",
@@ -47,7 +47,7 @@
     {
      "text": "Suggest a clearer name for a pipeline step",
      "bin": "Model by reading",
-     "misconception": "A naming suggestion has no exact answer to get wrong."
+     "misconception": "A naming suggestion has no single exact answer."
     },
     {
      "text": "Compute a checksum of a reference file",
@@ -101,22 +101,22 @@
   {
    "type": "match",
    "prompt": "Match each claim to what is behind it.",
-   "explain": "Tokens are the unit for limits and cost. Letter-level weakness is our inference from that fact, not an official statement.",
+   "explain": "Tokens are the unit for limits and cost. Letter-level weakness is our inference from that fact.",
    "pairs": [
     {
      "left": "Context window and cost are measured in",
      "right": "Tokens",
-     "misconception": "Neither is measured in words or characters. Both use tokens."
+     "misconception": "Both are measured in tokens."
     },
     {
      "left": "Token counting endpoint result is",
      "right": "An estimate that may differ slightly",
-     "misconception": "Docs call it an estimate, so treat it as approximate, not exact billing."
+     "misconception": "Docs call it an estimate, so treat it as approximate."
     },
     {
      "left": "Letter counting by reading is unreliable because",
      "right": "The model sees chunks, not letters",
-     "misconception": "The weakness comes from how text is cut up, not from carelessness."
+     "misconception": "The weakness comes from how text is cut up."
     }
    ]
   }

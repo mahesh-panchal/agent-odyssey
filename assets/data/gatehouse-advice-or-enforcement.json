@@ -19,7 +19,7 @@
     {
      "text": "A permission prompt before a push",
      "bin": "Asks",
-     "misconception": "The harness pauses and you decide. It neither advises the model nor refuses on its own."
+     "misconception": "The harness pauses and you decide. The choice sits with you."
     },
     {
      "text": "A deny rule on reading .env",
@@ -29,7 +29,7 @@
     {
      "text": "A PreToolUse hook that exits 2",
      "bin": "Enforces",
-     "misconception": "Exit 2 blocks the call, so it enforces and does not merely advise."
+     "misconception": "Exit 2 blocks the call, so it enforces."
     },
     {
      "text": "Text inside a Skill",
@@ -49,15 +49,15 @@
     },
     {
      "text": "Reading key files in the home directory",
-     "misconception": "A leak cannot be undone, so a request in text is not enough."
+     "misconception": "A leak cannot be undone, so it needs more than a request in text."
     },
     {
      "text": "Running a destructive command on shared data",
-     "misconception": "A destructive action needs a rule, a hook or a sandbox, not a polite request."
+     "misconception": "A destructive action calls for a rule, a hook or a sandbox; a polite request is advice."
     },
     {
      "text": "Calling a server tool that deletes records",
-     "misconception": "Server tools can be refused by name with a deny rule. Text only asks."
+     "misconception": "Server tools can be refused by name with a deny rule. Text asks, and a deny rule enforces."
     }
    ]
   },
@@ -76,7 +76,7 @@
     },
     {
      "text": "Trust it, because the server was approved once",
-     "misconception": "Approving a server does not make the content it fetches trustworthy."
+     "misconception": "Approving a server leaves the content it fetches unverified."
     },
     {
      "text": "Rely on the sandbox alone, since it stops every prompt injection",
@@ -90,7 +90,7 @@
    "explain": "A hook that exits 0 with no JSON decision gives no decision, so the normal permission flow runs. Exit 2, or exit 0 with a JSON deny decision, blocks.",
    "lines": [
     {
-     "text": "A deny rule is applied by the harness, not by the model",
+     "text": "A deny rule is applied by the harness, whatever the model wants",
      "why": "Enforcement does not depend on the model's cooperation."
     },
     {
@@ -98,8 +98,8 @@
      "faulty": true
     },
     {
-     "text": "Git history lets you recover but does not prevent anything",
-     "why": "A commit is a restore point, not a barrier."
+     "text": "Git history lets you recover after the fact",
+     "why": "A commit is a restore point."
     },
     {
      "text": "A project server in .mcp.json needs your approval in an interactive session",
@@ -125,7 +125,7 @@
     {
      "left": "Reading secrets files, never",
      "right": "A deny rule",
-     "misconception": "Never means enforced by the harness, not requested of the model."
+     "misconception": "Never means enforced by the harness, and a request to the model is advice."
     },
     {
      "left": "A slip after the agent edits many files",

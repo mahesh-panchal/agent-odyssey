@@ -173,7 +173,7 @@ Warning
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>The case is a prompt plus one or more graders. The prompt is written the way a user would ask, <strong>without naming the Skill</strong>:</p>
+<p>The case is a prompt plus one or more graders. The prompt is written the way a user would ask, and <strong>leaves the Skill unnamed</strong>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">runs:</span><span class="co"> 1</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
@@ -192,7 +192,7 @@ Warning
 <p><code>--max-cost-usd</code> stops the run at a ceiling. Results land in <code>evals/results/&lt;timestamp&gt;/</code> with a <code>report.html</code>.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Last verified (docs): the pages read describe OpenCode skills and plugins but no equivalent of <code>claude plugin eval</code>. That is <em>unconfirmed</em>, not proven absent. You can still do the same comparison by hand: run one prompt several times with the Skill folder present, several times with it moved away, and compare using a script that checks the output. A small local model is cheap to run this way, but it follows Skills less reliably, so expect noisier results.</p>
+<p>Last verified (docs): the pages read describe OpenCode skills and plugins but no equivalent of <code>claude plugin eval</code>. Treat that as <em>unconfirmed</em>. You can still do the same comparison by hand: run one prompt several times with the Skill folder present, several times with it moved away, and compare using a script that checks the output. A small local model is cheap to run this way, but it follows Skills less reliably, so expect noisier results.</p>
 </div>
 </div>
 </div>
@@ -200,12 +200,12 @@ Warning
 <section id="reading-the-result" class="level2">
 <h2 class="anchored" data-anchor-id="reading-the-result">Reading the result</h2>
 <ul>
-<li>Six grader types exist. Four are free and computed from the transcript or files (<code>regex</code>, <code>tool_used</code>, <code>tool_order</code>, <code>file_exists</code>). Two use a judge model and cost tokens (<code>llm</code>, <code>baseline</code>; the <code>baseline</code> grader type is a different thing from the baseline run). There are no custom-code graders.</li>
-<li>In a two-arm run, <code>tool_used: Skill</code> is shown as an indicator and does not count towards the score unless you set <code>arm: both</code>.</li>
+<li>Six grader types exist. Four are free and computed from the transcript or files (<code>regex</code>, <code>tool_used</code>, <code>tool_order</code>, <code>file_exists</code>). Two use a judge model and cost tokens (<code>llm</code>, <code>baseline</code>; the <code>baseline</code> grader type is a different thing from the baseline run). Graders come from these six types only.</li>
+<li>In a two-arm run, <code>tool_used: Skill</code> is shown as an indicator and counts towards the score only when you set <code>arm: both</code>.</li>
 <li><strong>Δ near zero with the Skill not firing</strong> is usually a real finding: the description does not trigger on that phrasing. Change the <code>description</code>, not the grader.</li>
 <li>Pair one <strong>result</strong> grader with one <strong>process</strong> grader. Use <code>llm</code> graders only for short output, with a concrete PASS/FAIL rubric.</li>
-<li>Each run happens in an isolated child session (a separate session started just for that run) with only the plugin loaded: no personal settings, no instructions file, no other plugins. A pass there does not promise the same behaviour in your own setup.</li>
-<li><code>claude plugin validate</code> checks the files are well formed. It does not check behaviour.</li>
+<li>Each run happens in an isolated child session (a separate session started just for that run) with only the plugin loaded, so personal settings, the instructions file and other plugins are absent. Behaviour in your own setup may differ from a pass there.</li>
+<li><code>claude plugin validate</code> checks that the files are well formed. Behaviour needs an eval.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -217,23 +217,23 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Running an eval is the same trust decision as loading the plugin with <code>--plugin-dir</code>. Hooks you did not write run code. A passing eval says nothing about whether a plugin is safe.</p>
+<p>Running an eval is the same trust decision as loading the plugin with <code>--plugin-dir</code>. Hooks you did not write still run code. Safety needs a review of its own, which a passing eval does not replace.</p>
 </div>
 </div>
 </section>
 <section id="who-checks-the-work" class="level2">
 <h2 class="anchored" data-anchor-id="who-checks-the-work">Who checks the work</h2>
-<p><strong>Idea from the GitHub Blog article</strong> “Build once, run on any agent: a practical guide to agent skills” by Andrea Griffiths (GitHub Blog), in our own words. The article does not describe eval design; the grader and baseline method above comes from the Claude Code docs.</p>
+<p><strong>Idea from the GitHub Blog article</strong> “Build once, run on any agent: a practical guide to agent skills” by Andrea Griffiths (GitHub Blog), in our own words. The grader and baseline method above comes from the Claude Code docs.</p>
 <ul>
-<li><strong>Use a separate verifier</strong>, a check done by something other than the agent that did the work. An agent that marks its own work is not an independent check. For a QC skill that edits a samplesheet, have a script or a person diff the changed file against the original, and make the verifier cite the lines it relied on.</li>
+<li><strong>Use a separate verifier</strong>, a check done by something other than the agent that did the work. An agent that marks its own work gives a self-check. For a QC skill that edits a samplesheet, have a script or a person diff the changed file against the original, and make the verifier cite the lines it relied on.</li>
 <li><strong>Check the Skill in each client you use</strong> (the tool that runs the agent, such as Claude Code or OpenCode). Passing in one tool says little about another. After installing, confirm that the client triggers the Skill for the right task, loads its files, uses the tools it needs and returns the evidence you expect.</li>
-<li><strong>Instructions guide; tests and people verify.</strong> A line in a Skill saying “check your work” steers the agent but proves nothing. Tests, CI checks (continuous integration: automatic checks that run when code is pushed) and human review are what verify.</li>
+<li><strong>Instructions guide; tests and people verify.</strong> A line in a Skill saying “check your work” steers the agent. Tests, CI checks (continuous integration: automatic checks that run when code is pushed) and human review verify.</li>
 </ul>
 <div data-ao-honour="run-eval" data-xp="30">
 Run the cheap one-case command above on <code>exercises/forge/fasta-tools</code> with a cost ceiling, and open the <code>report.html</code>. Note whether the Skill fired.
 </div>
 <div data-ao-honour="write-case" data-xp="20">
-Write an eval case for your own Skill from the previous quest: a prompt that does not name it, and one grader.
+Write an eval case for your own Skill from the previous quest: a prompt that leaves it unnamed, and one grader.
 </div>
 </section>
 <section id="battle-the-eval" class="level2">

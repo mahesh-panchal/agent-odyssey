@@ -34,7 +34,7 @@
     {
      "text": "rm -rf ~",
      "bin": "deny",
-     "misconception": "This deletes your whole home folder. It should never run, so deny it rather than relying on yourself to spot it in a prompt."
+     "misconception": "This deletes your whole home folder. It should never run, so a deny rule catches it even if you miss it in a prompt."
     }
    ]
   },
@@ -113,7 +113,7 @@
   {
    "type": "choice",
    "prompt": "Your instructions file says 'never run rm'. Is that enforced?",
-   "explain": "Enforcement lives in the tool's rules, not in text the model reads.",
+   "explain": "Enforcement lives in the tool's rules; text the model reads is guidance.",
    "options": [
     {
      "text": "No. Instructions are guidance; only permission rules are enforced",
@@ -144,7 +144,7 @@
     },
     {
      "text": "Only shell commands run with elevated privileges such as sudo",
-     "misconception": "The boundary is by tool type, not by command wording."
+     "misconception": "The boundary follows the tool type, whatever the command wording."
     }
    ]
   }

@@ -76,7 +76,7 @@
     "You, before asking",
     "Collaborator's job"
    ],
-   "explain": "Review is a shared check, not a place to dump work. The author owns the first pass.",
+   "explain": "Review is a shared check. The author owns the first pass.",
    "items": [
     {
      "text": "Read your own diff and delete what you do not understand",

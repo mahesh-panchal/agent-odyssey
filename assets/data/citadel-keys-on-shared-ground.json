@@ -20,7 +20,7 @@
     },
     {
      "text": "Both, splitting requests between the key and the subscription",
-     "misconception": "The docs describe an override, not a split. In -p mode the key is always used."
+     "misconception": "The docs describe an override, so there is no split. In -p mode the key is always used."
     }
    ]
   },
@@ -35,7 +35,7 @@
     },
     {
      "text": "Only the working directory, since the sandbox confines reads to it",
-     "misconception": "The sandbox confines writes by default, not reads. Reads cover most of the machine."
+     "misconception": "The sandbox confines writes by default. Reads cover most of the machine."
     },
     {
      "text": "Nothing outside the project folder and the system temp directory",
@@ -74,7 +74,7 @@
     {
      "text": "A lab-wide API key in a shared project directory",
      "bin": "bad habit",
-     "misconception": "Anyone who can read the directory can use the key, and everyone who can read the directory can use it."
+     "misconception": "Anyone who can read the directory can use the key."
     },
     {
      "text": "Controlled-access data in the folder the agent works in",
@@ -86,7 +86,7 @@
   {
    "type": "faulty-line",
    "prompt": "A user's notes for starting an agent on a cluster. Which line is the faulty one?",
-   "explain": "Whether an external model API may be used with your data is set by policy and agreement, and is not assumed from the fact that the tool installs.",
+   "explain": "Whether an external model API may be used with your data is set by policy and agreement, so a clean install says nothing about it.",
    "lines": [
     {
      "text": "Ask staff whether agents are allowed on login nodes.",
@@ -114,12 +114,12 @@
     {
      "left": "CLAUDE_CONFIG_DIR",
      "right": "Moves where settings, session history and plugins are stored",
-     "misconception": "It relocates the config directory, not the API key or the sandbox."
+     "misconception": "It relocates the config directory and leaves the API key and the sandbox alone."
     },
     {
      "left": "ANTHROPIC_API_KEY",
      "right": "Overrides a subscription login when set",
-     "misconception": "It is not a fallback. When set it takes priority."
+     "misconception": "It takes priority when set."
     },
     {
      "left": "Managed settings",
@@ -129,7 +129,7 @@
     {
      "left": "sandbox.filesystem.denyRead",
      "right": "Blocks sandboxed commands from reading listed paths",
-     "misconception": "It applies to shell commands in the sandbox, not to hooks or MCP servers."
+     "misconception": "It applies to shell commands in the sandbox and leaves hooks and MCP servers outside it."
     }
    ]
   }

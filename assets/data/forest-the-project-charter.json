@@ -4,7 +4,7 @@
   {
    "type": "choice",
    "prompt": "Your CLAUDE.md says 'never delete files'. What does that guarantee?",
-   "explain": "The file is context the model reads. It does not change what the tool allows. Permission rules or hooks enforce.",
+   "explain": "The file is context the model reads. The tool's permissions stay as they are. Permission rules or hooks enforce.",
    "options": [
     {
      "text": "Nothing: it is context for the model. Permission rules or hooks enforce",
@@ -12,11 +12,11 @@
     },
     {
      "text": "Claude Code will refuse every delete command while the rule is present",
-     "misconception": "Instruction files are not enforcement. Use deny rules for that."
+     "misconception": "Instruction files guide the agent. Deny rules enforce."
     },
     {
      "text": "Deletes will need your approval, because the rule makes the agent ask first",
-     "misconception": "The file does not change permission prompts. The agent can decide a guideline does not apply, so use permission settings for approval."
+     "misconception": "The file leaves permission prompts as they are, and the agent can decide a guideline does not apply, so permission settings handle approval."
     }
    ]
   },
@@ -37,7 +37,7 @@
     {
      "text": "Your API key",
      "bin": "Leave out",
-     "misconception": "Secrets must never go in a file that is read and often committed."
+     "misconception": "Secrets stay out of a file that is read and often committed."
     },
     {
      "text": "'raw/ is read-only data. Never edit it.'",
@@ -100,7 +100,7 @@
   {
    "type": "choice",
    "prompt": "Two of your instruction files give conflicting advice about the test command. What does `/doctor prompt-audit` do about it?",
-   "explain": "It flags outdated or conflicting content in a report with proposed edits and changes nothing until you ask. It is not a size audit, and its suggestions come from a model, so you still review them.",
+   "explain": "It flags outdated or conflicting content in a report with proposed edits and changes nothing until you ask. It checks content only, and its suggestions come from a model, so you still review them.",
    "options": [
     {
      "text": "Reports the conflict with proposed edits, and changes nothing until you ask",
@@ -112,7 +112,7 @@
     },
     {
      "text": "Measures how many tokens the files use and trims the longest",
-     "misconception": "It checks for outdated or conflicting instructions, not size or cost."
+     "misconception": "It checks for outdated or conflicting instructions; size and cost are outside its scope."
     },
     {
      "text": "Does nothing, because the model resolves conflicts reliably on its own",

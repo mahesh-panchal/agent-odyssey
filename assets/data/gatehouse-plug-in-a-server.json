@@ -12,15 +12,15 @@
     },
     {
      "text": "Added a text file of extra instructions that the model may ignore",
-     "misconception": "That describes an instructions file or a Skill. A server is running code, not just text."
+     "misconception": "That describes an instructions file or a Skill. A server runs code."
     },
     {
      "text": "Switched on a feature that Anthropic checks before it can run",
-     "misconception": "The docs tell you to verify that you trust each server before connecting it. They do not say anyone checks it for you."
+     "misconception": "The docs tell you to verify that you trust each server before connecting it. The docs leave that check with you."
     },
     {
      "text": "Opened a read-only view of the data, so nothing can change",
-     "misconception": "Read-only is a property of a particular server or credential, not of MCP itself."
+     "misconception": "Read-only belongs to a particular server or credential, and MCP itself makes no such promise."
     }
    ]
   },
@@ -37,7 +37,7 @@
     {
      "text": "Local scope (the default)",
      "bin": "Only you, in this project",
-     "misconception": "Local is the default and is not shared with the team."
+     "misconception": "Local is the default and stays with you."
     },
     {
      "text": "Project scope, via .mcp.json",
@@ -47,12 +47,12 @@
     {
      "text": "User scope",
      "bin": "All your projects",
-     "misconception": "User scope applies across every project you open, not one."
+     "misconception": "User scope applies across every project you open."
     },
     {
      "text": "A server stored in ~/.claude.json for this project alone",
      "bin": "Only you, in this project",
-     "misconception": "Local scope is kept in your own file and is not shared."
+     "misconception": "Local scope is kept in your own file and stays with you."
     },
     {
      "text": "A server your teammates get when they clone the repository",
@@ -77,15 +77,15 @@
     },
     {
      "text": "It is harmless because anything in a repository has been reviewed",
-     "misconception": "A repository can contain anything its authors committed. Review is not implied."
+     "misconception": "A repository can contain anything its authors committed. A repository carries no promise of review."
     },
     {
      "text": "Approve it, because declining breaks the rest of the project",
-     "misconception": "The prompt exists so you can say no. The risk is approving what you have not read, not declining it."
+     "misconception": "The prompt exists so you can say no. The risk lies in approving what you have not read."
     },
     {
      "text": "The prompt only appears for servers that need credentials",
-     "misconception": "The prompt is about project-scoped servers in general, not about credentials."
+     "misconception": "The prompt covers project-scoped servers in general, whatever credentials they use."
     }
    ]
   },
@@ -120,7 +120,7 @@
     {
      "left": "Fetched text tells the agent to write somewhere",
      "right": "Block writes (read-only access)",
-     "misconception": "Injection is answered by limiting what the agent can do with that text, not by trusting the source."
+     "misconception": "Injection is answered by limiting what the agent can do with that text."
     },
     {
      "left": "The token you gave the server has broad scope",

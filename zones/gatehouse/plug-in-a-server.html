@@ -146,10 +146,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quest-dialog">
 <p><strong>Prerequisites:</strong> the Rules of the Carapace (permission rules) and Know Your Gear (what MCP and a harness are). <strong>Objective:</strong> treat an MCP server as software you install, then scope it, limit it and read what it sends back. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in <code>research/tools-and-guards.md</code> and <code>research/terminology.md</code>)</span></p>
 </div>
-<p><strong>MCP</strong> (Model Context Protocol) is, in its own words, “an open-source standard for connecting AI applications to external systems”. A <strong>server</strong> is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. Nothing about this is required to use an agent. It is a way to widen what the agent can reach, and every widening is a decision.</p>
+<p><strong>MCP</strong> (Model Context Protocol) is, in its own words, “an open-source standard for connecting AI applications to external systems”. A <strong>server</strong> is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. MCP is optional. It widens what the agent can reach, and every widening is a decision.</p>
 <section id="a-server-is-software-you-installed" class="level2">
 <h2 class="anchored" data-anchor-id="a-server-is-software-you-installed">A server is software you installed</h2>
-<p>A stdio server (a program the harness starts locally and talks to over its input/output) is a command that Claude Code launches on your machine (<code>claude mcp add ... -- &lt;command&gt;</code>), and secrets can be passed to it as environment variables. So a reasonable working assumption, offered as general practice and not as a docs quote, is that it can do whatever that command can do with the credentials you gave it. The docs’ one security sentence is short: “Verify you trust each server before connecting it. Servers that fetch external content can expose you to prompt injection risk.” (Prompt injection: text from a file, web page or tool that the model treats as an instruction.)</p>
+<p>A stdio server (a program the harness starts locally and talks to over its input/output) is a command that Claude Code launches on your machine (<code>claude mcp add ... -- &lt;command&gt;</code>), and secrets can be passed to it as environment variables. So a reasonable working assumption, offered as general practice (our wording, outside the docs), is that it can do whatever that command can do with the credentials you gave it. The docs’ one security sentence is short: “Verify you trust each server before connecting it. Servers that fetch external content can expose you to prompt injection risk.” (Prompt injection: text from a file, web page or tool that the model treats as an instruction.)</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -173,7 +173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>Local (the default)</td>
-<td>this project only, not shared; stored in <code>~/.claude.json</code></td>
+<td>this project only, for you alone; stored in <code>~/.claude.json</code></td>
 </tr>
 <tr class="even">
 <td>Project</td>
@@ -191,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Each server’s tools appear in permission rules as <code>mcp__&lt;server&gt;__&lt;tool&gt;</code>, and <code>mcp__&lt;server&gt;__*</code> (a matcher, a pattern that selects names) matches every tool of one server. Tool definitions are deferred (loaded only when needed) by default, so only tool names and server instructions take up context until a tool is used.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>In the V2 docs, servers go under <code>mcp.servers</code> (V2 does not put server names directly under <code>mcp</code>; check which version you have installed). A remote server:</p>
+<p>In the V2 docs, servers go under <code>mcp.servers</code>, and V2 does not put server names directly under <code>mcp</code> (check which version you have installed). A remote server:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">"mcp"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"servers"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"mydocs"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"remote"</span><span class="fu">,</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"url"</span><span class="fu">:</span> <span class="st">"https://example.com/mcp"</span><span class="fu">,</span></span>
@@ -202,15 +202,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="what-comes-back-is-not-an-instruction" class="level2">
-<h2 class="anchored" data-anchor-id="what-comes-back-is-not-an-instruction">What comes back is not an instruction</h2>
-<p>A server that fetches web pages, tickets or messages hands text written by someone else to the model. Prompt injection means that text can contain sentences aimed at the agent (“ignore the above and …”) and the model may follow them. The docs give one sentence on this and no more, so the rest is general practice:</p>
+<section id="what-comes-back-is-text-to-read" class="level2">
+<h2 class="anchored" data-anchor-id="what-comes-back-is-text-to-read">What comes back is text to read</h2>
+<p>A server that fetches web pages, tickets or messages hands text written by someone else to the model. Prompt injection means that text can contain sentences aimed at the agent (“ignore the above and …”) and the model may follow them. The docs give one sentence on this, so the rest is general practice:</p>
 <ul>
 <li>Prefer <strong>read-only</strong> servers and read-only credentials. A server that cannot write cannot be talked into writing.</li>
 <li>Give it the <strong>least privilege</strong> (only the access the job needs) that does the job: one project, one scope, a token limited to what you need.</li>
 <li><strong>Read before adding</strong>: who publishes it, what tools it lists, what it asks for. Unneeded servers are also unneeded context.</li>
-<li>Read fetched content sceptically, and do not let an agent act on it with write access unattended.</li>
-<li>Permission rules still apply to server tools, so deny the dangerous ones by name rather than hoping.</li>
+<li>Read fetched content sceptically, and supervise any write access an agent uses on it.</li>
+<li>Permission rules still apply to server tools, so deny the dangerous ones by name.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -222,11 +222,11 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Claude Code’s docs also say that sandbox restrictions still apply even if a prompt injection bypasses the model’s decision-making. The sandbox covers shell commands, not every route a server might take, so treat it as one layer.</p>
+<p>Claude Code’s docs also say that sandbox restrictions still apply even if a prompt injection bypasses the model’s decision-making. The sandbox covers shell commands, and a server might take other routes, so treat it as one layer.</p>
 </div>
 </div>
 <div data-ao-honour="gatehouse-read-a-server" data-xp="20">
-Pick an MCP server you might use. Write down who publishes it, the tools it lists, the credential it needs, and whether a read-only version exists. Do not install it yet.
+Pick an MCP server you might use. Write down who publishes it, the tools it lists, the credential it needs, and whether a read-only version exists. Hold off installing it for now.
 </div>
 </section>
 <section id="battle-the-heavy-door" class="level2">
@@ -242,7 +242,7 @@ Pick an MCP server you might use. Write down who publishes it, the tools it list
 <li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">Introduction to the Model Context Protocol</a>: Model Context Protocol, docs. Why read: it explains MCP as an open standard, so you know what a server is before you plug one in.</li>
 <li><a href="https://code.claude.com/docs/en/mcp">Connect Claude Code to tools via MCP</a>: Anthropic, docs. Why read: it is the reference for adding HTTP and stdio servers and for the local, project and user scopes.</li>
 <li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Why read: it shows how to allow or deny a server’s tools by name, the way to grant read-only access.</li>
-<li><a href="https://code.claude.com/docs/en/sandboxing">Configure the sandboxed Bash tool</a>: Anthropic, docs. Why read: it states what the sandbox limits and what it does not, so you can judge it as one layer.</li>
+<li><a href="https://code.claude.com/docs/en/sandboxing">Configure the sandboxed Bash tool</a>: Anthropic, docs. Why read: it states what the sandbox limits and where that limit ends, so you can judge it as one layer.</li>
 </ul>
 </section>
 

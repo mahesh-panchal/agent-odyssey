@@ -115,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Prefer to keep the LLM out of the run.</strong> Use it to <em>write</em> a script, then test the script and run the script. The script is deterministic and reviewable.</p>
 <p>If an LLM call really must be a step (tidying messy free-text labels, say), contain it:</p>
 <ul>
-<li><strong>Record</strong> the model name and version, and the exact prompt, with the outputs. This is necessary but not sufficient: even a pinned model may not return identical text every time.</li>
+<li><strong>Record</strong> the model name and version, and the exact prompt, with the outputs. This is a necessary start, and even a pinned model may not return identical text every time.</li>
 <li><strong>Cache</strong> results keyed by input (saved outputs; a different sense from the prompt cache used in Claude Code sessions), so a re-run does not change them silently.</li>
 <li><strong>Validate</strong> each output against a fixed set (a species list, a schema) and fail loudly when it does not match.</li>
 <li><strong>Keep a human-check sample</strong>: look at a random handful every time.</li>

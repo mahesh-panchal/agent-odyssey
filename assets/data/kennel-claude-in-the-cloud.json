@@ -56,7 +56,7 @@
     },
     {
      "text": "Go ahead, because the repository is private on GitHub and only you can see it",
-     "misconception": "A private repository limits who can browse it on GitHub; it does not stop the contents being cloned into the VM and stored in the transcript."
+     "misconception": "A private repository limits who can browse it on GitHub, and the contents are still cloned into the VM and stored in the transcript."
     }
    ]
   },
@@ -106,7 +106,7 @@
     {
      "left": "The prompt you type and the session transcript",
      "right": "Stored by Anthropic",
-     "misconception": "Prompts are not private to the VM; the docs say Anthropic stores the transcript so you can return to the session."
+     "misconception": "Prompts reach Anthropic beyond the VM; the docs say Anthropic stores the transcript so you can return to the session."
     }
    ]
   },

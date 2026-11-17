@@ -109,14 +109,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Write the Brief. <strong>Objective:</strong> give the agent standing instructions for a project, and know what those instructions cannot do. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code> and <code>research/doctor.md</code>).</span></p>
+<p><strong>Prerequisites:</strong> Write the Brief. <strong>Objective:</strong> give the agent standing instructions for a project, and know where they end and enforcement begins. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code> and <code>research/doctor.md</code>).</span></p>
 </div>
 <p>Typing the same background every session is wasteful. A <strong>project instructions file</strong> is read at the start so the agent already knows the project’s conventions.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>The file is <code>CLAUDE.md</code>. It can live in <code>~/.claude/CLAUDE.md</code> (all your projects), <code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code> (the project, shared if committed), and <code>./CLAUDE.local.md</code> (yours, not committed). Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. <code>/init</code> drafts one from your project and <code>/memory</code> lists and edits them. <code>@path</code> imports another file, but that does not save context.</p>
+<p>The file is <code>CLAUDE.md</code>. It can live in <code>~/.claude/CLAUDE.md</code> (all your projects), <code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code> (the project, shared if committed), and <code>./CLAUDE.local.md</code> (yours, not committed). Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. <code>/init</code> drafts one from your project and <code>/memory</code> lists and edits them. <code>@path</code> imports another file, and the imported text still uses context.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>The file is <code>AGENTS.md</code> in the project root (or <code>~/.config/opencode/AGENTS.md</code> for all projects). <code>/init</code> creates or updates it. The <code>instructions</code> array in <code>opencode.json</code> adds more files. OpenCode also falls back to <code>CLAUDE.md</code> if there is no <code>AGENTS.md</code>.</p>
@@ -136,13 +136,13 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Instructions are advice, not enforcement.</strong> Claude Code’s docs describe <code>CLAUDE.md</code> as context, not enforced configuration. A line saying “never delete files” does not stop a delete. Enforcement comes from permission rules, hooks, or managed settings (organisation-set rules you cannot override): the carapace you built in the Crypt.</p>
+<p><strong>Instructions are advice.</strong> Claude Code’s docs describe <code>CLAUDE.md</code> as context, and not as enforced configuration. A line saying “never delete files” cannot stop a delete. Enforcement comes from permission rules, hooks, or managed settings (organisation-set rules you cannot override): the carapace you built in the Crypt.</p>
 </div>
 </div>
-<p>Instruction files go stale too: a rule written for an older model, a path that no longer exists, two files that disagree. The docs warn that when instructions contradict each other, Claude may pick one arbitrarily. In Claude Code (v2.1.283 or later), <code>/doctor prompt-audit</code> (<code>/doctor</code> is a <strong>bundled skill</strong>, a ready-made skill that ships inside the tool) checks your instruction files for outdated or conflicting content and writes a report with proposed edits. It changes nothing until you ask. It is not a size or cost audit. The audit is itself a model reading your files, so review its suggestions like any other output. Not checked: an OpenCode equivalent.</p>
+<p>Instruction files go stale too: a rule written for an older model, a path that no longer exists, two files that disagree. The docs warn that when instructions contradict each other, Claude may pick one arbitrarily. In Claude Code (v2.1.283 or later), <code>/doctor prompt-audit</code> (<code>/doctor</code> is a <strong>bundled skill</strong>, a ready-made skill that ships inside the tool) checks your instruction files for outdated or conflicting content and writes a report with proposed edits. It changes nothing until you ask. It checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. Not checked: an OpenCode equivalent.</p>
 <p>Write the file yourself first and read what <code>/init</code> produces critically. A generated file can contain wrong guesses about your project.</p>
 <div data-ao-honour="write-charter" data-xp="15">
-Write a short instructions file (about ten lines) for one of your real projects: how to run its tests, where data lives, and one thing the agent must never touch.
+Write a short instructions file (about ten lines) for one of your real projects: how to run its tests, where data lives, and one thing the agent should leave alone.
 </div>
 </section>
 <section id="battle-the-charter" class="level2">
@@ -155,7 +155,7 @@ Write a short instructions file (about ten lines) for one of your real projects:
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
-<li><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a>: Anthropic, docs. Why read: it covers CLAUDE.md placement, AGENTS.md and auto memory, and says these are context, not enforcement.</li>
+<li><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a>: Anthropic, docs. Why read: it covers CLAUDE.md placement, AGENTS.md and auto memory, and describes these as context that guides the agent.</li>
 <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it shows what belongs in an instructions file and what to enforce another way.</li>
 <li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Why read: hooks are the way to enforce a rule that an instructions file can only request.</li>
 <li><a href="https://opencode.ai/docs/rules/">Rules</a>: OpenCode, docs. Why read: it explains AGENTS.md and the instructions setting for the OpenCode side.</li>

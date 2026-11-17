@@ -168,8 +168,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--plugin-dir</span> ./fasta-tools      <span class="co"># load for this session only</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin validate ./fasta-tools   <span class="co"># checks files are well formed</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin validate ./fasta-tools <span class="at">--strict</span>   <span class="co"># also fails on warnings</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>After editing, run <code>/reload-plugins</code> in the session. <code>validate</code> exited 0 on the example here, with only an icon warning that matters for marketplace submission. It checks syntax and schema, not behaviour: that is what the evals in the previous quest are for.</p>
-<p>To share, a <strong>marketplace</strong> (a plugin catalogue) is a repository with <code>.claude-plugin/marketplace.json</code> listing plugins and where to fetch them. It is a catalogue, not a hosted store. People add it once and install by name.</p>
+<p>After editing, run <code>/reload-plugins</code> in the session. <code>validate</code> exited 0 on the example here, with only an icon warning that matters for marketplace submission. It checks syntax and schema. The evals in the previous quest cover behaviour.</p>
+<p>To share, a <strong>marketplace</strong> (a plugin catalogue) is a repository with <code>.claude-plugin/marketplace.json</code> listing plugins and where to fetch them. It is a catalogue that points to where plugins are fetched. People add it once and install by name.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>OpenCode has its own plugins: code (<code>.ts</code> or <code>.js</code>) that adds tools and hooks, loaded from <code>.opencode/plugins/</code> or <code>~/.config/opencode/plugins/</code>, or listed in its config as npm packages, git repositories or local directories. Last verified (docs): the config key spelling and whether OpenCode reads a Claude <code>plugin.json</code> are <em>unconfirmed</em>; check the current OpenCode docs before relying on either.</p>
@@ -189,12 +189,12 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Per the Claude Code docs, a plugin you install can run arbitrary code on your machine with your user privileges. Hooks, monitors, local MCP and language servers, and anything in <code>bin/</code> run <strong>outside</strong> the sandbox and the permission rules. Skills and agents only enter the context as instructions, but instructions can steer the agent too.</p>
+<p>Per the Claude Code docs, a plugin you install can run arbitrary code on your machine with your user privileges. Hooks, monitors, local MCP and language servers, and anything in <code>bin/</code> run <strong>outside</strong> the sandbox and the permission rules. Skills and agents enter the context as instructions, and instructions can steer the agent too.</p>
 </div>
 </div>
 <p>Before installing or updating a plugin:</p>
 <ol type="1">
-<li>Check where it comes from. A marketplace name says who publishes it, not what the plugin does.</li>
+<li>Check where it comes from. A marketplace name says who publishes it. Reading the plugin shows what it does.</li>
 <li>Read <code>hooks/hooks.json</code>, <code>.mcp.json</code>, and anything in <code>bin/</code>. These are where code lives.</li>
 <li>In a session, <code>/plugin</code> shows what will be installed. <code>claude --plugin-dir &lt;dir&gt; plugin details &lt;name&gt;</code> lists a component inventory without a session.</li>
 <li>Remember that auto-update can change files you reviewed. Pin a <code>version</code> for plugins you publish.</li>
@@ -202,12 +202,12 @@ Warning
 </section>
 <section id="when-a-team-shares-skills" class="level2">
 <h2 class="anchored" data-anchor-id="when-a-team-shares-skills">When a team shares Skills</h2>
-<p><strong>Idea from the GitHub Blog article</strong> “Build once, run on any agent: a practical guide to agent skills” by Andrea Griffiths (GitHub Blog), in our own words. It is advice for teams, not part of the plugin format.</p>
+<p><strong>Idea from the GitHub Blog article</strong> “Build once, run on any agent: a practical guide to agent skills” by Andrea Griffiths (GitHub Blog), in our own words. It is advice for teams and sits outside the plugin format.</p>
 <ul>
-<li><strong>Keep project names and conventions in one file.</strong> The reference genome build, the sample-ID pattern and the results folder names belong in a single <strong>project-facts file</strong> (a plain file that lists them, not the plugin’s <code>plugin.json</code>) which every Skill reads, not in each <code>SKILL.md</code>. Then another lab can reuse your Skills with its own file and no rewriting, and a rename touches one place.</li>
-<li><strong>Keep discovered details apart from team standards.</strong> A pattern the agent finds in your code is an observation, not a rule. Store it separately, and have a person confirm it before it becomes a standard.</li>
+<li><strong>Keep project names and conventions in one file.</strong> The reference genome build, the sample-ID pattern and the results folder names belong in a single <strong>project-facts file</strong> (a plain file that lists them, separate from the plugin’s <code>plugin.json</code>) which every Skill reads, so no <code>SKILL.md</code> repeats them. Then another lab can reuse your Skills with its own file and no rewriting, and a rename touches one place.</li>
+<li><strong>Keep discovered details apart from team standards.</strong> A pattern the agent finds in your code is an observation. Store it separately, and have a person confirm it before it becomes a standard.</li>
 <li><strong>If you generate copies, check for drift.</strong> Say you keep one source <code>SKILL.md</code> and generate copies for other tools. Run a check in CI (automated checks that run on every change) that fails when a copy no longer matches its source.</li>
-<li><strong>Blocking a merge depends on repository rules and required checks, not on the Skill alone.</strong> Whether a bad change is stopped depends on those rules, not on instructions in a Skill. A review step written in a Skill is advice unless a required check backs it.</li>
+<li><strong>Blocking a merge depends on repository rules and required checks.</strong> Whether a bad change is stopped depends on those rules. A review step written in a Skill is advice unless a required check backs it.</li>
 </ul>
 <div data-ao-honour="bundle-plugin" data-xp="30">
 Turn the Skill you wrote into a plugin folder with a <code>plugin.json</code>, then run <code>claude plugin validate</code> on it and read the output.
