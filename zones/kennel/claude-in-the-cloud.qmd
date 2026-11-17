@@ -1,0 +1,215 @@
+---
+title: "Claude in the Cloud"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Recruit the Beast and The Locked Cabinet. **Objective:** say what a cloud session is, what leaves your machine when you start one, which jobs suit it and which never do, and review what comes back. **Time:** about 15 minutes. **The exercise needs no cloud account and no model;** it is a worksheet on a mock file tree.
+
+<span class="ao-badge">Last verified (docs, not run): research/claude-cloud.md sources on 2026-11-17; plan terms, limits and retention periods change, check the docs</span>
+
+I took some of the ideas below from Addy Osmani's article "Claude Code in the cloud: a field guide to cloud sessions" on claude.dev (provenance of the site not confirmed; numbers not verified). The explanations are my own, and I mark each idea that comes only from the article.
+:::
+
+## The rule for this page
+
+::: {.callout-important}
+## Cloud sessions are for drafting scripts and documentation. Data analysis does not happen in the cloud.
+
+Use a cloud session for **writing scripts, updating documentation and similar low-risk text work**. **No real data, controlled data, sample sheets with identifiers, genotypes or results go into a cloud session or its repository.** Analysis runs on your own machine or the cluster, under your data agreement.
+
+Think of the cloud agent as a **drafting helper that returns a branch** (a named line of commits in git) which you review and then run yourself, where the data lives.
+:::
+
+You can skip cloud sessions altogether; nothing on this site requires them. If you do use one, the rest of the page is about doing it without sending anything you should not.
+
+## 1. What a cloud session is
+
+A **cloud session** is a Claude Code session that runs on Anthropic's servers instead of your laptop. Each one gets a fresh **virtual machine** (a computer simulated inside a bigger one, thrown away afterwards; the docs say Ubuntu 24.04 on x86_64) with a fresh **clone** (a full copy of a repository) of your code, made from its copy on GitHub. It keeps working after you close your laptop. When it is done, the work comes back as a **branch**, which you can turn into a **pull request** (a proposal on GitHub to merge that branch, with a place to review the changes).
+
+Only **committed** files travel, because the clone is made from GitHub. A committed `CLAUDE.md`, `.claude/` rules, skills and agents come along. What does **not** come along, per the docs:
+
+- your personal `~/.claude/CLAUDE.md`, skills, agents and commands, and your user-level settings;
+- MCP servers you added at local or user scope;
+- `.claude/settings.local.json`;
+- interactive sign-ins such as AWS SSO.
+
+Organisation-managed server settings do still apply.
+
+## 2. What leaves your machine
+
+This is the part to read twice. When you start a cloud session:
+
+- **Your repository contents** are cloned onto Anthropic's VM. Anthropic reads only the repository you start the session in.
+- **Your prompts and everything the agent reads and writes** go to the model.
+- **The session transcript** (the saved record of the whole conversation, including tool output) is stored by Anthropic so you can return to it later.
+- **Retention** (how long Anthropic keeps stored data) follows your account type. The docs say: consumer plans keep it 5 years if you allow training and 30 days if you do not; commercial plans (Team, Enterprise, API) keep it 30 days as standard. **These figures are time-sensitive. Check your own plan and the current docs.** Deleting a cloud session permanently removes its event data.
+- **All outbound traffic** from Anthropic-hosted sessions passes through a **proxy** (a go-between server that forwards requests, here for audit logging and abuse prevention).
+- **Network level None is not a data seal.** A **network access level** is the setting that says which internet hosts the VM may reach (None, Limited or Full; see section 5). The docs say the Anthropic API stays reachable even at None, "which may allow data to exit the VM".
+- **Environment variables** (named settings handed to programs, often used for keys) set in a cloud environment can be read by any command Claude runs, and the docs say anyone who uses that environment can read the values.
+- **Sharing:** a session can be visible to others. The docs warn sessions may contain code and credentials from private repositories.
+
+Three organisation settings block cloud sessions outright, per the docs: **Zero Data Retention**, a **HIPAA configuration**, and **customer-managed encryption keys**. If your organisation uses one of them, cloud sessions are not available. Your administrator can also switch cloud sessions off (the `allow_remote_sessions` policy).
+
+**This site's rule (our own rule, not a claim from the docs): keep controlled data out of the cloud repository.** The docs I read give no guidance for genomic, patient or other controlled-access data, and no statement on where cloud-session data is stored. Treat the clone, the transcript and anything you paste as held by Anthropic. The guidance on data agreements is in *The Locked Cabinet*; read it before you push anything to a remote that a cloud session can see (a **remote** is the copy of a repository hosted elsewhere, such as on GitHub).
+
+## 3. Good uses and bad uses
+
+| Fine for a cloud session (code and mock data only) | Not in a cloud session |
+|---|---|
+| Write a samplesheet validator, tested on a three-row mock file | Run the analysis |
+| Write a QC summary plotting script, developed on mock data | Load real counts, genotypes or results |
+| Draft or update the README, changelog, docstrings | Debug with real sample IDs in the repository |
+| Refactor non-data code that has tests | Anything under a data agreement |
+| Review a pull request (read the diff, suggest changes) | Anything that needs a local database or the cluster |
+| Triage issues (sort, label, summarise) | Anything that needs your institution's network or files |
+
+The last row on the right is partly our inference: the docs do not mention VPN, on-prem network access or mounting local or cluster filesystems, and list a roughly 30 GB disk, so assume none of that is there. One article's advice, not confirmed in the docs: local work beats the cloud when you need local databases, a VPN or special hardware.
+
+## 4. How to start
+
+::::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+**Push first.** `claude --cloud "your task"` starts a cloud session from your terminal, and it clones the GitHub remote at your current branch, not your local folder. **Commit and push** (save snapshots, then upload them to the remote) before you start, or the session will not see your latest work. If the branch is not on GitHub the CLI says `Branch <name> is not on GitHub`, and the session starts from a pushed commit or the default branch. One repository per session. You can also start from claude.ai/code in the browser.
+
+**Write a ticket-style prompt**, that is, a self-contained note like a work ticket: the problem, the expected result, and a command that proves it. The docs say to be specific, name files and paste errors. The proof-command habit is one article's advice, not confirmed in the docs. Example, with no data in it:
+
+```text
+Problem: scripts/validate_samplesheet.py accepts duplicate sample IDs.
+Expected: exit status 1 and a message naming the duplicated ID.
+Check: pytest tests/test_validate_samplesheet.py (mock rows only).
+Add a test for the duplicate case. Do not touch data/ or results/.
+```
+
+**If there is no remote.** When a repository has no GitHub remote, or the Claude **GitHub App** is not on it, Claude Code instead **bundles** the repository and uploads it: full history of all branches plus uncommitted changes to tracked files, under 100 MB. Untracked files are left out, and on macOS, Linux and WSL, uncommitted changes to `.env`, `*.pem`, `*.tfvars`, `id_rsa` and LFS-managed files are skipped (on native Windows everything tracked uploads). **Do not rely on this for data.** Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your `.gitignore` covers before you go anywhere near this. Non-GitHub hosts can only use the bundle, and cannot push back.
+
+**`/web-setup`**, typed inside Claude Code (not in your shell), sends your `gh auth token` (GitHub's command-line login token) to Anthropic so cloud sessions can reach your repositories without the GitHub App. It needs a claude.ai sign-in; API-key sign-in does not work, and neither does a Bedrock or Vertex-style provider. On Team and Enterprise plans an Owner has to enable it first.
+
+**Getting the session back: teleport.** To **teleport** is to pull a cloud session into your local terminal: `claude --teleport` (shows a picker), `claude --teleport <session-id>`, or `/teleport` (alias `/tp`) inside a session. It needs a clean git state (it offers to stash your changes), the same repository (not a fork), the branch pushed, and the same claude.ai account.
+
+**GitHub access, in short.** Two ways in: the **GitHub App** (a program you install on a repository or organisation to grant it limited access) or your `/web-setup` token. For Anthropic-hosted sessions, your GitHub credential is stored encrypted on Anthropic's servers and does not enter the VM; the VM holds a short-lived credential, and a GitHub proxy swaps it in. The proxy rejects branch deletions and tag pushes, but **it does not limit which branches a push can update**. To limit that, use GitHub **branch protection or rulesets** (rules on which branches may be changed and by whom); the docs note a rule that the connected access can bypass will not block the push. The docs do not describe a credential limited to one branch, so do not assume one.
+
+## OpenCode + Ollama
+
+I found no hosted cloud-session feature for OpenCode. Its docs describe `opencode pair` (a web interface opened through a one-time local link), Docker images, and its own model-access services, which are not hosted agent sessions. Not checked: whether Ollama has any such feature. So there is no equivalent to teach here. The closest thing is to run OpenCode yourself in your own container or virtual machine, which is your own infrastructure and your own responsibility.
+
+As *The Locked Cabinet* says, a local Ollama model keeps prompts on your machine, though web or tool calls the agent makes may not. If your data agreement rules out third-party processing, that local route is the one to ask about.
+
+:::::
+
+## 5. Environments
+
+An **environment** is a saved configuration for cloud sessions: network access, environment variables, a setup script and network secrets. A first-time setup creates one called `Default`, with Limited access.
+
+**Network access levels**, using the docs' current names:
+
+| Level | What the VM can reach |
+|---|---|
+| None | No internet (the Anthropic API, the GitHub proxy and enabled connectors still work) |
+| Limited | A default allowlist of package registries, GitHub and cloud SDKs, plus domains you add |
+| Full | Any host |
+
+One article's advice, not confirmed in the docs: pick the narrowest level that lets the task finish. The docs show the levels and give no recommendation. An **allowlist** is a list of the only hosts permitted.
+
+**Setup scripts.** A **setup script** is a Bash script that runs once as root before Claude starts, to install what the task needs. It must exit with status 0, and the docs say keep it under about five minutes or it is not cached. The result is cached as a filesystem snapshot (packages and files stay; running processes and databases do not), and rebuilt when the script or allowed hosts change or after about 7 days. Installs need network access, so None blocks them.
+
+**Environment variables versus network secrets.** Environment variables are readable (see section 2). **Network secrets** are the docs' safer option where possible: the key stays outside the VM, and Anthropic's agent proxy adds it to requests to hosts you list.
+
+**Preinstalled tools.** The docs list Python with pip, uv, poetry and pytest, Node, Ruby, PHP, Java, Go, Rust, C and C++, Docker, PostgreSQL 16, Redis, git, gh and jq. **No R, conda or bioinformatics tools are listed**, so a setup script would have to install them. This is a statement about what the VM contains, not a suggestion to analyse there. Ask Claude to run `check-tools` to see what is actually present.
+
+## 6. Permission modes in the cloud
+
+A **permission mode** says how much the agent may do before asking you (see *Grow the Carapace*). Cloud sessions offer three: **Accept edits**, **Plan** and **Auto** (Auto can be switched off by your organisation). There is **no Manual and no Bypass** mode in the cloud, and a `bypassPermissions` setting in your files is ignored there. You pick the mode in the dropdown, not with a `--cloud` flag.
+
+Use **Plan** for anything you do not already understand, and read the plan before it edits: see *Plan Before You Edit*. The docs also describe planning locally with `claude --permission-mode plan`, committing and pushing the plan, and then starting `claude --cloud`.
+
+## 7. Limits and failure modes
+
+- **A fresh machine every time.** The docs say an idle VM pauses and may later be **reclaimed** (taken back by the system, with the files gone). Reopening restores the conversation, but running commands and subagents are lost. One article's habit, not confirmed in the docs: commit as you go, so work is not lost if the machine is reclaimed.
+- **Timeouts.** A foreground command defaults to 2 minutes (up to 10), then moves to the background for up to 30 more.
+- **Size.** The docs give approximate ceilings of 4 vCPUs, 16 GB RAM and 30 GB disk, and say heavy jobs may be stopped.
+- **Shared usage.** Cloud work counts against the same plan limits as all your other Claude Code use (time-sensitive: check your plan). One article's claim, not confirmed in the docs: several parallel sessions use the limit proportionately faster.
+- **No local services.** No GPU, VPN or cluster access is documented (inference, see section 3).
+- **GitHub comments under your name.** Claude can reply on pull requests under your GitHub name, labelled as Claude Code. That can trigger any comment-driven automation you have set up.
+
+## 8. Review what comes back
+
+The result is **a branch**. Treat it like a stranger's pull request: it may be fine and it may be wrong.
+
+1. **Read the diff** (the list of changed lines) as you would any other. The habits are in *The Wall of Output* and *The Reviewer's Code*.
+2. **Look for accidents in the diff:** committed data files, absolute paths, sample IDs in a test or a comment, a `.env`, a notebook saved with outputs.
+3. **Run the tests locally**, on your machine.
+4. **Only then run the script on your data**, locally or on the cluster, under your data agreement. The cloud agent never saw that data and never ran that step.
+
+A green test in the cloud is a claim, not proof. A test passing on mock data says the script runs; it does not say your real data will be handled correctly.
+
+## Exercise: the safe-to-send checklist
+
+No cloud account and no model needed. Open [tree.txt](../../exercises/kennel/cloud-safe/tree.txt), a **mock** repository tree (every name is invented).
+
+1. **Mark each path** that must be removed from the repository's history, or ignored with `.gitignore`, **before you push anything a cloud session can see.** Write one reason each.
+2. **Write the `.gitignore` lines** that would have stopped it.
+3. **Draft a ticket-style prompt** for one low-risk task: update `docs/usage.md`, or add a missing-column test to `scripts/validate_samplesheet.py`. Include the problem, the expected result and a check that uses only `data/mock/`.
+
+<details>
+<summary>Answer key (our judgement; some entries depend on your data agreement)</summary>
+
+**Remove or ignore before pushing:**
+
+- `.env`: a secret. It was already committed, so ignoring it is not enough: remove it from history and replace the token.
+- `samplesheet_real.csv`: identifiers and genotype calls.
+- `data/raw/` and `data/processed/`: real reads and real counts.
+- `notebooks/01_qc.ipynb` and `notebooks/02_diffexp.ipynb`: outputs saved inside them contain real sample IDs, tables and plots. Clear the outputs, or keep the notebooks out.
+- `results/` (including `de_genes.csv` and `pca_real_samples.png`): results.
+- `logs/slurm-482913.out`: real sample IDs and cluster paths.
+
+**Fine to send** (they hold no real data): `README.md`, `environment.yml`, `samplesheet_template.csv`, `config/params.yaml` (check it for real paths), `data/mock/`, `docs/`, `scripts/`, `tests/`.
+
+**Ignore lines** that would help:
+
+```text
+.env
+samplesheet_real.csv
+data/raw/
+data/processed/
+results/
+logs/
+*.ipynb_checkpoints
+```
+
+Add a rule for notebooks too (for example, a pre-commit step that clears outputs), because `.gitignore` alone cannot strip outputs from a notebook you do want to commit. Note that `.gitignore` only stops files that are **not yet tracked**; anything already committed stays in history until you remove it properly, and rewriting history is its own careful job (see *Save Point*).
+
+**Sample prompt:**
+
+```text
+Problem: docs/usage.md does not mention the --strandedness option added in v0.3.
+Expected: a short section with the option, its allowed values, and one example
+command using data/mock/ only.
+Check: the example command in the new section runs on data/mock/counts_mock.tsv. Do not read or edit data/raw, data/processed or results.
+```
+
+</details>
+
+<div data-ao-honour="check-data-agreement" data-xp="25">Look up your data agreement and check whether it allows any third-party processing before you ever push to a cloud-connected remote.</div>
+<div data-ao-honour="check-plan-cloud" data-xp="25">Check whether your organisation's plan allows cloud sessions at all.</div>
+
+## What to remember
+
+- **Cloud sessions are for drafting scripts and documentation, not for analysis.** No real data, controlled data, sample sheets with identifiers, genotypes or results go in a cloud session or its repository.
+- Your repository contents, prompts and session transcript go to Anthropic, and network level None does not seal the VM.
+- Return is a branch: read the diff, look for stray data, run the tests locally, then run on your data where it lives, under your data agreement.
+
+## Battle
+
+<div data-ao-test="kennel-claude-in-the-cloud" data-xp="50"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+<!-- TODO: 2-8 items, one per line, only URLs from research/*.md or research/lore-extra.md:
+- [Title](https://url): Publisher, docs. Why read: one line.
+-->
+:::

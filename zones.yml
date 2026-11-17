@@ -68,7 +68,10 @@ gates:
            done: "The Pet curls up on your laptop. Small and local, it needs more room to think and a leash of its own." },
          { id: kennel-pick-your-companion, title: "Pick Your Companion", page: zones/kennel/pick-your-companion.html,
            story: "The Kennel keeps companions of every size. A big one is slow and costly to feed; a small one is quick and cheap but loses the trail. You must choose per job, and decide how hard each should think.",
-           done: "You choose a model and effort for each job, delegate bulk reading to a cheaper helper, and measure before you commit." } ] }
+           done: "You choose a model and effort for each job, delegate bulk reading to a cheaper helper, and measure before you commit." },
+         { id: kennel-claude-in-the-cloud, title: "Claude in the Cloud", page: zones/kennel/claude-in-the-cloud.html,
+           story: "A tower stands far from the Kennel where the Beast works on a borrowed machine that vanishes when it is done. It is fine for sketching and writing. Nothing precious should ever be carried there.",
+           done: "You send scripts and documents to the cloud, keep data and analysis at home, and know what leaves your machine when you do." } ] }
   C: { id: crypt,    name: "Ancient DNA Crypt",     track: "Armour",     status: open,
        quests: [
          { id: crypt-shield-of-undo, title: "Save Point", page: zones/crypt/shield-of-undo.html,

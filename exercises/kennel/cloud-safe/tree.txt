@@ -1,0 +1,38 @@
+MOCK repository "rnaseq-mini". Every name here is invented. Nothing in it is real data.
+Assume the whole tree is committed in git except where noted, and the remote is on GitHub.
+
+rnaseq-mini/
+|-- .env                              (API token and an account name; committed by mistake last month)
+|-- .gitignore                        (contains one line: __pycache__/)
+|-- README.md
+|-- environment.yml
+|-- samplesheet_real.csv              (sample_id, patient_code, genotype_call, fastq_1, fastq_2)
+|-- samplesheet_template.csv          (header row only, no samples)
+|-- config/
+|   `-- params.yaml                   (parameters: aligner name, thresholds)
+|-- data/
+|   |-- raw/
+|   |   |-- S001_R1.fastq.gz
+|   |   `-- S001_R2.fastq.gz
+|   |-- processed/
+|   |   `-- counts_matrix.tsv         (genes x real samples)
+|   `-- mock/
+|       `-- counts_mock.tsv           (50 invented genes, 6 invented samples, made by scripts/make_mock.py)
+|-- docs/
+|   |-- usage.md
+|   `-- changelog.md
+|-- logs/
+|   `-- slurm-482913.out              (job log with sample IDs and cluster paths)
+|-- notebooks/
+|   |-- 01_qc.ipynb                   (saved with outputs: tables of real sample IDs)
+|   `-- 02_diffexp.ipynb              (saved with outputs: plots and a gene table)
+|-- results/
+|   |-- de_genes.csv
+|   `-- figures/
+|       `-- pca_real_samples.png
+|-- scripts/
+|   |-- make_mock.py
+|   |-- plot_qc.py
+|   `-- validate_samplesheet.py
+`-- tests/
+    `-- test_validate_samplesheet.py  (uses rows from data/mock/ only)

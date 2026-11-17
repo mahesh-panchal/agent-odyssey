@@ -1,0 +1,44 @@
+pass: 0.8
+questions:
+  - type: sort
+    prompt: "Sort these tasks: fine to hand to a cloud session on a repository that holds only code and mock data, or keep on your own machine or the cluster."
+    bins: ["OK in the cloud", "Keep local"]
+    explain: "The cloud is for drafting text and scripts that you review and run yourself. Anything that needs real data, a data agreement, or local resources stays where the data lives."
+    items:
+      - { text: "Write a script that validates samplesheet columns, tested on a mock three-row file", bin: "OK in the cloud", misconception: "A validator written and tested on invented rows needs no real data, so it is the kind of drafting the cloud suits." }
+      - { text: "Rewrite the README and add docstrings to the QC helper functions", bin: "OK in the cloud", misconception: "Documentation is plain text about code, with no data involved, so it is low-risk cloud work." }
+      - { text: "Run the differential expression notebook on the real count matrix", bin: "Keep local", misconception: "Running the analysis means loading real data into the session, which is exactly what this site's rule forbids in the cloud." }
+      - { text: "Find out why sample S017 fails QC by reading its real FASTQ headers and job log", bin: "Keep local", misconception: "Debugging with real sample IDs and files puts identifiers into the clone and the transcript." }
+      - { text: "Test a pipeline stage that needs the cluster scheduler and a local reference database", bin: "Keep local", misconception: "No HPC filesystem or local database is documented for cloud sessions, so the job cannot run there anyway." }
+  - type: choice
+    prompt: "A colleague wants to run differential expression in a cloud session on the real count table, 'because it is just a CSV'. What do you say?"
+    explain: "The clone, the prompts and the session transcript are stored by Anthropic, so real counts are real data sent to a third party. Have the cloud draft the script on mock data, then run it on your own machine or the cluster, under your data agreement."
+    options:
+      - { text: "Draft the script on mock data, then run it yourself on the real table", correct: true }
+      - { text: "Fine, as long as the network access level is set to None for the session", misconception: "The Anthropic API stays reachable even at None, and the docs say that may allow data to exit the VM; the data is already in the clone and transcript anyway." }
+      - { text: "Fine, if you delete the session as soon as the analysis is done", misconception: "Deleting removes the stored session data later, but the data has already been sent and processed by then." }
+      - { text: "Fine, if the repository is private on GitHub and only you can see it", misconception: "A private repository limits who can browse it on GitHub; it does not stop the contents being cloned into the VM and stored in the transcript." }
+  - type: faulty-line
+    prompt: "Which line of this ticket-style prompt exposes data to the cloud session?"
+    explain: "The task is fine, but pasting rows from the real samplesheet puts identifiers and genotype calls into the prompt and the stored transcript. Use invented rows."
+    lines:
+      - { text: "Problem: scripts/validate_samplesheet.py accepts a samplesheet with duplicate sample IDs.", why: "It describes the bug without any real value." }
+      - { text: "Here are the first 10 rows of our real samplesheet so you can see the format: S001,P-4471,het,S001_R1.fastq.gz ...", faulty: true }
+      - { text: "Expected: the script exits with status 1 and names the duplicated ID.", why: "It states the wanted result in general terms." }
+      - { text: "Check: run pytest tests/test_validate_samplesheet.py, which uses only data/mock/.", why: "A proof command that touches only mock data is safe to run in the VM." }
+  - type: match
+    prompt: "Match each item to what happens to it when you start a cloud session on a repository."
+    explain: "Only committed files in the repository travel with the clone. Your personal settings, local-only files and anything not on the pushed branch do not. Your prompts and the transcript go to Anthropic regardless."
+    pairs:
+      - { left: "A committed CLAUDE.md in the repository", right: "Present in the fresh clone", misconception: "Committed project files are cloned, so project instructions do reach the VM." }
+      - { left: "Your personal ~/.claude/CLAUDE.md", right: "Not copied to the VM", misconception: "User-level settings, skills and instructions stay on your machine; only the repository's own files are cloned." }
+      - { left: "Edits you have not committed and pushed", right: "Absent from the clone", misconception: "The clone comes from the GitHub remote at your pushed branch, so uncommitted work is not in it." }
+      - { left: "The prompt you type and the session transcript", right: "Stored by Anthropic", misconception: "Prompts are not private to the VM; the docs say Anthropic stores the transcript so you can return to the session." }
+  - type: order
+    prompt: "A cloud session has finished and pushed a branch. Put your steps in a sensible order."
+    explain: "Read the diff first, so you catch stray data or paths before anything runs. Run the tests locally to check the code, then run the script on your real data where it lives. Merge only after that."
+    items:
+      - "Read the diff, looking for committed data, paths or secrets"
+      - "Run the tests on your own machine"
+      - "Run the script on your real data, locally or on the cluster"
+      - "Open the pull request and merge it"
