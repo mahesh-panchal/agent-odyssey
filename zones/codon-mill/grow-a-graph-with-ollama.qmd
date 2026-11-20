@@ -7,7 +7,7 @@ title: "Grow a Graph with Ollama"
 **Objective:** build a small knowledge graph from twelve mock lab notes using a local model, query it, compare it with simple RAG, and know what it takes to use LightRAG or Microsoft GraphRAG with Ollama.
 **Time:** about 30 minutes, most of it waiting for the model. Everything stays on your machine, and the notes are mock data.
 
-<span class="ao-badge">Verified: ran `rag.py` and `graph.py` on 2026-11-20 (macOS, Ollama 0.40.16) with `gemma4:12b-mlx` for chat and `nomic-embed-text` for embeddings. One run per question at temperature 0, not repeated. Not run: LightRAG, Microsoft GraphRAG, `qwen3:4b`. Tool facts for those two: Last verified (docs, not run) on 2026-11-20. Sources: research/rag.md.</span>
+<span class="ao-badge">Verified: ran `rag.py` and `graph.py` on 2026-11-20 (macOS, Ollama 0.40.16) with `gemma4:12b-mlx` for chat and `nomic-embed-text` for embeddings. One run per question at temperature 0, not repeated. A second run on 2026-11-20 used Mistral's `ministral-3:8b` for chat (same embeddings, see "A second model"). Not run: LightRAG, Microsoft GraphRAG, `qwen3:4b`. Tool facts for those two: Last verified (docs, not run) on 2026-11-20. Sources: research/rag.md.</span>
 
 **Files:** [`mini-rag`](https://github.com/mahesh-panchal/agent-odyssey/tree/main/exercises/codon-mill/mini-rag) holds `ollama_min.py` (two helpers), `rag.py` (simple RAG), `graph.py` (a hand-made graph RAG) and `notes/` (twelve short mock notes, 233 words in all). Save the folder anywhere. If the link is not available, ask your agent to recreate it from the descriptions below.
 :::
@@ -114,6 +114,22 @@ The wording of the answer differs a little from run to run even at temperature 0
 - **The graph cost a minute and twenty seconds to build** for 233 words, and it needs a model good enough to extract facts. Embedding twelve notes for simple RAG takes seconds. *General practice:* the build cost grows with the size of the collection, and Microsoft's paper reports hours for a roughly 1-million-token corpus.
 - **This is one question, one model and one run.** It illustrates the mechanics and proves nothing about which method is better. Try your own questions.
 - **A whole-collection question failed in all three setups.** We asked "Who works in this group, and what does each person do?" and simple RAG, `--all` and the graph walk each said the notes did not contain the answer. No note lists a roster, so it may simply be a poor question. Microsoft's Graph RAG aims at whole-collection questions with community summaries; this toy graph does not build any.
+
+## A second model: Mistral's Ministral 3
+
+Models behave differently on the same notes, and swapping one is a one-line change (`export CHAT_MODEL=...`). We repeated the runs with `ministral-3:8b` from Mistral. Ollama lists it at 6.0 GB with tool support and an Apache 2.0 licence (Last verified, docs, not run, on 2026-11-20; see `research/mistral.md`). For simple RAG, retrieval did not change, since the embedding model is the same, so the same notes came back at each *k*. Only the answering model differed. The graph was rebuilt by the new model, so its walk differs (25 facts from 7 notes, against 40 facts from 8 notes with `gemma4:12b-mlx`). One run per question at temperature 0:
+
+| Setup | `gemma4:12b-mlx` | `ministral-3:8b` |
+|---|---|---|
+| Simple RAG, `-k 3` | "The notes do not contain the answer." | Says the notes do not contain enough information. |
+| Simple RAG, `-k 5` | Yes, re-analysis needed (correct). | **No** (wrong): it claims run R7 used release 2.4, but the note says 2.3. |
+| `--all` (every note pasted) | Correct. | Lists the right facts (R7 used 2.3, which has the bug), then answers **No** because "no re-analysis was done" (wrong). |
+| Graph walk | Yes (correct). | Collects 25 facts from 7 notes, including the R7 and 2.3 facts, then answers **No** (wrong). |
+| Whole-collection question | Not answered. | Not answered. |
+
+The graph build with `ministral-3:8b` took about a minute, saved 80 facts and returned valid JSON for all twelve notes. Reading `show` turned up a few odd entries: `Pipeline 2.3 --has issue fix--> Dana Okafor`, a node called `Pipeline 2.3 issue`, and a `User` node taken from the safety note. We did not compare all 80 facts with their notes, so read `show` against the notes yourself.
+
+**What we take from it.** With this model, the right passages reached the prompt in three setups (for the graph, passages from a graph this model built) and the final answer was still wrong, once with a misread (2.4 for 2.3) and twice with a reasoning slip. Retrieval is one half of the job, and the reader model is the other half. The check you can always do is the one this quest keeps asking for: read the notes it names and see whether they say what the answer says. *General practice:* test a model on a few questions whose answers you know before you trust it on new ones. This is one question, one run and two models, so it does not rank them. Mistral also offers `mistral-small` (24B, 14 GB) and others on Ollama, and we did not run those.
 
 ## A note on model size
 

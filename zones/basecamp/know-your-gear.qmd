@@ -4,7 +4,7 @@ title: "Know Your Gear"
 
 ::: {.quest-dialog}
 **Prerequisites:** Three Kinds of Machine. **Objective:** use the words this site relies on (model, harness, skill, MCP, hook, plugin, effort, eval, and the context terms below) and say how they fit together.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code and API docs on 2026-11-16 (sources in `research/terminology.md`, `research/failure-modes.md` and `research/fundamentals.md`). Other tools name things differently; the ideas carry over.</span>
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code and API docs on 2026-11-16 (sources in `research/terminology.md`, `research/failure-modes.md` and `research/fundamentals.md`). Mistral Vibe: its GitHub page and docs read 2026-11-20 through a summarising tool (`research/mistral.md`). Other tools name things differently; the ideas carry over.</span>
 :::
 
 People mix these words up, and the mix-ups cause real mistakes, such as blaming "the model" for something a setting did. In this world the **companions are models**, and the **harness is their armour**.
@@ -54,8 +54,8 @@ People mix these words up, and the mix-ups cause real mistakes, such as blaming 
 
 ## The words
 
-- **Model.** The large language model (LLM) that reads and writes text (for example Claude Sonnet 5.5, or a local model through Ollama, a program that runs models on your own computer). It is not the product you type into. Aliases such as `sonnet` move to newer versions over time, so pin the full name when a result must be reproducible.
-- **Harness.** The program around the model. Per the Claude Code docs it provides the tools, manages the context the model sees, runs the loop (gather context, act, check, repeat) and enforces permissions. Claude Code and OpenCode (an open-source harness) are harnesses. Many questions are really about the harness: what may it touch, what does it remember, what does it ask first?
+- **Model.** The large language model (LLM) that reads and writes text (for example Claude Sonnet 5.5, a Mistral model, or a local model through Ollama, a program that runs models on your own computer). It is not the product you type into. Aliases such as `sonnet` move to newer versions over time, so pin the full name when a result must be reproducible.
+- **Harness.** The program around the model. Per the Claude Code docs it provides the tools, manages the context the model sees, runs the loop (gather context, act, check, repeat) and enforces permissions. Claude Code, OpenCode (an open-source harness) and Mistral Vibe (Mistral's open-source terminal coding agent) are harnesses. Many questions are really about the harness: what may it touch, what does it remember, what does it ask first?
 - **Prompt.** The text you send to the model.
 - **Turn.** One prompt from you plus the model's reply.
 - **Agent.** A model inside a harness that picks and runs tools in a loop toward a goal.

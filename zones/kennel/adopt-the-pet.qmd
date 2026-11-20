@@ -7,7 +7,7 @@ title: "Adopt the Pet"
 **Objective:** run a small local model with Ollama, give it enough context, and point OpenCode at it.
 **Time:** about 20 minutes. Everything stays on your machine.
 
-<span class="ao-badge">Last verified (docs, not run): Ollama v0.40.16 and OpenCode v2.3.0 on 2026-11-13. Sources: research/kennel-and-crypt.md</span>
+<span class="ao-badge">Last verified (docs, not run): Ollama v0.40.16 and OpenCode v2.3.0 on 2026-11-13. Mistral model tags and sizes: Ollama's library pages on 2026-11-20. Sources: research/kennel-and-crypt.md, research/mistral.md</span>
 
 ::: {.callout-warning}
 Some details on this page are **unconfirmed**. They are listed at the end under "Unconfirmed".
@@ -57,6 +57,10 @@ OpenCode finds Ollama at `http://127.0.0.1:11434` automatically. To spell it out
 }
 ```
 
+## Other small models to try
+
+Qwen is one family among several. Mistral publishes open-weight models that Ollama lists with tool support: `ministral-3` comes in 3B (3.0 GB), 8B (6.0 GB) and 14B (9.1 GB) sizes under Apache 2.0, and `mistral-small` is 24B (14 GB). Sizes and licences: Last verified (docs, not run) on 2026-11-20; sources in `research/mistral.md`. A 24B model needs far more memory than a 3B one, so check `ollama ps` after loading. We ran `ministral-3:8b` (not through OpenCode) for chat in [Grow a Graph with Ollama](../codon-mill/grow-a-graph-with-ollama.html), where it gave valid JSON but misread a note. Not checked: how `ministral-3` behaves as an OpenCode backend. Mistral also has its own open-source terminal agent, Mistral Vibe; see [Pick Your Companion](pick-your-companion.html).
+
 ## 4. Put the Pet on a leash
 
 OpenCode's default policy is **allow everything** (except reading `.env` files, which it asks about). The docs also warn: *"Shell is not a sandbox. It runs with the host user's authority."* Each rule says `allow` (run without asking), `ask` (prompt you first) or `deny` (never run). A safer start asks about everything first, then narrows. **Rules are checked in order and the last match wins:**
@@ -92,6 +96,7 @@ Not checked: whether OpenCode, Claude Code or any other coding agent can use thi
 
 *Further reading. Optional.*
 
+- [ministral-3](https://ollama.com/library/ministral-3): Ollama library, docs. Why read: it lists the sizes, context length, tool support and licence of a small Mistral model you can pull instead of a Qwen one.
 - [OpenCode](https://docs.ollama.com/integrations/opencode): Ollama, docs. Why read: it is the vendor guide to running OpenCode against a local Ollama model, including the context length it needs. It still shows older OpenCode install commands, so check the OpenCode docs too.
 - [Providers](https://opencode.ai/docs/providers/): OpenCode, docs. Why read: it shows how to connect Ollama or an OpenAI-compatible gateway in the current config format.
 - [Config](https://opencode.ai/docs/config/): OpenCode, docs. Why read: it lists where `opencode.json` lives and how global and project files override each other.

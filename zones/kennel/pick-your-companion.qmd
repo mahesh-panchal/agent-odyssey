@@ -6,7 +6,7 @@ title: "Pick Your Companion"
 **Prerequisites:** Recruit the Beast. Adopt the Pet is advised, not required. **Objective:** set the model and the effort on purpose, especially when you hand work to a subagent, and learn to compare two settings on your own task.
 **Time:** about 15 minutes. **The exercise is a worksheet and needs no model.**
 
-<span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17; the model-config, effort, sub-agents, costs, choosing-a-model and optimizing-for-cost pages were spot-checked live that day; model names, aliases and defaults change often</span>
+<span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17; the model-config, effort, sub-agents, costs, choosing-a-model and optimizing-for-cost pages were spot-checked live that day; model names, aliases and defaults change often; Mistral Vibe and model pages read 2026-11-20 (research/mistral.md)</span>
 :::
 
 The companions in the Kennel are **models**; the tool around them (the harness, the program that runs the model and its tools) is the armour. This page is about which companion to bring to which job, and how hard to make it think. Model names, aliases and defaults change often, so check the current docs and your own tool before relying on any name here.
@@ -73,6 +73,17 @@ Why `medium`? The docs say Haiku 5.5 at `low` is more likely to skip a search, s
 Not checked: which model OpenCode's built-in `general` and `explore` subagents use, whether a `small_model` key exists, the file location for OpenCode agent files, and whether a local model is good enough as a cheap delegate (the docs only say it can be selected). Not checked: any way to run an Ollama model as a Claude Code subagent; Claude Code's documented subagent `model` values are Claude aliases or Claude IDs only.
 
 :::::
+
+## Other model families and harnesses
+
+Everything above uses Claude's names and tiers. The ideas carry over to other families, and the names do not. Mistral is one example (docs read 2026-11-20 through a summarising tool; sources in `research/mistral.md`):
+
+- **Models.** Mistral's overview page lists open-weight models (for example Ministral 3 in 3B, 8B and 14B, and Mistral Small 4, both Apache 2.0; Ollama's `mistral-small` page may be an earlier release than Small 4) beside "Premier" models such as Codestral and its embedding and OCR models, which show no open licence. In the part of the models page we read, no Devstral model is listed as active. The hosted Devstral 2 was marked deprecated on 2026-05-22 and due to retire on 2026-07-31, a date that has passed. Check the page for current names.
+- **Harness.** Mistral Vibe is an open-source terminal coding agent (Apache 2.0). Its docs describe four approval modes: `ask` (asks before any tool), `accept-edits` (the default: file edits are applied without asking, shell commands still ask), `smart-approve` (a classifier; we did not read its details), and `auto-approve` ("Trusted, sandboxed environments only"). Project config loads only from folders you have trusted. It reads `~/.vibe/config.toml`. *General practice:* start in `ask` until you trust the project.
+- **Local models.** The docs say Vibe supports any model served behind an OpenAI-compatible API and name vLLM, llama.cpp, LM Studio and Ollama. They give no Ollama recipe, so treat Ollama as untested.
+- Not run: Vibe itself. Not read directly: its instruction-file page (a search summary names `AGENTS.md`).
+
+*General practice:* when you switch families, redo the worksheet in this quest. A tier ladder built on one vendor's models does not transfer name for name.
 
 ## 3. A decision ladder
 
@@ -158,6 +169,8 @@ No model needed. For each mock job, write down a model (Haiku, Sonnet, Opus or F
 
 *Further reading. Optional.*
 
+- [Safety, approvals and permissions](https://docs.mistral.ai/vibe/code/safety-approvals-permissions): Mistral, docs. Why read: it describes Vibe's four approval modes, trusted folders and per-tool rules, for comparison with other harnesses.
+- [Models overview](https://docs.mistral.ai/getting-started/models/models_overview/): Mistral, docs. Why read: it lists which Mistral models are open-weight, which carry a deprecation date and what licence each shows.
 - [Model configuration](https://code.claude.com/docs/en/model-config): Anthropic, docs. Why read: it covers model aliases, the effort setting and how to pin a model in Claude Code.
 - [Choosing the right model](https://platform.claude.com/docs/en/about-claude/models/choosing-a-model): Anthropic, docs. Why read: it gives the official way to pick a starting model and to test the choice on your own evaluations.
 - [Effort](https://platform.claude.com/docs/en/build-with-claude/effort): Anthropic, docs. Why read: it defines each effort level and gives per-model starting advice, with the advice to test on your own tasks; its API defaults can differ from the Claude Code defaults on the model-configuration page.
