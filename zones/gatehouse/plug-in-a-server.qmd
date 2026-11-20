@@ -71,6 +71,8 @@ A server that fetches web pages, tickets or messages hands text written by someo
 - Read fetched content sceptically, and supervise any write access an agent uses on it.
 - Permission rules still apply to server tools, so deny the dangerous ones by name.
 
+The AI for Science best practices (a European draft with no endorsements yet; practice 3) add a habit for the *where from* question. Servers, skills and plugins either run code or supply instructions to the agent, so each is a way in. A listing in a registry says the thing is easy to find and says nothing about whether it was checked; the page notes that the official MCP registry lists self-reported data and runs no security review. Prefer a source that records the maintainer and a review date, and check what the interface is allowed to do. If your institution has no vetted list, ask for one, and until it exists treat every interface as unvetted. Their examples are a popular server whose tool description carried hidden instructions, and a skill whose instructions told the agent to post results to an outside endpoint. Last verified (docs, not run): read 2026-11-20 via a fetch summary; see `research/aiforscience.md`.
+
 ::: {.callout-note}
 Claude Code's docs also say that sandbox restrictions still apply even if a prompt injection bypasses the model's decision-making. The sandbox covers shell commands, and a server might take other routes, so treat it as one layer.
 :::
@@ -88,6 +90,7 @@ Claude Code's docs also say that sandbox restrictions still apply even if a prom
 
 - [Introduction to the Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro): Model Context Protocol, docs. Why read: it explains MCP as an open standard, so you know what a server is before you plug one in.
 - [Connect Claude Code to tools via MCP](https://code.claude.com/docs/en/mcp): Anthropic, docs. Why read: it is the reference for adding HTTP and stdio servers and for the local, project and user scopes.
+- [AI for Science, practice 3: register and vet interfaces](https://aiforscience.eu/best-practices/03-register-and-vet-interfaces/): AI for Science (European draft best practices), docs. Why read: it says a registry listing is no safety check, and suggests checking maintainer, review date and permitted actions. A draft with no endorsements yet; two of its examples are proofs of concept.
 - [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it shows how to allow or deny a server's tools by name, the way to grant read-only access.
 - [Configure the sandboxed Bash tool](https://code.claude.com/docs/en/sandboxing): Anthropic, docs. Why read: it states what the sandbox limits and where that limit ends, so you can judge it as one layer.
 :::

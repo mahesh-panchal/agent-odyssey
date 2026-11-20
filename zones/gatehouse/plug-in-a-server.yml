@@ -43,3 +43,11 @@ questions:
       - { left: "The token you gave the server has broad scope", right: "Limit the token to what the job needs", misconception: "A broad token widens the damage of any mistake or injected instruction." }
       - { left: "A cloned repo ships a project server", right: "Read .mcp.json before approving", misconception: "The approval prompt only helps if you have read what it asks to start." }
       - { left: "A dangerous tool on a server you need", right: "Deny that tool by its mcp__ name", misconception: "Rules match tool names, so one tool can be refused while the rest stay usable." }
+  - type: choice
+    prompt: "A public registry lists an MCP server that many people have installed. What does the listing tell you about its safety?"
+    explain: "A listing tells you it is easy to find. The official MCP registry lists self-reported data and runs no security review, so check the maintainer, the review date and what the server may do."
+    options:
+      - { text: "Little by itself, because a listing is not a safety check", correct: true }
+      - { text: "That registry staff have reviewed its code for security", misconception: "The official registry lists self-reported data and does not run a security review." }
+      - { text: "That so many installs mean others have already vetted it", misconception: "Popularity is not vetting, and a popular server can carry hidden instructions in its tool descriptions." }
+      - { text: "That it is safe if it only reads, since reading cannot be abused", misconception: "Read-only helps, but text it returns can still carry injected instructions." }

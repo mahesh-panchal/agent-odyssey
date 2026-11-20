@@ -31,6 +31,8 @@ Put in facts the agent cannot guess: how to run the tests, where data lives, nam
 
 Instruction files go stale too: a rule written for an older model, a path that no longer exists, two files that disagree. The docs warn that when instructions contradict each other, Claude may pick one arbitrarily. In Claude Code (v2.1.283 or later), `/doctor prompt-audit` (`/doctor` is a **bundled skill**, a ready-made skill that ships inside the tool) checks your instruction files for outdated or conflicting content and writes a report with proposed edits. It changes nothing until you ask. It checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. Not checked: an OpenCode equivalent.
 
+The AI for Science best practices (a European draft with no endorsements yet; practice 5) make a related point for your own code and notebooks: an agent operates a tool or dataset from its docstrings and descriptions, so write them as if an agent will re-run the work. Put units, data versions and assumptions in the docstring or next to the code. Their example is a renamed parameter with an old docstring: the agent called the old name, the run failed, and a plausible wrong number came back. Last verified (docs, not run): read 2026-11-20 via a fetch summary; see `research/aiforscience.md`.
+
 Write the file yourself first and read what `/init` produces critically. A generated file can contain wrong guesses about your project.
 
 <div data-ao-honour="write-charter" data-xp="15">Write a short instructions file (about ten lines) for one of your real projects: how to run its tests, where data lives, and one thing the agent should leave alone.</div>
@@ -44,6 +46,7 @@ Write the file yourself first and read what `/init` produces critically. A gener
 
 *Further reading. Optional.*
 
+- [AI for Science, practice 5: documentation and data for agents](https://aiforscience.eu/best-practices/05-documentation-and-data-for-agents/): AI for Science (European draft best practices), docs. Why read: it argues that precise, current docstrings, units and metadata are what agents work from. A draft with no endorsements yet; it also mentions llms.txt, which it calls a proposal and not a ratified standard.
 - [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it covers CLAUDE.md placement, AGENTS.md and auto memory, and describes these as context that guides the agent.
 - [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it shows what belongs in an instructions file and what to enforce another way.
 - [Hooks reference](https://code.claude.com/docs/en/hooks): Anthropic, docs. Why read: hooks are the way to enforce a rule that an instructions file can only request.

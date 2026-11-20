@@ -19,7 +19,16 @@ Read in full (URLs used in Lore):
 - https://aiforscience.eu/best-practices/08-evaluate-tools-before-trust/ : practice 8.
 - https://aiforscience.eu/best-practices/11-decide-where-research-data-may-go/ : practice 11.
 
-Not opened (one-line summaries only, from the short-version page): practices 02 (make resources agent-accessible), 03 (register and vet interfaces such as MCP servers, skills and plugins), 05 (write documentation and data for agents), 06 (design interfaces around user tasks), 09 (state human-in-the-loop requirements), 10 (screen for dual-use and high-consequence risk). The course makes no claim from these six.
+Read in full in a second pass (2026-11-20, same fetch method): all six remaining practice pages, each marked draft, endorsement none yet:
+
+- https://aiforscience.eu/best-practices/02-default-to-agent-accessibility/ : practice 2.
+- https://aiforscience.eu/best-practices/03-register-and-vet-interfaces/ : practice 3.
+- https://aiforscience.eu/best-practices/05-documentation-and-data-for-agents/ : practice 5.
+- https://aiforscience.eu/best-practices/06-design-around-user-tasks/ : practice 6.
+- https://aiforscience.eu/best-practices/09-human-in-the-loop/ : practice 9.
+- https://aiforscience.eu/best-practices/10-screen-dual-use-high-consequence/ : practice 10.
+
+Every "Against" entry on the pages reads "None recorded"; the "For" entries are source citations, not evidence ratings. Several examples are labelled by the pages themselves as proofs of concept (a drafting-assistant case in a commercial office suite) or carry no citation (a reviewer barred from a conference). We did not check any cited source.
 
 ## What the course took, and where
 
@@ -33,4 +42,11 @@ All in our own words, labelled as the site's draft guidance.
 | 08 Evaluate before trust | Task-specific tests on cases with known answers, repeated runs, record failure modes, re-test when the tool or task changes; a model from the same family is not an independent grader; check a sample of model-judged results by hand against answers fixed in advance. The page cites Panickssery, Bowman and Feng 2024 for self-preference (not checked by us). | Close the Loop |
 | 11 Where data may go | An agent on a hosted model sends what it reads to the provider, so reading a file already discloses it. Example on the page: an agent that opens a project `.env` leaves keys in provider logs, so rotate them. Sending personal data is processing under GDPR (lawful basis, processor contract, transfer basis outside the EU) even if the provider does not train on it. Use institutional accounts. Limit where an agent may send data through its environment, not only through instructions. | Secrets and Sensitive Ground |
 
-Not adopted: the funding and institutional-policy parts of each practice (aimed at institutions and funders; the course is written for individual researchers). Human-in-the-loop (09) could be a later addition once the page is read.
+| 03 Register and vet interfaces | An interface (MCP server, skill, plugin) runs code or supplies instructions, so it is a way in; a registry listing is no safety check (the official MCP registry lists self-reported data and runs no review); prefer a source recording maintainer and review date; with no vetted list, treat all as unvetted. Examples: a server whose tool description hid instructions; a skill telling the agent to post results outside. | Plug In a Server |
+| 05 Docs and data for agents | Agents work from docstrings, descriptions and metadata; write code and notebooks as if an agent will re-run them, with units, data versions and assumptions stated. Example: a renamed parameter with a stale docstring. The page calls llms.txt a proposal, not a ratified standard. | The Project Charter |
+| 09 Human-in-the-loop | State the human check; a stated check can still fail through automation bias and rubber-stamping; design it to show what changed at a readable volume, with approve, edit, veto, stop; record it as provenance. The page calls its four labels shorthand, not settled standards. | Boss: Wall of Output |
+| 10 Dual-use and high-consequence | One screening checkpoint for high-consequence actions (for example synthesis orders), refusals tested; do not connect an agent to such a capability unscreened. The page's USG DURC source is scoped to the life sciences and under revision. | Guard the Door |
+
+Battle questions added 2026-11-20: one choice question in each of the nine quests above, written from the text of our own sections.
+
+Not adopted: practice 2 (make resources agent-accessible) and practice 6 (design interfaces around user tasks) are written mainly for resource providers and funders; the individual-facing points (say when a resource is poorly supported; report awkward multi-step tasks) are too thin for a section. The funding and institutional-policy parts of each practice (aimed at institutions and funders; the course is written for individual researchers). Human-in-the-loop (09) could be a later addition once the page is read.

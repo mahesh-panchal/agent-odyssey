@@ -55,6 +55,10 @@ Not checked: an exit-code-2 equivalent or shell-hook configuration (neither appe
 - **Cannot override your deny and ask rules.** A hook returning allow skips the prompt, and deny and ask rules are still evaluated.
 - **Runs with your full permissions.** The docs say command hooks "execute shell commands with your full user permissions", so review and test them before adding them.
 
+## One door for the high-stakes actions
+
+The AI for Science best practices (a European draft with no endorsements yet; practice 10) describe a pattern that a hook can serve: if an agent can reach something with real-world consequences, such as ordering DNA synthesis, running code on a live system or driving an instrument, send every such action through one checkpoint that can refuse, and test that the refusal works instead of assuming it. They advise connecting no agent to such a capability without a screen, and expecting refusals. A hook is one possible checkpoint for local actions, with the limits listed above. Last verified (docs, not run): read 2026-11-20 via a fetch summary; see `research/aiforscience.md`.
+
 ## A hook in a repository is code you did not write
 
 If a repository commits hooks in `.claude/settings.json`, they are code from its authors, running as you. Interactive Claude Code holds hooks back until you accept the workspace trust dialog. In `-p` and SDK runs (headless: non-interactive, no one to answer a dialog) there is no dialog, and the docs say hooks committed in a repository's `.claude/settings.json` run in a folder you have never trusted. Read `.claude/` before running headless in a clone, and the docs name `--bare` and `disableAllHooks` as ways to switch them off.
@@ -70,6 +74,7 @@ If a repository commits hooks in `.claude/settings.json`, they are code from its
 
 *Further reading. Optional.*
 
+- [AI for Science, practice 10: screen for dual-use and high-consequence risk](https://aiforscience.eu/best-practices/10-screen-dual-use-high-consequence/): AI for Science (European draft best practices), docs. Why read: it describes one screening checkpoint for high-consequence actions and tested refusals. A draft with no endorsements yet; it is aimed mostly at providers and institutions.
 - [Hooks reference](https://code.claude.com/docs/en/hooks): Anthropic, docs. Why read: it lists the hook events, handler types and the exit-code rules, including exit 2 to block.
 - [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it covers deny and ask rules, which still apply when a hook says allow.
 - [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it says when to reach for a PreToolUse hook instead of an instruction.

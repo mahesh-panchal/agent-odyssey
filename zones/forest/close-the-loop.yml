@@ -46,3 +46,11 @@ questions:
       - { text: "Re-run the evals, with and without", correct: true }
       - { text: "Keep trusting the old results, since the Skill itself has not changed", misconception: "The Skill is one half of the comparison. The model is the other half, and it changed." }
       - { text: "Delete the Skill, because a newer model never needs any Skill", misconception: "Some Skills still help, such as lab-specific rules the model cannot know. Measure instead of assuming." }
+  - type: choice
+    prompt: "A model grades 200 outputs from another model of the same family. What does the AI for Science draft advise?"
+    explain: "A same-family judge is not an independent grader. Check a sample by hand against reference answers written before you saw the outputs."
+    options:
+      - { text: "Check a sample by hand against answers fixed in advance", correct: true }
+      - { text: "Accept the scores, since the judge understands that style of output", misconception: "Models tend to favour output like their own, so agreement can reflect similarity and not correctness." }
+      - { text: "Use a larger model of the same family and skip hand checks", misconception: "A larger model from the same family is still not independent of the one being judged." }
+      - { text: "Write the reference answers after reading the outputs", misconception: "References written afterwards drift towards what the outputs said. Fix them first." }

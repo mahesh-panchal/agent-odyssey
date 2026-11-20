@@ -17,6 +17,8 @@ The Wall is thousands of lines of generated diff (the list of lines a change add
 
 The way through is to **refuse it whole**: keep a **review budget** (only produce as much as you can honestly review today, because bulk low-quality output is called *slop*), ask for smaller pieces, ground each piece in a check, and pass on only work you have read yourself.
 
+The AI for Science best practices (a European draft with no endorsements yet; practice 9) back this with a warning about the human check itself. Stating that a person approves each item is not enough, because oversight often fails through automation bias and rubber-stamping. Their example is an "approve each item" step at hundreds of items an hour, which turns into clicking through. A check that works shows what changed, at a volume a person can read, with approve, edit, veto and stop. They also say to keep a real decision point wherever results or other people are affected, and to record the human step as part of the work's provenance. Last verified (docs, not run): read 2026-11-20 via a fetch summary; see `research/aiforscience.md`.
+
 ## Battle: the Wall
 
 <div data-ao-test="maze-wall-of-output" data-xp="120"></div>
@@ -26,6 +28,7 @@ The way through is to **refuse it whole**: keep a **review budget** (only produc
 
 *Further reading. Optional.*
 
+- [AI for Science, practice 9: human-in-the-loop](https://aiforscience.eu/best-practices/09-human-in-the-loop/): AI for Science (European draft best practices), docs. Why read: it explains why a stated human check can still fail through rubber-stamping, and how to design one that works. A draft with no endorsements yet; some of its cases are uncited.
 - [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it says to give the agent a check to run, so you can read one pass or fail line instead of the whole wall of output.
 - [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: it explains why more text in context is not free and why stale material hurts.
 - [Lost in the Middle](https://arxiv.org/abs/2307.03172): arXiv, paper. Why read: it measures how accuracy drops when the relevant fact sits in the middle of a long input.

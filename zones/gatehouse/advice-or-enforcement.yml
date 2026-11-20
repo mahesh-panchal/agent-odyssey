@@ -42,3 +42,11 @@ questions:
       - { left: "A push you want to approve each time", right: "An ask rule or permission prompt", misconception: "A deny rule would stop pushes you do want, and advice would not stop any." }
       - { left: "Reading secrets files, never", right: "A deny rule", misconception: "Never means enforced by the harness, and a request to the model is advice." }
       - { left: "A slip after the agent edits many files", right: "A git commit made beforehand", misconception: "Prevention failed by assumption here, so a restore point is what helps." }
+  - type: choice
+    prompt: "A group wants an agent to stay under a monthly spend. Where does the AI for Science draft say the cap should live?"
+    explain: "A budget the agent can exceed is not a limit. A cap in the system that meters the spend stops the action, while a line of instructions only asks."
+    options:
+      - { text: "In the metering system that counts the spend", correct: true }
+      - { text: "In the instructions file, written as a clear rule", misconception: "Instructions are advice. The model can drift from them, and nothing stops the spend." }
+      - { text: "In the opening prompt of every session", misconception: "A prompt is still advice, and it can fall out of context in a long session." }
+      - { text: "In the agent's own running count of what it spent", misconception: "The agent could miscount, and a limit the agent polices itself is not enforced." }
