@@ -17,6 +17,21 @@ Two common mistakes: using an LLM to do something a one-line script does exactly
 
 An LLM can also be called **inside a script** (for example to tidy free-text labels). That makes your pipeline non-deterministic, so the result needs its own checks and the exact model and version recorded.
 
+## What a model can do on its own
+
+It helps to remember what a language model does well with no tools at all. Apple's developer guide for its small on-device model lists this plainly, and the list is a good reminder for any model on its own (the guide is about a small model, so a large hosted model will do better on some rows):
+
+| A model on its own tends to suit | A model on its own tends to struggle with |
+|---|---|
+| Summarising and editing text | Counting letters or doing basic arithmetic |
+| Pulling out names, places and other entities | Writing code (for that model) |
+| Classifying or judging a piece of text | Multi-step logical reasoning |
+| Generating tags, or short creative writing | Facts it was never given |
+
+Apple's page says harder tasks become possible once the model can call tools or produce structured output. That is the idea behind an agent: the model reads and writes, and a harness gives it tools (a shell, a file editor, a script runner) for the parts it finds hard. Counting and arithmetic are good examples of work to hand to a script.
+
+<span class="ao-badge">Last verified (docs, not run): Apple developer documentation, read 2026-11-20. Sources: research/apple-foundation-models.md</span>
+
 ## Battle: pick the right machine
 
 <div data-ao-test="basecamp-three-kinds-of-machine" data-xp="40"></div>
@@ -27,5 +42,6 @@ An LLM can also be called **inside a script** (for example to tidy free-text lab
 *Further reading. Optional.*
 
 - [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents): Anthropic, article. Why read: it separates fixed workflows from agents and argues for the simplest option, which is the choice this quest asks you to make.
+- [Understand model capabilities](https://developer.apple.com/documentation/foundationmodels/generating-content-and-performing-tasks-with-foundation-models#Understand-model-capabilities): Apple, docs. Why read: it is a short table of what a small on-device model suits and what it does not, a useful reminder of what a model can do before you give it tools.
 - [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: it shows how to turn "it seems fine" into a measurable check, which is how you test an LLM step.
 :::

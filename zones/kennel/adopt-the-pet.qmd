@@ -77,6 +77,12 @@ OpenCode's default policy is **allow everything** (except reading `.env` files, 
 - OpenCode is in a version change: its pages differ on some config keys, so if a snippet errors, check the current docs.
 - Small models are more error-prone than large ones. That comes from common experience, and the vendors do not document it.
 
+## A built-in Pet on newer Macs
+
+If you use a recent Mac, Apple ships its own small on-device model with the operating system, and developers can call it through Apple's Foundation Models framework. Apple's updates page mentions macOS 27 changing the model (June 2026) and a Python SDK for it (March 2026). Availability depends on whether your device and region support Apple Intelligence, and the model can take a while to download after you turn that on. Apple's documentation says it suits summarising, extracting and classifying text, and that it may struggle with basic math, code and logical reasoning, which is a helpful guide to what to ask of any small local model.
+
+Not checked: whether OpenCode, Claude Code or any other coding agent can use this model as its backend. The pages read describe the framework for app developers and do not mention coding agents. It is a fun thing to try if you are curious, and nothing on this site depends on it.
+
 ## Battle: the Pet's leash
 
 <div data-ao-test="kennel-adopt-the-pet" data-xp="60"></div>
@@ -90,5 +96,6 @@ OpenCode's default policy is **allow everything** (except reading `.env` files, 
 - [Providers](https://opencode.ai/docs/providers/): OpenCode, docs. Why read: it shows how to connect Ollama or an OpenAI-compatible gateway in the current config format.
 - [Config](https://opencode.ai/docs/config/): OpenCode, docs. Why read: it lists where `opencode.json` lives and how global and project files override each other.
 - [Permissions](https://opencode.ai/docs/permissions/): OpenCode, docs. Why read: it explains how to control what the agent may do, which matters more with a small local model.
+- [Foundation Models updates](https://developer.apple.com/documentation/updates/foundationmodels): Apple, docs. Why read: it lists the changes to Apple's on-device model by date, including which OS versions change the model.
 - [anomalyco/opencode](https://github.com/anomalyco/opencode): GitHub, repo. Why read: it is the source and release list, useful when the docs and your installed version disagree.
 :::
