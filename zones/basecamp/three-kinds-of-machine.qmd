@@ -17,6 +17,21 @@ Two common mistakes: using an LLM to do something a one-line script does exactly
 
 An LLM can also be called **inside a script** (for example to tidy free-text labels). That makes your pipeline non-deterministic, so the result needs its own checks and the exact model and version recorded.
 
+## Generative or predictive?
+
+You will also hear models split into **generative AI** and **predictive AI**. The split cuts across the three kinds above. IBM's explainer puts it this way:
+
+- **Predictive AI** finds patterns in past data to forecast what is likely to happen next: a sales figure, a fraud flag, a demand estimate. It is usually trained on a smaller, targeted dataset for one question, and its numbers are easier to explain.
+- **Generative AI** produces new content (text, code, images, audio) that resembles its training data without copying it. It is trained on very large datasets, and it is usually much harder to explain why it gave a particular answer.
+
+Both predict in a loose sense: an LLM predicts the next word. The difference is what you want out. Predictive AI gives you an estimate to act on, and generative AI gives you new material to review.
+
+In this quest's terms, a **trained model** (a classifier, a gene-finder, a structure predictor) mostly sits on the predictive side, and an **LLM** is the usual example of generative AI. The line is not clean. A generative model can be asked to classify, as in the label-tidying example above, and some generative models predict structure or sequences. Judge the tool by the task you give it and how you will check the result.
+
+IBM also makes a practical point: a task that needs a forecast usually does not need a generative model, because a simpler predictive model does it more cheaply. That is the same advice as picking the simplest machine that does the job.
+
+<span class="ao-badge">Source: IBM Think, "Generative AI vs. predictive AI: What's the difference?", published 2024-08-09, read 2026-11-20. A vendor explainer. The mapping onto the three kinds is this course's own.</span>
+
 ## What a model can do on its own
 
 It helps to remember what a language model does well with no tools at all. Apple's developer guide for its small on-device model lists this plainly, and the list is a good reminder for any model on its own (the guide is about a small model, so a large hosted model will do better on some rows):
@@ -43,5 +58,6 @@ Apple's page says harder tasks become possible once the model can call tools or 
 
 - [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents): Anthropic, article. Why read: it separates fixed workflows from agents and argues for the simplest option, which is the choice this quest asks you to make.
 - [Understand model capabilities](https://developer.apple.com/documentation/foundationmodels/generating-content-and-performing-tasks-with-foundation-models#Understand-model-capabilities): Apple, docs. Why read: it is a short table of what a small on-device model suits and what it does not, a useful reminder of what a model can do before you give it tools.
+- [Generative AI vs. predictive AI: What's the difference?](https://www.ibm.com/think/topics/generative-ai-vs-predictive-ai-whats-the-difference): IBM, article. Why read: a short vendor explainer of the two terms, with business examples; it is secondary and written for enterprise readers, so use it for the vocabulary.
 - [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: it shows how to turn "it seems fine" into a measurable check, which is how you test an LLM step.
 :::
