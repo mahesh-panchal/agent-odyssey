@@ -32,6 +32,23 @@ IBM also makes a practical point: a task that needs a forecast usually does not 
 
 <span class="ao-badge">Source: IBM Think, "Generative AI vs. predictive AI: What's the difference?", published 2024-08-09, read 2026-11-20. A vendor explainer. The mapping onto the three kinds is this course's own.</span>
 
+## Should you fine-tune? A note on LoRA
+
+You may meet **LoRA** (low-rank adaptation) and wonder if it is the next step. It is a way to **fine-tune**: you freeze the model's weights and train small extra "adapter" matrices on your own examples. That needs far less memory than retraining everything, and the adapter can later be merged into the base model. It changes the model itself, so it belongs to the *trained model* kind above, not to the way you prompt an LLM.
+
+LoRA tends to be worth considering only when all of these hold:
+
+- You have the **model weights**. An open-weight model you can download qualifies. A hosted model you reach through an API usually does not (a few providers offer their own fine-tuning service, which is a different route).
+- The task is **narrow and repeatable**: the same kind of input and the same kind of output every time, such as masking one class of identifier or tagging text with a fixed label set.
+- You have **labelled examples**, enough to train on and to hold some back for testing.
+- You have an **eval** that shows the tuned model beats the untuned one on that task. Without one, you cannot tell whether training helped.
+
+For agent work, a clearer prompt, better tools and a working eval usually give more return first, and they cost less to change. Try those, and fine-tune only when you can show they fall short on a narrow task. Fine-tuning also adds new things to track: the training data, the adapter version and the base model it belongs to.
+
+If you do want to follow up, the two links in the Lore below are runnable starting points. One is a beginner guide from a tooling vendor, and the other is the library documentation behind most LoRA code.
+
+<span class="ao-badge">General practice, not a vendor claim. Not run by this course. What LoRA does is from the Hugging Face PEFT docs and Unsloth guide, read 2026-11-20. Sources: research/lore-extra.md</span>
+
 ## What a model can do on its own
 
 It helps to remember what a language model does well with no tools at all. Apple's developer guide for its small on-device model lists this plainly, and the list is a good reminder for any model on its own (the guide is about a small model, so a large hosted model will do better on some rows):
@@ -59,5 +76,7 @@ Apple's page says harder tasks become possible once the model can call tools or 
 - [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents): Anthropic, article. Why read: it separates fixed workflows from agents and argues for the simplest option, which is the choice this quest asks you to make.
 - [Understand model capabilities](https://developer.apple.com/documentation/foundationmodels/generating-content-and-performing-tasks-with-foundation-models#Understand-model-capabilities): Apple, docs. Why read: it is a short table of what a small on-device model suits and what it does not, a useful reminder of what a model can do before you give it tools.
 - [Generative AI vs. predictive AI: What's the difference?](https://www.ibm.com/think/topics/generative-ai-vs-predictive-ai-whats-the-difference): IBM, article. Why read: a short vendor explainer of the two terms, with business examples; it is secondary and written for enterprise readers, so use it for the vocabulary.
+- [Fine-tuning LLMs Guide](https://unsloth.ai/docs/get-started/fine-tuning-llms-guide): Unsloth, docs. Why read: a beginner-friendly walk through LoRA, QLoRA, dataset shape and training settings; it is a vendor guide for its own tool, so treat its speed and hardware claims as the vendor's.
+- [LoRA](https://huggingface.co/docs/peft/main/en/conceptual_guides/lora): Hugging Face, docs. Why read: the PEFT library's explanation of how LoRA works, what rank and alpha control, and how to merge an adapter back into the base model.
 - [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: it shows how to turn "it seems fine" into a measurable check, which is how you test an LLM step.
 :::
