@@ -17,6 +17,8 @@ Two common mistakes: using an LLM to do something a one-line script does exactly
 
 An LLM can also be called **inside a script** (for example to tidy free-text labels). That makes your pipeline non-deterministic, so the result needs its own checks and the exact model and version recorded.
 
+The AI for Science best practices (a European draft, not yet endorsed by any body) start from the same question: before reaching for an agent or a large model, ask whether a script, a fixed workflow or a smaller specialised model does the job. Their reasons are cost and reproducibility: a method that fits the task is usually cheapest to run and easiest to reproduce, and it does not change when a provider updates a hosted model. Keep the large model for the open-ended steps. Last verified (docs, not run): the practice page, read 2026-11-20 via a fetch summary; see `research/aiforscience.md`.
+
 ## Generative or predictive?
 
 You will also hear models split into **generative AI** and **predictive AI**. The split cuts across the three kinds above. IBM's explainer puts it this way:
@@ -74,6 +76,7 @@ Apple's page says harder tasks become possible once the model can call tools or 
 *Further reading. Optional.*
 
 - [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents): Anthropic, article. Why read: it separates fixed workflows from agents and argues for the simplest option, which is the choice this quest asks you to make.
+- [AI for Science, practice 1: match the method to the task](https://aiforscience.eu/best-practices/01-match-method-to-task/): AI for Science (European draft best practices), docs. Why read: it argues for the cheapest method that fits, with a script or small model before an agent. It is a draft with no endorsements yet.
 - [Understand model capabilities](https://developer.apple.com/documentation/foundationmodels/generating-content-and-performing-tasks-with-foundation-models#Understand-model-capabilities): Apple, docs. Why read: it is a short table of what a small on-device model suits and what it does not, a useful reminder of what a model can do before you give it tools.
 - [Generative AI vs. predictive AI: What's the difference?](https://www.ibm.com/think/topics/generative-ai-vs-predictive-ai-whats-the-difference): IBM, article. Why read: a short vendor explainer of the two terms, with business examples; it is secondary and written for enterprise readers, so use it for the vocabulary.
 - [Fine-tuning LLMs Guide](https://unsloth.ai/docs/get-started/fine-tuning-llms-guide): Unsloth, docs. Why read: a beginner-friendly walk through LoRA, QLoRA, dataset shape and training settings; it is a vendor guide for its own tool, so treat its speed and hardware claims as the vendor's.

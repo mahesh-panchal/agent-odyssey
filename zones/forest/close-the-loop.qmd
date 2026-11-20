@@ -55,6 +55,8 @@ The unit that matters is the **difference** between *with* and *without*. The *w
 
 Evals can be wrong too. A check that always passes, or that fails correct answers, tells you little. Read a few raw outputs by hand before trusting a score.
 
+The AI for Science best practices (a European draft with no endorsements yet; practice 8) add four habits for judging a tool before you rely on it. Test on cases with known answers. Repeat the runs, since one pass can be luck. Write down the failure modes you see. Test again when the tool, the model or your task changes. They also say a judge model from the same family as the one being judged is not an independent grader, and that when a model does grade, you should check a sample by hand against reference answers fixed in advance. Last verified (docs, not run): read 2026-11-20 via a fetch summary; see `research/aiforscience.md`.
+
 <div data-ao-honour="loop-notes" data-xp="20">Keep a short list of the times an agent went wrong for you. Each entry is a candidate Skill and a ready-made eval case.</div>
 
 ## Battle: the loop
@@ -67,6 +69,7 @@ Evals can be wrong too. A check that always passes, or that fails correct answer
 *Further reading. Optional.*
 
 - [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: general guidance on specific, measurable criteria and on automating the grading.
+- [AI for Science, practice 8: evaluate tools before trust](https://aiforscience.eu/best-practices/08-evaluate-tools-before-trust/): AI for Science (European draft best practices), docs. Why read: it describes task-specific tests, repeated runs and hand-checking a sample of model-judged results. A draft with no endorsements yet.
 - [Test plugins with evals](https://code.claude.com/docs/en/plugin-evals): Anthropic, docs. Why read: it explains the with-and-without comparison and how to gate changes on a score.
 - [Your App Is Only As Good As Its Evals](https://www.aihero.dev/what-are-evals): AI Hero, article. Why read: a short plain introduction (written in 2024) to why evals exist and the three kinds of grader. Written for people building AI apps, so skip the tooling and the production feedback parts.
 - [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices): Anthropic, docs. Why read: its evaluation-first workflow builds the baseline before writing the Skill.

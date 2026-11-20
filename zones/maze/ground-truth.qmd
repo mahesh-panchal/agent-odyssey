@@ -44,6 +44,10 @@ seq3	2 GC of 8 total
 
 Work out the percentages and compare them row by row with the script. Two of the three rows tell a story, and one of them is not a bug at all. Then take the battle.
 
+## Say what the agent did
+
+When agent work reaches a paper or a report, the AI for Science best practices (a European draft with no endorsements yet; practice 7) suggest a few habits. Make each answer traceable to its sources. Cite by persistent identifier, such as a DOI or an accession number, and generate the reference from that identifier with a tool that is not a language model, so a reference cannot be invented. Keep retraction status with the citation. Make clear what a person did and what an agent did, and disclose agent use where results are published. Record the model version, the inputs and the tool calls of each run so you can look again later. You stay accountable for the judgement whatever the agent found. Their page also cites publisher and journal-editor policies (for example that an AI cannot be an author); check your target journal's own rules, since we did not read those. Last verified (docs, not run): the practice page, read 2026-11-20 via a fetch summary; see `research/aiforscience.md`.
+
 ## Battle: the lantern
 
 <div data-ao-test="maze-ground-truth" data-xp="80"></div>
@@ -54,6 +58,7 @@ Work out the percentages and compare them row by row with the script. Two of the
 *Further reading. Optional.*
 
 - [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it says to give the agent a way to check its work; this quest's check is one the agent did not write.
+- [AI for Science, practice 7: provenance and citation](https://aiforscience.eu/best-practices/07-provenance-and-citation/): AI for Science (European draft best practices), docs. Why read: it covers citing by identifier, generating references with a deterministic tool, and disclosing agent use. A draft; it calls one of its own cited papers self-audited.
 - [Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Anthropic, docs. Why read: it lists model-side habits (quote first, retract unsupported claims); read it to see why a check the model did not write is still needed.
 - [The Strawberry Problem](https://arxiv.org/abs/2505.14172): arXiv (EMNLP 2025), paper. Why read: it studies why models miscount letters and links it to tokens, which is the idea behind miscounted bases.
 - [Counting Ability of LLMs and Impact of Tokenization](https://arxiv.org/abs/2410.19730): arXiv, paper. Why read: it shows how tokenisation changes counting accuracy in language models, which is why a script, not a model's reading, should do exact counts (that last step is our general practice, not the paper's claim). A preprint.
