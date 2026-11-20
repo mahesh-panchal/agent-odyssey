@@ -11,3 +11,4 @@ assets/img/
 assets/data/
 __pycache__/
 lore.qmd
+exercises/codon-mill/mini-rag/graph.json

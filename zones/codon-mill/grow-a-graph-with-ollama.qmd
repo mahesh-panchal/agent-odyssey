@@ -1,0 +1,189 @@
+---
+title: "Grow a Graph with Ollama"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** RAG and Its Cousins, and [Adopt the Pet](../kennel/adopt-the-pet.html) (Ollama installed and running). Python 3 on your path; the scripts use only its standard library. This is an optional side quest.
+**Objective:** build a small knowledge graph from twelve mock lab notes using a local model, query it, compare it with simple RAG, and know what it takes to use LightRAG or Microsoft GraphRAG with Ollama.
+**Time:** about 30 minutes, most of it waiting for the model. Everything stays on your machine, and the notes are mock data.
+
+<span class="ao-badge">Verified: ran `rag.py` and `graph.py` on 2026-11-20 (macOS, Ollama 0.40.16) with `gemma4:12b-mlx` for chat and `nomic-embed-text` for embeddings. One run per question at temperature 0, not repeated. Not run: LightRAG, Microsoft GraphRAG, `qwen3:4b`. Tool facts for those two: Last verified (docs, not run) on 2026-11-20. Sources: research/rag.md.</span>
+
+**Files:** [`mini-rag`](https://github.com/mahesh-panchal/agent-odyssey/tree/main/exercises/codon-mill/mini-rag) holds `ollama_min.py` (two helpers), `rag.py` (simple RAG), `graph.py` (a hand-made graph RAG) and `notes/` (twelve short mock notes, 233 words in all). Save the folder anywhere. If the link is not available, ask your agent to recreate it from the descriptions below.
+:::
+
+## Set up
+
+Pull an embedding model and pick a chat model you already have. Adopt the Pet suggested `qwen3:4b`, which this quest did not test (a small model may extract worse facts; see the model note below).
+
+```bash
+ollama pull nomic-embed-text
+export CHAT_MODEL=gemma4:12b-mlx      # or any chat model you have pulled
+cd mini-rag
+```
+
+The scripts read three environment variables: `CHAT_MODEL`, `EMBED_MODEL` (default `nomic-embed-text`) and `OLLAMA_URL` (default `http://127.0.0.1:11434`). They send each request with `num_ctx` set to 8192, so you do not have to restart the server for them; Adopt the Pet explains why the default context is small.
+
+Open `notes/` and read a few. They are fictional: two sequencers (Orion and Vega), two projects (Heron and Kelp), two pipeline releases, and some distractors such as the lunch rota. One of the questions we will ask needs a chain of four hops: Project Heron studies samples S31 to S36, run R7 loaded those samples, run R7 used pipeline release 2.3, and release 2.3 has a known bug.
+
+## Step 1: simple RAG
+
+`rag.py` is the four steps from the last quest in about thirty lines: embed every note, embed the question, keep the *k* closest notes, ask the model to answer from them.
+
+```bash
+python3 rag.py "Does project Heron need to re-analyse its data because of a known pipeline bug?"
+```
+
+What we got with the default `-k 3`:
+
+```
+Retrieved:
+  0.668  pipeline-2-4.txt
+  0.653  pipeline-2-3.txt
+  0.644  project-heron.txt
+
+Answer:
+The notes do not contain the answer.
+```
+
+The notes that hold the answer were in the folder, but the run log that connects Heron's samples to pipeline 2.3 ranked fourth. Try `-k 5`:
+
+```
+  0.668  pipeline-2-4.txt
+  0.653  pipeline-2-3.txt
+  0.644  project-heron.txt
+  0.549  run-r7.txt
+  0.528  run-r8.txt
+
+Answer:
+Yes, project Heron needs to re-analyse its data because the primary analysis of run R7 used pipeline release 2.3, which has a known bug that double-counts duplicate reads.
+```
+
+And `--all`, which skips retrieval and pastes every note into the prompt, also gave a correct answer. With twelve short notes, the window holds everything, which is the "small collection" row of the table in the last quest.
+
+## Step 2: build the graph
+
+`graph.py build` sends each note to the chat model and asks for `(subject, relation, object)` facts. It uses Ollama's structured outputs: the request carries a JSON schema in the `format` field, so the reply is JSON in the shape the script expects. Ollama's docs suggest temperature 0 for this, and the helper sets it.
+
+```bash
+python3 graph.py build
+python3 graph.py show
+```
+
+In our run it printed `saved 67 facts`, and the whole build took 1 minute 20 seconds for twelve notes. A sample of what `show` printed:
+
+```
+Run R7 --loaded onto--> Orion    [run-r7.txt]
+Run R7 --used--> Pipeline 2.3    [run-r7.txt]
+Pipeline 2.3 --has bug--> double-counts duplicate reads    [pipeline-2-3.txt]
+Project Heron --studies--> S31    [project-heron.txt]
+Orion --looked after by--> Dana Okafor    [orion.txt]
+You --bring--> own cup    [lunch.txt]
+```
+
+Read the whole list. Most facts match their notes. Two did not: the lunch note produced `You --bring--> own cup`, which is not a fact about anything in the lab, and one name came back with a stray leading space, which would have split a single entity into two nodes (the script now strips names when it loads them). Extraction is a model's reading of your text, so a graph is a second thing to check. Every fact carries the note it came from, so you can.
+
+## Step 3: ask the graph
+
+`graph.py ask` does three things. It finds starting entities (names that appear in the question, plus the three closest by embedding). It walks outward two hops along the links. Then it hands the collected facts and their source notes to the model.
+
+```bash
+python3 graph.py ask "Does project Heron need to re-analyse its data because of a known pipeline bug?"
+```
+
+```
+Starting entities: ['pipeline 2.3', 'pipeline 2.4', 'project heron']
+Collected 40 facts from 8 notes: freezers.txt, meeting-march.txt, pipeline-2-3.txt, pipeline-2-4.txt, project-heron.txt, project-kelp.txt, run-r7.txt, run-r8.txt
+
+Answer:
+Yes, Project Heron needs to re-analyse its data because Run R7, which loaded the samples for Project Heron (S31 to S36), used Pipeline 2.3, which has a known bug that double-counts duplicate reads.
+
+Notes used:
+- [pipeline-2-3.txt]
+- [project-heron.txt]
+- [run-r7.txt]
+```
+
+The wording of the answer differs a little from run to run even at temperature 0 (we saw two versions), so yours will not match word for word.
+
+## What this shows, and what it does not
+
+- **Simple RAG missed at k=3 and succeeded at k=5.** The failure was a retrieval miss: the run log was not among the top three notes. Raising *k* fixed it here, at the price of more text in the prompt.
+- **Putting everything in the prompt also worked,** because the collection is tiny.
+- **The graph walk reached the run log without a bigger *k*,** because the link from Heron's samples to run R7 is an edge. It also pulled in 40 of the 67 facts and 8 of the 12 notes, so the walk is broad, and a bigger collection would need a smaller hop count or a ranking step.
+- **The graph cost a minute and twenty seconds to build** for 233 words, and it needs a model good enough to extract facts. Embedding twelve notes for simple RAG takes seconds. *General practice:* the build cost grows with the size of the collection, and Microsoft's paper reports hours for a roughly 1-million-token corpus.
+- **This is one question, one model and one run.** It illustrates the mechanics and proves nothing about which method is better. Try your own questions.
+- **A whole-collection question failed in all three setups.** We asked "Who works in this group, and what does each person do?" and simple RAG, `--all` and the graph walk each said the notes did not contain the answer. No note lists a roster, so it may simply be a poor question. Microsoft's Graph RAG aims at whole-collection questions with community summaries; this toy graph does not build any.
+
+## A note on model size
+
+Extraction asks a model to produce well-formed JSON for every chunk. The tools' own documentation is cautious about small models: the Microsoft GraphRAG docs say that with Ollama they "frequently see issues with malformed responses (especially JSON)", and the LightRAG README calls a 30B-parameter model "a reasonable minimum" for local use, while its programming guide says at least 32B. Neither gives a benchmark. Our 12B model produced valid JSON for all twelve notes, and `show` lets you judge the facts. Not checked: how `qwen3:4b` or other models under about 7B do on this exercise. If you try one, read the triples before you trust the answers.
+
+## Using a real tool with Ollama
+
+`graph.py` is a teaching toy. Two real projects do this at scale. Treat the details below as Last verified (docs, not run), and check the current docs before relying on them.
+
+**LightRAG** (`github.com/HKUDS/LightRAG`; release v1.5.8rc1 on 2026-11-15 when read).
+
+- Install: `pip install "lightrag-hku[api]"` (the README also shows `uv`), then copy `env.example` to `.env` and run `lightrag-server`.
+- For Ollama, the project's guide wires `ollama_model_complete` for chat and `ollama_embed` for embeddings. Its docs say LightRAG "requires at least 32k context tokens" and that Ollama's default is smaller. Set `num_ctx` to 32768 in code or in a Modelfile; for the server, `OLLAMA_LLM_NUM_CTX` in `.env`. Ollama's own docs say the default context is 4k on machines under 24 GiB of video memory, so check with `ollama ps`.
+- Use a non-thinking model for extraction. The README says models slower than about 50 tokens per second may time out on dense chunks.
+- Pick your embedding model before indexing and keep it. `EMBEDDING_DIM` must equal the model's output size. The guide uses 768 for `nomic-embed-text`. Changing the model later means re-embedding everything.
+- The default storage is in-memory files meant for small tests.
+- **Server safety:** the docs say `lightrag-server` binds to all network interfaces with authentication off by default. On a laptop or shared machine, set `HOST=127.0.0.1` before you start it.
+
+**Microsoft GraphRAG** (`microsoft.github.io/graphrag`; v3.3.0 on 2026-10-08 when read).
+
+- The commands are `graphrag init`, `graphrag index` and `graphrag query "..." --method local` (or `global`). Text files go in `input/`.
+- The docs warn that it "can consume a lot of LLM resources" and suggest starting with the small tutorial dataset and cheaper models.
+- It calls models through LiteLLM and requires structured JSON output. The docs describe users putting Ollama behind a proxy and report frequent malformed responses. Not checked: a documented Ollama setup (none was found in the docs). A closed GitHub issue reports that its default embedding vector size of 3072 can clash with smaller embedding models such as the 768-dimension `nomic-embed-text`, which is issue evidence, not official guidance.
+
+*General practice:* if you want a graph over your own notes with Ollama, start with LightRAG on a tiny folder of mock files, then look at the facts it extracted before pointing it at anything real.
+
+## Verify the graph
+
+The Blight likes a confident answer built on a wrong link. A graph gives you something to check that a plain answer does not: the list of facts, each with its source note.
+
+- Read the extracted facts for a few notes against the notes themselves. Count the wrong ones.
+- Ask the agent or the script to name the notes behind each answer, then open them.
+- Keep a short list of questions whose answers you know, and run it after you change the model, the prompt or the notes.
+- Never put real or controlled data in this exercise. The same scripts pointed at a hosted model would send every note to that provider; see [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html).
+
+## With a companion
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Ask Claude Code to read `graph.py` and explain the walk in `ask`, then predict what changes if you set `hops=1` before you run it. Running the scripts needs your approval for each shell command. These notes are mock data, so sending them to a hosted model is fine for this exercise. A hosted agent reading your own unpublished notes is a decision for your data agreement.
+
+## OpenCode + Ollama
+
+The scripts talk to Ollama directly, so any companion can run them. If you use OpenCode with the Pet, you can ask it to explain the code and change `hops`. Not checked: how OpenCode behaves with a model that is slow at extracting JSON.
+
+:::
+
+## Honour
+
+<div data-ao-honour="graph-read-triples" data-xp="20">Run <code>python3 graph.py show</code> and write down one fact that is wrong or odd, and the note it came from.</div>
+
+<div data-ao-honour="graph-hops" data-xp="20">Change <code>hops=2</code> to <code>hops=1</code> in <code>graph.py</code>, predict what happens to the Heron answer, then run it and compare.</div>
+
+## Battle: the graph
+
+<div data-ao-test="codon-mill-grow-a-graph-with-ollama" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Embeddings](https://docs.ollama.com/capabilities/embeddings): Ollama, docs. Why read: it documents the `/api/embed` call the scripts use and says to embed documents and questions with the same model.
+- [Structured outputs](https://docs.ollama.com/capabilities/structured-outputs): Ollama, docs. Why read: it explains the `format` field with a JSON schema that makes fact extraction return usable JSON.
+- [Context length](https://docs.ollama.com/context-length): Ollama, docs. Why read: it gives the default context by memory size and how to check what loaded with `ollama ps`.
+- [LightRAG](https://github.com/HKUDS/LightRAG): HKUDS, repo. Why read: the README and docs give the Ollama wiring, the context and model-size requirements, and the storage defaults.
+- [Get started with GraphRAG](https://microsoft.github.io/graphrag/get_started/): Microsoft, docs. Why read: it lists the init, index and query commands and the warning about LLM cost.
+- [Language model selection](https://microsoft.github.io/graphrag/config/models/): Microsoft, docs. Why read: it is where the docs describe the JSON requirement and the problems seen with Ollama.
+- [When to use Graphs in RAG](https://arxiv.org/abs/2506.05690): Xiang and colleagues, paper. Why read: it studies which kinds of questions benefit from graphs, with token costs per method.
+- [Advanced RAG Techniques](https://github.com/NirDiamant/rag_techniques): Nir Diamant and contributors, repo. Why read: its notebook list includes graph RAG with a local Ollama model and LightRAG, plus chunking and evaluation, though we did not open the notebooks and the repo carries sponsor and book promotions.
+:::

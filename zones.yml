@@ -100,7 +100,13 @@ gates:
            done: "You can tell the system prompt, the instructions file and your own message apart, and know which you control." },
          { id: codon-mill-too-many-tools-too-many-agents, after: [codon-mill-who-said-what], suggested: [gatehouse-plug-in-a-server], branch: memory, trunk: false, optional: true, title: "Too Many Tools, Too Many Agents", page: zones/codon-mill/too-many-tools-too-many-agents.html,
            story: "The mill wall is hung with every tool anyone ever made. A craftsman picks three. A chain of agents is rarely needed.",
-           done: "You keep the toolset small and reach for an agent only when a plain script or a single call will not do." } ] }
+           done: "You keep the toolset small and reach for an agent only when a plain script or a single call will not do." },
+         { id: codon-mill-rag-and-its-cousins, after: [codon-mill-the-context-window], suggested: [], branch: memory, trunk: false, optional: true, title: "RAG and Its Cousins", page: zones/codon-mill/rag-and-its-cousins.html,
+           story: "Travellers ask the miller about books that never fit the hopper. Some fetch a few pages, some draw a web of names, some say to fetch nothing at all.",
+           done: "You can tell the main kinds of RAG apart, and you know when to retrieve, when to paste everything, and when to query or search instead." },
+         { id: codon-mill-grow-a-graph-with-ollama, after: [codon-mill-rag-and-its-cousins, kennel-adopt-the-pet], suggested: [], branch: memory, trunk: false, optional: true, title: "Grow a Graph with Ollama", page: zones/codon-mill/grow-a-graph-with-ollama.html,
+           story: "In a back room the miller strings yarn between pegs: one peg per name, one thread per link. It takes a long time, and every knot is worth checking.",
+           done: "You have built and read a small knowledge graph with a local model, and you know what LightRAG and GraphRAG ask of one." } ] }
   K: { id: kennel,   name: "The Kennel",            track: "Companions", status: open,
        quests: [
          { id: kennel-recruit-the-beast, after: [crypt-shield-of-undo], suggested: [], branch: trunk, trunk: true, optional: false, title: "Recruit the Beast", page: zones/kennel/recruit-the-beast.html,
