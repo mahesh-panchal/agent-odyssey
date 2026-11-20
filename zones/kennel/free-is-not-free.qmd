@@ -1,0 +1,81 @@
+---
+title: "Free Is Not Free"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** Adopt the Pet and The Locked Cabinet. This is an optional side quest.
+**Objective:** name what a "free" model offer costs you, sort offers into four kinds, and decide which data may go to which.
+**Time:** about 20 minutes. The hands-on step uses a dummy prompt and no sensitive data.
+
+<span class="ao-badge">Last verified (docs, not run): provider pages for OpenRouter, Google AI Studio, Groq, OpenCode Zen, Cloudflare Workers AI and Mistral on 2026-11-20, read through a summarising tool, so re-check the wording. Limits change often: treat every number as a snapshot. Sources: research/free-models.md</span>
+:::
+
+## What the Pet's cousins cost
+
+The Pet is free because it runs on your machine. A lot of other "free" offers run on someone else's machine, and then someone is paying. Sometimes it is the provider, who is buying your attention or your data. Sometimes it is you, in limits and in time. Nothing on this site requires you to use any of them.
+
+A community list, [awesome-free-models](https://github.com/12britz/awesome-free-models), collects over two hundred free models and tools. Its own banner records corrections from a single pass on 2026-11-14: several providers had ended or shrunk their free tier, and one "free tier" was a three-day trial. Use it to discover options, then read the provider's own page.
+
+## 1. Four kinds of free
+
+| Kind | Who runs it | What you give up |
+|---|---|---|
+| **Open weights, run by you** | Your laptop or cluster (the Pet) | Speed and quality; some memory |
+| **Free tier of a provider** | The model's maker or a hosting company | Rate limits; sometimes your prompts |
+| **Router or gateway** | A middleman forwarding to other providers | A second party in the path; a free list that churns |
+| **Reseller of unknown origin** | Unknown | Everything you send. Ask who pays for it. |
+
+The last row is the one to be wary of. If a site offers a closed frontier model with no card and no limits, someone is paying, or the access is not what it says. The list we read says nothing we could confirm about who pays for such sites, so the safe default is to send them nothing you would not post publicly.
+
+## 2. What to check on any free offer
+
+1. **Is it a free tier or a trial?** A trial ends. A free tier may too: OpenCode Zen says several of its free models are "free on OpenCode for a limited time".
+2. **What are the limits?** Requests per day and per minute, and what happens past them. Cloudflare says that past the daily allowance "further operations will fail with an error".
+3. **Is a card or other detail needed?** Some free tiers still need a payment method, a phone number or a data opt-in.
+4. **Does the free tier train on your prompts?** This is the one that matters most. Google's AI Studio terms say that for unpaid services Google uses submitted content to "provide, improve, and develop" its products and that human reviewers may read it, while paid services are different. Groq says it does not retain inference data by default but may keep logs for up to 30 days. OpenRouter says it does not log prompts by default, but retention varies by the provider behind the model. The same router can send you to providers with different rules.
+5. **Who else is in the path?** A router adds a party. Read both its terms and the terms of the provider it picks.
+
+The terms can differ **per model** inside one service: OpenCode Zen's page lists some free models with zero retention and others that "may use" data for training. Read the line for the model you picked.
+
+Remember [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): sensitive or unpublished data does not go to a hosted free tier. Use the Pet, or an approved service.
+
+## 3. Will it work with my agent?
+
+Most free endpoints speak an **OpenAI-compatible** protocol (a common way of sending chat requests). Claude Code does not use it, so a free model usually means a different harness, such as OpenCode, which can connect to an OpenAI-compatible gateway (see its Providers page in the Lore below). Free models also differ in how well they follow tool instructions. Not checked: how any particular free model behaves as an OpenCode backend.
+
+## 4. Try one, safely
+
+Pick one free tier from a provider you have read about. Create the key in the provider's console and keep it out of chat and out of files in your project (see [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html)). Then make one call with a harmless prompt. The shape below is the common OpenAI-compatible one; take the real base URL and model name from the provider's page.
+
+```bash
+export FREE_API_KEY="..."          # set it in your shell, not in a file you commit
+curl -sS "$BASE_URL/chat/completions" \
+  -H "Authorization: Bearer $FREE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model": "MODEL_NAME", "messages": [{"role": "user", "content": "Say hello in one sentence."}]}'
+```
+
+This snippet is the general OpenAI-compatible form; it was not run for any provider here. Then fill in one row:
+
+| Provider | Kind | Limit per day | Card needed? | Trains on prompts? | Who else sees them? | Date checked |
+|---|---|---|---|---|---|---|
+
+If you cannot fill a cell from the provider's own page, write "not stated". That is a finding too.
+
+## Battle: free, at what price
+
+<div data-ao-test="kennel-free-is-not-free" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [awesome-free-models](https://github.com/12britz/awesome-free-models): GitHub, repo. Why read: a large, regularly corrected list of free models, tiers and tools; check its banner for what changed lately.
+- [OpenRouter FAQ](https://openrouter.ai/docs/faq): OpenRouter, docs. Why read: it explains free model variants, daily allowances and how prompt logging and provider retention differ.
+- [Google AI Studio terms](https://aistudio.google.com/docs/terms): Google, docs. Why read: it spells out how unpaid and paid services treat your prompts differently.
+- [Groq: your data](https://console.groq.com/docs/your-data): Groq, docs. Why read: it states the default retention and log period for inference requests.
+- [OpenCode Zen](https://opencode.ai/docs/zen/): OpenCode, docs. Why read: it lists free models together with their data-retention line, model by model.
+- [Cloudflare Workers AI pricing](https://developers.cloudflare.com/workers-ai/platform/pricing/): Cloudflare, docs. Why read: it shows a daily free allowance and what happens when you pass it.
+- [Providers](https://opencode.ai/docs/providers/): OpenCode, docs. Why read: it shows how to connect an OpenAI-compatible gateway to a coding agent.
+:::

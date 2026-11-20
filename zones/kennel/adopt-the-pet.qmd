@@ -75,6 +75,8 @@ OpenCode's default policy is **allow everything** (except reading `.env` files, 
 }
 ```
 
+Free hosted models are a different thing from the Pet: someone else runs them. See the optional quest [Free Is Not Free](free-is-not-free.html) before you send them anything.
+
 ## Unconfirmed (check before relying on it)
 
 - WSL: neither Ollama nor OpenCode publishes WSL guidance. Installing both inside your WSL distro is our best guess, and no vendor documents it.

@@ -1,0 +1,51 @@
+pass: 0.8
+questions:
+  - type: sort
+    prompt: "Sort each offer into the kind of free it is."
+    bins: ["Run by you", "Provider free tier", "Router or gateway", "Reseller of unknown origin"]
+    explain: "The kind tells you who sees your prompts and who is paying. Running a model yourself is the only kind where nobody else is in the path."
+    items:
+      - { text: "ministral-3:8b pulled through Ollama onto your laptop", bin: "Run by you", misconception: "The weights run on your own machine, so nobody else sees the prompt. That is the Pet, not a hosted service." }
+      - { text: "A model's maker offering a rate-limited free API key", bin: "Provider free tier", misconception: "The maker runs the model and sets the limits and data terms, so it is a provider free tier, not a middleman." }
+      - { text: "A service that forwards your request to whichever company hosts the chosen free model", bin: "Router or gateway", misconception: "A forwarder adds a second party and can send you to providers with different data rules. It is a router, not the model's maker." }
+      - { text: "A site offering a closed frontier model with no card and no limits, from an owner you cannot identify", bin: "Reseller of unknown origin", misconception: "If nobody visible is paying, ask who is. Without a named operator and terms you cannot say where the prompt goes." }
+  - type: choice
+    prompt: "A provider's terms say that on the free plan your submitted content may be used to improve its products and read by human reviewers. What follows?"
+    explain: "A free tier can be paid for with your prompts. Unpublished or sensitive material stays off it, whatever the rate limits are."
+    options:
+      - { text: "Send only content you would be comfortable publishing, and keep unpublished or sensitive data off it", correct: true }
+      - { text: "Nothing, since free plans never keep prompts, so the terms only matter on paid plans", misconception: "Terms often differ the other way: Google's AI Studio terms treat unpaid services differently from paid ones." }
+      - { text: "It is fine if you delete the chat afterwards, because deletion removes it from review", misconception: "The terms describe what the provider may do with what you submit. Deleting your copy of a chat is not documented as undoing that." }
+      - { text: "It only matters for images, because text prompts are too short to be read", misconception: "Human review and training use are described for the content you submit, text included." }
+  - type: match
+    prompt: "Match each phrase to the cost of free that it points to."
+    explain: "Each phrase is a cost: a clock, a ceiling, a gate or a hidden payment."
+    pairs:
+      - { left: "\"free for a limited time\"", right: "The offer can disappear", misconception: "A time limit says the offer may end, not that its limits are low." }
+      - { left: "\"further operations will fail with an error\"", right: "A daily ceiling you can hit mid-task", misconception: "That wording describes what happens past an allowance, not a data term." }
+      - { left: "\"add a payment method to start\"", right: "A gate: it is not free without a card", misconception: "A required payment method is a barrier to entry, not a statement about limits or data use." }
+      - { left: "\"may use your data for model training\"", right: "You pay with your prompts", misconception: "That is a data term. It is not a rate limit and not an expiry." }
+  - type: order
+    prompt: "Put the steps of trying a free tier safely in order."
+    explain: "Read the terms before you send anything, keep the key out of your files, test with something harmless, and write down what the page did and did not state."
+    items:
+      - "Read the provider's own pricing and data pages for the model you picked"
+      - "Create the key in the console and set it in your shell, not in a project file"
+      - "Send one harmless dummy prompt"
+      - "Record limit, card need, training use and date in your table, writing 'not stated' where the page is silent"
+  - type: faulty-line
+    prompt: "A student plans how to use a free hosted model for unpublished sequencing notes. Which line is the risky one?"
+    explain: "Unpublished results should not go to a free hosted tier whose terms allow training use or human review. A local model, or an approved service, is the place for them."
+    lines:
+      - { text: "1. Pick a provider from a community list and open its own terms page.", why: "This is the right first step: the provider's page is the source of truth." }
+      - { text: "2. Put the API key in an environment variable, not in the project folder.", why: "Keeping the key out of project files stops it being committed by accident." }
+      - { text: "3. Paste the unpublished notes in, because the plan is free and rate limited." , faulty: true }
+      - { text: "4. Write down the limits and the date I checked them.", why: "Limits change, so the date tells a later reader how stale the numbers may be." }
+  - type: choice
+    prompt: "A community list of free models was corrected by its own maintainer on one date: several providers had ended or cut their free tier. What is the best way to use such a list?"
+    explain: "A list is a lead, not a fact. The provider's own page is the source, and it changes."
+    options:
+      - { text: "Use it to find options, then read each provider's own page before relying on a limit", correct: true }
+      - { text: "Trust the numbers it prints, since a list with many stars is checked daily", misconception: "Popularity does not keep numbers current. Its own banner shows free tiers changing within weeks." }
+      - { text: "Skip the provider pages, because a router hides the provider's terms from you anyway", misconception: "A router adds a party. You still need the terms of the provider it picks." }
+      - { text: "Avoid every entry, because a free hosted model cannot be useful for anything", misconception: "Free tiers suit harmless prompts, learning and trying a model. The point is to match data to the kind of free." }
