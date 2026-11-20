@@ -1,0 +1,61 @@
+pass: 0.8
+questions:
+  - type: sort
+    prompt: "Sort each item into the layer of an LLM-maintained wiki it belongs to."
+    bins: ["Raw sources", "The wiki", "The schema"]
+    explain: "Raw sources are added by you and never edited. The wiki is written and updated by the agent. The schema is the instruction file that you and the agent refine together."
+    items:
+      - { text: "A PDF of a methods paper you downloaded", bin: "Raw sources", misconception: "A downloaded paper is a source. It stays as it is so that every wiki claim can be checked against it." }
+      - { text: "A page summarising what three papers say about one assembler", bin: "The wiki", misconception: "A synthesis across sources is a wiki page. The agent writes it, and it should link back to the sources." }
+      - { text: "A CLAUDE.md or AGENTS.md saying what to do on ingest and lint", bin: "The schema", misconception: "Instructions for how the wiki is run are the schema. They are neither a source nor a page about the topic." }
+      - { text: "A web article clipped into Markdown", bin: "Raw sources", misconception: "A clipped article is a source, even though it is already Markdown. Treat it as untouchable." }
+      - { text: "An index.md listing every page with a one-line summary", bin: "The wiki", misconception: "The index is maintained by the agent on every ingest, so it belongs with the wiki pages." }
+  - type: order
+    prompt: "Put the steps of a careful ingest in order."
+    explain: "The agent reads the source first and checks the takeaways with you before writing. Pages are then written and updated, and the index and log record what changed so the pass can be reviewed."
+    items:
+      - "Add one new source to the raw folder and ask the agent to process it"
+      - "The agent reads it and tells you the main takeaways"
+      - "The agent writes a summary page and updates the affected entity and concept pages"
+      - "The agent updates the index and appends an entry to the log"
+      - "You read the diff of what changed before keeping it"
+  - type: choice
+    prompt: "What is the main reason the gist gives for letting an agent keep the wiki?"
+    explain: "The gist argues that the burden of a wiki is bookkeeping: updating links, summaries and contradictions across many pages. An agent can do that tirelessly, while the person chooses sources and decides what they mean."
+    options:
+      - { text: "Wikis are abandoned over tedious upkeep, which an agent can do", correct: true }
+      - { text: "Agents read papers more accurately than people do", misconception: "The gist makes no accuracy claim of that kind. Reading and judging stay with you, which is why the wiki should cite its sources." }
+      - { text: "A wiki avoids ever sending your documents to a model", misconception: "The agent reads the sources during ingest and query. With a hosted model they are sent as prompt text." }
+      - { text: "Embedding search no longer works on documents longer than a page", misconception: "Embedding search works on chunks of any document. The wiki is another way of organising knowledge, and it does not repair a fault in RAG." }
+  - type: match
+    prompt: "Match each job or file to what it does."
+    explain: "Ingest brings a source in, query answers from the wiki and can file the answer back, and lint checks the wiki's health."
+    pairs:
+      - { left: "Ingest", right: "Reads a new source and updates the pages it affects", misconception: "Ingest changes the wiki after a new source arrives. Checking for contradictions across the whole wiki is lint." }
+      - { left: "Query", right: "Answers a question from the pages and may save the answer as a new page", misconception: "A query reads the wiki and answers. Filing a good answer back as a page is what lets explorations build up." }
+      - { left: "Lint", right: "Looks for contradictions, stale claims and orphan pages", misconception: "Lint inspects the wiki that already exists. Adding material from a new source is ingest." }
+      - { left: "log.md", right: "An append-only record of ingests, queries and lint passes", misconception: "The page catalogue with one-line summaries is index.md. The log is the dated history of what was done." }
+  - type: faulty-line
+    prompt: "A student drafts rules for the instruction file of a literature wiki. Which line will cause the most trouble?"
+    explain: "A wiki that never says where a claim came from cannot be checked, and mistakes then spread to pages that cite pages. Every claim should link to a source file."
+    lines:
+      - { text: "1. Never edit or delete anything in raw/.", why: "Immutable sources let you check any claim against the original." }
+      - { text: "2. Write one summary page per source and one page per tool or dataset.", why: "A page per entity gives the agent a place to merge what several sources say." }
+      - { text: "3. Leave out source links so the pages read smoothly.", faulty: true }
+      - { text: "4. On lint, list problems first and wait for my reply before changing anything.", why: "Reviewing the list before edits keeps you in control of what the wiki says." }
+  - type: choice
+    prompt: "Your group has 20 pages of fixed protocol text that you will ask about all week, and you want an exact count of samples above a coverage threshold from a table. Which plan fits what this page says?"
+    explain: "A small, fixed text can go straight into the prompt, and an exact count over a table is a job for a query tool. A wiki earns its keep when material grows over months and answers need several sources joined."
+    options:
+      - { text: "Paste the protocols in and answer the count with a table query", correct: true }
+      - { text: "Build a wiki of the protocols and let its pages hold the sample counts", misconception: "Prose pages cannot promise a complete filter or an exact total, and twenty pages hardly need the upkeep." }
+      - { text: "Embed the table rows and take the top five matches for the count", misconception: "A vector search returns the nearest passages. It cannot promise that every matching row is included." }
+      - { text: "Ingest the table into a graph and ask the agent to read off the number", misconception: "A graph built by a model can miss rows. A query on the table gives an exact answer you can read." }
+  - type: choice
+    prompt: "You clip a web article into raw/ and ask the agent to ingest it. Afterwards a wiki page contains an odd instruction that was not in your request. Which cause fits best?"
+    explain: "A clipped page can contain text aimed at the agent, and the agent writes files after reading it. Review the diff, remove the text, and keep write access away from sources you do not trust."
+    options:
+      - { text: "The clipped article held text aimed at the agent", correct: true }
+      - { text: "Obsidian rewrote the page when it opened the file", misconception: "Obsidian displays Markdown files from the folder. The text came from the ingest." }
+      - { text: "The index file is out of date and needs rebuilding", misconception: "A stale index would cause missing links. It would not add new sentences with instructions." }
+      - { text: "The model is too large and generates extra text on its own", misconception: "Size does not explain a specific instruction. Check the clipped source for text addressed to the agent." }

@@ -1,0 +1,157 @@
+---
+title: "Keep a Living Wiki"
+---
+
+::: {.quest-dialog}
+**Prerequisites:** [RAG and Its Cousins](rag-and-its-cousins.html). This is an optional side quest.
+**Objective:** explain what an LLM-maintained wiki is and why someone would keep one, describe its three layers and three jobs, match it to a use case from your own work, and know where it can go wrong, including how it sits on top of an Obsidian vault.
+**Time:** about 25 minutes. Reading and planning only; you choose whether to build anything afterwards.
+
+<span class="ao-badge">Last verified (docs, not run): the "LLM Wiki" gist by Andrej Karpathy (created 2026-04-04), read in full on 2026-11-20. Not run: building a wiki, Obsidian, qmd. Claims about Obsidian beyond what the gist says are marked *General practice*. Sources: research/llm-wiki.md.</span>
+:::
+
+## The itch
+
+Think about the last time you read ten papers on a method, or went through six months of meeting notes. You understood it all at the time. A month later, the understanding lives in your head and in a pile of files, and the next question sends you back to the pile.
+
+[RAG](rag-and-its-cousins.html) answers that with a lookup: each question searches the pile again, pastes a few passages into the prompt, and starts from scratch. Nothing builds up between questions. If an answer needs five documents stitched together, the stitching is redone every time.
+
+The gist this quest is based on proposes another arrangement. Let an agent keep a **wiki**: a folder of interlinked Markdown pages that it writes and updates as new sources arrive, so the stitching is done once and stays. The gist's own words for it: a "persistent, compounding artifact". Its argument is that people drop their notes because the bookkeeping is tedious (updating links, rewriting summaries, spotting that two pages now disagree), and that bookkeeping is exactly what an agent does without getting bored. You keep the parts that need a person: choosing sources, asking questions, and deciding what the findings mean.
+
+The author calls the file an "idea file", meant to be handed to your agent so the two of you work out the details together. It describes a pattern, and it does not include a program or any measurements. Everything below is that pattern plus our own cautions.
+
+## Three layers
+
+| Layer | Who writes it | What it holds |
+|---|---|---|
+| **Raw sources** | You add files; nobody edits them afterwards. | Papers, clipped web pages, meeting transcripts, run logs, data files. The gist calls them immutable: the agent reads them and never changes them. They are the source of truth. |
+| **The wiki** | The agent. You read it. | Markdown pages: a summary per source, a page per entity (a tool, a dataset, a person, a gene) or concept, comparisons, an overview. The agent owns this folder. |
+| **The schema** | You and the agent, over time. | One instruction file (`CLAUDE.md` in Claude Code, `AGENTS.md` in OpenCode) describing how the wiki is organised and what to do on each job. The gist calls it the key configuration file. See [The Project Charter](../forest/the-project-charter.html) for how these files work. |
+
+The split matters for trust. When an answer looks odd, you can walk from the wiki page back to the raw source it cites, and the raw source has not been touched.
+
+## Three jobs
+
+**Ingest.** You drop one source into the raw folder and ask the agent to process it. A typical pass: read the source, tell you the main takeaways, write a summary page, update the pages for the entities and concepts it mentions, add it to the index, and append a line to the log. The gist says one source may touch 10 to 15 pages. The author prefers to ingest one source at a time and stay involved, and mentions that batching with less supervision is possible.
+
+**Query.** You ask a question. The agent finds the relevant wiki pages, reads them and answers with citations. The part that makes the wiki grow: a good answer (a comparison table, a timeline, a short report) is filed back as a new page, so your explorations add to the wiki and do not vanish into chat history.
+
+**Lint.** From time to time you ask for a health check. The gist lists what to look for: pages that contradict each other, claims that a newer source has overtaken, pages that nothing links to, concepts that are mentioned but have no page, missing cross-references, and gaps that a web search might fill.
+
+Two small files keep it navigable:
+
+- `index.md` is a catalogue: each page with a link and a one-line summary, grouped by category, updated on every ingest. To answer a question, the agent reads the index first and then opens the pages that look relevant. The gist says this works well at moderate scale (about 100 sources and a few hundred pages) and avoids building an embedding index. That is the author's experience; we did not test it.
+- `log.md` is an append-only diary of ingests, queries and lint passes. The gist suggests giving every entry the same prefix so a simple `grep` can list the recent ones.
+
+*General practice* for your own first version, as an example schema you could paste into the instruction file and then edit with your agent. It was not run:
+
+```markdown
+# Wiki rules
+- `raw/` holds sources. Never edit or delete anything in `raw/`.
+- `wiki/` holds pages you write. One page per entity or concept; one summary page per source in `wiki/sources/`.
+- Every claim on a wiki page ends with a link to the source file it came from. If no source supports it, mark it `(unsourced)`.
+- On ingest: read the source, tell me the three main takeaways and wait for my reply, then write the summary page, update affected pages, update `wiki/index.md`, and append `## [YYYY-MM-DD] ingest | <title>` to `wiki/log.md`.
+- On lint: list contradictions, unsourced claims, orphan pages and missing pages. Do not fix anything until I say which.
+```
+
+## Why you might want this, and what it costs
+
+| Approach | Where it helps | What you pay |
+|---|---|---|
+| **Paste everything into the prompt** | Small collections (see the table in [RAG and Its Cousins](rag-and-its-cousins.html)). No setup. | Repeated reading each session; a limit at the window size. |
+| **RAG** | A large, changing pile; questions answered by particular passages. | Each question starts from scratch; multi-document answers are re-stitched; retrieval misses are silent (see [RAG and Its Cousins](rag-and-its-cousins.html)). |
+| **A wiki the agent maintains** | Material you will return to for weeks or months, where understanding should accumulate and be readable. | Agent time and tokens on every ingest (several pages touched per source); a layer of text that can contain mistakes; your review time. |
+| **Notes you write yourself** | Things you want to think through in your own words. A perfectly good choice; the wiki pays off when the bookkeeping is what stops you. | The bookkeeping, which is the part people tend to drop. |
+
+The wiki and RAG can also sit together: the gist suggests adding a search tool to the wiki once the index alone is not enough, and names `qmd` (a local Markdown search tool; *Not checked:* we have not read or run it). *General practice:* a wiki is a good home for the stable understanding, and RAG or search is a good way to reach the raw sources behind it.
+
+## Use cases you may recognise
+
+The gist lists personal, research, reading a book, team, and "competitive analysis, due diligence, trip planning, course notes, hobby deep-dives". Here are some closer to a bioinformatics desk. They are our examples, not from the gist, and none was run.
+
+| Use case | Raw sources | Pages the agent might keep | A question it could answer | Watch out for |
+|---|---|---|---|---|
+| **Literature on one method** (say, long-read assemblers or variant callers) | Papers, preprints, tool docs | One page per tool and per dataset; a comparison table; a page of open disagreements between papers | "Which papers compare tool A and B on the same data, and do they agree?" | Preprints and abstracts mixed with peer-reviewed papers. Ask the agent to record the kind of source on every page. |
+| **The lab's pipeline handbook** | Release notes, run logs, meeting minutes, Slack exports | One page per pipeline release, one per known issue, a decision log ("why we changed the aligner settings") | "Which runs used release 2.3, and what was wrong with it?" | Private or unpublished material (see the risks below). Exact counts belong to a query tool, not a wiki page. |
+| **A thesis or long project** | Papers you read, your own notes on experiments, supervisor meeting notes | A running thesis page, an open-questions page, one page per experiment | "What did I conclude about batch effects in March, and what has changed since?" | A wiki that you never read. You will not remember what you did not read, even if the wiki does. |
+| **A course, a workshop or onboarding** | Slides, lecture notes, tutorials, the docs for your tools | Glossary, one page per concept, a "things that confused me" page | "Explain the difference between X and Y using only what the course covered." | Source material goes stale quickly for fast-moving tools. Date every source. |
+| **Reference notes for the tools you use** | Docs pages, GitHub issues, your own gotchas | One page per tool with versions, quirks and a link to the source | "What did we learn the last time this tool ran out of memory?" | Version drift. Record the version on each page and re-check on upgrade. |
+| **A book or a long series** | Chapters, episode notes | Characters, themes, a timeline, built up as you read | "Where did this thread first appear?" | Spoilers for yourself. Ingest as you read. |
+
+To size your own idea, answer four questions in a sentence each: *What sources would go in? How often do they change? What question would I ask in a month that I cannot answer quickly today? Who may read these sources, and where may they be sent?* If the sources fit in one prompt, try that first. If the question is an exact filter or count, ask a query tool. If the sources are sensitive and you would send them to a hosted model, read [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html) before you begin. If the material is something you want to return to and the answers need several sources joined, the wiki is a good candidate.
+
+## Where Obsidian fits
+
+If you already use Obsidian, you have most of what the pattern needs. *General practice* (Obsidian's own docs were not read for this page): an Obsidian vault is a folder of Markdown files, so an agent can read and write it like any other folder, and Obsidian shows whatever is there. The gist describes working with the agent on one side and Obsidian open on the other, with the line "Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase." You read, and the agent edits.
+
+A layout that follows the three layers:
+
+```text
+my-vault/
+  raw/            sources you add (clippings, PDFs, transcripts); the agent never edits these
+    assets/       downloaded images
+  wiki/           pages the agent writes
+    index.md
+    log.md
+    sources/  entities/  concepts/
+  CLAUDE.md       the schema (or AGENTS.md)
+```
+
+What the gist names for Obsidian (the one-line descriptions of each tool are *General practice*; Obsidian's docs were not read):
+
+- **Web Clipper**, a browser extension that turns a web article into a Markdown file, so a source can land in `raw/` in one click.
+- **Graph view**, to see the shape of the wiki: hubs, and orphan pages that nothing links to. The gist calls it a good way to see the shape of the wiki, and it doubles as a quick visual check.
+- **Dataview**, a plugin that queries the properties at the top of each page. If your schema asks the agent to add them (a source type, a date, a version), you get live tables, such as every page whose status is `unsourced`.
+- **Marp**, a Markdown slide format with an Obsidian plugin, for turning an answer into slides.
+- **Images:** the gist suggests fixing the attachment folder (for example `raw/assets/`) and binding a hotkey that downloads a clipped page's images locally. It also notes that an agent cannot read a Markdown file with inline images in a single pass and should read the text first and look at the images afterwards. The author calls this clunky.
+
+Habits we suggest, all *General practice*:
+
+- Keep the agent's folder separate from the notes you write by hand. Your own words stay yours, and you can tell at a glance what the agent produced.
+- Put the vault under git and commit before each ingest. The gist points out that the wiki is just a git repository of Markdown files. A commit per ingest gives you a readable diff of what the agent changed and an undo; see [The Shield of Undo](../crypt/shield-of-undo.html).
+- Make `raw/` read-only if your tools allow it, so that the rule "never edit raw" is enforced by the system as well as written in the instruction file. The instruction file only advises ([Advice or Enforcement](../gatehouse/advice-or-enforcement.html)).
+- If you do not use Obsidian, any editor that opens a folder of Markdown files works. The pattern does not depend on it.
+
+## What can go wrong
+
+- **A mistake becomes a fact.** If the agent misreads a source, the error lands on a page, and later pages cite that page. The cost grows with each ingest. *General practice:* require a source link on every claim, skim the diff of every ingest, and use lint to hunt for unsourced claims. One source at a time, as the author suggests, makes the skimming practical.
+- **The agent edits what it should only read.** Keep sources immutable, as the gist says, and check it with git.
+- **Clipped pages can carry instructions.** A web page you clip may contain text aimed at your agent, and the agent reads it during ingest and then writes files. OWASP's warning about retrieved text, covered in [RAG and Its Cousins](rag-and-its-cousins.html), applies, and [Guard the Door](../gatehouse/guard-the-door.html) shows how to limit what the agent may do. Review the diff, and keep an agent with write access away from sources you do not trust.
+- **Sources leave your machine.** With a hosted model, every source you ingest is sent as prompt text. For unpublished results, patient-linked data or anything under an agreement, check the rules first ([The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html)). Running a local model through Ollama keeps text on your machine, but small models find ingest hard: it asks for reading, summarising and editing several files in one go. *Not checked:* how well small local models do this. Try one short, harmless source first.
+- **Cost and time grow with the wiki.** Each ingest reads the index and several pages, and then writes several. *General practice:* watch your usage in the first week ([Memory, Sessions and Usage](memory-sessions-and-usage.html)).
+- **Scale.** The index approach is described for roughly a hundred sources. Beyond that, expect to add search or another layer. Not checked by us.
+- **You may not learn it.** A wiki you never open does little for your own understanding. Treat it as something you read, correct and argue with. [Name the Fears](../basecamp/name-the-fears.html) has a worry about hollow accomplishment, and this is a place where it applies.
+- **Exact answers.** Counts, filters and joins over tables belong in a query tool, not in prose pages, for the reason given in [RAG and Its Cousins](rag-and-its-cousins.html).
+
+## With a companion
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Put the schema in `CLAUDE.md` at the root of the wiki folder. Start a session there, and ask the agent to read the schema and propose the folder layout before it writes anything. Use [Plan before you edit](../forest/plan-before-you-edit.html) for the first ingest, then tighten the schema with whatever you correct. Keep ingest, query and lint as separate short sessions ([When to Start Fresh](when-to-start-fresh.html)), since the wiki itself is the memory that carries over.
+
+## OpenCode + Ollama
+
+Put the schema in `AGENTS.md` at the root of the wiki folder (OpenCode also falls back to `CLAUDE.md`). With a local model, start with a handful of short, non-sensitive sources and check each page against its source, because a small model is more likely to drop or garble details. If a model struggles with the multi-file edit, ask it to do the ingest in steps: summary page first, then one entity page at a time.
+
+:::
+
+## Honour
+
+<div data-ao-honour="wiki-size-it" data-xp="20">Answer the four sizing questions for one real collection of yours (sources, how often they change, the question you will ask in a month, who may read them and where they may be sent). Write one sentence saying whether a wiki, RAG, a single prompt or a query tool fits best.</div>
+
+<div data-ao-honour="wiki-write-schema" data-xp="20">Draft a schema (instruction file) of five lines or fewer for that collection: what the agent must never edit, what every claim must carry, and what it must ask you before writing. Do not run it yet; read it aloud to a colleague and see what they would add.</div>
+
+## Battle: the living wiki
+
+<div data-ao-test="codon-mill-llm-wiki" data-xp="60"></div>
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): Andrej Karpathy, GitHub gist, article. Why read: it is the original idea file, short enough to read in ten minutes, with the three layers, the three jobs and the Obsidian tips in the author's own words.
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic Engineering, article. Why read: it describes the opposite habit of loading information just in time with search tools, which helps you decide when a pre-built wiki is worth the upkeep.
+:::

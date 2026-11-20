@@ -106,7 +106,10 @@ gates:
            done: "You can tell the main kinds of RAG apart, and you know when to retrieve, when to paste everything, and when to query or search instead." },
          { id: codon-mill-grow-a-graph-with-ollama, after: [codon-mill-rag-and-its-cousins, kennel-adopt-the-pet], suggested: [], branch: memory, trunk: false, optional: true, title: "Grow a Graph with Ollama", page: zones/codon-mill/grow-a-graph-with-ollama.html,
            story: "In a back room the miller strings yarn between pegs: one peg per name, one thread per link. It takes a long time, and every knot is worth checking.",
-           done: "You have built and read a small knowledge graph with a local model, and you know what LightRAG and GraphRAG ask of one." } ] }
+           done: "You have built and read a small knowledge graph with a local model, and you know what LightRAG and GraphRAG ask of one." },
+         { id: codon-mill-llm-wiki, after: [codon-mill-rag-and-its-cousins], suggested: [], branch: memory, trunk: false, optional: true, title: "Keep a Living Wiki", page: zones/codon-mill/llm-wiki.html,
+           story: "A scribe in the mill keeps a ledger that tidies itself. Each new sack of papers is read once, and every page it touches is updated and cross-linked before the scribe sleeps.",
+           done: "You can describe the three layers and three jobs of an agent-kept wiki, you have matched it to a use of your own, and you know where it can mislead you." } ] }
   K: { id: kennel,   name: "The Kennel",            track: "Companions", status: open,
        quests: [
          { id: kennel-recruit-the-beast, after: [crypt-shield-of-undo], suggested: [], branch: trunk, trunk: true, optional: false, title: "Recruit the Beast", page: zones/kennel/recruit-the-beast.html,
