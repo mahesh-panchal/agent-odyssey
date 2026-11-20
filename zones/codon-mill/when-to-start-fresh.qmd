@@ -4,7 +4,7 @@ title: "When to Start Fresh"
 
 ::: {.quest-dialog}
 **Prerequisites:** Memory, Sessions and Usage. **Objective:** name the signals that say "start a new session", the signals that say "carry on", and when the middle path (compacting) fits better than either.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16 (Claude Code best-practices, context-window, sessions and commands docs; OpenCode TUI docs). Claude Code specific unless stated.</span>
+**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16 (Claude Code best-practices, context-window, sessions and commands docs; OpenCode TUI docs). Claude Code specific unless stated. The cache-and-break numbers come from a community repo (research/cache-and-usage.md), small samples, not run here.</span>
 Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
 :::
 
@@ -44,11 +44,34 @@ What the summary keeps and loses, per the docs: it keeps your requests and key c
 | Wrong claim repeated after two corrections | `/clear`, then one new prompt with what you learned | A third correction sits on top of two failed attempts |
 | Back after a long break, still need the conversation | `/resume` or `claude --continue` | You get the saved messages (or the last summary) |
 | Back after a long break, next task is new | Fresh session | Docs: a fresh session still costs less if you do not need the history |
+| Leaving a long session past the cache lifetime, same task afterwards | `/compact` with a focus note before you leave | Compacting while the cache is warm is cheap; after it expires the history is re-sent at full price (community numbers, small samples) |
 | Task done, verified result committed | Write down what matters, then `/clear` | The state is in your files and git, not in the chat |
 
 ## Before you clear
 
 Starting fresh drops the conversation. Your files and memory remain, and the instructions file (`CLAUDE.md`) and auto memory load again in the new session. Anything you only said in chat is gone: the decisions, what failed and why, which sample misbehaved. **General practice:** write that down before you clear, because `/clear` drops the conversation, and commit the result so the state is recoverable. The Handoff Notes quest shows what such a note should contain. If you clear by mistake, `/resume` can reopen the old conversation.
+
+## The cache and the coffee break
+
+Signal 4 deserves a closer look, because the cost of a break can be larger than people expect. While the cache is warm, the long history you already sent is re-read cheaply. When the cache has expired, the next request pays to send the whole history again at full price. The docs give the lifetimes: about an hour on a subscription, five minutes with an API key. You can check which one you have with `/usage` (a "Prompt cache" line is reported there; Not checked: whether it appears on every plan).
+
+A community project, [claude-code-usage-analysis](https://github.com/inevolin/claude-code-usage-analysis), measured this on an API key with a five-minute cache. Treat its numbers as one person's small experiment (a handful of runs, one model, units that are not a subscription bill; the author lists these limits too). With about 97 thousand tokens of history and a small next fix:
+
+| Pause before the next message | Reported cost, compared with a brand-new session |
+|---|---|
+| 2 to 4 minutes (cache warm) | about 1.5 times |
+| 6 to 13 minutes (cache expired) | about 9.8 times |
+
+The same project reported that compacting *before* the break, while the cache is warm, cost about 2.5 times a new session, and compacting *after* the break cost about as much as simply carrying on. On a subscription, the same cliff should sit near the one-hour mark instead (General practice, our reading of the docs: the project's own one-hour figure came from a simulator, not a live run).
+
+What this suggests for your habits (General practice, from the numbers above and the docs):
+
+- **Before a long break in a long session,** either `/compact` with a focus note while the cache is warm, or write a short handoff note and plan to `/clear`.
+- **After a break, when the next task is new,** start fresh. Resuming a long, cold conversation is the expensive path.
+- **After a break, when you still need the thread,** a short hand-written note (goal, what is done, what is next) in a new session is often cheaper than re-reading the cold history, and gives you a chance to drop dead ends. The Handoff Notes quest shows what to write.
+- **Short pauses are fine.** A few minutes away costs little, so there is no need to rush back.
+
+The same project reported two cost traps worth knowing, both from very small tests: turning a built-in tool off in the middle of a task made the next turn cost roughly twenty times a normal one, since the cache was thrown away, while editing `CLAUDE.md`, adding an MCP server or changing effort showed no such jump. Decide your tool set at the start of a task. It also reported that a long log left in the chat added to the cost of every later turn. Trim output before it lands in the conversation, for example by asking the agent to show only the last lines or a pass/fail summary.
 
 ## The cost of both mistakes
 
@@ -82,4 +105,5 @@ The OpenCode terminal-interface docs list `/new` (alias `/clear`), `/sessions` (
 - [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.
 - [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html): Drew Breunig, blog, article. Why read: it names context poisoning and distraction, the failure modes behind starting fresh; a personal blog, not vendor documentation.
 - [Manage costs effectively](https://code.claude.com/docs/en/costs): Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.
+- [claude-code-usage-analysis](https://github.com/inevolin/claude-code-usage-analysis): inevolin, repo. Why read: a community write-up of live runs that put numbers on cache expiry, compaction timing and tool changes; small samples, so read it for the shape of the effect and check its own list of limits.
 :::

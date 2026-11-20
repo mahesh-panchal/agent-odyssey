@@ -43,6 +43,8 @@ Memory is advisory context, and it takes room in the window every session. Run `
 
 The docs give these reasons. Claude Code sends the **whole conversation on every request**, and each tool-using step is another request. Caching (a short-term store so repeated text is cheaper to re-read) makes re-reading cheaper but a short question late in a long session still draws on all of it. Large tool outputs (the docs' example is reading a 10,000-line log) stay in the conversation. Subagents each have their own context, and their requests still count. `/compact` itself reads the whole conversation. Remedies from the docs: `/clear` between unrelated tasks, `/compact` with a focus note, `/context` to see what fills the window, and keeping `CLAUDE.md` under 200 lines.
 
+The cache has a lifetime, and a long break can outlast it, which makes the next message much dearer. When to Start Fresh has a section on the cache and the coffee break, with a community measurement (small sample, labelled as such).
+
 Seeing "rate limited until ..." in `/usage` means the tool could not fetch plan limits, and says nothing about your work being limited.
 
 ## When a wrong claim gets in
