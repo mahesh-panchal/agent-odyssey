@@ -28,5 +28,6 @@ Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold *
 - [The Cluster Citadel](zones/citadel/login-node-manners.qmd)
 - [Character sheet](character.qmd)
 - [Lore library](lore.qmd)
+- [Claude Code docs overview](https://code.claude.com/docs/en/overview) (external: explore more than this course covers)
 
 </details>

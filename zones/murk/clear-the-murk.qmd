@@ -71,6 +71,8 @@ You cleared the Murk by looking at the claim, the command, the rule, the key, th
 From here you decide how much of this to use and when. Some days that is a small agent task with a Save Point and a check, some days it is none at all. Both are fine.
 
 Branches you skipped stay open. Start Here lists them, and the Lore library gathers the further reading from every quest you have passed.
+
+The [Claude Code docs](https://code.claude.com/docs/en/overview) go well beyond this course. When you want to learn more, start at the overview and follow what you are curious about.
 :::
 
 ::: {.ao-lore}

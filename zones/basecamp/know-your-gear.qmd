@@ -99,6 +99,7 @@ Naming differs between tools. The Claude Code docs define "harness" and "hooks" 
 
 *Further reading. Optional.*
 
+- [Claude Code overview](https://code.claude.com/docs/en/overview): Anthropic, docs. Why read: it is the front page of the docs, a good place to see how much more there is than this course covers.
 - [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works): Anthropic, docs. Why read: it is the page that defines the agentic harness and the gather, act, check loop used in this quest.
 - [Model configuration](https://code.claude.com/docs/en/model-config): Anthropic, docs. Why read: it covers model aliases and the effort setting, so you can pin a model and see what `/effort` changes.
 - [Skills](https://code.claude.com/docs/en/skills): Anthropic, docs. Why read: it shows the `SKILL.md` format and how only descriptions load at startup.

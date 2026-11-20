@@ -37,4 +37,8 @@ Each box is a stage: the trunk, a branch, or the final boss. A box says its stat
 
 <ul id="ao-start-branches" class="ao-start-branches"></ul>
 
+## Keep exploring
+
+This course covers a small part of what these tools can do. The [Claude Code docs](https://code.claude.com/docs/en/overview) are the best place to learn more, and each quest's Lore section links the pages that matter for it. Browse the overview whenever you are curious.
+
 Back to [the overworld map](index.qmd).
