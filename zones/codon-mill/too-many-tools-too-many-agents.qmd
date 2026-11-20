@@ -42,6 +42,14 @@ Our reading of that, as general practice:
 
 Using none of these is also a fine decision.
 
+**Does a team of agents help?** One 2025 preprint from Google Research, Google DeepMind and MIT ("Towards a Science of Scaling Agent Systems") compared a single agent with four multi-agent set-ups across 260 configurations on six benchmarks. Its findings, in short:
+
+- **It depends on the task.** On a task that splits into independent parts (financial analysis), multi-agent set-ups did far better than one agent, up to about 81 percent. On sequential planning, every multi-agent variant did worse, by 39 to 70 percent.
+- **A strong single agent leaves little to gain.** Once one agent already scored above about 45 percent on a task, adding agents gave diminishing or negative returns.
+- **Unchecked agents pass errors on.** Agents working independently amplified errors about 17 times, against about 4 times when a central agent checked the work.
+
+Take-away (general practice): start with one agent, measure it, and add agents only for work that splits into independent parts and only if the measurement says it helps. The figures come from the authors' own tasks and models and changed between versions of the preprint, so read them as direction, not as rules.
+
 <div data-ao-honour="tool-audit" data-xp="20">List the MCP servers and tools in your setup. For each, say when you last used it. Remove or disable one you do not need.</div>
 <div data-ao-honour="script-first" data-xp="20">Take one task you gave an agent that had a known rule. Write down the script that would do it without a model.</div>
 
@@ -57,5 +65,6 @@ Using none of these is also a fine decision.
 - [Tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool): Anthropic, docs. Why read: it is where Anthropic states a roughly 55k-token example for tool definitions and says tool selection degrades past 30 to 50 tools; it gives no method for either figure, so read them as Anthropic's own claims about the API, with no independent measurement.
 - [Connect Claude Code to tools via MCP](https://code.claude.com/docs/en/mcp): Anthropic, docs. Why read: it explains how MCP tools load and how to scale or limit them in Claude Code.
 - [Introduction to the Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro): Model Context Protocol, docs. Why read: it explains what MCP is before you decide which servers to connect.
+- [Towards a Science of Scaling Agent Systems](https://arxiv.org/abs/2512.08296): Kim et al., arXiv (2025), paper. Why read: it measures when extra agents help and when they hurt; a preprint, and its figures changed between versions.
 - [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents): Anthropic, article. Why read: it separates fixed workflows from agents and argues for the simplest option, which is the choice this quest asks you to make.
 :::

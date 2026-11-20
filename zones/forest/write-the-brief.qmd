@@ -19,6 +19,18 @@ Two habits make the rest of this safer:
 - **Plan first:** see the next quest, *Plan Before You Edit*.
 - **Ask for evidence.** "Show the command and its output" turns a claim into something you can look at.
 
+## A role line is not a substitute for a brief
+
+A common habit is to open with "You are a world-class bioinformatician." The one study we read on this found that expert personas are not a free gain. In a 2026 preprint (Hu, Rostami and Thomason), personas tended to help tasks about tone, format, safety and preference. They tended to hurt tasks that rely on what the model already knows: on the MMLU knowledge benchmark, accuracy fell from 71.6% with no persona to 68.0% with the shortest persona tested. The authors say shorter personas reduce the damage but do not remove it, and longer ones helped the alignment tasks more, so no length was best for both.
+
+What to take from it (our reading, general practice):
+
+- Put your effort into the **brief**: the file, the symptom, what "done" looks like, and a check. Those are testable. A role line is not.
+- Use a role or tone line when you want a style, such as "explain this for a first-year student", and not to make the model more accurate.
+- If you do use a persona on a factual task, test it against a version without one. See *Close the Loop*.
+
+Limits: the study used small open models (7 to 8 billion parameters), not the large models you will likely use, and it is a preprint. It did not test flattery such as "world's best", so claims that flattery makes output worse go beyond what it shows.
+
 ## Context is a budget
 
 Everything in the conversation takes up room in the context window. The Claude Code docs note that old conversation can crowd out the files you need next.
@@ -46,5 +58,6 @@ Everything in the conversation takes up room in the context window. The Claude C
 
 - [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it explains why a brief needs a check the agent can run, and how to keep context and cost down.
 - [Explore the context window](https://code.claude.com/docs/en/context-window): Anthropic, docs. Why read: an interactive timeline of what fills the window and what survives compaction.
+- [Expert Personas Improve LLM Alignment but Damage Accuracy](https://arxiv.org/abs/2603.18507): Hu, Rostami and Thomason, arXiv (2026), paper. Why read: it measures where expert personas help and where they hurt; a preprint on small models, so read it as one data point.
 - [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: background on why more context is not always better and what compaction can lose.
 :::
