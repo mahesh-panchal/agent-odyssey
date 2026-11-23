@@ -18,15 +18,13 @@ An agent does not know which node it is on or what your site tolerates. It will 
 
 Some sites allow agents only inside an interactive compute allocation, and some run a different scheduler with its own commands. If a scheduler command is missing, ask staff and skip near-matches.
 
-A pipeline's driver process, such as a Nextflow head job that only hands tasks to the scheduler, is often left running in `tmux` on the login node. Some sites forbid even that, so check your site's policy first.
+A long-running helper process left on the login node, even one that only hands tasks to the scheduler, is not always allowed. Check your site's policy first.
 
 If the agent has a question for you and you are away, a good agent stops and lists its open questions. It does not pick a default and carry on. Ask for that behaviour in your instructions.
 
 ## Shared storage prefers scoped searches
 
 Network filesystems can slow down for everyone when something touches huge numbers of files. Agents explore by searching, so a careless `find /` or a recursive `grep -r` from your home or project root is the classic mistake. Ask for searches scoped to one known directory, and keep them away from `/`. The same goes for `du`, `ls --recursive`, `ls --format=long` (it stats every file) and wide globs on big directories, and avoid making many small files in one directory. Keep the agent to your own project paths: other users' or other projects' paths are off limits unless you named them or the site documents them as shared (reference data).
-
-Some filesystems come with their own search tools (Lustre has `lfs find`) that are cheaper than plain `find`. They make a scoped search cheaper and never make a broad one acceptable.
 
 Claude Code's search tools (Glob, Grep) are not a filesystem-load control; scope the search yourself.
 
