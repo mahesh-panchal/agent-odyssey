@@ -20,6 +20,7 @@ trunk_order:
   - basecamp-name-the-fears
   - basecamp-three-kinds-of-machine
   - basecamp-know-your-gear
+  - basecamp-wade-in
   - codon-mill-tokens-not-letters
   - codon-mill-where-machines-fail
   - codon-mill-the-context-window
@@ -71,10 +72,13 @@ gates:
            done: "You can choose the right machine, and sometimes the right machine is a plain script." },
          { id: basecamp-know-your-gear, after: [basecamp-three-kinds-of-machine], suggested: [], branch: trunk, trunk: true, optional: false, title: "Know Your Gear", page: zones/basecamp/know-your-gear.html,
            story: "The quartermaster lays out the kit: a companion, its armour, and a pile of fittings no one has labelled.",
-           done: "You can tell model from harness, and name what each fitting does and does not guarantee." } ] }
+           done: "You can tell model from harness, and name what each fitting does and does not guarantee." },
+         { id: basecamp-wade-in, after: [basecamp-know-your-gear], suggested: [], branch: trunk, trunk: true, optional: false, title: "Wade In", page: zones/basecamp/wade-in.html,
+           story: "A shallow stream runs past Basecamp. A traveller stands at the edge, sure that crossing means being swept away, and then notices the stepping stones.",
+           done: "You can name the step you are on, what leaves your machine at it, and why you may stop there." } ] }
   L: { id: codon-mill, name: "The Codon Mill", track: "Foundations", status: open,
        quests: [
-         { id: codon-mill-tokens-not-letters, after: [basecamp-know-your-gear], suggested: [], branch: trunk, trunk: true, optional: false, title: "Tokens, Not Letters", page: zones/codon-mill/tokens-not-letters.html,
+         { id: codon-mill-tokens-not-letters, after: [basecamp-wade-in], suggested: [], branch: trunk, trunk: true, optional: false, title: "Tokens, Not Letters", page: zones/codon-mill/tokens-not-letters.html,
            story: "A mill grinds text into small chunks before the machine reads a word. It never sees the letters you see.",
            done: "You know the machine reads chunks, so counting letters and reading sequences exactly are jobs for a script." },
          { id: codon-mill-where-machines-fail, after: [codon-mill-tokens-not-letters], suggested: [], branch: trunk, trunk: true, optional: false, title: "Where Machines Fail", page: zones/codon-mill/where-machines-fail.html,

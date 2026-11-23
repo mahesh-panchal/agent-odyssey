@@ -10,7 +10,7 @@ The trunk takes about three hours. Each branch adds about one to two more. The o
 
 ## How to walk it
 
-1. **Walk the trunk.** The spine of the map is <span data-ao-n="trunk">13</span> quests in order: fears, kinds of machine, gear, tokens, context, an undo point, your first agent, its armour, then trust in output.
+1. **Walk the trunk.** The spine of the map is <span data-ao-n="trunk">14</span> quests in order: fears, kinds of machine, gear, how much to hand over, tokens, context, an undo point, your first agent, its armour, then trust in output.
 2. **Pick branches by interest.** Branches hang off the trunk. Choose the ones that match your work: memory, skills, guards, pipelines, notebooks, clusters, people, models. Dashed boxes are optional side quests.
 3. **Meet the mid-boss.** The Wall of Output ends the trunk.
 4. **Clear the Murk.** The final boss opens when the whole trunk and any <span data-ao-n="any">3</span> of the <span data-ao-n="branches">8</span> branches are done.

@@ -18,7 +18,7 @@ Using an agent is always your choice. The course shows how to do it with care, a
 
 Open **Start Here** on the site. The path is a trunk, then branches, then a final boss:
 
-- **Trunk (13 quests):** worries and habits, kinds of machine, tokens and failure modes, the context window, an undo point, your first agent, its armour, secrets, and trust in output. It ends with the mid-boss, the Wall of Output.
+- **Trunk (14 quests):** worries and habits, kinds of machine, how much to hand over (a step-by-step way in that needs no agent), tokens and failure modes, the context window, an undo point, your first agent, its armour, secrets, and trust in output. It ends with the mid-boss, the Wall of Output.
 - **Eight branches, by interest:** memory and sessions, skills and plugins, guards (MCP and hooks), pipelines, notebooks, shared clusters, working with people, and models and cloud.
 - **Final boss:** *Clear the Murk* opens when you finish the trunk and any three branches.
 
