@@ -20,7 +20,7 @@ Some sites allow agents only inside an interactive compute allocation, and some 
 
 A long-running helper process left on the login node, even one that only hands tasks to the scheduler, is not always allowed. Check your site's policy first.
 
-If the agent has a question for you and you are away, a good agent stops and lists its open questions. It does not pick a default and carry on. Ask for that behaviour in your instructions.
+If the agent has a question for you and you are away, a good agent stops and lists its open questions. Ask for that in your instructions: do the steps that need no answer, stop, and list the questions.
 
 ## Shared storage prefers scoped searches
 
@@ -43,13 +43,13 @@ Four commands cover most of it:
 
 Set `--time`, `--mem` and `--cpus-per-task`, and use a job array for many similar tasks. Write options in their long form (`--dry-run` for `-n`) so you can read what the agent proposes.
 
-Slurm bills by what you allocate, whatever you use. A memory request can change how many CPUs you are billed for, so size requests against the partition's limits.
+Slurm bills by what you allocate, whatever you use. A memory request can change how many CPUs Slurm allocates, because partitions limit memory per CPU (`MaxMemPerCPU`). Above that limit Slurm may raise the CPU count to fit, or reject the job. Read the partition's limits, and afterwards compare request, allocation and use with `sacct`.
 
-Scratch space holds throwaway files. Ask where the project's scratch is before the agent creates files there, and use it instead of `/tmp`, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one, and copy results to the project directory before the job ends. A set `$TMPDIR` does not prove you are on scratch, because Slurm can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
+Scratch space holds throwaway files. Ask your staff where the project's scratch is, tell the agent, and use it instead of `/tmp`, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one, and copy results to the project directory before the job ends. A set `$TMPDIR` does not prove you are on scratch, because Slurm can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
 
 ## Look before you copy or delete
 
-Find out what a copy or a delete will touch before it touches anything. Run `rsync --dry-run --itemize-changes` first, with the same arguments, and read the list. Does it match your request? Does it hold keys, `.env` files or personal data? Does a `*deleting` line remove something you wanted to keep? `cp`, `scp` and `rm` have no dry run, so list the exact path or glob and delete only those names. Any change to the options needs a new dry run. Do not copy from or delete a directory that a running job writes to. Before you delete a source you copied, check the copy is complete. Send large transfers through the scheduler or the site's data-transfer node.
+Find out what a copy or a delete will touch before it touches anything. Run `rsync --dry-run --itemize-changes` first, with the same arguments, and read the list. Does it match your request? Does it hold keys, `.env` files or personal data? Does a `*deleting` line remove something you wanted to keep? `cp`, `scp` and `rm` have no dry run, so list the exact path or glob and delete only those names. Any change to the options needs a new dry run. Do not copy from or delete a directory that a running job writes to. Before you delete a source you copied, repeat the copy as a dry run with `--checksum` and delete only if the list is empty. Options such as `--exclude` skip files without a word. `rsync --delete` and `rm --recursive` also remove what is inside a directory, so list and dry-run those too. The dry run reads the whole tree like the real run, so run it where the real run will run. Send large transfers through the scheduler or the site's data-transfer node.
 
 ## What the agent's sandbox covers
 

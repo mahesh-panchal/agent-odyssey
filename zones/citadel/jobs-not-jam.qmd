@@ -3,7 +3,7 @@ title: "Jobs, Not Jam"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** you will let the agent draft job scripts while you keep submitting and cancelling under your own approval, and you will know what polling costs.
+- **Goal:** you will let the agent draft job scripts while you keep submitting and cancelling under your own approval, you will know what polling costs, and you will size resource requests against the partition's limits.
 - **Before you start:** [Login Node Manners](login-node-manners.html). A *job script* is a text file of scheduler options and commands. *Polling* means asking the scheduler for status again and again.
 - **Time:** about 20 minutes.
 :::
@@ -72,21 +72,21 @@ Habits that keep polling cheap:
 - Poll no more than about once a minute, less often for long jobs. Run one loop at a time and scope it: `squeue --user=$USER` or `--jobs=<id>`.
 - Use `sbatch --parsable --wait`, or the pipeline's own poller, instead of a `sleep` loop. It replaces a `/loop` of `squeue`, so skip the loop.
 - A wait can outlast the tool's timeout. Run it in the background. Never resubmit because the wait timed out. Check `State` with `sacct` first: `--wait` passes the job's exit code through, but a signal-killed job gives 1, so the code alone does not prove success.
-- `--mail-type` only emails you, so it cannot be used to wait. If you use `watch`, keep it at `--interval=60` or slower and stop it when done.
+- `--mail-type` sends you an email and does not make the agent wait. If you use `watch`, keep it at `--interval=60` or slower and stop it when done.
 - Submit many similar tasks as one array with a concurrency cap (`--array=1-100%10`) instead of a loop of `sbatch` calls.
+
+Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an `srun` that blocks until it finishes, gets cut off.
 
 ## Size the request
 
-A job can cost far more than it asked for without any error. Slurm bills by what you allocate, not what you use, and the bill feeds your fair-share priority. A large memory request can also change what is allocated. Partitions limit memory per CPU, so Slurm may add CPUs to fit the request, or reject the job, or leave it pending. What happens depends on the site's settings.
+A job can use more of the cluster than you meant to ask for, and no error tells you. Slurm counts what you allocate, whatever you use, and that count feeds your *fair-share priority* (how soon your later jobs start). A *partition* is a group of nodes with its own limits. Many partitions limit memory per CPU (`MaxMemPerCPU`), so a large memory request on one CPU can make Slurm add CPUs to fit it, or reject the job. A request like `--mem=120G` with `MaxMemPerCPU=4000` (MB) can become about 31 CPUs. Other limit settings can leave an over-limit job pending instead, so read what your site does.
 
 Habits that keep requests honest:
 
-- Before a large or repeated job, read the partition's limits (`scontrol show partition <name>`) and size the request against them. A round "plenty" number is a guess.
-- Afterwards compare what you asked for, what was allocated and what was used: `sacct --jobs=<id> --format=JobID,State,ReqMem,AllocCPUS,MaxRSS`. Keep headroom above `MaxRSS`.
-- A job killed for memory shows `OUT_OF_MEMORY` in `State`. `MaxRSS` then understates the need, so raise the request above the failed one.
-- If the memory need and the CPU count conflict, ask before moving to another partition.
-
-Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an `srun` that blocks until it finishes, gets cut off.
+- Before a large or repeated job, read the partition's limits (`scontrol show partition <name>`) and size the request against them. Pick a number from the limits and from earlier runs.
+- Afterwards compare what you asked for, what was allocated and what was used: `sacct --jobs=<id> --format=JobID,State,ReqMem,AllocCPUS,MaxRSS`. `MaxRSS` (the most memory one task used) is filled on the step rows such as `.batch`. Keep headroom above it. If `sacct` prints nothing, accounting may be off, so say so and ask your staff.
+- A job killed for memory can show `OUT_OF_MEMORY` in `State`. `MaxRSS` then understates the need, so raise the request above the failed one.
+- If the memory need and the CPU count conflict, ask staff for a partition with a better memory-to-CPU ratio and check with them before using it.
 
 ## Battle: queue manners
 
