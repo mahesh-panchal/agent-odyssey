@@ -108,7 +108,7 @@
       var f = fog[1], l = lab[1]; f.clearRect(0, 0, cv.width, cv.height); l.clearRect(0, 0, cv.width, cv.height);
       l.font = "bold 20px ui-monospace, monospace"; l.textAlign = "center"; l.textBaseline = "middle";
       if (!showAll) {                                   // veil: dark everywhere except around revealed gates
-        f.fillStyle = "rgba(14,10,24,.9)"; f.fillRect(0, 0, cv.width, cv.height);
+        f.fillStyle = "rgba(14,10,24,1)"; f.fillRect(0, 0, cv.width, cv.height);
         f.globalCompositeOperation = "destination-out";
         Object.keys(gateAt).forEach(function (k) {
           var g = gateAt[k]; if (!revealed(g)) return;
