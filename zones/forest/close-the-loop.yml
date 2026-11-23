@@ -51,6 +51,6 @@ questions:
     explain: "A same-family judge is not an independent grader. Check a sample by hand against reference answers written before you saw the outputs."
     options:
       - { text: "Check a sample by hand against answers fixed in advance", correct: true }
-      - { text: "Accept the scores, since the judge understands that style of output", misconception: "Models tend to favour output like their own, so agreement can reflect similarity and not correctness." }
+      - { text: "Accept the scores, since the judge understands that style of output", misconception: "Models tend to favour output like their own, so agreement can reflect similarity, so a high score may not mean correctness." }
       - { text: "Use a larger model of the same family and skip hand checks", misconception: "A larger model from the same family is still not independent of the one being judged." }
       - { text: "Write the reference answers after reading the outputs", misconception: "References written afterwards drift towards what the outputs said. Fix them first." }

@@ -55,7 +55,7 @@ The unit that matters is the **difference** between *with* and *without*. The *w
 
 Evals can be wrong too. A check that always passes, or that fails correct answers, tells you little. Read a few raw outputs by hand before trusting a score.
 
-The AI for Science best practices (a European draft with no endorsements yet; practice 8) add four habits for judging a tool before you rely on it. Test on cases with known answers. Repeat the runs, since one pass can be luck. Write down the failure modes you see. Test again when the tool, the model or your task changes. They also say a judge model from the same family as the one being judged is not an independent grader, and that when a model does grade, you should check a sample by hand against reference answers fixed in advance. Last verified (docs, not run): read 2026-11-20 via a fetch summary; see `research/aiforscience.md`.
+The AI for Science best practices (a European draft with no endorsements yet; practice 8) add four habits for judging a tool before you rely on it. Test on cases with known answers. Repeat the runs, since one pass can be luck. Write down the failure modes you see. Test again when the tool, the model or your task changes. They also say a judge model from the same family as the one being judged is not an independent grader, and that when a model does grade, you should check a sample by hand against reference answers fixed in advance. Not checked first-hand: read 2026-11-20 through a fetch summary, so re-check the wording on the page; see `research/aiforscience.md`.
 
 <div data-ao-honour="loop-notes" data-xp="20">Keep a short list of the times an agent went wrong for you. Each entry is a candidate Skill and a ready-made eval case.</div>
 

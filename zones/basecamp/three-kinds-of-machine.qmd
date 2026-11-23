@@ -17,7 +17,7 @@ Two common mistakes: using an LLM to do something a one-line script does exactly
 
 An LLM can also be called **inside a script** (for example to tidy free-text labels). That makes your pipeline non-deterministic, so the result needs its own checks and the exact model and version recorded.
 
-The AI for Science best practices (a European draft, not yet endorsed by any body) start from the same question: before reaching for an agent or a large model, ask whether a script, a fixed workflow or a smaller specialised model does the job. Their reasons are cost and reproducibility: a method that fits the task is usually cheapest to run and easiest to reproduce, and it does not change when a provider updates a hosted model. Keep the large model for the open-ended steps. Last verified (docs, not run): the practice page, read 2026-11-20 via a fetch summary; see `research/aiforscience.md`.
+The AI for Science best practices (a European draft, not yet endorsed by any body) start from the same question: before reaching for an agent or a large model, ask whether a script, a fixed workflow or a smaller specialised model does the job. Their reasons are cost and reproducibility: a method that fits the task is often cheaper to run and easier to reproduce, and it does not change when a provider updates a hosted model. Keep the large model for the open-ended steps. Not checked first-hand: the practice page, read 2026-11-20 through a fetch summary, so re-check the wording on the page; see `research/aiforscience.md`.
 
 ## Generative or predictive?
 

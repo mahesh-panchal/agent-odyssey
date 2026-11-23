@@ -57,7 +57,7 @@ Not checked: an exit-code-2 equivalent or shell-hook configuration (neither appe
 
 ## One door for the high-stakes actions
 
-The AI for Science best practices (a European draft with no endorsements yet; practice 10) describe a pattern that a hook can serve: if an agent can reach something with real-world consequences, such as ordering DNA synthesis, running code on a live system or driving an instrument, send every such action through one checkpoint that can refuse, and test that the refusal works instead of assuming it. They advise connecting no agent to such a capability without a screen, and expecting refusals. A hook is one possible checkpoint for local actions, with the limits listed above. Last verified (docs, not run): read 2026-11-20 via a fetch summary; see `research/aiforscience.md`.
+The AI for Science best practices (a European draft with no endorsements yet; practice 10) describe a pattern that a hook can serve: if an agent can reach something with real-world consequences, such as ordering DNA synthesis or commanding physical equipment, put a screening checkpoint in the path that refuses dual-use requests (requests where the same capability can help or harm). They advise against connecting an agent to such a capability without one. Testing the checkpoint with requests you know it should refuse is our own suggestion (General practice). A hook is one possible checkpoint for local actions, with the limits listed above. Not checked first-hand: read 2026-11-20 through a fetch summary, so re-check the wording on the page; see `research/aiforscience.md`.
 
 ## A hook in a repository is code you did not write
 
