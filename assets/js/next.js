@@ -33,7 +33,8 @@
       if (quest && !onFinale) {
         var s = P.nextSteps(quest.id);
         var rec = s.recommended.filter(function (r) { return !passed(r.id); });
-        var prev = P.prevQuest(quest.id), go = rec[0], others = rec.slice(1, 3);
+        var prev = P.prevQuest(quest.id), fol = P.followQuest(quest.id);
+        var go = fol && !passed(fol.id) ? fol : rec[0], others = rec.filter(function (r) { return !go || r.id !== go.id; }).slice(0, 2);
         h += "<p class='ao-go'>" + (go ? "<a class='ao-start-btn' rel='next' href='" + base + go.page + "'>Next: " + esc(go.title) + " ▶</a>" : "<span>Every step in reach is cleared.</span>") +
           (prev ? " <a class='ao-back' rel='prev' href='" + base + prev.page + "'>◀ Back: " + esc(prev.title) + "</a>" : "") + "</p>";
         h += list("Other ways on", others) + list("Side quests (optional)", s.optional);
