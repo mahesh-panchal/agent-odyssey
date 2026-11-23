@@ -144,14 +144,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Adopt the Pet and The Locked Cabinet. This is an optional side quest. <strong>Objective:</strong> name what a “free” model offer costs you, sort offers into four kinds, and decide which data may go to which. <strong>Time:</strong> about 20 minutes. The hands-on step uses a dummy prompt and no sensitive data.</p>
-<p><span class="ao-badge">Last verified (docs, not run): provider pages for OpenRouter, Google AI Studio, Groq, OpenCode Zen, Cloudflare Workers AI and Mistral on 2026-11-20, read through a summarising tool, so re-check the wording. Limits change often: treat every number as a snapshot. Sources: research/free-models.md</span></p>
+<ul>
+<li><strong>Goal:</strong> you will name what a “free” model offer costs you, sort offers into four kinds, and decide which data may go to which.</li>
+<li><strong>Before you start:</strong> <a href="adopt-the-pet.html">Adopt the Pet</a> (a small local model, “the Pet”) and <a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</li>
+<li><strong>Time:</strong> about 20 minutes. The hands-on step uses a dummy prompt and no sensitive data.</li>
+</ul>
 </div>
-<section id="what-the-pets-cousins-cost" class="level2">
-<h2 class="anchored" data-anchor-id="what-the-pets-cousins-cost">What the Pet’s cousins cost</h2>
-<p>The Pet is free because it runs on your machine. A lot of other “free” offers run on someone else’s machine, and then someone is paying. Sometimes it is the provider, who is buying your attention or your data. Sometimes it is you, in limits and in time. Nothing on this site requires you to use any of them.</p>
-<p>A community list, <a href="https://github.com/12britz/awesome-free-models">awesome-free-models</a>, collects over two hundred free models and tools. Its own banner records corrections from a single pass on 2026-11-14: several providers had ended or shrunk their free tier, and one “free tier” was a three-day trial. Use it to discover options, then read the provider’s own page.</p>
-</section>
+<p>The Pet is free because it runs on your machine. Many other “free” offers run on someone else’s machine, so someone is paying. Sometimes it is the provider, who gains your attention or your data. Sometimes it is you, in limits and in time. Using any of them is optional.</p>
+<p>Free tiers change often: providers have ended them, shrunk them or turned them into short trials. Read the provider’s own page before you rely on one, and treat every number on it as a snapshot.</p>
 <section id="four-kinds-of-free" class="level2">
 <h2 class="anchored" data-anchor-id="four-kinds-of-free">1. Four kinds of free</h2>
 <table class="caption-top table">
@@ -186,37 +186,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td><strong>Reseller of unknown origin</strong></td>
 <td>Unknown</td>
-<td>Everything you send. Ask who pays for it.</td>
+<td>Everything you send</td>
 </tr>
 </tbody>
 </table>
-<p>The last row is the one to be wary of. If a site offers a closed frontier model with no card and no limits, someone is paying, or the access is not what it says. The list we read says nothing we could confirm about who pays for such sites, so the safe default is to send them nothing you would not post publicly.</p>
+<p>If a site offers a closed frontier model with no card and no limits, ask who pays for it. Send such a site nothing you would not post publicly.</p>
 </section>
 <section id="what-to-check-on-any-free-offer" class="level2">
 <h2 class="anchored" data-anchor-id="what-to-check-on-any-free-offer">2. What to check on any free offer</h2>
 <ol type="1">
-<li><strong>Is it a free tier or a trial?</strong> A trial ends. A free tier may too: OpenCode Zen says several of its free models are “free on OpenCode for a limited time”.</li>
-<li><strong>What are the limits?</strong> Requests per day and per minute, and what happens past them. Cloudflare says that past the daily allowance “further operations will fail with an error”.</li>
-<li><strong>Is a card or other detail needed?</strong> Some free tiers still need a payment method, a phone number or a data opt-in.</li>
-<li><strong>Does the free tier train on your prompts?</strong> This is the one that matters most. Google’s AI Studio terms say that for unpaid services Google uses submitted content to “provide, improve, and develop” its products and that human reviewers may read it, while paid services are different. Groq says it does not retain inference data by default but may keep logs for up to 30 days. OpenRouter says it does not log prompts by default, but retention varies by the provider behind the model. The same router can send you to providers with different rules.</li>
-<li><strong>Who else is in the path?</strong> A router adds a party. Read both its terms and the terms of the provider it picks.</li>
+<li><strong>Free tier or trial?</strong> A trial ends, and a free tier may too. Several of OpenCode Zen’s free models are free for a limited time.</li>
+<li><strong>What are the limits?</strong> Look for requests per day and per minute, and what happens past them. On Cloudflare Workers AI, past the daily allowance further operations fail with an error.</li>
+<li><strong>Is a card or other detail needed?</strong> Some free tiers need a payment method, a phone number or a data opt-in.</li>
+<li><strong>Does the free tier train on your prompts?</strong> This matters most.
+<ul>
+<li>Google AI Studio: on unpaid services Google uses submitted content to improve its products, and human reviewers may read it. Paid services differ.</li>
+<li>Groq: it does not retain inference data by default, and may keep logs for up to 30 days.</li>
+<li>OpenRouter: it does not log prompts by default, and retention varies with the provider behind the model.</li>
+</ul></li>
+<li><strong>Who else is in the path?</strong> A router adds a party. Read its terms and the terms of the provider it picks. One router can send you to providers with different rules.</li>
 </ol>
-<p>The terms can differ <strong>per model</strong> inside one service: OpenCode Zen’s page lists some free models with zero retention and others that “may use” data for training. Read the line for the model you picked.</p>
-<p>Remember <a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: sensitive or unpublished data does not go to a hosted free tier. Use the Pet, or an approved service.</p>
+<p>The terms can differ <strong>per model</strong> inside one service. OpenCode Zen lists some free models with zero retention and others that may use your data for training. Read the line for the model you picked.</p>
+<p>Sensitive or unpublished data does not go to a hosted free tier. Use the Pet, or an approved service.</p>
 </section>
-<section id="will-it-work-with-my-agent" class="level2">
-<h2 class="anchored" data-anchor-id="will-it-work-with-my-agent">3. Will it work with my agent?</h2>
-<p>Most free endpoints speak an <strong>OpenAI-compatible</strong> protocol (a common way of sending chat requests). Claude Code does not use it, so a free model usually means a different harness, such as OpenCode, which can connect to an OpenAI-compatible gateway (see its Providers page in the Lore below). Free models also differ in how well they follow tool instructions. Not checked: how any particular free model behaves as an OpenCode backend.</p>
+<section id="a-worked-comparison-mistrals-terms" class="level2">
+<h2 class="anchored" data-anchor-id="a-worked-comparison-mistrals-terms">3. A worked comparison: Mistral’s terms</h2>
+<p>Mistral’s terms show how much one provider’s rules can vary. Read each point as a question to ask of any provider.</p>
+<ul>
+<li><strong>Training use depends on product and plan.</strong> Mistral Vibe (its terminal coding agent) Free, Pro, Teams and Student have training on, with an opt-out. Vibe Enterprise is opted out by default. Mistral Studio’s free mode may use data for training.</li>
+<li><strong>Opt-outs are per product.</strong> For Studio and the API, the opt-out is in the Admin Panel under Privacy, and opting out of one product does not opt you out of another. For Labs and Public Preview models, the opt-out does not apply.</li>
+<li><strong>Retention has its own options.</strong> Zero data retention exists for some API requests on pay-as-you-go, and each request is reviewed. Agents, Conversations, Files, Chat and Vibe are excluded. You do not need zero retention to opt out of model training. For retention periods, check Mistral’s current terms.</li>
+<li><strong>Where inference runs can be chosen.</strong> The global API endpoint does not commit to an inference location. The EU endpoint (<code>api.eu.mistral.ai</code>) runs in EU and EFTA data centers, so choose it on purpose if you need a European location. If location matters for Le Chat or Vibe, ask the vendor.</li>
+<li><strong>A local open-weight model keeps prompts on your machine.</strong> Open-weight Mistral models (for example <code>ministral-3:8b</code>, Apache 2.0) can run locally through Ollama. Tool or web calls may still send data out.</li>
+</ul>
+<p>The sensitive-data rule holds for every plan above: unpublished or sensitive data stays on the Pet or an approved service.</p>
+</section>
+<section id="pairing-a-free-model-with-an-agent" class="level2">
+<h2 class="anchored" data-anchor-id="pairing-a-free-model-with-an-agent">4. Pairing a free model with an agent</h2>
+<p>Free endpoints often speak an <strong>OpenAI-compatible</strong> protocol (a common way of sending chat requests). OpenCode can connect to an OpenAI-compatible gateway; its Providers page in the Lore below shows how. Free models differ in how well they follow tool instructions, so test one on a small task before you trust it.</p>
 </section>
 <section id="try-one-safely" class="level2">
-<h2 class="anchored" data-anchor-id="try-one-safely">4. Try one, safely</h2>
-<p>Pick one free tier from a provider you have read about. Create the key in the provider’s console and keep it out of chat and out of files in your project (see <a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>). Then make one call with a harmless prompt. The shape below is the common OpenAI-compatible one; take the real base URL and model name from the provider’s page.</p>
+<h2 class="anchored" data-anchor-id="try-one-safely">5. Try one, safely</h2>
+<p>Pick one free tier from a provider you have read about. Create the key in the provider’s console and keep it out of chat and out of files in your project. Then make one call with a harmless prompt. The shape below is the common OpenAI-compatible one; take the real base URL and model name from the provider’s page.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">FREE_API_KEY</span><span class="op">=</span><span class="st">"..."</span>          <span class="co"># set it in your shell, not in a file you commit</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sS</span> <span class="st">"</span><span class="va">$BASE_URL</span><span class="st">/chat/completions"</span> <span class="dt">\</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">"Authorization: Bearer </span><span class="va">$FREE_API_KEY</span><span class="st">"</span> <span class="dt">\</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">"Content-Type: application/json"</span> <span class="dt">\</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">'{"model": "MODEL_NAME", "messages": [{"role": "user", "content": "Say hello in one sentence."}]}'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This snippet is the general OpenAI-compatible form; it was not run for any provider here. Then fill in one row:</p>
+<p>Then fill in one row:</p>
 <table class="caption-top" style="width:100%;">
 <colgroup>
 <col style="width: 14%">
@@ -249,6 +266,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 </section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: for more on keys and on which data may leave your machine.</li>
+<li><a href="adopt-the-pet.html">Adopt the Pet</a>: run a model locally so prompts stay on your machine.</li>
+<li><a href="pick-your-companion.html">Pick Your Companion</a>: choose a model and effort level, and see Mistral’s terminal agent.</li>
+</ul>
+</section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
@@ -259,6 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://console.groq.com/docs/your-data">Groq: your data</a>: Groq, docs. Why read: it states the default retention and log period for inference requests.</li>
 <li><a href="https://opencode.ai/docs/zen/">OpenCode Zen</a>: OpenCode, docs. Why read: it lists free models together with their data-retention line, model by model.</li>
 <li><a href="https://developers.cloudflare.com/workers-ai/platform/pricing/">Cloudflare Workers AI pricing</a>: Cloudflare, docs. Why read: it shows a daily free allowance and what happens when you pass it.</li>
+<li><a href="https://help.mistral.ai/en/articles/347617-do-you-use-my-user-data-to-train-your-models">Do you use my user data to train your models?</a>: Mistral, docs. Why read: it lists, plan by plan, which Mistral products train on your data by default and where the opt-out lives.</li>
 <li><a href="https://opencode.ai/docs/providers/">Providers</a>: OpenCode, docs. Why read: it shows how to connect an OpenAI-compatible gateway to a coding agent.</li>
 </ul>
 </section>
@@ -266,6 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

@@ -144,10 +144,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Spot the Mirage, a terminal with Python 3 and <code>awk</code>, and the two exercise files below (about 1 KB in total). Nothing here touches your own data. <strong>Objective:</strong> find out whether a script an agent called “tested” is actually right, using a check the agent did not write. <strong>Time:</strong> about 15 minutes.</p>
-<p><span class="ao-badge">Verified: ran gc.py and the awk check on 2026-11-13 (macOS, Python 3.15, Apple awk). Output below is the real output.</span></p>
-<p><strong>Files:</strong> <a href="../../exercises/maze/tiny.fasta">tiny.fasta</a> and <a href="../../exercises/maze/gc.py">gc.py</a>. Save both into an empty folder.</p>
+<ul>
+<li><strong>Goal:</strong> you will find out whether a script an agent called “tested” is actually right, using a check the agent did not write.</li>
+<li><strong>Before you start:</strong> <a href="spot-the-mirage.html">Spot the Mirage</a>, a terminal with Python 3 and <code>awk</code>, and the two files below (about 1 KB in total). Nothing here touches your own data.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
+<p>Files: <a href="../../exercises/maze/tiny.fasta">tiny.fasta</a> and <a href="../../exercises/maze/gc.py">gc.py</a>. Save both into an empty folder.</p>
 <section id="the-lantern" class="level2">
 <h2 class="anchored" data-anchor-id="the-lantern">The lantern</h2>
 <p>An agent gave you <code>gc.py</code>, which reports the GC content of each sequence, and said “tested, works”. Test it yourself:</p>
@@ -167,13 +170,28 @@ seq3    2 GC of 8 total</code></pre>
 </section>
 <section id="say-what-the-agent-did" class="level2">
 <h2 class="anchored" data-anchor-id="say-what-the-agent-did">Say what the agent did</h2>
-<p>When agent work reaches a paper or a report, the AI for Science best practices (a European draft with no endorsements yet; practice 7) suggest a few habits. Make each answer traceable to its sources. Cite by persistent identifier (a permanent ID, such as a DOI for a paper or an accession number for a dataset), confirm that the identifier points to the real source, and then generate the reference from it with a tool that is not a language model, so a model does not write the reference text. Keep retraction status with the citation. Make clear what a person did and what an agent did, and disclose agent use where results are published. Record the model version, the inputs and the tool calls of each run (the record of where a result came from is called provenance) so you can look again later. You stay accountable for the judgement whatever the agent found. Their page also cites publisher and journal-editor policies (for example that an AI cannot be an author); check your target journal’s own rules, since we did not read those. Not checked first-hand: the practice page, read 2026-11-20 through a fetch summary, so re-check the wording on the page; see <code>research/aiforscience.md</code>.</p>
+<p>When agent work reaches a paper or a report, a few habits keep it traceable:</p>
+<ul>
+<li><strong>Cite by persistent identifier:</strong> a permanent ID, such as a DOI for a paper or an accession number for a dataset. Confirm that the identifier points to the real source.</li>
+<li><strong>Generate references with a tool that is not a language model,</strong> so a model does not write the reference text. Keep retraction status with the citation.</li>
+<li><strong>Separate person from agent:</strong> make clear what a person did and what an agent did, and disclose agent use where results are published. Check your target journal’s own rules.</li>
+<li><strong>Record each run:</strong> the model version, the inputs and the tool calls, so you can look again later. This record of where a result came from is called provenance.</li>
+<li><strong>Stay accountable:</strong> the judgement is yours whatever the agent found.</li>
+</ul>
 </section>
 <section id="battle-the-lantern" class="level2">
 <h2 class="anchored" data-anchor-id="battle-the-lantern">Battle: the lantern</h2>
 <div data-ao-test="maze-ground-truth" data-xp="80">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="spot-the-mirage.html">Spot the Mirage</a>: how plausible-but-false output looks and why you check it.</li>
+<li><a href="../factory/dry-run-first.html">Dry Run First</a>: preview what a pipeline will do before it runs.</li>
+<li><a href="../reef/send-small-say-so.html">Send Small, Say So</a>: hand over small work and say what the agent did.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -190,6 +208,7 @@ seq3    2 GC of 8 total</code></pre>
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

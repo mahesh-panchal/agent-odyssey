@@ -109,26 +109,38 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Know Your Gear, a terminal and <code>git</code>. The Context Window is advised. <strong>Objective:</strong> make any change reversible before an agent touches it.</p>
-<p><span class="ao-badge">Verified: ran these commands with git 2.54.0 on 2026-11-13</span></p>
+<ul>
+<li><strong>Goal:</strong> you will make any change reversible before an agent touches it.</li>
+<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Gear</a>, a terminal and <code>git</code> (the version control tool). A <strong>commit</strong> is a saved snapshot of your project; a <strong>tracked</strong> file is one git already follows.</li>
+<li><strong>Time:</strong> about 10 minutes.</li>
+</ul>
 </div>
-<p>Before any agent edits your files, put them under version control: <code>git init</code>, then <code>git add -A &amp;&amp; git commit -m "before agent"</code>. If the agent breaks something, <code>git restore .</code> returns every <strong>tracked</strong> file to that commit.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Two things <code>git restore .</code> does <em>not</em> do for you. It also throws away <strong>your own</strong> uncommitted edits to tracked files, so commit before you start. And it leaves <strong>new, untracked</strong> files the agent created where they are; <code>git status</code> shows them and you delete them yourself.</p>
-</div>
-</div>
+<p>Before any agent edits your files, put them under version control:</p>
+<ol type="1">
+<li>Run <code>git init</code> once in the project folder.</li>
+<li>Run <code>git add -A &amp;&amp; git commit -m "before agent"</code>.</li>
+<li>Let the agent work. If it breaks something, run <code>git restore .</code> to return every <strong>tracked</strong> file to that commit.</li>
+</ol>
+<p><code>git restore .</code> has two limits:</p>
+<ul>
+<li>It also throws away <strong>your own</strong> uncommitted edits to tracked files, so commit before you start.</li>
+<li>It leaves <strong>new, untracked</strong> files the agent created where they are. <code>git status</code> shows them, and you delete them yourself.</li>
+</ul>
+<section id="battle-the-save-point" class="level2">
+<h2 class="anchored" data-anchor-id="battle-the-save-point">Battle: the save point</h2>
 <div data-ao-test="crypt-shield-of-undo" data-xp="50">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="../codon-mill/the-stream-of-ideas.html">The Stream of Ideas</a>: for more on <code>/rewind</code> and its limits, and why git is the real save point.</li>
+<li><a href="../codon-mill/the-context-window.html">The Context Window</a>: what fills an agent’s working memory while it edits.</li>
+<li><a href="../scriptorium/why-notebooks-diff-badly.html">Why Notebooks Diff Badly</a>: what happens to your save point when the files are notebooks.</li>
+<li><a href="rules-of-the-carapace.html">Grow the Carapace</a>: permission rules, the next layer of protection.</li>
+</ul>
+</section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
@@ -141,6 +153,7 @@ Warning
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

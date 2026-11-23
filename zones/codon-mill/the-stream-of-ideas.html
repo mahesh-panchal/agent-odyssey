@@ -144,13 +144,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> When to Start Fresh. <strong>Objective:</strong> triage each new thought during a task into the right place (do now, park, quick question, helper, branch, or later session), and know what undo can and cannot restore. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16 (Claude Code commands, sessions, worktrees, checkpointing and best-practices docs). Claude Code specific unless stated. Parking-lot files are general practice.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
+<ul>
+<li><strong>Goal:</strong> you will triage each new thought during a task into the right place (do now, park, quick question, helper, branch, or later session), and know what undo can and cannot restore.</li>
+<li><strong>Before you start:</strong> <a href="when-to-start-fresh.html">When to Start Fresh</a>. Commands here are Claude Code commands.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
-<p>Real work does not arrive in a straight line. You start fixing a samplesheet parser and think: “should I switch the aligner? What if I tried a stricter QC threshold? I also want to explore that other idea.” If you type every one of those into the same conversation, the <strong>context</strong> (everything the model can see when it writes its next reply, see The Context Window) fills with side tracks. Anthropic’s writing on context says accuracy and recall degrade as context grows, and the docs say the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step (not checked: how much usage each route below saves; the research documents the mechanisms but gives no numbers). This is how a session ends up with three unrelated tasks that it “re-reads on every turn of the fourth”, in the docs’ words. A <strong>turn</strong> is one prompt from you plus the model’s reply.</p>
-<p>Ideas are welcome. The fix is to <strong>triage</strong> each one.</p>
+<p>Real work does not arrive in a straight line. You start fixing a samplesheet parser and think: “should I switch the aligner? What if I tried a stricter QC threshold? I also want to explore that other idea.” Typed into one conversation, each of those fills the context with side tracks.</p>
+<p>Accuracy and recall degrade as context grows, and the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step. A session with three unrelated tasks re-reads all of them on every turn of the fourth. Ideas are welcome. The fix is to <strong>triage</strong> each one.</p>
 <section id="terms-used-here" class="level2">
 <h2 class="anchored" data-anchor-id="terms-used-here">Terms used here</h2>
 <ul>
+<li><strong>Context:</strong> everything the model can see when it writes its next reply.</li>
+<li><strong>Turn:</strong> one prompt from you plus the model’s reply.</li>
 <li><strong>Session:</strong> one saved conversation with the tool, tied to a project folder.</li>
 <li><strong>Subagent:</strong> a helper the main agent starts. It works in its own separate, clean context (it knows what you tell it) and sends back a summary, so its reading stays out of your conversation.</li>
 <li><strong>Conversation branch (<code>/branch</code>, which is separate from a git branch):</strong> a copy of the conversation from this point, so you can try something in the copy while the original stays as it was. <code>/fork</code> is a different command: it copies the conversation into a separate background session.</li>
@@ -163,9 +169,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For each new thought, ask in this order. The key question is step 2: <strong>do you want the answer or the work during this session?</strong> If not, park it. If you do, steps 3 to 6 are the ways to get it.</p>
 <ol type="1">
 <li><strong>Does it block the current task?</strong> Do it now, in this session.</li>
-<li><strong>Do you not want the answer or the work this session?</strong> Park it: write one line in a file and carry on (general practice, see below). Parked ideas leave through the “later session” exit: once the current task is done, pick from the file.</li>
+<li><strong>Do you not want the answer or the work this session?</strong> Park it: write one line in a file and carry on. Parked ideas leave through the “later session” exit: once the current task is done, pick from the file.</li>
 <li><strong>You want it now: is it a quick question you do not need on record?</strong> Use <code>/btw &lt;question&gt;</code>. It sees the conversation so far, has no tool access (it cannot read files, run commands or look at <code>--help</code>) and adds nothing to the history. So it suits questions about this conversation. An answer about a tool’s flags or defaults comes from the model’s memory: verify it against <code>--help</code> or the docs.</li>
-<li><strong>You want it now: is it exploration where you only need a summary?</strong> Ask for a subagent (it starts with its own clean context; the built-in Explore helper is a fast read-only searcher), or use <code>/subtask &lt;task&gt;</code>, which starts a background helper that inherits the whole conversation and returns its result here.</li>
+<li><strong>You want it now: is it exploration where you only need a summary?</strong> Ask for a subagent (the built-in Explore helper is a fast read-only searcher), or use <code>/subtask &lt;task&gt;</code>, which starts a background helper that inherits the whole conversation and returns its result here.</li>
 <li><strong>You want it now: is it a competing approach you want to try for real?</strong> Use <code>/branch [name]</code> to copy the conversation (the original stays reachable via <code>/resume</code>), or start a second session in its own worktree with <code>claude --worktree &lt;name&gt;</code>.</li>
 <li><strong>You want it now: is it a different task entirely?</strong> Finish the current one, commit your work, then <code>/clear</code> or start a new named session (<code>claude -n &lt;name&gt;</code>, or <code>/rename &lt;name&gt;</code> inside one).</li>
 </ol>
@@ -216,51 +222,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="what-is-and-is-not-shared" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-and-is-not-shared">What is and is not shared</h2>
-<p>A worktree session isolates file edits only. Per the docs, <code>claude --worktree &lt;name&gt;</code> creates <code>.claude/worktrees/&lt;name&gt;/</code> on a branch called <code>worktree-&lt;name&gt;</code>. Worktrees share the repository’s <code>.git</code>, and auto memory is per repository, so all worktrees share it. A fresh checkout does not contain gitignored files such as <code>.env</code> unless you list them in <code>.worktreeinclude</code>, and large data folders need <code>worktree.symlinkDirectories</code> or a setup step. Plan for that before you start a pipeline test in one.</p>
+<section id="what-a-worktree-shares" class="level2">
+<h2 class="anchored" data-anchor-id="what-a-worktree-shares">What a worktree shares</h2>
+<p>A worktree session isolates file edits only.</p>
+<ul>
+<li><code>claude --worktree &lt;name&gt;</code> creates <code>.claude/worktrees/&lt;name&gt;/</code> on a branch called <code>worktree-&lt;name&gt;</code>.</li>
+<li>Worktrees share the repository’s <code>.git</code>, and auto memory is per repository, so all worktrees share it.</li>
+<li>A fresh checkout does not contain gitignored files such as <code>.env</code> unless you list them in <code>.worktreeinclude</code>. Large data folders need <code>worktree.symlinkDirectories</code> or a setup step. Plan for that before you start a pipeline test in one.</li>
+</ul>
 <p><code>/branch</code> copies the conversation. Any background helpers still running keep reporting into the branch.</p>
 </section>
 <section id="checkpoints-and-rewind" class="level2">
 <h2 class="anchored" data-anchor-id="checkpoints-and-rewind">Checkpoints and <code>/rewind</code></h2>
-<p>Every prompt you send is a checkpoint. <code>/rewind</code> (aliases <code>/checkpoint</code>, <code>/undo</code>; or press <code>Esc</code> twice on an empty prompt) lets you restore code and conversation, only the conversation, or only the code. The limits matter to bioinformatics: files changed <strong>only through Bash</strong> (the shell command tool) are not tracked, subagent edits are mostly not restored, and edits outside the session are not tracked. The docs say checkpoints are “not a replacement for version control”. A <code>sed -i</code> or a script that rewrites a results table is a Bash change (our inference from the limits), so exploring is safe only after you have committed.</p>
+<p>Every prompt you send is a checkpoint. <code>/rewind</code> (aliases <code>/checkpoint</code>, <code>/undo</code>; or press <code>Esc</code> twice on an empty prompt) lets you restore code and conversation, only the conversation, or only the code.</p>
+<p>The limits matter to bioinformatics:</p>
+<ul>
+<li>Files changed <strong>only through Bash</strong> (the shell command tool) are not tracked.</li>
+<li>Subagent edits are mostly not restored.</li>
+<li>Edits outside the session are not tracked.</li>
+</ul>
+<p>Checkpoints do not replace version control. A <code>sed -i</code> or a script that rewrites a results table is a Bash change, so commit before you explore.</p>
 </section>
 <section id="a-parking-lot-file" class="level2">
 <h2 class="anchored" data-anchor-id="a-parking-lot-file">A parking-lot file</h2>
-<p><strong>General practice (our inference, not a documented feature):</strong> no official page describes a parking-lot file. Keep it outside what the agent reads every session; the research cautions that a file imported into your instructions costs context each time. Keep it in the repository if the team should see it, in a gitignored file if it is personal, or use an issue tracker for anything that outlives the week.</p>
+<p>Keep the file outside what the agent reads every session: a file imported into your instructions file costs context each time. Keep it in the repository if the team should see it, in a gitignored file if it is personal, or use an issue tracker for anything that outlives the week.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># IDEAS.md  (one line each: date | idea | why it matters | revisit when)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>2026-11-16 | Add a --dry-run flag to the parser | Check a samplesheet without writing output | after parser fix is merged</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>2026-11-16 | Stricter QC threshold (Q30 not Q20) | Fewer false variants in low-depth samples | when the test cohort is ready</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>2026-11-16 | Per-sample coverage plot | Spot dropouts faster | before the next batch</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="worked-example" class="level2">
-<h2 class="anchored" data-anchor-id="worked-example">Worked example</h2>
-<p>You are fixing a samplesheet parser that rejects sample IDs containing a dot.</p>
+<p>Worked example: you are fixing a samplesheet parser that rejects sample IDs containing a dot.</p>
 <ul>
-<li>“Does the pipeline require the dot at all?” That blocks the fix: <strong>do it now</strong>.</li>
-<li>“Would a stricter QC threshold help?” You do not want the answer today: <strong>park</strong> it as a line in IDEAS.md.</li>
-<li>“Which sample did we exclude earlier?” A quick question about this conversation: <strong><code>/btw</code></strong>. (Had it been “what does <code>--min-qual</code> default to?”, <code>/btw</code> could only guess from memory, so you would check <code>--help</code> instead.)</li>
-<li>“Where else do we split sample IDs on dots?” Wide reading, only the list matters: <strong>Explore subagent</strong>.</li>
-<li>“Let’s try the other aligner and compare.” A real experiment you want now: commit the fix, then <strong><code>/branch</code></strong> or a <strong>worktree</strong> session.</li>
-<li>“I should also tidy the figures for the other project.” A different task you will start once the parser is done: <strong>later session</strong>: commit, <code>/clear</code>, or <code>claude -n figures</code>.</li>
+<li>“Does the pipeline require the dot at all?” blocks the fix, so do it now.</li>
+<li>“Would a stricter QC threshold help?” becomes a line in IDEAS.md.</li>
+<li>“Which sample did we exclude earlier?” is a <code>/btw</code>. For “what does <code>--min-qual</code> default to?”, <code>/btw</code> can only guess from memory, so check <code>--help</code>.</li>
+<li>“Where else do we split sample IDs on dots?” is wide reading where only the list matters: send an Explore subagent.</li>
+<li>“Let’s try the other aligner and compare.” is a real experiment you want now: commit the fix, then use <code>/branch</code> or a worktree session.</li>
+<li>“I should also tidy the figures for the other project.” is a different task for after the parser is done: commit, then <code>/clear</code> or <code>claude -n figures</code> in a later session.</li>
 </ul>
-<p>The main session ended with the parser fixed and a short, readable history.</p>
+<p>The main session ends with the parser fixed and a short, readable history.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Commands the docs confirm: <code>/btw</code>, <code>/subtask</code>, <code>/branch</code>, <code>/fork</code>, <code>/rewind</code>, <code>/clear</code>, <code>/rename</code>, <code>/resume</code>, <code>claude -n &lt;name&gt;</code>, <code>claude --worktree &lt;name&gt;</code> (or <code>-w</code>). Plan mode (<code>/plan</code>, or <code>Shift+Tab</code> until the bar shows it) makes Claude read and propose without editing until you approve. General practice (our inference): it suits a side idea you only want to think through.</p>
+<p>Commands: <code>/btw</code>, <code>/subtask</code>, <code>/branch</code>, <code>/fork</code>, <code>/rewind</code>, <code>/clear</code>, <code>/rename</code>, <code>/resume</code>, <code>claude -n &lt;name&gt;</code>, <code>claude --worktree &lt;name&gt;</code> (or <code>-w</code>).</p>
+<p>Plan mode (<code>/plan</code>, or <code>Shift+Tab</code> until the bar shows it) makes Claude read and propose without editing until you approve. Try it for a side idea you only want to think through.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Not checked: OpenCode’s side-question, branch and worktree features; the research could not find its share and fork pages. Documented on its terminal page: <code>/new</code> (alias <code>/clear</code>) for a fresh session, <code>/sessions</code> to return to one, <code>/compact</code>, and <code>/undo</code> and <code>/redo</code> (these need a git repository). General practice: a parking-lot file and a commit before exploring work in any tool, local models included.</p>
+<p>Check OpenCode’s documentation for its side-question, branch and worktree features. Its terminal page lists <code>/new</code> (alias <code>/clear</code>) for a fresh session, <code>/sessions</code> to return to one, <code>/compact</code>, and <code>/undo</code> and <code>/redo</code> (these need a git repository). In any tool, local models included, keep a parking-lot file and commit before exploring.</p>
 </div>
 </div>
-</div>
-<div data-ao-honour="parking-lot" data-xp="20">
-Start a parking-lot file (or open an issue list) for your current project and add the three ideas on your mind, one line each with a reason and a trigger to revisit.
-</div>
-<div data-ao-honour="triage-last" data-xp="20">
-Look back at your last long session. Pick one side thought you followed and say where the triage would have sent it.
 </div>
 </section>
 <section id="battle-the-side-channels" class="level2">
@@ -268,6 +278,24 @@ Look back at your last long session. Pick one side thought you followed and say 
 <div data-ao-test="codon-mill-the-stream-of-ideas" data-xp="50">
 
 </div>
+</section>
+<section id="bonus" class="level2">
+<h2 class="anchored" data-anchor-id="bonus">Bonus</h2>
+<div data-ao-honour="parking-lot" data-xp="20">
+Start a parking-lot file (or open an issue list) for your current project and add the three ideas on your mind, one line each with a reason and a trigger to revisit.
+</div>
+<div data-ao-honour="triage-last" data-xp="20">
+Look back at your last long session. Pick one side thought you followed and say where the triage would have sent it.
+</div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="when-to-start-fresh.html">When to Start Fresh</a>: for more on when a new session beats continuing this one.</li>
+<li><a href="handoff-notes.html">Handoff Notes</a>: carry the parked ideas and the task state into the next session.</li>
+<li><a href="../crypt/shield-of-undo.html">Save Point</a>: commit before you explore, so any change can be undone.</li>
+<li><a href="../forest/plan-before-you-edit.html">Plan Before You Edit</a>: plan mode for a side idea you want to think through.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -282,6 +310,7 @@ Look back at your last long session. Pick one side thought you followed and say 
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

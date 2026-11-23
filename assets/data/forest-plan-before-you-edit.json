@@ -35,14 +35,14 @@
     },
     {
      "text": "It selects No, keep planning",
-     "misconception": "Nothing in the docs ties Shift+Tab to declining. Choosing that option is a separate selection."
+     "misconception": "Shift+Tab does not decline the plan. Choosing that option is a separate selection."
     }
    ]
   },
   {
    "type": "choice",
    "prompt": "You run an interactive terminal session where bypass permissions is available, and switch to plan mode. What does plan mode guarantee?",
-   "explain": "In that setup the docs say Claude is only instructed to plan without editing. Claude Code does not enforce it, and edits run without a prompt.",
+   "explain": "In that setup Claude is only instructed to plan without editing. Claude Code does not enforce it, and edits run without a prompt.",
    "options": [
     {
      "text": "Nothing enforced: the agent is only instructed not to edit",

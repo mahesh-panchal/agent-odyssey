@@ -109,22 +109,42 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> The Context Window. <strong>Objective:</strong> use six terms precisely (token, context window, session context, memory, session usage, context poisoning), and say what to do when a wrong claim has got into a session or into memory. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/failure-modes.md sources on 2026-11-16 (Claude Code memory, sessions, costs, commands and best-practices docs). Claude Code specific unless stated.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
+<ul>
+<li><strong>Goal:</strong> you will use six terms precisely (token, context window, session context, memory, session usage, context poisoning), and say what to do when a wrong claim has got into a session or into memory.</li>
+<li><strong>Before you start:</strong> <a href="the-context-window.html">The Context Window</a>. Commands here are Claude Code commands.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
 <p>People say “it remembers”, “the session got long” and “I hit my usage” as if these were one thing. They are different things, with different places they live and different ways to reset them. Think of a lab glossary: one term, one meaning.</p>
 <section id="the-glossary" class="level2">
 <h2 class="anchored" data-anchor-id="the-glossary">The glossary</h2>
-<p><strong>Token.</strong> A chunk of text the model reads (a word piece, a character or a byte). Context limits and usage are counted in tokens. Details are in Tokens, Not Letters.</p>
-<p><strong>Context window.</strong> Everything the model can see when it writes its next output. It has a size limit, measured in tokens. See The Context Window.</p>
-<p><strong>Session and session context.</strong> A session is a saved conversation tied to a project directory (stored locally as a transcript file). Its <strong>session context</strong> is what is in the window right now. The docs say each session begins with a fresh context window and that sessions are independent: a new session has no history from earlier ones.</p>
-<p><strong>Memory.</strong> Text on disk that is read into a new window at the start of every session. In Claude Code there are two kinds, both loaded at session start:</p>
 <ul>
-<li><code>CLAUDE.md</code>: instructions <strong>you</strong> write (scope = who or where a setting applies: project, user or organisation).</li>
-<li><strong>Auto memory</strong>: notes the <strong>harness</strong> writes itself from your corrections and preferences. It is per git repository and machine-local, kept in <code>~/.claude/projects/&lt;project&gt;/memory/</code> as plain markdown with a <code>MEMORY.md</code> index. Only the first 200 lines or 25KB of <code>MEMORY.md</code> load at start; topic files are read on demand.</li>
+<li><strong>Token:</strong> a chunk of text the model reads (a word piece, a character or a byte). Context limits and usage are counted in tokens.</li>
+<li><strong>Context window:</strong> everything the model can see when it writes its next output. It has a size limit, measured in tokens.</li>
+<li><strong>Session and session context:</strong> a session is a saved conversation tied to a project directory (stored locally as a transcript file). Its session context is what is in the window right now. Each session begins with a fresh context window, and sessions are independent: a new session has no history from earlier ones.</li>
+<li><strong>Memory:</strong> text on disk that is read into a new window at the start of every session.</li>
+<li><strong>Session usage:</strong> how much of your allowance a session consumes.</li>
+<li><strong>Context poisoning:</strong> a wrong or injected statement enters the context and later answers build on it. The term is community vocabulary. A commonly cited example is a game-playing agent whose recorded goals became corrupted with false state.</li>
 </ul>
-<p>Memory is advisory context, and it takes room in the window every session. Run <code>/clear</code> and the conversation goes while memory stays. Compaction shrinks a session and leaves memory as it was.</p>
-<p><strong>Session usage.</strong> How much of your allowance a session consumes. In Claude Code, <code>/usage</code> shows an estimated session cost (worked out locally from token counts at list price, the published per-token price), plan usage limits and activity stats. <code>/cost</code> and <code>/stats</code> are aliases. The displayed session total resets on <code>/clear</code>; whether allowance already spent on a plan comes back is not documented (our inference: it does not). Two billing worlds exist: with a subscription, the plan bars are what matter and the dollar figure is an estimate (plans have rolling and weekly limit windows; see your plan docs, as the docs we read confirm the exact windows only for Teams and Enterprise per-seat allowances); with the API, usage is billed per token, and thinking tokens (the tokens the model spends reasoning before it answers) count as output tokens. The docs do not state allowance sizes for the individual plans, so see the vendor’s pricing page.</p>
-<p><strong>Context poisoning.</strong> A wrong or injected statement enters the context and later answers build on it. This is a <strong>community term</strong> from outside vendor documentation. It was coined in the post “How Long Contexts Fail” (2025-06-22) credited to Drew Breunig (the byline comes from a reprint listing; the page text we read did not name him). His example is a game-playing agent whose recorded goals became corrupted with false state. We found no use of this term in Anthropic’s docs; they do describe the same trap in plain words, below.</p>
+<section id="memory-in-claude-code" class="level3">
+<h3 class="anchored" data-anchor-id="memory-in-claude-code">Memory in Claude Code</h3>
+<p>Both kinds are loaded at session start:</p>
+<ul>
+<li><strong><code>CLAUDE.md</code>:</strong> instructions <strong>you</strong> write (the file can be set at project, user or organisation scope: who or where it applies).</li>
+<li><strong>Auto memory:</strong> notes the <strong>harness</strong> (the program around the model) writes itself from your corrections and preferences. It is per git repository and machine-local, kept in <code>~/.claude/projects/&lt;project&gt;/memory/</code> as plain markdown with a <code>MEMORY.md</code> index. Only the first 200 lines or 25KB of <code>MEMORY.md</code> load at start; topic files are read on demand.</li>
+</ul>
+<p>Memory is advisory context, and it takes room in the window every session. Run <code>/clear</code> and the conversation goes while memory stays. Compaction (replacing old conversation with a summary) shrinks a session and leaves memory as it was.</p>
+</section>
+<section id="session-usage-in-claude-code" class="level3">
+<h3 class="anchored" data-anchor-id="session-usage-in-claude-code">Session usage in Claude Code</h3>
+<ul>
+<li><code>/usage</code> shows an estimated session cost (worked out locally from token counts at list price, the published per-token price), plan usage limits and activity stats. <code>/cost</code> and <code>/stats</code> are aliases.</li>
+<li>The displayed session total resets on <code>/clear</code>. Check your plan’s documentation for when spent allowance resets.</li>
+<li>With a subscription, the plan bars are what matter and the dollar figure is an estimate. Plans have usage limit windows; your plan’s documentation gives the exact ones.</li>
+<li>With the API, usage is billed per token, and thinking tokens (the tokens the model spends reasoning before it answers) count as output tokens.</li>
+<li>For allowance sizes, check the vendor’s pricing page.</li>
+</ul>
+</section>
 </section>
 <section id="side-by-side" class="level2">
 <h2 class="anchored" data-anchor-id="side-by-side">Side by side</h2>
@@ -165,13 +185,13 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td>Session cost display</td>
 <td>Counted locally from tokens sent</td>
-<td>Displayed total resets; plan limit use already spent does not come back (our inference)</td>
-<td>Smaller outputs, fewer subagents (helper agents with their own context window), <code>/clear</code> between tasks</td>
+<td>Displayed total resets</td>
+<td>Small outputs, few subagents, <code>/clear</code> between tasks</td>
 </tr>
 <tr class="odd">
 <td>Poisoned claim</td>
 <td>In the context, or in memory</td>
-<td>Gone from the context, stays in memory</td>
+<td>Context: gone. Memory: stays</td>
 <td>Fresh session; delete the memory line</td>
 </tr>
 </tbody>
@@ -179,30 +199,46 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="why-usage-climbs" class="level2">
 <h2 class="anchored" data-anchor-id="why-usage-climbs">Why usage climbs</h2>
-<p>The docs give these reasons. Claude Code sends the <strong>whole conversation on every request</strong>, and each tool-using step is another request. Caching (a short-term store so repeated text is cheaper to re-read) makes re-reading cheaper but a short question late in a long session still draws on all of it. Large tool outputs (the docs’ example is reading a 10,000-line log) stay in the conversation. Subagents each have their own context, and their requests still count. <code>/compact</code> itself reads the whole conversation. Remedies from the docs: <code>/clear</code> between unrelated tasks, <code>/compact</code> with a focus note, <code>/context</code> to see what fills the window, and keeping <code>CLAUDE.md</code> under 200 lines.</p>
-<p>The cache has a lifetime, and a long break can outlast it, which makes the next message much dearer. When to Start Fresh has a section on the cache and the coffee break, with a community measurement (small sample, labelled as such).</p>
-<p>Seeing “rate limited until …” in <code>/usage</code> means the tool could not fetch plan limits, and says nothing about your work being limited.</p>
+<ul>
+<li>Claude Code sends the <strong>whole conversation on every request</strong>, and each tool-using step is another request.</li>
+<li>Caching (a short-term store so repeated text is cheaper to re-read) makes re-reading cheaper, but a short question late in a long session still draws on all of it.</li>
+<li>Large tool outputs stay in the conversation. Reading a 10,000-line log is one example.</li>
+<li>Subagents (helper agents with their own context window) each have their own context, and their requests still count.</li>
+<li><code>/compact</code> itself reads the whole conversation.</li>
+<li>Cached text has a lifetime, and a long break can outlast it, which makes the next message much dearer.</li>
+</ul>
+<p>Remedies:</p>
+<ul>
+<li><code>/clear</code> between unrelated tasks.</li>
+<li><code>/compact</code> with a focus note.</li>
+<li><code>/context</code> to see what fills the window.</li>
+<li>Keep <code>CLAUDE.md</code> under 200 lines.</li>
+</ul>
+<p>If <code>/usage</code> shows “rate limited until …”, the tool could not fetch your plan limits.</p>
 </section>
 <section id="when-a-wrong-claim-gets-in" class="level2">
 <h2 class="anchored" data-anchor-id="when-a-wrong-claim-gets-in">When a wrong claim gets in</h2>
-<p>Anthropic’s best-practices guidance is plain: if you have corrected the same thing twice and it is still wrong, <code>/clear</code> plus one new prompt that folds in what you learned works well, since a third correction mostly adds to a conversation that already holds two failed attempts for the model to re-read. <code>/rewind</code> can roll back to before the bad turn.</p>
-<p>Memory persists, so a wrong line costs the most there. <strong>General practice (our inference, from no official instruction):</strong> do not let a claim into <code>CLAUDE.md</code> or auto memory until you have checked it against the source, such as the data, the tool’s <code>--help</code> or the paper. If a bad line is already there, open <code>/memory</code>, read what has been written about your project, and delete it.</p>
+<p>If you have corrected the same thing twice and it is still wrong, run <code>/clear</code> and write one new prompt that folds in what you learned. A third correction mostly adds to a conversation that already holds two failed attempts for the model to re-read. <code>/rewind</code> can roll back to before the bad turn.</p>
+<p>Memory persists, so a wrong line costs the most there. Check a claim against the source, such as the data, the tool’s <code>--help</code> or the paper, before it goes into <code>CLAUDE.md</code> or auto memory. If a bad line is already there, open <code>/memory</code>, read what has been written about your project, and delete it.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Commands the docs confirm: <code>/memory</code> (lists memory files, toggles auto memory, opens the folder), <code>/clear</code> (new empty conversation; the old one stays resumable), <code>/compact</code>, <code>/resume</code> and <code>claude --resume</code> (pick an earlier session), <code>claude --continue</code> (most recent in this directory), <code>/usage</code>, <code>/context</code>. Resume restores messages, model and permission mode (what the agent may do without asking), and leaves startup flags such as <code>--mcp-config</code> for you to pass again. Transcripts are deleted after 30 days by default.</p>
+<p>Commands:</p>
+<ul>
+<li><code>/memory</code>: lists memory files, toggles auto memory, opens the folder.</li>
+<li><code>/clear</code>: new empty conversation; the old one stays resumable.</li>
+<li><code>/compact</code>: replace the history with a summary.</li>
+<li><code>/resume</code> and <code>claude --resume</code>: pick an earlier session.</li>
+<li><code>claude --continue</code>: the most recent session in this directory.</li>
+<li><code>/usage</code> and <code>/context</code>: usage and window contents.</li>
+</ul>
+<p>Resume restores messages, model and permission mode (what the agent may do without asking). Startup flags such as <code>--mcp-config</code> need to be passed again. Transcripts are deleted after 30 days by default.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Not checked: OpenCode’s memory files, session commands and usage reporting. The research for this page covers Claude Code only. General practice: with a local Ollama model the window is still finite, so the ideas about session context and poisoned claims carry over; find your tool’s own commands in its documentation. Not checked: whether anything is billed per token by a vendor.</p>
+<p>Check OpenCode’s documentation for its memory files, session commands and usage reporting. With a local Ollama model the window is still finite, so the ideas about session context and poisoned claims carry over. Check whether any vendor bills you per token.</p>
 </div>
 </div>
-</div>
-<div data-ao-honour="read-memory" data-xp="20">
-If you use a tool with memory, open it (in Claude Code, <code>/memory</code>) and read what it has recorded about a project. Is every line something you could source?
-</div>
-<div data-ao-honour="read-usage" data-xp="20">
-In a session you already have, run <code>/usage</code> and note what dominates: long conversation, big outputs or subagents. If it is not available to you, skip this.
 </div>
 </section>
 <section id="battle-the-three-ledgers" class="level2">
@@ -210,6 +246,24 @@ In a session you already have, run <code>/usage</code> and note what dominates: 
 <div data-ao-test="codon-mill-memory-sessions-and-usage" data-xp="50">
 
 </div>
+</section>
+<section id="bonus" class="level2">
+<h2 class="anchored" data-anchor-id="bonus">Bonus</h2>
+<div data-ao-honour="read-memory" data-xp="20">
+If you use a tool with memory, open it (in Claude Code, <code>/memory</code>) and read what it has recorded about a project. Is every line something you could source?
+</div>
+<div data-ao-honour="read-usage" data-xp="20">
+In a session you already have, run <code>/usage</code> and note what dominates: long conversation, big outputs or subagents. If it is not available to you, skip this.
+</div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="the-context-window.html">The Context Window</a>: for more on what fills the window and what compaction keeps.</li>
+<li><a href="tokens-not-letters.html">Tokens, Not Letters</a>: what a token is and why the count changes between models.</li>
+<li><a href="when-to-start-fresh.html">When to Start Fresh</a>: the cache lifetime and the coffee break, and when a new session pays off.</li>
+<li><a href="handoff-notes.html">Handoff Notes</a>: what crosses from one session to the next, and how to write it down.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -224,6 +278,7 @@ In a session you already have, run <code>/usage</code> and note what dominates: 
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

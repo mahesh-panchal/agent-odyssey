@@ -109,7 +109,11 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Recruit the Beast. The Context Window is advised. <strong>Objective:</strong> write prompts that make output checkable, and manage the context window so the agent stays on task. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code>).</span></p>
+<ul>
+<li><strong>Goal:</strong> you will write prompts that make output checkable, and keep the context window in good shape so the agent stays on task.</li>
+<li><strong>Before you start:</strong> <a href="../kennel/recruit-the-beast.html">Recruit the Beast</a>. The <strong>context window</strong> is everything the model can see in a session: your prompts, its replies, and the files it has read.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
 <p>The first branch of the skill tree is the <strong>brief</strong>: what you tell the agent. A vague brief invites a plausible guess. A good brief names the file and the symptom, says what “done” looks like, and gives the agent a <strong>check it can run</strong>.</p>
 <table class="caption-top table">
@@ -136,23 +140,22 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <p>Two habits make the rest of this safer:</p>
 <ul>
-<li><strong>Plan first:</strong> see the next quest, <em>Plan Before You Edit</em>.</li>
-<li><strong>Ask for evidence.</strong> “Show the command and its output” turns a claim into something you can look at.</li>
+<li><strong>Plan first:</strong> ask for a plan before any edit, and read it.</li>
+<li><strong>Ask for evidence:</strong> “Show the command and its output” turns a claim into something you can look at.</li>
 </ul>
-<section id="a-role-line-is-not-a-substitute-for-a-brief" class="level2">
-<h2 class="anchored" data-anchor-id="a-role-line-is-not-a-substitute-for-a-brief">A role line is not a substitute for a brief</h2>
-<p>A common habit is to open with “You are a world-class bioinformatician.” The one study we read on this found that expert personas are not a free gain. In a 2026 preprint (Hu, Rostami and Thomason), personas tended to help tasks about tone, format, safety and preference. They tended to hurt tasks that rely on what the model already knows: on the MMLU knowledge benchmark, accuracy fell from 71.6% with no persona to 68.0% with the shortest persona tested. The authors say shorter personas reduce the damage but do not remove it, and longer ones helped the alignment tasks more, so no length was best for both.</p>
-<p>What to take from it (our reading, general practice):</p>
+<section id="put-effort-into-the-brief-not-a-role-line" class="level2">
+<h2 class="anchored" data-anchor-id="put-effort-into-the-brief-not-a-role-line">Put effort into the brief, not a role line</h2>
+<p>A common habit is to open with “You are a world-class bioinformatician.” Expert personas help with tone, format, safety and preference tasks. They can hurt tasks that rely on what the model already knows: in one preprint on small models, tested on a knowledge benchmark (MMLU), accuracy fell from 71.6% with no persona to 68.0% with the shortest persona. Shorter personas reduce the damage but do not remove it.</p>
+<p>So:</p>
 <ul>
-<li>Put your effort into the <strong>brief</strong>: the file, the symptom, what “done” looks like, and a check. Those are testable. A role line is not.</li>
-<li>Use a role or tone line when you want a style, such as “explain this for a first-year student”, and not to make the model more accurate.</li>
-<li>If you do use a persona on a factual task, test it against a version without one. See <em>Close the Loop</em>.</li>
+<li><strong>Brief first:</strong> put your effort into the file, the symptom, what “done” looks like, and a check. Those are testable. A role line is not.</li>
+<li><strong>Role for style:</strong> use a role or tone line when you want a style, such as “explain this for a first-year student”.</li>
+<li><strong>Test a persona:</strong> if you use one on a factual task, compare the result against a version without one.</li>
 </ul>
-<p>Limits: the study used small open models (7 to 8 billion parameters), not the large models you will likely use, and it is a preprint. It did not test flattery such as “world’s best”, so claims that flattery makes output worse go beyond what it shows.</p>
 </section>
 <section id="context-is-a-budget" class="level2">
 <h2 class="anchored" data-anchor-id="context-is-a-budget">Context is a budget</h2>
-<p>Everything in the conversation takes up room in the context window. The Claude Code docs note that old conversation can crowd out the files you need next.</p>
+<p>Everything in the conversation takes up room in the context window. Old conversation can crowd out the files you need next.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -160,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
 <p><code>/context</code> shows what is filling the window. <code>/compact</code> summarises the conversation (you can say what to keep). <code>/clear</code> starts fresh, which is right when you switch to an unrelated task. Claude Code also compacts automatically near the limit.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p><code>/compact</code> (alias <code>/summarize</code>, meaning another name for the same command) summarises the session and <code>/new</code> (alias <code>/clear</code>) starts a new one. The docs show no <code>/context</code> equivalent in the TUI (the text user interface, OpenCode’s terminal screen).</p>
+<p><code>/compact</code> (alias <code>/summarize</code>, meaning another name for the same command) summarises the session and <code>/new</code> (alias <code>/clear</code>) starts a new one. In the TUI (the text user interface, OpenCode’s terminal screen), run <code>/help</code> to see whether your version has a command that shows what fills the window.</p>
 </div>
 </div>
 </div>
@@ -170,6 +173,14 @@ ul.task-list li input[type="checkbox"] {
 <div data-ao-test="forest-write-the-brief" data-xp="60">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="plan-before-you-edit.html">Plan Before You Edit</a>: for more on asking for a plan first, and how to review it.</li>
+<li><a href="close-the-loop.html">Close the Loop</a>: for more on testing a persona or a prompt change against a version without it.</li>
+<li><a href="../codon-mill/the-context-window.html">The Context Window</a>: for more on what fills the window and why it matters.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -185,6 +196,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

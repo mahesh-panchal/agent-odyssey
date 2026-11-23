@@ -109,17 +109,27 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Tokens, Not Letters. <strong>Objective:</strong> say what fills the context window, what happens when it is full, and three habits that keep it useful. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API context-windows docs and Claude Code context-window and how-it-works docs on 2026-11-16 (sources in <code>research/fundamentals.md</code>). Compaction details are Claude Code specific.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
+<ul>
+<li><strong>Goal:</strong> you will say what fills the context window, what happens when it is full, and three habits that keep it useful.</li>
+<li><strong>Before you start:</strong> <a href="tokens-not-letters.html">Tokens, Not Letters</a>. A token is a chunk of text the model reads.</li>
+<li><strong>Time:</strong> about 20 minutes.</li>
+</ul>
 </div>
-<p>The <strong>context window</strong> is all the text the model can look at when it writes its next piece of output, including its own reply. Anthropic’s docs compare it to working memory, and say it is separate from what the model learned in training. It is measured in tokens, as in the last quest.</p>
+<p>The <strong>context window</strong> is all the text the model can look at when it writes its next piece of output, including its own reply. It works like the model’s working memory and is separate from what the model learned in training. It is measured in tokens.</p>
 <section id="what-fills-it" class="level2">
 <h2 class="anchored" data-anchor-id="what-fills-it">What fills it</h2>
-<p>In Claude Code the docs list: your instructions, the files it reads, its own responses, and content that never appears in your terminal. Before you type anything, the window already holds the instructions file (<code>CLAUDE.md</code>, the text file the harness loads at session start; see Know Your Gear), auto memory, the names of MCP tools and skill descriptions. Every file it reads and every tool output then adds more. At the API level (programmatic access to the model) the same idea holds: system prompt (the harness’s own instructions, sent with every request), every message, tool results, tool definitions and the output all count.</p>
-<p>Sizes depend on the model, up to 1 million tokens for some and 200 thousand for others, per the docs. A big window gives room for more text, and quality depends on what fills it.</p>
+<p>In Claude Code (a coding agent that runs in your terminal), the window holds your instructions, the files it reads, its own responses, and content that never appears in your terminal. Before you type anything, it already holds:</p>
+<ul>
+<li>the instructions file (<code>CLAUDE.md</code>, a text file the harness loads at session start; the <strong>harness</strong> is the program around the model that runs tools and sends your text)</li>
+<li>auto memory (notes the harness keeps from earlier sessions)</li>
+<li>the names of MCP tools (tools added from outside servers) and skill descriptions (short summaries of saved instruction sets)</li>
+</ul>
+<p>Every file it reads and every tool output then adds more. At the API level (programmatic access to the model) the same idea holds: the system prompt (the harness’s own instructions, sent with every request), every message, tool results, tool definitions and the output all count.</p>
+<p>Sizes depend on the model, up to 1 million tokens for some and 200 thousand for others. A big window gives room for more text, and quality depends on what fills it.</p>
 </section>
 <section id="bigger-is-not-better" class="level2">
 <h2 class="anchored" data-anchor-id="bigger-is-not-better">Bigger is not better</h2>
-<p>Anthropic’s docs put it directly: as the token count grows, accuracy and recall degrade. They call this <strong>context rot</strong>. The docs give no number at which it starts, so treat any quoted figure without a source as unverified. The practical point: what you put in matters as much as how much fits.</p>
+<p>As the token count grows, accuracy and recall degrade. This is called <strong>context rot</strong>. Anthropic’s docs give no token count at which it starts, so check the source of any figure you see. What you put in matters as much as how much fits.</p>
 </section>
 <section id="when-it-fills-up" class="level2">
 <h2 class="anchored" data-anchor-id="when-it-fills-up">When it fills up</h2>
@@ -127,11 +137,23 @@ ul.task-list li input[type="checkbox"] {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>It <strong>compacts</strong> automatically as the limit nears: the history is replaced by a summary. The docs say the summary keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost. What is re-supplied afterwards: the system prompt, the project-root <code>CLAUDE.md</code>, auto memory and skill descriptions; up to five recently read or edited files are read again (a file over 5,000 tokens comes back as a path only). Nested instruction files are summarised away and reload on demand.</p>
-<p>Useful controls: <code>/context</code> shows what is using space, <code>/compact</code> with a focus note compacts on purpose, <code>/clear</code> starts clean between unrelated tasks. A subagent (a helper agent) has its own window and only a summary comes back. If one file or output is so big that the window refills after every summary, auto-compaction stops with an error.</p>
+<p>It <strong>compacts</strong> automatically as the limit nears: the history is replaced by a summary. The summary keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost.</p>
+<p>Afterwards, Claude Code re-supplies:</p>
+<ul>
+<li>the system prompt, the project-root <code>CLAUDE.md</code>, auto memory and skill descriptions</li>
+<li>up to five recently read or edited files (a file over 5,000 tokens comes back as a path only)</li>
+</ul>
+<p>Nested instruction files are summarised away and reload on demand.</p>
+<p>Useful controls:</p>
+<ul>
+<li><code>/context</code> shows what is using space.</li>
+<li><code>/compact</code> with a focus note compacts on purpose.</li>
+<li><code>/clear</code> starts clean between unrelated tasks.</li>
+</ul>
+<p>A subagent (a helper agent) has its own window and only a summary comes back. If one file or output is so big that the window refills after every summary, auto-compaction stops with an error.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Not checked: OpenCode’s compaction behaviour. Compaction is documented here for Claude Code only. General practice: expect any tool to drop or summarise something when the window is full, and a local model often runs with a smaller window, so check your model’s setting and how your tool reports usage.</p>
+<p>Check OpenCode’s documentation for how it compacts and how it reports window usage. Expect any tool to drop or summarise something when the window is full. A local model may run with a smaller window, so check your model’s setting.</p>
 </div>
 </div>
 </div>
@@ -139,10 +161,19 @@ ul.task-list li input[type="checkbox"] {
 <section id="three-habits" class="level2">
 <h2 class="anchored" data-anchor-id="three-habits">Three habits</h2>
 <ol type="1">
-<li><strong>Start fresh for a new task.</strong> An unrelated earlier thread takes room and can distract (general practice).</li>
-<li><strong>Keep outputs small.</strong> In bioinformatics terms: ask for the head, a count, or a summary script’s output when the file is a big variant table or a whole log (general practice).</li>
-<li><strong>Put durable facts in the instructions file,</strong> such as how to run tests or which folders are off limits. Instructions given only in chat can be lost to compaction. Keep that file short; Anthropic’s docs target under 200 lines and say longer files use more context and reduce adherence.</li>
+<li><strong>Start fresh for a new task.</strong> An unrelated earlier thread takes room and can distract.</li>
+<li><strong>Keep outputs small.</strong> In bioinformatics terms: ask for the head, a count, or a summary script’s output when the file is a big variant table or a whole log.</li>
+<li><strong>Put durable facts in the instructions file,</strong> such as how to run tests or which folders are off limits. Instructions given only in chat can be lost to compaction. Keep that file short: aim for under 200 lines, because longer files use more context and reduce how well the agent follows them.</li>
 </ol>
+</section>
+<section id="battle-the-hopper" class="level2">
+<h2 class="anchored" data-anchor-id="battle-the-hopper">Battle: the hopper</h2>
+<div data-ao-test="codon-mill-the-context-window" data-xp="50">
+
+</div>
+</section>
+<section id="bonus" class="level2">
+<h2 class="anchored" data-anchor-id="bonus">Bonus</h2>
 <div data-ao-honour="check-context" data-xp="20">
 In a session you already have, look at what is using the window (in Claude Code, run <code>/context</code>). Note the largest item and whether you chose it.
 </div>
@@ -150,11 +181,14 @@ In a session you already have, look at what is using the window (in Claude Code,
 Find one instruction you keep retyping in chat and move it into your instructions file in one short line.
 </div>
 </section>
-<section id="battle-the-hopper" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-hopper">Battle: the hopper</h2>
-<div data-ao-test="codon-mill-the-context-window" data-xp="50">
-
-</div>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="memory-sessions-and-usage.html">Memory, Sessions and Usage</a>: for more on what loads into every session, and how usage grows with context.</li>
+<li><a href="when-to-start-fresh.html">When to Start Fresh</a>: when to clear and when to continue.</li>
+<li><a href="who-said-what.html">Who Said What</a>: the system prompt, the instructions file and your own message, and which one only advises.</li>
+<li><a href="handoff-notes.html">Handoff Notes</a>: carry a task across a new session in a short written note.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -170,6 +204,7 @@ Find one instruction you keep retyping in chat and move it into your instruction
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

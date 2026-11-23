@@ -128,7 +128,7 @@
   },
   {
    "type": "choice",
-   "prompt": "A model grades 200 outputs from another model of the same family. What does the AI for Science draft advise?",
+   "prompt": "A model grades 200 outputs from another model of the same family. What is the best check on the scores?",
    "explain": "A same-family judge is not an independent grader. Check a sample by hand against reference answers written before you saw the outputs.",
    "options": [
     {

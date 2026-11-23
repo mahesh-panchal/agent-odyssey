@@ -12,7 +12,7 @@
     },
     {
      "text": "The subscription login, since a personal login outranks an exported key",
-     "misconception": "The docs say the API key overrides a subscription login when it is set."
+     "misconception": "The API key overrides a subscription login when it is set."
     },
     {
      "text": "Whichever was created first, because Claude Code never mixes the two",
@@ -49,7 +49,7 @@
   },
   {
    "type": "sort",
-   "prompt": "Sort each habit by how it fits shared cluster storage (general practice; your site's policy decides).",
+   "prompt": "Sort each habit by how it fits shared cluster storage (your site's policy decides).",
    "explain": "Keep secrets and controlled data away from shared, readable places, and keep personal files at the narrowest permission.",
    "bins": [
     "good habit",

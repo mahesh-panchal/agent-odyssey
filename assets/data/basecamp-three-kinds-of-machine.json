@@ -97,8 +97,8 @@
   },
   {
    "type": "choice",
-   "prompt": "A lab must rename 5,000 sample IDs to one fixed pattern. According to the AI for Science draft, what do you try first?",
-   "explain": "The draft says to ask first whether a script, a fixed workflow or a smaller model does the job. A known rule suits a script: cheap, repeatable and unchanged by provider updates.",
+   "prompt": "A lab must rename 5,000 sample IDs to one fixed pattern. What do you try first?",
+   "explain": "Ask first whether a script, a fixed workflow or a smaller model does the job. A known rule suits a script: cheap, repeatable and unchanged by provider updates.",
    "options": [
     {
      "text": "A short script that applies the rule",

@@ -109,23 +109,35 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Three Kinds of Machine. Where Machines Fail is advised. <strong>Objective:</strong> decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">General practice, not a vendor claim.</span></p>
+<ul>
+<li><strong>Goal:</strong> you will decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does.</li>
+<li><strong>Before you start:</strong> <a href="../basecamp/three-kinds-of-machine.html">Three Kinds of Machine</a>.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
-<p>A pipeline earns trust by giving the same answer from the same input. An LLM call can return different text from run to run, so putting one inside a step changes what the pipeline is.</p>
-<p><strong>Prefer to keep the LLM out of the run.</strong> Use it to <em>write</em> a script, then test the script and run the script. The script is deterministic and reviewable.</p>
+<p>A pipeline earns trust by giving the same answer from the same input. An LLM call can return different text from run to run, so an LLM inside a step changes the pipeline’s behaviour.</p>
+<p>Keep the LLM out of the run when you can. Use it to write a script, then test the script and run the script. The script behaves the same every time and you can review it.</p>
 <p>If an LLM call really must be a step (tidying messy free-text labels, say), contain it:</p>
 <ul>
-<li><strong>Record</strong> the model name and version, and the exact prompt, with the outputs. This is a necessary start, and even a pinned model may not return identical text every time.</li>
-<li><strong>Cache</strong> results keyed by input (saved outputs; a different sense from the prompt cache used in Claude Code sessions), so a re-run does not change them silently.</li>
+<li><strong>Record</strong> the model name and version, and the exact prompt, with the outputs. A pinned model may still return different text, so recording is a start.</li>
+<li><strong>Cache</strong> results keyed by input (saved outputs), so a re-run does not change them silently.</li>
 <li><strong>Validate</strong> each output against a fixed set (a species list, a schema) and fail loudly when it does not match.</li>
 <li><strong>Keep a human-check sample</strong>: look at a random handful every time.</li>
-<li><strong>Keep it away from data you may not send out.</strong> See The Locked Cabinet.</li>
+<li><strong>Keep restricted data away from external models.</strong> Data you may not share must not reach an outside API.</li>
 </ul>
 <section id="battle-reproducible-runs" class="level2">
 <h2 class="anchored" data-anchor-id="battle-reproducible-runs">Battle: reproducible runs</h2>
 <div data-ao-test="factory-same-every-time" data-xp="60">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="../codon-mill/where-machines-fail.html">Where Machines Fail</a>: why an LLM’s output can change or be wrong.</li>
+<li><a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: what data may leave your machine.</li>
+<li><a href="read-the-rails.html">Read the Rails</a>: pinning tool versions and other pipeline checks.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -141,6 +153,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

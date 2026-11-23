@@ -109,39 +109,52 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Write the Brief. Who Said What is advised. <strong>Objective:</strong> give the agent standing instructions for a project, and know where they end and enforcement begins. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code> and <code>research/doctor.md</code>).</span></p>
+<ul>
+<li><strong>Goal:</strong> you will give the agent standing instructions for a project, and know where instructions end and enforcement begins.</li>
+<li><strong>Before you start:</strong> <a href="write-the-brief.html">Write the Brief</a>. <a href="../codon-mill/who-said-what.html">Who Said What</a> helps.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
 <p>Typing the same background every session is wasteful. A <strong>project instructions file</strong> is read at the start so the agent already knows the project’s conventions.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>The file is <code>CLAUDE.md</code>. It can live in <code>~/.claude/CLAUDE.md</code> (all your projects), <code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code> (the project, shared if committed), and <code>./CLAUDE.local.md</code> (yours, not committed). Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. <code>/init</code> drafts one from your project and <code>/memory</code> lists and edits them. <code>@path</code> imports another file, and the imported text still uses context.</p>
+<p>The file is <code>CLAUDE.md</code>. It can live in:</p>
+<ul>
+<li><code>~/.claude/CLAUDE.md</code>: all your projects.</li>
+<li><code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code>: the project, shared if committed.</li>
+<li><code>./CLAUDE.local.md</code>: yours, not committed.</li>
+</ul>
+<p>Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. <code>/init</code> drafts one from your project and <code>/memory</code> lists and edits them. <code>@path</code> imports another file, and the imported text still uses context.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>The file is <code>AGENTS.md</code> in the project root (or <code>~/.config/opencode/AGENTS.md</code> for all projects). <code>/init</code> creates or updates it. The <code>instructions</code> array in <code>opencode.json</code> adds more files. OpenCode also falls back to <code>CLAUDE.md</code> if there is no <code>AGENTS.md</code>.</p>
 </div>
 </div>
 </div>
-<section id="what-goes-in-and-the-limit" class="level2">
-<h2 class="anchored" data-anchor-id="what-goes-in-and-the-limit">What goes in, and the limit</h2>
-<p>Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, “never edit <code>raw/</code>”. Keep it short (the Claude Code docs aim for under 200 lines per file) because very long instructions are followed less well.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Instructions are advice.</strong> Claude Code’s docs describe <code>CLAUDE.md</code> as context, and not as enforced configuration. A line saying “never delete files” cannot stop a delete. Enforcement comes from permission rules, hooks, or managed settings (organisation-set rules you cannot override): the carapace you built in the Crypt.</p>
-</div>
-</div>
-<p>Instruction files go stale too: a rule written for an older model, a path that no longer exists, two files that disagree. The docs warn that when instructions contradict each other, Claude may pick one arbitrarily. In Claude Code (v2.1.283 or later), <code>/doctor prompt-audit</code> (<code>/doctor</code> is a <strong>bundled skill</strong>, a ready-made skill that ships inside the tool) checks your instruction files for outdated or conflicting content and writes a report with proposed edits. It changes nothing until you ask. It checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. Not checked: an OpenCode equivalent.</p>
-<p>The AI for Science best practices (a European draft with no endorsements yet; practice 5) make a related point for your own code and notebooks: an agent operates a tool or dataset from its docstrings and descriptions, so write them as if an agent will re-run the work. Put units, data versions and assumptions in the docstring or next to the code. Their example is a renamed parameter with an old docstring: the agent called a name that no longer existed. The page also warns that stale documentation leads to plausible but wrong results. Not checked first-hand: read 2026-11-20 through a fetch summary, so re-check the wording on the page; see <code>research/aiforscience.md</code>.</p>
+<section id="what-goes-in" class="level2">
+<h2 class="anchored" data-anchor-id="what-goes-in">What goes in</h2>
+<p>Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, “never edit <code>raw/</code>”. Keep it short (aim for under 200 lines per file) because very long instructions are followed less well.</p>
 <p>Write the file yourself first and read what <code>/init</code> produces critically. A generated file can contain wrong guesses about your project.</p>
+</section>
+<section id="where-instructions-end" class="level2">
+<h2 class="anchored" data-anchor-id="where-instructions-end">Where instructions end</h2>
+<p>Instructions are advice. The instructions file is loaded as context, and a line saying “never delete files” cannot stop a delete. Enforcement comes from permission rules (rules that allow, ask or deny a tool call), hooks (scripts that run before or after a tool call), and managed settings (organisation-set rules you cannot override).</p>
+</section>
+<section id="keep-the-file-current" class="level2">
+<h2 class="anchored" data-anchor-id="keep-the-file-current">Keep the file current</h2>
+<p>Instruction files go stale: a rule written for an older model, a path that no longer exists, two files that disagree. When instructions contradict each other, Claude may pick one arbitrarily.</p>
+<p>In Claude Code (v2.1.283 or later), <code>/doctor prompt-audit</code> checks your instruction files for outdated or conflicting content and writes a report with proposed edits. (<code>/doctor</code> is a <strong>bundled skill</strong>, a ready-made skill that ships inside the tool.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.</p>
+</section>
+<section id="write-docs-for-the-agent-too" class="level2">
+<h2 class="anchored" data-anchor-id="write-docs-for-the-agent-too">Write docs for the agent too</h2>
+<p>An agent works on your code and data from the docstrings and descriptions it finds. Write them as if an agent will re-run the work:</p>
+<ul>
+<li><strong>Units, data versions and assumptions:</strong> put them in the docstring or next to the code.</li>
+<li><strong>Renames:</strong> update the docstring when you rename a parameter. An agent that reads an old docstring calls a name that no longer exists.</li>
+<li><strong>Stale documentation:</strong> it leads to results that look plausible and are wrong.</li>
+</ul>
 <div data-ao-honour="write-charter" data-xp="15">
 Write a short instructions file (about ten lines) for one of your real projects: how to run its tests, where data lives, and one thing the agent should leave alone.
 </div>
@@ -151,6 +164,15 @@ Write a short instructions file (about ten lines) for one of your real projects:
 <div data-ao-test="forest-the-project-charter" data-xp="60">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="forge-a-skill.html">Forge a Skill</a>: for more on moving a long procedure out of the instructions file and into a Skill.</li>
+<li><a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>: for more on permission rules that enforce what an instructions file only asks.</li>
+<li><a href="../gatehouse/guard-the-door.html">Guard the Door</a>: for more on hooks as a way to enforce a rule in code.</li>
+<li><a href="../codon-mill/who-said-what.html">Who Said What</a>: for more on what the model treats as an instruction and what it treats as data.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -167,6 +189,7 @@ Write a short instructions file (about ten lines) for one of your real projects:
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

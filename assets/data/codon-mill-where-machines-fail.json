@@ -68,7 +68,7 @@
   {
    "type": "match",
    "prompt": "Match each failure mode to a fitting mitigation.",
-   "explain": "Each mitigation targets the mechanism: lookups catch invented IDs, treating fetched text as data limits injection, a short file with a hook holds rules, and keeping the script is what is reproducible (general practice: non-determinism is not confirmed in the official docs).",
+   "explain": "Each mitigation targets the mechanism: lookups catch invented IDs, treating fetched text as data limits injection, a short file with a hook holds rules, and keeping the script is what is reproducible.",
    "pairs": [
     {
      "left": "Hallucinated citation",

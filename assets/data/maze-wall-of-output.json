@@ -152,7 +152,7 @@
   },
   {
    "type": "choice",
-   "prompt": "A workflow asks a person to approve each of several hundred agent edits an hour. What is the problem, in the AI for Science draft's terms?",
+   "prompt": "A workflow asks a person to approve each of several hundred agent edits an hour. What is the problem?",
    "explain": "At that volume approval turns into click-through. A stated human check only counts as oversight when it shows what changed at a readable volume and allows edit, veto and stop.",
    "options": [
     {
@@ -161,11 +161,11 @@
     },
     {
      "text": "None, since a person approved every item",
-     "misconception": "Approval without scrutiny is not oversight; the draft says not to automate approval."
+     "misconception": "Approval without scrutiny is not oversight; approval that is automated or rushed is not a check."
     },
     {
      "text": "People are too slow, so the step should be removed",
-     "misconception": "The draft keeps a real decision point where results or others are affected, and asks you to design it to fit the volume."
+     "misconception": "Keep a real decision point where results or others are affected, and asks you to design it to fit the volume."
     },
     {
      "text": "It matters only if some of the edits turn out to be wrong",

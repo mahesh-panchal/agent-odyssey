@@ -144,14 +144,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Save Point; Why Notebooks Diff Badly (helpful, not required); Python 3 and the two exercise files below (about 1 KB). <strong>Objective:</strong> show that a notebook’s stored result can differ from a fresh top-to-bottom run, and use that as the check before you trust or share one. <strong>Time:</strong> about 15 minutes.</p>
-<p><span class="ao-badge">Verified: ran run_cells.py on 2026-11-16 (macOS, Python 3.9.6). Output below is the real output. Tool facts: Last verified (docs, not run): marimo and Claude Code docs on 2026-11-16.</span></p>
-<p><strong>Files:</strong> <a href="../../exercises/scriptorium/cells.py">cells.py</a> and <a href="../../exercises/scriptorium/run_cells.py">run_cells.py</a>. Save both into an empty folder.</p>
+<ul>
+<li><strong>Goal:</strong> you will show that a notebook’s stored result can differ from a fresh top-to-bottom run, and use that as the check before you trust or share one.</li>
+<li><strong>Before you start:</strong> <a href="../crypt/shield-of-undo.html">Save Point</a>, Python 3, and two small exercise files (<a href="../../exercises/scriptorium/cells.py">cells.py</a> and <a href="../../exercises/scriptorium/run_cells.py">run_cells.py</a>). Save both into an empty folder.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
 <section id="hidden-state" class="level2">
 <h2 class="anchored" data-anchor-id="hidden-state">Hidden state</h2>
-<p>A notebook kernel (the background process that runs the cells’ code) keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran. The variables stay. The page then shows a result that the file, read from the top, does not produce. This is hidden state, and it needs no agent to appear.</p>
-<p><code>cells.py</code> is a mock notebook with four cells, written in a <code>py:percent</code>-like style (the <code># %% [1] load</code> headers carry our own numbers, so this is not standard <code>py:percent</code>). <code>run_cells.py</code> runs cells in the order you give, sharing one namespace like a kernel. It uses <code>exec</code>, so do not point it at files you did not write. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.</p>
+<p>A notebook kernel (the background process that runs the cells’ code) keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran, and the variables stay. The page then shows a result that the file, read from the top, does not produce. This is hidden state. It appears with or without an agent.</p>
+<p><code>cells.py</code> is a mock notebook with four cells. Each header, such as <code># %% [1] load</code>, carries a cell number. <code>run_cells.py</code> runs cells in the order you give, sharing one namespace like a kernel. It uses <code>exec</code>, so run it only on files you wrote. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> run_cells.py cells.py 1 2 3 4 3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>[cell 1]
 [cell 2]
@@ -171,13 +173,13 @@ reads kept: 3
 </section>
 <section id="the-habit" class="level2">
 <h2 class="anchored" data-anchor-id="the-habit">The habit</h2>
-<p>Before you trust or share a notebook, restart the kernel and run all cells from the top (“Restart Kernel and Run All” in Jupyter). If the result changes, the stored output was not a product of the file as written. A fresh run rules out hidden state, and a separate check shows whether the analysis is right. Then fix the order so that cells only depend on cells above them.</p>
-<p>Two related options:</p>
+<p>Before you trust or share a notebook, restart the kernel and run all cells from the top (“Restart Kernel and Run All” in Jupyter). If the result changes, the stored output did not come from the file as written. Then fix the order so that cells only depend on cells above them. A fresh run rules out hidden state. A separate check, such as computing one or two values another way, shows whether the analysis is right.</p>
+<p>Related options:</p>
 <ul>
-<li><strong>Run it headless</strong> (non-interactive, no one at the screen). <em>General practice:</em> on a cluster, run notebooks as a batch job, and keep interactive Jupyter sessions off the login node. Your cluster’s policy decides (see the Citadel quests).</li>
-<li><strong>marimo.</strong> Its docs describe a reactive model: deleting a cell scrubs its variables from memory, which the docs say eliminates hidden state, and a notebook can be run as a script with <code>python your_notebook.py</code>. Check the docs for how side effects (files, network) behave, because this quest did not test that.</li>
+<li><strong>Run it headless</strong> (non-interactive, no one at the screen). On a cluster, run notebooks as a batch job and keep interactive Jupyter sessions off the login node.</li>
+<li><strong>marimo:</strong> a reactive notebook. Deleting a cell scrubs its variables from memory, which removes hidden state, and a notebook runs as a script with <code>python your_notebook.py</code>. Check the marimo docs for how file and network side effects behave.</li>
+<li><strong>Pin the environment</strong> with a container or lockfile, so a fresh run uses the same packages. Do not let an agent run <code>pip install</code> into a shared environment.</li>
 </ul>
-<p><em>General practice:</em> pin the environment too (a container or lockfile), so a fresh run happens with the same packages, and keep an agent from running <code>pip install</code> into a shared environment.</p>
 </section>
 <section id="reviewing-a-notebook-an-agent-edited" class="level2">
 <h2 class="anchored" data-anchor-id="reviewing-a-notebook-an-agent-edited">Reviewing a notebook an agent edited</h2>
@@ -185,19 +187,13 @@ reads kept: 3
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p><code>NotebookEdit</code> changes one cell at a time. When it replaces a code cell, that cell’s execution count and saved outputs are cleared. To get outputs back, re-run the cell and the cells that depend on it. So a notebook an agent touched shows either empty outputs or old outputs from cells it did not touch, which no longer match the new code. Re-run top to bottom yourself.</p>
-<p>Then check the numbers with something the agent did not write, as in the Ground Truth quest in the Maze: compute one or two values independently and compare. A fresh run that completes still needs a check that the analysis is right.</p>
+<p><code>NotebookEdit</code> changes one cell at a time. When it replaces a code cell, that cell’s execution count and saved outputs are cleared. To get outputs back, re-run the cell and the cells that depend on it. A notebook an agent touched shows empty outputs, or old outputs from cells it did not touch that no longer match the new code. Re-run top to bottom yourself.</p>
+<p>Then check the numbers with something the agent did not write: compute one or two values independently and compare. A fresh run that completes still needs a check that the analysis is right.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>The habit works with any tool: restart, run all, and check a few numbers independently. This quest makes no claims about how OpenCode edits notebooks; check its docs.</p>
+<p>The habit works with any tool: restart, run all, and check a few numbers independently. Check OpenCode’s docs for how it edits notebooks.</p>
 </div>
 </div>
-</div>
-</section>
-<section id="honour" class="level2">
-<h2 class="anchored" data-anchor-id="honour">Honour</h2>
-<div data-ao-honour="scriptorium-fresh-run" data-xp="20">
-Take one of your own notebooks and run Restart and Run All. Note whether any output changed, and why.
 </div>
 </section>
 <section id="battle-the-fresh-run" class="level2">
@@ -205,6 +201,20 @@ Take one of your own notebooks and run Restart and Run All. Note whether any out
 <div data-ao-test="scriptorium-run-it-top-to-bottom" data-xp="60">
 
 </div>
+</section>
+<section id="bonus" class="level2">
+<h2 class="anchored" data-anchor-id="bonus">Bonus</h2>
+<div data-ao-honour="scriptorium-fresh-run" data-xp="20">
+Take one of your own notebooks and run Restart and Run All. Note whether any output changed, and why.
+</div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="why-notebooks-diff-badly.html">Why Notebooks Diff Badly</a>: why a one-line notebook change gives a noisy diff, and how to fix it.</li>
+<li><a href="../maze/ground-truth.html">Ground Truth</a>: computing a check value the agent did not produce.</li>
+<li><a href="../citadel/login-node-manners.html">Login Node Manners</a>: why heavy work, including notebooks, goes through the scheduler on a cluster.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -218,6 +228,7 @@ Take one of your own notebooks and run Restart and Run All. Note whether any out
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

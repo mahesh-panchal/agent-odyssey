@@ -3,8 +3,8 @@
  "questions": [
   {
    "type": "match",
-   "prompt": "Match each worry to the habit that makes it smaller.",
-   "explain": "Every habit here is a way of putting a check or a limit between the agent and the result.",
+   "prompt": "Round one: match each worry about the output and your files to the habit that makes it smaller.",
+   "explain": "Every habit here puts a check or a limit between the agent and the result.",
    "pairs": [
     {
      "left": "It will make things up",
@@ -12,9 +12,36 @@
      "misconception": "Fabrication is answered by independent checks, not by trusting more or asking the agent again."
     },
     {
-     "left": "It could delete my files",
-     "right": "Use git, permission rules and a sandbox or scratch directory",
-     "misconception": "Damage is limited by what the agent is allowed to touch and whether you can undo it."
+     "left": "It could delete or overwrite my work",
+     "right": "Undo with git, set permission rules, work on a scratch copy",
+     "misconception": "Damage is limited by what the agent may touch and whether you can undo it."
+    },
+    {
+     "left": "It could leak my data or my secrets",
+     "right": "Keep secrets and private data out of prompts, use an approved account or a local model",
+     "misconception": "Leaks are limited by what you put in the prompt and where the prompt goes."
+    },
+    {
+     "left": "Someone could see my unpublished results and publish first",
+     "right": "Read the data terms and keep unpublished work out of consumer chat tools",
+     "misconception": "Being scooped is limited by knowing what your tool keeps and avoiding tools your institution has not reviewed."
+    },
+    {
+     "left": "It produces slop in bulk",
+     "right": "Take small steps, test before code, keep a review budget",
+     "misconception": "Bulk output is limited by how much you can honestly review, so shrink the steps."
+    }
+   ]
+  },
+  {
+   "type": "match",
+   "prompt": "Round two: match each worry about learning, review and credit to its habit.",
+   "explain": "These habits keep the learning, the decisions and the credit with you.",
+   "pairs": [
+    {
+     "left": "I will stop learning",
+     "right": "Write it yourself first, or ask it to explain rather than do",
+     "misconception": "Learning is protected by deciding when you attempt the work yourself."
     },
     {
      "left": "My collaborators will have to review it all",
@@ -32,16 +59,16 @@
      "misconception": "Ownership grows from the choices you made and your grasp of the result, so those are the habits to build."
     },
     {
-     "left": "I will stop learning",
-     "right": "Write it yourself first, or ask it to explain rather than do",
-     "misconception": "Learning is protected by deciding when you attempt the work yourself."
+     "left": "People will think I am lazy for using it",
+     "right": "Say what the agent did and what you checked",
+     "misconception": "Plain credit and visible checks let the evidence speak for the work."
     }
    ]
   },
   {
    "type": "match",
-   "prompt": "Round two: match each worry about voice, work and leaks to its habit.",
-   "explain": "These habits keep your voice, your judgement and your results in your own hands.",
+   "prompt": "Round three: match each worry about your voice and judgement to its habit.",
+   "explain": "These habits keep your voice and your judgement in your own hands.",
    "pairs": [
     {
      "left": "Everything I write will start to sound the same",
@@ -54,19 +81,14 @@
      "misconception": "Creative work stays with you when you hold the big decisions and give checking its own time."
     },
     {
-     "left": "People will think I am lazy for using it",
-     "right": "Say what the agent did and what you checked",
-     "misconception": "Plain credit and visible checks let the evidence speak for the work."
-    },
-    {
      "left": "I will stop trusting my own judgement",
      "right": "Decide first, then ask for a second opinion",
      "misconception": "Judgement stays in practice when your call comes first and the agent's view comes second."
     },
     {
-     "left": "My unpublished results will leak",
-     "right": "Check the data terms, use a reviewed agreement or a local model",
-     "misconception": "Leaks are limited by knowing where your data goes and choosing a setup your institution has reviewed."
+     "left": "I do not understand what it did",
+     "right": "Ask for a changelog and explain it back",
+     "misconception": "Understanding comes from explaining the change in your own words before you keep it."
     }
    ]
   },

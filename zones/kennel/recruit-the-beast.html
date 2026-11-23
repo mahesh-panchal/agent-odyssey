@@ -144,13 +144,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Save Point, a terminal (macOS, Linux, or WSL 2, the Windows Subsystem for Linux, on Windows), internet, and a Claude Team plan login <em>or</em> an Anthropic API key (API = programmatic access to the models, billed per token; a plan is a subscription with usage limits). <strong>Objective:</strong> install Claude Code, confirm it works, and start it somewhere safe in read-only style. <strong>Time:</strong> about 15 minutes. <strong>Nothing here edits your files.</strong></p>
-<p><span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 on 2026-11-13, against code.claude.com/docs (sources in <code>research/kennel-and-crypt.md</code> and <code>research/doctor.md</code>). Docs change quickly; if a command differs, trust the official page and tell the maintainers.</span></p>
+<ul>
+<li><strong>Goal:</strong> you will install Claude Code, confirm it works, and start it in a throwaway folder in plan mode.</li>
+<li><strong>Before you start:</strong> <a href="../crypt/shield-of-undo.html">Save Point</a>; a terminal (macOS, Linux, or WSL 2, the Windows Subsystem for Linux, on Windows); internet; and a Claude Team plan login or an Anthropic API key. An API key gives programmatic access to the models, billed per token; a plan is a subscription with usage limits.</li>
+<li><strong>Time:</strong> about 15 minutes. Nothing here edits your files.</li>
+</ul>
 </div>
-<section id="the-beast" class="level2">
-<h2 class="anchored" data-anchor-id="the-beast">The Beast</h2>
-<p>Claude Code is strong. Strength is the reason to put it on a short lead before you let it do anything.</p>
-</section>
+<p>Claude Code is strong, so you start it on a short lead before it does anything.</p>
 <section id="install" class="level2">
 <h2 class="anchored" data-anchor-id="install">1. Install</h2>
 <p>On macOS (Apple Silicon), Linux, or inside a WSL 2 terminal, run the native installer:</p>
@@ -163,23 +163,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="log-in" class="level2">
 <h2 class="anchored" data-anchor-id="log-in">2. Log in</h2>
 <p>Run <code>claude</code> and a browser opens. With a Team plan, log in with the account your admin invited you to. With an API key, <code>export ANTHROPIC_API_KEY=...</code> instead.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you have <strong>both</strong> a subscription login and <code>ANTHROPIC_API_KEY</code> set, the key is used once you approve it, so usage goes to the API account rather than your plan. Run <code>/status</code> (a <code>/command</code> is typed inside the running tool) to see which one is active; <code>unset ANTHROPIC_API_KEY</code> if you did not mean it.</p>
+<p>If you have both a subscription login and <code>ANTHROPIC_API_KEY</code> set, the key is used once you approve it, so usage goes to the API account. Run <code>/status</code> (a <code>/command</code> is typed inside the running tool) to see which login is active. Run <code>unset ANTHROPIC_API_KEY</code> if you did not mean to use the key.</p>
 </div>
 </div>
 </section>
 <section id="start-on-a-short-lead" class="level2">
 <h2 class="anchored" data-anchor-id="start-on-a-short-lead">3. Start on a short lead</h2>
-<p>Make a throwaway folder and start in <strong>plan mode</strong>, which reads files and runs read-only commands and leaves your source untouched:</p>
+<p>Make a throwaway folder and start in <strong>plan mode</strong>. It reads files, runs read-only commands and leaves your source untouched:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/odyssey-scratch <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/odyssey-scratch</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--permission-mode</span> plan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>Shift+Tab</code> cycles <code>default</code>, <code>acceptEdits</code> and <code>plan</code> inside a session; the status bar shows the current mode.</p>
@@ -209,19 +209,18 @@ Warning
 </tr>
 <tr class="even">
 <td><code>bypassPermissions</code></td>
-<td>skips prompts. The docs say to use it only in containers or VMs (virtual machines, a computer simulated inside yours)</td>
+<td>skips prompts; use only in containers or VMs</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="check-the-setup" class="level2">
 <h2 class="anchored" data-anchor-id="check-the-setup">4. Check the setup</h2>
-<p>Two commands share the name <em>doctor</em>, and they differ.</p>
+<p>Two commands share the name <em>doctor</em>.</p>
 <ul>
-<li><strong><code>claude doctor</code></strong> (in the shell) prints read-only diagnostics of your installation and settings <strong>without starting a session</strong>. The docs say to use it when <code>claude</code> will not start. It changes nothing.</li>
-<li><strong><code>/doctor</code></strong> (a <strong>slash command</strong>, a <code>/command</code> typed inside the running tool; alias <code>/checkup</code>) runs inside a session. The docs call it a <strong>bundled skill</strong> (a ready-made skill that ships inside the tool); that suggests it runs through the model and may use some of your usage (our inference, not stated in the docs). It reports first and changes something only after you confirm. The areas the docs list: installation health, extensions versus their context cost, instruction files, permissions, and a usage check.</li>
+<li><strong><code>claude doctor</code></strong> runs in the shell. It prints read-only diagnostics of your installation and settings without starting a session, so use it when <code>claude</code> will not start.</li>
+<li><strong><code>/doctor</code></strong> (alias <code>/checkup</code>) runs inside a session as a bundled skill, a ready-made skill that ships inside the tool. It reports first and changes something only after you confirm. It looks at installation health, extensions and their context cost, instruction files, permissions and usage.</li>
 </ul>
-<p>Not checked: whether <code>/doctor</code> also covers keybindings, sandbox availability or MCP configuration validity (the docs do not list them), and whether it makes network calls.</p>
 <section id="which-command-shows-what" class="level3">
 <h3 class="anchored" data-anchor-id="which-command-shows-what">Which command shows what</h3>
 <table class="caption-top table">
@@ -270,7 +269,7 @@ Warning
 </tr>
 <tr class="odd">
 <td><code>/skill-doctor</code></td>
-<td>per-skill context cost and how often each is used (v2.1.252+)</td>
+<td>per-skill context cost and how often each is used</td>
 </tr>
 <tr class="even">
 <td><code>/doctor</code></td>
@@ -286,11 +285,11 @@ Warning
 </tr>
 </tbody>
 </table>
-<p><strong>OpenCode:</strong> its CLI docs list no doctor or status command. <code>opencode debug paths</code> prints where its files live. Not checked: its TUI slash commands.</p>
+<p>OpenCode has <code>opencode debug paths</code>, which prints where its files live.</p>
 </section>
 <section id="before-you-ask-for-help" class="level3">
 <h3 class="anchored" data-anchor-id="before-you-ask-for-help">Before you ask for help</h3>
-<p>The docs say a bug report should include your OS, the install command and the <strong>full error output</strong>; <code>/feedback</code> sends feedback from inside a session. If you are unsure which problem applies, <code>/doctor</code> or <code>claude doctor</code> helps narrow it down. General practice: read any output before pasting it into a bug report or chat, because it can contain paths and account details. The docs give no advice on this, so the check is ours.</p>
+<p>A bug report includes your OS, the install command and the full error output. <code>/feedback</code> sends feedback from inside a session. If you are unsure which problem applies, run <code>/doctor</code> or <code>claude doctor</code> to narrow it down. Read any output before you paste it into a bug report or chat, because it can contain paths and account details.</p>
 </section>
 </section>
 <section id="battle-the-beasts-leash" class="level2">
@@ -298,6 +297,14 @@ Warning
 <div data-ao-test="kennel-recruit-the-beast" data-xp="60">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="pick-your-companion.html">Pick Your Companion</a>: choose the model and the effort level on purpose.</li>
+<li><a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>: set permission modes and rules around the agent.</li>
+<li><a href="adopt-the-pet.html">Adopt the Pet</a>: run a small local model on your own machine.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -314,6 +321,7 @@ Warning
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

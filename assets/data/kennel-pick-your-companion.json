@@ -8,7 +8,7 @@
     "Smaller tier or subagent",
     "Stronger model"
    ],
-   "explain": "General practice. Bulk, checkable or read-only work suits a small tier or a subagent. Planning, hard debugging and unfamiliar science suit a stronger model, because errors there are costly and hard to spot.",
+   "explain": "Bulk, checkable or read-only work suits a small tier or a subagent. Planning, hard debugging and unfamiliar science suit a stronger model, because errors there are costly and hard to spot.",
    "items": [
     {
      "text": "Classify 5,000 tissue labels, with 200 hand-labelled rows to check against",
@@ -18,7 +18,7 @@
     {
      "text": "Skim a large log folder and report which tasks failed",
      "bin": "Smaller tier or subagent",
-     "misconception": "Reading bulk text is the job the docs give to subagents, which keeps the main context clean."
+     "misconception": "Reading bulk text is a job to hand to subagents, which keeps the main context clean."
     },
     {
      "text": "Plan a refactor of a shared QC script",
@@ -28,14 +28,14 @@
     {
      "text": "Work out why a statistical method fails on an unfamiliar assay",
      "bin": "Stronger model",
-     "misconception": "Unfamiliar science is a knowledge gap, which a small tier is more likely to have and which (per one article) effort alone does not fill."
+     "misconception": "Unfamiliar science is a knowledge gap, which a small tier is more likely to have and so test a stronger model on it."
     }
    ]
   },
   {
    "type": "match",
    "prompt": "Match each symptom to the next step on the upgrade ladder.",
-   "explain": "Add a check first so you can see what helps. Raise effort when the agent stops early or skips checks. Re-run only failures when outcomes are checkable. Change model when a verified, higher-effort run still lacks the needed knowledge (the idea that effort cannot add knowledge is from one article, not confirmed in the docs).",
+   "explain": "Add a check first so you can see what helps. Raise effort when the agent stops early or skips checks. Re-run only failures when outcomes are checkable. Change model when a verified, higher-effort run still lacks the needed knowledge.",
    "pairs": [
     {
      "left": "The output looks plausible but you cannot tell if it is right",
@@ -55,7 +55,7 @@
     {
      "left": "At high effort and a good check, it still lacks the domain knowledge",
      "right": "Try the next model tier up",
-     "misconception": "Per one article, more thinking cannot supply knowledge the model lacks, so another effort level is the wrong next step."
+     "misconception": "Effort is the cheaper lever, but this run already used high effort with a good check, so the next rung is a stronger model."
     }
    ]
   },
@@ -85,11 +85,11 @@
   {
    "type": "faulty-line",
    "prompt": "Which line in this delegation plan will most likely go wrong?",
-   "explain": "Per the docs, the built-in Explore and Plan subagents skip CLAUDE.md, so rules in it do not reach them. State the rule in the task you hand them.",
+   "explain": "The built-in Explore and Plan subagents skip CLAUDE.md, so rules in it do not reach them. State the rule in the task you hand them.",
    "lines": [
     {
      "text": "Define a log-reader subagent with model: haiku and effort: medium for reading pipeline logs.",
-     "why": "A named model and effort are set in the definition, which the docs allow."
+     "why": "A named model and effort are set in the definition, which is allowed."
     },
     {
      "text": "Ask the built-in Explore subagent to survey the repo; it will obey the 'never edit raw/' rule from our CLAUDE.md, so the prompt need not mention it.",
@@ -103,8 +103,8 @@
   },
   {
    "type": "order",
-   "prompt": "Put the upgrade ladder in the order one article suggests when output is not good enough.",
-   "explain": "This is one article's order (not confirmed in the docs as a sequence). Check first so you can see changes, then the cheaper lever, effort, then the model.",
+   "prompt": "Put the upgrade ladder in a sensible order when output is not good enough.",
+   "explain": "Check first so you can see changes, then the cheaper lever, effort, then the model.",
    "items": [
     "Add a way to verify the output",
     "Raise effort by one level",

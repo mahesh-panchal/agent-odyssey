@@ -144,17 +144,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> The Stream of Ideas. <strong>Objective:</strong> say what a fresh session knows (nothing about your task except what loads automatically or is written down), list the five things that carry knowledge across the gap, and write a short handoff note a fresh session can act on, with what was checked kept separate from what was not. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16. Claude Code specific unless stated. Handoff-note contents are general practice; there is no official template.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
+<ul>
+<li><strong>Goal:</strong> you will list the five things that carry knowledge into a fresh session, and write a short handoff note a fresh session can act on, with what was checked kept apart from what was not.</li>
+<li><strong>Before you start:</strong> <a href="the-stream-of-ideas.html">The Stream of Ideas</a>. Commands here are Claude Code commands.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
-<p>You stop work on Friday with a half-finished refactor. On Monday you open a new <strong>session</strong> (one conversation with the agent, which has its own <strong>context</strong>: the text it can see right now). Claude Code’s docs say each session begins with a fresh context window. Anthropic’s article on long-running agents says the same in other words: a new session begins with no memory of what came before. So the new session does not know your goal, what you tried, or what you checked. Anything it should know has to cross the gap in writing.</p>
+<p>You stop work on Friday with a half-finished refactor. On Monday you open a new <strong>session</strong> (one conversation with the agent, which has its own <strong>context</strong>: the text it can see right now). Each session begins with a fresh context window and no memory of what came before, so the new session does not know your goal, what you tried, or what you checked.</p>
+<p>Anything it should know has to cross the gap in writing.</p>
 <section id="five-things-that-cross-the-gap" class="level2">
 <h2 class="anchored" data-anchor-id="five-things-that-cross-the-gap">Five things that cross the gap</h2>
 <ol type="1">
 <li><strong>The instructions file</strong> (<code>CLAUDE.md</code> in Claude Code). A file <strong>you</strong> write that is loaded at the start of every session. Good for stable facts and conventions: how to run the tests, which folders are off limits.</li>
-<li><strong>Auto memory.</strong> Notes the <strong>harness</strong> writes itself, from your corrections and preferences. In Claude Code, <code>/memory</code> lists and opens them. See <a href="../../zones/codon-mill/memory-sessions-and-usage.html">Memory, Sessions and Usage</a> for both kinds of memory.</li>
+<li><strong>Auto memory.</strong> Notes the <strong>harness</strong> (the program around the model) writes itself, from your corrections and preferences. In Claude Code, <code>/memory</code> lists and opens them.</li>
 <li><strong>Files in the repository</strong> (the project folder under version control): code, tests, a README, and, if you keep one, a progress or handoff file.</li>
-<li><strong>Git history.</strong> A <strong>commit</strong> is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when. It is durable unless rewritten (rebase, amend, force-push), and unpushed commits are local only (general practice).</li>
-<li><strong>Your handoff note.</strong> A short file about the state of one task, written for the next session. This is general practice. We found no official Claude Code page that prescribes a handoff file or its location, so the structure below is ours.</li>
+<li><strong>Git history.</strong> A <strong>commit</strong> is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when. It is durable unless rewritten (rebase, amend, force-push), and unpushed commits are local only.</li>
+<li><strong>Your handoff note.</strong> A short file about the state of one task, written for the next session.</li>
 </ol>
 <table class="caption-top table">
 <colgroup>
@@ -177,23 +182,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>Stable rules and conventions</td>
 <td>Instructions file</td>
-<td>Every session until you edit it</td>
+<td>Until you edit it</td>
 <td>You</td>
-<td>High, if you keep it checked and short</td>
+<td>High if short and checked</td>
 </tr>
 <tr class="even">
 <td>Preferences the tool picked up</td>
 <td>Auto memory</td>
-<td>Every session until deleted</td>
+<td>Until deleted</td>
 <td>The tool</td>
-<td>Medium: it can be wrong; read it with <code>/memory</code> and verify before trusting</td>
+<td>Medium: it can be wrong</td>
 </tr>
 <tr class="odd">
-<td>What the code and docs say now</td>
+<td>What the files say now</td>
 <td>Files in the repository</td>
 <td>Until edited or deleted</td>
 <td>You or the agent</td>
-<td>Medium: files can be stale; check against the code</td>
+<td>Medium: files can be stale</td>
 </tr>
 <tr class="even">
 <td>State of one task</td>
@@ -207,16 +212,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Commit messages in git history</td>
 <td>Durable unless rewritten; local until pushed</td>
 <td>You or the agent</td>
-<td>High for what changed; the message is only a summary</td>
+<td>Reliable for what changed; the why is only as good as the message</td>
 </tr>
 </tbody>
 </table>
-<p>Memory the tool wrote can be wrong, and a wrong line is loaded again every session. That is the trap called context poisoning, explained in <a href="../../zones/codon-mill/memory-sessions-and-usage.html">Memory, Sessions and Usage</a>. Check any claim against the source before you rely on it.</p>
-<p>Anthropic’s engineering article “Effective harnesses for long-running agents” describes a similar set of habits (our paraphrase): keep a progress notes file, make git commits with descriptive messages so bad changes can be reverted, and begin each session with a startup routine that reads the progress file and the recent git log, then runs a basic check before new work.</p>
+<p>Memory the tool wrote can be wrong, and a wrong line is loaded again every session. This is <strong>context poisoning</strong>: a wrong statement enters the context and later answers build on it. Read <code>/memory</code> and check any claim against the source before you rely on it.</p>
+<p>Three habits help a long task: keep a progress notes file, make git commits with descriptive messages so bad changes can be reverted, and begin each session by reading the progress file and the recent git log, then run a basic check before new work.</p>
 </section>
 <section id="what-a-good-handoff-note-contains" class="level2">
 <h2 class="anchored" data-anchor-id="what-a-good-handoff-note-contains">What a good handoff note contains</h2>
-<p>General practice; there is no official format. Keep it short, so reading it costs less than rediscovering the state. Point to files and commands, and let the next session run them for fresh output.</p>
+<p>Keep it short, so reading it costs less than rediscovering the state. Point to files and commands, and let the next session run them for fresh output.</p>
 <ul>
 <li><strong>Goal</strong> in one line.</li>
 <li><strong>Current state:</strong> branch, last commit, what runs and what does not.</li>
@@ -225,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>What failed and should not be retried.</strong></li>
 <li><strong>Next steps, in order.</strong></li>
 <li><strong>Pointers:</strong> file paths, commands, job IDs, work directories.</li>
-<li><strong>Open questions and parked ideas</strong> (see The Stream of Ideas).</li>
+<li><strong>Open questions and parked ideas</strong> (ideas you decided to leave for later).</li>
 </ul>
 </section>
 <section id="mock-example" class="level2">
@@ -266,30 +271,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="where-to-put-it-and-how-to-start-the-next-session" class="level2">
 <h2 class="anchored" data-anchor-id="where-to-put-it-and-how-to-start-the-next-session">Where to put it, and how to start the next session</h2>
-<p>Put the note in a file the next session can find. Two options (general practice): a file in the repo, such as <code>HANDOFF.md</code>, if the team should see it; or a gitignored ordinary file you point to if it is personal, which is the simpler choice. <code>CLAUDE.local.md</code> at the project root (added to <code>.gitignore</code>, loaded after <code>CLAUDE.md</code>) is the only guidance we found on keeping personal per-project notes out of git, and it is meant for preferences; per the research it exists only in the worktree where it was created. Anything loaded every session takes room in the window, which is why the parking lot in The Stream of Ideas is kept out of it, and a finished handoff note is best taken out of it. Not checked: whether <code>CLAUDE.local.md</code> suits short-lived task notes better than an ordinary file you point to.</p>
-<p>Write the note <strong>before</strong> you run <code>/clear</code> (which starts a new empty conversation), because <code>/clear</code> drops the conversation (general practice). Pairing the note with a commit leaves a matching record in git.</p>
+<p>Put the note in a file the next session can find. Two options:</p>
+<ul>
+<li>A file in the repo, such as <code>HANDOFF.md</code>, if the team should see it.</li>
+<li>A gitignored ordinary file you point to, if it is personal. This is the simpler choice.</li>
+</ul>
+<p><code>CLAUDE.local.md</code> at the project root (add it to <code>.gitignore</code>) holds private per-project preferences and loads after <code>CLAUDE.md</code>. It exists only in the worktree where you created it.</p>
+<p>Anything loaded every session takes room in the window, so keep a handoff note out of <code>CLAUDE.md</code> and remove it once its task is done.</p>
+<p>Write the note <strong>before</strong> you run <code>/clear</code> (which starts a new empty conversation), because <code>/clear</code> drops the conversation. Pairing the note with a commit leaves a matching record in git.</p>
 <p>Then start the new session with a prompt like this:</p>
 <blockquote class="blockquote">
 <p>Read HANDOFF.md, then tell me your understanding before changing anything.</p>
 </blockquote>
-<p>The agent restates the goal and state in its own words, and you compare that with what you know. This is a cheap comprehension check (general practice): it can catch a misreading of the note. The restatement comes from the same model that read it, so the note’s claims still need checking against the source. Checking claims against the source is the idea behind Ground Truth (later in the Maze).</p>
-<p>You can ask the agent to draft the note at the end of a session. A good habit is to review it yourself, since a draft can overstate what was verified (“all tests pass” when none were run in that session).</p>
+<p>The agent restates the goal and state in its own words, and you compare that with what you know. This is a cheap comprehension check: it can catch a misreading of the note. The restatement comes from the same model that read it, so the note’s claims still need checking against the source.</p>
+<p>You can ask the agent to draft the note at the end of a session. Review it yourself, since a draft can overstate what was verified (“all tests pass” when none were run in that session).</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Commands the research confirms: <code>/memory</code> (see memory files), <code>/clear</code> (new empty conversation), <code>/resume</code> and <code>claude --resume</code> (reopen an earlier session), <code>claude --continue</code> (most recent session in this directory), <code>/export</code> (writes the conversation as plain text for a person to read). There is no documented <code>/handoff</code> or <code>/save</code> command. Not checked: whether <code>/export</code> output makes a good handoff; transcripts are long, so a short curated note is probably better (our inference).</p>
+<p>Commands:</p>
+<ul>
+<li><code>/memory</code>: see memory files.</li>
+<li><code>/clear</code>: new empty conversation.</li>
+<li><code>/resume</code> and <code>claude --resume</code>: reopen an earlier session.</li>
+<li><code>claude --continue</code>: the most recent session in this directory.</li>
+<li><code>/export</code>: writes the conversation as plain text for a person to read. Transcripts are long, so write a short curated note yourself.</li>
+</ul>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Not checked: OpenCode’s memory files and how it loads project instructions. The research confirms these OpenCode commands: <code>/new</code> (alias <code>/clear</code>), <code>/sessions</code> (aliases <code>/resume</code> and <code>/continue</code>), <code>/compact</code> and <code>/export</code>. The handoff note itself is just a file, so the practice carries over. Not checked: how a local model with a small window copes with a long note, so keep it short.</p>
+<p>Commands: <code>/new</code> (alias <code>/clear</code>), <code>/sessions</code> (aliases <code>/resume</code> and <code>/continue</code>), <code>/compact</code> and <code>/export</code>. The handoff note itself is just a file, so the practice carries over. Check OpenCode’s documentation for how it loads project instructions, and keep the note short if your local model has a small window.</p>
 </div>
 </div>
-</div>
-<div data-ao-honour="write-handoff" data-xp="20">
-Write a handoff note for a task you are on and give it to a fresh session with the prompt above. Does its restatement match your own?
-</div>
-<div data-ao-honour="review-draft" data-xp="20">
-Ask an agent to draft a handoff note, then mark each line in your own words as checked by you, or not checked. Count how many lines it overstated.
 </div>
 </section>
 <section id="battle-the-handoff" class="level2">
@@ -297,6 +309,25 @@ Ask an agent to draft a handoff note, then mark each line in your own words as c
 <div data-ao-test="codon-mill-handoff-notes" data-xp="50">
 
 </div>
+</section>
+<section id="bonus" class="level2">
+<h2 class="anchored" data-anchor-id="bonus">Bonus</h2>
+<div data-ao-honour="write-handoff" data-xp="20">
+Write a handoff note for a task you are on and give it to a fresh session with the prompt above. Does its restatement match your own?
+</div>
+<div data-ao-honour="review-draft" data-xp="20">
+Ask an agent to draft a handoff note, then mark each line in your own words as checked by you, or not checked. Count how many lines it overstated.
+</div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="the-stream-of-ideas.html">The Stream of Ideas</a>: for more on parking ideas, the open questions a note carries.</li>
+<li><a href="memory-sessions-and-usage.html">Memory, Sessions and Usage</a>: both kinds of memory, and what to do about a poisoned claim.</li>
+<li><a href="when-to-start-fresh.html">When to Start Fresh</a>: when a fresh session beats continuing.</li>
+<li><a href="../maze/ground-truth.html">Ground Truth</a>: checking claims against the source, which a note’s claims also need.</li>
+<li><a href="the-context-window.html">The Context Window</a>: what a fresh session loads before you type.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -312,6 +343,7 @@ Ask an agent to draft a handoff note, then mark each line in your own words as c
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

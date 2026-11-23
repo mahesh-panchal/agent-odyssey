@@ -12,7 +12,7 @@
     },
     {
      "text": "32k tokens, which is enough for most agent work, so the Pet needs no change at all",
-     "misconception": "32k is the default only with 24-48 GiB of video memory. A 16 GB laptop gets 4k, well below the 64k Ollama recommends for agents."
+     "misconception": "Larger defaults exist only with much more video memory. A 16 GB laptop gets 4k, well below the 64k that agents need."
     },
     {
      "text": "The model's own maximum, often 128k or more, so memory is the only limit you meet",
@@ -20,7 +20,7 @@
     },
     {
      "text": "256k tokens, the largest default, so a laptop can run long agent sessions as is",
-     "misconception": "256k is the default only with 48 GiB or more of video memory. A 16 GB laptop gets the small default."
+     "misconception": "The largest defaults exist only with much more video memory. A 16 GB laptop gets the small default."
     }
    ]
   },

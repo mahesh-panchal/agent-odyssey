@@ -41,7 +41,7 @@
   {
    "type": "choice",
    "prompt": "You have `Bash(scancel -u *)` in `deny`. How far can you rely on it to protect your other jobs?",
-   "explain": "The docs say Bash rules are not a security boundary, so a differently spelled command (scancel --me, --name, --state, --partition) can slip past. A single ask rule on scancel * is the net. For enforcement use a PreToolUse hook; the sandbox limits files and network, not Slurm commands.",
+   "explain": "Bash rules are not a security boundary, so a differently spelled command (scancel --me, --name, --state, --partition) can slip past. A single ask rule on scancel * is the net. For enforcement use a PreToolUse hook; the sandbox limits files and network, not Slurm commands.",
    "options": [
     {
      "text": "Partly: a rewritten command can slip past the pattern",
@@ -72,11 +72,11 @@
     },
     {
      "text": "Slurm refuses squeue calls more often than once a minute",
-     "misconception": "Slurm can rate-limit sustained high request rates per user, but the docs set no such fixed limit. The main problem here is the token cost of each poll."
+     "misconception": "Slurm can rate-limit sustained high request rates per user, but there is no such fixed limit. The main problem here is the token cost of each poll."
     },
     {
      "text": "Loops only fire while you are watching the session, so the run is not monitored",
-     "misconception": "The docs say scheduled tasks fire on their interval even while the session is idle. That is exactly why they keep spending."
+     "misconception": "Scheduled tasks fire on their interval even while the session is idle. That is exactly why they keep spending."
     },
     {
      "text": "The squeue output is too long to fit in the context window",

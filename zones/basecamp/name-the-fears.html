@@ -109,128 +109,154 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> none. <strong>Objective:</strong> name what worries you about large language model (LLM) agents (an agent is a model running inside a program that picks and runs tools in a loop toward a goal), and learn the habit that answers each worry. <strong>Time:</strong> about 10 minutes. <span class="ao-badge">General practice, not a vendor claim: nothing here depends on a tool version.</span></p>
+<ul>
+<li><strong>Goal:</strong> you will name what worries you about large language model (LLM) agents and pick the habit that answers each worry, whether you plan to use them or not.</li>
+<li><strong>Before you start:</strong> nothing.</li>
+<li><strong>Time:</strong> about 10 minutes.</li>
+</ul>
 </div>
-<section id="why-start-with-fears" class="level2">
-<h2 class="anchored" data-anchor-id="why-start-with-fears">Why start with fears</h2>
-<p>You do not have to like these tools. Many careful people in science are wary of them, and most of the wariness is reasonable. This odyssey keeps your worries and gives each one a <strong>habit</strong> that makes the risk smaller, so you can decide with your eyes open.</p>
-<p>Each worry below is a real enemy in this land. Each has a counter-habit, and the rest of the odyssey trains them.</p>
+<section id="where-people-start" class="level2">
+<h2 class="anchored" data-anchor-id="where-people-start">Where people start</h2>
+<p>People come to these tools from different places:</p>
+<ul>
+<li>Some are keen and want to know how to begin well.</li>
+<li>Some are curious and want to see what is involved before deciding.</li>
+<li>Some hold back, often for good reasons: the environmental cost of AI, harm to people and their work, or the quality of what comes out.</li>
+</ul>
+<p>Every one of these starting points is reasonable, and nothing here asks you to use these tools. This odyssey leaves the larger questions to you. It covers the practical worries that come with using an agent and gives each one a <strong>habit</strong> that makes the risk smaller. Whether you go on to use agents or decide to leave them alone, you will have a clear picture of what they ask of you.</p>
+<p>An <em>agent</em> is a model running inside a program that picks and runs tools in a loop toward a goal. A <em>prompt</em> is the text you send to the model. The rest of the odyssey trains the habits below, and each row links to the zone that teaches it.</p>
+<section id="about-the-output" class="level3">
+<h3 class="anchored" data-anchor-id="about-the-output">About the output</h3>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>The worry</th>
-<th>The enemy</th>
-<th>The counter-habit</th>
+<th>The habit</th>
+<th>Where you learn it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“It makes things up.”</td>
+<td>Check against something the agent did not write.</td>
+<td><a href="../maze/spot-the-mirage.html">Sequence Maze</a></td>
+</tr>
+<tr class="even">
+<td>“It produces slop in bulk.”</td>
+<td>Take small steps, test before code, keep a review budget.</td>
+<td><a href="../maze/wall-of-output.html">Sequence Maze: Wall of Output</a></td>
+</tr>
+<tr class="odd">
+<td>“I do not understand what it did.”</td>
+<td>Ask for a changelog and explain it back.</td>
+<td><a href="../maze/keep-a-paper-trail.html">Sequence Maze: Keep a Paper Trail</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Slop</em> is low-quality bulk output. A <em>review budget</em> means you only produce as much as you can honestly review today.</p>
+</section>
+<section id="about-the-work-and-your-data" class="level3">
+<h3 class="anchored" data-anchor-id="about-the-work-and-your-data">About the work and your data</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>The worry</th>
+<th>The habit</th>
+<th>Where you learn it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“It could delete or overwrite my work.”</td>
+<td>Undo with git, set permission rules, work on a scratch copy.</td>
+<td><a href="../crypt/shield-of-undo.html">Ancient DNA Crypt</a></td>
+</tr>
+<tr class="even">
+<td>“It could leak my data or my secrets.”</td>
+<td>Keep secrets and private data out of prompts; use an approved account or a local model.</td>
+<td><a href="../crypt/secrets-and-sensitive-ground.html">Ancient DNA Crypt</a></td>
+</tr>
+<tr class="odd">
+<td>“Someone could see my unpublished results and publish first.”</td>
+<td>Read your tool’s data terms; keep unpublished work out of consumer chat tools.</td>
+<td><a href="../crypt/secrets-and-sensitive-ground.html">Ancient DNA Crypt</a></td>
+</tr>
+</tbody>
+</table>
+<p>A <em>sandbox</em> is an operating-system layer that limits what commands can touch; it is one way to protect your files. For unpublished work, prefer an agreement your institution has reviewed or a local model, and date-stamp your work.</p>
+</section>
+<section id="about-you-and-the-people-around-you" class="level3">
+<h3 class="anchored" data-anchor-id="about-you-and-the-people-around-you">About you and the people around you</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>The worry</th>
+<th>The habit</th>
 <th>Where you learn it</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>“It will stop me learning.”</td>
-<td>Learning-drain</td>
-<td>Write it first, predict before you look, ask it to explain while you do the work.</td>
-<td>Biodiversity Reef</td>
-</tr>
-<tr class="even">
-<td>“It produces slop in bulk.”</td>
-<td>Slop-ooze</td>
-<td>Small steps, tests before code, a review budget.</td>
-<td>Sequence Maze</td>
-</tr>
-<tr class="odd">
-<td>“It makes things up.”</td>
-<td>Mirage</td>
-<td>Check against something the agent did not write.</td>
-<td>Sequence Maze</td>
+<td>Write it first, predict before you look, ask it to explain.</td>
+<td><a href="../reef/teach-and-share-the-load.html">Biodiversity Reef</a></td>
 </tr>
 <tr class="even">
 <td>“Someone else has to review all this.”</td>
-<td>Review-leech</td>
-<td>Review it yourself first, say that you used an LLM, send small changes.</td>
-<td>Biodiversity Reef</td>
+<td>Review it yourself first, say you used an LLM, send small changes.</td>
+<td><a href="../reef/send-small-say-so.html">Biodiversity Reef</a></td>
 </tr>
 <tr class="odd">
-<td>“It could delete my work or leak my data.”</td>
-<td>Data-wipe</td>
-<td>Undo (git), permissions, a sandbox (an operating-system layer that limits what commands can touch) or scratch directory, no secrets in prompts (a prompt is the text you send to the model).</td>
-<td>Ancient DNA Crypt</td>
+<td>“It will feel hollow, as if it was not my work.”</td>
+<td>Make the decisions, explain each step, keep a decision log.</td>
+<td><a href="../reef/teach-and-share-the-load.html">Biodiversity Reef</a></td>
 </tr>
 <tr class="even">
-<td>“I do not understand what it did.”</td>
-<td>Black-box husk</td>
-<td>Ask for a changelog and explain it back before you keep it.</td>
-<td>Sequence Maze</td>
+<td>“Everyone will expect work faster now.”</td>
+<td>Say where the time goes; agree timelines that include review.</td>
+<td><a href="../reef/teach-and-share-the-load.html">Biodiversity Reef</a></td>
 </tr>
 <tr class="odd">
-<td>“Finishing this with an agent will feel hollow, as if it was not really my work.”</td>
-<td>Hollow-victory</td>
-<td>Make the decisions, be able to explain each step, keep a short decision log, credit the agent’s part openly.</td>
-<td>Biodiversity Reef</td>
+<td>“Everything I write will sound the same.”</td>
+<td>Draft in your own words first, then edit.</td>
+<td><a href="../reef/teach-and-share-the-load.html">Biodiversity Reef</a></td>
 </tr>
 <tr class="even">
-<td>“Everyone will expect work to be done faster now.”</td>
-<td>Clock-shifter</td>
-<td>Say where the time goes, agree timelines that include review, share how long checking took.</td>
-<td>Biodiversity Reef</td>
+<td>“I will spend my days checking drafts.”</td>
+<td>Keep the question and interpretation; count checking as work.</td>
+<td><a href="../reef/teach-and-share-the-load.html">Biodiversity Reef</a></td>
 </tr>
 <tr class="odd">
-<td>“Everything I write will start to sound the same.”</td>
-<td>Echo-bland</td>
-<td>Draft the first version in your own words, then edit; keep a style you recognise; use the agent for structure and checks.</td>
-<td>Biodiversity Reef</td>
-</tr>
-<tr class="even">
-<td>“I will spend my days checking drafts and lose the creative part of my work.”</td>
-<td>Draft-warden</td>
-<td>Keep the question, the design and the interpretation for yourself; give the agent routine drafting; count checking time as part of the work.</td>
-<td>Biodiversity Reef</td>
-</tr>
-<tr class="odd">
-<td>“People will think I am lazy or unoriginal for using it.”</td>
-<td>Side-eye</td>
-<td>Say plainly what the agent did and what you checked; follow your team’s norm; let the evidence speak.</td>
-<td>Biodiversity Reef</td>
+<td>“People will think I am lazy or unoriginal.”</td>
+<td>Say what the agent did and what you checked.</td>
+<td><a href="../reef/send-small-say-so.html">Biodiversity Reef</a></td>
 </tr>
 <tr class="even">
 <td>“I will stop trusting my own judgement.”</td>
-<td>Doubt-fog</td>
-<td>Decide first, then ask for a second opinion; keep a few decisions agent-free; note the times your own call was right.</td>
-<td>Biodiversity Reef</td>
-</tr>
-<tr class="odd">
-<td>“My unpublished results or ideas will leak and someone will get there first.”</td>
-<td>Leak-shade</td>
-<td>Learn what your tool’s data terms say about retention and training use, keep unpublished work out of consumer chat tools, prefer an agreement your institution has reviewed or a local model, date-stamp your work.</td>
-<td>Ancient DNA Crypt</td>
+<td>Decide first, then ask for a second opinion.</td>
+<td><a href="../reef/teach-and-share-the-load.html">Biodiversity Reef</a></td>
 </tr>
 </tbody>
 </table>
-<p><em>Slop</em> is low-quality bulk output. A <em>review budget</em> means you only produce as much as you can honestly review today.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<p>For voice and judgement, use the agent for structure and checks, and keep a few decisions agent-free. For credit and workload, follow your team’s norm, credit the agent’s part openly and share how long checking took.</p>
 <p>Sometimes the right answer is to skip the LLM. Part of the skill is knowing when.</p>
-</div>
-</div>
+</section>
 </section>
 <section id="battle-name-the-counter-habit" class="level2">
 <h2 class="anchored" data-anchor-id="battle-name-the-counter-habit">Battle: name the counter-habit</h2>
 <div data-ao-test="basecamp-name-the-fears" data-xp="40">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="../maze/spot-the-mirage.html">Spot the Mirage</a>: see what plausible-but-false output looks like and how to check it.</li>
+<li><a href="../crypt/shield-of-undo.html">Save Point</a>: set up undo so a deleted or overwritten file can come back.</li>
+<li><a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: keep secrets and private data out of prompts.</li>
+<li><a href="../reef/send-small-say-so.html">Send Small, Say So</a>: hand over small, honest work and say what the agent did.</li>
+<li><a href="../reef/teach-and-share-the-load.html">Teach and Share the Load</a>: protect your learning, your voice and your judgement.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -246,6 +272,7 @@ Note
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

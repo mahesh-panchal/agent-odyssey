@@ -101,7 +101,7 @@
   {
    "type": "match",
    "prompt": "Match each claim to what is behind it.",
-   "explain": "Tokens are the unit for limits and cost. Letter-level weakness is our inference from that fact.",
+   "explain": "Tokens are the unit for limits and cost. Models can miscount letters, so run a script when the answer must be exact.",
    "pairs": [
     {
      "left": "Context window and cost are measured in",

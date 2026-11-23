@@ -109,28 +109,32 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Know Your Gear. <strong>Objective:</strong> explain that a model reads tokens (chunks of text), and know which sequence jobs belong to a script. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API glossary and token-counting docs on 2026-11-16 (sources in <code>research/fundamentals.md</code>). The DNA examples are general practice and were not measured here.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
+<ul>
+<li><strong>Goal:</strong> you will explain that a model reads tokens (chunks of text) and decide which sequence jobs belong to a script.</li>
+<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Gear</a>.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
 <p>You read a read as letters: A, C, G, T. A language model reads tokens. Before your text reaches the model, it is cut into <strong>tokens</strong>, and the model works with those.</p>
 <section id="what-a-token-is" class="level2">
 <h2 class="anchored" data-anchor-id="what-a-token-is">What a token is</h2>
-<p>Anthropic’s glossary describes tokens as the smallest units a model works with. A token can be a whole word, part of a word, a single character or a byte. Common strings get larger tokens because that is efficient. Rare or unseen words are broken into smaller pieces so the model can still handle them.</p>
+<p>A token is the smallest unit a model works with. It can be a whole word, part of a word, a single character or a byte. Common strings get larger tokens because that is efficient. Rare or unseen words are broken into smaller pieces so the model can still handle them.</p>
 <p>Three consequences:</p>
 <ul>
 <li><strong>Tokens are not words.</strong> A sentence of ten words rarely comes to ten tokens; the count depends on the model and the language.</li>
-<li><strong>The count changes between models.</strong> The docs say newer tokenizers (the part that cuts text into tokens) can produce about 30 percent more tokens for the same text, for Claude 4.7 and later, including Sonnet 5.5. So count again for each model generation.</li>
-<li><strong>Limits and cost are measured in tokens.</strong> The context window is counted in tokens, and the docs frame cost in tokens too: the same prompt can cost different amounts on different models. The API (programmatic access to the model, billed per token, as opposed to a chat plan) has a free token-counting endpoint, and its answer is an estimate that may differ slightly from real use.</li>
+<li><strong>The count changes between models.</strong> Models from Claude 4.7 onward, including Sonnet 5.5, use a newer tokenizer (the part that cuts text into tokens). It produces about 30 percent more tokens for the same text, and the exact increase depends on the content. Count again for each model generation.</li>
+<li><strong>Limits and cost are measured in tokens.</strong> The context window (all the text a model can look at when it writes its next piece of output) is counted in tokens, and the same prompt can cost different amounts on different models. The API (programmatic access to the model, billed per token, as opposed to a chat plan) has a free token-counting endpoint. Its answer is an estimate that may differ slightly from real use.</li>
 </ul>
 </section>
 <section id="why-this-matters-for-sequences" class="level2">
 <h2 class="anchored" data-anchor-id="why-this-matters-for-sequences">Why this matters for sequences</h2>
-<p>The model sees chunks of letters. As general practice (we found no official page that says this about DNA), expect these problems:</p>
+<p>The model sees chunks of letters, so jobs that depend on every single letter are risky:</p>
 <ul>
-<li>A DNA string is not read one base per token. It is cut into chunks of several letters that follow no biological rule.</li>
 <li><strong>Counting letters</strong> (“how many Gs in this read”) means counting inside chunks the model cannot see into. Answers are often close and sometimes wrong.</li>
-<li><strong>Copying exactly</strong> a long string, retyping a barcode or an accession, can drop or swap a character without any sign.</li>
+<li><strong>Copying exactly</strong> a long string, such as a barcode or an accession, needs a check against the source.</li>
 <li><strong>Positions, reverse complements and checksums</strong> depend on every single letter.</li>
 </ul>
+<p>The exercise below shows how a tokenizer cuts a DNA line.</p>
 <p>So the rule: if the answer has to be exact and a rule for it exists, have the agent <strong>run a script or a tool</strong> and report what it printed. Check any sequence the model retyped against the source file.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
@@ -139,14 +143,23 @@ ul.task-list li input[type="checkbox"] {
 <p>Ask it to write and run the counting command and read its output. You can then read the command and the output yourself.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Same advice. Small local models tend to be less reliable at exact tasks, so the case for running code is even stronger (general practice).</p>
+<p>Same advice: ask for the command and read its output. Run the exercise below with your own model and compare.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="optional-exercise-laptop-no-real-data" class="level2">
 <h2 class="anchored" data-anchor-id="optional-exercise-laptop-no-real-data">Optional exercise (laptop, no real data)</h2>
-<p>Take this mock line, which is not real data: <code>&gt;read1 ACGTTGCAAGGCTTAGGCCATTAGC</code>. Count the letters yourself with a command you already have, for example <code>echo ACGTTGCAAGGCTTAGGCCATTAGC | grep -o G | wc -l</code>. Then paste the same line and a plain English sentence of similar length into any tokenizer page you trust, or a token counter you have. Compare the token counts. Keep real or sensitive sequences out of web tools.</p>
+<p>Take this mock line: <code>&gt;read1 ACGTTGCAAGGCTTAGGCCATTAGC</code>. Count the letters yourself with a command you already have, for example <code>echo ACGTTGCAAGGCTTAGGCCATTAGC | grep -o G | wc -l</code>. Then paste the same line and a plain English sentence of similar length into any tokenizer page you trust, or a token counter you have. Compare the token counts. Keep real or sensitive sequences out of web tools.</p>
+</section>
+<section id="battle-the-mill" class="level2">
+<h2 class="anchored" data-anchor-id="battle-the-mill">Battle: the mill</h2>
+<div data-ao-test="codon-mill-tokens-not-letters" data-xp="50">
+
+</div>
+</section>
+<section id="bonus" class="level2">
+<h2 class="anchored" data-anchor-id="bonus">Bonus</h2>
 <div data-ao-honour="compare-tokens" data-xp="20">
 Compare the token count of a mock FASTA line and an English sentence of the same character length, using a tool you trust and only mock data. Note which one used more tokens.
 </div>
@@ -154,11 +167,13 @@ Compare the token count of a mock FASTA line and an English sentence of the same
 Replace one “ask the model to count” habit of yours with a script the model writes and runs, and check its output against a hand count on a tiny file.
 </div>
 </section>
-<section id="battle-the-mill" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-mill">Battle: the mill</h2>
-<div data-ao-test="codon-mill-tokens-not-letters" data-xp="50">
-
-</div>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="the-context-window.html">The Context Window</a>: for more on the window whose size is counted in tokens, and what fills it.</li>
+<li><a href="where-machines-fail.html">Where Machines Fail</a>: sort jobs into “ask the model” and “run a script”, and meet the other ways a model fails.</li>
+<li><a href="memory-sessions-and-usage.html">Memory, Sessions and Usage</a>: how usage is counted in tokens across a session.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -174,6 +189,7 @@ Replace one “ask the model to count” habit of yours with a script the model 
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

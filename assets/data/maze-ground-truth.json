@@ -118,7 +118,7 @@
   },
   {
    "type": "choice",
-   "prompt": "An agent helped gather references for a manuscript. Which practice from the AI for Science draft protects you best?",
+   "prompt": "An agent helped gather references for a manuscript. Which practice protects you best?",
    "explain": "Confirm that the DOI resolves, then build the reference from it with a deterministic tool, so a model does not write the reference text and a machine can check it. Disclose the agent's role where results are published.",
    "options": [
     {
@@ -135,7 +135,7 @@
     },
     {
      "text": "Leave the agent out of the methods, since the references are checked",
-     "misconception": "The draft says to disclose agent use where results are published, even when you checked the output."
+     "misconception": "Agent use is disclosed where results are published, even when you checked the output."
     }
    ]
   }

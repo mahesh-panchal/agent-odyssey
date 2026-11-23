@@ -3,7 +3,7 @@
  "questions": [
   {
    "type": "sort",
-   "prompt": "A manager plans six report tasks. Sort them by whether real rows from the project database would leave the machine.",
+   "prompt": "A data analyst plans six report tasks. Sort them by whether real rows from the samples database would leave the machine.",
    "bins": [
     "No real rows leave",
     "Real rows would leave"
@@ -44,7 +44,7 @@
   },
   {
    "type": "choice",
-   "prompt": "A manager runs an agent in plan mode on a copy of the database. What does the read-only part protect them from?",
+   "prompt": "A data analyst runs an agent in plan mode on a copy of the database. What does the read-only part protect them from?",
    "explain": "Plan mode limits what the agent does. Reading still happens, so the contents it reads are sent to the provider.",
    "options": [
     {
@@ -95,9 +95,9 @@
      "misconception": "With no data in the prompt, only your own wording is sent."
     },
     {
-     "left": "Chat with schema and invented rows",
-     "right": "Table and column names, and the invented rows",
-     "misconception": "The shape of the database goes, and the real rows stay with you."
+     "left": "Chat with schema or headings and invented rows",
+     "right": "Names and headings, and the invented rows",
+     "misconception": "The shape of the data goes, and the real rows stay with you."
     },
     {
      "left": "Local model on the real data",
@@ -132,8 +132,8 @@
   },
   {
    "type": "choice",
-   "prompt": "Which statement about incognito chats is supported by the pages read for this quest?",
-   "explain": "The docs say incognito chats are not used for training and are still kept for 30 days by default, so they are not a place for data that must never leave.",
+   "prompt": "Which statement about incognito chats is correct?",
+   "explain": "Incognito chats are not used for training and are still kept for 30 days by default, so they are not a place for data that must never leave.",
    "options": [
     {
      "text": "Not used for training, and still kept for 30 days by default",
@@ -146,6 +146,25 @@
     {
      "text": "They are deleted from the provider as soon as the window closes",
      "misconception": "Deletion takes up to 30 days, and flagged chats may be kept longer."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A manager wants a formula that counts open milestones per project in a spreadsheet. Which prompt keeps the real rows at home?",
+   "explain": "Column headings and a few invented rows are enough for a model to write a formula. You apply it to the real sheet yourself.",
+   "options": [
+    {
+     "text": "Paste headings and three invented rows; apply the formula yourself",
+     "correct": true
+    },
+    {
+     "text": "Upload the whole workbook so the formula fits the real data exactly",
+     "misconception": "An upload is sent to the provider like pasted text, so the real rows leave."
+    },
+    {
+     "text": "Paste the real rows for one project to test it, and keep the rest back",
+     "misconception": "Those rows still leave, and a status list can name people."
     }
    ]
   }

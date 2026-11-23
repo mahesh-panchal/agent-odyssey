@@ -109,17 +109,21 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Guard the Door. <strong>Objective:</strong> sort every control on this site by whether it advises, asks or enforces, and choose the right one for each risk. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in <code>research/tools-and-guards.md</code>)</span></p>
-</div>
-<p>Every control you have met does one of three things.</p>
 <ul>
-<li><strong>Advises.</strong> It puts words in front of the model: an instructions file, Skill text, a line in your prompt. The model reads it and may weigh it against everything else in its context. Nothing stops a tool call.</li>
-<li><strong>Asks.</strong> The harness pauses and puts the decision to you: a permission prompt, or an <code>ask</code> rule. It is only as good as your attention at the tenth prompt of the hour.</li>
-<li><strong>Enforces.</strong> Code outside the model refuses the action whatever the model wants: a <code>deny</code> rule, a hook that exits 2 (exit code 2 is how a hook says block), a sandbox (an operating-system layer that limits what commands can touch) where one is on. Enforcement has edges too, listed below.</li>
+<li><strong>Goal:</strong> you will sort every control in your setup by whether it advises, asks or enforces, and choose the right one for each risk.</li>
+<li><strong>Before you start:</strong> <a href="guard-the-door.html">Guard the Door</a>. A <strong>sandbox</strong> is an operating-system layer that limits what shell commands can touch.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
-<p>The Gatehouse’s rule of thumb: advice for preferences, a prompt for decisions you want to make each time, enforcement for things that must never happen.</p>
-<section id="each-control-and-its-edge" class="level2">
-<h2 class="anchored" data-anchor-id="each-control-and-its-edge">Each control, and its edge</h2>
+</div>
+<p>Every control does one of three things.</p>
+<ul>
+<li><strong>Advises:</strong> it puts words in front of the model: an instructions file, Skill text, a line in your prompt. The model reads it and weighs it against everything else in its context. Nothing stops a tool call.</li>
+<li><strong>Asks:</strong> the harness pauses and puts the decision to you: a permission prompt, or an <code>ask</code> rule. It is only as good as your attention at the tenth prompt of the hour.</li>
+<li><strong>Enforces:</strong> code outside the model refuses the action whatever the model wants: a <code>deny</code> rule, a hook that exits 2 (exit code 2 is how a hook says block), a sandbox where one is on. Enforcement has edges too, listed below.</li>
+</ul>
+<p>The rule of thumb: advice for preferences, a prompt for decisions you want to make each time, enforcement for things that must never happen.</p>
+<section id="each-control-and-where-it-can-fail" class="level2">
+<h2 class="anchored" data-anchor-id="each-control-and-where-it-can-fail">Each control, and where it can fail</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -133,44 +137,44 @@ ul.task-list li input[type="checkbox"] {
 <thead>
 <tr class="header">
 <th>Control</th>
-<th>Kind</th>
-<th>Edge, per the docs read or earlier quests</th>
+<th>What it does</th>
+<th>Where it can fail</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><code>CLAUDE.md</code>, Skill text, your prompt</td>
 <td>Advises</td>
-<td>Influences the model only.</td>
+<td>The model can ignore it.</td>
 </tr>
 <tr class="even">
 <td>Permission prompt or <code>ask</code> rule</td>
 <td>Asks</td>
-<td>You must read it. A project <code>.mcp.json</code> server has its own approval prompt, and <code>-p</code> runs (non-interactive, headless) cannot show it.</td>
+<td>You must read each prompt. A project <code>.mcp.json</code> server has its own approval prompt, and <code>-p</code> runs cannot show it.</td>
 </tr>
 <tr class="odd">
 <td><code>deny</code> rule</td>
 <td>Enforces</td>
-<td>Matching on command arguments is fragile (see the Carapace quest). Deny and ask rules are still evaluated when a hook returns allow.</td>
+<td>Argument matching is fragile.</td>
 </tr>
 <tr class="even">
 <td><code>PreToolUse</code> hook, exit 2</td>
 <td>Enforces</td>
-<td>Fires only on tool calls, sees the literal text, fails open if it crashes.</td>
+<td>Tool calls only; a crash fails open.</td>
 </tr>
 <tr class="odd">
 <td>Sandbox</td>
 <td>Enforces</td>
-<td>Off by default, and limits shell commands only (see the Carapace quest). The docs say its restrictions still apply if a prompt injection bypasses the model’s decision.</td>
+<td>Off by default; shell commands only.</td>
 </tr>
 <tr class="even">
 <td>Git history</td>
 <td>Recovers</td>
-<td>Recovery only, with no prevention: a commit is a restore point that exists whatever the model did next.</td>
+<td>Prevents nothing.</td>
 </tr>
 </tbody>
 </table>
-<p>A hook that <strong>exits 0 with no JSON decision adds no control</strong>: it expresses no decision and the normal permission flow runs. (A hook can also exit 0 and print a JSON <code>deny</code> decision, which does block.)</p>
+<p>A hook that <strong>exits 0 with no JSON decision adds no control</strong>: it expresses no decision and the normal permission flow runs. (A hook can also exit 0 and print a JSON <code>deny</code> decision, which does block.) Deny and ask rules are still evaluated when a hook returns allow. The sandbox’s restrictions still apply if a prompt injection bypasses the model’s decision.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <table class="caption-top table">
@@ -182,39 +186,44 @@ ul.task-list li input[type="checkbox"] {
 <thead>
 <tr class="header">
 <th>Control</th>
-<th>Kind</th>
-<th>Edge, per the V2 docs read</th>
+<th>What it does</th>
+<th>Where it can fail</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Instructions file, Skill text, your prompt</td>
 <td>Advises</td>
-<td>Influences the model only.</td>
+<td>The model can ignore it.</td>
 </tr>
 <tr class="even">
-<td>Permission rule with effect <code>ask</code>; no matching rule</td>
+<td>Permission rule with effect <code>ask</code></td>
 <td>Asks</td>
-<td>No match means <code>ask</code>.</td>
+<td>You must read each prompt.</td>
 </tr>
 <tr class="odd">
+<td>No matching permission rule</td>
+<td>Asks</td>
+<td>Fine, unless you stop reading.</td>
+</tr>
+<tr class="even">
 <td>Permission rule with effect <code>deny</code></td>
 <td>Enforces</td>
-<td>An explicit configured <code>deny</code> is final and does not invoke the hook.</td>
-</tr>
-<tr class="even">
-<td>Plugin permission hook (<code>evaluate</code>)</td>
-<td>Enforces when it denies</td>
-<td>Runs for <code>allow</code> and <code>ask</code> decisions, and can change the effect to <code>deny</code>.</td>
+<td>Only what the rule matches.</td>
 </tr>
 <tr class="odd">
+<td>Plugin permission hook (<code>evaluate</code>)</td>
+<td>Enforces when it denies</td>
+<td>Runs only for <code>allow</code> and <code>ask</code>.</td>
+</tr>
+<tr class="even">
 <td>Git history</td>
 <td>Recovers</td>
-<td>Recovery only; it prevents nothing.</td>
+<td>Prevents nothing.</td>
 </tr>
 </tbody>
 </table>
-<p>Not checked for OpenCode: an exit-code-2 equivalent, whether throwing in a tool hook blocks a call, sandboxing, and the effect of a local Ollama model. Check the current docs before counting on any of them.</p>
+<p>An explicit configured <code>deny</code> is final and does not invoke the hook. For OpenCode, check the current docs for an exit-code-2 equivalent, whether throwing in a tool hook blocks a call, sandboxing, and the effect of a local Ollama model before you count on any of them.</p>
 </div>
 </div>
 </div>
@@ -243,32 +252,42 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td>Pushing to a shared branch</td>
 <td>Ask</td>
-<td>You want to decide each time, with context.</td>
+<td>You decide each time, with context.</td>
 </tr>
 <tr class="odd">
 <td>Reading <code>.env</code> or key files</td>
-<td>Deny rule on the Read tool, plus sandbox or hook for Bash (enforce); still not total</td>
-<td>It must never happen, so use enforcement, and cover each route the agent could use.</td>
+<td>Deny rule on Read, plus sandbox or hook for Bash</td>
+<td>It must never happen; cover each route.</td>
 </tr>
 <tr class="even">
-<td>A specific destructive command you can name</td>
-<td>Blocking hook (enforce)</td>
-<td>Code refuses it. It covers only what it matches.</td>
+<td>A destructive command you can name</td>
+<td>Blocking hook</td>
+<td>Code refuses what it matches.</td>
 </tr>
 <tr class="odd">
 <td>Fetched text telling the agent to act</td>
-<td>Least privilege, read-only servers, sceptical reading</td>
-<td>Advice may not hold against text the model has already read, so limit what the agent can do.</td>
+<td>Least privilege, read-only servers</td>
+<td>Limit what the agent can do.</td>
 </tr>
 <tr class="even">
 <td>An experiment that might wreck your files</td>
-<td>Git commit plus a scratch folder</td>
-<td>Recovery only; it prevents nothing.</td>
+<td>Git commit, scratch folder</td>
+<td>Gives you a way back.</td>
 </tr>
 </tbody>
 </table>
-<p>Layer them: advice to steer, enforcement for the non-negotiable, git for the day something slips through. None of them replaces reading the diff.</p>
-<p>The AI for Science best practices (a European draft with no endorsements yet) make the same split for research groups and add a few habits. Put limits in the system that runs the agent: permission scopes, and spend caps in the metering system (the system that counts usage and cost), because a budget the agent can exceed is not a limit. Give each agent duty a named human owner. Log what an agent did under an identity you can trace. Institutions are advised to keep a list of the agents in use, including personal ones connected to mail or files; a group can keep its own (General practice). Their example is an over-privileged agent with shell access that wiped data on a shared lab server. The page advises a scoped account, a backup before write or delete access, and a named owner for the machine. Not checked first-hand: the practice page, read 2026-11-20 through a fetch summary, so re-check the wording on the page; see <code>research/aiforscience.md</code>.</p>
+<p>Layer them: advice to steer, enforcement for the non-negotiable, git for the day something slips through. Read the diff whatever else you have in place.</p>
+</section>
+<section id="limits-for-research-groups" class="level2">
+<h2 class="anchored" data-anchor-id="limits-for-research-groups">Limits for research groups</h2>
+<p>The same split works for a group that runs agents:</p>
+<ul>
+<li><strong>Put limits in the system that runs the agent:</strong> permission scopes, and spend caps in the metering system (the system that counts usage and cost). A budget the agent can exceed is not a limit.</li>
+<li><strong>Name a human owner</strong> for each agent duty.</li>
+<li><strong>Log what an agent did</strong> under an identity you can trace.</li>
+<li><strong>Keep a list of the agents in use,</strong> including personal ones connected to mail or files. Institutions can keep one, and a group can keep its own.</li>
+<li><strong>Use a scoped account, take a backup before granting write or delete access, and name an owner for the machine.</strong> An over-privileged agent with shell access can wipe data on a shared lab server.</li>
+</ul>
 <div data-ao-honour="gatehouse-sort-your-controls" data-xp="20">
 List five controls in your own setup, such as an instructions file, a hook or a deny rule. Label each advises, asks or enforces, and write the way it could fail.
 </div>
@@ -279,12 +298,21 @@ List five controls in your own setup, such as an instructions file, a hook or a 
 
 </div>
 </section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="guard-the-door.html">Guard the Door</a>: for more on writing a hook that enforces a rule.</li>
+<li><a href="plug-in-a-server.html">Plug In a Server</a>: for more on limiting what a connected server can do.</li>
+<li><a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>: for more on deny rules, ask rules and the sandbox.</li>
+<li><a href="../forest/the-project-charter.html">The Project Charter</a>: for more on instructions files, the main form of advice.</li>
+</ul>
+</section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
 <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it describes instructions as context and not as enforced configuration, which is this quest’s core split.</li>
-<li><a href="https://aiforscience.eu/best-practices/04-govern-autonomy-and-accountability/">AI for Science, practice 4: govern autonomy and accountability</a>: AI for Science (European draft best practices), docs. Why read: it puts limits in the system, names an owner for each agent duty and keeps an inventory. A draft; the page flags some of its own source attributions as unverified.</li>
+<li><a href="https://aiforscience.eu/best-practices/04-govern-autonomy-and-accountability/">AI for Science, practice 4: govern autonomy and accountability</a>: AI for Science (European draft best practices), docs. Why read: it puts limits in the system, names an owner for each agent duty and keeps an inventory. It is a draft.</li>
 <li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Why read: it explains deny, ask and allow rules and permission modes, the built-in enforcement layer.</li>
 <li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Why read: it documents how a hook blocks a tool call, the code-level lock.</li>
 <li><a href="https://code.claude.com/docs/en/sandboxing">Configure the sandboxed Bash tool</a>: Anthropic, docs. Why read: it shows an operating-system limit on shell commands and where that limit ends.</li>
@@ -294,6 +322,7 @@ List five controls in your own setup, such as an instructions file, a hook or a 
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

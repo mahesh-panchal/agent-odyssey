@@ -144,14 +144,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Save Point (for <code>git diff</code>). Jupyter experience helps but is not required. <strong>Objective:</strong> explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable. <strong>Time:</strong> about 15 minutes.</p>
-<p><span class="ao-badge">Verified: ran <code>diff</code> and <code>git diff --no-index --stat</code> on the mock notebooks on 2026-11-16 (macOS, Python 3.9.6). Tool facts: Last verified (docs, not run): nbformat, nbstripout, jupytext, nbdime and marimo docs on 2026-11-16.</span></p>
-<p><strong>Files:</strong> <a href="../../exercises/scriptorium/before.ipynb">before.ipynb</a> and <a href="../../exercises/scriptorium/after.ipynb">after.ipynb</a>, two tiny mock notebooks (about 2.5 KB each). They are mock files: they omit cell ids, so they are not strictly valid nbformat 4.5. Save both into an empty folder.</p>
+<ul>
+<li><strong>Goal:</strong> you will explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable.</li>
+<li><strong>Before you start:</strong> <a href="../crypt/shield-of-undo.html">Save Point</a> (for <code>git diff</code>), and two tiny mock notebooks, <a href="../../exercises/scriptorium/before.ipynb">before.ipynb</a> and <a href="../../exercises/scriptorium/after.ipynb">after.ipynb</a> (about 2.5 KB each). They are mock files that omit cell ids, so they are not strictly valid nbformat 4.5. Save both into an empty folder.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
 <section id="a-notebook-is-a-json-file" class="level2">
 <h2 class="anchored" data-anchor-id="a-notebook-is-a-json-file">A notebook is a JSON file</h2>
-<p>A <code>.ipynb</code> file is a JSON document with <code>metadata</code>, <code>nbformat</code>, <code>nbformat_minor</code> (the notebook file-format version numbers) and a list of <code>cells</code>. A code cell stores its source, but also an <code>execution_count</code> and its outputs. A plot is stored inside the file as a base64 string (the image bytes written out as plain text). The format keeps source and outputs in the same file, so any run rewrites lines next to the code.</p>
-<p>Whether you use an agent or not, this is what git sees. The two mock notebooks differ by one real change: the cutoff <code>30</code> became <code>40</code>. Compare them:</p>
+<p>A <code>.ipynb</code> file is a JSON document with <code>metadata</code>, <code>nbformat</code>, <code>nbformat_minor</code> (the notebook file-format version numbers) and a list of <code>cells</code>. A code cell stores its source, and also an <code>execution_count</code> and its outputs. A plot is stored inside the file as a base64 string (the image bytes written out as plain text). Source and outputs share one file, so any run rewrites lines next to the code.</p>
+<p>This is what git sees, with or without an agent. The two mock notebooks differ by one real change: the cutoff <code>30</code> became <code>40</code>. Compare them:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span> before.ipynb after.ipynb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>5c5
 &lt;    "execution_count": 3,
@@ -169,49 +171,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 &lt;       "image/png": "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGx...
 ---
 &gt;       "image/png": "AAMGCQwPEhUYGx4hJCcqLTAzNjk8P0JFSEtOUV...</code></pre>
-<p>Four changed spots, one of them is the code. The rest is the run counter, the printed result and an image blob. <em>General practice, not measured here:</em> in a real notebook an image is often tens of kilobytes on a single line, and there are usually many cells. The format docs describe the structure; that this makes diffs noisy is our reading of it, and the output above is the evidence.</p>
-<p>The risk with a coding agent is the same as with a human: a reviewer who cannot find the code change will approve without reading it.</p>
+<p>Four spots changed, and one of them is the code. The rest is the run counter, the printed result and an image blob. A real notebook has more cells and bigger images, so the code change is harder still to find; <code>git diff --stat</code> shows how large a notebook diff is.</p>
+<p>The risk is the same with a coding agent as with a human: a reviewer who cannot find the code change may approve without reading it.</p>
 </section>
 <section id="four-ways-to-make-changes-reviewable" class="level2">
 <h2 class="anchored" data-anchor-id="four-ways-to-make-changes-reviewable">Four ways to make changes reviewable</h2>
-<p>Each of these is one option among several. Each moves the noise somewhere else.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Option</th>
-<th>What it does</th>
-<th>Cost</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>nbstripout</strong></td>
-<td>Strips outputs and some metadata when git stores the notebook. Outputs stay in your working file, so on its own it does not change what an agent reads.</td>
-<td>Git cannot set up the filter on clone, so each collaborator runs <code>nbstripout --install</code> themselves.</td>
-</tr>
-<tr class="even">
-<td><strong>jupytext</strong></td>
-<td>Pairs the <code>.ipynb</code> with a <code>.py</code> (the <code>py:percent</code> format is recommended for code). You review the <code>.py</code>; outputs stay in the <code>.ipynb</code>.</td>
-<td>Two files to keep in sync.</td>
-</tr>
-<tr class="odd">
-<td><strong>nbdime</strong></td>
-<td>A notebook-aware diff: <code>nbdiff</code> in the terminal, <code>nbdiff-web</code> in the browser, with git integration and a merge driver.</td>
-<td>Everyone reviewing needs it installed.</td>
-</tr>
-<tr class="even">
-<td><strong>marimo</strong></td>
-<td>Notebooks are stored as pure Python, so ordinary git diffs work.</td>
-<td>A different notebook tool from Jupyter. <code>marimo convert your_notebook.ipynb &gt; your_notebook.py</code> converts an existing one.</td>
-</tr>
-</tbody>
-</table>
-<p><em>General practice:</em> the costs above are our judgement, except the nbstripout clone limit, which is from its docs. Pick by what your team can adopt; stripping outputs is likely the smallest change and a different notebook tool the largest.</p>
+<p>Each option moves the noise somewhere else. Pick by what your team can adopt.</p>
+<ul>
+<li><strong>nbstripout:</strong> strips outputs and some metadata when git stores the notebook. Outputs stay in your working file. Cost: each collaborator runs <code>nbstripout --install</code> themselves, because git cannot set up the filter on clone.</li>
+<li><strong>jupytext:</strong> pairs the <code>.ipynb</code> with a <code>.py</code> (the <code>py:percent</code> format suits code). You review the <code>.py</code> and outputs stay in the <code>.ipynb</code>. Cost: two files to keep in sync.</li>
+<li><strong>nbdime:</strong> a notebook-aware diff, with <code>nbdiff</code> in the terminal, <code>nbdiff-web</code> in the browser, git integration and a merge driver. Cost: everyone reviewing needs it installed.</li>
+<li><strong>marimo:</strong> stores notebooks as pure Python, so ordinary git diffs work. Cost: a different notebook tool from Jupyter. <code>marimo convert your_notebook.ipynb &gt; your_notebook.py</code> converts an existing notebook.</li>
+</ul>
 </section>
 <section id="review-the-code-cells" class="level2">
 <h2 class="anchored" data-anchor-id="review-the-code-cells">Review the code cells</h2>
@@ -228,21 +199,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Claude Code reads a <code>.ipynb</code> with all its cells and outputs, and an output-heavy notebook fills context. It edits notebooks with <code>NotebookEdit</code>, one cell at a time, by <code>cell_id</code>. Replacing a code cell clears that cell’s execution count and saved outputs, so the agent’s diff in the notebook contains lost outputs as well as new source. Note that <code>nbstripout</code> is a git filter: outputs stay in the working file, so on its own it does not change what the agent’s Read returns. To keep the agent on the code, strip outputs from the working copy (nbstripout’s pre-commit mode modifies the working copy, per its docs) or point the agent at the paired <code>.py</code>. That is general practice; check the docs for your version.</p>
+<p>Claude Code reads a <code>.ipynb</code> with all its cells and outputs, and an output-heavy notebook fills the context window (the text the agent can hold at once). It edits notebooks with <code>NotebookEdit</code>, one cell at a time, by <code>cell_id</code>. Replacing a code cell clears that cell’s execution count and saved outputs, so the agent’s diff contains lost outputs as well as new source.</p>
+<p><code>nbstripout</code> is a git filter, so outputs stay in the working file and the agent still reads them. To keep the agent on the code, strip outputs from the working copy (nbstripout’s pre-commit mode does this) or point the agent at the paired <code>.py</code>. Check the docs for your version.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>The idea is the same: review the source cells. This quest has no tool-specific claims for OpenCode; check its docs for how it handles notebook files.</p>
+<p>The idea is the same: review the source cells. Check OpenCode’s docs for how it handles notebook files.</p>
 </div>
 </div>
-</div>
-</section>
-<section id="honour" class="level2">
-<h2 class="anchored" data-anchor-id="honour">Honour</h2>
-<div data-ao-honour="scriptorium-diff-stat" data-xp="20">
-Run <code>git diff –stat</code> in one of your own repositories that contains a notebook, and note how much of the change is outputs.
-</div>
-<div data-ao-honour="scriptorium-pick-option" data-xp="20">
-Write one sentence naming which of the four options your team could adopt this week, and what each collaborator would have to do.
 </div>
 </section>
 <section id="battle-the-diff" class="level2">
@@ -250,6 +213,22 @@ Write one sentence naming which of the four options your team could adopt this w
 <div data-ao-test="scriptorium-why-notebooks-diff-badly" data-xp="60">
 
 </div>
+</section>
+<section id="bonus" class="level2">
+<h2 class="anchored" data-anchor-id="bonus">Bonus</h2>
+<div data-ao-honour="scriptorium-diff-stat" data-xp="20">
+Run <code>git diff –stat</code> in one of your own repositories that contains a notebook, and note how much of the change is outputs.
+</div>
+<div data-ao-honour="scriptorium-pick-option" data-xp="20">
+Write one sentence naming which of the four options your team could adopt this week, and what each collaborator would have to do.
+</div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="run-it-top-to-bottom.html">Run It Top to Bottom</a>: why a stored notebook result can differ from a fresh run.</li>
+<li><a href="../reef/the-reviewers-code.html">The Reviewer’s Code</a>: reviewing LLM-assisted work, including formats that diff well.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -266,6 +245,7 @@ Write one sentence naming which of the four options your team could adopt this w
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

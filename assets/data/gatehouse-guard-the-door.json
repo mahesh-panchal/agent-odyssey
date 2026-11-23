@@ -58,7 +58,7 @@
     },
     {
      "text": "It is held until you answer a prompt about the crash",
-     "misconception": "The docs say the action proceeds on most events. They describe no prompt about the crash."
+     "misconception": "The action proceeds on most events, and no prompt about the crash appears."
     },
     {
      "text": "It runs in the sandbox instead of normally",
@@ -85,7 +85,7 @@
     },
     {
      "text": "It runs with my user permissions, so I reviewed it first",
-     "why": "The docs say command hooks run with your full user permissions."
+     "why": "Command hooks run with your full user permissions."
     }
    ]
   },
@@ -117,7 +117,7 @@
   },
   {
    "type": "choice",
-   "prompt": "An agent will place orders with a vendor of custom DNA. What does the AI for Science draft suggest?",
+   "prompt": "An agent will place orders with a vendor of custom DNA. What is the best safeguard?",
    "explain": "Put one checkpoint in the path that can refuse dual-use orders. A line in the brief can be one layer, and it cannot be the only one.",
    "options": [
     {
@@ -126,7 +126,7 @@
     },
     {
      "text": "Rely only on a line in the brief telling the agent to decline risky orders",
-     "misconception": "A brief is advice, and the agent may not recognise a risky order. The draft wants a checkpoint in the path as well."
+     "misconception": "A brief is advice, and the agent may not recognise a risky order. A checkpoint in the path is needed as well."
     },
     {
      "text": "Read a weekly summary of the orders after they have already been placed",

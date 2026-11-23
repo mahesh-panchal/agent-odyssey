@@ -144,7 +144,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> The Project Charter. Plan Before You Edit is advised. <strong>Objective:</strong> package a repeatable procedure as a Skill, and know what a Skill covers and where its limits lie. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in <code>research/forest-and-reef.md</code> and <code>research/doctor.md</code>).</span></p>
+<ul>
+<li><strong>Goal:</strong> you will package a repeatable procedure as a Skill, install it, and confirm that it loads.</li>
+<li><strong>Before you start:</strong> <a href="the-project-charter.html">The Project Charter</a>. A <strong>slash command</strong> is a <code>/command</code> typed inside the running tool. <strong>Frontmatter</strong> is the settings block between the two <code>---</code> lines at the top of a file.</li>
+<li><strong>Time:</strong> about 20 minutes.</li>
+</ul>
 </div>
 <p>An instructions file is read every session. A <strong>Skill</strong> is a procedure loaded only when it is relevant, so it can be long without crowding the context.</p>
 <section id="what-a-skill-is" class="level2">
@@ -154,7 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Place it at <code>.claude/skills/&lt;name&gt;/SKILL.md</code> (project) or <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code> (all projects). All frontmatter fields (frontmatter: the settings block between the two <code>---</code> lines at the top of the file) are optional, but write a clear <code>description</code> so it triggers at the right time. Keep the body under about 500 lines. The older <code>.claude/commands/</code> format still works but is merged into Skills.</p>
+<p>Place it at <code>.claude/skills/&lt;name&gt;/SKILL.md</code> (project) or <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code> (all projects). All frontmatter fields are optional, but write a clear <code>description</code> so it triggers at the right time. Keep the body under about 500 lines. The older <code>.claude/commands/</code> format still works and is merged into Skills.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>OpenCode reads skills from <code>.opencode/skills</code>, <code>.claude/skills</code> and <code>.agents/skills</code>, so the same <code>SKILL.md</code> can serve both tools. Custom agents live in <code>.opencode/agents/*.md</code>.</p>
@@ -191,35 +195,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <ol start="4" type="1">
-<li>If it did not trigger, check in this order: the file starts with <code>---</code> on line 1; the YAML (the <code>key: value</code> text format used in that block) parses; field names are spelled right; the <code>description</code> says <em>when</em> to use it, with the key use case first (long descriptions are cut off in the listing).</li>
+<li>If it did not trigger, check in this order:
+<ul>
+<li>The file starts with <code>---</code> on line 1.</li>
+<li>The YAML (the <code>key: value</code> text format used in that block) parses.</li>
+<li>Field names are spelled right.</li>
+<li>The <code>description</code> says <em>when</em> to use it, with the key use case first (long descriptions are cut off in the listing).</li>
+</ul></li>
 </ol>
-<p>A Skill that is listed but never picked up is a finding about the description or the prompt. Next you will learn to measure that.</p>
-<p>If a Skill never fires, two <strong>slash commands</strong> (a <code>/command</code> typed inside the running tool) help you look. <code>/skills</code> lists the skills the tool can see, and <code>t</code> sorts them by token count (how many tokens, the chunks of text a model reads, each one takes). <code>/skill-doctor</code> (v2.1.252 or later) shows each skill’s context cost (how much of the model’s limited reading space its text takes up) and how often it is used, and flags skills that sit in the listing but are never invoked. It excludes bundled and enterprise skills.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>In Claude Code, <code>allowed-tools</code> in a Skill <strong>pre-approves</strong> tools for that turn (one prompt and its reply). Other tools stay available to the agent. A Skill offers no sandbox, and a Skill you download is code you choose to trust. Read it before installing it, as you would read a script.</p>
-</div>
-</div>
+<p>A Skill that is listed but never picked up points to the description or the prompt.</p>
+<p>Two slash commands help you look:</p>
+<ul>
+<li><code>/skills</code> lists the skills the tool can see, and <code>t</code> sorts them by token count (how many tokens, the chunks of text a model reads, each one takes).</li>
+<li><code>/skill-doctor</code> shows each skill’s context cost (how much of the model’s limited reading space its text takes up) and how often it is used, and flags skills that sit in the listing but are never invoked. It excludes bundled and enterprise skills.</li>
+</ul>
+<p>In Claude Code, <code>allowed-tools</code> in a Skill <strong>pre-approves</strong> tools for that turn (one prompt and its reply). Other tools stay available to the agent. A Skill offers no sandbox, and a Skill you download is code you choose to trust, so read it before installing it, as you would read a script.</p>
 </section>
 <section id="design-the-skill-like-a-small-job" class="level2">
 <h2 class="anchored" data-anchor-id="design-the-skill-like-a-small-job">Design the Skill like a small job</h2>
-<p><strong>Idea from the GitHub Blog article</strong> “Build once, run on any agent: a practical guide to agent skills” by Andrea Griffiths (GitHub Blog). The points below are our own wording of its advice, and the Agent Skills standard itself is outside the article’s scope.</p>
 <ul>
 <li><strong>One Skill, one job.</strong> Give it a defined <strong>input</strong> (what it is handed, such as a FASTA path) and a defined <strong>output</strong> (what it must return, such as a count and a list of duplicate IDs). If you need “and also” in the description, you probably have two Skills.</li>
-<li><strong>Say what it does and when to use it.</strong> The <code>name</code> and <code>description</code> should state the task and its purpose. In the body, add a short <strong>When to use</strong> part, and a <strong>What evidence to report</strong> part (the commands run and their output), so a reviewer can see what happened.</li>
+<li><strong>Say what it does and when to use it.</strong> The <code>name</code> and <code>description</code> state the task and its purpose. In the body, add a short <strong>When to use</strong> part, and a <strong>What evidence to report</strong> part (the commands run and their output), so a reviewer can see what happened.</li>
 <li><strong>Start from a task you keep explaining.</strong> If you re-explain the same check each session, such as how to confirm a FASTQ file has no truncated records, that check is your first Skill. Write down its inputs, its limits and what a reviewer needs to see.</li>
-<li><strong>A Skill describes the method.</strong> The tool that runs it still supplies the tools, credentials and permissions. A Skill that says “submit this to the cluster” brings no cluster account or allocation with it.</li>
+<li><strong>A Skill describes the method.</strong> The tool that runs it supplies the tools, credentials and permissions. A Skill that says “submit this to the cluster” brings no cluster account or allocation with it.</li>
 <li><strong>Know when a Skill is the wrong fit.</strong> Skills suit bounded, repeatable work such as a pre-submission checklist for a samplesheet. Work that needs a stable interface, shared state, an audit trail or permissions enforced from outside, such as a lab’s shared sample-tracking service, suits an <strong>application</strong> (a separate program with its own tests and access rules) better than instructions.</li>
 </ul>
-<p><strong>Portability.</strong> The Claude Code and OpenCode docs listed in Lore below say both read <code>.claude/skills</code>, so one <code>SKILL.md</code> can serve both. The article’s advice, which is a sensible habit, is to verify in <strong>each client</strong> (the tool that runs the agent, such as Claude Code or OpenCode) you use after installing: does it trigger on the right request, load the files the Skill refers to, use the tools it needs, and return the evidence you asked for? Clients differ in models, tools and permissions, so a Skill that works in one can fail in another.</p>
+<p>For portability: both Claude Code and OpenCode read <code>.claude/skills</code>, so one <code>SKILL.md</code> can serve both. After installing, verify in <strong>each client</strong> (the tool that runs the agent, such as Claude Code or OpenCode) you use:</p>
+<ul>
+<li>Does it trigger on the right request?</li>
+<li>Does it load the files the Skill refers to?</li>
+<li>Does it use the tools it needs?</li>
+<li>Does it return the evidence you asked for?</li>
+</ul>
+<p>Clients differ in models, tools and permissions, so a Skill that works in one can fail in another.</p>
 <div data-ao-honour="write-skill" data-xp="20">
 Write a <code>SKILL.md</code> for one chore you repeat (checking an input, summarising a log). Make the description say when to use it.
 </div>
@@ -230,6 +238,15 @@ Write a <code>SKILL.md</code> for one chore you repeat (checking an input, summa
 
 </div>
 </section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="close-the-loop.html">Close the Loop</a>: for more on measuring whether a Skill changes what the agent does.</li>
+<li><a href="test-the-skill.html">Test the Skill</a>: for more on writing an eval case that checks a Skill fires.</li>
+<li><a href="bundle-a-plugin.html">Bundle a Plugin</a>: for more on packaging Skills so a group can install them.</li>
+<li><a href="the-project-charter.html">The Project Charter</a>: for more on what belongs in the always-loaded instructions file instead.</li>
+</ul>
+</section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
@@ -238,13 +255,14 @@ Write a <code>SKILL.md</code> for one chore you repeat (checking an input, summa
 <li><a href="https://agentskills.io">Agent Skills Overview</a>: Agent Skills, docs. Why read: the open format behind SKILL.md and how skills load in stages.</li>
 <li><a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices">Skill authoring best practices</a>: Anthropic, docs. Why read: practical rules for descriptions, size and structure.</li>
 <li><a href="https://opencode.ai/docs/skills/">Skills</a>: OpenCode, docs. Why read: it lists where OpenCode looks for skills, including the shared .claude/skills path.</li>
-<li><a href="https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/">Build once, run on any agent: a practical guide to agent skills</a>: Andrea Griffiths, GitHub Blog, article. Why read: a vendor article whose advice on one job per Skill, naming inputs and outputs, reporting evidence and knowing when not to use a Skill is paraphrased in “Design the Skill like a small job”; secondary to the docs.</li>
+<li><a href="https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/">Build once, run on any agent: a practical guide to agent skills</a>: Andrea Griffiths, GitHub Blog, article. Why read: a vendor article with advice on one job per Skill, naming inputs and outputs, reporting evidence and knowing when not to use a Skill.</li>
 </ul>
 </section>
 
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

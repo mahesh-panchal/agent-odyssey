@@ -33,7 +33,7 @@
     {
      "text": "Test a pipeline stage that needs the cluster scheduler and a local reference database",
      "bin": "Keep local",
-     "misconception": "No HPC filesystem or local database is documented for cloud sessions, so the job cannot run there anyway."
+     "misconception": "That job needs the cluster scheduler and a local database, so keep it where they are."
     }
    ]
   },
@@ -48,7 +48,7 @@
     },
     {
      "text": "Yes, once the session's network access level is set to None",
-     "misconception": "The Anthropic API stays reachable even at None, and the docs say that may allow data to exit the VM; the data is already in the clone and transcript anyway."
+     "misconception": "The Anthropic API stays reachable even at None, which may allow data to exit the VM; the data is already in the clone and transcript anyway."
     },
     {
      "text": "Yes, provided you delete the session as soon as the analysis is done",
@@ -106,7 +106,7 @@
     {
      "left": "The prompt you type and the session transcript",
      "right": "Stored by Anthropic",
-     "misconception": "Prompts reach Anthropic beyond the VM; the docs say Anthropic stores the transcript so you can return to the session."
+     "misconception": "Prompts reach Anthropic beyond the VM; Anthropic stores the transcript so you can return to the session."
     }
    ]
   },

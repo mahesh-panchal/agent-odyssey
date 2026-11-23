@@ -109,21 +109,38 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Ground Truth. This is the boss at the end of the trunk. <strong>Objective:</strong> survive a wall of agent output without reading all of it and without trusting all of it. <strong>Time:</strong> about 10 minutes. Each right answer on the first try damages the boss.</p>
-<p><span class="ao-badge">Practice guidance, not a vendor claim. Based on the habits taught in this zone.</span></p>
+<ul>
+<li><strong>Goal:</strong> you will survive a wall of agent output without reading all of it and without trusting all of it.</li>
+<li><strong>Before you start:</strong> <a href="ground-truth.html">Ground Truth</a>. This is the boss at the end of the trunk.</li>
+<li><strong>Time:</strong> about 10 minutes. Each right answer on the first try damages the boss.</li>
+</ul>
 </div>
 <p><img src="../../assets/img/boss-wall.png" class="ao-boss-img img-fluid" alt="Pixel-art portrait of the Wall of Output: a tall wall of terminal-style bricks filled with green scrolling text, with two glowing amber cursor eyes."></p>
 <section id="the-wall" class="level2">
 <h2 class="anchored" data-anchor-id="the-wall">The Wall</h2>
 <p>The Wall is thousands of lines of generated diff (the list of lines a change added and removed), produced faster than anyone can review. If you merge it unread, the Blight spreads. If you try to read all of it, your attention thins and you approve things you did not understand. Both routes fail.</p>
 <p>The way through is to <strong>refuse it whole</strong>: keep a <strong>review budget</strong> (only produce as much as you can honestly review today, because bulk low-quality output is called <em>slop</em>), ask for smaller pieces, ground each piece in a check, and pass on only work you have read yourself.</p>
-<p>The AI for Science best practices (a European draft with no endorsements yet; practice 9) back this with a warning about the human check itself. Stating the human check is only the first step: oversight often fails through automation bias (trusting the machine’s output too readily) and rubber-stamping (approving without reading). Their example is an “approve each item” step at hundreds of items an hour, which turns into clicking through. A check that works shows what changed, at a volume a person can read, with approve, edit, veto and stop. They also say to keep a real decision point wherever results or other people are affected, and to record the human step as part of the work’s provenance. Not checked first-hand: read 2026-11-20 through a fetch summary, so re-check the wording on the page; see <code>research/aiforscience.md</code>.</p>
+<p>A human check can fail in two ways. <em>Automation bias</em> is trusting the machine’s output too readily. <em>Rubber-stamping</em> is approving without reading. An “approve each item” step at hundreds of items an hour turns into clicking through. A check that works:</p>
+<ul>
+<li>shows what changed, at a volume a person can read;</li>
+<li>offers approve, edit, veto and stop;</li>
+<li>keeps a real decision point wherever results or other people are affected;</li>
+<li>records the human step as part of the work’s provenance (the record of where a result came from).</li>
+</ul>
 </section>
 <section id="battle-the-wall" class="level2">
 <h2 class="anchored" data-anchor-id="battle-the-wall">Battle: the Wall</h2>
 <div data-ao-test="maze-wall-of-output" data-xp="120">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="ground-truth.html">Ground Truth</a>: the check an agent did not write.</li>
+<li><a href="../codon-mill/the-context-window.html">The Context Window</a>: why more text in context is not free.</li>
+<li><a href="../reef/the-reviewers-code.html">The Reviewer’s Code</a>: ask for evidence when work comes to you.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -140,6 +157,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

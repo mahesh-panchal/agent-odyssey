@@ -109,15 +109,19 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Ground Truth. <strong>Objective:</strong> check pipeline code an agent wrote cheaply, before it touches real data or a cluster queue. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Snakemake and Nextflow docs on 2026-11-13 (sources in <code>research/factory.md</code>). Not confirmed in the docs: exactly which wiring errors a Snakemake dry run reports, so treat that as typical behaviour, not a guarantee.</span></p>
+<ul>
+<li><strong>Goal:</strong> you will check pipeline code an agent wrote cheaply, before it touches real data or a cluster queue.</li>
+<li><strong>Before you start:</strong> <a href="../maze/ground-truth.html">Ground Truth</a>. A <em>dry run</em> asks a workflow manager what it would run; a <em>stub run</em> runs placeholder steps.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
-<p>The Factory runs the same steps every time. When an agent writes or edits a pipeline, the danger is a rule that looks right and wires the wrong inputs, so that hours of compute are wasted or, worse, finish with a plausible wrong result.</p>
+<p>When an agent writes or edits a pipeline, a rule can look right and wire the wrong inputs. Hours of compute are then wasted, or finish with a plausible wrong result.</p>
 <p>Check in layers, cheapest first:</p>
 <ol type="1">
-<li><strong>Read the diff</strong> (small, as in the Wall of Output).</li>
-<li><strong>Dry run</strong>: ask the workflow manager what it <em>would</em> run. It shows the plan (which files feed which steps). Nothing runs, so it cannot show the commands are correct.</li>
-<li><strong>Stub run</strong> (Nextflow) or a <strong>tiny real input</strong>: run the whole graph in seconds on a few records.</li>
-<li><strong>Compare with ground truth</strong> on that tiny input, as in Ground Truth.</li>
+<li><strong>Read the diff.</strong> Ask for small changes so it stays readable.</li>
+<li><strong>Dry run:</strong> ask the workflow manager what it would run. It shows the plan, meaning which files feed which steps. Nothing runs, so it cannot show that the commands are correct.</li>
+<li><strong>Stub run</strong> (Nextflow) or a <strong>tiny real input:</strong> run the whole graph in seconds on a few records.</li>
+<li><strong>Compare with ground truth</strong> on that tiny input: compute the expected answer by another route and compare.</li>
 <li>Only then real data, through the scheduler if you are on a cluster.</li>
 </ol>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="engine">
@@ -127,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 <p><code>snakemake -n</code> (dry run) prints the jobs it would run, without running them. Use a small input file and compare the plan with what you expect.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p><code>nextflow run main.nf -stub-run</code> runs each process’s <code>stub:</code> block instead of the real script, so the wiring is exercised quickly. <code>-resume</code> reuses cached results for tasks whose inputs and script are unchanged. A process <strong>without</strong> a <code>stub:</code> block runs its real script even under <code>-stub-run</code>, so check that every process has a stub before you rely on it being fast and harmless. Stub-run results are cached separately from real runs, so they do not carry over to a real <code>-resume</code>.</p>
+<p><code>nextflow run main.nf -stub-run</code> runs each process’s <code>stub:</code> block instead of the real script, so the wiring is exercised quickly. <code>-resume</code> reuses cached results for tasks whose inputs and script are unchanged. A process <strong>without</strong> a <code>stub:</code> block runs its real script even under <code>-stub-run</code>, so check that every process has a stub before you rely on it being fast and harmless. Stub-run results are cached separately from real runs, so a real <code>-resume</code> starts fresh.</p>
 </div>
 </div>
 </div>
@@ -141,7 +145,12 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A dry run passing means a plan could be built. A stub run passing means the declared steps and outputs line up; each connection still needs a look to confirm it is the one you meant. Whether the tool commands are right and the results correct takes a tiny real input and a ground-truth check.</p>
+<p>What each layer tells you:</p>
+<ul>
+<li><strong>Dry run passes:</strong> a plan could be built.</li>
+<li><strong>Stub run passes:</strong> the declared steps and outputs line up. Look at each connection to confirm it is the one you meant.</li>
+<li><strong>Tiny real input plus ground truth:</strong> the tool commands are right and the results are correct.</li>
+</ul>
 </div>
 </div>
 <section id="battle-layers-of-checking" class="level2">
@@ -149,6 +158,14 @@ Note
 <div data-ao-test="factory-dry-run-first" data-xp="60">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="../maze/ground-truth.html">Ground Truth</a>: how to compute a check value the agent did not produce.</li>
+<li><a href="read-the-rails.html">Read the Rails</a>: common mistakes to spot when you read agent-written pipeline rules.</li>
+<li><a href="../citadel/jobs-not-jam.html">Jobs, Not Jam</a>: sending checked work through a cluster scheduler.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -164,6 +181,7 @@ Note
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

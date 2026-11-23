@@ -75,18 +75,18 @@
     },
     {
      "text": "Correct it a third time, more firmly, so it finally sticks",
-     "misconception": "The docs say a third correction mostly adds to the failed attempts the model keeps re-reading."
+     "misconception": "A third correction mostly adds to the failed attempts the model keeps re-reading."
     },
     {
      "text": "Run /compact so the history is shortened and the claim fades",
-     "misconception": "It stays the same conversation, and a summary of it can still carry the wrong claim (our inference)."
+     "misconception": "It stays the same conversation, and a summary of it can still carry the wrong claim."
     }
    ]
   },
   {
    "type": "faulty-line",
    "prompt": "Lines from a team's CLAUDE.md after a month of use. Which line is the problem?",
-   "explain": "A line copied from an unchecked chat guess becomes a fact that loads in every session. Unverified claims should be checked before they go into a memory or instructions file (general practice).",
+   "explain": "A line copied from an unchecked chat guess becomes a fact that loads in every session. Unverified claims should be checked before they go into a memory or instructions file.",
    "lines": [
     {
      "text": "Run the tests with the project's own test command before saying a change is done",
@@ -109,7 +109,7 @@
   {
    "type": "order",
    "prompt": "A wrong claim has entered the session and may have been saved to memory. Put the recovery steps in order, with the memory check after /clear and before the new prompt.",
-   "explain": "After two failed corrections, stop and run /clear to get a fresh conversation. Then, before your new prompt, check /memory and delete any line that records the wrong claim (general practice), so it is not loaded again. Last, give one prompt that folds in the checked fact.",
+   "explain": "After two failed corrections, stop and run /clear to get a fresh conversation. Then, before your new prompt, check /memory and delete any line that records the wrong claim, so it is not loaded again. Last, give one prompt that folds in the checked fact.",
    "items": [
     "Stop correcting after two failed attempts",
     "Run /clear to start a fresh conversation",

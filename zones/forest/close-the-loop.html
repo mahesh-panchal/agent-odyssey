@@ -109,9 +109,13 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Forge a Skill. <strong>Objective:</strong> turn “it did the wrong thing” into a measured fix, and know when the fix has stopped working. <strong>Time:</strong> about 10 minutes. <span class="ao-badge">General practice.</span></p>
+<ul>
+<li><strong>Goal:</strong> you will turn “it did the wrong thing” into a measured fix, and know when the fix has stopped working.</li>
+<li><strong>Before you start:</strong> <a href="forge-a-skill.html">Forge a Skill</a>. A <strong>Skill</strong> is a procedure the agent loads when it is relevant.</li>
+<li><strong>Time:</strong> about 10 minutes.</li>
+</ul>
 </div>
-<p>Sooner or later the agent does something you did not want: it skips a check, names files badly, or uses a method your lab avoids. A chat correction helps that one reply, and a <strong>Skill</strong> helps next time. An <strong>eval</strong> tells you whether the fix works, and keeps telling you after the model or tool changes.</p>
+<p>Sooner or later the agent does something you did not want: it skips a check, names files badly, or uses a method your lab avoids. A chat correction helps that one reply, and a Skill helps next time. An <strong>eval</strong> tells you whether the fix works, and keeps telling you after the model or tool changes.</p>
 <section id="what-is-an-eval" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-an-eval">What is an eval?</h2>
 <p>An <strong>eval</strong> (short for evaluation) is a repeatable check of how well an AI system does a task. It is the AI version of a unit test, with one difference. Ordinary code gives the same output for the same input, so a test can assert one answer. A model can answer the same prompt differently each time, so you run the check several times and ask how often, and how well, it does the job.</p>
@@ -141,38 +145,26 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><strong>Deterministic</strong></td>
-<td>A script checks something exact: the file exists, the command ran, the output has 3 columns.</td>
-<td>Free, fast, same result every time.</td>
-<td>Covers only what you can state as a rule.</td>
+<td>A script checks something exact.</td>
+<td>Free, fast, same every time.</td>
+<td>Covers only what a rule can state.</td>
 </tr>
 <tr class="even">
 <td><strong>Human</strong></td>
 <td>You read the output and judge it.</td>
-<td>Best for quality, style and “is this actually right?”.</td>
-<td>Slow and does not scale. Often the only option at the start.</td>
+<td>Best for quality and style.</td>
+<td>Slow, does not scale.</td>
 </tr>
 <tr class="odd">
 <td><strong>Judge model</strong></td>
-<td>A second model marks the answer against a rubric.</td>
+<td>A second model marks against a rubric.</td>
 <td>Handles open-ended output at scale.</td>
-<td>Costs a model call per mark, and the judge can be wrong.</td>
+<td>Costs a call per mark, can be wrong.</td>
 </tr>
 </tbody>
 </table>
-<p>Use deterministic graders wherever you can, a person where you must, and a judge model for the rest. Because answers vary, the result is usually a <strong>pass rate</strong> (for example 2 of 3 runs, or 80% of graders passed) and not one pass or fail. The useful question is whether a change moved that number up or down.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Cases decide how good the eval is.</strong> A set of cases should look like your real work and include awkward ones: an empty file, a misspelt name, a request phrased differently. Ten realistic cases beat a hundred invented ones. Real failures are the best source, which is why the loop below starts with <em>Notice</em>.</p>
-</div>
-</div>
+<p>A deterministic check looks like this: the file exists, the command ran, the output has 3 columns. Use deterministic graders wherever you can, a person where you must, and a judge model for the rest. Because answers vary, the result is usually a <strong>pass rate</strong> (for example 2 of 3 runs, or 80% of graders passed) and not one pass or fail. The useful question is whether a change moved that number up or down.</p>
+<p>The cases decide how good the eval is. A set of cases should look like your real work and include awkward ones: an empty file, a misspelt name, a request phrased differently. Ten realistic cases beat a hundred invented ones. Real failures are the best source, which is why the loop below starts with <em>Notice</em>.</p>
 </section>
 <section id="the-loop" class="level2">
 <h2 class="anchored" data-anchor-id="the-loop">The loop</h2>
@@ -183,19 +175,7 @@ Note
 <li><strong>Compare.</strong> If <em>with</em> is clearly better than <em>without</em>, the Skill earns its place. If they are about the same, the Skill adds little: it may not be triggering, it may repeat what the model already does, or it may be too vague.</li>
 <li><strong>Repeat later.</strong> A new model version can make a Skill unnecessary, or break it. Re-run the evals when the model, the tool, or the Skill changes.</li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The unit that matters is the <strong>difference</strong> between <em>with</em> and <em>without</em>. The <em>without</em> run is the <strong>baseline</strong>: the run without the change, which tells you what the model does on its own. A Skill that scores 100% both ways has added nothing the model lacked.</p>
-</div>
-</div>
+<p>The number that matters is the <strong>difference</strong> between <em>with</em> and <em>without</em>. The <em>without</em> run is the <strong>baseline</strong>: it shows what the model does on its own. A Skill that scores 100% both ways has added nothing the model lacked.</p>
 </section>
 <section id="what-to-check" class="level2">
 <h2 class="anchored" data-anchor-id="what-to-check">What to check</h2>
@@ -205,7 +185,16 @@ Note
 <li><strong>Cost:</strong> every run is a real model call. Start with few cases and few runs, and raise them only for a Skill you will rely on.</li>
 </ul>
 <p>Evals can be wrong too. A check that always passes, or that fails correct answers, tells you little. Read a few raw outputs by hand before trusting a score.</p>
-<p>The AI for Science best practices (a European draft with no endorsements yet; practice 8) add four habits for judging a tool before you rely on it. Test on cases with known answers. Repeat the runs, since one pass can be luck. Write down the failure modes you see. Test again when the tool, the model or your task changes. They also say a judge model from the same family as the one being judged is not an independent grader, and that when a model does grade, you should check a sample by hand against reference answers fixed in advance. Not checked first-hand: read 2026-11-20 through a fetch summary, so re-check the wording on the page; see <code>research/aiforscience.md</code>.</p>
+</section>
+<section id="four-habits-before-you-rely-on-a-tool" class="level2">
+<h2 class="anchored" data-anchor-id="four-habits-before-you-rely-on-a-tool">Four habits before you rely on a tool</h2>
+<ul>
+<li><strong>Known answers:</strong> test on cases where you already know the right answer.</li>
+<li><strong>Repeat:</strong> run each case several times, since one pass can be luck.</li>
+<li><strong>Write down failures:</strong> keep a list of the failure modes you see.</li>
+<li><strong>Test again:</strong> repeat the tests when the tool, the model or your task changes.</li>
+</ul>
+<p>When a model does the grading, a judge from the same family as the model being judged is not an independent grader. Check a sample of its marks by hand against reference answers fixed in advance.</p>
 <div data-ao-honour="loop-notes" data-xp="20">
 Keep a short list of the times an agent went wrong for you. Each entry is a candidate Skill and a ready-made eval case.
 </div>
@@ -215,6 +204,14 @@ Keep a short list of the times an agent went wrong for you. Each entry is a cand
 <div data-ao-test="forest-close-the-loop" data-xp="60">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="test-the-skill.html">Test the Skill</a>: for more on writing a real eval case and running it with a cost ceiling.</li>
+<li><a href="forge-a-skill.html">Forge a Skill</a>: for more on writing the Skill you will measure.</li>
+<li><a href="write-the-brief.html">Write the Brief</a>: for more on prompts that give the agent a check it can run.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -231,6 +228,7 @@ Keep a short list of the times an agent went wrong for you. Each entry is a cand
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

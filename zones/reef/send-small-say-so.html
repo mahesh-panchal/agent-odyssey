@@ -109,26 +109,29 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Spot the Mirage. The Wall of Output is advised. <strong>Objective:</strong> hand work to collaborators, whether or not they use LLMs, without passing them your review burden. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Not checked: any venue’s disclosure policy. Team norms you agree locally override these defaults.</span></p>
+<ul>
+<li><strong>Goal:</strong> you will hand work to collaborators, whether or not they use LLMs, without passing them your review burden.</li>
+<li><strong>Before you start:</strong> <a href="../maze/spot-the-mirage.html">Spot the Mirage</a>.</li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
-<p>A reef is a community. When you use an agent, the cost of checking its output must not silently land on the next person. The <strong>Review-leech</strong> feeds on exactly that.</p>
-<p>Four habits:</p>
+<p>A reef is a community. The <strong>Review-leech</strong> feeds on the cost of checking an agent’s output when it lands on the next person without a word. Four habits starve it.</p>
 <ol type="1">
 <li><strong>Review it yourself first.</strong> Read your own diff as if a stranger wrote it. If you cannot explain a line, it is not ready to send.</li>
-<li><strong>Say so.</strong> Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Your team may set its own norm for how.</li>
+<li><strong>Say so.</strong> Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Follow your team’s norm for how.</li>
 <li><strong>Send small.</strong> One idea per change, small enough to review in one sitting.</li>
 <li><strong>Bring evidence.</strong> Include the test, the command, or the check that shows it works.</li>
 </ol>
-<p>These help reviewers who use LLMs and those who do not. A colleague who does not use LLMs can review your work without learning a tool.</p>
+<p>These habits help every reviewer. A colleague who does not use LLMs can review your work without learning a tool.</p>
 <section id="when-you-worry-about-looking-lazy" class="level2">
 <h2 class="anchored" data-anchor-id="when-you-worry-about-looking-lazy">When you worry about looking lazy</h2>
-<p>A common worry: <em>people will think I am lazy or unoriginal for using it.</em> You can make the facts easy to see.</p>
+<p>A common worry is that people will think you are lazy or unoriginal for using an agent. Make the facts easy to see.</p>
 <ul>
 <li><strong>Say plainly what the agent did and what you checked.</strong> “The agent drafted the plotting code. I read it and compared the output with a hand calculation.”</li>
 <li><strong>Follow your team’s norm.</strong> Some groups want a note in the commit message, some in the methods. Use what yours agrees on.</li>
 <li><strong>Let the evidence speak.</strong> Tests, checks and your ability to explain every line show the work is yours.</li>
 <li><strong>Ask.</strong> A lead or a journal editor can tell you what they expect.</li>
-<li><strong>Check the venue.</strong> Some venues have disclosure policies. If you name one, read its own page and cite it.</li>
+<li><strong>Check the venue.</strong> A journal or conference may have a disclosure policy. Read its own page before you submit.</li>
 </ul>
 </section>
 <section id="battle-the-hand-off" class="level2">
@@ -136,6 +139,13 @@ ul.task-list li input[type="checkbox"] {
 <div data-ao-test="reef-send-small-say-so" data-xp="60">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="../maze/wall-of-output.html">Boss: The Wall of Output</a>: why a big change is hard to review, and how to ask for smaller ones.</li>
+<li><a href="the-reviewers-code.html">The Reviewer’s Code</a>: the other side of the hand-off, reviewing work that involved an LLM.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -149,6 +159,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

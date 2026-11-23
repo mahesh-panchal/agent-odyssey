@@ -5,8 +5,7 @@
   function esc(t) { var d = document.createElement("div"); d.textContent = t == null ? "" : t; return d.innerHTML; }
   function passed(id) { return !!(AO.state && AO.state.passed && AO.state.passed[id]); }
   function link(q) {
-    var st = window.AO.path.status(q.id);
-    return "<li><a href='" + base + q.page + "'>" + esc(q.title) + "</a> <span class='ao-soft'>(" + window.AO.path.stateLabel(st) + (q.optional ? ", side quest" : "") + ")</span></li>";
+    return "<li>" + (passed(q.id) ? "<span class='ao-mark'>✔</span> " : "") + "<a href='" + base + q.page + "'>" + esc(q.title) + "</a></li>";
   }
   function list(title, qs) { return qs.length ? "<h3>" + title + "</h3><ul>" + qs.map(link).join("") + "</ul>" : ""; }
 
@@ -20,7 +19,7 @@
     var content = document.querySelector("main") || document.getElementById("quarto-document-content") || document.body;
     var block = document.createElement("nav");
     block.className = "ao-nextsteps"; block.setAttribute("aria-label", "Next steps");
-    var lore = document.querySelector(".ao-lore");
+    var lore = document.querySelector(".ao-related") || document.querySelector(".ao-lore");
     if (lore && lore.parentNode) lore.parentNode.insertBefore(block, lore); else content.appendChild(block);
     var notice = null;
     if (isFinale) {
@@ -30,24 +29,27 @@
     }
 
     function paint() {
-      var h = "<h2>Next steps</h2>";
+      var h = "<h2>Continue the journey</h2>";
       if (quest && !onFinale) {
         var s = P.nextSteps(quest.id);
-        var seen = {}; s.unlocks.forEach(function (u) { seen[u.id] = true; });
-        var rec = s.recommended.filter(function (r) { return !seen[r.id]; }).slice(0, 3);
-        h += list("Unlocks", s.unlocks) + list("Recommended next", rec) + list("Optional side quests", s.optional);
+        var rec = s.recommended.filter(function (r) { return !passed(r.id); });
+        var prev = P.prevQuest(quest.id), fol = P.followQuest(quest.id);
+        var go = fol && !passed(fol.id) ? fol : rec[0], others = rec.filter(function (r) { return !go || r.id !== go.id; }).slice(0, 2);
+        h += "<p class='ao-go'>" + (go ? "<a class='ao-start-btn' rel='next' href='" + base + go.page + "'>Next: " + esc(go.title) + " ▶</a>" : "<span>Every step in reach is cleared.</span>") +
+          (prev ? " <a class='ao-back' rel='prev' href='" + base + prev.page + "'>◀ Back: " + esc(prev.title) + "</a>" : "") + "</p>";
+        h += list("Other ways on", others) + list("Side quests (optional)", s.optional);
         var last = G.trunk_order[G.trunk_order.length - 1] === quest.id;
         if (last) {
           var r = P.remainingForFinale(), n = r.branchesNeeded;
-          h += "<p>You have reached the end of the trunk. The branches hang off it: pick the ones that match your work. " +
+          h += "<p>You have reached the end of the trunk. Pick the branches that match your work. " +
             (P.finaleUnlocked() ? "The Murk's Heart is open." : n ? "Finish " + n + " more branch" + (n === 1 ? "" : "es") + " to open the Murk's Heart." : "Finish the rest of the trunk to open the Murk's Heart.") + "</p>";
         }
       } else if (!passed(FINALE)) {
-        h += "<p>This is the last stop. Everything else on the site stays open to revisit.</p>";
+        h += "<p>This is the last stop. Everything else stays open to revisit.</p>";
       } else {
         h += "<p>The Murk is cleared. Every quest stays open to revisit.</p>";
       }
-      h += "<p><a href='" + base + "index.html'>Back to the map</a> · <a href='" + base + "start-here.html'>Start Here</a></p>";
+      h += "<p class='ao-soft'><a href='" + base + "start-here.html'>Your path</a> · <a href='" + base + "index.html'>Map</a></p>";
       block.innerHTML = h;
       if (isFinale) { paintSeal(); paintEnding(); }
     }

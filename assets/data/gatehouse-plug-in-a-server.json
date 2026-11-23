@@ -4,7 +4,7 @@
   {
    "type": "choice",
    "prompt": "You add a stdio MCP server with `claude mcp add myserver -- <command>`. What is the most accurate description of what you did?",
-   "explain": "The server is a command the harness launches on your machine. Working assumption (general practice): it can do what that command can do with the credentials you hand it, so it is a trust decision like installing any software.",
+   "explain": "The server is a command the harness launches on your machine. Assume it can do what that command can do with the credentials you hand it, so it is a trust decision like installing any software.",
    "options": [
     {
      "text": "Installed software that can use the credentials you give it",
@@ -92,7 +92,7 @@
   {
    "type": "faulty-line",
    "prompt": "A teammate lists habits for adding a server. Which line is the unsafe one?",
-   "explain": "Servers that fetch external content can expose you to prompt injection, and the docs say to verify trust before connecting. Handing it write credentials and letting it act unattended removes the checks.",
+   "explain": "Servers that fetch external content can expose you to prompt injection, so verify trust before connecting. Handing it write credentials and letting it act unattended removes the checks.",
    "lines": [
     {
      "text": "Check who publishes the server and what tools it lists",
@@ -108,7 +108,7 @@
     },
     {
      "text": "Remove servers you no longer need, since tools use context",
-     "why": "OpenCode's docs say tools consume model context, so add only what you need."
+     "why": "MCP tools consume model context, so add only what you need."
     }
    ]
   },

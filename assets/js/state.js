@@ -15,6 +15,17 @@
       if (!AO.state.passed[id]) { AO.state.passed[id] = true; AO.state.xp += xp || 0; }
       AO.save();
     },
+    /* Per-question XP: awarded once per key, and only while the quest is still uncleared (so retakes never farm XP). */
+    award: function (key, xp) {
+      var q = AO.state.qxp = AO.state.qxp || {};
+      if (q[key] || !xp) return 0;
+      q[key] = xp; AO.state.xp += xp; AO.save(); return xp;
+    },
+    awarded: function (prefix) {
+      var q = AO.state.qxp || {}, t = 0;
+      Object.keys(q).forEach(function (k) { if (k.indexOf(prefix + "#") === 0) t += q[k]; });
+      return t;
+    },
     exportCode: function () { return btoa(JSON.stringify(AO.state)); },
     importCode: function (code) {
       var s = JSON.parse(atob(code.trim()));

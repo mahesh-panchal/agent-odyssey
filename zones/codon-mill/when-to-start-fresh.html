@@ -109,34 +109,52 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Memory, Sessions and Usage. <strong>Objective:</strong> name the signals that say “start a new session”, the signals that say “carry on”, and when the middle path (compacting) fits better than either. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16 (Claude Code best-practices, context-window, sessions and commands docs; OpenCode TUI docs). Claude Code specific unless stated. The cache-and-break numbers come from a community repo (research/cache-and-usage.md), small samples, not run here.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
+<ul>
+<li><strong>Goal:</strong> you will name the signals that say “start a new session”, the signals that say “carry on”, and when compacting fits better than either.</li>
+<li><strong>Before you start:</strong> <a href="memory-sessions-and-usage.html">Memory, Sessions and Usage</a></li>
+<li><strong>Time:</strong> about 15 minutes.</li>
+</ul>
 </div>
-<p>You have a conversation open with an agent. It has read files, tried things and been corrected. Do you keep typing into it, or start over? Each answer fits some situations, and a wrong choice costs something either way. This page offers signals to weigh.</p>
-<p>A few words first. A <strong>session</strong> is one saved conversation with the tool. Its <strong>context</strong> is the text the model can see right now (the context window, from The Context Window quest). <strong>Compacting</strong> means replacing the long history with a short summary and carrying on in the same conversation. <strong>Starting fresh</strong> means a new, empty conversation. Nothing else changes: your files stay as they are.</p>
+<p>You have a conversation open with an agent. It has read files, tried things and been corrected. Do you keep typing into it, or start over? Each answer fits some situations, and a wrong choice costs something either way.</p>
+<section id="words-first" class="level2">
+<h2 class="anchored" data-anchor-id="words-first">Words first</h2>
+<ul>
+<li><strong>Session:</strong> one saved conversation with the tool.</li>
+<li><strong>Context:</strong> the text the model can see right now. It has a fixed size limit.</li>
+<li><strong>Compacting:</strong> replacing the long history with a short summary and carrying on in the same conversation.</li>
+<li><strong>Starting fresh:</strong> opening a new, empty conversation. Your files stay as they are.</li>
+</ul>
+</section>
 <section id="signals-to-start-fresh" class="level2">
 <h2 class="anchored" data-anchor-id="signals-to-start-fresh">Signals to start fresh</h2>
 <ol type="1">
-<li><strong>A new, unrelated task.</strong> The docs recommend <code>/clear</code> between unrelated tasks. They say it costs nothing, and the next task stops paying for the previous one’s history. A session holding three unrelated tasks re-reads all three on every turn (one prompt from you plus the model’s reply) of the fourth. (<code>/clear</code> starts a new empty conversation. Giving it a name, as in <code>/clear oauth-migration</code>, labels the one you leave so you can find it again.)</li>
-<li><strong>The agent repeats a wrong claim after two corrections.</strong> The docs’ advice is to clear and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts. See Memory, Sessions and Usage.</li>
-<li><strong>You notice it forgetting early instructions or contradicting itself.</strong> <strong>General practice:</strong> treat this as a symptom of a crowded or degraded context and start fresh, with the instruction moved into the instructions file. The docs back the underlying mechanism: Anthropic calls the loss of accuracy and recall as context grows <strong>context rot</strong>, and notes that after compaction, detailed early instructions may be lost. They give no number at which either begins.</li>
-<li><strong>You have been away for a while and the next task is new.</strong> The harness keeps a <strong>cache</strong>, a short-term store that makes re-reading the conversation cheaper. Per the docs it lasts about an hour on a subscription and five minutes with an API key. Idle compaction is documented together with the one-hour cache: a very long session (past about 200 thousand tokens) that sits idle may be compacted shortly before the cache expires, so you return to a summary. The docs add: if you do not need the history at all, a fresh session still costs less. If you do need it, resume or carry on (see the table).</li>
-<li><strong>The context is crowded.</strong> Run <code>/context</code>: it shows what fills the window, with suggestions and capacity warnings. A crowded window with a task you still need is a reason to compact (below); a crowded window full of dead ends is a reason to clear.</li>
-<li><strong>A task is finished and a verified result is committed.</strong> The result lives in your files and in git, so the conversation has done its job. The docs make the same move after a spec: write it down (the spec: a written description of what to build), then start a fresh session to build from it, so the build begins with a clean context and a written definition of done.</li>
+<li><strong>A new, unrelated task.</strong> Run <code>/clear</code> between unrelated tasks. It costs nothing, and the next task stops paying for the previous one’s history. A session holding three unrelated tasks re-reads all three on every turn of the fourth. A name, as in <code>/clear oauth-migration</code>, labels the conversation you leave so you can find it again.</li>
+<li><strong>The agent repeats a wrong claim after two corrections.</strong> Clear, and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts.</li>
+<li><strong>You notice it forgetting early instructions or contradicting itself.</strong> A crowded or degraded context is the usual cause. Start fresh, and move the instruction into the instructions file (<code>CLAUDE.md</code>). Detailed early instructions can also be lost when a conversation is compacted.</li>
+<li><strong>You have been away for a while and the next task is new.</strong> The tool keeps a <strong>cache</strong>, a short-term store that makes re-reading the conversation cheaper. It lasts about an hour on a subscription and five minutes with an API key. A very long session (past about 200 thousand tokens) that sits idle may be compacted shortly before the cache expires, so you return to a summary. If you do not need the history, a fresh session costs less.</li>
+<li><strong>The context is crowded.</strong> Run <code>/context</code>: it shows what fills the window. A crowded window with a task you still need is a reason to compact (below). A crowded window full of dead ends is a reason to clear.</li>
+<li><strong>A task is finished and a verified result is committed.</strong> The result lives in your files and in git, so the conversation has done its job. The same move works after a spec (a written description of what to build): write it down, then start a fresh session to build from it.</li>
 </ol>
 </section>
 <section id="signals-to-carry-on" class="level2">
 <h2 class="anchored" data-anchor-id="signals-to-carry-on">Signals to carry on</h2>
 <ul>
-<li><strong>Same task, and early decisions still matter.</strong> The next step needs the same files, the decisions you made and what was already tried. That is the rule of thumb in this site’s research (our inference from the docs).</li>
-<li><strong>The agent is on track.</strong> Nothing is being repeated or contradicted. A working session is worth keeping, since clearing it throws away good context.</li>
-<li><strong>You are returning to a named session.</strong> <code>/resume</code> (or <code>claude --resume &lt;name&gt;</code>) reopens a session you chose; <code>claude --continue</code> reopens the most recent one in this directory. Resume restores the messages, model and permission mode (what the agent may do without asking), and leaves startup flags such as <code>--mcp-config</code> for you to pass again. If that session was compacted, it continues from the last summary.</li>
-<li><strong>The tool offers to resume after a long break.</strong> On some plans a dialog estimates how much of your usage limit the saved conversation alone would use, and lets you resume or start a new conversation. The docs’ advice: choose by whether your next task still needs the saved conversation.</li>
+<li><strong>Same task, early decisions still matter:</strong> the next step needs the same files, the decisions you made and what was already tried.</li>
+<li><strong>The agent is on track:</strong> nothing is repeated or contradicted. Clearing a working session throws away good context.</li>
+<li><strong>You are returning to a named session:</strong> <code>/resume</code> (or <code>claude --resume &lt;name&gt;</code>) reopens a session you chose, and <code>claude --continue</code> reopens the most recent one in this directory. Resume restores the messages, model and permission mode (what the agent may do without asking). Pass startup flags such as <code>--mcp-config</code> again. A compacted session continues from its last summary.</li>
+<li><strong>The tool offers to resume after a long break:</strong> on some plans a dialog estimates how much of your usage limit the saved conversation would use. Choose by whether your next task still needs it.</li>
 </ul>
 </section>
 <section id="the-middle-path-compact" class="level2">
 <h2 class="anchored" data-anchor-id="the-middle-path-compact">The middle path: compact</h2>
-<p><code>/compact</code> replaces the history with a summary and stays in the same conversation. Give it a focus note, as in the docs’ example <code>/compact focus on the auth bug fix</code>, so the summary spends its words on what you still need.</p>
-<p>What the summary keeps and loses, per the docs: it keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost. Afterwards the tool re-supplies the system prompt, the project-root <code>CLAUDE.md</code>, auto memory and skill descriptions, and re-reads up to five recently used files. The docs note that the tool also compacts automatically as you approach the limit. A manual <code>/compact</code> with a focus lets you choose the moment and the emphasis. It costs usage, since compacting itself reads the whole conversation once.</p>
+<p><code>/compact</code> replaces the history with a summary and stays in the same conversation. Give it a focus note, as in <code>/compact focus on the auth bug fix</code>, so the summary spends its words on what you still need.</p>
+<ul>
+<li><strong>Kept:</strong> your requests and key code snippets.</li>
+<li><strong>May be lost:</strong> detailed instructions from early in the conversation. Restate any that matter.</li>
+<li><strong>Re-supplied afterwards:</strong> the system prompt, the project-root <code>CLAUDE.md</code>, auto memory and skill descriptions. Up to five recently used files are re-read.</li>
+<li><strong>Automatic:</strong> the tool also compacts as you approach the limit. A manual <code>/compact</code> lets you choose the moment and the emphasis.</li>
+<li><strong>Cost:</strong> compacting reads the whole conversation once, so it uses some of your usage.</li>
+</ul>
 </section>
 <section id="the-decision-ladder" class="level2">
 <h2 class="anchored" data-anchor-id="the-decision-ladder">The decision ladder</h2>
@@ -157,12 +175,12 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td>New task, unrelated to this conversation</td>
 <td><code>/clear</code></td>
-<td>Old history would be re-read for nothing, and it can distract</td>
+<td>Old history is re-read for nothing</td>
 </tr>
 <tr class="even">
-<td>Same task, context crowded, early decisions still matter</td>
+<td>Same task, crowded, early decisions matter</td>
 <td><code>/compact</code> with a focus note</td>
-<td>Keeps the thread, drops the bulk (details from early on may be lost, so restate any that matter)</td>
+<td>Keeps the thread, drops the bulk</td>
 </tr>
 <tr class="odd">
 <td>Same task, agent on track, plenty of room</td>
@@ -171,85 +189,72 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td>Wrong claim repeated after two corrections</td>
-<td><code>/clear</code>, then one new prompt with what you learned</td>
-<td>A third correction sits on top of two failed attempts</td>
+<td><code>/clear</code>, then one new prompt</td>
+<td>A third correction sits on two failures</td>
 </tr>
 <tr class="odd">
-<td>Back after a long break, still need the conversation</td>
+<td>Back after a break, still need the conversation</td>
 <td><code>/resume</code> or <code>claude --continue</code></td>
-<td>You get the saved messages (or the last summary)</td>
+<td>You get the saved messages or last summary</td>
 </tr>
 <tr class="even">
-<td>Back after a long break, next task is new</td>
+<td>Back after a break, next task is new</td>
 <td>Fresh session</td>
-<td>Docs: a fresh session still costs less if you do not need the history</td>
+<td>A fresh session costs less</td>
 </tr>
 <tr class="odd">
-<td>Leaving a long session past the cache lifetime, same task afterwards</td>
-<td><code>/compact</code> with a focus note before you leave</td>
-<td>Compacting while the cache is warm is cheap; after it expires the history is re-sent at full price (community numbers, small samples)</td>
+<td>Leaving a long session, same task afterwards</td>
+<td><code>/compact</code> with a focus note first</td>
+<td>Compacting while the cache is warm is cheap</td>
 </tr>
 <tr class="even">
 <td>Task done, verified result committed</td>
 <td>Write down what matters, then <code>/clear</code></td>
-<td>The state is in your files and git, not in the chat</td>
+<td>The state is in your files and git</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="before-you-clear" class="level2">
 <h2 class="anchored" data-anchor-id="before-you-clear">Before you clear</h2>
-<p>Starting fresh drops the conversation. Your files and memory remain, and the instructions file (<code>CLAUDE.md</code>) and auto memory load again in the new session. Anything you only said in chat is gone: the decisions, what failed and why, which sample misbehaved. <strong>General practice:</strong> write that down before you clear, because <code>/clear</code> drops the conversation, and commit the result so the state is recoverable. The Handoff Notes quest shows what such a note should contain. If you clear by mistake, <code>/resume</code> can reopen the old conversation.</p>
+<p>Starting fresh drops the conversation. Your files and memory remain, and the instructions file and auto memory load again in the new session. Anything you only said in chat is gone: the decisions, what failed and why, which sample misbehaved. Write that down before you clear, and commit the result so the state is recoverable. If you clear by mistake, <code>/resume</code> can reopen the old conversation.</p>
 </section>
 <section id="the-cache-and-the-coffee-break" class="level2">
 <h2 class="anchored" data-anchor-id="the-cache-and-the-coffee-break">The cache and the coffee break</h2>
-<p>Signal 4 deserves a closer look, because the cost of a break can be larger than people expect. While the cache is warm, the long history you already sent is re-read cheaply. When the cache has expired, the next request pays to send the whole history again at full price. The docs give the lifetimes: about an hour on a subscription, five minutes with an API key. You can check which one you have with <code>/usage</code> (a “Prompt cache” line is reported there; Not checked: whether it appears on every plan).</p>
-<p>A community project, <a href="https://github.com/inevolin/claude-code-usage-analysis">claude-code-usage-analysis</a>, measured this on an API key with a five-minute cache. Treat its numbers as one person’s small experiment (a handful of runs, one model, units that are not a subscription bill; the author lists these limits too). With about 97 thousand tokens of history and a small next fix:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Pause before the next message</th>
-<th>Reported cost, compared with a brand-new session</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2 to 4 minutes (cache warm)</td>
-<td>about 1.5 times</td>
-</tr>
-<tr class="even">
-<td>6 to 13 minutes (cache expired)</td>
-<td>about 9.8 times</td>
-</tr>
-</tbody>
-</table>
-<p>The same project reported that compacting <em>before</em> the break, while the cache is warm, cost about 2.5 times a new session, and compacting <em>after</em> the break cost about as much as simply carrying on. On a subscription, the same cliff should sit near the one-hour mark instead (General practice, our reading of the docs: the project’s own one-hour figure came from a simulator, not a live run).</p>
-<p>What this suggests for your habits (General practice, from the numbers above and the docs):</p>
-<ul>
-<li><strong>Before a long break in a long session,</strong> either <code>/compact</code> with a focus note while the cache is warm, or write a short handoff note and plan to <code>/clear</code>.</li>
-<li><strong>After a break, when the next task is new,</strong> start fresh. Resuming a long, cold conversation is the expensive path.</li>
-<li><strong>After a break, when you still need the thread,</strong> a short hand-written note (goal, what is done, what is next) in a new session is often cheaper than re-reading the cold history, and gives you a chance to drop dead ends. The Handoff Notes quest shows what to write.</li>
-<li><strong>Short pauses are fine.</strong> A few minutes away costs little, so there is no need to rush back.</li>
-</ul>
-<p>The same project reported two cost traps worth knowing, both from very small tests: turning a built-in tool off in the middle of a task made the next turn cost roughly twenty times a normal one, since the cache was thrown away, while editing <code>CLAUDE.md</code>, adding an MCP server or changing effort showed no such jump. Decide your tool set at the start of a task. It also reported that a long log left in the chat added to the cost of every later turn. Trim output before it lands in the conversation, for example by asking the agent to show only the last lines or a pass/fail summary.</p>
+<p>While the cache is warm, the long history you already sent is re-read cheaply. When it has expired, the next request pays to send the whole history again at full price. A long break in a long session can therefore cost more than you expect.</p>
+<ol type="1">
+<li>Run <code>/usage</code> and read what your plan reports about your limits, and about the prompt cache if it reports anything on it.</li>
+<li>Before a long break in a long session, run <code>/compact</code> with a focus note, or write a short handoff note (goal, what is done, what is next) and plan to <code>/clear</code>.</li>
+<li>After a break, when the next task is new, start fresh.</li>
+<li>After a break, when you still need the thread, start a new session from your short note. It lets you drop dead ends too.</li>
+<li>Decide your tool set at the start of a task. Changing the built-in tool set in the middle of a task discards the cache.</li>
+<li>Trim output before it lands in the conversation. Ask the agent to show only the last lines of a log or a pass/fail summary.</li>
+</ol>
+<p>Short pauses are fine. A few minutes away costs little, so there is no need to rush back.</p>
 </section>
 <section id="the-cost-of-both-mistakes" class="level2">
 <h2 class="anchored" data-anchor-id="the-cost-of-both-mistakes">The cost of both mistakes</h2>
-<p><strong>Clearing too early</strong> loses useful context. The agent must re-read files and rediscover decisions, which costs time and usage, and you may need to repeat yourself. <strong>Clearing too late</strong> costs too: the whole conversation is sent again on every request, so usage climbs, and per the docs a focused context gives better answers than a crowded one, even with a large window. Both errors are cheap to recover from if you wrote things down. That is the argument for notes. Not checked: the default auto-compact threshold (the docs defer to a model-configuration page we did not read), so this page gives no percentage to aim for.</p>
+<ul>
+<li><strong>Clearing too early</strong> loses useful context. The agent must re-read files and rediscover decisions, which costs time and usage, and you may need to repeat yourself.</li>
+<li><strong>Clearing too late</strong> costs too. The whole conversation is sent again on every request, so usage climbs, and a focused context gives better answers than a crowded one, even with a large window.</li>
+</ul>
+<p>Both errors are cheap to recover from if you wrote things down. That is the argument for notes.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Commands the docs confirm for this page: <code>/clear</code> (alias <code>/new</code>), <code>/compact [instructions]</code>, <code>/context</code>, <code>/resume [session]</code>, <code>claude --continue</code>, <code>claude --resume [name]</code>, <code>/rename</code>. To check how full the window is, use <code>/context</code>. Not checked: whether the status line (the strip of information below the prompt) can show a context-fullness figure.</p>
+<p>Commands for this page: <code>/clear</code> (alias <code>/new</code>), <code>/compact [instructions]</code>, <code>/context</code>, <code>/resume [session]</code>, <code>claude --continue</code>, <code>claude --resume [name]</code>, <code>/rename</code>. Use <code>/context</code> to see how full the window is.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>The OpenCode terminal-interface docs list <code>/new</code> (alias <code>/clear</code>), <code>/sessions</code> (aliases <code>/resume</code>, <code>/continue</code>) and <code>/compact</code> (alias <code>/summarize</code>). Not checked: what OpenCode keeps or loses when it compacts, whether it has a <code>/context</code>-style display, and how a local Ollama model’s smaller window changes the advice. General practice: the same signals apply to any tool, because every model has a finite window; expect to start fresh sooner with a smaller one.</p>
+<p>OpenCode has <code>/new</code> (alias <code>/clear</code>), <code>/sessions</code> (aliases <code>/resume</code>, <code>/continue</code>) and <code>/compact</code> (alias <code>/summarize</code>). The same signals apply to any tool, because every model has a finite window. A local model with a smaller window means starting fresh sooner. Run <code>/help</code> in OpenCode to see what else your version offers.</p>
 </div>
 </div>
+</div>
+</section>
+<section id="battle-empty-the-hopper-or-not" class="level2">
+<h2 class="anchored" data-anchor-id="battle-empty-the-hopper-or-not">Battle: empty the hopper or not</h2>
+<div data-ao-test="codon-mill-when-to-start-fresh" data-xp="50">
+
 </div>
 <div data-ao-honour="paste-twice" data-xp="20">
 Next time you notice yourself pasting the same background twice, note it: that was the moment to put it in the instructions file.
@@ -258,11 +263,14 @@ Next time you notice yourself pasting the same background twice, note it: that w
 At the end of your next working session, write one line saying which signal (new task, repeated error, forgotten instruction, long break, crowded context, finished and committed) would have told you to start fresh, or that none applied.
 </div>
 </section>
-<section id="battle-empty-the-hopper-or-not" class="level2">
-<h2 class="anchored" data-anchor-id="battle-empty-the-hopper-or-not">Battle: empty the hopper or not</h2>
-<div data-ao-test="codon-mill-when-to-start-fresh" data-xp="50">
-
-</div>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="memory-sessions-and-usage.html">Memory, Sessions and Usage</a>: for more on what memory keeps between sessions and what burns your usage.</li>
+<li><a href="the-context-window.html">The Context Window</a>: for more on what the window holds and why it fills.</li>
+<li><a href="handoff-notes.html">Handoff Notes</a>: what a note a fresh session can act on contains.</li>
+<li><a href="the-stream-of-ideas.html">The Stream of Ideas</a>: how to park side ideas so the main task stays clear.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -279,6 +287,7 @@ At the end of your next working session, write one line saying which signal (new
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

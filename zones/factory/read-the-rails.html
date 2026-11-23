@@ -109,21 +109,32 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Dry Run First. <strong>Objective:</strong> spot the common mistakes in agent-written pipeline rules by reading them. <strong>Time:</strong> about 10 minutes. <span class="ao-badge">General practice. The snippets were reasoned through, not run.</span></p>
+<ul>
+<li><strong>Goal:</strong> you will spot the common mistakes in agent-written pipeline rules by reading them.</li>
+<li><strong>Before you start:</strong> <a href="dry-run-first.html">Dry Run First</a>.</li>
+<li><strong>Time:</strong> about 10 minutes.</li>
+</ul>
 </div>
-<p>Pipelines fail quietly in a few recurring ways. When you review a rule, ask: <em>where does each input come from, where does each output go, and what would change if I re-ran it?</em></p>
+<p>Pipelines fail quietly in a few recurring ways. When you review a rule, ask where each input comes from, where each output goes, and what would change if you re-ran it.</p>
 <p>Common mistakes:</p>
 <ul>
-<li>A <strong>hard-coded path</strong> to someone’s home directory or one sample.</li>
-<li>An <strong>output not declared</strong>, so the manager cannot tell what a step made.</li>
-<li>A <strong>tool without a pinned version</strong>, so results change when the environment does.</li>
-<li><strong>Overwriting inputs</strong> in place, so there is no way back.</li>
+<li><strong>Hard-coded path:</strong> a path to someone’s home directory or to one sample.</li>
+<li><strong>Undeclared output:</strong> the manager cannot tell what a step made.</li>
+<li><strong>Unpinned tool version:</strong> results change when the environment does.</li>
+<li><strong>Overwritten inputs:</strong> a step changes its input in place, so there is no way back.</li>
 </ul>
 <section id="battle-spot-the-flaw" class="level2">
 <h2 class="anchored" data-anchor-id="battle-spot-the-flaw">Battle: spot the flaw</h2>
 <div data-ao-test="factory-read-the-rails" data-xp="60">
 
 </div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="dry-run-first.html">Dry Run First</a>: cheap layers of checking before a pipeline touches real data.</li>
+<li><a href="same-every-time.html">Same Every Time</a>: keeping a pipeline reproducible, including when an LLM sits inside a step.</li>
+</ul>
 </section>
 <section id="lore" class="level2 ao-lore">
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
@@ -139,6 +150,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 </main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
 <script>
 (function () {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');

@@ -11,8 +11,7 @@ h1, h2 { color: var(--accent); font-family: ui-monospace, monospace; }
 .ao-fb.bad { border-left: 4px solid var(--bad); background: rgba(255,122,122,.12); padding: .4rem .7rem; }
 .ao-fb.ok { border-left: 4px solid var(--ok); background: rgba(123,216,143,.12); padding: .4rem .7rem; }
 .ao-next-btn { background: var(--accent) !important; color: #14101f !important; font-weight: bold; }
-.ao-badge { display: inline-block; border: 1px solid var(--ok); color: var(--ok); padding: .3rem .7rem; margin: .4rem 0; font: 14px/1.4 ui-monospace, monospace; border-radius: 4px; }
-.ao-pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; }
+.ao-pager { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; font-size: 15px; }
 button { background: var(--panel); color: var(--fg); border: 2px solid var(--accent); padding: .4rem .8rem; margin: .2rem; cursor: pointer; font: inherit; }
 button:focus-visible, a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 [data-ao-test] { border: 2px solid var(--accent); background: var(--panel); padding: 1rem; margin: 1.5rem 0; }
@@ -36,7 +35,7 @@ select:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 .ao-textlist summary { color: var(--fg); }
 [hidden] { display: none !important; }
 .ao-boss { margin: 0 0 .5rem; } .ao-boss progress { width: 40%; accent-color: var(--bad); vertical-align: middle; }
-.ao-honour { border: 2px dashed var(--ok); padding: .6rem .9rem; margin: 1rem 0; }
+.ao-honour { border: 2px solid var(--ok); padding: .6rem .9rem; margin: 1rem 0; }
 .ao-honour-note { opacity: .75; font-size: 14px; }
 .ao-tree text { fill: var(--fg); font: 14px ui-monospace, monospace; paint-order: stroke; stroke: var(--bg); stroke-width: 5px; stroke-linejoin: round; }
 .ao-tree .on circle { fill: var(--accent); } .ao-tree circle { fill: var(--panel); stroke: var(--accent); stroke-width: 2; }
@@ -61,31 +60,9 @@ table { display: block; max-width: 100%; overflow-x: auto; }
 [data-ao-honour] code { color: var(--fg); background: rgba(255,255,255,.12); }
 /* Boss portraits: 48x48 art px scaled up crisply. */
 img.ao-boss-img { display: block; margin: 1rem auto; width: 192px; max-width: 100%; height: auto; image-rendering: pixelated; }
-/* Start Here network and Next steps (scoped to .ao-start-*, .ao-net, .ao-nextsteps, .ao-ending, .ao-sealed). */
+/* Start Here and Next steps (scoped to .ao-start-*, .ao-nextsteps, .ao-ending, .ao-sealed). */
 .ao-start-btn { display: inline-block; background: var(--accent); color: #14101f !important; font-weight: bold; padding: .5rem 1rem; border-radius: 4px; text-decoration: none; }
 .ao-start-finale { border-left: 4px solid var(--accent); background: var(--panel); padding: .5rem .9rem; }
-.ao-start-net { overflow-x: auto; border: 2px solid var(--accent); background: var(--panel); padding: .5rem; margin: 1rem 0; scrollbar-width: thin; scrollbar-color: var(--accent) var(--panel); }
-.ao-start-net:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
-.ao-net { display: block; max-width: none; }
-.ao-net text { fill: var(--fg); font: 13px system-ui, sans-serif; }
-.ao-net .st { font: 12px ui-monospace, monospace; }
-.ao-net .lane-label { fill: var(--accent); font: bold 14px ui-monospace, monospace; }
-.ao-net .edge { stroke: var(--fg); stroke-width: 2; fill: none; opacity: .6; }
-.ao-net .edge.optional { stroke-dasharray: 4 4; }
-.ao-net .ahead { fill: var(--fg); opacity: .8; }
-.ao-net .box { fill: var(--bg); stroke: var(--fg); stroke-width: 1; }
-.ao-net .box2 { fill: none; stroke: var(--accent); stroke-width: 2; }
-.ao-net .node.optional .box { stroke-dasharray: 5 4; }
-.ao-net .node { cursor: pointer; }
-.ao-net .node:hover .box, .ao-net .node:focus .box { stroke: #fff; stroke-width: 4; }
-.ao-net .node:focus { outline: none; }
-.ao-net .node:focus-visible .box { stroke: #fff; stroke-width: 6; }
-.ao-net .st-ready .box { stroke: var(--accent); stroke-width: 4; }
-.ao-net .st-cleared .box { fill: var(--ok); stroke: var(--ok); }
-.ao-net .st-cleared text { fill: #14101f; }
-.ao-net .here .ring { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 8 5; }
-.ao-net .here .tab { fill: var(--accent); }
-.ao-net .here text { fill: #14101f; font-weight: bold; font-size: 11px; }
 .ao-start-branches li { margin: .6rem 0; }
 .ao-prog { font: 14px ui-monospace, monospace; border: 1px solid var(--accent); padding: 0 .4rem; border-radius: 3px; }
 .ao-nextsteps { border: 2px solid var(--accent); background: var(--panel); padding: .6rem 1rem; margin: 2rem 0 1rem; font-size: 16px; }
@@ -98,28 +75,28 @@ img.ao-boss-img { display: block; margin: 1rem auto; width: 192px; max-width: 10
 .ao-sealed { border: 2px dashed var(--bad); background: var(--panel); padding: .5rem 1rem; margin: 1rem 0; }
 .ao-sealed[hidden] { display: none; }
 
-/* Start Here overview: two inlined layouts, wide and phone; one is shown. Statuses use words and outline weight, never colour alone. */
-.ao-overview { margin: 1rem 0; }
-.ao-overview svg { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 auto; }
-.ao-overview .ao-ov-narrow { display: none; }
-@media (max-width: 560px) { .ao-overview .ao-ov-wide { display: none; } .ao-overview .ao-ov-narrow { display: block; } }
-.ao-overview .ao-ov text { fill: var(--fg); font: 12px system-ui, sans-serif; }
-.ao-overview .ao-ov .ovt { font: bold 15px system-ui, sans-serif; }
-.ao-overview .ao-ov .ovs { font: 12px ui-monospace, monospace; }
-.ao-overview .ao-ov .ovedge { stroke: var(--fg); stroke-width: 2; fill: none; opacity: .6; }
-.ao-overview .ao-ov .ahead { fill: var(--fg); opacity: .8; }
-.ao-overview .ao-ov .box { fill: var(--bg); stroke: var(--fg); stroke-width: 1; }
-.ao-overview .ao-ov .box2 { fill: none; stroke: var(--accent); stroke-width: 2; }
-.ao-overview .ao-ov .ovbox { cursor: pointer; }
-.ao-overview .ao-ov .ovbox:hover .box { stroke: #fff; stroke-width: 4; }
-.ao-overview .ao-ov .ovbox:focus { outline: none; }
-.ao-overview .ao-ov .ovbox:focus-visible .box { stroke: #fff; stroke-width: 6; }
-.ao-overview .ao-ov .st-progress .box { stroke: var(--accent); stroke-width: 4; }
-.ao-overview .ao-ov .st-complete .box { fill: var(--ok); stroke: var(--ok); }
-.ao-overview .ao-ov .st-complete text { fill: #14101f; }
-.ao-overview .ao-ov .ovhere .ring { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 8 5; }
-.ao-overview .ao-ov .ovhere .tab { fill: var(--accent); }
-.ao-overview .ao-ov .ovhere text { fill: #14101f; font: bold 12px system-ui, sans-serif; }
-.ao-detail { margin: 1rem 0; }
-.ao-detail > summary { cursor: pointer; font-weight: bold; color: var(--fg); }
-.ao-overview .ao-ov a, .ao-overview .ao-ov a text { text-decoration: none; }
+
+/* Path: a vertical list with a rail. Status uses words and marks as well as colour. */
+.ao-steps { list-style: none; margin: .8rem 0 1.2rem .6rem; padding: 0; border-left: 3px solid var(--accent); }
+.ao-steps li { position: relative; padding: .3rem 0 .3rem 1.4rem; }
+.ao-steps li::before { content: ""; position: absolute; left: -.65rem; top: .75rem; width: .8rem; height: .8rem; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); }
+.ao-steps li.st-cleared::before { background: var(--ok); border-color: var(--ok); }
+.ao-steps li.now { font-weight: bold; }
+.ao-steps li.now::before { background: var(--accent); }
+.ao-steps li.more { opacity: .85; font-style: italic; }
+.ao-steps li.more::before { border-style: dotted; }
+.ao-side { border-left-style: dashed; }
+.ao-path h3, .ao-start-list h3 { font-size: 1.05rem; margin: 1rem 0 .2rem; }
+.ao-tag { font: 13px ui-monospace, monospace; border: 1px solid var(--accent); padding: 0 .4rem; border-radius: 3px; white-space: nowrap; }
+.ao-mark { color: var(--ok); }
+.ao-go { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.2rem; }
+.ao-back { text-decoration: none; }
+.ao-back:hover { text-decoration: underline; }
+/* Related lessons: reference links, set apart from the path controls above. */
+.ao-related { border-top: 1px solid var(--accent); padding: .4rem 0 0; margin: 2rem 0 1rem; font-size: 16px; }
+.ao-related h2 { font-size: 1.05rem; margin: 0 0 .2rem; border: 0; }
+.ao-related ul { padding-left: 1.2rem; margin: .2rem 0; }
+
+.quest-dialog ul { margin: 0; padding-left: 1.2rem; }
+.quest-dialog li { margin: .2rem 0; }
+.ao-footer { margin: 2.5rem 0 1rem; text-align: center; font-size: 14px; opacity: .85; }

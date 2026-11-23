@@ -50,7 +50,7 @@
     {
      "text": "A step needs an input that no step produces",
      "bin": "Can catch",
-     "misconception": "Typically reported when the plan is built, though the docs do not promise exactly which errors appear."
+     "misconception": "Typically reported when the plan is built, though which errors appear is not guaranteed."
     },
     {
      "text": "A tool flag that silently changes the result",

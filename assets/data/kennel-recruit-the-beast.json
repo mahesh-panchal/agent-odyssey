@@ -79,7 +79,7 @@
     },
     {
      "text": "None: the subscription always takes priority, so the key is simply ignored",
-     "misconception": "The docs say the key wins once approved. Check /status and unset the variable if you did not mean to use it."
+     "misconception": "The key wins once approved. Check /status and unset the variable if you did not mean to use it."
     },
     {
      "text": "Claude Code refuses to start until you unset one of the two credentials",
