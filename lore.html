@@ -335,12 +335,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="the-kennel">The Kennel</h2>
 <ul>
 <li><p><a href="https://code.claude.com/docs/en/setup">Advanced setup</a>: Anthropic, docs. Why read: it holds the install commands for every platform, WSL notes and how updates work. Cited in: <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
-<li><p><a href="https://code.claude.com/docs/en/authentication">Authentication</a>: Anthropic, docs. Cited by 2 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>: it explains login methods and which credential wins when a subscription and an API key are both present.</li>
-<li><a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: it says where Claude Code stores credentials and how API-key variables take precedence.</li>
-</ul></li>
+<li><p><a href="https://code.claude.com/docs/en/authentication">Authentication</a>: Anthropic, docs. Why read: it explains login methods and which credential wins when a subscription and an API key are both present. Cited in: <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/troubleshooting">Troubleshooting</a>: Anthropic, docs. Why read: it maps symptoms to the right fix page and says when to use <code>/doctor</code> or <code>claude doctor</code>. Cited in: <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/data-usage">Data usage</a>: Anthropic, docs. Cited by 3 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
@@ -407,9 +402,10 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/citadel/keys-on-shared-ground.html">Keys on Shared Ground</a>: it states the sandbox reads most of the machine, including ~/.ssh, unless you deny it, and it fails open by default.</li>
 </ul></li>
 <li><p><a href="https://aiforscience.eu/best-practices/11-decide-where-research-data-may-go/">AI for Science, practice 11: decide where research data may go</a>: AI for Science (European draft best practices), docs. Why read: it ties the choice of service to the contract and legal basis for your data, and limits agent sends through the environment. A draft with no endorsements yet; it is not legal advice. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
-<li><p><a href="https://help.mistral.ai/en/articles/347617-do-you-use-my-user-data-to-train-your-models">Do you use my user data to train your models?</a>: Mistral, docs. Why read: it gives training defaults and opt-outs per Mistral product and plan. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
-<li><p><a href="https://docs.mistral.ai/studio/regional-inference">Regional inference</a>: Mistral, docs. Why read: it shows which API endpoint commits to an EU location and which does not. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
-<li><p><a href="https://docs.ollama.com/faq">Ollama FAQ</a>: Ollama, docs. Why read: it says what stays on your machine when you run a model locally, and what it says about prompts sent to Ollama’s cloud models. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
+<li><p><a href="https://code.claude.com/docs/en/claude-directory">The .claude directory</a>: Anthropic, docs. Why read: it says what is written to transcripts on disk, how long it stays, and how <code>claude purge</code> clears it. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
+<li><p><a href="https://code.claude.com/docs/en/settings">Settings</a>: Anthropic, docs. Why read: it explains where “don’t ask again” approvals are saved and how <code>settings.local.json</code> is kept out of git. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
+<li><p><a href="https://cursor.com/blog/security-incident-update">An update on our recent security incident</a>: Cursor, article. Why read: a first-hand account of agent traces with unredacted credentials. Our checked notes are in <code>research/transcripts-and-secrets.md</code>. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
+<li><p><a href="https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation">Authenticating as a GitHub App installation</a>: GitHub, docs. Why read: it shows the one-hour token that keeps a leak small. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
 </ul>
 </section>
 <section id="sequence-maze" class="level2">
