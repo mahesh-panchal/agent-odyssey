@@ -3,72 +3,61 @@ title: "Three Kinds of Machine"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Name the Fears. **Objective:** tell apart a deterministic program, a trained model, and an LLM, and pick the right one.
-**Time:** about 10 minutes. <span class="ao-badge">General practice, not a vendor claim.</span>
+- **Goal:** you will tell apart a deterministic program, a trained model and an LLM, and pick the right one for a job.
+- **Before you start:** [Name the Fears](name-the-fears.html).
+- **Time:** about 10 minutes.
 :::
 
 ## Three kinds
 
 - **A deterministic program** (a script, `awk`, `samtools`): the same input always gives the same output, and you can read why. Use it whenever the rule is known.
-- **A trained model** (a classifier, a gene-finder, a structure predictor): learned from data to do **one task**, with measured accuracy on that task. Use it when the rule is unknown but the task is narrow and validated.
-- **A large language model (LLM)**: trained on large amounts of text, then tuned to follow instructions. Flexible and fluent, with no built-in guarantee of correctness. Use it where the task is open-ended and you can check the result, such as drafting, explaining, or writing a first version of code that you then test.
+- **A trained model** (a classifier, a gene-finder, a structure predictor): learned from data to do **one task**, with measured accuracy on that task. It is the predictive side of AI: it forecasts from past data and gives you an estimate to act on. Use it when the rule is unknown but the task is narrow and validated.
+- **A large language model (LLM)**: trained on large amounts of text, then tuned to follow instructions. It is the generative side of AI: it produces new content (text, code, images) that you review, flexible and fluent, with no built-in guarantee of correctness. Use it where the task is open-ended and you can check the result, such as drafting, explaining, or writing a first version of code that you then test.
+
+The line between the last two is not clean. An LLM can be asked to classify, and some generative models predict structure or sequences. Judge a tool by the task you give it and how you will check the result. For a forecast, a simpler predictive model usually does the job more cheaply than a generative one.
 
 Two common mistakes: using an LLM to do something a one-line script does exactly (slow, costly, and sometimes wrong), and trusting a model outside the task it was validated for.
 
 An LLM can also be called **inside a script** (for example to tidy free-text labels). That makes your pipeline non-deterministic, so the result needs its own checks and the exact model and version recorded.
 
-The AI for Science best practices (a European draft, not yet endorsed by any body) start from the same question: before reaching for an agent or a large model, ask whether a script, a fixed workflow or a smaller specialised model does the job. Their reasons are cost and reproducibility: a method that fits the task is often cheaper to run and easier to reproduce, and it does not change when a provider updates a hosted model. Keep the large model for the open-ended steps. Not checked first-hand: the practice page, read 2026-11-20 through a fetch summary, so re-check the wording on the page; see `research/aiforscience.md`.
-
-## Generative or predictive?
-
-You will also hear models split into **generative AI** and **predictive AI**. The split cuts across the three kinds above. IBM's explainer puts it this way:
-
-- **Predictive AI** finds patterns in past data to forecast what is likely to happen next: a sales figure, a fraud flag, a demand estimate. It is usually trained on a smaller, targeted dataset for one question, and its numbers are easier to explain.
-- **Generative AI** produces new content (text, code, images, audio) that resembles its training data without copying it. It is trained on very large datasets, and it is usually much harder to explain why it gave a particular answer.
-
-Both predict in a loose sense: an LLM predicts the next word. The difference is what you want out. Predictive AI gives you an estimate to act on, and generative AI gives you new material to review.
-
-In this quest's terms, a **trained model** (a classifier, a gene-finder, a structure predictor) mostly sits on the predictive side, and an **LLM** is the usual example of generative AI. The line is not clean. A generative model can be asked to classify, as in the label-tidying example above, and some generative models predict structure or sequences. Judge the tool by the task you give it and how you will check the result.
-
-IBM also makes a practical point: a task that needs a forecast usually does not need a generative model, because a simpler predictive model does it more cheaply. That is the same advice as picking the simplest machine that does the job.
-
-<span class="ao-badge">Source: IBM Think, "Generative AI vs. predictive AI: What's the difference?", published 2024-08-09, read 2026-11-20. A vendor explainer. The mapping onto the three kinds is this course's own.</span>
+Before you reach for an agent or a large model, ask whether a script, a fixed workflow or a smaller specialised model does the job. A method that fits the task is often cheaper to run and easier to reproduce, and it does not change when a provider updates a hosted model. Keep the large model for the open-ended steps.
 
 ## Should you fine-tune? A note on LoRA
 
-You may meet **LoRA** (low-rank adaptation) and wonder if it is the next step. It is a way to **fine-tune**: you freeze the model's weights and train small extra "adapter" matrices on your own examples. That needs far less memory than retraining everything, and the adapter can later be merged into the base model. It changes the model itself, so it belongs to the *trained model* kind above, not to the way you prompt an LLM.
+LoRA (low-rank adaptation) is a way to **fine-tune**: you freeze the model's weights and train small extra "adapter" matrices on your own examples. That needs far less memory than retraining everything, and the adapter can later be merged into the base model. It changes the model itself, so it belongs to the trained-model kind.
 
-LoRA tends to be worth considering only when all of these hold:
+Consider LoRA when all of these hold:
 
-- You have the **model weights**. An open-weight model you can download qualifies. A hosted model you reach through an API usually does not (a few providers offer their own fine-tuning service, which is a different route).
-- The task is **narrow and repeatable**: the same kind of input and the same kind of output every time, such as masking one class of identifier or tagging text with a fixed label set.
-- You have **labelled examples**, enough to train on and to hold some back for testing.
-- You have an **eval** that shows the tuned model beats the untuned one on that task. Without one, you cannot tell whether training helped.
+- You have the **model weights**. An open-weight model you can download qualifies; a hosted model reached through an API usually does not.
+- The task is **narrow and repeatable**: the same kind of input and output every time, such as tagging text with a fixed label set.
+- You have **examples with known answers**, enough to train on and to hold some back for testing.
+- You have an **eval** that shows the tuned model beats the untuned one on that task.
 
-For agent work, a clearer prompt, better tools and a working eval usually give more return first, and they cost less to change. Try those, and fine-tune only when you can show they fall short on a narrow task. Fine-tuning also adds new things to track: the training data, the adapter version and the base model it belongs to.
-
-If you do want to follow up, the two links in the Lore below are runnable starting points. One is a beginner guide from a tooling vendor, and the other is the library documentation behind most LoRA code.
-
-<span class="ao-badge">General practice, not a vendor claim. Not run by this course. What LoRA does is from the Hugging Face PEFT docs and Unsloth guide, read 2026-11-20. Sources: research/lore-extra.md</span>
+For agent work, a clearer prompt, better tools and a working eval usually give more return first, and they cost less to change. Fine-tune when you can show those fall short on a narrow task. Fine-tuning adds things to track: the training data, the adapter version and the base model it belongs to.
 
 ## What a model can do on its own
 
-It helps to remember what a language model does well with no tools at all. Apple's developer guide for its small on-device model lists this plainly, and the list is a good reminder for any model on its own (the guide is about a small model, so a large hosted model will do better on some rows):
+A language model with no tools suits some jobs and struggles with others. A large hosted model will do better than a small one on some rows.
 
-| A model on its own tends to suit | A model on its own tends to struggle with |
+| Suits | Struggles with |
 |---|---|
-| Summarising and editing text | Counting letters or doing basic arithmetic |
-| Pulling out names, places and other entities | Writing code (for that model) |
-| Classifying or judging a piece of text | Multi-step logical reasoning |
-| Generating tags, or short creative writing | Facts it was never given |
+| Summarising and editing text | Counting letters or basic arithmetic |
+| Pulling out names and places | Multi-step logical reasoning |
+| Classifying a piece of text | Facts it was never given |
+| Generating tags, short creative writing | Writing code (small models) |
 
-Apple's page says harder tasks become possible once the model can call tools or produce structured output. That is the idea behind an agent: the model reads and writes, and a harness gives it tools (a shell, a file editor, a script runner) for the parts it finds hard. Counting and arithmetic are good examples of work to hand to a script.
-
-<span class="ao-badge">Last verified (docs, not run): Apple developer documentation, read 2026-11-20. Sources: research/apple-foundation-models.md</span>
+Harder tasks become possible once the model can call tools or produce structured output. That is the idea behind an agent: the model reads and writes, and a harness gives it tools (a shell, a file editor, a script runner) for the parts it finds hard. Counting and arithmetic are good work to hand to a script.
 
 ## Battle: pick the right machine
 
 <div data-ao-test="basecamp-three-kinds-of-machine" data-xp="40"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Know Your Gear](know-your-gear.html): the words for the model, the harness and the extensions around it.
+- [Same Every Time](../factory/same-every-time.html): keep a pipeline repeatable when a step uses an LLM.
+:::
 
 ::: {.ao-lore}
 ## Lore

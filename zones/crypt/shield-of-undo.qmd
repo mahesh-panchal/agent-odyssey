@@ -3,19 +3,34 @@ title: "Save Point"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Know Your Gear, a terminal and `git`. The Context Window is advised. **Objective:** make any change reversible before an agent touches it.
-
-<span class="ao-badge">Verified: ran these commands with git 2.54.0 on 2026-11-13</span>
+- **Goal:** you will make any change reversible before an agent touches it.
+- **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html), a terminal and `git` (the version control tool). A **commit** is a saved snapshot of your project; a **tracked** file is one git already follows.
+- **Time:** about 10 minutes.
 :::
 
-Before any agent edits your files, put them under version control: `git init`, then `git add -A && git commit -m "before agent"`.
-If the agent breaks something, `git restore .` returns every **tracked** file to that commit.
+Before any agent edits your files, put them under version control:
 
-::: {.callout-warning}
-Two things `git restore .` does *not* do for you. It also throws away **your own** uncommitted edits to tracked files, so commit before you start. And it leaves **new, untracked** files the agent created where they are; `git status` shows them and you delete them yourself.
-:::
+1. Run `git init` once in the project folder.
+2. Run `git add -A && git commit -m "before agent"`.
+3. Let the agent work. If it breaks something, run `git restore .` to return every **tracked** file to that commit.
+
+`git restore .` has two limits:
+
+- It also throws away **your own** uncommitted edits to tracked files, so commit before you start.
+- It leaves **new, untracked** files the agent created where they are. `git status` shows them, and you delete them yourself.
+
+## Battle: the save point
 
 <div data-ao-test="crypt-shield-of-undo" data-xp="50"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [The Stream of Ideas](../codon-mill/the-stream-of-ideas.html): For more on `/rewind` and its limits, and why git is the real save point.
+- [The Context Window](../codon-mill/the-context-window.html): what fills an agent's working memory while it edits.
+- [Why Notebooks Diff Badly](../scriptorium/why-notebooks-diff-badly.html): what happens to your save point when the files are notebooks.
+- [Grow the Carapace](rules-of-the-carapace.html): permission rules, the next layer of protection.
+:::
 
 ::: {.ao-lore}
 ## Lore

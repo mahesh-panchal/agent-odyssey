@@ -3,18 +3,19 @@ title: "Dry Run First"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Ground Truth. **Objective:** check pipeline code an agent wrote cheaply, before it touches real data or a cluster queue.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Snakemake and Nextflow docs on 2026-11-13 (sources in `research/factory.md`). Not confirmed in the docs: exactly which wiring errors a Snakemake dry run reports, so treat that as typical behaviour, not a guarantee.</span>
+- **Goal:** you will check pipeline code an agent wrote cheaply, before it touches real data or a cluster queue.
+- **Before you start:** [Ground Truth](../maze/ground-truth.html). A *dry run* asks a workflow manager what it would run; a *stub run* runs placeholder steps.
+- **Time:** about 15 minutes.
 :::
 
-The Factory runs the same steps every time. When an agent writes or edits a pipeline, the danger is a rule that looks right and wires the wrong inputs, so that hours of compute are wasted or, worse, finish with a plausible wrong result.
+When an agent writes or edits a pipeline, a rule can look right and wire the wrong inputs. Hours of compute are then wasted, or finish with a plausible wrong result.
 
 Check in layers, cheapest first:
 
-1. **Read the diff** (small, as in the Wall of Output).
-2. **Dry run**: ask the workflow manager what it *would* run. It shows the plan (which files feed which steps). Nothing runs, so it cannot show the commands are correct.
-3. **Stub run** (Nextflow) or a **tiny real input**: run the whole graph in seconds on a few records.
-4. **Compare with ground truth** on that tiny input, as in Ground Truth.
+1. **Read the diff.** Ask for small changes so it stays readable.
+2. **Dry run:** ask the workflow manager what it would run. It shows the plan, meaning which files feed which steps. Nothing runs, so it cannot show that the commands are correct.
+3. **Stub run** (Nextflow) or a **tiny real input:** run the whole graph in seconds on a few records.
+4. **Compare with ground truth** on that tiny input: compute the expected answer by another route and compare.
 5. Only then real data, through the scheduler if you are on a cluster.
 
 ::: {.panel-tabset group="engine"}
@@ -25,17 +26,29 @@ Check in layers, cheapest first:
 
 ## Nextflow
 
-`nextflow run main.nf -stub-run` runs each process's `stub:` block instead of the real script, so the wiring is exercised quickly. `-resume` reuses cached results for tasks whose inputs and script are unchanged. A process **without** a `stub:` block runs its real script even under `-stub-run`, so check that every process has a stub before you rely on it being fast and harmless. Stub-run results are cached separately from real runs, so they do not carry over to a real `-resume`.
+`nextflow run main.nf -stub-run` runs each process's `stub:` block instead of the real script, so the wiring is exercised quickly. `-resume` reuses cached results for tasks whose inputs and script are unchanged. A process **without** a `stub:` block runs its real script even under `-stub-run`, so check that every process has a stub before you rely on it being fast and harmless. Stub-run results are cached separately from real runs, so a real `-resume` starts fresh.
 
 :::
 
 ::: {.callout-note}
-A dry run passing means a plan could be built. A stub run passing means the declared steps and outputs line up; each connection still needs a look to confirm it is the one you meant. Whether the tool commands are right and the results correct takes a tiny real input and a ground-truth check.
+What each layer tells you:
+
+- **Dry run passes:** a plan could be built.
+- **Stub run passes:** the declared steps and outputs line up. Look at each connection to confirm it is the one you meant.
+- **Tiny real input plus ground truth:** the tool commands are right and the results are correct.
 :::
 
 ## Battle: layers of checking
 
 <div data-ao-test="factory-dry-run-first" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Ground Truth](../maze/ground-truth.html): how to compute a check value the agent did not produce.
+- [Read the Rails](read-the-rails.html): common mistakes to spot when you read agent-written pipeline rules.
+- [Jobs, Not Jam](../citadel/jobs-not-jam.html): sending checked work through a cluster scheduler.
+:::
 
 ::: {.ao-lore}
 ## Lore

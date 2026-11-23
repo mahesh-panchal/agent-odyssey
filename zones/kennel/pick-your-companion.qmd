@@ -3,22 +3,33 @@ title: "Pick Your Companion"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Recruit the Beast. Adopt the Pet is advised, not required. **Objective:** set the model and the effort on purpose, especially when you hand work to a subagent, and learn to compare two settings on your own task.
-**Time:** about 15 minutes. **The exercise is a worksheet and needs no model.**
-
-<span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17; the model-config, effort, sub-agents, costs, choosing-a-model and optimizing-for-cost pages were spot-checked live that day; model names, aliases and defaults change often; Mistral Vibe and model pages read 2026-11-20 (research/mistral.md)</span>
+- **Goal:** You will set the model and the effort on purpose, including for a subagent, and compare two settings on your own task.
+- **Before you start:** [Recruit the Beast](recruit-the-beast.html). [Adopt the Pet](adopt-the-pet.html) helps with the OpenCode tab.
+- **Time:** about 15 minutes. The exercise is a worksheet and needs no model.
 :::
 
-The companions in the Kennel are **models**; the tool around them (the harness, the program that runs the model and its tools) is the armour. This page is about which companion to bring to which job, and how hard to make it think. Model names, aliases and defaults change often, so check the current docs and your own tool before relying on any name here.
+The companions in the Kennel are models. The harness is the program that runs a model and its tools. This page covers which companion to bring to which job, and how hard to make it think. Model names, aliases and defaults change often, so check your own tool for the current ones.
 
-A few words first. A **model tier** is a size class of model: a smaller one is faster and cheaper, a larger one is more capable and costs more. An **alias** is a short nickname (such as `sonnet`) that the tool maps to a concrete model version. **Effort** is how much the model thinks before each step. A **subagent** is a helper the main agent starts with its own fresh context, which does a side task and returns only a summary. To **delegate** is to hand a task to a subagent. A **token** is a chunk of text, the unit that usage and cost are counted in, and **context** is the text the model can see right now. **Frontmatter** is the small settings block at the top of a Markdown file. To **pin** a model is to name one exact version so it never silently changes, and **inherit** means "use whatever the parent is using". The **prompt cache** is a short-term store that makes re-reading an unchanged conversation cheaper.
+## Words to know
+
+- **Model tier:** a size class of model. A smaller one is faster and cheaper; a larger one is more capable and costs more.
+- **Alias:** a short nickname (such as `sonnet`) that the tool maps to a concrete model version.
+- **Effort:** how much the model thinks before each step.
+- **Subagent:** a helper the main agent starts with its own fresh context. It does a side task and returns only a summary. To **delegate** is to hand it a task.
+- **Token:** a chunk of text, the unit that usage and cost are counted in.
+- **Context:** the text the model can see right now.
+- **Frontmatter:** the small settings block at the top of a Markdown file.
+- **Pin:** name one exact model version so it never silently changes.
+- **Inherit:** use whatever the parent is using.
+- **Prompt cache:** a short-term store that makes re-reading an unchanged conversation cheaper.
+- **Compacting:** replacing the conversation history with a short summary.
 
 ## 1. Two dials
 
-- **Model** is what the companion knows and can do.
-- **Effort** is how much it thinks per step. Lower effort means fewer and terser tool calls (the actions the agent takes, such as reading a file or running a command); higher effort means more thoroughness.
+- **Model:** what the companion knows and can do.
+- **Effort:** how much it thinks per step. Lower effort means fewer and terser tool calls (the actions the agent takes, such as reading a file or running a command); higher effort means more thoroughness.
 
-The docs say tuning effort is often a better lever than switching models. One article's advice, not confirmed in the docs: effort cannot add knowledge the model lacks, so a model that does not know an unusual method will not find it by thinking longer. Treat that as a hypothesis to test.
+Tuning effort is often a better lever than switching models.
 
 ## 2. How to set them
 
@@ -26,7 +37,7 @@ The docs say tuning effort is often a better lever than switching models. One ar
 
 ## Claude Code
 
-**Model.** Aliases the docs list: `default` (clears an override and names no model), `best` (same as `opus`), `fable`, `sonnet`, `opus`, `haiku`, `sonnet[1m]`, `opus[1m]` (the `[1m]` forms ask for a longer context window), and `opusplan` (the opus model in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API the docs map `opus`, `sonnet` and `haiku` to the current 5.5 versions; other providers can resolve the same alias to older versions.
+**Model.** The aliases are `default` (clears an override and names no model), `best` (same as `opus`), `fable`, `sonnet`, `opus`, `haiku`, `sonnet[1m]`, `opus[1m]` (the `[1m]` forms ask for a longer context window), and `opusplan` (opus in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API, `opus`, `sonnet` and `haiku` map to the current 5.5 versions; other providers can resolve the same alias to older versions.
 
 | Way | How | Note |
 |---|---|---|
@@ -35,17 +46,17 @@ The docs say tuning effort is often a better lever than switching models. One ar
 | Environment | `ANTHROPIC_MODEL` | |
 | Settings file | `model` field | |
 
-For results that must be reproducible (a lab pipeline, course material), **pin a full model name** such as `claude-opus-5-5`, because an alias moves when a new version ships (our inference from how aliases work). The docs also offer `ANTHROPIC_DEFAULT_OPUS_MODEL`, `ANTHROPIC_DEFAULT_SONNET_MODEL`, `ANTHROPIC_DEFAULT_HAIKU_MODEL` and `ANTHROPIC_DEFAULT_FABLE_MODEL` to pin what each alias means.
+For results that must be reproducible (a lab pipeline, course material), **pin a full model name** such as `claude-opus-5-5`, because an alias moves when a new version ships. The variables `ANTHROPIC_DEFAULT_OPUS_MODEL`, `ANTHROPIC_DEFAULT_SONNET_MODEL`, `ANTHROPIC_DEFAULT_HAIKU_MODEL` and `ANTHROPIC_DEFAULT_FABLE_MODEL` pin what each alias means.
 
-**Effort.** `/effort`, `claude --effort`, the environment variable `CLAUDE_CODE_EFFORT_LEVEL`, or the `effortLevel` setting. The levels are `low`, `medium`, `high`, `xhigh` and `max`, and which ones exist depends on the model. The default differs by model and by surface. For Sonnet 5.5, the Claude Code model-config page says `medium`, while the API effort page says `high` on the API, so name the surface before quoting a default, and run `/effort` in your own tool to read yours.
+**Effort.** Set it with `/effort`, `claude --effort`, the environment variable `CLAUDE_CODE_EFFORT_LEVEL`, or the `effortLevel` setting. The levels are `low`, `medium`, `high`, `xhigh` and `max`, and which ones exist depends on the model. The default differs by model and by surface: for Sonnet 5.5 it is `medium` in Claude Code and `high` on the API. Run `/effort` in your own tool to read yours.
 
-**Per skill and per subagent.** Both skill files and subagent files take `model` and `effort` in their frontmatter.
+**Per skill and per subagent.** Skill files and subagent files both take `model` and `effort` in their frontmatter.
 
-- A skill's `model` takes the same values as `/model`, or `inherit`. A skill's `model` and `effort` apply for the rest of that one turn and are not saved. A skill's `effort` overrides the session level but not `CLAUDE_CODE_EFFORT_LEVEL`.
-- A subagent's `model` takes `sonnet`, `opus`, `haiku`, `fable`, a full model ID, or `inherit`. Its `effort` takes `low` to `max`. If the subagent's model differs from the main one and you give no `effort`, the session level does not apply to it, so set it.
+- **Skill:** `model` takes the same values as `/model`, or `inherit`. A skill's `model` and `effort` apply for the rest of that one turn and are not saved. Its `effort` overrides the session level but not `CLAUDE_CODE_EFFORT_LEVEL`.
+- **Subagent:** `model` takes `sonnet`, `opus`, `haiku`, `fable`, a full model ID, or `inherit`. `effort` takes `low` to `max`. If the subagent's model differs from the main one and you give no `effort`, the session level does not apply to it, so set it.
 - **Which model a subagent gets, first match wins:** the per-call `model` parameter, then the definition's `model`, then the environment variable `CLAUDE_CODE_SUBAGENT_MODEL`, then the main conversation's model.
 
-A subagent is a Markdown file with frontmatter in `.claude/agents/` (project) or `~/.claude/agents/` (yours). Sketch, not run:
+A subagent is a Markdown file with frontmatter in `.claude/agents/` (project) or `~/.claude/agents/` (yours):
 
 ```markdown
 ---
@@ -58,66 +69,57 @@ Read the logs you are given. Return: task name, exit status, the first error lin
 Quote lines exactly. If something is unclear, say so.
 ```
 
-A subagent definition can also limit what the helper may use (a `tools` field): the sub-agents docs in Lore below give the exact syntax, which this sketch leaves out.
+A `tools` field can also limit what the helper may use. The sub-agents page in Lore has the exact syntax.
 
-Why `medium`? The docs say Haiku 5.5 at `low` is more likely to skip a search, stop early or skip a check, a poor trade for reading logs, where catching every failure is the point.
+This sketch uses `medium` because Haiku 5.5 at `low` is more likely to skip a search, stop early or skip a check. For reading logs, catching every failure is the point.
 
 ## OpenCode + Ollama
 
 - `/models` picks a model for the current session only; the config file is unchanged.
 - `opencode run --model provider/model-id` sets it for one run. The format is `provider/model-id`, with an optional `#variant` such as `#high`. IDs are case-sensitive.
 - The `model` key in `opencode.json` (or `opencode.jsonc`) sets your default.
-- An agent can have its own `model` key. A subagent with no `model` inherits the parent session's model. The docs' frontmatter example is `mode: subagent` plus `model: anthropic/claude-sonnet-5-5#high` (sketch, not run).
-- A local Ollama model is selectable like any other, for example `ollama/gemma3:4b`, as the Adopt the Pet quest showed.
-
-Not checked: which model OpenCode's built-in `general` and `explore` subagents use, whether a `small_model` key exists, the file location for OpenCode agent files, and whether a local model is good enough as a cheap delegate (the docs only say it can be selected). Not checked: any way to run an Ollama model as a Claude Code subagent; Claude Code's documented subagent `model` values are Claude aliases or Claude IDs only.
+- An agent can have its own `model` key. A subagent with no `model` inherits the parent session's model. The frontmatter example is `mode: subagent` plus `model: anthropic/claude-sonnet-5-5#high`.
+- A local Ollama model is selectable like any other, for example `ollama/gemma3:4b`.
 
 :::::
 
-## Other model families and harnesses
+## 3. Starting points
 
-Everything above uses Claude's names and tiers. The ideas carry over to other families, and the names do not. Mistral is one example (docs read 2026-11-20 through a summarising tool; sources in `research/mistral.md`):
+Start from this table and test each row on your own jobs. The four tiers, in order of capability:
 
-- **Models.** Mistral's overview page lists open-weight models (for example Ministral 3 in 3B, 8B and 14B, and Mistral Small 4, both Apache 2.0; Ollama's `mistral-small` page may be an earlier release than Small 4) beside "Premier" models such as Codestral and its embedding and OCR models, which show no open licence. In the part of the models page we read, no Devstral model is listed as active. The hosted Devstral 2 was marked deprecated on 2026-05-22 and due to retire on 2026-07-31, a date that has passed. Check the page for current names.
-- **Harness.** Mistral Vibe is an open-source terminal coding agent (Apache 2.0). Its docs describe four approval modes: `ask` (asks before any tool), `accept-edits` (the default: file edits are applied without asking, shell commands still ask), `smart-approve` (a classifier; we did not read its details), and `auto-approve` ("Trusted, sandboxed environments only"). Project config loads only from folders you have trusted. It reads `~/.vibe/config.toml`. *General practice:* start in `ask` until you trust the project.
-- **Local models.** The docs say Vibe supports any model served behind an OpenAI-compatible API and name vLLM, llama.cpp, LM Studio and Ollama. They give no Ollama recipe, so treat Ollama as untested.
-- Not run: Vibe itself. Not read directly: its instruction-file page (a search summary names `AGENTS.md`).
+- **Haiku:** fastest replies and lowest cost; listed for subagent tasks.
+- **Sonnet:** everyday coding and agent work.
+- **Opus:** complex agentic coding; most workloads start here.
+- **Fable:** the hardest, long-running work.
 
-*General practice:* when you switch families, redo the worksheet in this quest. A tier ladder built on one vendor's models does not transfer name for name.
-
-## 3. A decision ladder
-
-Where the docs speak, I say so: the docs list the smallest tier (Haiku) as suited to subagent tasks and say most workloads start with Opus. Everything else is **General practice**: a starting point to test on your own jobs. The docs name four tiers in this order of capability: Haiku (fastest replies and lowest cost), Sonnet (everyday coding and agent work), Opus (complex agentic coding), Fable (hardest, long-running work). Check the current docs; models change.
-
-| Job | Start with | Effort | Why (General practice unless noted) |
+| Job | Start with | Effort | Why |
 |---|---|---|---|
-| Most everyday work, no better information | Opus (per the docs) | the tool's default | the docs say most workloads start here |
+| Most everyday work, no better information | Opus | the tool's default | most workloads start here |
 | Bulk reading, classifying or extracting with output you can check | Haiku, often as a subagent | `medium`, or `low` if you re-run failures | cheap per item; a checker catches errors |
 | Exploratory reading ("where is X handled?") | a subagent | `low` or `medium` | the main context stays clean; only a summary returns |
-| Planning a change (see Plan Before You Edit) | consider Opus or Fable | `medium` to `high` | a bad plan makes every later step wrong |
+| Planning a change | consider Opus or Fable | `medium` to `high` | a bad plan makes every later step wrong |
 | Mechanical edits with tests that fail loudly | Sonnet | `medium` | the tests do the judging |
-| Hardest multi-file change, or unfamiliar science | Opus or Fable | `high`, then up only if a check says it helps | per one article, effort cannot add knowledge the model lacks, so the model matters too |
+| Hardest multi-file change, or unfamiliar science | Opus or Fable | `high`, then up only if a check shows a gain | a stronger model may know more |
 
 ## 4. When the output is not good enough: the upgrade ladder
 
 Climb one rung at a time and re-check after each.
 
-1. **Add a way to verify.** A test, a script, a count against an independent tool, a second look that does not share the first one's blind spot (the idea behind Ground Truth). Without it you cannot tell whether the next rungs helped.
+1. **Add a way to verify.** A test, a script, a count against an independent tool, a second look that does not share the first one's blind spot. Without it you cannot tell whether the next rungs helped.
 2. **Raise effort one level.**
 3. **Change the model** to the next tier up.
 
-The order (check, then effort, then model) is one article's advice, not confirmed in the docs, though the docs do say to give the agent something to verify against and that effort is often the better lever. The article is a claude.dev piece about choosing a Claude model (the page shows the byline Addy Osmani and the date 2026-11-09, but does not say who runs the site, so authorship is unverified; its numbers are not verified). I use only its ideas, in my own words.
+**Cheap-then-retry:** if outcomes are checkable (tests, or a verifier, which is a separate check that tests the output), run at low effort and re-run only the failures at higher effort. A checker that passes bad work lets failures through, and a failure costs two runs of waiting time.
 
-**The cheap-then-retry pattern** is in Anthropic's cost-and-intelligence guidance for the API (a docs page, "Optimizing for cost and intelligence"): if outcomes are checkable (tests, or a verifier, which is a separate check that tests the output), run at low effort and re-run only the failures at higher effort. Two caveats from the same page: a checker that passes bad work lets failures through, and a failure costs two runs of waiting time. The docs also say to compare **cost per finished task**, because failed tasks still cost money and a few hard tasks can carry much of the bill.
+Compare **cost per finished task**, because failed tasks still cost money and a few hard tasks can carry much of the bill.
 
 ## 5. Delegation hygiene
 
-- **Keep the expensive model's context lean.** Sending bulk reading to a subagent keeps that reading out of the main conversation (documented benefit).
-- **A subagent returns only a summary, and summaries omit and distort.** Spot-check: ask for exact quotes or file paths and open two yourself (see Where Machines Fail). Many subagents returning long answers can also fill the main context again, per the docs.
-- **State your rules in the delegation prompt.** Per the docs, the built-in Explore and Plan subagents (Explore is a read-only search helper; Plan is a read-only research helper used in plan mode) skip `CLAUDE.md` (the instructions file the tool loads at session start; see *Know Your Gear*) for speed, so a rule like "never touch `raw/`" must be written into the task you hand them. Custom subagents load it unless set to skip it.
-- **Keep edits on the main model.** One article's advice, not confirmed in the docs: let a cheaper subagent read and report, and make the changes on the model you trust most.
-- **Switching model mid-conversation can change prompt-cache behaviour** (the docs say so and may ask you to confirm). One article's advice, not confirmed in the docs: compact first, or switch at a natural break; compacting means replacing the history with a short summary (see When to Start Fresh).
-- **Change effort between sessions when you are comparing.** The docs note that changing top-level effort mid-session also invalidates the cache.
+- **Keep the expensive model's context lean.** Sending bulk reading to a subagent keeps that reading out of the main conversation.
+- **Spot-check summaries.** A subagent returns only a summary, and summaries omit and distort. Ask for exact quotes or file paths and open two yourself. Many subagents returning long answers can also fill the main context again.
+- **State your rules in the delegation prompt.** The built-in Explore subagent (a read-only search helper) and Plan subagent (a read-only research helper used in plan mode) skip `CLAUDE.md`, the instructions file the tool loads at session start. A rule like "never touch `raw/`" must be written into the task you hand them. Custom subagents load `CLAUDE.md` unless set to skip it.
+- **Switch models at a quiet moment.** Switching model mid-conversation can change prompt-cache behaviour, and the tool may ask you to confirm.
+- **Change effort between sessions when you are comparing.** Changing top-level effort mid-session also invalidates the cache.
 
 ## 6. Measure on your own task
 
@@ -128,11 +130,24 @@ Pick one small real task that has an outcome check (a test that passes, a count 
 3. After each run, open `/usage` and note the "Usage by model" block. The dollar figure is an estimate computed locally at list price, and on a subscription you may see plan usage bars instead. `/usage` resets on `/clear`.
 4. Compare cost per *passing* run. Three runs is a small sample: it can expose a big difference, and a small one needs more runs.
 
-This is the same habit as the Forest quests Close the Loop (give the agent something to check against) and Test the Skill (compare behaviour with and without a change).
-
 ## 7. What you gave up
 
 Choosing wrongly costs you in both directions. **Too small or too low:** the companion loses the thread, skips checks or stops early, and you redo the work, often after you have already trusted it. **Too big or too high:** the same job costs more and runs slower, and you may not notice because the answer looks fine. The checks above are how you notice either mistake.
+
+## 8. Other model families
+
+The ideas above carry over to other families; the names do not. Mistral is one example:
+
+- **Models:** Ministral 3 comes in 3B, 8B and 14B, and Mistral Small 4 is also open-weight; both are Apache 2.0. Check Mistral's models page for current names and deprecation dates.
+- **Harness:** Mistral Vibe is an open-source terminal coding agent (Apache 2.0) with four approval modes. Its config file is `~/.vibe/config.toml`.
+    - `ask`: asks before any tool.
+    - `accept-edits`: the default; applies file edits without asking, and still asks before shell commands.
+    - `smart-approve`: see the Vibe docs for how it decides.
+    - `auto-approve`: for trusted, sandboxed environments only.
+- **Trusted folders:** Vibe loads project config only from folders you have trusted. Start in `ask` until you trust the project.
+- **Local models:** Vibe works with any model served behind an OpenAI-compatible API, such as vLLM, llama.cpp, LM Studio or Ollama. Check the Vibe docs for the Ollama setup.
+
+When you switch families, redo the worksheet below. A tier ladder built on one vendor's models does not carry over name for name.
 
 ## Exercise: assign six jobs
 
@@ -141,18 +156,18 @@ No model needed. For each mock job, write down a model (Haiku, Sonnet, Opus or F
 1. Rename 200 sample IDs in a samplesheet to a new scheme, given a mapping table.
 2. Summarise the methods section of one paper into five bullets for your lab notes.
 3. Debug a Nextflow stage that fails on one sample and passes on the others.
-4. Classify 5,000 free-text tissue labels into 12 categories, with 200 hand-labelled rows to check against.
+4. Classify 5,000 free-text tissue labels into 12 categories, with 200 hand-tagged rows to check against.
 5. Plan a refactor of a 600-line QC script that three other people depend on.
 6. Explain an error message you have not seen before.
 
 <details>
-<summary>Answer key (General practice, not from the docs; several answers are defensible)</summary>
+<summary>Answer key (several answers are defensible)</summary>
 
 1. **Probably no model at all.** A mapping table and a script do this exactly, and a script cannot invent an ID. If you use a model, Haiku at `low` or `medium`, with a diff or count check; no subagent needed.
 2. **Sonnet, `medium`, no subagent.** The text is short, so there is no context to protect. Check two claims against the paper yourself.
 3. **Sonnet at `medium`, raised to `high` or Opus if the first attempt fails and a test says so.** Keep it in the main conversation, because the debugging needs the history. Add a failing test first (rung 1).
-4. **Haiku, a subagent or a batch script, `medium`.** The 200 hand-labelled rows are your outcome check; re-run only the rows that disagree at a higher setting. Spot-check a sample of the rest.
-5. **Opus, `high`, in plan mode, main conversation.** A weak plan is expensive downstream and other people depend on the script. Ask for a test plan too (see Plan Before You Edit).
+4. **Haiku, a subagent or a batch script, `medium`.** The 200 hand-tagged rows are your outcome check; re-run only the rows that disagree at a higher setting. Spot-check a sample of the rest.
+5. **Opus, `high`, in plan mode, main conversation.** A weak plan is expensive downstream and other people depend on the script. Ask for a test plan too.
 6. **Sonnet, `low` or `medium`, no subagent.** It is a short, checkable question: try the suggested fix. Escalate when the explanation does not hold up.
 
 </details>
@@ -163,6 +178,17 @@ No model needed. For each mock job, write down a model (Haiku, Sonnet, Opus or F
 ## Battle
 
 <div data-ao-test="kennel-pick-your-companion" data-xp="50"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Plan Before You Edit](../forest/plan-before-you-edit.html): for more on plan mode and reading a plan before the agent edits.
+- [Close the Loop](../forest/close-the-loop.html): give the agent something to check its work against.
+- [Test the Skill](../forest/test-the-skill.html): compare behaviour with and without a change.
+- [Ground Truth](../maze/ground-truth.html): check an answer against an independent source.
+- [When to Start Fresh](../codon-mill/when-to-start-fresh.html): compacting and fresh sessions.
+- [Know Your Gear](../basecamp/know-your-gear.html): what `CLAUDE.md` is and how the tool loads it.
+:::
 
 ::: {.ao-lore}
 ## Lore

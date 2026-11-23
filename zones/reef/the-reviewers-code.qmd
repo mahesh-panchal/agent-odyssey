@@ -3,25 +3,33 @@ title: "The Reviewer's Code"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Send Small, Say So. **Objective:** review work that involved an LLM, kindly and effectively, and choose formats that review well.
-**Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Team norms you agree locally override these defaults.</span>
+- **Goal:** you will review work that involved an LLM, kindly and effectively, and choose formats that review well.
+- **Before you start:** [Send Small, Say So](send-small-say-so.html).
+- **Time:** about 15 minutes.
 :::
 
-You will also be on the receiving end. Reviewing LLM-assisted work is the same craft as any review, with a few shifts in attention.
+You will also be on the receiving end of LLM-assisted work. Reviewing it is the same craft as any review, with a few shifts in attention.
 
 - **Ask for the evidence.** "Which test shows this works?" works better than "are you sure?".
 - **Watch for the usual tells.** Plausible but unused code, tests weakened to pass, and confident comments that do not match the code.
 - **Ask for understanding.** "Can you explain why this branch exists?" is fair for any author.
-- **Say when it is too big.** "Please split this" is a legitimate review comment, and the Wall of Output taught why.
-- **Be kind.** The aim is better science, so keep the tone friendly and aim at the work, not at catching a person out.
+- **Say when it is too big.** "Please split this" is a legitimate review comment.
+- **Be kind.** The aim is better science, so keep the tone friendly and aim at the work and leave the author's competence alone.
 
 ## Formats that review well
 
-Notebooks are one example. A [marimo](https://marimo.io/) notebook is stored as a plain `.py` file, so a diff shows what changed. A Jupyter `.ipynb` is JSON that also stores outputs and run counts, so diffs are noisy and hard to read, though stripping tools exist. If you ask an agent to produce analysis, prefer a format your reviewer can actually diff.
+Notebooks show the difference well. A [marimo](https://marimo.io/) notebook is stored as a plain `.py` file, so a diff shows what changed. A Jupyter `.ipynb` is JSON that also stores outputs and run counts, so diffs are noisy and hard to read, though stripping tools exist. When you ask an agent to produce analysis, choose a format your reviewer can diff.
 
 ## Battle: the review
 
 <div data-ao-test="reef-the-reviewers-code" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Boss: The Wall of Output](../maze/wall-of-output.html): why an oversized change defeats review.
+- [Why Notebooks Diff Badly](../scriptorium/why-notebooks-diff-badly.html): what a notebook diff shows, and four ways to make it reviewable.
+:::
 
 ::: {.ao-lore}
 ## Lore

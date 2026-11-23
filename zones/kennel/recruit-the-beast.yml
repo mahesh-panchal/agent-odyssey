@@ -34,7 +34,7 @@ questions:
     explain: "Run /status to see which credential is active."
     options:
       - { text: "The key wins once approved, so usage bills to your API account rather than your plan", correct: true }
-      - { text: "None: the subscription always takes priority, so the key is simply ignored", misconception: "The docs say the key wins once approved. Check /status and unset the variable if you did not mean to use it." }
+      - { text: "None: the subscription always takes priority, so the key is simply ignored", misconception: "The key wins once approved. Check /status and unset the variable if you did not mean to use it." }
       - { text: "Claude Code refuses to start until you unset one of the two credentials", misconception: "It starts fine, which is why the mix-up is easy to miss." }
       - { text: "It asks you to pick a credential each session and bills whichever you choose", misconception: "It asks once to approve the key. After that the key is used, so check /status." }
   - type: choice

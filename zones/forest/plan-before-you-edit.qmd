@@ -3,26 +3,36 @@ title: "Plan Before You Edit"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Write the Brief. **Objective:** ask an agent for a plan before it edits, review that plan like a reviewer, and know what a plan guarantees and where its limits lie.
-**Time:** about 20 minutes. **Nothing here runs a model;** the exercise uses mock files on your laptop.
-<span class="ao-badge">Last verified (docs, not run): research/plan-mode.md sources on 2026-11-16. Claude Code details come from the official docs; the OpenCode part is deliberately short. Items marked General practice or Not checked are not from the docs. The last part of the permission-modes page was not read.</span>
+- **Goal:** You will ask an agent for a plan before it edits, review that plan like a reviewer, and know what a plan can and cannot guarantee.
+- **Before you start:** [Write the Brief](write-the-brief.html). The exercise uses mock files on your laptop and runs no model.
+- **Time:** about 20 minutes.
 :::
 
 ## Why plan first
 
-A wrong plan costs you a paragraph to read and reject. A wrong 400-line **diff** (the list of lines a change added and removed) costs you the time to review it, and, General practice, the longer it is, the more likely you approve something you did not understand. Later in the Maze, the Wall of Output makes the same point: only accept as much output as you can honestly review, and ask for smaller pieces. A plan is the cheapest piece to ask for first.
+A wrong plan costs you a paragraph to read and reject. A wrong 400-line **diff** (the list of lines a change added and removed) costs you the time to review it, and the longer it is, the more likely you approve something you did not understand. A plan is the cheapest piece to ask for first. Ask for small pieces, and accept only as much output as you can honestly review.
 
-The Claude Code docs say to use plan mode "for changes you want to review before they touch disk". That is the only official when-to-plan line we found; the rest of this page says which parts are docs and which are habits.
+Use plan mode for changes you want to review before they touch disk.
 
 ## How: plan mode
 
-Words used below. A **session** is one conversation with the agent. **Shell commands** are commands you would type in a terminal, such as `ls` or `git status`. **Context** is everything the model can see in the session. A **subagent** is a helper with its own context window; only its summary comes back. A **deny rule** is a rule that blocks an action, and it applies in every mode. **Auto mode** is a mode where a background check decides what runs without a prompt. **Bypass permissions** is a startup option (`--dangerously-skip-permissions`) that turns most prompts off. `-p` runs one command with no chat (non-interactive mode). The **Agent SDK** is a library for building your own agent programs.
+Words used below:
+
+- **Session:** one conversation with the agent.
+- **Shell commands:** commands you would type in a terminal, such as `ls` or `git status`.
+- **Context:** everything the model can see in the session.
+- **Subagent:** a helper with its own context window; only its summary comes back.
+- **Deny rule:** a rule that blocks an action in every mode.
+- **Auto mode:** a mode where a background check decides what runs without a prompt.
+- **Bypass permissions:** a startup option (`--dangerously-skip-permissions`) that turns most prompts off.
+- **`-p`:** runs one command with no chat (non-interactive mode).
+- **Agent SDK:** a library for building your own agent programs.
 
 ::: {.panel-tabset group="companion"}
 
 ## Claude Code
 
-**Plan mode** is a **permission mode**: a setting for what the agent may do without asking you. (The Kennel quest *Recruit the Beast* introduced the modes and the first run; this page does not repeat it.) In plan mode the agent reads files, may run shell commands to explore, and writes a plan, and is meant to leave your source files unedited until you **approve** the plan (tell it to go ahead; not always enforced, see the limits below).
+In Claude Code, plan mode is a **permission mode**: a setting for what the agent may do without asking you. In plan mode the agent reads files, may run shell commands to explore, and writes a plan. It is meant to leave your source files unedited until you **approve** the plan (tell it to go ahead).
 
 Three ways in:
 
@@ -32,67 +42,70 @@ Three ways in:
 
 When the plan is ready, the agent presents it and asks how to proceed. The options, with their exact labels:
 
-- `Yes, and use auto mode`. Auto mode decides what runs without a prompt. If auto mode is unavailable, this reads `Yes, auto-accept edits`. If your session started with bypass, it reads `Yes, and switch to BYPASS PERMISSIONS (no further prompts) for this session`. Bypass skips most prompts.
-- `Yes, manually approve edits`. Each edit still asks you.
-- `No, keep planning`. You say what to change.
+- `Yes, and use auto mode`: auto mode decides what runs without a prompt. If auto mode is unavailable, this reads `Yes, auto-accept edits`. If your session started with bypass, it reads `Yes, and switch to BYPASS PERMISSIONS (no further prompts) for this session`. Bypass skips most prompts.
+- `Yes, manually approve edits`: each edit still asks you.
+- `No, keep planning`: you say what to change.
 
-A setting, `showClearContextOnPlanAccept`, adds a first option that approves and also clears the planning context . The docs page does not give its label, and we did not confirm whether it is on or off by default.
+The setting `showClearContextOnPlanAccept` adds a first option that approves and also clears the planning context. Look at your approval prompt to see whether it is on.
 
-::: {.callout-warning}
-**The trap.** At the approval prompt, `Shift+Tab` **approves** the plan. If you want to think, change something or back out, press `Esc` first. To leave plan mode when no prompt is open, press `Shift+Tab`.
+::: {.callout-note}
+At the approval prompt, `Shift+Tab` **approves** the plan. If you want to think, change something or back out, press `Esc` first. To leave plan mode when no prompt is open, press `Shift+Tab`.
 :::
 
-**Where the plan lives.** Plans are written to `~/.claude/plans/` by default (the `plansDirectory` setting changes the folder). `Ctrl+G` opens the proposed plan in your default text editor so you can edit it before the agent proceeds. Approving exits plan mode and switches to the mode you chose; to plan again, use `Shift+Tab` or `/plan`.
+Two more details:
 
-**Side helper.** In plan mode the agent can hand research to the built-in `Plan` subagent. It is read-only, so the main conversation stays read-only too.
+- **Where the plan lives:** plans are written to `~/.claude/plans/` by default (the `plansDirectory` setting changes the folder). `Ctrl+G` opens the proposed plan in your default text editor so you can edit it before the agent proceeds. Approving exits plan mode and switches to the mode you chose; to plan again, use `Shift+Tab` or `/plan`.
+- **Side helper:** in plan mode the agent can hand research to the built-in `Plan` subagent. It is read-only, so the main conversation stays read-only too.
 
 ## OpenCode + Ollama
 
-OpenCode has a built-in `plan` agent. Per the docs it explores and plans without editing normal project files, and it can edit only under its plan directory, `~/.opencode/plan`. That edit restriction is a deny rule, and saved approvals do not override a deny. Its shell commands stay under the normal permission rules. The base policy for every agent is allow everything except asking before reading `.env` files, so shell commands are likely to run without a prompt: confirm in your version.
+OpenCode has a built-in `plan` agent. It explores and plans without editing normal project files, and it can edit only under its plan directory, `~/.opencode/plan`. That edit restriction is a deny rule, and saved approvals do not override a deny. Its shell commands follow the normal permission rules.
+
+The base policy for every agent allows everything except asking before reading `.env` files, so shell commands can run without a prompt. Check the permission rules in your version before you rely on the `plan` agent.
 
 You can turn the `plan` agent off with `{"agents": {"plan": {"disabled": true}}}`.
 
-Not checked: how to switch to the `plan` agent in your version (we found no documented key or `/plan` command), whether there is any plan approval step, and the rest of its default rules. Its approval flow may differ from Claude Code's prompt, so the OpenCode agents page is the place to check.
+To find out how to switch to the `plan` agent and whether it has an approval step, read the OpenCode agents page for your version.
 
 :::
 
 ## Review the plan like a reviewer
 
-A plan is text from a model that has not yet run anything. Read it the way you would read a methods section from a collaborator you have not worked with before. **General practice** (not from the docs), a checklist:
+A plan is text from a model that has not yet run anything. Read it the way you would read a methods section from a collaborator you have not worked with before. A checklist:
 
 1. **What files will it touch?** Anything outside the task is a question to ask.
 2. **What does it assume about the data?** "IDs are unique" or "the file has a header" are guesses until checked against the real files.
 3. **What could it break?** Callers, config, tests, outputs other people read.
-4. **How will it verify, and is the check independent of the code it writes?** A test the agent writes for its own code can share its mistake. Compute one value some other way, as in the Ground Truth quest later in the Maze.
+4. **How will it verify, and is the check independent of the code it writes?** A test the agent writes for its own code can share its mistake. Compute one value some other way, for example with `awk` or `wc`.
 5. **Are the steps small enough to review one at a time?** A step names one change, so "Update everything" needs splitting.
 6. **What is not in the plan?** Missing edge cases, missing tests, no mention of a rollback.
 
 If an answer is bad, choose `No, keep planning` and say what to change, or edit the plan yourself with `Ctrl+G`.
 
-## What a plan does not guarantee
+## What a plan guarantees
 
-- **A plan is advice.** General practice: an approved plan is only as good as your review of it.
-- **The agent can deviate.** General practice: the agent can still change course after approval. Afterwards, read the diff against the plan: every changed file should be one the plan named. The docs also describe `/code-review`, which reviews the diff in a fresh subagent that never saw your conversation.
-- **Plan mode may not be enforced.** In an interactive terminal session where bypass permissions is available, the docs say Claude is only *instructed* to plan without editing. Claude Code does not enforce it, and edits and shell commands run without a prompt (explicit ask rules and a few critical deletions still prompt). With `-p` (non-interactive mode), the Agent SDK and the VS Code chat panel, the blocks stay in place.
-- **Deny rules always apply.** A deny rule is a rule that blocks an action. It blocks in every mode, plan mode included.
-- **"Read-only" has limits.** Not checked: how MCP tools behave in plan mode, and whether a read-only shell command can have side effects. Do not read "plan mode" as "nothing can happen".
-- **It lives outside your repository by default.** The plan file sits in `~/.claude/plans/`. Not checked: whether `/rewind` covers it. Keep your own project under Git.
+- **A plan is advice.** An approved plan is only as good as your review of it.
+- **The agent can deviate.** The agent can still change course after approval. Afterwards, read the diff against the plan: every changed file should be one the plan named. `/code-review` reviews the diff in a fresh subagent that never saw your conversation.
+- **Plan mode may be an instruction only.** In an interactive terminal session where bypass permissions is available, Claude is only *instructed* to plan without editing. Claude Code does not enforce it, and edits and shell commands run without a prompt (explicit ask rules and a few critical deletions still prompt). With `-p`, the Agent SDK and the VS Code chat panel, the blocks stay in place.
+- **Deny rules always apply.** A deny rule blocks in every mode, plan mode included.
+- **Read-only has gaps.** Plan mode holds back edits. Test how your MCP tools and shell commands behave in it before you trust it near anything important.
+- **The plan sits outside your repository by default.** The plan file lives in `~/.claude/plans/`. Keep your own project under Git.
 
 ## When to plan, and when not to
 
-From the docs: use plan mode for changes you want to review before they touch disk, and a vague prompt is fine when exploring, at the cost of more correction. The first two bullets below are **General practice**:
-
-- A one-line fix with an obvious check: just ask for it.
-- Unfamiliar code, changes across several files, and anything that touches paths where your data lives: plan first.
-- Open-ended exploring: a vague prompt is fine (docs, above).
+- **One-line fix with an obvious check:** just ask for it.
+- **Unfamiliar code, changes across several files, and anything that touches paths where your data lives:** plan first.
+- **Open-ended exploring:** a vague prompt is fine, at the cost of more correction.
 
 ## Keep the approved plan
 
-The plan in `~/.claude/plans/` is easy to lose track of. **General practice:** ask the agent to save the approved plan into your project, for example as `PLAN.md`, then commit it. The docs describe a related pattern: ask the agent to interview you until it could write the spec, save it as `SPEC.md`, then start a **fresh session** (an empty conversation) to build from it. The fresh session has a clean context and a written definition of done. The Codon Mill quest *Handoff Notes* covers what such a file should hold.
+The plan in `~/.claude/plans/` is easy to lose track of. Ask the agent to save the approved plan into your project, for example as `PLAN.md`, then commit it.
+
+A related pattern: ask the agent to interview you until it could write the spec, save it as `SPEC.md`, then start a **fresh session** (an empty conversation) to build from it. The fresh session has a clean context and a written definition of done.
 
 ## Exercise: review a bad plan
 
-Everything here is a mock on your laptop. Nothing is run through a model. Save [mock-plan.md](../../exercises/forest/plan-review/mock-plan.md) and [samplesheet.csv](../../exercises/forest/plan-review/samplesheet.csv). The plan says it will make a samplesheet parser accept a new `strandedness` column. Read the CSV, then go through the six checklist questions and write down every problem you find. Aim for at least four.
+Everything here is a mock on your laptop, and no model runs. Save [mock-plan.md](../../exercises/forest/plan-review/mock-plan.md) and [samplesheet.csv](../../exercises/forest/plan-review/samplesheet.csv). The plan says it will make a samplesheet parser accept a new `strandedness` column. Read the CSV, then go through the six checklist questions and write down every problem you find. Aim for at least four.
 
 <details>
 <summary>Answer key</summary>
@@ -112,6 +125,16 @@ Everything here is a mock on your laptop. Nothing is run through a model. Save [
 
 <div data-ao-test="forest-plan-before-you-edit" data-xp="50"></div>
 
+::: {.ao-related}
+## Related lessons
+
+- [Write the Brief](write-the-brief.html): for more on what to put in the request that starts a plan.
+- [Ground Truth](../maze/ground-truth.html): for more on computing a value independently to check the agent's work.
+- [Boss: The Wall of Output](../maze/wall-of-output.html): for more on accepting only as much output as you can review.
+- [Handoff Notes](../codon-mill/handoff-notes.html): for more on what a saved plan or spec file should hold.
+- [Grow the Carapace](../crypt/rules-of-the-carapace.html): for more on permission modes and deny rules.
+:::
+
 ::: {.ao-lore}
 ## Lore
 
@@ -119,5 +142,5 @@ Everything here is a mock on your laptop. Nothing is run through a model. Save [
 
 - [Choose a permission mode](https://code.claude.com/docs/en/permission-modes): Anthropic, docs. Why read: it is the source for how plan mode is entered, approved and (not always) enforced.
 - [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it says when planning pays off and describes the interview-then-spec pattern.
-- [Agents](https://opencode.ai/docs/agents/): OpenCode, docs. Why read: it covers OpenCode agent profiles, including the built-in plan agent; our notes could not confirm how to switch to it.
+- [Agents](https://opencode.ai/docs/agents/): OpenCode, docs. Why read: it covers OpenCode agent profiles, including the built-in plan agent.
 :::

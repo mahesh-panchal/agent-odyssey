@@ -3,56 +3,64 @@ title: "Keys on Shared Ground"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Login Node Manners, and The Locked Cabinet. **Objective:** keep keys and agent settings private on shared storage, keep data within its agreement, and know what to ask your cluster staff.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Slurm and Claude Code docs on 2026-11-16 (sources in `research/hpc-and-notebooks.md`)</span>
+- **Goal:** you will keep keys and agent settings private on shared storage, keep data within its agreement, and know what to ask your cluster staff.
+- **Before you start:** [Login Node Manners](login-node-manners.html) and [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html). *Egress* means data leaving the machine.
+- **Time:** about 15 minutes.
 :::
 
-A claim marked **general practice** is advice and is not a documented fact. **Follow your own cluster's policy and data agreement over this page.** This page makes no claim that using an LLM agent on a cluster is allowed or expected. Many sites have rules, and some forbid it for certain data. **Ask your cluster staff.** This quest is reading only. Do not test anything on a real cluster.
+Ask your cluster staff before sending any cluster data to an external model API, and follow your institution's data agreement. This quest is read-only, so read it on your laptop.
 
 ## What lives where
 
 Claude Code keeps sessions, settings and plugins in `~/.claude`, and writes `~/.claude.json` (account details, MCP configuration, trust decisions). `CLAUDE_CONFIG_DIR` relocates the first of these.
 
-*General practice:* if your home directory is shared across nodes, then session history, which can contain pasted data or paths, sits on shared storage. Check who can read it (for example `chmod 700 ~/.claude`) and whether home is backed up or group-readable. The docs do not say this; it is an inference.
+If your home directory is shared across nodes, session history sits on shared storage and can contain pasted data or paths. Check who can read it (for example `chmod 700 ~/.claude`) and whether home is backed up or group-readable.
 
-Settings files, from the docs: user `~/.claude/settings.json`, project `.claude/settings.json` (commit it), local `.claude/settings.local.json`, and managed settings. Precedence is managed, then command line, then local, then shared project, then user. Permission lists merge across files. An organisation can enforce managed settings that your own files cannot override, so your site may already have decided some of this.
+Settings files: user `~/.claude/settings.json`, project `.claude/settings.json` (commit it), local `.claude/settings.local.json`, and managed settings. Precedence is managed, then command line, then local, then shared project, then user. Permission lists merge across files. An organisation can enforce managed settings that your own files cannot override, so your site may already have decided some of this.
 
 ## Keys
 
 - `ANTHROPIC_API_KEY`, when set, overrides a subscription login. In `-p` (non-interactive) mode it is always used, and interactive mode asks you once to approve it. If a key is exported in a shared profile, the key in use may not be the one you expect.
-- *General practice:* never put a key in a script or in a committed `.claude/settings.json`. On a shared account, use a per-user key kept in a file readable only by you (mode 600), and do not keep a lab-wide key in a shared directory.
+- Never put a key in a script or in a committed `.claude/settings.json`. On a shared account, use a per-user key kept in a file readable only by you (mode 600), and keep a lab-wide key out of shared directories.
 - The sandbox's default reads cover most of the machine, including credential files such as `~/.ssh` and `~/.aws/credentials`. Use `Read(...)` deny rules or `sandbox.filesystem.denyRead` for key files. Remember that the sandbox covers shell commands only.
 
-Not confirmed here: how OpenCode stores keys, and what the `apiKeyHelper` setting does. Check the docs for your version.
+Look up where OpenCode stores keys, and what the `apiKeyHelper` setting does, in the docs for your version before you rely on either.
 
 ## Data and egress
 
-Egress means data leaving the machine.
-
-- *General practice:* before any cluster data, paths, logs or code go to an external model API, check your institution's policy. Human genomic, clinical or controlled-access data often has agreements that forbid third-party processing.
-- Read is auto-approved inside the working directory. A project folder holding controlled data is therefore readable by the agent unless a `Read(...)` deny rule or `sandbox.filesystem.denyRead` covers it. *General practice:* keep controlled data outside the agent's working directory and give the agent synthetic or de-identified test data.
-- *General practice, not checked in the docs, so ask your site:* some sites restrict internet access from compute nodes, so an agent there may not reach a model API at all. A common pattern is the agent on your laptop, writing scripts, with jobs running offline. Some sites forbid agents on login nodes and allow them only in an interactive compute allocation, where internet access may be restricted. Ask staff which applies. A plain `ssh` from inside the Claude Code sandbox does not work as a hop.
+- Before any cluster data, paths, logs or code go to an external model API, check your institution's policy. Human genomic, clinical or controlled-access data often has agreements that forbid third-party processing.
+- Read is auto-approved inside the working directory, so the agent can read a project folder that holds controlled data unless a `Read(...)` deny rule or `sandbox.filesystem.denyRead` covers it. Keep controlled data outside the agent's working directory and give the agent synthetic or de-identified test data.
+- Some sites restrict internet access from compute nodes, so an agent there may not reach a model API. Ask staff what outbound access your jobs have. A common pattern is the agent on your laptop writing scripts, with jobs running offline.
+- A plain `ssh` from inside the Claude Code sandbox does not work as a hop.
 - The sandbox's `network.allowedDomains` starts empty, so unlisted hosts prompt (in the default modes).
 
 ::: {.panel-tabset group="companion"}
 
 ## Claude Code
 
-If your project has an instruction file (`AGENTS.md` or `CLAUDE.md`) stricter than a generic skill, the stricter one wins, and your cluster's policy outranks both. Ask staff these before use: is an external model API allowed for my data, which tools are allowed on login nodes, what outbound access exists, and where are my home and scratch backed up and who can read them? For restricted networks, `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` turns off auto-updates, telemetry, error reporting and feedback traffic.
+If your project has an instruction file (`AGENTS.md` or `CLAUDE.md`) stricter than these notes, the stricter one wins, and your cluster's policy outranks both. Ask staff these before use: is an external model API allowed for my data, which tools are allowed on login nodes, what outbound access exists, and where are my home and scratch backed up and who can read them? For restricted networks, `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` turns off auto-updates, telemetry, error reporting and feedback traffic.
 
 ## OpenCode + Ollama
 
-The same questions apply. Not checked here: whether a local model through Ollama changes what your data agreement requires, so ask. *General practice:* also ask whether running it on a login node is allowed, since models are heavy. Where OpenCode keeps its keys is not confirmed here; find it in your version's docs.
+The same questions apply. Ask staff whether a local model through Ollama changes what your data agreement requires, and whether running one on a login node is allowed, since models are heavy. Find where OpenCode keeps its keys in your version's docs.
 
 :::
-
-## Honour-system side quest
-
-<div data-ao-honour="find-ai-policy" data-xp="20">Find your cluster's AI or acceptable-use policy (or ask the staff whether one exists). Write down in your own notes what it says about external model APIs, local models, and which data classes are covered.</div>
 
 ## Battle: guard the keys
 
 <div data-ao-test="citadel-keys-on-shared-ground" data-xp="50"></div>
+
+## Bonus
+
+<div data-ao-honour="find-ai-policy" data-xp="20">Find your cluster's AI or acceptable-use policy (or ask the staff whether one exists). Write down in your own notes what it says about external model APIs, local models, and which data classes are covered.</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): what stays out of an agent's reach on any machine.
+- [Login Node Manners](login-node-manners.html): what runs on the login node and the sandbox's limits.
+- [Jobs, Not Jam](jobs-not-jam.html): permission rules for submitting and cancelling jobs.
+:::
 
 ::: {.ao-lore}
 ## Lore

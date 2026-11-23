@@ -3,25 +3,34 @@ title: "Same Every Time"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Three Kinds of Machine. Where Machines Fail is advised. **Objective:** decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does.
-**Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim.</span>
+- **Goal:** you will decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does.
+- **Before you start:** [Three Kinds of Machine](../basecamp/three-kinds-of-machine.html).
+- **Time:** about 15 minutes.
 :::
 
-A pipeline earns trust by giving the same answer from the same input. An LLM call can return different text from run to run, so putting one inside a step changes what the pipeline is.
+A pipeline earns trust by giving the same answer from the same input. An LLM call can return different text from run to run, so an LLM inside a step changes the pipeline's behaviour.
 
-**Prefer to keep the LLM out of the run.** Use it to *write* a script, then test the script and run the script. The script is deterministic and reviewable.
+Keep the LLM out of the run when you can. Use it to write a script, then test the script and run the script. The script behaves the same every time and you can review it.
 
 If an LLM call really must be a step (tidying messy free-text labels, say), contain it:
 
-- **Record** the model name and version, and the exact prompt, with the outputs. This is a necessary start, and even a pinned model may not return identical text every time.
-- **Cache** results keyed by input (saved outputs; a different sense from the prompt cache used in Claude Code sessions), so a re-run does not change them silently.
+- **Record** the model name and version, and the exact prompt, with the outputs. A pinned model may still return different text, so recording is a start.
+- **Cache** results keyed by input (saved outputs), so a re-run does not change them silently.
 - **Validate** each output against a fixed set (a species list, a schema) and fail loudly when it does not match.
 - **Keep a human-check sample**: look at a random handful every time.
-- **Keep it away from data you may not send out.** See The Locked Cabinet.
+- **Keep restricted data away from external models.** Data you may not share must not reach an outside API.
 
 ## Battle: reproducible runs
 
 <div data-ao-test="factory-same-every-time" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Where Machines Fail](../codon-mill/where-machines-fail.html): why an LLM's output can change or be wrong.
+- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): what data may leave your machine.
+- [Read the Rails](read-the-rails.html): pinning tool versions and other pipeline checks.
+:::
 
 ::: {.ao-lore}
 ## Lore

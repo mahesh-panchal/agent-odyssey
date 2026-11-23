@@ -34,6 +34,10 @@ description = "Publish to GitHub Pages (needs a git remote)"
 cmd = "python tools/lint_lore.py --require"
 description = "Lint the Lore blocks: every quest needs 2-8 sourced items"
 
+[tasks.learner]
+cmd = "python tools/lint_learner.py"
+description = "Lint lesson prose: no maintainer labels, caveat boxes or mid-text quest references"
+
 [tasks.e2e]
 cmd = "python tools/e2e.py"
 depends-on = ["lore", "render"]

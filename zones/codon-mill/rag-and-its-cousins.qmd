@@ -3,18 +3,16 @@ title: "RAG and Its Cousins"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** The Context Window. This is an optional side quest.
-**Objective:** explain what retrieval-augmented generation (RAG) is, tell apart simple RAG, improved RAG, Graph RAG, LightRAG and the loop-style variants, and choose between RAG and the other ways of answering questions from a pile of documents.
-**Time:** about 20 minutes. Reading only; the hands-on follow-up is [Grow a Graph with Ollama](grow-a-graph-with-ollama.html).
-
-<span class="ao-badge">Last verified (docs, not run): the papers, docs and posts listed in Lore, read on 2026-11-20. Sources: research/rag.md. Numbers are the authors' own unless the text says otherwise.</span>
+- **Goal:** you will explain what retrieval-augmented generation (RAG) is, tell apart its main kinds, and choose between RAG and the other ways of answering questions from a pile of documents.
+- **Before you start:** [The Context Window](the-context-window.html). This is an optional side quest.
+- **Time:** about 20 minutes, reading only
 :::
 
 ## Why anyone brings RAG up
 
-A model knows what it learned in training. It has not read your lab's protocols, last month's run logs or the paper that came out last week. You can paste documents into the prompt, but the window (the text the model can see at once; see [The Context Window](the-context-window.html)) is finite, and a long prompt costs money and time.
+A model knows what it learned in training. It has not read your lab's protocols, last month's run logs or the paper that came out last week. You can paste documents into the prompt, but the context window (the text the model can see at once) is finite, and a long prompt costs money and time.
 
-**RAG** is the idea of looking things up first. A program searches your documents for the passages most likely to matter, pastes only those into the prompt, and asks the model to answer from them. The name comes from a 2020 paper by Lewis and colleagues, which paired a generator with a vector index of Wikipedia. The recipe most people mean today is a later, simpler version of that idea.
+**RAG** is the idea of looking things up first. A program searches your documents for the passages most likely to matter, pastes only those into the prompt, and asks the model to answer from them. The name comes from a 2020 paper that paired a generator with a vector index of Wikipedia. The recipe most people mean today is a later, simpler version of that idea.
 
 ## Simple RAG in four steps
 
@@ -23,60 +21,63 @@ A model knows what it learned in training. It has not read your lab's protocols,
 3. **Retrieve.** Embed the question the same way, then fetch the *k* chunks whose vectors are closest (k is a number you pick, such as 3 or 5).
 4. **Generate.** Paste those chunks into the prompt and ask the model to answer from them and to say which chunk it used.
 
-Step 1 has its own pitfalls. Papers and PDFs hold tables, figures and two-column text, and a plain text extractor can scramble them before anything is embedded. A community notebook collection describes a results table losing its structure this way (we did not run it). *General practice:* open a few extracted chunks and read them before you trust the index.
+Papers and PDFs hold tables, figures and two-column text, and a plain text extractor can scramble them before anything is embedded. Open a few extracted chunks and read them before you trust the index.
 
-Everything the model says is limited by step 3. If the right passage did not come back, the model cannot use it, and a good model will either say it does not know or, worse, answer from the wrong passages.
+Everything the model says is limited by step 3. If the right passage did not come back, the model cannot use it. A good model says it does not know. A weaker one answers from the wrong passages.
 
 ## A tour of the types
 
-Names overlap and new ones appear every month. Think of them as answers to the question: *what goes wrong with simple RAG, and what did someone add to fix it?*
+Names overlap and new ones appear every month. Each type answers the question: what goes wrong with simple RAG, and what did someone add to fix it?
 
-| Type | What it adds | Good for | Watch out for |
-|---|---|---|---|
-| **Simple RAG** | Chunk, embed, top-k, answer. | A pile of prose where each question is answered by one or two passages. Cheap to build and to update. | Questions that need several passages, or the whole collection, since only the top k chunks arrive. |
-| **Improved RAG** | Add-ons around the same pipeline: keyword search (BM25, a classic word-matching score) next to embeddings, a reranker (a second model that re-sorts the retrieved chunks), a short context line added to each chunk before embedding, and rewriting the question or drafting a made-up answer first (HyDE) to search with. | Raising the chance the right chunk comes back. Anthropic reports that adding context, BM25 and a reranker cut its top-20 retrieval failures from 5.7% to 1.9% on its own tests. | Each add-on is another moving part to tune. HyDE's own paper says the drafted answer "is unreal and may contain false details". |
-| **Graph RAG** (Microsoft) | Before any question, an LLM reads every chunk and extracts entities and relationships into a knowledge graph (things as nodes, links between them as edges). It groups the graph into communities and writes a summary of each. | Questions about the whole collection, such as "what are the main themes?", answered from community summaries. | Indexing is slow and costly: the paper reports 281 minutes for a roughly 1-million-token corpus with GPT-4 Turbo. The docs warn that it "can consume a lot of LLM resources". |
-| **LightRAG** | Also builds an entity graph with an LLM, but skips the communities. A query is turned into keywords, matched against entities and relations, and the neighbours are added. New documents merge into the graph without a rebuild. | A lighter graph approach that updates incrementally, with modes from plain chunks (`naive`) to graph-based (`local`, `global`, `hybrid`, `mix`). | The project says it needs a stronger model than plain RAG: its README calls a 30B-parameter model "a reasonable minimum" for local use. |
-| **Tree RAG** (RAPTOR) | Clusters chunks and summarises them in layers, so a question can match a detail or a summary. | Long documents where the answer may be a broad theme. | Another build step with an LLM; tested mainly on question-answering benchmarks. |
-| **Loop-style RAG** (Self-RAG, Corrective RAG, agentic RAG) | The system decides when to retrieve, checks what came back, tries again or searches the web. A survey groups these as "agentic RAG". | Questions where one lookup is rarely enough. | More model calls per question. Self-RAG needs a model trained for it. |
-
-*General practice:* the "good for" column is our reading of what each method is built to do. The "watch out" figures come from the sources named in Lore.
+- **Simple RAG:** chunk, embed, top-k, answer. It suits a pile of prose where one or two passages answer each question, and it is cheap to build and update. It struggles with questions that need several passages or the whole collection, since only the top k chunks arrive.
+- **Improved RAG:** add-ons around the same pipeline. Keyword search (BM25, a classic word-matching score) runs next to embeddings. A reranker (a second model that re-sorts the retrieved chunks) follows. A short context line is added to each chunk before embedding. The question is rewritten, or a made-up answer is drafted first (HyDE) to search with. Together they raise the chance the right chunk comes back: adding context, BM25 and a reranker cut top-20 retrieval failures from 5.7% to 1.9% in one reported test. Each add-on is another part to tune, and HyDE's drafted answer is unreal and may contain false details.
+- **Graph RAG (Microsoft):** before any question, an LLM reads every chunk and extracts entities and relationships into a knowledge graph (things as nodes, links between them as edges). It groups the graph into communities and writes a summary of each. It suits questions about the whole collection, such as "what are the main themes?". Indexing is slow and costly: 281 minutes for a roughly 1-million-token corpus with GPT-4 Turbo, and the docs warn it can consume a lot of LLM resources.
+- **LightRAG:** also builds an entity graph with an LLM, but skips the communities. A query is turned into keywords, matched against entities and relations, and the neighbours are added. New documents merge into the graph without a rebuild. Modes run from plain chunks (`naive`) to graph-based (`local`, `global`, `hybrid`, `mix`). It needs a stronger model than plain RAG: its README calls a 30B-parameter model "a reasonable minimum" for local use.
+- **Tree RAG (RAPTOR):** clusters chunks and summarises them in layers, so a question can match a detail or a summary. It suits long documents where the answer may be a broad theme, and it adds another LLM build step.
+- **Loop-style RAG (Self-RAG, Corrective RAG, agentic RAG):** the system decides when to retrieve, checks what came back, tries again or searches the web. It suits questions where one lookup is rarely enough, at the price of more model calls per question. Self-RAG needs a model trained for it.
 
 ## Does the graph pay off?
 
-The papers that introduced Graph RAG and LightRAG report wins over plain RAG. Those results are self-reported: an LLM judge compared answers on questions that another LLM generated, mostly about whole collections, and the authors of LightRAG note that ground truth is hard to define for such questions.
+The papers that introduced Graph RAG and LightRAG report wins over plain RAG, mostly on whole-collection questions, as judged by an LLM. Check any such result on your own questions. Independent studies give a mixed picture:
 
-Independent studies give a more mixed picture:
+- **No consistent winner.** A 2026 comparison found complementary behaviours. On single-fact questions from Natural Questions, plain RAG scored best (F1 64.78 against 63.01 for the best graph variant). On multi-hop questions (an answer that needs facts from two or more passages) a graph method led by a few points.
+- **Graphs cost more to build.** 135 seconds for plain RAG against 5,560 for one Graph RAG variant on the same corpus. Only about 65% of the answer entities ended up in the graphs.
+- **LLM judges are order-sensitive.** A judge can flip its verdict when you swap the order of the two answers, so win-rate numbers are weak evidence.
+- **Task decides.** Graphs help when a task connects ideas across documents, and can add noise on simple lookups.
 
-- A 2026 comparison (Han and colleagues) found "complementary behaviors rather than a consistent winner". On single-fact questions from Natural Questions, plain RAG scored best (F1 64.78 against 63.01 for the best graph variant here). On multi-hop questions (an answer that needs facts from two or more passages) a graph method led by a few points. Building the graphs took far longer (135 seconds for plain RAG against 5,560 for one Graph RAG variant on the same corpus), and only about 65% of the answer entities ended up in the graphs.
-- The same study found that an LLM judge can flip its verdict when you swap the order of the two answers. Treat win-rate numbers as weak evidence.
-- A second study (Xiang and colleagues) concludes that graphs help when a task connects ideas across documents and can add noise on simple lookups.
-
-*General practice:* start with simple RAG, measure it on questions you care about, and add a graph only if the failures are of the kind a graph addresses (multi-hop or whole-collection questions) and you can afford the extra cost.
+Start with simple RAG, measure it on questions you care about, and add a graph only if the failures are of the kind a graph addresses (multi-hop or whole-collection questions) and you can afford the extra cost.
 
 ## When RAG is the right tool
 
-RAG is one of several ways to get a model to work from your documents. Here is how to choose.
+RAG is one of several ways to get a model to work from your documents. Choose by your situation:
 
-| Your situation | Often a better fit | Why |
-|---|---|---|
-| The whole collection is small (under about 200,000 tokens, roughly 500 pages) | Put it all in the prompt. | Anthropic's post says that below that size you can include everything with no need for RAG. Prompt caching (reusing an unchanged prompt prefix at a lower price) makes repeated questions cheaper. Check the current pricing and cache lifetime. |
-| The same large documents are asked about again and again | Long context with caching, or cache-augmented generation (preload everything once). | One paper found it faster than RAG on small question-answering sets, and its authors say it "becomes impractical for significantly larger datasets". |
-| Files you can search by name or exact text (code, configs, scripts) | Let an agent use search tools such as glob and grep. | Anthropic describes Claude Code navigating "just-in-time" with these, and says exploring at run time is slower than reading a pre-built index. |
-| Tables and databases ("all samples deeper than 30x in liver tissue", counts, joins) | A query tool: SQL, an API or an MCP server. | *General practice (no source opened):* a vector index returns the nearest passages, so it cannot promise a complete filter or an exact count. A query can, and you can read the query. |
-| Exact words matter (gene names, sample ids, error codes) | Keyword search first, or hybrid. | BM25 is a strong baseline in the BEIR benchmark, and adding it to embeddings cut Anthropic's retrieval failures further. |
-| You want the model to follow a format or style | Better prompts, a Skill, or fine-tuning. | OpenAI's guide says to fine-tune when the problem is consistency or behaviour, and to supply context when the model lacks knowledge. Two papers found fine-tuning a poor way to add new facts. They did not test LoRA, so that is an inference. |
-| A large, changing collection of prose, and questions answered by particular passages | **RAG.** | This is the case it was made for: the collection does not fit in the window, and you can update the index without retraining anything. |
+| Your situation | Often a better fit |
+|---|---|
+| Whole collection under about 200,000 tokens (roughly 500 pages) | Put it all in the prompt |
+| Same large documents asked about again and again | Long context with caching |
+| Files you can search by name or exact text | Agent search tools such as glob and grep |
+| Tables and databases (counts, filters, joins) | A query tool: SQL, an API or an MCP server |
+| Exact words matter (gene names, sample ids) | Keyword search first, or hybrid |
+| You want a format or style | Better prompts, a Skill, or fine-tuning |
+| Large, changing prose collection, answers in passages | RAG |
 
-A study from Google researchers found that, with enough budget, a long-context model beat RAG on average, while RAG cost much less and gave the same answer on over 60% of queries. Their "Self-Route" idea tries RAG first and falls back to the long prompt, which cut cost by 39 to 65% on two models. These were 2024 models.
+- **Small collection:** below about 200,000 tokens you can include everything with no need for RAG. Prompt caching (reusing an unchanged prompt prefix at a lower price) makes repeated questions cheaper. Check the current pricing and cache lifetime.
+- **Repeated questions:** cache-augmented generation (preload everything once) was faster than RAG on small question-answering sets, and becomes impractical for significantly larger datasets.
+- **Searchable files:** an agent can navigate code and configs "just in time" with glob and grep. Exploring at run time is slower than reading a pre-built index.
+- **Tables and databases:** a vector index returns the nearest passages, so it cannot promise a complete filter or an exact count. A query can, and you can read the query.
+- **Exact words:** BM25 is a strong baseline in the BEIR benchmark, and adding it to embeddings cut retrieval failures further.
+- **Format or style:** fine-tune when the problem is consistency or behaviour, and supply context when the model lacks knowledge.
+- **RAG:** the collection does not fit in the window, and you can update the index without retraining anything.
+
+In one study with 2024 models, a long-context model beat RAG on average given enough budget, while RAG cost much less and gave the same answer on over 60% of queries. Its "Self-Route" idea tries RAG first and falls back to the long prompt, which cut cost by 39 to 65% on two models.
 
 ## What can go wrong with RAG itself
 
-- **The right passage never comes back.** Retrieval misses are normal. Measure them separately from the model's answer: *did the right chunk appear?* and *was the answer supported by the chunks it was given?* The Ragas paper defines the second one as faithfulness. Splitting the two checks is our suggestion.
-- **Too much arrives.** More chunks can distract the model, and models use text in the middle of a long prompt less well than text at the start or end (see [The Context Window](the-context-window.html) and the "Lost in the Middle" paper in Lore).
-- **Retrieved text can carry instructions.** A document someone else wrote may contain lines aimed at your model. OWASP says RAG does not fully remove this risk. See [Guard the Door](../gatehouse/guard-the-door.html) for habits that limit the damage.
-- **Chunks leave your machine.** With a hosted model, retrieved passages are sent to the provider as ordinary prompt text. Whether that is allowed for your data is decided by your agreement; see [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html).
-- **The index goes stale.** Anything you indexed last month does not know about today's edits until you rebuild it. *General practice.*
+- **The right passage never comes back.** Retrieval misses are normal. Measure two things separately: did the right chunk appear, and did the answer follow from the chunks it was given? The second is called faithfulness.
+- **Too much arrives.** More chunks can distract the model, and models use text in the middle of a long prompt less well than text at the start or end.
+- **Retrieved text can carry instructions.** A document someone else wrote may contain lines aimed at your model, and RAG does not fully remove this risk. Limit what an agent may do after reading retrieved text.
+- **Chunks leave your machine.** With a hosted model, retrieved passages are sent to the provider as ordinary prompt text. Your data agreement decides whether that is allowed.
+- **The index goes stale.** Anything you indexed last month does not know about today's edits until you rebuild it.
 
 ## With a companion
 
@@ -84,13 +85,17 @@ A study from Google researchers found that, with enough budget, a long-context m
 
 ## Claude Code
 
-Claude Code finds things in a project with its search tools rather than with a vector index you maintain; Anthropic's engineering post names glob and grep. The Claude Code docs read for this page list a search tool category but do not explain why there is no index, so this page makes no claim about the reason. If you want RAG over your own papers, you build it yourself or connect a tool for it (see [Plug In a Server](../gatehouse/plug-in-a-server.html)), and then everything in the risks list above applies.
+Claude Code finds things in a project with search tools such as glob and grep rather than a vector index you maintain. If you want RAG over your own papers, you build it yourself or connect a tool for it, and then everything in the risks list above applies.
 
 ## OpenCode + Ollama
 
-With Ollama you can run both halves locally: an embedding model for retrieval and a chat model for the answer. The next quest does this with a few short scripts. Not checked: how OpenCode itself searches a project.
+With Ollama you can run both halves locally: an embedding model for retrieval and a chat model for the answer.
 
 :::
+
+## Battle: the lookup
+
+<div data-ao-test="codon-mill-rag-and-its-cousins" data-xp="60"></div>
 
 ## Honour
 
@@ -98,9 +103,16 @@ With Ollama you can run both halves locally: an embedding model for retrieval an
 
 <div data-ao-honour="rag-count-tokens" data-xp="20">Estimate whether your own collection of notes would fit in a 200,000-token window. A rough rule is that one token is about three quarters of an English word, so 150,000 words is about 200,000 tokens. Ask your agent to count the words (<code>wc -w</code>) if you are unsure.</div>
 
-## Battle: the lookup
+::: {.ao-related}
+## Related lessons
 
-<div data-ao-test="codon-mill-rag-and-its-cousins" data-xp="60"></div>
+- [The Context Window](the-context-window.html): for more on what the window holds and why long prompts bury passages.
+- [Grow a Graph with Ollama](grow-a-graph-with-ollama.html): build and read a small knowledge graph with a local model.
+- [Keep a Living Wiki](llm-wiki.html): an agent-kept wiki as another way to work from a pile of documents.
+- [Plug In a Server](../gatehouse/plug-in-a-server.html): connecting a retrieval or query tool to your agent.
+- [Guard the Door](../gatehouse/guard-the-door.html): habits that limit the damage when retrieved text carries instructions.
+- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): what may leave your machine when you use a hosted model.
+:::
 
 ::: {.ao-lore}
 ## Lore

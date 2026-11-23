@@ -3,8 +3,9 @@ title: "The Project Charter"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Write the Brief. Who Said What is advised. **Objective:** give the agent standing instructions for a project, and know where they end and enforcement begins.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 and OpenCode docs (they describe V2; installed version not checked) on 2026-11-13 (sources in `research/forest-and-reef.md` and `research/doctor.md`).</span>
+- **Goal:** You will give the agent standing instructions for a project, and know where instructions end and enforcement begins.
+- **Before you start:** [Write the Brief](write-the-brief.html). [Who Said What](../codon-mill/who-said-what.html) helps.
+- **Time:** about 15 minutes.
 :::
 
 Typing the same background every session is wasteful. A **project instructions file** is read at the start so the agent already knows the project's conventions.
@@ -13,7 +14,13 @@ Typing the same background every session is wasteful. A **project instructions f
 
 ## Claude Code
 
-The file is `CLAUDE.md`. It can live in `~/.claude/CLAUDE.md` (all your projects), `./CLAUDE.md` or `./.claude/CLAUDE.md` (the project, shared if committed), and `./CLAUDE.local.md` (yours, not committed). Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. `/init` drafts one from your project and `/memory` lists and edits them. `@path` imports another file, and the imported text still uses context.
+The file is `CLAUDE.md`. It can live in:
+
+- `~/.claude/CLAUDE.md`: all your projects.
+- `./CLAUDE.md` or `./.claude/CLAUDE.md`: the project, shared if committed.
+- `./CLAUDE.local.md`: yours, not committed.
+
+Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. `/init` drafts one from your project and `/memory` lists and edits them. `@path` imports another file, and the imported text still uses context.
 
 ## OpenCode + Ollama
 
@@ -21,25 +28,44 @@ The file is `AGENTS.md` in the project root (or `~/.config/opencode/AGENTS.md` f
 
 :::
 
-## What goes in, and the limit
+## What goes in
 
-Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, "never edit `raw/`". Keep it short (the Claude Code docs aim for under 200 lines per file) because very long instructions are followed less well.
-
-::: {.callout-warning}
-**Instructions are advice.** Claude Code's docs describe `CLAUDE.md` as context, and not as enforced configuration. A line saying "never delete files" cannot stop a delete. Enforcement comes from permission rules, hooks, or managed settings (organisation-set rules you cannot override): the carapace you built in the Crypt.
-:::
-
-Instruction files go stale too: a rule written for an older model, a path that no longer exists, two files that disagree. The docs warn that when instructions contradict each other, Claude may pick one arbitrarily. In Claude Code (v2.1.283 or later), `/doctor prompt-audit` (`/doctor` is a **bundled skill**, a ready-made skill that ships inside the tool) checks your instruction files for outdated or conflicting content and writes a report with proposed edits. It changes nothing until you ask. It checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. Not checked: an OpenCode equivalent.
-
-The AI for Science best practices (a European draft with no endorsements yet; practice 5) make a related point for your own code and notebooks: an agent operates a tool or dataset from its docstrings and descriptions, so write them as if an agent will re-run the work. Put units, data versions and assumptions in the docstring or next to the code. Their example is a renamed parameter with an old docstring: the agent called a name that no longer existed. The page also warns that stale documentation leads to plausible but wrong results. Not checked first-hand: read 2026-11-20 through a fetch summary, so re-check the wording on the page; see `research/aiforscience.md`.
+Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, "never edit `raw/`". Keep it short (aim for under 200 lines per file) because very long instructions are followed less well.
 
 Write the file yourself first and read what `/init` produces critically. A generated file can contain wrong guesses about your project.
+
+## Where instructions end
+
+Instructions are advice. The instructions file is loaded as context, and a line saying "never delete files" cannot stop a delete. Enforcement comes from permission rules (rules that allow, ask or deny a tool call), hooks (scripts that run before or after a tool call), and managed settings (organisation-set rules you cannot override).
+
+## Keep the file current
+
+Instruction files go stale: a rule written for an older model, a path that no longer exists, two files that disagree. When instructions contradict each other, Claude may pick one arbitrarily.
+
+In Claude Code (v2.1.283 or later), `/doctor prompt-audit` checks your instruction files for outdated or conflicting content and writes a report with proposed edits. (`/doctor` is a **bundled skill**, a ready-made skill that ships inside the tool.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.
+
+## Write docs for the agent too
+
+An agent works on your code and data from the docstrings and descriptions it finds. Write them as if an agent will re-run the work:
+
+- **Units, data versions and assumptions:** put them in the docstring or next to the code.
+- **Renames:** update the docstring when you rename a parameter. An agent that reads an old docstring calls a name that no longer exists.
+- **Stale documentation:** it leads to results that look plausible and are wrong.
 
 <div data-ao-honour="write-charter" data-xp="15">Write a short instructions file (about ten lines) for one of your real projects: how to run its tests, where data lives, and one thing the agent should leave alone.</div>
 
 ## Battle: the charter
 
 <div data-ao-test="forest-the-project-charter" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Forge a Skill](forge-a-skill.html): for more on moving a long procedure out of the instructions file and into a Skill.
+- [Grow the Carapace](../crypt/rules-of-the-carapace.html): for more on permission rules that enforce what an instructions file only asks.
+- [Guard the Door](../gatehouse/guard-the-door.html): for more on hooks as a way to enforce a rule in code.
+- [Who Said What](../codon-mill/who-said-what.html): for more on what the model treats as an instruction and what it treats as data.
+:::
 
 ::: {.ao-lore}
 ## Lore

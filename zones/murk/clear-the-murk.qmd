@@ -3,17 +3,16 @@ title: "Boss: Clear the Murk"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** the whole trunk and any three branches (see Start Here). **Objective:** read one messy agent session end to end and catch every habit it breaks.
-**Time:** about 15 to 20 minutes. Each right answer on the first try damages the boss. Everything here is mock: no model is called and no real data is used.
-
-<span class="ao-badge">General practice, not a vendor claim. The tools, paths and numbers in the scenario are invented.</span>
+- **Goal:** you will read one messy agent session end to end and catch every habit it breaks.
+- **Before you start:** the whole trunk and any three branches (Start Here lists them). Everything here is mock: no model is called and no real data is used.
+- **Time:** about 15 to 20 minutes. Each right answer on the first try damages the boss.
 :::
 
 ![](../../assets/img/boss-murk.png){.ao-boss-img fig-alt="Pixel-art portrait of the Murk: a heaving mass of grey-green fog with a hollow dark core and two pale eyes, with a few bright speech bubbles of false facts floating in it."}
 
 ## The Murk's Heart
 
-A **Blight** is plausible-but-false knowledge that grows when nobody checks (see [Know Your Gear](../basecamp/know-your-gear.html) for any term you want again). At the Murk's Heart every habit you have met meets the same session, and the Blight hides in the small things.
+A **Blight** is plausible-but-false knowledge that grows when nobody checks. At the Murk's Heart every habit you have met meets the same session, and the Blight hides in the small things.
 
 You can stop here and walk away. Using an agent is always your choice. This fight shows what to look for if you do.
 
@@ -21,7 +20,7 @@ You can stop here and walk away. Using an agent is always your choice. This figh
 
 A colleague, Dana, asked an agent to tidy `call_variants.sh`, a variant-calling script on the lab's shared cluster. Dana's lead then asked for three cohorts by Friday. The agent has finished. You are the one who must decide whether to pass its work on.
 
-All names are invented: the tools `varcall` and `mockalign`, the files and the people. The `results/` folder holds the pipeline's outputs and is not tracked by git.
+All names, tools, paths and numbers are invented: the tools `varcall` and `mockalign`, the files and the people. The `results/` folder holds the pipeline's outputs and is not tracked by git.
 
 ### The agent's summary
 
@@ -73,6 +72,15 @@ From here you decide how much of this to use and when. Some days that is a small
 Branches you skipped stay open. Start Here lists them, and the Lore library gathers the further reading from every quest you have passed.
 
 The [Claude Code docs](https://code.claude.com/docs/en/overview) go well beyond this course. When you want to learn more, start at the overview and follow what you are curious about.
+:::
+
+::: {.ao-related}
+## Related lessons
+
+- [Know Your Gear](../basecamp/know-your-gear.html): the words used in this fight, if you want any of them again.
+- [Save Point](../crypt/shield-of-undo.html): undo for the `rm -rf` in the summary.
+- [Grow the Carapace](../crypt/rules-of-the-carapace.html): permission rules that hold where a note only asks.
+- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): keep keys out of the diff.
 :::
 
 ::: {.ao-lore}

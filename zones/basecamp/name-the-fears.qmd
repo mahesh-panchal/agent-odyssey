@@ -3,8 +3,9 @@ title: "Name the Fears"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** none. **Objective:** name what worries you about large language model (LLM) agents (an agent is a model running inside a program that picks and runs tools in a loop toward a goal), and learn the habit that answers each worry.
-**Time:** about 10 minutes. <span class="ao-badge">General practice, not a vendor claim: nothing here depends on a tool version.</span>
+- **Goal:** you will name what worries you about large language model (LLM) agents and pick the habit that answers each worry.
+- **Before you start:** nothing.
+- **Time:** about 10 minutes.
 :::
 
 ## Why start with fears
@@ -12,33 +13,58 @@ title: "Name the Fears"
 You do not have to like these tools. Many careful people in science are wary of them, and most of the wariness is reasonable.
 This odyssey keeps your worries and gives each one a **habit** that makes the risk smaller, so you can decide with your eyes open.
 
-Each worry below is a real enemy in this land. Each has a counter-habit, and the rest of the odyssey trains them.
+An *agent* is a model running inside a program that picks and runs tools in a loop toward a goal. A *prompt* is the text you send to the model. The rest of the odyssey trains the habits below, and each row links to the zone that teaches it.
 
-| The worry | The enemy | The counter-habit | Where you learn it |
-|---|---|---|---|
-| "It will stop me learning." | Learning-drain | Write it first, predict before you look, ask it to explain while you do the work. | Biodiversity Reef |
-| "It produces slop in bulk." | Slop-ooze | Small steps, tests before code, a review budget. | Sequence Maze |
-| "It makes things up." | Mirage | Check against something the agent did not write. | Sequence Maze |
-| "Someone else has to review all this." | Review-leech | Review it yourself first, say that you used an LLM, send small changes. | Biodiversity Reef |
-| "It could delete my work or leak my data." | Data-wipe | Undo (git), permissions, a sandbox (an operating-system layer that limits what commands can touch) or scratch directory, no secrets in prompts (a prompt is the text you send to the model). | Ancient DNA Crypt |
-| "I do not understand what it did." | Black-box husk | Ask for a changelog and explain it back before you keep it. | Sequence Maze |
-| "Finishing this with an agent will feel hollow, as if it was not really my work." | Hollow-victory | Make the decisions, be able to explain each step, keep a short decision log, credit the agent's part openly. | Biodiversity Reef |
-| "Everyone will expect work to be done faster now." | Clock-shifter | Say where the time goes, agree timelines that include review, share how long checking took. | Biodiversity Reef |
-| "Everything I write will start to sound the same." | Echo-bland | Draft the first version in your own words, then edit; keep a style you recognise; use the agent for structure and checks. | Biodiversity Reef |
-| "I will spend my days checking drafts and lose the creative part of my work." | Draft-warden | Keep the question, the design and the interpretation for yourself; give the agent routine drafting; count checking time as part of the work. | Biodiversity Reef |
-| "People will think I am lazy or unoriginal for using it." | Side-eye | Say plainly what the agent did and what you checked; follow your team's norm; let the evidence speak. | Biodiversity Reef |
-| "I will stop trusting my own judgement." | Doubt-fog | Decide first, then ask for a second opinion; keep a few decisions agent-free; note the times your own call was right. | Biodiversity Reef |
-| "My unpublished results or ideas will leak and someone will get there first." | Leak-shade | Learn what your tool's data terms say about retention and training use, keep unpublished work out of consumer chat tools, prefer an agreement your institution has reviewed or a local model, date-stamp your work. | Ancient DNA Crypt |
+### About the output
+
+| The worry | The habit | Where you learn it |
+|---|---|---|
+| "It makes things up." | Check against something the agent did not write. | [Sequence Maze](../maze/spot-the-mirage.html) |
+| "It produces slop in bulk." | Take small steps, test before code, keep a review budget. | [Sequence Maze](../maze/spot-the-mirage.html) |
+| "I do not understand what it did." | Ask for a changelog and explain it back. | [Sequence Maze](../maze/spot-the-mirage.html) |
 
 *Slop* is low-quality bulk output. A *review budget* means you only produce as much as you can honestly review today.
 
-::: {.callout-note}
+### About the work and your data
+
+| The worry | The habit | Where you learn it |
+|---|---|---|
+| "It could delete or overwrite my work." | Undo with git, set permission rules, work on a scratch copy. | [Ancient DNA Crypt](../crypt/shield-of-undo.html) |
+| "It could leak my data or my secrets." | Keep secrets and private data out of prompts; use an approved account or a local model. | [Ancient DNA Crypt](../crypt/secrets-and-sensitive-ground.html) |
+| "Someone could see my unpublished results and publish first." | Read your tool's data terms; keep unpublished work out of consumer chat tools. | [Ancient DNA Crypt](../crypt/secrets-and-sensitive-ground.html) |
+
+A *sandbox* is an operating-system layer that limits what commands can touch; it is one way to protect your files. For unpublished work, prefer an agreement your institution has reviewed or a local model, and date-stamp your work.
+
+### About you and the people around you
+
+| The worry | The habit | Where you learn it |
+|---|---|---|
+| "It will stop me learning." | Write it first, predict before you look, ask it to explain. | [Biodiversity Reef](../reef/teach-and-share-the-load.html) |
+| "Someone else has to review all this." | Review it yourself first, say you used an LLM, send small changes. | [Biodiversity Reef](../reef/send-small-say-so.html) |
+| "It will feel hollow, as if it was not my work." | Make the decisions, explain each step, keep a decision log. | [Biodiversity Reef](../reef/teach-and-share-the-load.html) |
+| "Everyone will expect work faster now." | Say where the time goes; agree timelines that include review. | [Biodiversity Reef](../reef/teach-and-share-the-load.html) |
+| "Everything I write will sound the same." | Draft in your own words first, then edit. | [Biodiversity Reef](../reef/teach-and-share-the-load.html) |
+| "I will spend my days checking drafts." | Keep the question and interpretation; count checking as work. | [Biodiversity Reef](../reef/teach-and-share-the-load.html) |
+| "People will think I am lazy or unoriginal." | Say what the agent did and what you checked. | [Biodiversity Reef](../reef/send-small-say-so.html) |
+| "I will stop trusting my own judgement." | Decide first, then ask for a second opinion. | [Biodiversity Reef](../reef/teach-and-share-the-load.html) |
+
+For voice and judgement, use the agent for structure and checks, and keep a few decisions agent-free. For credit and workload, follow your team's norm, credit the agent's part openly and share how long checking took.
+
 Sometimes the right answer is to skip the LLM. Part of the skill is knowing when.
-:::
 
 ## Battle: name the counter-habit
 
 <div data-ao-test="basecamp-name-the-fears" data-xp="40"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Spot the Mirage](../maze/spot-the-mirage.html): see what plausible-but-false output looks like and how to check it.
+- [Save Point](../crypt/shield-of-undo.html): set up undo so a deleted or overwritten file can come back.
+- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): keep secrets and private data out of prompts.
+- [Send Small, Say So](../reef/send-small-say-so.html): hand over small, honest work and say what the agent did.
+- [Teach and Share the Load](../reef/teach-and-share-the-load.html): protect your learning, your voice and your judgement.
+:::
 
 ::: {.ao-lore}
 ## Lore

@@ -10,15 +10,21 @@ presses (needs `quarto install chrome-headless-shell` once). `pixi run shots` wr
 3. Write the test bank (see rules below), then `pixi run render && pixi run e2e`.
 
 ## Rules for content
-- **Facts:** check tool facts against official docs. Say "Verified: ran ..." only if you ran it; otherwise
-  "Last verified (docs, not run): <tool> <version> on <date>" or "General practice". Record sources in `research/`.
-- **Unchecked claims:** label them "Not checked:" or "General practice", never "Last verified (docs, not run)". Short third-party text, such as the hooks-guide script, is allowed when attributed.
+- **Facts:** check tool facts against official docs and record sources in `research/` (the Lore lint needs every link there).
+  Lesson text states confirmed facts plainly. It carries no provenance: no 'Verified', 'Last verified', 'General practice', 'Not checked',
+  'supported by' or caveat badges. Unconfirmed claims are dropped or turned into an action for the learner ('check your plan's limits').
+  What was verified, run or left unconfirmed goes in `research/claims/<group>.md` (per quest) and the topic notes in `research/`.
+- **Lesson shape:** a header list (Goal, Before you start, Time), the teaching and hands-on in learning order, `## Battle`,
+  bonus items, a `.ao-related` block ('Related lessons': 2-6 links with a line each), then Lore. The body never points at another quest
+  ('see X') and never mentions a later quest. Cross-links live in Related lessons. Use lists, not run-in bold paragraphs; keep table cells short.
+  `pixi run learner` lints this (`--warn` adds attribution, contrast and run-in checks).
+- **Voice:** soft, plain, present tense; say what a thing is rather than what it is not. Keep a negation only when it is a fact to act on, or in a test's `misconception`.
 - **No real company or product used as a villain.** The enemy is the Blight: unchecked plausible-but-false output.
 - **Sceptic-friendly:** never imply LLM use is mandatory. Mitigations over cheerleading.
 - **Exercises** run on a laptop with tiny mock data. No real or sensitive data, ever.
 - **Tests:** discriminating, one defensible right answer, every wrong answer carries a `misconception`, every question has
   `explain`. Do not make the correct option the longest or the only hedged one. Types: choice, order, sort, faulty-line, match.
-- **Honour items** (`data-ao-honour`) give bonus XP only and never gate progress.
+- **Bonus items** (`data-ao-honour`, shown to the learner as "Bonus question" with its XP) give bonus XP only and never gate progress. A test pays XP per question answered right first time and the rest when the quest is cleared, once.
 - **Accessibility:** all text is real HTML; colour is never the only signal; everything works with the keyboard.
 
 ### Lore

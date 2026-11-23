@@ -48,10 +48,10 @@ questions:
       - { text: "A CLAUDE.md paragraph asking for care with deletes", bin: "Text that only steers the model", misconception: "Instructions are text in the context. They influence the model but execute nothing." }
       - { text: "The shell script a hook points at", bin: "Code that can run as you", misconception: "The script is the hook. It runs as you whatever its name suggests." }
   - type: choice
-    prompt: "An agent will place orders with a vendor of custom DNA. What does the AI for Science draft suggest?"
+    prompt: "An agent will place orders with a vendor of custom DNA. What is the best safeguard?"
     explain: "Put one checkpoint in the path that can refuse dual-use orders. A line in the brief can be one layer, and it cannot be the only one."
     options:
       - { text: "Route every order through one screening checkpoint that can refuse", correct: true }
-      - { text: "Rely only on a line in the brief telling the agent to decline risky orders", misconception: "A brief is advice, and the agent may not recognise a risky order. The draft wants a checkpoint in the path as well." }
+      - { text: "Rely only on a line in the brief telling the agent to decline risky orders", misconception: "A brief is advice, and the agent may not recognise a risky order. A checkpoint in the path is needed as well." }
       - { text: "Read a weekly summary of the orders after they have already been placed", misconception: "A review after the fact cannot stop an order that has already gone out." }
       - { text: "Skip screening, because the order account belongs to your own lab group", misconception: "Whose account it is does not change what the order can do." }

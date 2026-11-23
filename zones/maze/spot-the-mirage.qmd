@@ -3,10 +3,9 @@ title: "Spot the Mirage"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Where Machines Fail, a terminal and Python. **Objective:** learn how plausible-but-false output looks, and how to check it without asking the thing that produced it.
-**Time:** about 10 minutes.
-
-<span class="ao-badge">Verified: ran the Python example below on 2026-11-13. The rest is general practice, not a vendor claim.</span>
+- **Goal:** you will learn how plausible-but-false output looks, and check it without asking the thing that produced it.
+- **Before you start:** [Where Machines Fail](../codon-mill/where-machines-fail.html), a terminal and Python.
+- **Time:** about 10 minutes.
 :::
 
 ## The Mirage
@@ -25,6 +24,13 @@ The cure is **checking against something the agent did not write**: run it, look
 ## Battle: the Mirage
 
 <div data-ao-test="maze-spot-the-mirage" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Ground Truth](ground-truth.html): check a script an agent called tested with a tool it did not write.
+- [Send Small, Say So](../reef/send-small-say-so.html): hand over work with the evidence that you checked it.
+:::
 
 ::: {.ao-lore}
 ## Lore

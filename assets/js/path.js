@@ -109,13 +109,21 @@
     var req = placed.filter(function (id) { return !G.quests[id].optional; });
     return req.concat(placed.filter(function (id) { return G.quests[id].optional; })).map(full);
   }
+  // The step before this one on its own path: the previous trunk quest, or the previous quest in its branch.
+  function prevQuest(id) {
+    if (!G || !G.quests[id]) return null;
+    var q = G.quests[id], list = q.branch === "trunk" ? trunk().slice() : laneQuests(q.branch).map(function (x) { return x.id; });
+    if (isFinale(id)) return full(trunk()[trunk().length - 1]);
+    var i = list.indexOf(id);
+    return i > 0 ? full(list[i - 1]) : null;
+  }
   function finale() { return G ? full(G.finale.id) : null; }
   function finaleRule() { return G ? { any: rule().any, of: rule().of.length } : null; }
-  var WORDS = { cleared: "cleared", ready: "ready", waiting: "earlier steps open" };
+  var WORDS = { cleared: "cleared", ready: "ready", waiting: "" };
   function stateLabel(st) { return WORDS[st] || st; }
 
   AO.path = { load: load, quest: function (id) { return full(id); }, questByPage: questByPage, status: status,
               trunkDone: trunkDone, branches: branches, branchesComplete: branchesComplete,
               finaleUnlocked: finaleUnlocked, remainingForFinale: remainingForFinale, nextSteps: nextSteps, nextQuest: nextQuest,
-              finale: finale, finaleRule: finaleRule, trunkQuests: trunkQuests, laneQuests: laneQuests, stateLabel: stateLabel };
+              finale: finale, finaleRule: finaleRule, trunkQuests: trunkQuests, laneQuests: laneQuests, stateLabel: stateLabel, prevQuest: prevQuest };
 })();

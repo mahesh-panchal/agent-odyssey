@@ -21,7 +21,7 @@ questions:
       - { text: "Sum the read lengths", bin: "Script", misconception: "Summing many numbers is arithmetic, which is a script job." }
   - type: match
     prompt: "Match each failure mode to a fitting mitigation."
-    explain: "Each mitigation targets the mechanism: lookups catch invented IDs, treating fetched text as data limits injection, a short file with a hook holds rules, and keeping the script is what is reproducible (general practice: non-determinism is not confirmed in the official docs)."
+    explain: "Each mitigation targets the mechanism: lookups catch invented IDs, treating fetched text as data limits injection, a short file with a hook holds rules, and keeping the script is what is reproducible."
     pairs:
       - { left: "Hallucinated citation", right: "Look up every DOI or ID in PubMed", misconception: "A lookup confirms an ID exists, and rerunning the prompt cannot." }
       - { left: "Prompt injection", right: "Treat fetched files and pages as data", misconception: "An attacker's text stays unsafe however politely the system prompt is worded." }

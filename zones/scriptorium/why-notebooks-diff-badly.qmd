@@ -3,20 +3,16 @@ title: "Why Notebooks Diff Badly"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Save Point (for `git diff`). Jupyter experience helps but is not required.
-**Objective:** explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable.
-**Time:** about 15 minutes.
-
-<span class="ao-badge">Verified: ran `diff` and `git diff --no-index --stat` on the mock notebooks on 2026-11-16 (macOS, Python 3.9.6). Tool facts: Last verified (docs, not run): nbformat, nbstripout, jupytext, nbdime and marimo docs on 2026-11-16.</span>
-
-**Files:** [before.ipynb](../../exercises/scriptorium/before.ipynb) and [after.ipynb](../../exercises/scriptorium/after.ipynb), two tiny mock notebooks (about 2.5 KB each). They are mock files: they omit cell ids, so they are not strictly valid nbformat 4.5. Save both into an empty folder.
+- **Goal:** you will explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable.
+- **Before you start:** [Save Point](../crypt/shield-of-undo.html) (for `git diff`), and two tiny mock notebooks, [before.ipynb](../../exercises/scriptorium/before.ipynb) and [after.ipynb](../../exercises/scriptorium/after.ipynb) (about 2.5 KB each). Save both into an empty folder.
+- **Time:** about 15 minutes.
 :::
 
 ## A notebook is a JSON file
 
-A `.ipynb` file is a JSON document with `metadata`, `nbformat`, `nbformat_minor` (the notebook file-format version numbers) and a list of `cells`. A code cell stores its source, but also an `execution_count` and its outputs. A plot is stored inside the file as a base64 string (the image bytes written out as plain text). The format keeps source and outputs in the same file, so any run rewrites lines next to the code.
+A `.ipynb` file is a JSON document with `metadata`, `nbformat`, `nbformat_minor` (the notebook file-format version numbers) and a list of `cells`. A code cell stores its source, and also an `execution_count` and its outputs. A plot is stored inside the file as a base64 string (the image bytes written out as plain text). Source and outputs share one file, so any run rewrites lines next to the code.
 
-Whether you use an agent or not, this is what git sees. The two mock notebooks differ by one real change: the cutoff `30` became `40`. Compare them:
+This is what git sees, with or without an agent. The two mock notebooks differ by one real change: the cutoff `30` became `40`. Compare them:
 
 ```bash
 diff before.ipynb after.ipynb
@@ -41,22 +37,18 @@ diff before.ipynb after.ipynb
 >       "image/png": "AAMGCQwPEhUYGx4hJCcqLTAzNjk8P0JFSEtOUV...
 ```
 
-Four changed spots, one of them is the code. The rest is the run counter, the printed result and an image blob. *General practice, not measured here:* in a real notebook an image is often tens of kilobytes on a single line, and there are usually many cells. The format docs describe the structure; that this makes diffs noisy is our reading of it, and the output above is the evidence.
+Four spots changed, and one of them is the code. The rest is the run counter, the printed result and an image blob. A real notebook has more cells and bigger images, so the code change is harder still to find; `git diff --stat` shows how large a notebook diff is.
 
-The risk with a coding agent is the same as with a human: a reviewer who cannot find the code change will approve without reading it.
+The risk is the same with a coding agent as with a human: a reviewer who cannot find the code change may approve without reading it.
 
 ## Four ways to make changes reviewable
 
-Each of these is one option among several. Each moves the noise somewhere else.
+Each option moves the noise somewhere else. Pick by what your team can adopt.
 
-| Option | What it does | Cost |
-|---|---|---|
-| **nbstripout** | Strips outputs and some metadata when git stores the notebook. Outputs stay in your working file, so on its own it does not change what an agent reads. | Git cannot set up the filter on clone, so each collaborator runs `nbstripout --install` themselves. |
-| **jupytext** | Pairs the `.ipynb` with a `.py` (the `py:percent` format is recommended for code). You review the `.py`; outputs stay in the `.ipynb`. | Two files to keep in sync. |
-| **nbdime** | A notebook-aware diff: `nbdiff` in the terminal, `nbdiff-web` in the browser, with git integration and a merge driver. | Everyone reviewing needs it installed. |
-| **marimo** | Notebooks are stored as pure Python, so ordinary git diffs work. | A different notebook tool from Jupyter. `marimo convert your_notebook.ipynb > your_notebook.py` converts an existing one. |
-
-*General practice:* the costs above are our judgement, except the nbstripout clone limit, which is from its docs. Pick by what your team can adopt; stripping outputs is likely the smallest change and a different notebook tool the largest.
+- **nbstripout:** strips outputs and some metadata when git stores the notebook. Outputs stay in your working file. Cost: each collaborator runs `nbstripout --install` themselves, because git cannot set up the filter on clone.
+- **jupytext:** pairs the `.ipynb` with a `.py` (the `py:percent` format suits code). You review the `.py` and outputs stay in the `.ipynb`. Cost: two files to keep in sync.
+- **nbdime:** a notebook-aware diff, with `nbdiff` in the terminal, `nbdiff-web` in the browser, git integration and a merge driver. Cost: everyone reviewing needs it installed.
+- **marimo:** stores notebooks as pure Python, so ordinary git diffs work. Cost: a different notebook tool from Jupyter. `marimo convert your_notebook.ipynb > your_notebook.py` converts an existing notebook.
 
 ## Review the code cells
 
@@ -72,23 +64,32 @@ Whatever you choose, the review habit is the same:
 
 ## Claude Code
 
-Claude Code reads a `.ipynb` with all its cells and outputs, and an output-heavy notebook fills context. It edits notebooks with `NotebookEdit`, one cell at a time, by `cell_id`. Replacing a code cell clears that cell's execution count and saved outputs, so the agent's diff in the notebook contains lost outputs as well as new source. Note that `nbstripout` is a git filter: outputs stay in the working file, so on its own it does not change what the agent's Read returns. To keep the agent on the code, strip outputs from the working copy (nbstripout's pre-commit mode modifies the working copy, per its docs) or point the agent at the paired `.py`. That is general practice; check the docs for your version.
+Claude Code reads a `.ipynb` with all its cells and outputs, and an output-heavy notebook fills the context window (the text the agent can hold at once). It edits notebooks with `NotebookEdit`, one cell at a time, by `cell_id`. Replacing a code cell clears that cell's execution count and saved outputs, so the agent's diff contains lost outputs as well as new source.
+
+`nbstripout` is a git filter, so outputs stay in the working file and the agent still reads them. To keep the agent on the code, strip outputs from the working copy (nbstripout's pre-commit mode does this) or point the agent at the paired `.py`. Check the docs for your version.
 
 ## OpenCode + Ollama
 
-The idea is the same: review the source cells. This quest has no tool-specific claims for OpenCode; check its docs for how it handles notebook files.
+The idea is the same: review the source cells. Check OpenCode's docs for how it handles notebook files.
 
 :::
 
-## Honour
+## Battle: the diff
+
+<div data-ao-test="scriptorium-why-notebooks-diff-badly" data-xp="60"></div>
+
+## Bonus
 
 <div data-ao-honour="scriptorium-diff-stat" data-xp="20">Run <code>git diff --stat</code> in one of your own repositories that contains a notebook, and note how much of the change is outputs.</div>
 
 <div data-ao-honour="scriptorium-pick-option" data-xp="20">Write one sentence naming which of the four options your team could adopt this week, and what each collaborator would have to do.</div>
 
-## Battle: the diff
+::: {.ao-related}
+## Related lessons
 
-<div data-ao-test="scriptorium-why-notebooks-diff-badly" data-xp="60"></div>
+- [Run It Top to Bottom](run-it-top-to-bottom.html): why a stored notebook result can differ from a fresh run.
+- [The Reviewer's Code](../reef/the-reviewers-code.html): reviewing LLM-assisted work, including formats that diff well.
+:::
 
 ::: {.ao-lore}
 ## Lore

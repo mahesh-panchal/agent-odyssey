@@ -3,16 +3,12 @@ title: "Recruit the Beast"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Save Point, a terminal (macOS, Linux, or WSL 2, the Windows Subsystem for Linux, on Windows), internet, and a Claude Team plan login *or* an Anthropic API key (API = programmatic access to the models, billed per token; a plan is a subscription with usage limits).
-**Objective:** install Claude Code, confirm it works, and start it somewhere safe in read-only style.
-**Time:** about 15 minutes. **Nothing here edits your files.**
-
-<span class="ao-badge">Last verified (docs, not run): Claude Code v2.1.323 on 2026-11-13, against code.claude.com/docs (sources in `research/kennel-and-crypt.md` and `research/doctor.md`). Docs change quickly; if a command differs, trust the official page and tell the maintainers.</span>
+- **Goal:** You will install Claude Code, confirm it works, and start it in a throwaway folder in plan mode.
+- **Before you start:** [Save Point](../crypt/shield-of-undo.html); a terminal (macOS, Linux, or WSL 2, the Windows Subsystem for Linux, on Windows); internet; and a Claude Team plan login or an Anthropic API key. An API key gives programmatic access to the models, billed per token; a plan is a subscription with usage limits.
+- **Time:** about 15 minutes. Nothing here edits your files.
 :::
 
-## The Beast
-
-Claude Code is strong. Strength is the reason to put it on a short lead before you let it do anything.
+Claude Code is strong, so you start it on a short lead before it does anything.
 
 ## 1. Install
 
@@ -35,13 +31,13 @@ If the shell says `command not found`, the launcher lives in `~/.local/bin/claud
 
 Run `claude` and a browser opens. With a Team plan, log in with the account your admin invited you to. With an API key, `export ANTHROPIC_API_KEY=...` instead.
 
-::: {.callout-warning}
-If you have **both** a subscription login and `ANTHROPIC_API_KEY` set, the key is used once you approve it, so usage goes to the API account rather than your plan. Run `/status` (a `/command` is typed inside the running tool) to see which one is active; `unset ANTHROPIC_API_KEY` if you did not mean it.
+::: {.callout-note}
+If you have both a subscription login and `ANTHROPIC_API_KEY` set, the key is used once you approve it, so usage goes to the API account. Run `/status` (a `/command` is typed inside the running tool) to see which login is active. Run `unset ANTHROPIC_API_KEY` if you did not mean to use the key.
 :::
 
 ## 3. Start on a short lead
 
-Make a throwaway folder and start in **plan mode**, which reads files and runs read-only commands and leaves your source untouched:
+Make a throwaway folder and start in **plan mode**. It reads files, runs read-only commands and leaves your source untouched:
 
 ```bash
 mkdir -p ~/odyssey-scratch && cd ~/odyssey-scratch
@@ -55,16 +51,14 @@ claude --permission-mode plan
 | `default` | asks the first time each tool is used |
 | `acceptEdits` | auto-accepts file edits and common file commands (`mkdir`, `touch`, `mv`, `cp`) in the working directory |
 | `plan` | reads and runs read-only commands; leaves source files untouched |
-| `bypassPermissions` | skips prompts. The docs say to use it only in containers or VMs (virtual machines, a computer simulated inside yours) |
+| `bypassPermissions` | skips prompts; use only in containers or VMs |
 
 ## 4. Check the setup
 
-Two commands share the name *doctor*, and they differ.
+Two commands share the name *doctor*.
 
-- **`claude doctor`** (in the shell) prints read-only diagnostics of your installation and settings **without starting a session**. The docs say to use it when `claude` will not start. It changes nothing.
-- **`/doctor`** (a **slash command**, a `/command` typed inside the running tool; alias `/checkup`) runs inside a session. The docs call it a **bundled skill** (a ready-made skill that ships inside the tool); that suggests it runs through the model and may use some of your usage (our inference, not stated in the docs). It reports first and changes something only after you confirm. The areas the docs list: installation health, extensions versus their context cost, instruction files, permissions, and a usage check.
-
-Not checked: whether `/doctor` also covers keybindings, sandbox availability or MCP configuration validity (the docs do not list them), and whether it makes network calls.
+- **`claude doctor`** runs in the shell. It prints read-only diagnostics of your installation and settings without starting a session, so use it when `claude` will not start.
+- **`/doctor`** (alias `/checkup`) runs inside a session as a bundled skill, a ready-made skill that ships inside the tool. It reports first and changes something only after you confirm. It looks at installation health, extensions and their context cost, instruction files, permissions and usage.
 
 ### Which command shows what
 
@@ -78,20 +72,28 @@ Not checked: whether `/doctor` also covers keybindings, sandbox availability or 
 | `/permissions` | allow, ask and deny rules by scope |
 | `/hooks` | configured hooks, grouped by event |
 | `/skills` | the skills available; press `t` to sort by token count |
-| `/skill-doctor` | per-skill context cost and how often each is used (v2.1.252+) |
+| `/skill-doctor` | per-skill context cost and how often each is used |
 | `/doctor` | setup checkup: report first, fixes only after you confirm |
 | `claude doctor` | read-only install and settings diagnostics from the shell |
 | `claude --debug` | debug logging; logs go to `~/.claude/debug/<session-id>.txt` |
 
-**OpenCode:** its CLI docs list no doctor or status command. `opencode debug paths` prints where its files live. Not checked: its TUI slash commands.
+OpenCode has `opencode debug paths`, which prints where its files live.
 
 ### Before you ask for help
 
-The docs say a bug report should include your OS, the install command and the **full error output**; `/feedback` sends feedback from inside a session. If you are unsure which problem applies, `/doctor` or `claude doctor` helps narrow it down. General practice: read any output before pasting it into a bug report or chat, because it can contain paths and account details. The docs give no advice on this, so the check is ours.
+A bug report includes your OS, the install command and the full error output. `/feedback` sends feedback from inside a session. If you are unsure which problem applies, run `/doctor` or `claude doctor` to narrow it down. Read any output before you paste it into a bug report or chat, because it can contain paths and account details.
 
 ## Battle: the Beast's leash
 
 <div data-ao-test="kennel-recruit-the-beast" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Pick Your Companion](pick-your-companion.html): choose the model and the effort level on purpose.
+- [Grow the Carapace](../crypt/rules-of-the-carapace.html): set permission modes and rules around the agent.
+- [Adopt the Pet](adopt-the-pet.html): run a small local model on your own machine.
+:::
 
 ::: {.ao-lore}
 ## Lore

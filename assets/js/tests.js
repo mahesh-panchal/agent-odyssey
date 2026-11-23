@@ -100,8 +100,8 @@
         function finish() {
           var ok = score / qs.length >= pass;
           el.innerHTML = "";
-          el.appendChild(h("p", { role: "status", text: (ok ? "✔ Victory! The Blight recedes. " : "✖ The Blight holds. ") + score + "/" + qs.length + " right first time." + (ok ? "" : " Need " + Math.ceil(pass * qs.length) + ".") }));
-          if (ok) AO.pass(id, xp); else { var b = h("button", { text: "Fight again" }); b.onclick = run; el.appendChild(b); }
+          el.appendChild(h("p", { role: "status", text: (ok ? "✔ Victory! The Blight recedes. " : "✖ The Blight holds. ") + score + "/" + qs.length + " right first time." + (ok ? " Quest XP: " + xp + "." : " Need " + Math.ceil(pass * qs.length) + ".") }));
+          if (ok) { var rest = xp - AO.awarded(id); AO.pass(id, Math.max(0, rest)); } else { var b = h("button", { text: "Fight again" }); b.onclick = run; el.appendChild(b); }
         }
         function show() {
           if (i >= qs.length) return finish();
@@ -118,7 +118,7 @@
           R[q.type](q, box, function (ok, msg) {
             if (solved) return;
             tries++;
-            if (ok) { solved = true; if (tries === 1) score++; var pr = el.querySelector(".ao-boss progress"); if (pr) { pr.value = qs.length - score; pr.nextSibling.textContent = "  HP " + (qs.length - score) + "/" + qs.length; } fb.className = "ao-fb ok"; fb.textContent = (tries === 1 ? "✔ Correct." : "✔ Correct (not first try).") + (q.explain ? " " + q.explain : ""); var w = why(q); if (w) fb.parentNode.insertBefore(w, next); next.hidden = false; next.focus(); }
+            if (ok) { solved = true; var gain = 0; if (tries === 1) { score++; if (!AO.state.passed[id]) gain = AO.award(id + "#" + i, Math.floor(xp / qs.length)); } var pr = el.querySelector(".ao-boss progress"); if (pr) { pr.value = qs.length - score; pr.nextSibling.textContent = "  HP " + (qs.length - score) + "/" + qs.length; } fb.className = "ao-fb ok"; fb.textContent = (tries === 1 ? "✔ Correct." + (gain ? " +" + gain + " XP." : "") : "✔ Correct (not first try).") + (q.explain ? " " + q.explain : ""); var w = why(q); if (w) fb.parentNode.insertBefore(w, next); next.hidden = false; next.focus(); }
             else { fb.className = "ao-fb bad"; fb.textContent = "✖ Not quite. " + msg; }
           });
           el.appendChild(box); el.appendChild(fb); el.appendChild(next);

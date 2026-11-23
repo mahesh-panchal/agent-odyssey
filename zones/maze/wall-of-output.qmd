@@ -3,10 +3,9 @@ title: "Boss: The Wall of Output"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Ground Truth. This is the boss at the end of the trunk. **Objective:** survive a wall of agent output without reading all of it and without trusting all of it.
-**Time:** about 10 minutes. Each right answer on the first try damages the boss.
-
-<span class="ao-badge">Practice guidance, not a vendor claim. Based on the habits taught in this zone.</span>
+- **Goal:** you will survive a wall of agent output without reading all of it and without trusting all of it.
+- **Before you start:** [Ground Truth](ground-truth.html). This is the boss at the end of the trunk.
+- **Time:** about 10 minutes. Each right answer on the first try damages the boss.
 :::
 
 ![](../../assets/img/boss-wall.png){.ao-boss-img fig-alt="Pixel-art portrait of the Wall of Output: a tall wall of terminal-style bricks filled with green scrolling text, with two glowing amber cursor eyes."}
@@ -17,11 +16,24 @@ The Wall is thousands of lines of generated diff (the list of lines a change add
 
 The way through is to **refuse it whole**: keep a **review budget** (only produce as much as you can honestly review today, because bulk low-quality output is called *slop*), ask for smaller pieces, ground each piece in a check, and pass on only work you have read yourself.
 
-The AI for Science best practices (a European draft with no endorsements yet; practice 9) back this with a warning about the human check itself. Stating the human check is only the first step: oversight often fails through automation bias (trusting the machine's output too readily) and rubber-stamping (approving without reading). Their example is an "approve each item" step at hundreds of items an hour, which turns into clicking through. A check that works shows what changed, at a volume a person can read, with approve, edit, veto and stop. They also say to keep a real decision point wherever results or other people are affected, and to record the human step as part of the work's provenance. Not checked first-hand: read 2026-11-20 through a fetch summary, so re-check the wording on the page; see `research/aiforscience.md`.
+A human check can fail in two ways. *Automation bias* is trusting the machine's output too readily. *Rubber-stamping* is approving without reading. An "approve each item" step at hundreds of items an hour turns into clicking through. A check that works:
+
+- shows what changed, at a volume a person can read;
+- offers approve, edit, veto and stop;
+- keeps a real decision point wherever results or other people are affected;
+- records the human step as part of the work's provenance (the record of where a result came from).
 
 ## Battle: the Wall
 
 <div data-ao-test="maze-wall-of-output" data-xp="120"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Ground Truth](ground-truth.html): the check an agent did not write.
+- [The Context Window](../codon-mill/the-context-window.html): why more text in context is not free.
+- [The Reviewer's Code](../reef/the-reviewers-code.html): ask for evidence when work comes to you.
+:::
 
 ::: {.ao-lore}
 ## Lore

@@ -3,59 +3,68 @@ title: "Too Many Tools, Too Many Agents"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Who Said What. This is an optional side quest; Plug In a Server (advised) puts it to use. **Objective:** explain why a large toolset costs context and accuracy, and choose between a single call, a fixed workflow, an agent, and a plain script.
-**Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API tool-search docs, Claude Code MCP docs and Anthropic's "Building effective agents" article on 2026-11-16 (sources in `research/fundamentals.md`). The figures quoted are Anthropic's own claims and were not measured here.</span>
-Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
+- **Goal:** you will explain why a large toolset costs context and accuracy, and choose between a single call, a fixed workflow, an agent and a plain script.
+- **Before you start:** [Who Said What](who-said-what.html). This is an optional side quest.
+- **Time:** about 20 minutes
 :::
 
-Every tool you give an agent has a definition: a name and a description of how to use it. The model needs those definitions in its window to choose a tool. That is the cost this quest is about, followed by the related question of whether you need an agent at all.
+Every tool you give an agent has a **definition**: a name and a description of how to use it. The model needs those definitions in its context window (the text it can see at once) to choose a tool. That cost is the first half of this quest. The second half asks whether you need an agent at all.
 
 ## Tools cost context
 
-Anthropic's tool-search docs say loading every tool definition up front causes context bloat. As an example they give a typical five-server setup that can use about 55 thousand tokens in definitions before any work starts. They also say Claude's ability to pick the right tool degrades once you exceed 30 to 50 available tools. These are Anthropic's statements on a docs page, with no method given, so read them as a rough guide to the shape of the problem; no thresholds were measured.
+Loading every tool definition up front bloats the context. A typical five-server setup can use about 55 thousand tokens in definitions before any work starts. The ability to pick the right tool gets worse beyond roughly 30 to 50 available tools.
 
-The same docs describe **tool search**: keep most definitions out of the window and load a few on demand. They say it typically cuts that overhead by over 85 percent, and they advise it from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.
+**Tool search** keeps most definitions out of the window and loads a few on demand. It typically cuts that overhead by over 85 percent. It pays off from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.
 
 ::: {.panel-tabset group="companion"}
 
 ## Claude Code
 
-Per the docs, MCP tool search is on by default: tool names and server instructions load at session start, and a full definition loads when needed (deferred). So extra MCP servers have a small effect on the window. It can be turned off with `ENABLE_TOOL_SEARCH=false`, and on some older models it falls back to loading everything. Skills work the same way in spirit: descriptions load at start. `/context` shows what takes space. Whether the 30 to 50 tool accuracy claim still applies behind deferral is not stated in the docs we read. A community test (small, two runs, labelled preliminary) reported that turning a built-in tool off partway through a task discarded the cache and made the next turn cost about twenty times a normal one, while adding an MCP server did not. Choosing your tool set before you start avoids the question; the details are in When to Start Fresh.
+MCP tool search is on by default. Tool names and server instructions load at session start, and a full definition loads when needed. Extra MCP servers therefore have a small effect on the window. Set `ENABLE_TOOL_SEARCH=false` to turn it off. On some older models it falls back to loading everything. Skill descriptions also load at start. Run `/context` to see what takes space. Choose your tool set before you start a task.
 
 ## OpenCode + Ollama
 
-Not checked: whether OpenCode defers tool definitions. Assume tool definitions cost context until you know otherwise, and keep the set small, especially on a local model with a small window (general practice).
+Run `/help` in OpenCode and check its docs for how it loads tool definitions. Until you know, assume definitions cost context and keep the set small, especially on a local model with a small window.
 
 :::
 
-The habit that follows (general practice, inferred from the above): few, clearly named tools, and remove the servers you do not use.
+The habit that follows: few, clearly named tools, and remove the servers you do not use.
 
 ## Single call, workflow, agent, or script
 
-Anthropic's article "Building effective agents" separates two things. A **workflow** orchestrates models and tools through paths fixed in code. An **agent** is a system where the model directs its own process and tool use. The article's advice is to start with the simplest solution that works, and it says that building no agentic system (one where the model picks its own steps and tools) at all may be the right choice. For many uses, one well-prepared call is usually enough. It adds that agents trade speed and cost for performance, and that autonomy brings compounding errors, so test with limits: a **stopping condition** such as a maximum number of steps.
+A **workflow** orchestrates models and tools through paths fixed in code. An **agent** is a system where the model directs its own process and tool use. The advice in Anthropic's article "Building effective agents" is to start with the simplest solution that works. For many uses, one well-prepared call is enough. Agents trade speed and cost for performance, and autonomy brings compounding errors, so test with limits such as a **stopping condition**: a maximum number of steps.
 
-Our reading of that, as general practice:
-
-- **A plain script** when the rule is known. Counting reads, converting a format, running fastqc then trim then align in a fixed order. A Nextflow pipeline is already a workflow.
-- **A single call** when you paste the input and want a text answer, such as explaining an error.
-- **An agent** when the next step depends on what it finds, such as debugging a failing run or exploring an unfamiliar repository. Even then, give it a way to check its own work and a limit.
+- **A plain script:** use it when the rule is known. Counting reads, converting a format, running fastqc then trim then align in a fixed order. A Nextflow pipeline is already a workflow.
+- **A single call:** use it when you paste the input and want a text answer, such as an explanation of an error.
+- **An agent:** use it when the next step depends on what it finds, such as debugging a failing run or exploring an unfamiliar repository. Give it a way to check its own work and a limit.
 
 Using none of these is also a fine decision.
 
-**Does a team of agents help?** One 2025 preprint from Google Research, Google DeepMind and MIT ("Towards a Science of Scaling Agent Systems") compared a single agent with four multi-agent set-ups across 260 configurations on six benchmarks. Its findings, in short:
+## Does a team of agents help?
+
+A 2025 preprint compared a single agent with four multi-agent set-ups across 260 configurations on six benchmarks.
 
 - **It depends on the task.** On a task that splits into independent parts (financial analysis), multi-agent set-ups did far better than one agent, up to about 81 percent. On sequential planning, every multi-agent variant did worse, by 39 to 70 percent.
-- **A strong single agent leaves little to gain.** Once one agent already scored above about 45 percent on a task, adding agents gave diminishing or negative returns.
+- **A strong single agent leaves little to gain.** Once one agent scored above about 45 percent on a task, adding agents gave diminishing or negative returns.
 - **Unchecked agents pass errors on.** Agents working independently amplified errors about 17 times, against about 4 times when a central agent checked the work.
 
-Take-away (general practice): start with one agent, measure it, and add agents only for work that splits into independent parts and only if the measurement says it helps. The figures come from the authors' own tasks and models and changed between versions of the preprint, so read them as direction, not as rules.
-
-<div data-ao-honour="tool-audit" data-xp="20">List the MCP servers and tools in your setup. For each, say when you last used it. Remove or disable one you do not need.</div>
-<div data-ao-honour="script-first" data-xp="20">Take one task you gave an agent that had a known rule. Write down the script that would do it without a model.</div>
+Start with one agent, measure it, and add agents only for work that splits into independent parts and only if the measurement says it helps.
 
 ## Battle: the wall of tools
 
 <div data-ao-test="codon-mill-too-many-tools-too-many-agents" data-xp="50"></div>
+
+<div data-ao-honour="tool-audit" data-xp="20">List the MCP servers and tools in your setup. For each, say when you last used it. Remove or disable one you do not need.</div>
+<div data-ao-honour="script-first" data-xp="20">Take one task you gave an agent that had a known rule. Write down the script that would do it without a model.</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Plug In a Server](../gatehouse/plug-in-a-server.html): for more on connecting an MCP server and choosing which to keep.
+- [When to Start Fresh](when-to-start-fresh.html): how the cache, compacting and clearing affect cost.
+- [The Context Window](the-context-window.html): what the window holds and how definitions compete for it.
+- [Who Said What](who-said-what.html): which text in the window comes from you and which from the tool.
+:::
 
 ::: {.ao-lore}
 ## Lore

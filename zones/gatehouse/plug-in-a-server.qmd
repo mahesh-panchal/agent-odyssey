@@ -3,30 +3,33 @@ title: "Plug In a Server"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Grow the Carapace (permission rules). Walk the trunk first. **Objective:** treat an MCP server as software you install, then scope it, limit it and read what it sends back.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in `research/tools-and-guards.md` and `research/terminology.md`)</span>
+- **Goal:** You will treat an MCP server as software you install, then scope it, limit it and read what it sends back.
+- **Before you start:** [Grow the Carapace](../crypt/rules-of-the-carapace.html). A **permission rule** allows, asks about or denies a tool call. The **sandbox** is an operating-system layer that limits what shell commands can touch.
+- **Time:** about 15 minutes.
 :::
 
-**MCP** (Model Context Protocol) is, in its own words, "an open-source standard for connecting AI applications to external systems". A **server** is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. MCP is optional. It widens what the agent can reach, and every widening is a decision.
+The Model Context Protocol (**MCP**) is an open-source standard for connecting AI applications to external systems. A **server** is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. MCP is optional. It widens what the agent can reach, and every widening is a decision.
 
 ## A server is software you installed
 
-A stdio server (a program the harness starts locally and talks to over its input/output) is a command that Claude Code launches on your machine (`claude mcp add ... -- <command>`), and secrets can be passed to it as environment variables. So a reasonable working assumption, offered as general practice (our wording, outside the docs), is that it can do whatever that command can do with the credentials you gave it. The docs' one security sentence is short: "Verify you trust each server before connecting it. Servers that fetch external content can expose you to prompt injection risk." (Prompt injection: text from a file, web page or tool that the model treats as an instruction.)
+A stdio server (a program the harness starts locally and talks to over its input/output) is a command that Claude Code launches on your machine (`claude mcp add ... -- <command>`), and secrets can be passed to it as environment variables. Assume it can do whatever that command can do with the credentials you gave it.
+
+Verify you trust each server before connecting it. Servers that fetch external content can expose you to prompt injection: text from a file, web page or tool that the model treats as an instruction.
 
 ::: {.panel-tabset group="companion"}
 
 ## Claude Code
 
-Adding a remote server over HTTP (the transport: how the harness talks to the server; an http server is remote), and a local one (everything after `--` is passed to the server untouched):
+Add a remote server over HTTP (the transport: how the harness talks to the server; an http server is remote), and a local one (everything after `--` is passed to the server untouched):
 
 ```bash
 claude mcp add --transport http mydocs https://example.com/mcp
 claude mcp add --env API_KEY=your-key-here myserver -- <command> [args...]
 ```
 
-The `--env` line is an unrun sketch of the syntax; check `claude mcp add --help` for the current flags. Inside a session, `/mcp` lists the servers and their tools. An older transport called SSE (server-sent events, one-way streaming over HTTP) is deprecated in favour of HTTP where a server offers both.
+Run `claude mcp add --help` for the current flags. Inside a session, `/mcp` lists the servers and their tools. An older transport called SSE (server-sent events, one-way streaming over HTTP) is deprecated in favour of HTTP where a server offers both.
 
-Three **scopes** (scope = who or where a setting applies) decide who gets the server (set with `-s`/`--scope`):
+Three **scopes** (who or where a setting applies) decide who gets the server (set with `-s`/`--scope`):
 
 | Scope | Where it applies |
 |---|---|
@@ -40,13 +43,15 @@ A project-scoped server is a file in the repository:
 { "mcpServers": { "shared-server": { "type": "http", "url": "https://example.com/mcp" } } }
 ```
 
-For security reasons, Claude Code asks for approval in interactive sessions before using project-scoped servers from `.mcp.json`. `claude mcp reset-project-choices` resets your answers. Read that file as you would read a script from a stranger's repository, because it asks to start something on your machine. In `claude -p` and Agent SDK (software development kit) runs, which are headless (non-interactive), there is no prompt: the docs say project-scoped servers load without asking, and name `--strict-mcp-config` among the mitigations.
+In interactive sessions, Claude Code asks for approval before using project-scoped servers from `.mcp.json`. `claude mcp reset-project-choices` resets your answers. Read that file as you would read a script from a stranger's repository, because it asks to start something on your machine.
+
+In `claude -p` and Agent SDK (software development kit) runs, which are headless (non-interactive), there is no prompt and project-scoped servers load without asking. `--strict-mcp-config` is one mitigation.
 
 Each server's tools appear in permission rules as `mcp__<server>__<tool>`, and `mcp__<server>__*` (a matcher, a pattern that selects names) matches every tool of one server. Tool definitions are deferred (loaded only when needed) by default, so only tool names and server instructions take up context until a tool is used.
 
 ## OpenCode + Ollama
 
-In the V2 docs, servers go under `mcp.servers`, and V2 does not put server names directly under `mcp` (check which version you have installed). A remote server:
+In the V2 docs, servers go under `mcp.servers`; V2 does not put server names directly under `mcp`. Check which version you have installed. A remote server:
 
 ```json
 { "mcp": { "servers": { "mydocs": {
@@ -55,33 +60,47 @@ In the V2 docs, servers go under `mcp.servers`, and V2 does not put server names
     "headers": { "Authorization": "Bearer {env:MCP_API_KEY}" } } } } }
 ```
 
-A local one uses `"type": "local"` and a `command` array. Set `"disabled": true` to switch a server off. The docs say that "MCP tools consume model context, so add only the servers you need."
+A local one uses `"type": "local"` and a `command` array. Set `"disabled": true` to switch a server off. MCP tools consume model context, so add only the servers you need.
 
-Permissions are an ordered array where the last match wins and no match means `ask`. An MCP tool's action is `<server>_<tool>` with resource `*`. Not checked: project-level approval prompts for OpenCode servers, and how a local Ollama model changes any of this. Check the current docs.
+Permissions are an ordered array where the last match wins and no match means `ask`. An MCP tool's action is `<server>_<tool>` with resource `*`. Check the current docs for whether OpenCode asks before using a project-level server.
 
 :::
 
 ## What comes back is text to read
 
-A server that fetches web pages, tickets or messages hands text written by someone else to the model. Prompt injection means that text can contain sentences aimed at the agent ("ignore the above and ...") and the model may follow them. The docs give one sentence on this, so the rest is general practice:
+A server that fetches web pages, tickets or messages hands text written by someone else to the model. That text can contain sentences aimed at the agent ("ignore the above and ..."), and the model may follow them. Habits that limit the damage:
 
-- Prefer **read-only** servers and read-only credentials. A server that cannot write cannot be talked into writing.
-- Give it the **least privilege** (only the access the job needs) that does the job: one project, one scope, a token limited to what you need.
-- **Read before adding**: who publishes it, what tools it lists, what it asks for. Unneeded servers are also unneeded context.
-- Read fetched content sceptically, and supervise any write access an agent uses on it.
-- Permission rules still apply to server tools, so deny the dangerous ones by name.
+- **Prefer read-only** servers and read-only credentials. A server that cannot write cannot be talked into writing.
+- **Give least privilege**, only the access the job needs: one project, one scope, a token limited to what you need.
+- **Read before adding:** who publishes it, what tools it lists, what it asks for. Unneeded servers are also unneeded context.
+- **Read fetched content sceptically,** and supervise any write access an agent uses on it.
+- **Deny the dangerous tools by name.** Permission rules still apply to server tools.
 
-The AI for Science best practices (a European draft with no endorsements yet; practice 3) add a habit for the *where from* question. Servers, skills and plugins either run code or supply instructions to the agent, so each is a way in. A listing in a registry says the thing is easy to find and says nothing about a security review; the page notes that the official MCP registry lists self-reported data and runs no security review. Prefer a source that records the maintainer and a review date, and check what the interface is allowed to do. If your institution has no vetted list, treat every interface as unvetted; asking for such a list is our own suggestion (General practice). Their examples include a server whose tool description carried hidden instructions, and a skill whose instructions told the agent to post results to an outside endpoint. Not checked first-hand: read 2026-11-20 through a fetch summary, so re-check the wording on the page; see `research/aiforscience.md`.
+The sandbox limits shell commands even if a prompt injection bypasses the model's decision-making. A server can take other routes, so treat the sandbox as one layer.
 
-::: {.callout-note}
-Claude Code's docs also say that sandbox restrictions still apply even if a prompt injection bypasses the model's decision-making. The sandbox covers shell commands, and a server might take other routes, so treat it as one layer.
-:::
+## Where a server comes from
+
+Servers, skills and plugins either run code or supply instructions to the agent, so each is a way in. A listing in a registry means the thing is easy to find. The official MCP registry lists self-reported data and runs no security review.
+
+- **Prefer a source that records** the maintainer and a review date.
+- **Check what the interface is allowed to do** before you connect it.
+- **Ask your institution for a vetted list.** If it has none, treat every interface as unvetted.
+- **Hidden instructions are possible.** A tool description can carry instructions you never see, and a skill's instructions can tell the agent to send results to an outside address.
 
 <div data-ao-honour="gatehouse-read-a-server" data-xp="20">Pick an MCP server you might use. Write down who publishes it, the tools it lists, the credential it needs, and whether a read-only version exists. Hold off installing it for now.</div>
 
 ## Battle: the heavy door
 
 <div data-ao-test="gatehouse-plug-in-a-server" data-xp="50"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Guard the Door](guard-the-door.html): for more on refusing a command with a hook.
+- [Advice or Enforcement](advice-or-enforcement.html): for more on choosing between a request, a prompt and a lock for each risk.
+- [Grow the Carapace](../crypt/rules-of-the-carapace.html): for more on allow, ask and deny rules.
+- [Too Many Tools, Too Many Agents](../codon-mill/too-many-tools-too-many-agents.html): for more on keeping the toolset small.
+:::
 
 ::: {.ao-lore}
 ## Lore

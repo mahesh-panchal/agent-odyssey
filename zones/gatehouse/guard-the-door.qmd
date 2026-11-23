@@ -3,11 +3,12 @@ title: "Guard the Door"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Plug In a Server. **Objective:** write a hook that refuses a command, and know where a hook's coverage ends.
-**Time:** about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code docs and OpenCode V2 docs on 2026-11-16 (sources in `research/tools-and-guards.md`)</span>
+- **Goal:** You will write a hook that refuses a command, and know where a hook's coverage ends.
+- **Before you start:** [Plug In a Server](plug-in-a-server.html). An **exit code** is the number a script returns when it finishes: 0 means success, and a hook uses 2 to mean "block". **JSON** is a structured text format.
+- **Time:** about 15 minutes.
 :::
 
-A **hook** is a user-defined handler that runs automatically at a set point in the harness's lifecycle. In Claude Code it can be a shell command, an HTTP endpoint and other kinds, and it receives JSON (a structured text format) about the event. An instructions file asks the model to behave. A command hook is ordinary code that the harness runs, so what it decides does not depend on what the model wants. That contrast is our inference from how exit code 2 works (a nonzero exit code is how a script signals failure; a hook uses 2 to mean block), not a phrase from the docs.
+A **hook** is a user-defined handler that runs automatically at a set point in the harness's lifecycle. In Claude Code it can be a shell command, an HTTP endpoint and other kinds, and it receives JSON about the event. An instructions file asks the model to behave. A command hook is ordinary code that the harness runs, so what it decides does not depend on what the model wants.
 
 ## A hook that refuses
 
@@ -15,7 +16,13 @@ A **hook** is a user-defined handler that runs automatically at a set point in t
 
 ## Claude Code
 
-Hooks go in a `hooks` block in a settings file. `.claude/settings.json` is committable and shared, `.claude/settings.local.json` is yours alone, and `~/.claude/settings.json` covers all projects. A `PreToolUse` hook fires before a tool runs, and the matcher (the pattern that selects which tool the hook fires for) `Bash` selects the shell tool:
+Hooks go in a `hooks` block in a settings file:
+
+- `.claude/settings.json`: committable and shared.
+- `.claude/settings.local.json`: yours alone.
+- `~/.claude/settings.json`: all projects.
+
+A `PreToolUse` hook fires before a tool runs, and the matcher (the pattern that selects which tool the hook fires for) `Bash` selects the shell tool:
 
 ```json
 { "hooks": { "PreToolUse": [ { "matcher": "Bash",
@@ -23,7 +30,7 @@ Hooks go in a `hooks` block in a settings file. `.claude/settings.json` is commi
     "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-drop-table.sh" } ] } ] } }
 ```
 
-The script, as in the Claude Code hooks guide (short third-party text, quoted with attribution). It needs `jq` installed to read the JSON, and it must be executable (check the guide for the exact step; `chmod +x` is the usual way):
+The script, from the Claude Code hooks guide. It needs `jq` installed to read the JSON, and it must be executable (`chmod +x` is the usual way):
 
 ```bash
 #!/bin/bash
@@ -38,36 +45,50 @@ exit 0  # exit 0 = no decision; the normal permission flow applies
 
 The hook gets the event as JSON on stdin (its standard input), including `tool_name` and, for Bash, `tool_input.command`. Exit code 2 on `PreToolUse` blocks the call, and Claude sees the stderr text (the program's error output) as the reason. Exit 0 expresses no decision: the call goes through the normal permission flow.
 
-Two behaviours matter for trust. First, if the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. A broken guard fails **open** (it lets the action through when it breaks), unless the hook is configured to block on failure (the guide names `onFailure: "block"`; check the current docs for where it goes). Second, exit 2 blocks on some events only: on `PostToolUse` the tool already ran and exit 2 shows stderr to Claude, and on `Notification` the exit code is ignored.
+Two behaviours matter for trust:
+
+- **A broken guard fails open.** If the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. To block on failure, configure the hook for it (the hooks guide names `onFailure: "block"`; check the hooks reference for where it goes).
+- **Exit 2 blocks on some events only.** On `PostToolUse` the tool already ran and exit 2 shows stderr to Claude. On `Notification` the exit code is ignored.
 
 ## OpenCode + Ollama
 
-The V2 docs describe plugins (files under `.opencode/plugins/` or `~/.config/opencode/plugins/`) that can register hooks. For refusing an action, the documented route is the permission hook, `ctx.permission.hook("evaluate", ...)`: it runs for `allow` and `ask` decisions, may change the effect to `allow`, `ask` or `deny`, and `event.message` is the denial reason. An explicit configured `deny` is final and never invokes the hook.
+The V2 docs describe plugins (files under `.opencode/plugins/` or `~/.config/opencode/plugins/`) that can register hooks. To refuse an action, use the permission hook, `ctx.permission.hook("evaluate", ...)`: it runs for `allow` and `ask` decisions, may change the effect to `allow`, `ask` or `deny`, and `event.message` is the denial reason. An explicit configured `deny` is final and never invokes the hook.
 
-Not checked: an exit-code-2 equivalent or shell-hook configuration (neither appears in the pages read), and whether throwing from a tool hook blocks a call (the docs leave it undescribed, so do not rely on it until you have verified it). Not checked: a trust statement for plugins; treat them as code running with your privileges, which is an inference. Not checked: how any of this behaves with a local Ollama model. Check your installed version's docs.
+Treat an OpenCode plugin as code running with your privileges. Before relying on it, check your installed version's docs for shell-hook configuration and an exit-code equivalent, and test whether throwing from a tool hook blocks a call. Test the whole setup with your local Ollama model too.
 
 :::
 
 ## What a hook covers
 
-- **Not a sandbox.** The example matches the literal string "drop table" in one command. A matcher selects by tool name, not by content. If the model runs a script that contains the dangerous command, or spells it differently, a grep on the command text never sees it (our inference; the docs do not discuss evasion).
-- **Fires only on tool calls.** `PreToolUse` fires when Claude calls a tool. A file added with an `@` reference in your prompt is read without a tool call, so no hook fires.
-- **Cannot override your deny and ask rules.** A hook returning allow skips the prompt, and deny and ask rules are still evaluated.
-- **Runs with your full permissions.** The docs say command hooks "execute shell commands with your full user permissions", so review and test them before adding them.
+- **A string match is easy to dodge.** The example matches the literal string "drop table" in one command. A matcher selects by tool name, not by content. If the model runs a script that contains the dangerous command, or spells it differently, a grep on the command text never sees it.
+- **Hooks fire only on tool calls.** `PreToolUse` fires when Claude calls a tool. A file added with an `@` reference in your prompt is read without a tool call, so no hook fires.
+- **Hooks cannot override your deny and ask rules.** A hook returning allow skips the prompt, and deny and ask rules are still evaluated.
+- **Hooks run with your full permissions.** Command hooks "execute shell commands with your full user permissions", so review and test them before adding them.
 
 ## One door for the high-stakes actions
 
-The AI for Science best practices (a European draft with no endorsements yet; practice 10) describe a pattern that a hook can serve: if an agent can reach something with real-world consequences, such as ordering DNA synthesis or commanding physical equipment, put a screening checkpoint in the path that refuses dual-use requests (requests where the same capability can help or harm). They advise against connecting an agent to such a capability without one. Testing the checkpoint with requests you know it should refuse is our own suggestion (General practice). A hook is one possible checkpoint for local actions, with the limits listed above. Not checked first-hand: read 2026-11-20 through a fetch summary, so re-check the wording on the page; see `research/aiforscience.md`.
+If an agent can reach something with real-world consequences, such as ordering DNA synthesis or commanding physical equipment, put a screening checkpoint in the path that refuses dual-use requests (requests where the same capability can help or harm). Do not connect an agent to such a capability without one. Test the checkpoint with requests you know it should refuse. A hook is one possible checkpoint for local actions, with the limits listed above.
 
 ## A hook in a repository is code you did not write
 
-If a repository commits hooks in `.claude/settings.json`, they are code from its authors, running as you. Interactive Claude Code holds hooks back until you accept the workspace trust dialog. In `-p` and SDK runs (headless: non-interactive, no one to answer a dialog) there is no dialog, and the docs say hooks committed in a repository's `.claude/settings.json` run in a folder you have never trusted. Read `.claude/` before running headless in a clone, and the docs name `--bare` and `disableAllHooks` as ways to switch them off.
+If a repository commits hooks in `.claude/settings.json`, they are code from its authors, running as you. Interactive Claude Code holds hooks back until you accept the workspace trust dialog.
+
+In `-p` and SDK runs (headless: non-interactive, no one to answer a dialog) there is no dialog, and hooks committed in a repository's `.claude/settings.json` run in a folder you have never trusted. Read `.claude/` before running headless in a clone. `--bare` and `disableAllHooks` switch hooks off.
 
 <div data-ao-honour="gatehouse-hook-in-a-scratch-folder" data-xp="20">In a throwaway folder with mock files, add the Bash-blocking hook above and ask for a harmless command that contains "drop table" in an `echo`. Note the stderr message the agent reports. Then change the script to exit 1 and see what happens.</div>
 
 ## Battle: the watchman
 
 <div data-ao-test="gatehouse-guard-the-door" data-xp="50"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Advice or Enforcement](advice-or-enforcement.html): for more on sorting every control by whether it advises, asks or enforces.
+- [Plug In a Server](plug-in-a-server.html): for more on refusing a server's tools by name with a deny rule.
+- [Grow the Carapace](../crypt/rules-of-the-carapace.html): for more on deny and ask rules, which a hook cannot override.
+- [Bundle a Plugin](../forest/bundle-a-plugin.html): for more on plugins that ship hooks.
+:::
 
 ::: {.ao-lore}
 ## Lore

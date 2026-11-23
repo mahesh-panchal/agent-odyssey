@@ -3,34 +3,40 @@ title: "Send Small, Say So"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Spot the Mirage. The Wall of Output is advised. **Objective:** hand work to collaborators, whether or not they use LLMs, without passing them your review burden.
-**Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Not checked: any venue's disclosure policy. Team norms you agree locally override these defaults.</span>
+- **Goal:** you will hand work to collaborators, whether or not they use LLMs, without passing them your review burden.
+- **Before you start:** [Spot the Mirage](../maze/spot-the-mirage.html).
+- **Time:** about 15 minutes.
 :::
 
-A reef is a community. When you use an agent, the cost of checking its output must not silently land on the next person. The **Review-leech** feeds on exactly that.
-
-Four habits:
+A reef is a community. The **Review-leech** feeds on the cost of checking an agent's output when it lands on the next person without a word. Four habits starve it.
 
 1. **Review it yourself first.** Read your own diff as if a stranger wrote it. If you cannot explain a line, it is not ready to send.
-2. **Say so.** Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Your team may set its own norm for how.
+2. **Say so.** Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Follow your team's norm for how.
 3. **Send small.** One idea per change, small enough to review in one sitting.
 4. **Bring evidence.** Include the test, the command, or the check that shows it works.
 
-These help reviewers who use LLMs and those who do not. A colleague who does not use LLMs can review your work without learning a tool.
+These habits help every reviewer. A colleague who does not use LLMs can review your work without learning a tool.
 
 ## When you worry about looking lazy
 
-A common worry: *people will think I am lazy or unoriginal for using it.* You can make the facts easy to see.
+A common worry is that people will think you are lazy or unoriginal for using an agent. Make the facts easy to see.
 
 - **Say plainly what the agent did and what you checked.** "The agent drafted the plotting code. I read it and compared the output with a hand calculation."
 - **Follow your team's norm.** Some groups want a note in the commit message, some in the methods. Use what yours agrees on.
 - **Let the evidence speak.** Tests, checks and your ability to explain every line show the work is yours.
 - **Ask.** A lead or a journal editor can tell you what they expect.
-- **Check the venue.** Some venues have disclosure policies. If you name one, read its own page and cite it.
+- **Check the venue.** A journal or conference may have a disclosure policy. Read its own page before you submit.
 
 ## Battle: the hand-off
 
 <div data-ao-test="reef-send-small-say-so" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Boss: The Wall of Output](../maze/wall-of-output.html): why a big change is hard to review, and how to ask for smaller ones.
+- [The Reviewer's Code](the-reviewers-code.html): the other side of the hand-off, reviewing work that involved an LLM.
+:::
 
 ::: {.ao-lore}
 ## Lore

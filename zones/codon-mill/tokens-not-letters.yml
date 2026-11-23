@@ -34,7 +34,7 @@ questions:
       - { text: "Keep the command so the count can be re-run", why: "A kept command makes the answer repeatable." }
   - type: match
     prompt: "Match each claim to what is behind it."
-    explain: "Tokens are the unit for limits and cost. Letter-level weakness is our inference from that fact."
+    explain: "Tokens are the unit for limits and cost. Models can miscount letters, so run a script when the answer must be exact."
     pairs:
       - { left: "Context window and cost are measured in", right: "Tokens", misconception: "Both are measured in tokens." }
       - { left: "Token counting endpoint result is", right: "An estimate that may differ slightly", misconception: "Docs call it an estimate, so treat it as approximate." }

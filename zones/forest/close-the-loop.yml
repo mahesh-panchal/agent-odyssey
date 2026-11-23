@@ -47,7 +47,7 @@ questions:
       - { text: "Keep trusting the old results, since the Skill itself has not changed", misconception: "The Skill is one half of the comparison. The model is the other half, and it changed." }
       - { text: "Delete the Skill, because a newer model never needs any Skill", misconception: "Some Skills still help, such as lab-specific rules the model cannot know. Measure instead of assuming." }
   - type: choice
-    prompt: "A model grades 200 outputs from another model of the same family. What does the AI for Science draft advise?"
+    prompt: "A model grades 200 outputs from another model of the same family. What is the best check on the scores?"
     explain: "A same-family judge is not an independent grader. Check a sample by hand against reference answers written before you saw the outputs."
     options:
       - { text: "Check a sample by hand against answers fixed in advance", correct: true }

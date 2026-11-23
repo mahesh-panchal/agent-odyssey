@@ -3,15 +3,16 @@ title: "Teach and Share the Load"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** The Reviewer's Code. **Objective:** pass on what you learned without leaving anyone behind, and keep your own skills and workload healthy.
-**Time:** about 15 minutes. <span class="ao-badge">General practice, not a vendor claim. Team norms you agree locally override these defaults.</span>
+- **Goal:** you will pass on what you learned without leaving anyone behind, and keep your own skills and workload healthy.
+- **Before you start:** [The Reviewer's Code](the-reviewers-code.html).
+- **Time:** about 15 minutes.
 :::
 
 ## Teaching
 
 You can help without being an expert. When teaching a colleague:
 
-- **Start from their problem**; the tool comes later.
+- **Start from their problem.** The tool comes later.
 - **Teach the checks first.** Verification habits matter more than clever prompts.
 - **Let them predict, then reveal.** Ask "what do you expect this to do?" before running it.
 - **Welcome opt-outs.** A colleague may choose not to use LLMs, and may still be an excellent reviewer.
@@ -22,7 +23,7 @@ An agent can quietly take over the parts you wanted to learn. Pick a rule that s
 
 ## Owning what you made
 
-Finishing a project mostly through an agent can leave a quiet feeling that the result is not really yours, a kind of imposter syndrome. Many people report it, and it points to something useful: ownership grows from your decisions and your understanding. These habits build both:
+Finishing a project mostly through an agent can leave a quiet feeling that the result is not really yours, a kind of imposter syndrome. Many people report it. Ownership grows from your decisions and your understanding. These habits build both:
 
 - **Make the decisions.** Choose the question, the method and what counts as good enough. Let the agent draft.
 - **Explain it back.** Before you call the work done, walk a colleague through each step.
@@ -30,8 +31,6 @@ Finishing a project mostly through an agent can leave a quiet feeling that the r
 - **Do one hard part yourself.** Pick the part you most want to understand.
 - **Credit the agent's part plainly** in your methods or commit messages. Honest credit lifts the pressure.
 - **Judge the result by what you can explain and defend.**
-
-<span class="ao-badge">General practice. Nothing here depends on a tool or a version.</span>
 
 ## Managing workload
 
@@ -46,8 +45,6 @@ A quick draft can quietly raise what everyone expects. A first version that once
 - **Share the whole picture** with the people asking: how long the draft took and how long checking took.
 - **Hand over a quick draft as a draft**, and say so.
 - **Spend the time you saved on checking.**
-
-<span class="ao-badge">General practice. Nothing here depends on a tool or a version.</span>
 
 ## Keeping your voice
 
@@ -75,13 +72,20 @@ A ready second opinion can wear down confidence in your own call. Keep it in pra
 - **Keep some decisions agent-free.**
 - **Compare afterwards.** Note where your call held up and where the agent saw something you missed.
 
-<span class="ao-badge">General practice. Nothing here depends on a tool or a version.</span>
-
-<div data-ao-honour="teach-one" data-xp="25">Show one colleague one verification habit from this odyssey, such as re-running the check, or running `awk` against a script's output. Teach the habit; the tool is optional.</div>
-
 ## Battle: the community
 
 <div data-ao-test="reef-teach-and-share-the-load" data-xp="60"></div>
+
+## Bonus
+
+<div data-ao-honour="teach-one" data-xp="25">Show one colleague one verification habit from this odyssey, such as re-running the check, or running `awk` against a script's output. Teach the habit; the tool is optional.</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Send Small, Say So](send-small-say-so.html): the hand-off habits to teach a colleague first.
+- [Boss: The Wall of Output](../maze/wall-of-output.html): checking a large output you did not write.
+:::
 
 ::: {.ao-lore}
 ## Lore

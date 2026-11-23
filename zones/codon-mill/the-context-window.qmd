@@ -3,22 +3,30 @@ title: "The Context Window"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Tokens, Not Letters. **Objective:** say what fills the context window, what happens when it is full, and three habits that keep it useful.
-**Time:** about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Claude API context-windows docs and Claude Code context-window and how-it-works docs on 2026-11-16 (sources in `research/fundamentals.md`). Compaction details are Claude Code specific.</span>
-Topics in this zone were inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.
+- **Goal:** you will say what fills the context window, what happens when it is full, and three habits that keep it useful.
+- **Before you start:** [Tokens, Not Letters](tokens-not-letters.html). A token is a chunk of text the model reads.
+- **Time:** about 20 minutes.
+
+Inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals).
 :::
 
-The **context window** is all the text the model can look at when it writes its next piece of output, including its own reply. Anthropic's docs compare it to working memory, and say it is separate from what the model learned in training. It is measured in tokens, as in the last quest.
+The **context window** is all the text the model can look at when it writes its next piece of output, including its own reply. It works like the model's working memory and is separate from what the model learned in training. It is measured in tokens.
 
 ## What fills it
 
-In Claude Code the docs list: your instructions, the files it reads, its own responses, and content that never appears in your terminal. Before you type anything, the window already holds the instructions file (`CLAUDE.md`, the text file the harness loads at session start; see Know Your Gear), auto memory, the names of MCP tools and skill descriptions. Every file it reads and every tool output then adds more. At the API level (programmatic access to the model) the same idea holds: system prompt (the harness's own instructions, sent with every request), every message, tool results, tool definitions and the output all count.
+In Claude Code (a coding agent that runs in your terminal), the window holds your instructions, the files it reads, its own responses, and content that never appears in your terminal. Before you type anything, it already holds:
 
-Sizes depend on the model, up to 1 million tokens for some and 200 thousand for others, per the docs. A big window gives room for more text, and quality depends on what fills it.
+- the instructions file (`CLAUDE.md`, a text file the harness loads at session start; the **harness** is the program around the model that runs tools and sends your text)
+- auto memory (notes the harness keeps from earlier sessions)
+- the names of MCP tools (tools added from outside servers) and skill descriptions (short summaries of saved instruction sets)
+
+Every file it reads and every tool output then adds more. At the API level (programmatic access to the model) the same idea holds: the system prompt (the harness's own instructions, sent with every request), every message, tool results, tool definitions and the output all count.
+
+Sizes depend on the model, up to 1 million tokens for some and 200 thousand for others. A big window gives room for more text, and quality depends on what fills it.
 
 ## Bigger is not better
 
-Anthropic's docs put it directly: as the token count grows, accuracy and recall degrade. They call this **context rot**. The docs give no number at which it starts, so treat any quoted figure without a source as unverified. The practical point: what you put in matters as much as how much fits.
+As the token count grows, accuracy and recall degrade. This is called **context rot**. No source gives a token count at which it starts, so check the source of any figure you see. What you put in matters as much as how much fits.
 
 ## When it fills up
 
@@ -26,28 +34,52 @@ Anthropic's docs put it directly: as the token count grows, accuracy and recall 
 
 ## Claude Code
 
-It **compacts** automatically as the limit nears: the history is replaced by a summary. The docs say the summary keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost. What is re-supplied afterwards: the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions; up to five recently read or edited files are read again (a file over 5,000 tokens comes back as a path only). Nested instruction files are summarised away and reload on demand.
+It **compacts** automatically as the limit nears: the history is replaced by a summary. The summary keeps your requests and key code snippets, but detailed instructions from early in the conversation may be lost.
 
-Useful controls: `/context` shows what is using space, `/compact` with a focus note compacts on purpose, `/clear` starts clean between unrelated tasks. A subagent (a helper agent) has its own window and only a summary comes back. If one file or output is so big that the window refills after every summary, auto-compaction stops with an error.
+Afterwards, Claude Code re-supplies:
+
+- the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions
+- up to five recently read or edited files (a file over 5,000 tokens comes back as a path only)
+
+Nested instruction files are summarised away and reload on demand.
+
+Useful controls:
+
+- `/context` shows what is using space.
+- `/compact` with a focus note compacts on purpose.
+- `/clear` starts clean between unrelated tasks.
+
+A subagent (a helper agent) has its own window and only a summary comes back. If one file or output is so big that the window refills after every summary, auto-compaction stops with an error.
 
 ## OpenCode + Ollama
 
-Not checked: OpenCode's compaction behaviour. Compaction is documented here for Claude Code only. General practice: expect any tool to drop or summarise something when the window is full, and a local model often runs with a smaller window, so check your model's setting and how your tool reports usage.
+Check OpenCode's documentation for how it compacts and how it reports window usage. Expect any tool to drop or summarise something when the window is full. A local model may run with a smaller window, so check your model's setting.
 
 :::
 
 ## Three habits
 
-1. **Start fresh for a new task.** An unrelated earlier thread takes room and can distract (general practice).
-2. **Keep outputs small.** In bioinformatics terms: ask for the head, a count, or a summary script's output when the file is a big variant table or a whole log (general practice).
-3. **Put durable facts in the instructions file,** such as how to run tests or which folders are off limits. Instructions given only in chat can be lost to compaction. Keep that file short; Anthropic's docs target under 200 lines and say longer files use more context and reduce adherence.
-
-<div data-ao-honour="check-context" data-xp="20">In a session you already have, look at what is using the window (in Claude Code, run <code>/context</code>). Note the largest item and whether you chose it.</div>
-<div data-ao-honour="move-fact" data-xp="20">Find one instruction you keep retyping in chat and move it into your instructions file in one short line.</div>
+1. **Start fresh for a new task.** An unrelated earlier thread takes room and can distract.
+2. **Keep outputs small.** In bioinformatics terms: ask for the head, a count, or a summary script's output when the file is a big variant table or a whole log.
+3. **Put durable facts in the instructions file,** such as how to run tests or which folders are off limits. Instructions given only in chat can be lost to compaction. Keep that file short: aim for under 200 lines, because longer files use more context and reduce how well the agent follows them.
 
 ## Battle: the hopper
 
 <div data-ao-test="codon-mill-the-context-window" data-xp="50"></div>
+
+## Bonus
+
+<div data-ao-honour="check-context" data-xp="20">In a session you already have, look at what is using the window (in Claude Code, run <code>/context</code>). Note the largest item and whether you chose it.</div>
+<div data-ao-honour="move-fact" data-xp="20">Find one instruction you keep retyping in chat and move it into your instructions file in one short line.</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Memory, Sessions and Usage](memory-sessions-and-usage.html): For more on what loads into every session, and how usage grows with context.
+- [When to Start Fresh](when-to-start-fresh.html): when to clear and when to continue.
+- [Who Said What](who-said-what.html): the system prompt, the instructions file and your own message, and which one only advises.
+- [Handoff Notes](handoff-notes.html): carry a task across a new session in a short written note.
+:::
 
 ::: {.ao-lore}
 ## Lore

@@ -3,22 +3,30 @@ title: "Read the Rails"
 ---
 
 ::: {.quest-dialog}
-**Prerequisites:** Dry Run First. **Objective:** spot the common mistakes in agent-written pipeline rules by reading them.
-**Time:** about 10 minutes. <span class="ao-badge">General practice. The snippets were reasoned through, not run.</span>
+- **Goal:** you will spot the common mistakes in agent-written pipeline rules by reading them.
+- **Before you start:** [Dry Run First](dry-run-first.html).
+- **Time:** about 10 minutes.
 :::
 
-Pipelines fail quietly in a few recurring ways. When you review a rule, ask: *where does each input come from, where does each output go, and what would change if I re-ran it?*
+Pipelines fail quietly in a few recurring ways. When you review a rule, ask where each input comes from, where each output goes, and what would change if you re-ran it.
 
 Common mistakes:
 
-- A **hard-coded path** to someone's home directory or one sample.
-- An **output not declared**, so the manager cannot tell what a step made.
-- A **tool without a pinned version**, so results change when the environment does.
-- **Overwriting inputs** in place, so there is no way back.
+- **Hard-coded path:** a path to someone's home directory or to one sample.
+- **Undeclared output:** the manager cannot tell what a step made.
+- **Unpinned tool version:** results change when the environment does.
+- **Overwritten inputs:** a step changes its input in place, so there is no way back.
 
 ## Battle: spot the flaw
 
 <div data-ao-test="factory-read-the-rails" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Dry Run First](dry-run-first.html): cheap layers of checking before a pipeline touches real data.
+- [Same Every Time](same-every-time.html): keeping a pipeline reproducible, including when an LLM sits inside a step.
+:::
 
 ::: {.ao-lore}
 ## Lore

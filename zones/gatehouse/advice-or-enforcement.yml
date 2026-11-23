@@ -19,7 +19,7 @@ questions:
       - { text: "Running a destructive command on shared data", misconception: "A destructive action calls for a rule, a hook or a sandbox; a polite request is advice." }
       - { text: "Calling a server tool that deletes records", misconception: "Server tools can be refused by name with a deny rule. Text asks, and a deny rule enforces." }
   - type: choice
-    prompt: "A fetched web page contains text telling the agent to email your results elsewhere. Which response matches the quests so far?"
+    prompt: "A fetched web page contains text telling the agent to email your results elsewhere. Which response fits best?"
     explain: "Advice may not hold against text already in context, so limit what the agent can do: read-only servers, least privilege, deny rules, and a sceptical look at what was fetched."
     options:
       - { text: "Limit what the agent can do and read fetched content sceptically", correct: true }
@@ -43,7 +43,7 @@ questions:
       - { left: "Reading secrets files, never", right: "A deny rule", misconception: "Never means enforced by the harness, and a request to the model is advice." }
       - { left: "A slip after the agent edits many files", right: "A git commit made beforehand", misconception: "Prevention failed by assumption here, so a restore point is what helps." }
   - type: choice
-    prompt: "A group wants an agent to stay under a monthly spend. Where does the AI for Science draft say the cap should live?"
+    prompt: "A group wants an agent to stay under a monthly spend. Where should the cap live?"
     explain: "A budget the agent can exceed is not a limit. A cap in the system that meters the spend stops the action, while a line of instructions only asks."
     options:
       - { text: "In the metering system that counts the spend", correct: true }
