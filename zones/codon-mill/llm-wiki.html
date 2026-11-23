@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Keep a Living Wiki – Agent Odyssey</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-977c00f727d934aaf92f33c3e4ecd871.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../assets/css/rpg.css">
+</head>
+
+<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Keep a Living Wiki</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quest-dialog">
+<p><strong>Prerequisites:</strong> <a href="rag-and-its-cousins.html">RAG and Its Cousins</a>. This is an optional side quest. <strong>Objective:</strong> explain what an LLM-maintained wiki is and why someone would keep one, describe its three layers and three jobs, match it to a use case from your own work, and know where it can go wrong, including how it sits on top of an Obsidian vault. <strong>Time:</strong> about 25 minutes. Reading and planning only; you choose whether to build anything afterwards.</p>
+<p><span class="ao-badge">Last verified (docs, not run): the “LLM Wiki” gist by Andrej Karpathy (created 2026-04-04), read in full on 2026-11-20. Not run: building a wiki, Obsidian, qmd. Claims about Obsidian beyond what the gist says are marked <em>General practice</em>. Sources: research/llm-wiki.md.</span></p>
+</div>
+<section id="the-itch" class="level2">
+<h2 class="anchored" data-anchor-id="the-itch">The itch</h2>
+<p>Think about the last time you read ten papers on a method, or went through six months of meeting notes. You understood it all at the time. A month later, the understanding lives in your head and in a pile of files, and the next question sends you back to the pile.</p>
+<p><a href="rag-and-its-cousins.html">RAG</a> answers that with a lookup: each question searches the pile again, pastes a few passages into the prompt, and starts from scratch. Nothing builds up between questions. If an answer needs five documents stitched together, the stitching is redone every time.</p>
+<p>The gist this quest is based on proposes another arrangement. Let an agent keep a <strong>wiki</strong>: a folder of interlinked Markdown pages that it writes and updates as new sources arrive, so the stitching is done once and stays. The gist’s own words for it: a “persistent, compounding artifact”. Its argument is that people drop their notes because the bookkeeping is tedious (updating links, rewriting summaries, spotting that two pages now disagree), and that bookkeeping is exactly what an agent does without getting bored. You keep the parts that need a person: choosing sources, asking questions, and deciding what the findings mean.</p>
+<p>The author calls the file an “idea file”, meant to be handed to your agent so the two of you work out the details together. It describes a pattern, and it does not include a program or any measurements. Everything below is that pattern plus our own cautions.</p>
+</section>
+<section id="three-layers" class="level2">
+<h2 class="anchored" data-anchor-id="three-layers">Three layers</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Layer</th>
+<th>Who writes it</th>
+<th>What it holds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Raw sources</strong></td>
+<td>You add files; nobody edits them afterwards.</td>
+<td>Papers, clipped web pages, meeting transcripts, run logs, data files. The gist calls them immutable: the agent reads them and never changes them. They are the source of truth.</td>
+</tr>
+<tr class="even">
+<td><strong>The wiki</strong></td>
+<td>The agent. You read it.</td>
+<td>Markdown pages: a summary per source, a page per entity (a tool, a dataset, a person, a gene) or concept, comparisons, an overview. The agent owns this folder.</td>
+</tr>
+<tr class="odd">
+<td><strong>The schema</strong></td>
+<td>You and the agent, over time.</td>
+<td>One instruction file (<code>CLAUDE.md</code> in Claude Code, <code>AGENTS.md</code> in OpenCode) describing how the wiki is organised and what to do on each job. The gist calls it the key configuration file. See <a href="../forest/the-project-charter.html">The Project Charter</a> for how these files work.</td>
+</tr>
+</tbody>
+</table>
+<p>The split matters for trust. When an answer looks odd, you can walk from the wiki page back to the raw source it cites, and the raw source has not been touched.</p>
+</section>
+<section id="three-jobs" class="level2">
+<h2 class="anchored" data-anchor-id="three-jobs">Three jobs</h2>
+<p><strong>Ingest.</strong> You drop one source into the raw folder and ask the agent to process it. A typical pass: read the source, tell you the main takeaways, write a summary page, update the pages for the entities and concepts it mentions, add it to the index, and append a line to the log. The gist says one source may touch 10 to 15 pages. The author prefers to ingest one source at a time and stay involved, and mentions that batching with less supervision is possible.</p>
+<p><strong>Query.</strong> You ask a question. The agent finds the relevant wiki pages, reads them and answers with citations. The part that makes the wiki grow: a good answer (a comparison table, a timeline, a short report) is filed back as a new page, so your explorations add to the wiki and do not vanish into chat history.</p>
+<p><strong>Lint.</strong> From time to time you ask for a health check. The gist lists what to look for: pages that contradict each other, claims that a newer source has overtaken, pages that nothing links to, concepts that are mentioned but have no page, missing cross-references, and gaps that a web search might fill.</p>
+<p>Two small files keep it navigable:</p>
+<ul>
+<li><code>index.md</code> is a catalogue: each page with a link and a one-line summary, grouped by category, updated on every ingest. To answer a question, the agent reads the index first and then opens the pages that look relevant. The gist says this works well at moderate scale (about 100 sources and a few hundred pages) and avoids building an embedding index. That is the author’s experience; we did not test it.</li>
+<li><code>log.md</code> is an append-only diary of ingests, queries and lint passes. The gist suggests giving every entry the same prefix so a simple <code>grep</code> can list the recent ones.</li>
+</ul>
+<p><em>General practice</em> for your own first version, as an example schema you could paste into the instruction file and then edit with your agent. It was not run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Wiki rules</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`raw/`</span> holds sources. Never edit or delete anything in <span class="in">`raw/`</span>.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`wiki/`</span> holds pages you write. One page per entity or concept; one summary page per source in <span class="in">`wiki/sources/`</span>.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Every claim on a wiki page ends with a link to the source file it came from. If no source supports it, mark it <span class="in">`(unsourced)`</span>.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>On ingest: read the source, tell me the three main takeaways and wait for my reply, then write the summary page, update affected pages, update <span class="in">`wiki/index.md`</span>, and append <span class="in">`## [YYYY-MM-DD] ingest | &lt;title&gt;`</span> to <span class="in">`wiki/log.md`</span>.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>On lint: list contradictions, unsourced claims, orphan pages and missing pages. Do not fix anything until I say which.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="why-you-might-want-this-and-what-it-costs" class="level2">
+<h2 class="anchored" data-anchor-id="why-you-might-want-this-and-what-it-costs">Why you might want this, and what it costs</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>Where it helps</th>
+<th>What you pay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Paste everything into the prompt</strong></td>
+<td>Small collections (see the table in <a href="rag-and-its-cousins.html">RAG and Its Cousins</a>). No setup.</td>
+<td>Repeated reading each session; a limit at the window size.</td>
+</tr>
+<tr class="even">
+<td><strong>RAG</strong></td>
+<td>A large, changing pile; questions answered by particular passages.</td>
+<td>Each question starts from scratch; multi-document answers are re-stitched; retrieval misses are silent (see <a href="rag-and-its-cousins.html">RAG and Its Cousins</a>).</td>
+</tr>
+<tr class="odd">
+<td><strong>A wiki the agent maintains</strong></td>
+<td>Material you will return to for weeks or months, where understanding should accumulate and be readable.</td>
+<td>Agent time and tokens on every ingest (several pages touched per source); a layer of text that can contain mistakes; your review time.</td>
+</tr>
+<tr class="even">
+<td><strong>Notes you write yourself</strong></td>
+<td>Things you want to think through in your own words. A perfectly good choice; the wiki pays off when the bookkeeping is what stops you.</td>
+<td>The bookkeeping, which is the part people tend to drop.</td>
+</tr>
+</tbody>
+</table>
+<p>The wiki and RAG can also sit together: the gist suggests adding a search tool to the wiki once the index alone is not enough, and names <code>qmd</code> (a local Markdown search tool; <em>Not checked:</em> we have not read or run it). <em>General practice:</em> a wiki is a good home for the stable understanding, and RAG or search is a good way to reach the raw sources behind it.</p>
+</section>
+<section id="use-cases-you-may-recognise" class="level2">
+<h2 class="anchored" data-anchor-id="use-cases-you-may-recognise">Use cases you may recognise</h2>
+<p>The gist lists personal, research, reading a book, team, and “competitive analysis, due diligence, trip planning, course notes, hobby deep-dives”. Here are some closer to a bioinformatics desk. They are our examples, not from the gist, and none was run.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Use case</th>
+<th>Raw sources</th>
+<th>Pages the agent might keep</th>
+<th>A question it could answer</th>
+<th>Watch out for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Literature on one method</strong> (say, long-read assemblers or variant callers)</td>
+<td>Papers, preprints, tool docs</td>
+<td>One page per tool and per dataset; a comparison table; a page of open disagreements between papers</td>
+<td>“Which papers compare tool A and B on the same data, and do they agree?”</td>
+<td>Preprints and abstracts mixed with peer-reviewed papers. Ask the agent to record the kind of source on every page.</td>
+</tr>
+<tr class="even">
+<td><strong>The lab’s pipeline handbook</strong></td>
+<td>Release notes, run logs, meeting minutes, Slack exports</td>
+<td>One page per pipeline release, one per known issue, a decision log (“why we changed the aligner settings”)</td>
+<td>“Which runs used release 2.3, and what was wrong with it?”</td>
+<td>Private or unpublished material (see the risks below). Exact counts belong to a query tool, not a wiki page.</td>
+</tr>
+<tr class="odd">
+<td><strong>A thesis or long project</strong></td>
+<td>Papers you read, your own notes on experiments, supervisor meeting notes</td>
+<td>A running thesis page, an open-questions page, one page per experiment</td>
+<td>“What did I conclude about batch effects in March, and what has changed since?”</td>
+<td>A wiki that you never read. You will not remember what you did not read, even if the wiki does.</td>
+</tr>
+<tr class="even">
+<td><strong>A course, a workshop or onboarding</strong></td>
+<td>Slides, lecture notes, tutorials, the docs for your tools</td>
+<td>Glossary, one page per concept, a “things that confused me” page</td>
+<td>“Explain the difference between X and Y using only what the course covered.”</td>
+<td>Source material goes stale quickly for fast-moving tools. Date every source.</td>
+</tr>
+<tr class="odd">
+<td><strong>Reference notes for the tools you use</strong></td>
+<td>Docs pages, GitHub issues, your own gotchas</td>
+<td>One page per tool with versions, quirks and a link to the source</td>
+<td>“What did we learn the last time this tool ran out of memory?”</td>
+<td>Version drift. Record the version on each page and re-check on upgrade.</td>
+</tr>
+<tr class="even">
+<td><strong>A book or a long series</strong></td>
+<td>Chapters, episode notes</td>
+<td>Characters, themes, a timeline, built up as you read</td>
+<td>“Where did this thread first appear?”</td>
+<td>Spoilers for yourself. Ingest as you read.</td>
+</tr>
+</tbody>
+</table>
+<p>To size your own idea, answer four questions in a sentence each: <em>What sources would go in? How often do they change? What question would I ask in a month that I cannot answer quickly today? Who may read these sources, and where may they be sent?</em> If the sources fit in one prompt, try that first. If the question is an exact filter or count, ask a query tool. If the sources are sensitive and you would send them to a hosted model, read <a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a> before you begin. If the material is something you want to return to and the answers need several sources joined, the wiki is a good candidate.</p>
+</section>
+<section id="where-obsidian-fits" class="level2">
+<h2 class="anchored" data-anchor-id="where-obsidian-fits">Where Obsidian fits</h2>
+<p>If you already use Obsidian, you have most of what the pattern needs. <em>General practice</em> (Obsidian’s own docs were not read for this page): an Obsidian vault is a folder of Markdown files, so an agent can read and write it like any other folder, and Obsidian shows whatever is there. The gist describes working with the agent on one side and Obsidian open on the other, with the line “Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase.” You read, and the agent edits.</p>
+<p>A layout that follows the three layers:</p>
+<pre class="text"><code>my-vault/
+  raw/            sources you add (clippings, PDFs, transcripts); the agent never edits these
+    assets/       downloaded images
+  wiki/           pages the agent writes
+    index.md
+    log.md
+    sources/  entities/  concepts/
+  CLAUDE.md       the schema (or AGENTS.md)</code></pre>
+<p>What the gist names for Obsidian (the one-line descriptions of each tool are <em>General practice</em>; Obsidian’s docs were not read):</p>
+<ul>
+<li><strong>Web Clipper</strong>, a browser extension that turns a web article into a Markdown file, so a source can land in <code>raw/</code> in one click.</li>
+<li><strong>Graph view</strong>, to see the shape of the wiki: hubs, and orphan pages that nothing links to. The gist calls it a good way to see the shape of the wiki, and it doubles as a quick visual check.</li>
+<li><strong>Dataview</strong>, a plugin that queries the properties at the top of each page. If your schema asks the agent to add them (a source type, a date, a version), you get live tables, such as every page whose status is <code>unsourced</code>.</li>
+<li><strong>Marp</strong>, a Markdown slide format with an Obsidian plugin, for turning an answer into slides.</li>
+<li><strong>Images:</strong> the gist suggests fixing the attachment folder (for example <code>raw/assets/</code>) and binding a hotkey that downloads a clipped page’s images locally. It also notes that an agent cannot read a Markdown file with inline images in a single pass and should read the text first and look at the images afterwards. The author calls this clunky.</li>
+</ul>
+<p>Habits we suggest, all <em>General practice</em>:</p>
+<ul>
+<li>Keep the agent’s folder separate from the notes you write by hand. Your own words stay yours, and you can tell at a glance what the agent produced.</li>
+<li>Put the vault under git and commit before each ingest. The gist points out that the wiki is just a git repository of Markdown files. A commit per ingest gives you a readable diff of what the agent changed and an undo; see <a href="../crypt/shield-of-undo.html">The Shield of Undo</a>.</li>
+<li>Make <code>raw/</code> read-only if your tools allow it, so that the rule “never edit raw” is enforced by the system as well as written in the instruction file. The instruction file only advises (<a href="../gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>).</li>
+<li>If you do not use Obsidian, any editor that opens a folder of Markdown files works. The pattern does not depend on it.</li>
+</ul>
+</section>
+<section id="what-can-go-wrong" class="level2">
+<h2 class="anchored" data-anchor-id="what-can-go-wrong">What can go wrong</h2>
+<ul>
+<li><strong>A mistake becomes a fact.</strong> If the agent misreads a source, the error lands on a page, and later pages cite that page. The cost grows with each ingest. <em>General practice:</em> require a source link on every claim, skim the diff of every ingest, and use lint to hunt for unsourced claims. One source at a time, as the author suggests, makes the skimming practical.</li>
+<li><strong>The agent edits what it should only read.</strong> Keep sources immutable, as the gist says, and check it with git.</li>
+<li><strong>Clipped pages can carry instructions.</strong> A web page you clip may contain text aimed at your agent, and the agent reads it during ingest and then writes files. OWASP’s warning about retrieved text, covered in <a href="rag-and-its-cousins.html">RAG and Its Cousins</a>, applies, and <a href="../gatehouse/guard-the-door.html">Guard the Door</a> shows how to limit what the agent may do. Review the diff, and keep an agent with write access away from sources you do not trust.</li>
+<li><strong>Sources leave your machine.</strong> With a hosted model, every source you ingest is sent as prompt text. For unpublished results, patient-linked data or anything under an agreement, check the rules first (<a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>). Running a local model through Ollama keeps text on your machine, but small models find ingest hard: it asks for reading, summarising and editing several files in one go. <em>Not checked:</em> how well small local models do this. Try one short, harmless source first.</li>
+<li><strong>Cost and time grow with the wiki.</strong> Each ingest reads the index and several pages, and then writes several. <em>General practice:</em> watch your usage in the first week (<a href="memory-sessions-and-usage.html">Memory, Sessions and Usage</a>).</li>
+<li><strong>Scale.</strong> The index approach is described for roughly a hundred sources. Beyond that, expect to add search or another layer. Not checked by us.</li>
+<li><strong>You may not learn it.</strong> A wiki you never open does little for your own understanding. Treat it as something you read, correct and argue with. <a href="../basecamp/name-the-fears.html">Name the Fears</a> has a worry about hollow accomplishment, and this is a place where it applies.</li>
+<li><strong>Exact answers.</strong> Counts, filters and joins over tables belong in a query tool, not in prose pages, for the reason given in <a href="rag-and-its-cousins.html">RAG and Its Cousins</a>.</li>
+</ul>
+</section>
+<section id="with-a-companion" class="level2">
+<h2 class="anchored" data-anchor-id="with-a-companion">With a companion</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Put the schema in <code>CLAUDE.md</code> at the root of the wiki folder. Start a session there, and ask the agent to read the schema and propose the folder layout before it writes anything. Use <a href="../forest/plan-before-you-edit.html">Plan before you edit</a> for the first ingest, then tighten the schema with whatever you correct. Keep ingest, query and lint as separate short sessions (<a href="when-to-start-fresh.html">When to Start Fresh</a>), since the wiki itself is the memory that carries over.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Put the schema in <code>AGENTS.md</code> at the root of the wiki folder (OpenCode also falls back to <code>CLAUDE.md</code>). With a local model, start with a handful of short, non-sensitive sources and check each page against its source, because a small model is more likely to drop or garble details. If a model struggles with the multi-file edit, ask it to do the ingest in steps: summary page first, then one entity page at a time.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="honour" class="level2">
+<h2 class="anchored" data-anchor-id="honour">Honour</h2>
+<div data-ao-honour="wiki-size-it" data-xp="20">
+Answer the four sizing questions for one real collection of yours (sources, how often they change, the question you will ask in a month, who may read them and where they may be sent). Write one sentence saying whether a wiki, RAG, a single prompt or a query tool fits best.
+</div>
+<div data-ao-honour="wiki-write-schema" data-xp="20">
+Draft a schema (instruction file) of five lines or fewer for that collection: what the agent must never edit, what every claim must carry, and what it must ask you before writing. Do not run it yet; read it aloud to a colleague and see what they would add.
+</div>
+</section>
+<section id="battle-the-living-wiki" class="level2">
+<h2 class="anchored" data-anchor-id="battle-the-living-wiki">Battle: the living wiki</h2>
+<div data-ao-test="codon-mill-llm-wiki" data-xp="60">
+
+</div>
+</section>
+<section id="lore" class="level2 ao-lore">
+<h2 class="anchored" data-anchor-id="lore">Lore</h2>
+<p><em>Further reading. Optional.</em></p>
+<ul>
+<li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">LLM Wiki</a>: Andrej Karpathy, GitHub gist, article. Why read: it is the original idea file, short enough to read in ten minutes, with the three layers, the three jobs and the Obsidian tips in the author’s own words.</li>
+<li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a>: Anthropic Engineering, article. Why read: it describes the opposite habit of loading information just in time with search tools, which helps you decide when a pre-built wiki is worth the upkeep.</li>
+</ul>
+</section>
+
+
+
+</main> <!-- /main -->
+<script>
+(function () {
+  var l = document.querySelector('link[href$="assets/css/rpg.css"]');
+  var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
+  window.AO_BASE = base;
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+    return p.then(function () {
+      return new Promise(function (res) {
+        var s = document.createElement("script");
+        s.src = base + "assets/js/" + n + ".js"; s.onload = res; document.body.appendChild(s);
+      });
+    });
+  }, Promise.resolve());
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mahesh-panchal\.github\.io\/agent-odyssey\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

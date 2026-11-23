@@ -117,10 +117,10 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: 9 quests</li>
 <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations">Reduce hallucinations</a>: 7 quests</li>
 <li><a href="https://code.claude.com/docs/en/security">Security</a>: 7 quests</li>
+<li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a>: 6 quests</li>
 <li><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a>: 6 quests</li>
 <li><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: 5 quests</li>
 <li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: 5 quests</li>
-<li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Define success criteria and build evaluations</a>: 4 quests</li>
 </ul>
 </section>
 <section id="basecamp-at-the-root" class="level2">
@@ -156,6 +156,11 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/murk/clear-the-murk.html">Boss: Clear the Murk</a>: it says you review the commands and changes an agent proposes, which is the job in this fight.</li>
 </ul></li>
 <li><p><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a>: Anthropic, article. Why read: it separates fixed workflows from agents and argues for the simplest option, which is the choice this quest asks you to make. Cited in: <a href="./zones/basecamp/three-kinds-of-machine.html">Three Kinds of Machine</a>, <a href="./zones/codon-mill/too-many-tools-too-many-agents.html">Too Many Tools, Too Many Agents</a>.</p></li>
+<li><p><a href="https://aiforscience.eu/best-practices/01-match-method-to-task/">AI for Science, practice 1: match the method to the task</a>: AI for Science (European draft best practices), docs. Why read: it argues for the cheapest method that fits, with a script or small model before an agent. It is a draft with no endorsements yet. Cited in: <a href="./zones/basecamp/three-kinds-of-machine.html">Three Kinds of Machine</a>.</p></li>
+<li><p><a href="https://developer.apple.com/documentation/foundationmodels/generating-content-and-performing-tasks-with-foundation-models#Understand-model-capabilities">Understand model capabilities</a>: Apple, docs. Why read: it is a short table of what a small on-device model suits and what it does not, a useful reminder of what a model can do before you give it tools. Cited in: <a href="./zones/basecamp/three-kinds-of-machine.html">Three Kinds of Machine</a>.</p></li>
+<li><p><a href="https://www.ibm.com/think/topics/generative-ai-vs-predictive-ai-whats-the-difference">Generative AI vs.&nbsp;predictive AI: What’s the difference?</a>: IBM, article. Why read: a short vendor explainer of the two terms, with business examples; it is secondary and written for enterprise readers, so use it for the vocabulary. Cited in: <a href="./zones/basecamp/three-kinds-of-machine.html">Three Kinds of Machine</a>.</p></li>
+<li><p><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide">Fine-tuning LLMs Guide</a>: Unsloth, docs. Why read: a beginner-friendly walk through LoRA, QLoRA, dataset shape and training settings; it is a vendor guide for its own tool, so treat its speed and hardware claims as the vendor’s. Cited in: <a href="./zones/basecamp/three-kinds-of-machine.html">Three Kinds of Machine</a>.</p></li>
+<li><p><a href="https://huggingface.co/docs/peft/main/en/conceptual_guides/lora">LoRA</a>: Hugging Face, docs. Why read: the PEFT library’s explanation of how LoRA works, what rank and alpha control, and how to merge an adapter back into the base model. Cited in: <a href="./zones/basecamp/three-kinds-of-machine.html">Three Kinds of Machine</a>.</p></li>
 <li><p><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Define success criteria and build evaluations</a>: Anthropic, docs. Cited by 4 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
@@ -164,6 +169,7 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/forest/close-the-loop.html">Close the Loop</a>: general guidance on specific, measurable criteria and on automating the grading.</li>
 <li><a href="./zones/forest/test-the-skill.html">Test the Skill</a>: how to write criteria and graders that discriminate.</li>
 </ul></li>
+<li><p><a href="https://code.claude.com/docs/en/overview">Claude Code overview</a>: Anthropic, docs. Why read: it is the front page of the docs, a good place to see how much more there is than this course covers. Cited in: <a href="./zones/basecamp/know-your-gear.html">Know Your Gear</a>, <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/how-claude-code-works">How Claude Code works</a>: Anthropic, docs. Cited by 2 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
@@ -208,10 +214,11 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/maze/ground-truth.html">Ground Truth</a>: it shows how tokenisation changes counting accuracy in language models, which is why a script, not a model’s reading, should do exact counts (that last step is our general practice, not the paper’s claim). A preprint.</li>
 </ul></li>
 <li><p><a href="https://arxiv.org/abs/2508.02591">CharBench: Evaluating the Role of Tokenization in Character-Level Tasks</a>: arXiv, paper. Why read: a counter-view finding tokenisation only weakly tied to errors, so treat the tokens explanation as likely but disputed. A preprint. Cited in: <a href="./zones/codon-mill/tokens-not-letters.html">Tokens, Not Letters</a>.</p></li>
-<li><p><a href="https://arxiv.org/abs/2307.03172">Lost in the Middle</a>: Liu et al., arXiv, paper. Cited by 2 quests; each quest says what to read it for.</p>
+<li><p><a href="https://arxiv.org/abs/2307.03172">Lost in the Middle</a>: Liu et al., arXiv, paper. Cited by 3 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
 <li><a href="./zones/codon-mill/where-machines-fail.html">Where Machines Fail</a>: it shows recall is best for text at the start or end of a long input and weaker in the middle. A preprint.</li>
+<li><a href="./zones/codon-mill/rag-and-its-cousins.html">RAG and Its Cousins</a>: it shows why a long, stuffed prompt can hide the passage that matters.</li>
 <li><a href="./zones/maze/wall-of-output.html">Boss: The Wall of Output</a>: it measures how accuracy drops when the relevant fact sits in the middle of a long input.</li>
 </ul></li>
 <li><p><a href="https://aclanthology.org/2020.acl-main.173">On Faithfulness and Factuality in Abstractive Summarization</a>: Maynez et al., ACL 2020, paper. Cited by 2 quests; each quest says what to read it for.</p>
@@ -230,11 +237,13 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/forest/write-the-brief.html">Write the Brief</a>: an interactive timeline of what fills the window and what survives compaction.</li>
 </ul></li>
 <li><p><a href="https://platform.claude.com/docs/en/build-with-claude/context-windows">Context windows</a>: Anthropic, docs. Why read: it states what counts toward the window and names context rot, the page’s own warning that more context is not better. Cited in: <a href="./zones/codon-mill/the-context-window.html">The Context Window</a>.</p></li>
-<li><p><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a>: Anthropic, article. Cited by 4 quests; each quest says what to read it for.</p>
+<li><p><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a>: Anthropic, article. Cited by 6 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
 <li><a href="./zones/codon-mill/the-context-window.html">The Context Window</a>: it explains why long contexts degrade and why curating what goes in matters; compaction trade-offs are discussed.</li>
 <li><a href="./zones/codon-mill/handoff-notes.html">Handoff Notes</a>: it explains why long contexts degrade and why curating what goes in matters; compaction trade-offs are discussed.</li>
+<li><a href="./zones/codon-mill/rag-and-its-cousins.html">RAG and Its Cousins</a>: it describes loading information just in time with search tools instead of pre-building an index.</li>
+<li><a href="./zones/codon-mill/llm-wiki.html">Keep a Living Wiki</a>: it describes the opposite habit of loading information just in time with search tools, which helps you decide when a pre-built wiki is worth the upkeep.</li>
 <li><a href="./zones/maze/wall-of-output.html">Boss: The Wall of Output</a>: it explains why more text in context is not free and why stale material hurts.</li>
 <li><a href="./zones/forest/write-the-brief.html">Write the Brief</a>: background on why more context is not always better and what compaction can lose.</li>
 </ul></li>
@@ -280,6 +289,7 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/murk/clear-the-murk.html">Boss: Clear the Murk</a>: it asks you to give the agent a check to run, the habit this whole fight rests on.</li>
 </ul></li>
 <li><p><a href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts Fail</a>: Drew Breunig, blog, article. Why read: it names context poisoning and distraction, the failure modes behind starting fresh; a personal blog, not vendor documentation. Cited in: <a href="./zones/codon-mill/when-to-start-fresh.html">When to Start Fresh</a>.</p></li>
+<li><p><a href="https://github.com/inevolin/claude-code-usage-analysis">claude-code-usage-analysis</a>: inevolin, repo. Why read: a community write-up of live runs that put numbers on cache expiry, compaction timing and tool changes; small samples, so read it for the shape of the effect and check its own list of limits. Cited in: <a href="./zones/codon-mill/when-to-start-fresh.html">When to Start Fresh</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/sub-agents">Create custom subagents</a>: Anthropic, docs. Cited by 3 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
@@ -303,6 +313,22 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/codon-mill/too-many-tools-too-many-agents.html">Too Many Tools, Too Many Agents</a>: it explains how MCP tools load and how to scale or limit them in Claude Code.</li>
 <li><a href="./zones/gatehouse/plug-in-a-server.html">Plug In a Server</a>: it is the reference for adding HTTP and stdio servers and for the local, project and user scopes.</li>
 </ul></li>
+<li><p><a href="https://arxiv.org/abs/2512.08296">Towards a Science of Scaling Agent Systems</a>: Kim et al., arXiv (2025), paper. Why read: it measures when extra agents help and when they hurt; a preprint, and its figures changed between versions. Cited in: <a href="./zones/codon-mill/too-many-tools-too-many-agents.html">Too Many Tools, Too Many Agents</a>.</p></li>
+<li><p><a href="https://arxiv.org/abs/2005.11401">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a>: Lewis and colleagues, arXiv, paper. Why read: it is the 2020 paper that named RAG, so you can see how much the common recipe has been simplified since. Cited in: <a href="./zones/codon-mill/rag-and-its-cousins.html">RAG and Its Cousins</a>.</p></li>
+<li><p><a href="https://www.anthropic.com/news/contextual-retrieval">Introducing Contextual Retrieval</a>: Anthropic, article. Why read: it walks through the improved-RAG add-ons with reported numbers and states the 200,000-token rule of thumb for skipping RAG. Cited in: <a href="./zones/codon-mill/rag-and-its-cousins.html">RAG and Its Cousins</a>.</p></li>
+<li><p><a href="https://arxiv.org/abs/2404.16130">From Local to Global: A Graph RAG Approach to Query-Focused Summarization</a>: Edge and colleagues (Microsoft), paper. Why read: it explains the entity graph, communities and summaries, and reports the indexing cost. Cited in: <a href="./zones/codon-mill/rag-and-its-cousins.html">RAG and Its Cousins</a>.</p></li>
+<li><p><a href="https://arxiv.org/abs/2410.05779">LightRAG: Simple and Fast Retrieval-Augmented Generation</a>: Guo and colleagues, paper. Why read: it shows how keyword-based retrieval over an entity graph differs from community summaries. Cited in: <a href="./zones/codon-mill/rag-and-its-cousins.html">RAG and Its Cousins</a>.</p></li>
+<li><p><a href="https://arxiv.org/abs/2502.11371">RAG vs.&nbsp;GraphRAG: A Systematic Evaluation and Key Insights</a>: Han and colleagues, paper. Why read: it is an independent comparison with costs and a warning about order effects in LLM judges. Cited in: <a href="./zones/codon-mill/rag-and-its-cousins.html">RAG and Its Cousins</a>.</p></li>
+<li><p><a href="https://arxiv.org/abs/2407.16833">Retrieval Augmented Generation or Long-Context LLMs?</a>: Li and colleagues (Google), paper. Why read: it compares RAG with putting everything in the prompt and proposes a hybrid. Cited in: <a href="./zones/codon-mill/rag-and-its-cousins.html">RAG and Its Cousins</a>.</p></li>
+<li><p><a href="https://docs.ollama.com/capabilities/embeddings">Embeddings</a>: Ollama, docs. Why read: it documents the <code>/api/embed</code> call the scripts use and says to embed documents and questions with the same model. Cited in: <a href="./zones/codon-mill/grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>.</p></li>
+<li><p><a href="https://docs.ollama.com/capabilities/structured-outputs">Structured outputs</a>: Ollama, docs. Why read: it explains the <code>format</code> field with a JSON schema that makes fact extraction return usable JSON. Cited in: <a href="./zones/codon-mill/grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>.</p></li>
+<li><p><a href="https://docs.ollama.com/context-length">Context length</a>: Ollama, docs. Why read: it gives the default context by memory size and how to check what loaded with <code>ollama ps</code>. Cited in: <a href="./zones/codon-mill/grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>.</p></li>
+<li><p><a href="https://github.com/HKUDS/LightRAG">LightRAG</a>: HKUDS, repo. Why read: the README and docs give the Ollama wiring, the context and model-size requirements, and the storage defaults. Cited in: <a href="./zones/codon-mill/grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>.</p></li>
+<li><p><a href="https://microsoft.github.io/graphrag/get_started/">Get started with GraphRAG</a>: Microsoft, docs. Why read: it lists the init, index and query commands and the warning about LLM cost. Cited in: <a href="./zones/codon-mill/grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>.</p></li>
+<li><p><a href="https://microsoft.github.io/graphrag/config/models/">Language model selection</a>: Microsoft, docs. Why read: it is where the docs describe the JSON requirement and the problems seen with Ollama. Cited in: <a href="./zones/codon-mill/grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>.</p></li>
+<li><p><a href="https://arxiv.org/abs/2506.05690">When to use Graphs in RAG</a>: Xiang and colleagues, paper. Why read: it studies which kinds of questions benefit from graphs, with token costs per method. Cited in: <a href="./zones/codon-mill/grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>.</p></li>
+<li><p><a href="https://github.com/NirDiamant/rag_techniques">Advanced RAG Techniques</a>: Nir Diamant and contributors, repo. Why read: its notebook list includes graph RAG with a local Ollama model and LightRAG, plus chunking and evaluation, though we did not open the notebooks and the repo carries sponsor and book promotions. Cited in: <a href="./zones/codon-mill/grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>.</p></li>
+<li><p><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">LLM Wiki</a>: Andrej Karpathy, GitHub gist, article. Why read: it is the original idea file, short enough to read in ten minutes, with the three layers, the three jobs and the Obsidian tips in the author’s own words. Cited in: <a href="./zones/codon-mill/llm-wiki.html">Keep a Living Wiki</a>.</p></li>
 </ul>
 </section>
 <section id="the-kennel" class="level2">
@@ -323,11 +349,26 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/kennel/claude-in-the-cloud.html">Claude in the Cloud</a>: it states what Anthropic stores from a cloud session and how retention differs by plan.</li>
 <li><a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: it says what is sent to the provider, how training and retention differ by plan, and what telemetry can be turned off. It does not replace your own data agreement.</li>
 </ul></li>
+<li><p><a href="https://ollama.com/library/ministral-3">ministral-3</a>: Ollama library, docs. Why read: it lists the sizes, context length, tool support and licence of a small Mistral model you can pull instead of a Qwen one. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
 <li><p><a href="https://docs.ollama.com/integrations/opencode">OpenCode</a>: Ollama, docs. Why read: it is the vendor guide to running OpenCode against a local Ollama model, including the context length it needs. It still shows older OpenCode install commands, so check the OpenCode docs too. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
-<li><p><a href="https://opencode.ai/docs/providers/">Providers</a>: OpenCode, docs. Why read: it shows how to connect Ollama or an OpenAI-compatible gateway in the current config format. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
+<li><p><a href="https://opencode.ai/docs/providers/">Providers</a>: OpenCode, docs. Cited by 2 quests; each quest says what to read it for.</p>
+<p>Cited in:</p>
+<ul>
+<li><a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>: it shows how to connect Ollama or an OpenAI-compatible gateway in the current config format.</li>
+<li><a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>: it shows how to connect an OpenAI-compatible gateway to a coding agent.</li>
+</ul></li>
 <li><p><a href="https://opencode.ai/docs/config/">Config</a>: OpenCode, docs. Why read: it lists where <code>opencode.json</code> lives and how global and project files override each other. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
 <li><p><a href="https://opencode.ai/docs/permissions/">Permissions</a>: OpenCode, docs. Why read: it explains how to control what the agent may do, which matters more with a small local model. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
+<li><p><a href="https://developer.apple.com/documentation/updates/foundationmodels">Foundation Models updates</a>: Apple, docs. Why read: it lists the changes to Apple’s on-device model by date, including which OS versions change the model. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
 <li><p><a href="https://github.com/anomalyco/opencode">anomalyco/opencode</a>: GitHub, repo. Why read: it is the source and release list, useful when the docs and your installed version disagree. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
+<li><p><a href="https://github.com/12britz/awesome-free-models">awesome-free-models</a>: GitHub, repo. Why read: a large, regularly corrected list of free models, tiers and tools; check its banner for what changed lately. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://openrouter.ai/docs/faq">OpenRouter FAQ</a>: OpenRouter, docs. Why read: it explains free model variants, daily allowances and how prompt logging and provider retention differ. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://aistudio.google.com/docs/terms">Google AI Studio terms</a>: Google, docs. Why read: it spells out how unpaid and paid services treat your prompts differently. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://console.groq.com/docs/your-data">Groq: your data</a>: Groq, docs. Why read: it states the default retention and log period for inference requests. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://opencode.ai/docs/zen/">OpenCode Zen</a>: OpenCode, docs. Why read: it lists free models together with their data-retention line, model by model. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://developers.cloudflare.com/workers-ai/platform/pricing/">Cloudflare Workers AI pricing</a>: Cloudflare, docs. Why read: it shows a daily free allowance and what happens when you pass it. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://docs.mistral.ai/vibe/code/safety-approvals-permissions">Safety, approvals and permissions</a>: Mistral, docs. Why read: it describes Vibe’s four approval modes, trusted folders and per-tool rules, for comparison with other harnesses. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
+<li><p><a href="https://docs.mistral.ai/getting-started/models/models_overview/">Models overview</a>: Mistral, docs. Why read: it lists which Mistral models are open-weight, which carry a deprecation date and what licence each shows. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
 <li><p><a href="https://platform.claude.com/docs/en/about-claude/models/choosing-a-model">Choosing the right model</a>: Anthropic, docs. Why read: it gives the official way to pick a starting model and to test the choice on your own evaluations. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
 <li><p><a href="https://platform.claude.com/docs/en/build-with-claude/effort">Effort</a>: Anthropic, docs. Why read: it defines each effort level and gives per-model starting advice, with the advice to test on your own tasks; its API defaults can differ from the Claude Code defaults on the model-configuration page. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/claude-code-on-the-web">Use Claude Code in the cloud</a>: Anthropic, docs. Why read: it is the main page on cloud sessions, including what gets uploaded when a repository has no GitHub remote. Cited in: <a href="./zones/kennel/claude-in-the-cloud.html">Claude in the Cloud</a>.</p></li>
@@ -365,14 +406,26 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: it shows an operating-system limit on shell commands and where that limit ends.</li>
 <li><a href="./zones/citadel/keys-on-shared-ground.html">Keys on Shared Ground</a>: it states the sandbox reads most of the machine, including ~/.ssh, unless you deny it, and it fails open by default.</li>
 </ul></li>
+<li><p><a href="https://aiforscience.eu/best-practices/11-decide-where-research-data-may-go/">AI for Science, practice 11: decide where research data may go</a>: AI for Science (European draft best practices), docs. Why read: it ties the choice of service to the contract and legal basis for your data, and limits agent sends through the environment. A draft with no endorsements yet; it is not legal advice. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
+<li><p><a href="https://help.mistral.ai/en/articles/347617-do-you-use-my-user-data-to-train-your-models">Do you use my user data to train your models?</a>: Mistral, docs. Why read: it gives training defaults and opt-outs per Mistral product and plan. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
+<li><p><a href="https://docs.mistral.ai/studio/regional-inference">Regional inference</a>: Mistral, docs. Why read: it shows which API endpoint commits to an EU location and which does not. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
 <li><p><a href="https://docs.ollama.com/faq">Ollama FAQ</a>: Ollama, docs. Why read: it says what stays on your machine when you run a model locally, and what it says about prompts sent to Ollama’s cloud models. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
+</ul>
+</section>
+<section id="sequence-maze" class="level2">
+<h2 class="anchored" data-anchor-id="sequence-maze">Sequence Maze</h2>
+<ul>
+<li><a href="https://aiforscience.eu/best-practices/07-provenance-and-citation/">AI for Science, practice 7: provenance and citation</a>: AI for Science (European draft best practices), docs. Why read: it covers citing by identifier, generating references with a deterministic tool, and disclosing agent use. A draft; it calls one of its own cited papers self-audited. Cited in: <a href="./zones/maze/ground-truth.html">Ground Truth</a>.</li>
+<li><a href="https://aiforscience.eu/best-practices/09-human-in-the-loop/">AI for Science, practice 9: human-in-the-loop</a>: AI for Science (European draft best practices), docs. Why read: it explains why a stated human check can still fail through rubber-stamping, and how to design one that works. A draft with no endorsements yet; some of its cases are uncited. Cited in: <a href="./zones/maze/wall-of-output.html">Boss: The Wall of Output</a>.</li>
 </ul>
 </section>
 <section id="phylogenetic-forest" class="level2">
 <h2 class="anchored" data-anchor-id="phylogenetic-forest">Phylogenetic Forest</h2>
 <ul>
+<li><p><a href="https://arxiv.org/abs/2603.18507">Expert Personas Improve LLM Alignment but Damage Accuracy</a>: Hu, Rostami and Thomason, arXiv (2026), paper. Why read: it measures where expert personas help and where they hurt; a preprint on small models, so read it as one data point. Cited in: <a href="./zones/forest/write-the-brief.html">Write the Brief</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/permission-modes">Choose a permission mode</a>: Anthropic, docs. Why read: it is the source for how plan mode is entered, approved and (not always) enforced. Cited in: <a href="./zones/forest/plan-before-you-edit.html">Plan Before You Edit</a>.</p></li>
 <li><p><a href="https://opencode.ai/docs/agents/">Agents</a>: OpenCode, docs. Why read: it covers OpenCode agent profiles, including the built-in plan agent; our notes could not confirm how to switch to it. Cited in: <a href="./zones/forest/plan-before-you-edit.html">Plan Before You Edit</a>.</p></li>
+<li><p><a href="https://aiforscience.eu/best-practices/05-documentation-and-data-for-agents/">AI for Science, practice 5: documentation and data for agents</a>: AI for Science (European draft best practices), docs. Why read: it argues that precise, current docstrings, units and metadata are what agents work from. A draft with no endorsements yet; it also mentions llms.txt, which it calls a proposal that no body has ratified. Cited in: <a href="./zones/forest/the-project-charter.html">The Project Charter</a>.</p></li>
 <li><p><a href="https://opencode.ai/docs/rules/">Rules</a>: OpenCode, docs. Why read: it explains AGENTS.md and the instructions setting for the OpenCode side. Cited in: <a href="./zones/forest/the-project-charter.html">The Project Charter</a>.</p></li>
 <li><p><a href="https://agentskills.io">Agent Skills Overview</a>: Agent Skills, docs. Why read: the open format behind SKILL.md and how skills load in stages. Cited in: <a href="./zones/forest/forge-a-skill.html">Forge a Skill</a>.</p></li>
 <li><p><a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices">Skill authoring best practices</a>: Anthropic, docs. Cited by 2 quests; each quest says what to read it for.</p>
@@ -389,14 +442,24 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/forest/test-the-skill.html">Test the Skill</a>: a vendor article whose points on a separate verifier, checking a Skill in each client and “instructions guide, tests verify” are paraphrased in “Who checks the work”; secondary to the docs.</li>
 <li><a href="./zones/forest/bundle-a-plugin.html">Bundle a Plugin</a>: a vendor article whose advice on one file of project facts, keeping observed patterns apart from team standards, and checking generated copies for drift is paraphrased in “When a team shares Skills”; secondary to the docs.</li>
 </ul></li>
+<li><p><a href="https://aiforscience.eu/best-practices/08-evaluate-tools-before-trust/">AI for Science, practice 8: evaluate tools before trust</a>: AI for Science (European draft best practices), docs. Why read: it describes task-specific tests, repeated runs and hand-checking a sample of model-judged results. A draft with no endorsements yet. Cited in: <a href="./zones/forest/close-the-loop.html">Close the Loop</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/plugin-evals">Test plugins with evals</a>: Anthropic, docs. Cited by 2 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
 <li><a href="./zones/forest/close-the-loop.html">Close the Loop</a>: it explains the with-and-without comparison and how to gate changes on a score.</li>
 <li><a href="./zones/forest/test-the-skill.html">Test the Skill</a>: the reference for case files, grader types, cost limits and the with-and-without delta.</li>
 </ul></li>
+<li><p><a href="https://www.aihero.dev/what-are-evals">Your App Is Only As Good As Its Evals</a>: AI Hero, article. Why read: a short plain introduction (written in 2024) to why evals exist and the three kinds of grader. Written for people building AI apps, so skip the tooling and the production feedback parts. Cited in: <a href="./zones/forest/close-the-loop.html">Close the Loop</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/plugins">Plugins overview</a>: Anthropic, docs. Why read: it says what a plugin holds, its install scopes and the cost of an enabled plugin. Cited in: <a href="./zones/forest/bundle-a-plugin.html">Bundle a Plugin</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/plugins/manifest-reference">Plugin manifest reference</a>: Anthropic, docs. Why read: every plugin.json field and what claude plugin validate checks. Cited in: <a href="./zones/forest/bundle-a-plugin.html">Bundle a Plugin</a>.</p></li>
+</ul>
+</section>
+<section id="the-gatehouse" class="level2">
+<h2 class="anchored" data-anchor-id="the-gatehouse">The Gatehouse</h2>
+<ul>
+<li><a href="https://aiforscience.eu/best-practices/03-register-and-vet-interfaces/">AI for Science, practice 3: register and vet interfaces</a>: AI for Science (European draft best practices), docs. Why read: it says a registry listing is no safety check, and suggests checking maintainer, review date and permitted actions. A draft with no endorsements yet; two of its examples are proofs of concept. Cited in: <a href="./zones/gatehouse/plug-in-a-server.html">Plug In a Server</a>.</li>
+<li><a href="https://aiforscience.eu/best-practices/10-screen-dual-use-high-consequence/">AI for Science, practice 10: screen for dual-use and high-consequence risk</a>: AI for Science (European draft best practices), docs. Why read: it describes one screening checkpoint for high-consequence actions and tested refusals. A draft with no endorsements yet; it is aimed mostly at providers and institutions. Cited in: <a href="./zones/gatehouse/guard-the-door.html">Guard the Door</a>.</li>
+<li><a href="https://aiforscience.eu/best-practices/04-govern-autonomy-and-accountability/">AI for Science, practice 4: govern autonomy and accountability</a>: AI for Science (European draft best practices), docs. Why read: it puts limits in the system, names an owner for each agent duty and keeps an inventory. A draft; the page flags some of its own source attributions as unverified. Cited in: <a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>.</li>
 </ul>
 </section>
 <section id="biodiversity-reef" class="level2">

@@ -138,6 +138,29 @@
      "misconception": "Rules match tool names, so one tool can be refused while the rest stay usable."
     }
    ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A public registry lists an MCP server that many people have installed. What does the listing tell you about its safety?",
+   "explain": "A listing tells you it is easy to find. A registry can list self-reported data and run no security review, so check the maintainer, the review date and what the server may do.",
+   "options": [
+    {
+     "text": "Only that it is listed, which says nothing about review",
+     "correct": true
+    },
+    {
+     "text": "That registry staff have reviewed its code for security",
+     "misconception": "A registry can list self-reported data without any security review."
+    },
+    {
+     "text": "That so many installs mean others have already vetted it",
+     "misconception": "Popularity is not vetting, and a popular server can carry hidden instructions in its tool descriptions."
+    },
+    {
+     "text": "That it is safe if it only reads, since reading cannot be abused",
+     "misconception": "Read-only helps, but text it returns can still carry injected instructions."
+    }
+   ]
   }
  ]
 }

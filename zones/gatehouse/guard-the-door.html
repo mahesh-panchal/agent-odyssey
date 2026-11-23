@@ -185,6 +185,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Runs with your full permissions.</strong> The docs say command hooks “execute shell commands with your full user permissions”, so review and test them before adding them.</li>
 </ul>
 </section>
+<section id="one-door-for-the-high-stakes-actions" class="level2">
+<h2 class="anchored" data-anchor-id="one-door-for-the-high-stakes-actions">One door for the high-stakes actions</h2>
+<p>The AI for Science best practices (a European draft with no endorsements yet; practice 10) describe a pattern that a hook can serve: if an agent can reach something with real-world consequences, such as ordering DNA synthesis or commanding physical equipment, put a screening checkpoint in the path that refuses dual-use requests (requests where the same capability can help or harm). They advise against connecting an agent to such a capability without one. Testing the checkpoint with requests you know it should refuse is our own suggestion (General practice). A hook is one possible checkpoint for local actions, with the limits listed above. Not checked first-hand: read 2026-11-20 through a fetch summary, so re-check the wording on the page; see <code>research/aiforscience.md</code>.</p>
+</section>
 <section id="a-hook-in-a-repository-is-code-you-did-not-write" class="level2">
 <h2 class="anchored" data-anchor-id="a-hook-in-a-repository-is-code-you-did-not-write">A hook in a repository is code you did not write</h2>
 <p>If a repository commits hooks in <code>.claude/settings.json</code>, they are code from its authors, running as you. Interactive Claude Code holds hooks back until you accept the workspace trust dialog. In <code>-p</code> and SDK runs (headless: non-interactive, no one to answer a dialog) there is no dialog, and the docs say hooks committed in a repository’s <code>.claude/settings.json</code> run in a folder you have never trusted. Read <code>.claude/</code> before running headless in a clone, and the docs name <code>--bare</code> and <code>disableAllHooks</code> as ways to switch them off.</p>
@@ -202,6 +206,7 @@ In a throwaway folder with mock files, add the Bash-blocking hook above and ask 
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
+<li><a href="https://aiforscience.eu/best-practices/10-screen-dual-use-high-consequence/">AI for Science, practice 10: screen for dual-use and high-consequence risk</a>: AI for Science (European draft best practices), docs. Why read: it describes one screening checkpoint for high-consequence actions and tested refusals. A draft with no endorsements yet; it is aimed mostly at providers and institutions.</li>
 <li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Why read: it lists the hook events, handler types and the exit-code rules, including exit 2 to block.</li>
 <li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Why read: it covers deny and ask rules, which still apply when a hook says allow.</li>
 <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it says when to reach for a PreToolUse hook instead of an instruction.</li>

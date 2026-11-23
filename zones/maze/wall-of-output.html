@@ -117,6 +117,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="the-wall">The Wall</h2>
 <p>The Wall is thousands of lines of generated diff (the list of lines a change added and removed), produced faster than anyone can review. If you merge it unread, the Blight spreads. If you try to read all of it, your attention thins and you approve things you did not understand. Both routes fail.</p>
 <p>The way through is to <strong>refuse it whole</strong>: keep a <strong>review budget</strong> (only produce as much as you can honestly review today, because bulk low-quality output is called <em>slop</em>), ask for smaller pieces, ground each piece in a check, and pass on only work you have read yourself.</p>
+<p>The AI for Science best practices (a European draft with no endorsements yet; practice 9) back this with a warning about the human check itself. Stating the human check is only the first step: oversight often fails through automation bias (trusting the machine’s output too readily) and rubber-stamping (approving without reading). Their example is an “approve each item” step at hundreds of items an hour, which turns into clicking through. A check that works shows what changed, at a volume a person can read, with approve, edit, veto and stop. They also say to keep a real decision point wherever results or other people are affected, and to record the human step as part of the work’s provenance. Not checked first-hand: read 2026-11-20 through a fetch summary, so re-check the wording on the page; see <code>research/aiforscience.md</code>.</p>
 </section>
 <section id="battle-the-wall" class="level2">
 <h2 class="anchored" data-anchor-id="battle-the-wall">Battle: the Wall</h2>
@@ -128,6 +129,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
+<li><a href="https://aiforscience.eu/best-practices/09-human-in-the-loop/">AI for Science, practice 9: human-in-the-loop</a>: AI for Science (European draft best practices), docs. Why read: it explains why a stated human check can still fail through rubber-stamping, and how to design one that works. A draft with no endorsements yet; some of its cases are uncited.</li>
 <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it says to give the agent a check to run, so you can read one pass or fail line instead of the whole wall of output.</li>
 <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a>: Anthropic, article. Why read: it explains why more text in context is not free and why stale material hurts.</li>
 <li><a href="https://arxiv.org/abs/2307.03172">Lost in the Middle</a>: arXiv, paper. Why read: it measures how accuracy drops when the relevant fact sits in the middle of a long input.</li>

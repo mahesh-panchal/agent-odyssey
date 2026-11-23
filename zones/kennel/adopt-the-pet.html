@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="quest-dialog">
 <p><strong>Prerequisites:</strong> Save Point, a laptop with about 16 GB of memory, a terminal, and roughly 5 GB of free disk. This is an optional side quest. WSL (Windows Subsystem for Linux) users: see the unconfirmed list at the end. <strong>Objective:</strong> run a small local model with Ollama, give it enough context, and point OpenCode at it. <strong>Time:</strong> about 20 minutes. Everything stays on your machine.</p>
-<p><span class="ao-badge">Last verified (docs, not run): Ollama v0.40.16 and OpenCode v2.3.0 on 2026-11-13. Sources: research/kennel-and-crypt.md</span></p>
+<p><span class="ao-badge">Last verified (docs, not run): Ollama v0.40.16 and OpenCode v2.3.0 on 2026-11-13. Mistral model tags and sizes: Ollama’s library pages on 2026-11-20. Sources: research/kennel-and-crypt.md, research/mistral.md</span></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -189,6 +189,10 @@ Warning
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
+<section id="other-small-models-to-try" class="level2">
+<h2 class="anchored" data-anchor-id="other-small-models-to-try">Other small models to try</h2>
+<p>Qwen is one family among several. Mistral publishes open-weight models that Ollama lists with tool support: <code>ministral-3</code> comes in 3B (3.0 GB), 8B (6.0 GB) and 14B (9.1 GB) sizes under Apache 2.0, and <code>mistral-small</code> is 24B (14 GB). Sizes and licences: Last verified (docs, not run) on 2026-11-20; sources in <code>research/mistral.md</code>. A 24B model needs far more memory than a 3B one, so check <code>ollama ps</code> after loading. We ran <code>ministral-3:8b</code> (not through OpenCode) for chat in <a href="../codon-mill/grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>, where it gave valid JSON but misread a note. Not checked: how <code>ministral-3</code> behaves as an OpenCode backend. Mistral also has its own open-source terminal agent, Mistral Vibe; see <a href="pick-your-companion.html">Pick Your Companion</a>.</p>
+</section>
 <section id="put-the-pet-on-a-leash" class="level2">
 <h2 class="anchored" data-anchor-id="put-the-pet-on-a-leash">4. Put the Pet on a leash</h2>
 <p>OpenCode’s default policy is <strong>allow everything</strong> (except reading <code>.env</code> files, which it asks about). The docs also warn: <em>“Shell is not a sandbox. It runs with the host user’s authority.”</em> Each rule says <code>allow</code> (run without asking), <code>ask</code> (prompt you first) or <code>deny</code> (never run). A safer start asks about everything first, then narrows. <strong>Rules are checked in order and the last match wins:</strong></p>
@@ -199,6 +203,7 @@ Warning
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">"action"</span><span class="fu">:</span> <span class="st">"shell"</span><span class="fu">,</span> <span class="dt">"resource"</span><span class="fu">:</span> <span class="st">"git push *"</span><span class="fu">,</span> <span class="dt">"effect"</span><span class="fu">:</span> <span class="st">"deny"</span> <span class="fu">}</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Free hosted models are a different thing from the Pet: someone else runs them. See the optional quest <a href="free-is-not-free.html">Free Is Not Free</a> before you send them anything.</p>
 </section>
 <section id="unconfirmed-check-before-relying-on-it" class="level2">
 <h2 class="anchored" data-anchor-id="unconfirmed-check-before-relying-on-it">Unconfirmed (check before relying on it)</h2>
@@ -207,6 +212,11 @@ Warning
 <li>OpenCode is in a version change: its pages differ on some config keys, so if a snippet errors, check the current docs.</li>
 <li>Small models are more error-prone than large ones. That comes from common experience, and the vendors do not document it.</li>
 </ul>
+</section>
+<section id="a-built-in-pet-on-newer-macs" class="level2">
+<h2 class="anchored" data-anchor-id="a-built-in-pet-on-newer-macs">A built-in Pet on newer Macs</h2>
+<p>If you use a recent Mac, Apple ships its own small on-device model with the operating system, and developers can call it through Apple’s Foundation Models framework. Apple’s updates page mentions macOS 27 changing the model (June 2026) and a Python SDK for it (March 2026). Availability depends on whether your device and region support Apple Intelligence, and the model can take a while to download after you turn that on. Apple’s documentation says it suits summarising, extracting and classifying text, and that it may struggle with basic math, code and logical reasoning, which is a helpful guide to what to ask of any small local model.</p>
+<p>Not checked: whether OpenCode, Claude Code or any other coding agent can use this model as its backend. The pages read describe the framework for app developers and do not mention coding agents. It is a fun thing to try if you are curious, and nothing on this site depends on it.</p>
 </section>
 <section id="battle-the-pets-leash" class="level2">
 <h2 class="anchored" data-anchor-id="battle-the-pets-leash">Battle: the Pet’s leash</h2>
@@ -218,10 +228,12 @@ Warning
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
+<li><a href="https://ollama.com/library/ministral-3">ministral-3</a>: Ollama library, docs. Why read: it lists the sizes, context length, tool support and licence of a small Mistral model you can pull instead of a Qwen one.</li>
 <li><a href="https://docs.ollama.com/integrations/opencode">OpenCode</a>: Ollama, docs. Why read: it is the vendor guide to running OpenCode against a local Ollama model, including the context length it needs. It still shows older OpenCode install commands, so check the OpenCode docs too.</li>
 <li><a href="https://opencode.ai/docs/providers/">Providers</a>: OpenCode, docs. Why read: it shows how to connect Ollama or an OpenAI-compatible gateway in the current config format.</li>
 <li><a href="https://opencode.ai/docs/config/">Config</a>: OpenCode, docs. Why read: it lists where <code>opencode.json</code> lives and how global and project files override each other.</li>
 <li><a href="https://opencode.ai/docs/permissions/">Permissions</a>: OpenCode, docs. Why read: it explains how to control what the agent may do, which matters more with a small local model.</li>
+<li><a href="https://developer.apple.com/documentation/updates/foundationmodels">Foundation Models updates</a>: Apple, docs. Why read: it lists the changes to Apple’s on-device model by date, including which OS versions change the model.</li>
 <li><a href="https://github.com/anomalyco/opencode">anomalyco/opencode</a>: GitHub, repo. Why read: it is the source and release list, useful when the docs and your installed version disagree.</li>
 </ul>
 </section>

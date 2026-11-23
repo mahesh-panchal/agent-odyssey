@@ -1,0 +1,404 @@
+[
+ {
+  "subject": "S31",
+  "relation": "stored in",
+  "object": "Freezer F2, Shelf 3",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "S32",
+  "relation": "stored in",
+  "object": "Freezer F2, Shelf 3",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "S33",
+  "relation": "stored in",
+  "object": "Freezer F2, Shelf 3",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "S34",
+  "relation": "stored in",
+  "object": "Freezer F2, Shelf 3",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "S35",
+  "relation": "stored in",
+  "object": "Freezer F2, Shelf 3",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "S36",
+  "relation": "stored in",
+  "object": "Freezer F2, Shelf 3",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "S41",
+  "relation": "stored in",
+  "object": "Freezer F1",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "S42",
+  "relation": "stored in",
+  "object": "Freezer F1",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "S43",
+  "relation": "stored in",
+  "object": "Freezer F1",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "S44",
+  "relation": "stored in",
+  "object": "Freezer F1",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "S45",
+  "relation": "stored in",
+  "object": "Freezer F1",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "S46",
+  "relation": "stored in",
+  "object": "Freezer F1",
+  "note": "freezers.txt"
+ },
+ {
+  "subject": "Group lunch",
+  "relation": "is on",
+  "object": "Thursday",
+  "note": "lunch.txt"
+ },
+ {
+  "subject": "Group lunch",
+  "relation": "is at",
+  "object": "noon",
+  "note": "lunch.txt"
+ },
+ {
+  "subject": "You",
+  "relation": "bring",
+  "object": "own cup",
+  "note": "lunch.txt"
+ },
+ {
+  "subject": "Priya Raman",
+  "relation": "attended",
+  "object": "March group meeting",
+  "note": "meeting-march.txt"
+ },
+ {
+  "subject": "Priya Raman",
+  "relation": "asked",
+  "object": "whether Orion service changed read quality",
+  "note": "meeting-march.txt"
+ },
+ {
+  "subject": "Dana Okafor",
+  "relation": "attended",
+  "object": "March group meeting",
+  "note": "meeting-march.txt"
+ },
+ {
+  "subject": "Dana Okafor",
+  "relation": "said",
+  "object": "she would check run R7",
+  "note": "meeting-march.txt"
+ },
+ {
+  "subject": "Orion",
+  "relation": "is a",
+  "object": "Sequencer",
+  "note": "orion.txt"
+ },
+ {
+  "subject": "Orion",
+  "relation": "looked after by",
+  "object": "Dana Okafor",
+  "note": "orion.txt"
+ },
+ {
+  "subject": "Orion",
+  "relation": "serviced on",
+  "object": "12 March",
+  "note": "orion.txt"
+ },
+ {
+  "subject": "Orion",
+  "relation": "fitted with",
+  "object": "New flow cell clamp",
+  "note": "orion.txt"
+ },
+ {
+  "subject": "Pipeline 2.3",
+  "relation": "trims",
+  "object": "adapters",
+  "note": "pipeline-2-3.txt"
+ },
+ {
+  "subject": "Pipeline 2.3",
+  "relation": "aligns",
+  "object": "reads",
+  "note": "pipeline-2-3.txt"
+ },
+ {
+  "subject": "Pipeline 2.3",
+  "relation": "has bug",
+  "object": "double-counts duplicate reads",
+  "note": "pipeline-2-3.txt"
+ },
+ {
+  "subject": "Dana Okafor",
+  "relation": "wrote",
+  "object": "fix",
+  "note": "pipeline-2-3.txt"
+ },
+ {
+  "subject": "fix",
+  "relation": "ships in",
+  "object": "Pipeline 2.4",
+  "note": "pipeline-2-3.txt"
+ },
+ {
+  "subject": "Pipeline 2.4",
+  "relation": "fixes",
+  "object": "duplicate-read bug",
+  "note": "pipeline-2-4.txt"
+ },
+ {
+  "subject": "duplicate-read bug",
+  "relation": "from",
+  "object": "Pipeline 2.3",
+  "note": "pipeline-2-4.txt"
+ },
+ {
+  "subject": "Pipeline 2.4",
+  "relation": "released on",
+  "object": "2 April",
+  "note": "pipeline-2-4.txt"
+ },
+ {
+  "subject": "Project Heron",
+  "relation": "studies",
+  "object": "S31",
+  "note": "project-heron.txt"
+ },
+ {
+  "subject": "Project Heron",
+  "relation": "studies",
+  "object": "S32",
+  "note": "project-heron.txt"
+ },
+ {
+  "subject": "Project Heron",
+  "relation": "studies",
+  "object": "S33",
+  "note": "project-heron.txt"
+ },
+ {
+  "subject": "Project Heron",
+  "relation": "studies",
+  "object": "S34",
+  "note": "project-heron.txt"
+ },
+ {
+  "subject": "Project Heron",
+  "relation": "studies",
+  "object": "S35",
+  "note": "project-heron.txt"
+ },
+ {
+  "subject": "Project Heron",
+  "relation": "studies",
+  "object": "S36",
+  "note": "project-heron.txt"
+ },
+ {
+  "subject": "Priya Raman",
+  "relation": "leads",
+  "object": "Project Heron",
+  "note": "project-heron.txt"
+ },
+ {
+  "subject": "Project Kelp",
+  "relation": "studies",
+  "object": "seaweed transcriptomes",
+  "note": "project-kelp.txt"
+ },
+ {
+  "subject": "Project Kelp",
+  "relation": "includes",
+  "object": "S41",
+  "note": "project-kelp.txt"
+ },
+ {
+  "subject": "Project Kelp",
+  "relation": "includes",
+  "object": "S42",
+  "note": "project-kelp.txt"
+ },
+ {
+  "subject": "Project Kelp",
+  "relation": "includes",
+  "object": "S43",
+  "note": "project-kelp.txt"
+ },
+ {
+  "subject": "Project Kelp",
+  "relation": "includes",
+  "object": "S44",
+  "note": "project-kelp.txt"
+ },
+ {
+  "subject": "Project Kelp",
+  "relation": "includes",
+  "object": "S45",
+  "note": "project-kelp.txt"
+ },
+ {
+  "subject": "Project Kelp",
+  "relation": "includes",
+  "object": "S46",
+  "note": "project-kelp.txt"
+ },
+ {
+  "subject": "Tomas Vidal",
+  "relation": "leads",
+  "object": "Project Kelp",
+  "note": "project-kelp.txt"
+ },
+ {
+  "subject": "Priya Raman",
+  "relation": "advises on",
+  "object": "statistics",
+  "note": "project-kelp.txt"
+ },
+ {
+  "subject": "Run R7",
+  "relation": "loaded",
+  "object": "S31",
+  "note": "run-r7.txt"
+ },
+ {
+  "subject": "Run R7",
+  "relation": "loaded",
+  "object": "S32",
+  "note": "run-r7.txt"
+ },
+ {
+  "subject": "Run R7",
+  "relation": "loaded",
+  "object": "S33",
+  "note": "run-r7.txt"
+ },
+ {
+  "subject": "Run R7",
+  "relation": "loaded",
+  "object": "S34",
+  "note": "run-r7.txt"
+ },
+ {
+  "subject": "Run R7",
+  "relation": "loaded",
+  "object": "S35",
+  "note": "run-r7.txt"
+ },
+ {
+  "subject": "Run R7",
+  "relation": "loaded",
+  "object": "S36",
+  "note": "run-r7.txt"
+ },
+ {
+  "subject": "Run R7",
+  "relation": "loaded onto",
+  "object": "Orion",
+  "note": "run-r7.txt"
+ },
+ {
+  "subject": "Run R7",
+  "relation": "used",
+  "object": "Pipeline 2.3",
+  "note": "run-r7.txt"
+ },
+ {
+  "subject": "Run R8",
+  "relation": "loaded",
+  "object": "S41",
+  "note": "run-r8.txt"
+ },
+ {
+  "subject": "Run R8",
+  "relation": "loaded",
+  "object": "S42",
+  "note": "run-r8.txt"
+ },
+ {
+  "subject": "Run R8",
+  "relation": "loaded",
+  "object": "S43",
+  "note": "run-r8.txt"
+ },
+ {
+  "subject": "Run R8",
+  "relation": "loaded",
+  "object": "S44",
+  "note": "run-r8.txt"
+ },
+ {
+  "subject": "Run R8",
+  "relation": "loaded",
+  "object": "S45",
+  "note": "run-r8.txt"
+ },
+ {
+  "subject": "Run R8",
+  "relation": "loaded",
+  "object": "S46",
+  "note": "run-r8.txt"
+ },
+ {
+  "subject": "Run R8",
+  "relation": "loaded onto",
+  "object": "Vega",
+  "note": "run-r8.txt"
+ },
+ {
+  "subject": "Run R8",
+  "relation": "used",
+  "object": "Pipeline 2.4",
+  "note": "run-r8.txt"
+ },
+ {
+  "subject": "Gloves",
+  "relation": "must be worn when",
+  "object": "Handling freezer shelves",
+  "note": "safety.txt"
+ },
+ {
+  "subject": "Broken freezer seal",
+  "relation": "must be reported to",
+  "object": "Facility team",
+  "note": "safety.txt"
+ },
+ {
+  "subject": "Vega",
+  "relation": "looked after by",
+  "object": "Tomas Vidal",
+  "note": "vega.txt"
+ },
+ {
+  "subject": " Vega",
+  "relation": " booked mostly for",
+  "object": "Project Kelp",
+  "note": "vega.txt"
+ }
+]

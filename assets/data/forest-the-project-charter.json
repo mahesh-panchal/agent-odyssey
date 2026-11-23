@@ -119,6 +119,29 @@
      "misconception": "The docs say Claude may pick one conflicting instruction arbitrarily, which is why an audit is useful."
     }
    ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A parameter was renamed but its docstring was not, so an agent called the old name. Which habit from the AI for Science draft helps most?",
+   "explain": "Agents work from docstrings and descriptions, so keep them current and put units, data versions and assumptions in them.",
+   "options": [
+    {
+     "text": "Keep docstrings current, with units, versions and assumptions",
+     "correct": true
+    },
+    {
+     "text": "Add a line to the instructions file saying never to rename parameters",
+     "misconception": "Instructions are advice, and renaming is sometimes the right change."
+    },
+    {
+     "text": "Rely on the agent to read the code and ignore the docstrings",
+     "misconception": "Agents lean on docstrings and descriptions, and they cannot be relied on to notice a mismatch."
+    },
+    {
+     "text": "Write a longer prompt each time that describes every parameter",
+     "misconception": "That repeats work and goes stale, while the docstring stays with the code."
+    }
+   ]
   }
  ]
 }

@@ -94,6 +94,29 @@
      "misconception": "Training is overkill for a rule you can write in one line."
     }
    ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A lab must rename 5,000 sample IDs to one fixed pattern. According to the AI for Science draft, what do you try first?",
+   "explain": "The draft says to ask first whether a script, a fixed workflow or a smaller model does the job. A known rule suits a script: cheap, repeatable and unchanged by provider updates.",
+   "options": [
+    {
+     "text": "A short script that applies the rule",
+     "correct": true
+    },
+    {
+     "text": "A frontier model with a carefully written prompt",
+     "misconception": "A large model costs more per run, can vary between runs, and may change when the provider updates it."
+    },
+    {
+     "text": "An autonomous agent with shell access to the folder",
+     "misconception": "An agent adds risk and cost for a task whose rule is already known."
+    },
+    {
+     "text": "A fine-tuned model trained on a few sample renames",
+     "misconception": "Training is a heavy step for a rule you can already write down exactly."
+    }
+   ]
   }
  ]
 }

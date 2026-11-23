@@ -81,6 +81,33 @@
    ]
   },
   {
+   "type": "sort",
+   "prompt": "Which kind of grader fits each check best?",
+   "bins": [
+    "Deterministic",
+    "Human",
+    "Judge model"
+   ],
+   "explain": "Use a script when the rule is exact, a person when the call is about real quality, and a judge model for open-ended text at a scale a person cannot read.",
+   "items": [
+    {
+     "text": "The output file exists and its header has 5 columns",
+     "bin": "Deterministic",
+     "misconception": "This is an exact rule a script can check for free, with the same answer every time."
+    },
+    {
+     "text": "Does this summary of a paper's methods read as accurate to someone who knows the field?",
+     "bin": "Human",
+     "misconception": "This needs expert judgement about real quality. A script cannot state it as a rule."
+    },
+    {
+     "text": "Marking 200 free-text answers against a written PASS/FAIL rubric",
+     "bin": "Judge model",
+     "misconception": "The answers are open-ended and too many to read by hand, so a judge model fits. It costs a call per mark, and you should still read a sample."
+    }
+   ]
+  },
+  {
    "type": "choice",
    "prompt": "Your evals passed last spring. A new model version is released. What do you do?",
    "explain": "Models and tools change. Re-running the same evals shows whether the Skill still helps or has become unnecessary.",
@@ -96,6 +123,29 @@
     {
      "text": "Delete the Skill, because a newer model never needs any Skill",
      "misconception": "Some Skills still help, such as lab-specific rules the model cannot know. Measure instead of assuming."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A model grades 200 outputs from another model of the same family. What does the AI for Science draft advise?",
+   "explain": "A same-family judge is not an independent grader. Check a sample by hand against reference answers written before you saw the outputs.",
+   "options": [
+    {
+     "text": "Check a sample by hand against answers fixed in advance",
+     "correct": true
+    },
+    {
+     "text": "Accept the scores, since the judge understands that style of output",
+     "misconception": "Models tend to favour output like their own, so agreement can reflect similarity, so a high score may not mean correctness."
+    },
+    {
+     "text": "Use a larger model of the same family and skip hand checks",
+     "misconception": "A larger model from the same family is still not independent of the one being judged."
+    },
+    {
+     "text": "Write the reference answers after reading the outputs",
+     "misconception": "References written afterwards drift towards what the outputs said. Fix them first."
     }
    ]
   }

@@ -268,6 +268,7 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 <p>Layer them: advice to steer, enforcement for the non-negotiable, git for the day something slips through. None of them replaces reading the diff.</p>
+<p>The AI for Science best practices (a European draft with no endorsements yet) make the same split for research groups and add a few habits. Put limits in the system that runs the agent: permission scopes, and spend caps in the metering system (the system that counts usage and cost), because a budget the agent can exceed is not a limit. Give each agent duty a named human owner. Log what an agent did under an identity you can trace. Institutions are advised to keep a list of the agents in use, including personal ones connected to mail or files; a group can keep its own (General practice). Their example is an over-privileged agent with shell access that wiped data on a shared lab server. The page advises a scoped account, a backup before write or delete access, and a named owner for the machine. Not checked first-hand: the practice page, read 2026-11-20 through a fetch summary, so re-check the wording on the page; see <code>research/aiforscience.md</code>.</p>
 <div data-ao-honour="gatehouse-sort-your-controls" data-xp="20">
 List five controls in your own setup, such as an instructions file, a hook or a deny rule. Label each advises, asks or enforces, and write the way it could fail.
 </div>
@@ -283,6 +284,7 @@ List five controls in your own setup, such as an instructions file, a hook or a 
 <p><em>Further reading. Optional.</em></p>
 <ul>
 <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it describes instructions as context and not as enforced configuration, which is this quest’s core split.</li>
+<li><a href="https://aiforscience.eu/best-practices/04-govern-autonomy-and-accountability/">AI for Science, practice 4: govern autonomy and accountability</a>: AI for Science (European draft best practices), docs. Why read: it puts limits in the system, names an owner for each agent duty and keeps an inventory. A draft; the page flags some of its own source attributions as unverified.</li>
 <li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Why read: it explains deny, ask and allow rules and permission modes, the built-in enforcement layer.</li>
 <li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Why read: it documents how a hook blocks a tool call, the code-level lock.</li>
 <li><a href="https://code.claude.com/docs/en/sandboxing">Configure the sandboxed Bash tool</a>: Anthropic, docs. Why read: it shows an operating-system limit on shell commands and where that limit ends.</li>

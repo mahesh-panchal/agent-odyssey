@@ -1,0 +1,167 @@
+{
+ "pass": 0.8,
+ "questions": [
+  {
+   "type": "order",
+   "prompt": "Put the steps of simple RAG in the order they happen when you ask a question.",
+   "explain": "The collection is chunked and embedded ahead of time. At question time the question is embedded, the closest chunks are fetched, and only then does the model write an answer from them.",
+   "items": [
+    "Split the documents into chunks and embed each one into the index",
+    "Embed the question with the same embedding model",
+    "Fetch the k chunks whose vectors are closest to the question",
+    "Paste those chunks into the prompt and ask the model to answer from them"
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A simple RAG tool answers 'the notes do not contain the answer', yet the answer is in your notes. What should you check first?",
+   "explain": "The model can only use what retrieval handed it. Look at which chunks came back; a miss at that step cannot be repaired by the answering model.",
+   "options": [
+    {
+     "text": "Whether the chunks that held the answer were among the ones retrieved",
+     "correct": true
+    },
+    {
+     "text": "Whether the chat model is large enough to remember your notes",
+     "misconception": "The model does not remember your notes; it only reads what is pasted into the prompt. A bigger model cannot use a passage that never arrived."
+    },
+    {
+     "text": "Whether the embedding vectors were saved in a different file format",
+     "misconception": "File format is rarely the cause. Look at the retrieved list first: a wrong or missing chunk there explains most failures."
+    },
+    {
+     "text": "Whether the question is too short for the model to read",
+     "misconception": "Short questions are fine for the model. What matters is whether the question's vector landed near the vector of the chunk that holds the answer."
+    }
+   ]
+  },
+  {
+   "type": "match",
+   "prompt": "Match each method to what it adds.",
+   "explain": "Each method is a response to a weakness of simple RAG: missed chunks, noisy ranking, or questions about the whole collection.",
+   "pairs": [
+    {
+     "left": "Reranker",
+     "right": "Re-sorts the retrieved chunks with a second model",
+     "misconception": "A reranker works on chunks that were already retrieved. It does not build a graph or change the index."
+    },
+    {
+     "left": "BM25 beside embeddings",
+     "right": "Matches exact words as well as meaning",
+     "misconception": "BM25 scores word overlap. Meaning-based matching is what the embeddings already provide."
+    },
+    {
+     "left": "Graph RAG",
+     "right": "Extracts entities and links with an LLM, then summarises communities",
+     "misconception": "Graph RAG builds the graph before any question is asked, using many LLM calls over the whole collection."
+    },
+    {
+     "left": "Self-RAG or corrective RAG",
+     "right": "Decides whether to retrieve, checks what came back, and may try again",
+     "misconception": "These add a loop of checks around retrieval. They do not change how chunks are embedded."
+    }
+   ]
+  },
+  {
+   "type": "sort",
+   "prompt": "Sort each job by the approach that usually fits it best.",
+   "bins": [
+    "Put it all in the prompt",
+    "Query tool (SQL or API)",
+    "RAG"
+   ],
+   "explain": "A small collection fits in the window; exact filters and counts belong to a query; a large, changing pile of prose that is answered by particular passages is what RAG is for.",
+   "items": [
+    {
+     "text": "Twelve one-page lab notes, asked about all week",
+     "bin": "Put it all in the prompt",
+     "misconception": "That is well under 200,000 tokens, which is the size below which Anthropic says you can skip RAG."
+    },
+    {
+     "text": "How many samples deeper than 30x were sequenced in March?",
+     "bin": "Query tool (SQL or API)",
+     "misconception": "This asks for an exact filter and a count. A vector search returns the nearest passages and cannot promise a complete count."
+    },
+    {
+     "text": "Five years of protocols and meeting minutes that change every week, asked about by passage",
+     "bin": "RAG",
+     "misconception": "The collection is large and changing, and each answer lives in a few passages. An index you refresh fits that."
+    },
+    {
+     "text": "A one-page FAQ that never changes, asked about thousands of times",
+     "bin": "Put it all in the prompt",
+     "misconception": "A page fits easily in the window, and prompt caching makes the repeated prefix cheaper."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A paper that introduces a graph RAG method reports that an LLM judge preferred its answers to plain RAG. How should you read that?",
+   "explain": "The result is the authors' own, judged by an LLM, on mostly whole-collection questions. Independent studies found plain RAG better on single-fact questions and found judges can change their verdict when answer order is swapped.",
+   "options": [
+    {
+     "text": "As a promising result, to check on your own questions",
+     "correct": true
+    },
+    {
+     "text": "As proof that graph methods beat plain RAG on all kinds of question",
+     "misconception": "Independent comparisons found plain RAG best on single-fact questions and a mixed picture elsewhere."
+    },
+    {
+     "text": "As meaningless, because every LLM judge prefers longer answers",
+     "misconception": "Judges can be biased in several ways, including answer order, but that does not make every result worthless. It means checking on your own questions."
+    },
+    {
+     "text": "As a reason to rebuild your index with a graph before measuring anything",
+     "misconception": "Graphs cost much more to build. Measure simple RAG first and add a graph only if its failures are multi-hop or whole-collection ones."
+    }
+   ]
+  },
+  {
+   "type": "faulty-line",
+   "prompt": "A teammate writes a plan to answer questions about a 40-row sample sheet and a folder of run logs. Which line of the plan is the weakest choice?",
+   "explain": "Exact filters and counts over a table belong to a query tool. A vector index returns similar passages, so it cannot promise every matching row or an exact total.",
+   "lines": [
+    {
+     "text": "1. Keep the run logs as plain text and let the agent search them with grep.",
+     "why": "Logs contain exact ids and error codes, which text search handles well."
+    },
+    {
+     "text": "2. Embed each row of the sample sheet and retrieve the top 5 rows for each question about depth or tissue.",
+     "faulty": true
+    },
+    {
+     "text": "3. Record the question, the chunks or rows used, and the answer, so each result can be checked.",
+     "why": "A trail of what was retrieved lets you check the answer against its sources."
+    },
+    {
+     "text": "4. Test on ten questions whose answers we already know before relying on it.",
+     "why": "Known-answer questions show whether retrieval and generation work on your own material."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "Your notes are under 100,000 tokens and you will ask about them all week. Which statement matches what the sources say?",
+   "explain": "Anthropic's post says a knowledge base under about 200,000 tokens can go in the prompt with no need for RAG, and prompt caching lowers the cost of repeating it. Check current prices and cache lifetimes.",
+   "options": [
+    {
+     "text": "Putting every note in the prompt is a fair first choice, and caching can cut repeat costs",
+     "correct": true
+    },
+    {
+     "text": "RAG is required for any collection of notes, however small it is and however often you ask",
+     "misconception": "RAG exists because large collections do not fit in the window. For a small one, retrieval adds a step that can miss the right passage."
+    },
+    {
+     "text": "Long prompts are always more accurate than retrieval, so you can skip all testing",
+     "misconception": "One study found long context better on average with enough budget, but models also use the middle of a long prompt less well. Test on your own questions."
+    },
+    {
+     "text": "You must fine-tune a model on the notes first, since prompts cannot hold facts",
+     "misconception": "A prompt can hold facts, and papers found fine-tuning a weak way to add new ones. Fine-tuning is better suited to changing behaviour or format."
+    }
+   ]
+  }
+ ]
+}

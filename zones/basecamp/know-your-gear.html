@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Three Kinds of Machine. <strong>Objective:</strong> use the words this site relies on (model, harness, skill, MCP, hook, plugin, effort, eval, and the context terms below) and say how they fit together. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code and API docs on 2026-11-16 (sources in <code>research/terminology.md</code>, <code>research/failure-modes.md</code> and <code>research/fundamentals.md</code>). Other tools name things differently; the ideas carry over.</span></p>
+<p><strong>Prerequisites:</strong> Three Kinds of Machine. <strong>Objective:</strong> use the words this site relies on (model, harness, skill, MCP, hook, plugin, effort, eval, and the context terms below) and say how they fit together. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): Claude Code and API docs on 2026-11-16 (sources in <code>research/terminology.md</code>, <code>research/failure-modes.md</code> and <code>research/fundamentals.md</code>). Mistral Vibe: its GitHub page and docs read 2026-11-20 through a summarising tool (<code>research/mistral.md</code>). Other tools name things differently; the ideas carry over.</span></p>
 </div>
 <p>People mix these words up, and the mix-ups cause real mistakes, such as blaming “the model” for something a setting did. In this world the <strong>companions are models</strong>, and the <strong>harness is their armour</strong>.</p>
 <section id="the-picture" class="level2">
@@ -129,8 +129,8 @@ Models think. The harness decides what they can touch and runs the loop. Extensi
 <section id="the-words" class="level2">
 <h2 class="anchored" data-anchor-id="the-words">The words</h2>
 <ul>
-<li><strong>Model.</strong> The large language model (LLM) that reads and writes text (for example Claude Sonnet 5.5, or a local model through Ollama, a program that runs models on your own computer). It is not the product you type into. Aliases such as <code>sonnet</code> move to newer versions over time, so pin the full name when a result must be reproducible.</li>
-<li><strong>Harness.</strong> The program around the model. Per the Claude Code docs it provides the tools, manages the context the model sees, runs the loop (gather context, act, check, repeat) and enforces permissions. Claude Code and OpenCode (an open-source harness) are harnesses. Many questions are really about the harness: what may it touch, what does it remember, what does it ask first?</li>
+<li><strong>Model.</strong> The large language model (LLM) that reads and writes text (for example Claude Sonnet 5.5, a Mistral model, or a local model through Ollama, a program that runs models on your own computer). It is not the product you type into. Aliases such as <code>sonnet</code> move to newer versions over time, so pin the full name when a result must be reproducible.</li>
+<li><strong>Harness.</strong> The program around the model. Per the Claude Code docs it provides the tools, manages the context the model sees, runs the loop (gather context, act, check, repeat) and enforces permissions. Claude Code, OpenCode (an open-source harness) and Mistral Vibe (Mistral’s open-source terminal coding agent) are harnesses. Many questions are really about the harness: what may it touch, what does it remember, what does it ask first?</li>
 <li><strong>Prompt.</strong> The text you send to the model.</li>
 <li><strong>Turn.</strong> One prompt from you plus the model’s reply.</li>
 <li><strong>Agent.</strong> A model inside a harness that picks and runs tools in a loop toward a goal.</li>
@@ -187,6 +187,7 @@ Redraw the picture from memory for the tool you actually use: which model, which
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
+<li><a href="https://code.claude.com/docs/en/overview">Claude Code overview</a>: Anthropic, docs. Why read: it is the front page of the docs, a good place to see how much more there is than this course covers.</li>
 <li><a href="https://code.claude.com/docs/en/how-claude-code-works">How Claude Code works</a>: Anthropic, docs. Why read: it is the page that defines the agentic harness and the gather, act, check loop used in this quest.</li>
 <li><a href="https://code.claude.com/docs/en/model-config">Model configuration</a>: Anthropic, docs. Why read: it covers model aliases and the effort setting, so you can pin a model and see what <code>/effort</code> changes.</li>
 <li><a href="https://code.claude.com/docs/en/skills">Skills</a>: Anthropic, docs. Why read: it shows the <code>SKILL.md</code> format and how only descriptions load at startup.</li>

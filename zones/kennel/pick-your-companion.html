@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="quest-dialog">
 <p><strong>Prerequisites:</strong> Recruit the Beast. Adopt the Pet is advised, not required. <strong>Objective:</strong> set the model and the effort on purpose, especially when you hand work to a subagent, and learn to compare two settings on your own task. <strong>Time:</strong> about 15 minutes. <strong>The exercise is a worksheet and needs no model.</strong></p>
-<p><span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17; the model-config, effort, sub-agents, costs, choosing-a-model and optimizing-for-cost pages were spot-checked live that day; model names, aliases and defaults change often</span></p>
+<p><span class="ao-badge">Last verified (docs, not run): research/model-and-effort.md sources on 2026-11-17; the model-config, effort, sub-agents, costs, choosing-a-model and optimizing-for-cost pages were spot-checked live that day; model names, aliases and defaults change often; Mistral Vibe and model pages read 2026-11-20 (research/mistral.md)</span></p>
 </div>
 <p>The companions in the Kennel are <strong>models</strong>; the tool around them (the harness, the program that runs the model and its tools) is the armour. This page is about which companion to bring to which job, and how hard to make it think. Model names, aliases and defaults change often, so check the current docs and your own tool before relying on any name here.</p>
 <p>A few words first. A <strong>model tier</strong> is a size class of model: a smaller one is faster and cheaper, a larger one is more capable and costs more. An <strong>alias</strong> is a short nickname (such as <code>sonnet</code>) that the tool maps to a concrete model version. <strong>Effort</strong> is how much the model thinks before each step. A <strong>subagent</strong> is a helper the main agent starts with its own fresh context, which does a side task and returns only a summary. To <strong>delegate</strong> is to hand a task to a subagent. A <strong>token</strong> is a chunk of text, the unit that usage and cost are counted in, and <strong>context</strong> is the text the model can see right now. <strong>Frontmatter</strong> is the small settings block at the top of a Markdown file. To <strong>pin</strong> a model is to name one exact version so it never silently changes, and <strong>inherit</strong> means “use whatever the parent is using”. The <strong>prompt cache</strong> is a short-term store that makes re-reading an unchanged conversation cheaper.</p>
@@ -232,6 +232,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="other-model-families-and-harnesses" class="level2">
+<h2 class="anchored" data-anchor-id="other-model-families-and-harnesses">Other model families and harnesses</h2>
+<p>Everything above uses Claude’s names and tiers. The ideas carry over to other families, and the names do not. Mistral is one example (docs read 2026-11-20 through a summarising tool; sources in <code>research/mistral.md</code>):</p>
+<ul>
+<li><strong>Models.</strong> Mistral’s overview page lists open-weight models (for example Ministral 3 in 3B, 8B and 14B, and Mistral Small 4, both Apache 2.0; Ollama’s <code>mistral-small</code> page may be an earlier release than Small 4) beside “Premier” models such as Codestral and its embedding and OCR models, which show no open licence. In the part of the models page we read, no Devstral model is listed as active. The hosted Devstral 2 was marked deprecated on 2026-05-22 and due to retire on 2026-07-31, a date that has passed. Check the page for current names.</li>
+<li><strong>Harness.</strong> Mistral Vibe is an open-source terminal coding agent (Apache 2.0). Its docs describe four approval modes: <code>ask</code> (asks before any tool), <code>accept-edits</code> (the default: file edits are applied without asking, shell commands still ask), <code>smart-approve</code> (a classifier; we did not read its details), and <code>auto-approve</code> (“Trusted, sandboxed environments only”). Project config loads only from folders you have trusted. It reads <code>~/.vibe/config.toml</code>. <em>General practice:</em> start in <code>ask</code> until you trust the project.</li>
+<li><strong>Local models.</strong> The docs say Vibe supports any model served behind an OpenAI-compatible API and name vLLM, llama.cpp, LM Studio and Ollama. They give no Ollama recipe, so treat Ollama as untested.</li>
+<li>Not run: Vibe itself. Not read directly: its instruction-file page (a search summary names <code>AGENTS.md</code>).</li>
+</ul>
+<p><em>General practice:</em> when you switch families, redo the worksheet in this quest. A tier ladder built on one vendor’s models does not transfer name for name.</p>
 </section>
 <section id="a-decision-ladder" class="level2">
 <h2 class="anchored" data-anchor-id="a-decision-ladder">3. A decision ladder</h2>
@@ -369,6 +380,8 @@ Run the same small task at two settings and compare the result and <code>/usage<
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
+<li><a href="https://docs.mistral.ai/vibe/code/safety-approvals-permissions">Safety, approvals and permissions</a>: Mistral, docs. Why read: it describes Vibe’s four approval modes, trusted folders and per-tool rules, for comparison with other harnesses.</li>
+<li><a href="https://docs.mistral.ai/getting-started/models/models_overview/">Models overview</a>: Mistral, docs. Why read: it lists which Mistral models are open-weight, which carry a deprecation date and what licence each shows.</li>
 <li><a href="https://code.claude.com/docs/en/model-config">Model configuration</a>: Anthropic, docs. Why read: it covers model aliases, the effort setting and how to pin a model in Claude Code.</li>
 <li><a href="https://platform.claude.com/docs/en/about-claude/models/choosing-a-model">Choosing the right model</a>: Anthropic, docs. Why read: it gives the official way to pick a starting model and to test the choice on your own evaluations.</li>
 <li><a href="https://platform.claude.com/docs/en/build-with-claude/effort">Effort</a>: Anthropic, docs. Why read: it defines each effort level and gives per-model starting advice, with the advice to test on your own tasks; its API defaults can differ from the Claude Code defaults on the model-configuration page.</li>

@@ -180,6 +180,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="why-usage-climbs" class="level2">
 <h2 class="anchored" data-anchor-id="why-usage-climbs">Why usage climbs</h2>
 <p>The docs give these reasons. Claude Code sends the <strong>whole conversation on every request</strong>, and each tool-using step is another request. Caching (a short-term store so repeated text is cheaper to re-read) makes re-reading cheaper but a short question late in a long session still draws on all of it. Large tool outputs (the docs’ example is reading a 10,000-line log) stay in the conversation. Subagents each have their own context, and their requests still count. <code>/compact</code> itself reads the whole conversation. Remedies from the docs: <code>/clear</code> between unrelated tasks, <code>/compact</code> with a focus note, <code>/context</code> to see what fills the window, and keeping <code>CLAUDE.md</code> under 200 lines.</p>
+<p>The cache has a lifetime, and a long break can outlast it, which makes the next message much dearer. When to Start Fresh has a section on the cache and the coffee break, with a community measurement (small sample, labelled as such).</p>
 <p>Seeing “rate limited until …” in <code>/usage</code> means the tool could not fetch plan limits, and says nothing about your work being limited.</p>
 </section>
 <section id="when-a-wrong-claim-gets-in" class="level2">

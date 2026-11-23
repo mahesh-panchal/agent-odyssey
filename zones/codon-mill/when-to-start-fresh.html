@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quest-dialog">
-<p><strong>Prerequisites:</strong> Memory, Sessions and Usage. <strong>Objective:</strong> name the signals that say “start a new session”, the signals that say “carry on”, and when the middle path (compacting) fits better than either. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16 (Claude Code best-practices, context-window, sessions and commands docs; OpenCode TUI docs). Claude Code specific unless stated.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
+<p><strong>Prerequisites:</strong> Memory, Sessions and Usage. <strong>Objective:</strong> name the signals that say “start a new session”, the signals that say “carry on”, and when the middle path (compacting) fits better than either. <strong>Time:</strong> about 15 minutes. <span class="ao-badge">Last verified (docs, not run): research/session-management.md sources on 2026-11-16 (Claude Code best-practices, context-window, sessions and commands docs; OpenCode TUI docs). Claude Code specific unless stated. The cache-and-break numbers come from a community repo (research/cache-and-usage.md), small samples, not run here.</span> Topics in this zone were inspired by Matt Pocock’s course LLM Fundamentals (aihero.dev/llm-fundamentals). The explanations here are our own.</p>
 </div>
 <p>You have a conversation open with an agent. It has read files, tried things and been corrected. Do you keep typing into it, or start over? Each answer fits some situations, and a wrong choice costs something either way. This page offers signals to weigh.</p>
 <p>A few words first. A <strong>session</strong> is one saved conversation with the tool. Its <strong>context</strong> is the text the model can see right now (the context window, from The Context Window quest). <strong>Compacting</strong> means replacing the long history with a short summary and carrying on in the same conversation. <strong>Starting fresh</strong> means a new, empty conversation. Nothing else changes: your files stay as they are.</p>
@@ -185,6 +185,11 @@ ul.task-list li input[type="checkbox"] {
 <td>Docs: a fresh session still costs less if you do not need the history</td>
 </tr>
 <tr class="odd">
+<td>Leaving a long session past the cache lifetime, same task afterwards</td>
+<td><code>/compact</code> with a focus note before you leave</td>
+<td>Compacting while the cache is warm is cheap; after it expires the history is re-sent at full price (community numbers, small samples)</td>
+</tr>
+<tr class="even">
 <td>Task done, verified result committed</td>
 <td>Write down what matters, then <code>/clear</code></td>
 <td>The state is in your files and git, not in the chat</td>
@@ -195,6 +200,42 @@ ul.task-list li input[type="checkbox"] {
 <section id="before-you-clear" class="level2">
 <h2 class="anchored" data-anchor-id="before-you-clear">Before you clear</h2>
 <p>Starting fresh drops the conversation. Your files and memory remain, and the instructions file (<code>CLAUDE.md</code>) and auto memory load again in the new session. Anything you only said in chat is gone: the decisions, what failed and why, which sample misbehaved. <strong>General practice:</strong> write that down before you clear, because <code>/clear</code> drops the conversation, and commit the result so the state is recoverable. The Handoff Notes quest shows what such a note should contain. If you clear by mistake, <code>/resume</code> can reopen the old conversation.</p>
+</section>
+<section id="the-cache-and-the-coffee-break" class="level2">
+<h2 class="anchored" data-anchor-id="the-cache-and-the-coffee-break">The cache and the coffee break</h2>
+<p>Signal 4 deserves a closer look, because the cost of a break can be larger than people expect. While the cache is warm, the long history you already sent is re-read cheaply. When the cache has expired, the next request pays to send the whole history again at full price. The docs give the lifetimes: about an hour on a subscription, five minutes with an API key. You can check which one you have with <code>/usage</code> (a “Prompt cache” line is reported there; Not checked: whether it appears on every plan).</p>
+<p>A community project, <a href="https://github.com/inevolin/claude-code-usage-analysis">claude-code-usage-analysis</a>, measured this on an API key with a five-minute cache. Treat its numbers as one person’s small experiment (a handful of runs, one model, units that are not a subscription bill; the author lists these limits too). With about 97 thousand tokens of history and a small next fix:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pause before the next message</th>
+<th>Reported cost, compared with a brand-new session</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2 to 4 minutes (cache warm)</td>
+<td>about 1.5 times</td>
+</tr>
+<tr class="even">
+<td>6 to 13 minutes (cache expired)</td>
+<td>about 9.8 times</td>
+</tr>
+</tbody>
+</table>
+<p>The same project reported that compacting <em>before</em> the break, while the cache is warm, cost about 2.5 times a new session, and compacting <em>after</em> the break cost about as much as simply carrying on. On a subscription, the same cliff should sit near the one-hour mark instead (General practice, our reading of the docs: the project’s own one-hour figure came from a simulator, not a live run).</p>
+<p>What this suggests for your habits (General practice, from the numbers above and the docs):</p>
+<ul>
+<li><strong>Before a long break in a long session,</strong> either <code>/compact</code> with a focus note while the cache is warm, or write a short handoff note and plan to <code>/clear</code>.</li>
+<li><strong>After a break, when the next task is new,</strong> start fresh. Resuming a long, cold conversation is the expensive path.</li>
+<li><strong>After a break, when you still need the thread,</strong> a short hand-written note (goal, what is done, what is next) in a new session is often cheaper than re-reading the cold history, and gives you a chance to drop dead ends. The Handoff Notes quest shows what to write.</li>
+<li><strong>Short pauses are fine.</strong> A few minutes away costs little, so there is no need to rush back.</li>
+</ul>
+<p>The same project reported two cost traps worth knowing, both from very small tests: turning a built-in tool off in the middle of a task made the next turn cost roughly twenty times a normal one, since the cache was thrown away, while editing <code>CLAUDE.md</code>, adding an MCP server or changing effort showed no such jump. Decide your tool set at the start of a task. It also reported that a long log left in the chat added to the cost of every later turn. Trim output before it lands in the conversation, for example by asking the agent to show only the last lines or a pass/fail summary.</p>
 </section>
 <section id="the-cost-of-both-mistakes" class="level2">
 <h2 class="anchored" data-anchor-id="the-cost-of-both-mistakes">The cost of both mistakes</h2>
@@ -231,6 +272,7 @@ At the end of your next working session, write one line saying which signal (new
 <li><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.</li>
 <li><a href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts Fail</a>: Drew Breunig, blog, article. Why read: it names context poisoning and distraction, the failure modes behind starting fresh; a personal blog, not vendor documentation.</li>
 <li><a href="https://code.claude.com/docs/en/costs">Manage costs effectively</a>: Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.</li>
+<li><a href="https://github.com/inevolin/claude-code-usage-analysis">claude-code-usage-analysis</a>: inevolin, repo. Why read: a community write-up of live runs that put numbers on cache expiry, compaction timing and tool changes; small samples, so read it for the shape of the effect and check its own list of limits.</li>
 </ul>
 </section>
 

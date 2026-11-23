@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Grow a Graph with Ollama – Agent Odyssey</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-977c00f727d934aaf92f33c3e4ecd871.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../assets/css/rpg.css">
+</head>
+
+<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Grow a Graph with Ollama</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quest-dialog">
+<p><strong>Prerequisites:</strong> RAG and Its Cousins, and <a href="../kennel/adopt-the-pet.html">Adopt the Pet</a> (Ollama installed and running). Python 3 on your path; the scripts use only its standard library. This is an optional side quest. <strong>Objective:</strong> build a small knowledge graph from twelve mock lab notes using a local model, query it, compare it with simple RAG, and know what it takes to use LightRAG or Microsoft GraphRAG with Ollama. <strong>Time:</strong> about 30 minutes, most of it waiting for the model. Everything stays on your machine, and the notes are mock data.</p>
+<p><span class="ao-badge">Verified: ran <code>rag.py</code> and <code>graph.py</code> on 2026-11-20 (macOS, Ollama 0.40.16) with <code>gemma4:12b-mlx</code> for chat and <code>nomic-embed-text</code> for embeddings. One run per question at temperature 0, not repeated. A second run on 2026-11-20 used Mistral’s <code>ministral-3:8b</code> for chat (same embeddings, see “A second model”). Not run: LightRAG, Microsoft GraphRAG, <code>qwen3:4b</code>. Tool facts for those two: Last verified (docs, not run) on 2026-11-20. Sources: research/rag.md.</span></p>
+<p><strong>Files:</strong> <a href="https://github.com/mahesh-panchal/agent-odyssey/tree/main/exercises/codon-mill/mini-rag"><code>mini-rag</code></a> holds <code>ollama_min.py</code> (two helpers), <code>rag.py</code> (simple RAG), <code>graph.py</code> (a hand-made graph RAG) and <code>notes/</code> (twelve short mock notes, 233 words in all). Save the folder anywhere. If the link is not available, ask your agent to recreate it from the descriptions below.</p>
+</div>
+<section id="set-up" class="level2">
+<h2 class="anchored" data-anchor-id="set-up">Set up</h2>
+<p>Pull an embedding model and pick a chat model you already have. Adopt the Pet suggested <code>qwen3:4b</code>, which this quest did not test (a small model may extract worse facts; see the model note below).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull nomic-embed-text</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CHAT_MODEL</span><span class="op">=</span>gemma4:12b-mlx      <span class="co"># or any chat model you have pulled</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> mini-rag</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The scripts read three environment variables: <code>CHAT_MODEL</code>, <code>EMBED_MODEL</code> (default <code>nomic-embed-text</code>) and <code>OLLAMA_URL</code> (default <code>http://127.0.0.1:11434</code>). They send each request with <code>num_ctx</code> set to 8192, so you do not have to restart the server for them; Adopt the Pet explains why the default context is small.</p>
+<p>Open <code>notes/</code> and read a few. They are fictional: two sequencers (Orion and Vega), two projects (Heron and Kelp), two pipeline releases, and some distractors such as the lunch rota. One of the questions we will ask needs a chain of four hops: Project Heron studies samples S31 to S36, run R7 loaded those samples, run R7 used pipeline release 2.3, and release 2.3 has a known bug.</p>
+</section>
+<section id="step-1-simple-rag" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-simple-rag">Step 1: simple RAG</h2>
+<p><code>rag.py</code> is the four steps from the last quest in about thirty lines: embed every note, embed the question, keep the <em>k</em> closest notes, ask the model to answer from them.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> rag.py <span class="st">"Does project Heron need to re-analyse its data because of a known pipeline bug?"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>What we got with the default <code>-k 3</code>:</p>
+<pre><code>Retrieved:
+  0.668  pipeline-2-4.txt
+  0.653  pipeline-2-3.txt
+  0.644  project-heron.txt
+
+Answer:
+The notes do not contain the answer.</code></pre>
+<p>The notes that hold the answer were in the folder, but the run log that connects Heron’s samples to pipeline 2.3 ranked fourth. Try <code>-k 5</code>:</p>
+<pre><code>  0.668  pipeline-2-4.txt
+  0.653  pipeline-2-3.txt
+  0.644  project-heron.txt
+  0.549  run-r7.txt
+  0.528  run-r8.txt
+
+Answer:
+Yes, project Heron needs to re-analyse its data because the primary analysis of run R7 used pipeline release 2.3, which has a known bug that double-counts duplicate reads.</code></pre>
+<p>And <code>--all</code>, which skips retrieval and pastes every note into the prompt, also gave a correct answer. With twelve short notes, the window holds everything, which is the “small collection” row of the table in the last quest.</p>
+</section>
+<section id="step-2-build-the-graph" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-build-the-graph">Step 2: build the graph</h2>
+<p><code>graph.py build</code> sends each note to the chat model and asks for <code>(subject, relation, object)</code> facts. It uses Ollama’s structured outputs: the request carries a JSON schema in the <code>format</code> field, so the reply is JSON in the shape the script expects. Ollama’s docs suggest temperature 0 for this, and the helper sets it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> graph.py build</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> graph.py show</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In our run it printed <code>saved 67 facts</code>, and the whole build took 1 minute 20 seconds for twelve notes. A sample of what <code>show</code> printed:</p>
+<pre><code>Run R7 --loaded onto--&gt; Orion    [run-r7.txt]
+Run R7 --used--&gt; Pipeline 2.3    [run-r7.txt]
+Pipeline 2.3 --has bug--&gt; double-counts duplicate reads    [pipeline-2-3.txt]
+Project Heron --studies--&gt; S31    [project-heron.txt]
+Orion --looked after by--&gt; Dana Okafor    [orion.txt]
+You --bring--&gt; own cup    [lunch.txt]</code></pre>
+<p>Read the whole list. Most facts match their notes. Two did not: the lunch note produced <code>You --bring--&gt; own cup</code>, which is not a fact about anything in the lab, and one name came back with a stray leading space, which would have split a single entity into two nodes (the script now strips names when it loads them). Extraction is a model’s reading of your text, so a graph is a second thing to check. Every fact carries the note it came from, so you can.</p>
+</section>
+<section id="step-3-ask-the-graph" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-ask-the-graph">Step 3: ask the graph</h2>
+<p><code>graph.py ask</code> does three things. It finds starting entities (names that appear in the question, plus the three closest by embedding). It walks outward two hops along the links. Then it hands the collected facts and their source notes to the model.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> graph.py ask <span class="st">"Does project Heron need to re-analyse its data because of a known pipeline bug?"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>Starting entities: ['pipeline 2.3', 'pipeline 2.4', 'project heron']
+Collected 40 facts from 8 notes: freezers.txt, meeting-march.txt, pipeline-2-3.txt, pipeline-2-4.txt, project-heron.txt, project-kelp.txt, run-r7.txt, run-r8.txt
+
+Answer:
+Yes, Project Heron needs to re-analyse its data because Run R7, which loaded the samples for Project Heron (S31 to S36), used Pipeline 2.3, which has a known bug that double-counts duplicate reads.
+
+Notes used:
+- [pipeline-2-3.txt]
+- [project-heron.txt]
+- [run-r7.txt]</code></pre>
+<p>The wording of the answer differs a little from run to run even at temperature 0 (we saw two versions), so yours will not match word for word.</p>
+</section>
+<section id="what-this-shows-and-what-it-does-not" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-shows-and-what-it-does-not">What this shows, and what it does not</h2>
+<ul>
+<li><strong>Simple RAG missed at k=3 and succeeded at k=5.</strong> The failure was a retrieval miss: the run log was not among the top three notes. Raising <em>k</em> fixed it here, at the price of more text in the prompt.</li>
+<li><strong>Putting everything in the prompt also worked,</strong> because the collection is tiny.</li>
+<li><strong>The graph walk reached the run log without a bigger <em>k</em>,</strong> because the link from Heron’s samples to run R7 is an edge. It also pulled in 40 of the 67 facts and 8 of the 12 notes, so the walk is broad, and a bigger collection would need a smaller hop count or a ranking step.</li>
+<li><strong>The graph cost a minute and twenty seconds to build</strong> for 233 words, and it needs a model good enough to extract facts. Embedding twelve notes for simple RAG takes seconds. <em>General practice:</em> the build cost grows with the size of the collection, and Microsoft’s paper reports hours for a roughly 1-million-token corpus.</li>
+<li><strong>This is one question, one model and one run.</strong> It illustrates the mechanics and proves nothing about which method is better. Try your own questions.</li>
+<li><strong>A whole-collection question failed in all three setups.</strong> We asked “Who works in this group, and what does each person do?” and simple RAG, <code>--all</code> and the graph walk each said the notes did not contain the answer. No note lists a roster, so it may simply be a poor question. Microsoft’s Graph RAG aims at whole-collection questions with community summaries; this toy graph does not build any.</li>
+</ul>
+</section>
+<section id="a-second-model-mistrals-ministral-3" class="level2">
+<h2 class="anchored" data-anchor-id="a-second-model-mistrals-ministral-3">A second model: Mistral’s Ministral 3</h2>
+<p>Models behave differently on the same notes, and swapping one is a one-line change (<code>export CHAT_MODEL=...</code>). We repeated the runs with <code>ministral-3:8b</code> from Mistral. Ollama lists it at 6.0 GB with tool support and an Apache 2.0 licence (Last verified, docs, not run, on 2026-11-20; see <code>research/mistral.md</code>). For simple RAG, retrieval did not change, since the embedding model is the same, so the same notes came back at each <em>k</em>. Only the answering model differed. The graph was rebuilt by the new model, so its walk differs (25 facts from 7 notes, against 40 facts from 8 notes with <code>gemma4:12b-mlx</code>). One run per question at temperature 0:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Setup</th>
+<th><code>gemma4:12b-mlx</code></th>
+<th><code>ministral-3:8b</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Simple RAG, <code>-k 3</code></td>
+<td>“The notes do not contain the answer.”</td>
+<td>Says the notes do not contain enough information.</td>
+</tr>
+<tr class="even">
+<td>Simple RAG, <code>-k 5</code></td>
+<td>Yes, re-analysis needed (correct).</td>
+<td><strong>No</strong> (wrong): it claims run R7 used release 2.4, but the note says 2.3.</td>
+</tr>
+<tr class="odd">
+<td><code>--all</code> (every note pasted)</td>
+<td>Correct.</td>
+<td>Lists the right facts (R7 used 2.3, which has the bug), then answers <strong>No</strong> because “no re-analysis was done” (wrong).</td>
+</tr>
+<tr class="even">
+<td>Graph walk</td>
+<td>Yes (correct).</td>
+<td>Collects 25 facts from 7 notes, including the R7 and 2.3 facts, then answers <strong>No</strong> (wrong).</td>
+</tr>
+<tr class="odd">
+<td>Whole-collection question</td>
+<td>Not answered.</td>
+<td>Not answered.</td>
+</tr>
+</tbody>
+</table>
+<p>The graph build with <code>ministral-3:8b</code> took about a minute, saved 80 facts and returned valid JSON for all twelve notes. Reading <code>show</code> turned up a few odd entries: <code>Pipeline 2.3 --has issue fix--&gt; Dana Okafor</code>, a node called <code>Pipeline 2.3 issue</code>, and a <code>User</code> node taken from the safety note. We did not compare all 80 facts with their notes, so read <code>show</code> against the notes yourself.</p>
+<p><strong>What we take from it.</strong> With this model, the right passages reached the prompt in three setups (for the graph, passages from a graph this model built) and the final answer was still wrong, once with a misread (2.4 for 2.3) and twice with a reasoning slip. Retrieval is one half of the job, and the reader model is the other half. The check you can always do is the one this quest keeps asking for: read the notes it names and see whether they say what the answer says. <em>General practice:</em> test a model on a few questions whose answers you know before you trust it on new ones. This is one question, one run and two models, so it does not rank them. Mistral also offers <code>mistral-small</code> (24B, 14 GB) and others on Ollama, and we did not run those.</p>
+</section>
+<section id="a-note-on-model-size" class="level2">
+<h2 class="anchored" data-anchor-id="a-note-on-model-size">A note on model size</h2>
+<p>Extraction asks a model to produce well-formed JSON for every chunk. The tools’ own documentation is cautious about small models: the Microsoft GraphRAG docs say that with Ollama they “frequently see issues with malformed responses (especially JSON)”, and the LightRAG README calls a 30B-parameter model “a reasonable minimum” for local use, while its programming guide says at least 32B. Neither gives a benchmark. Our 12B model produced valid JSON for all twelve notes, and <code>show</code> lets you judge the facts. Not checked: how <code>qwen3:4b</code> or other models under about 7B do on this exercise. If you try one, read the triples before you trust the answers.</p>
+</section>
+<section id="using-a-real-tool-with-ollama" class="level2">
+<h2 class="anchored" data-anchor-id="using-a-real-tool-with-ollama">Using a real tool with Ollama</h2>
+<p><code>graph.py</code> is a teaching toy. Two real projects do this at scale. Treat the details below as Last verified (docs, not run), and check the current docs before relying on them.</p>
+<p><strong>LightRAG</strong> (<code>github.com/HKUDS/LightRAG</code>; release v1.5.8rc1 on 2026-11-15 when read).</p>
+<ul>
+<li>Install: <code>pip install "lightrag-hku[api]"</code> (the README also shows <code>uv</code>), then copy <code>env.example</code> to <code>.env</code> and run <code>lightrag-server</code>.</li>
+<li>For Ollama, the project’s guide wires <code>ollama_model_complete</code> for chat and <code>ollama_embed</code> for embeddings. Its docs say LightRAG “requires at least 32k context tokens” and that Ollama’s default is smaller. Set <code>num_ctx</code> to 32768 in code or in a Modelfile; for the server, <code>OLLAMA_LLM_NUM_CTX</code> in <code>.env</code>. Ollama’s own docs say the default context is 4k on machines under 24 GiB of video memory, so check with <code>ollama ps</code>.</li>
+<li>Use a non-thinking model for extraction. The README says models slower than about 50 tokens per second may time out on dense chunks.</li>
+<li>Pick your embedding model before indexing and keep it. <code>EMBEDDING_DIM</code> must equal the model’s output size. The guide uses 768 for <code>nomic-embed-text</code>. Changing the model later means re-embedding everything.</li>
+<li>The default storage is in-memory files meant for small tests.</li>
+<li><strong>Server safety:</strong> the docs say <code>lightrag-server</code> binds to all network interfaces with authentication off by default. On a laptop or shared machine, set <code>HOST=127.0.0.1</code> before you start it.</li>
+</ul>
+<p><strong>Microsoft GraphRAG</strong> (<code>microsoft.github.io/graphrag</code>; v3.3.0 on 2026-10-08 when read).</p>
+<ul>
+<li>The commands are <code>graphrag init</code>, <code>graphrag index</code> and <code>graphrag query "..." --method local</code> (or <code>global</code>). Text files go in <code>input/</code>.</li>
+<li>The docs warn that it “can consume a lot of LLM resources” and suggest starting with the small tutorial dataset and cheaper models.</li>
+<li>It calls models through LiteLLM and requires structured JSON output. The docs describe users putting Ollama behind a proxy and report frequent malformed responses. Not checked: a documented Ollama setup (none was found in the docs). A closed GitHub issue reports that its default embedding vector size of 3072 can clash with smaller embedding models such as the 768-dimension <code>nomic-embed-text</code>, which is issue evidence, not official guidance.</li>
+</ul>
+<p><em>General practice:</em> if you want a graph over your own notes with Ollama, start with LightRAG on a tiny folder of mock files, then look at the facts it extracted before pointing it at anything real.</p>
+</section>
+<section id="verify-the-graph" class="level2">
+<h2 class="anchored" data-anchor-id="verify-the-graph">Verify the graph</h2>
+<p>The Blight likes a confident answer built on a wrong link. A graph gives you something to check that a plain answer does not: the list of facts, each with its source note.</p>
+<ul>
+<li>Read the extracted facts for a few notes against the notes themselves. Count the wrong ones.</li>
+<li>Ask the agent or the script to name the notes behind each answer, then open them.</li>
+<li>Keep a short list of questions whose answers you know, and run it after you change the model, the prompt or the notes.</li>
+<li>Never put real or controlled data in this exercise. The same scripts pointed at a hosted model would send every note to that provider; see <a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</li>
+</ul>
+</section>
+<section id="with-a-companion" class="level2">
+<h2 class="anchored" data-anchor-id="with-a-companion">With a companion</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Ask Claude Code to read <code>graph.py</code> and explain the walk in <code>ask</code>, then predict what changes if you set <code>hops=1</code> before you run it. Running the scripts needs your approval for each shell command. These notes are mock data, so sending them to a hosted model is fine for this exercise. A hosted agent reading your own unpublished notes is a decision for your data agreement.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The scripts talk to Ollama directly, so any companion can run them. If you use OpenCode with the Pet, you can ask it to explain the code and change <code>hops</code>. Not checked: how OpenCode behaves with a model that is slow at extracting JSON.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="honour" class="level2">
+<h2 class="anchored" data-anchor-id="honour">Honour</h2>
+<div data-ao-honour="graph-read-triples" data-xp="20">
+Run <code>python3 graph.py show</code> and write down one fact that is wrong or odd, and the note it came from.
+</div>
+<div data-ao-honour="graph-hops" data-xp="20">
+Change <code>hops=2</code> to <code>hops=1</code> in <code>graph.py</code>, predict what happens to the Heron answer, then run it and compare.
+</div>
+</section>
+<section id="battle-the-graph" class="level2">
+<h2 class="anchored" data-anchor-id="battle-the-graph">Battle: the graph</h2>
+<div data-ao-test="codon-mill-grow-a-graph-with-ollama" data-xp="60">
+
+</div>
+</section>
+<section id="lore" class="level2 ao-lore">
+<h2 class="anchored" data-anchor-id="lore">Lore</h2>
+<p><em>Further reading. Optional.</em></p>
+<ul>
+<li><a href="https://docs.ollama.com/capabilities/embeddings">Embeddings</a>: Ollama, docs. Why read: it documents the <code>/api/embed</code> call the scripts use and says to embed documents and questions with the same model.</li>
+<li><a href="https://docs.ollama.com/capabilities/structured-outputs">Structured outputs</a>: Ollama, docs. Why read: it explains the <code>format</code> field with a JSON schema that makes fact extraction return usable JSON.</li>
+<li><a href="https://docs.ollama.com/context-length">Context length</a>: Ollama, docs. Why read: it gives the default context by memory size and how to check what loaded with <code>ollama ps</code>.</li>
+<li><a href="https://github.com/HKUDS/LightRAG">LightRAG</a>: HKUDS, repo. Why read: the README and docs give the Ollama wiring, the context and model-size requirements, and the storage defaults.</li>
+<li><a href="https://microsoft.github.io/graphrag/get_started/">Get started with GraphRAG</a>: Microsoft, docs. Why read: it lists the init, index and query commands and the warning about LLM cost.</li>
+<li><a href="https://microsoft.github.io/graphrag/config/models/">Language model selection</a>: Microsoft, docs. Why read: it is where the docs describe the JSON requirement and the problems seen with Ollama.</li>
+<li><a href="https://arxiv.org/abs/2506.05690">When to use Graphs in RAG</a>: Xiang and colleagues, paper. Why read: it studies which kinds of questions benefit from graphs, with token costs per method.</li>
+<li><a href="https://github.com/NirDiamant/rag_techniques">Advanced RAG Techniques</a>: Nir Diamant and contributors, repo. Why read: its notebook list includes graph RAG with a local Ollama model and LightRAG, plus chunking and evaluation, though we did not open the notebooks and the repo carries sponsor and book promotions.</li>
+</ul>
+</section>
+
+
+
+</main> <!-- /main -->
+<script>
+(function () {
+  var l = document.querySelector('link[href$="assets/css/rpg.css"]');
+  var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
+  window.AO_BASE = base;
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+    return p.then(function () {
+      return new Promise(function (res) {
+        var s = document.createElement("script");
+        s.src = base + "assets/js/" + n + ".js"; s.onload = res; document.body.appendChild(s);
+      });
+    });
+  }, Promise.resolve());
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mahesh-panchal\.github\.io\/agent-odyssey\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
