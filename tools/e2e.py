@@ -27,8 +27,13 @@ try:
     check("hero stops at the tree wall (x=1 is leftmost walkable)", json.loads(pos())["x"] == 1, pos())
 
 
+    check("map hides unreached gates by default", B.js("document.getElementById('ao-reveal').getAttribute('aria-pressed')") == "false")
+    B.js("document.getElementById('ao-reveal').click()")
+    check("Show the whole map toggle flips", B.js("document.getElementById('ao-reveal').getAttribute('aria-pressed')") == "true")
+    B.js("document.getElementById('ao-reveal').click()")
+
     # --- walk to the Crypt from Basecamp: reload resets to start (3,8) ---
-    B.go(base + "index.html")
+    B.go(base + "index.html"); B.js("document.getElementById('ao-reveal').click()")
     for k, n in (("ArrowUp", 2), ("ArrowRight", 14), ("ArrowUp", 4), ("ArrowRight", 1)):
         for _ in range(n): B.press(k, 0.08)
     check("hero reaches the Crypt gate (18,2)", pos() == '{"x":18,"y":2}', pos())

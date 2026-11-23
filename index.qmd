@@ -5,12 +5,13 @@ title: "Agent Odyssey"
 <p class="ao-start-here"><a class="ao-start-btn" href="start-here.html">New here? Start Here ▶</a><br>A short guide to the path, with a map of every quest and your next step.</p>
 
 A Blight spreads across the land: plausible-but-false knowledge that grows when nobody checks it.
-Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold **▶ NEXT** marker is the suggested next stop. Other **OPEN** zones can be visited in any order.
+Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold **▶ NEXT** marker is the suggested next stop. The map shows only the places on your path. More appear as you clear quests, or choose “Show the whole map” to see everything.
 
 <p id="ao-next" class="ao-next" aria-live="polite"></p>
 
 <canvas id="ao-world" tabindex="0" data-game-widget aria-label="Overworld map. Use the zone list below if you prefer links."></canvas>
 <p id="ao-caption" aria-live="polite"></p>
+<p><button id="ao-reveal" type="button" aria-pressed="false">Show the whole map</button></p>
 
 <details class="ao-textlist"><summary>Text-only list of zones</summary>
 
