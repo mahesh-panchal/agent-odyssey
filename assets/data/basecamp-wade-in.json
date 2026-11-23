@@ -1,0 +1,153 @@
+{
+ "pass": 0.8,
+ "questions": [
+  {
+   "type": "sort",
+   "prompt": "A manager plans six report tasks. Sort them by whether real rows from the project database would leave the machine.",
+   "bins": [
+    "No real rows leave",
+    "Real rows would leave"
+   ],
+   "explain": "Text you type, schemas and invented rows keep real data home. Pasting, uploading or letting an agent read data sends it, even when the tool is read-only.",
+   "items": [
+    {
+     "text": "Ask for an outline and section headings for a quarterly report",
+     "bin": "No real rows leave",
+     "misconception": "A question with no data in it sends only the words you typed."
+    },
+    {
+     "text": "Paste the schema and ask for a query that you run yourself",
+     "bin": "No real rows leave",
+     "misconception": "Table and column names travel and the rows stay on your machine, because you run the query."
+    },
+    {
+     "text": "Ask how to explain a fall in sample numbers to a board",
+     "bin": "No real rows leave",
+     "misconception": "A general question needs no data, so nothing from the database is sent."
+    },
+    {
+     "text": "Upload the whole sample table so the model can count by project",
+     "bin": "Real rows would leave",
+     "misconception": "An upload is sent to the provider like pasted text, however helpful the count is."
+    },
+    {
+     "text": "Paste ten rows with participant codes to get counts by month",
+     "bin": "Real rows would leave",
+     "misconception": "Pasted rows are sent, and codes that replace names are still personal data."
+    },
+    {
+     "text": "Let a read-only agent open the data folder and summarise it",
+     "bin": "Real rows would leave",
+     "misconception": "Read-only limits what the agent changes. It still sends what it reads."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A manager runs an agent in plan mode on a copy of the database. What does the read-only part protect them from?",
+   "explain": "Plan mode limits what the agent does. Reading still happens, so the contents it reads are sent to the provider.",
+   "options": [
+    {
+     "text": "Edits to your files, while what the agent reads is still sent",
+     "correct": true
+    },
+    {
+     "text": "Anything leaving the machine, because a read-only agent cannot write anything",
+     "misconception": "Read-only restricts actions. Reading is the step that sends data."
+    },
+    {
+     "text": "Network use, because plan mode blocks calls to outside services",
+     "misconception": "Plan mode limits actions such as editing. It has no say over where the content it reads is sent."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "The model's query ran without an error and reports 22 samples for Heron. Your own count query says 11. What is the sensible next move?",
+   "explain": "Neither number is trusted until you know why they differ. Here a join repeats each sample once per open milestone.",
+   "options": [
+    {
+     "text": "Find out why the two differ before using either number",
+     "correct": true
+    },
+    {
+     "text": "Ask the model whether it is sure, then use its answer",
+     "misconception": "A fluent yes from the same model checks nothing."
+    },
+    {
+     "text": "Average the two numbers, since both could be partly right",
+     "misconception": "An average of a wrong count and a right one is still wrong. Find which is right."
+    },
+    {
+     "text": "Use the model's number, since it ran without an error",
+     "misconception": "Running without an error says nothing about correctness."
+    }
+   ]
+  },
+  {
+   "type": "match",
+   "prompt": "Match each step to what leaves your machine.",
+   "explain": "The step sets what the tool can do, and what you type, paste, upload or let it read sets what leaves.",
+   "pairs": [
+    {
+     "left": "Chat with no data",
+     "right": "Only the words you type",
+     "misconception": "With no data in the prompt, only your own wording is sent."
+    },
+    {
+     "left": "Chat with schema and invented rows",
+     "right": "Table and column names, and the invented rows",
+     "misconception": "The shape of the database goes, and the real rows stay with you."
+    },
+    {
+     "left": "Local model on the real data",
+     "right": "Nothing, unless a web or tool call sends something",
+     "misconception": "A local model keeps prompts home, and tools it calls may still reach out."
+    },
+    {
+     "left": "Read-only agent on a copy",
+     "right": "Whatever files it reads",
+     "misconception": "A copy protects the original from edits, and the copy's contents are still sent when read."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "The organisation pays for an organisation account. A colleague wants to use a personal Pro account for the same report data. What matters most?",
+   "explain": "The two kinds of account have different documented terms, such as the training setting and retention. Use the account your organisation approved for that data.",
+   "options": [
+    {
+     "text": "The terms may differ by account type, so use the approved one",
+     "correct": true
+    },
+    {
+     "text": "The terms are the same, because both accounts talk to the same model",
+     "misconception": "Terms belong to the plan and the account type, and the model name does not decide them."
+    },
+    {
+     "text": "A personal account is safer, because no administrator is involved in it",
+     "misconception": "Fewer people involved does not make an account approved for that data."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "Which statement about incognito chats is supported by the pages read for this quest?",
+   "explain": "The docs say incognito chats are not used for training and are still kept for 30 days by default, so they are not a place for data that must never leave.",
+   "options": [
+    {
+     "text": "Not used for training, and still kept for 30 days by default",
+     "correct": true
+    },
+    {
+     "text": "They leave nothing on the provider's side once the chat has ended",
+     "misconception": "The page gives a 30-day default retention."
+    },
+    {
+     "text": "They are deleted from the provider as soon as the window closes",
+     "misconception": "Deletion takes up to 30 days, and flagged chats may be kept longer."
+    }
+   ]
+  }
+ ]
+}

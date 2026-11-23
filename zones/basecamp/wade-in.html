@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Wade In – Agent Odyssey</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-977c00f727d934aaf92f33c3e4ecd871.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../assets/css/rpg.css">
+</head>
+
+<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Wade In</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quest-dialog">
+<p><strong>Prerequisites:</strong> Know Your Gear, and Python 3 for the exercise. <strong>Objective:</strong> choose how much of your data and your machine to hand over for one task, and start at the lowest step that gets the job done. <strong>Time:</strong> about 20 minutes. <span class="ao-badge">Last verified (docs, not run): Anthropic privacy pages read 2026-11-23 through a summarising tool (research/wade-in.md), Claude Code data usage page read 2026-11-17. Verified: ran the exercise files below on 2026-11-23. The steps and the data table are General practice. Your own data agreement overrides anything here.</span></p>
+</div>
+<section id="the-scene" class="level2">
+<h2 class="anchored" data-anchor-id="the-scene">The scene</h2>
+<p>A manager has to write a report from the project database: samples received, milestones still open. They have two worries. The first is where the data goes. The second is a belief, that to use an LLM at all they must let an agent loose on their computer.</p>
+<p>The second belief has a gentler answer. Between “never” and “the agent runs my machine” there are several steps, and many useful tasks sit on the lower ones. You may stop at any step. Choosing not to climb is a legitimate decision at every one.</p>
+</section>
+<section id="two-dials" class="level2">
+<h2 class="anchored" data-anchor-id="two-dials">Two dials</h2>
+<p>Two questions are easy to mix up, and they turn independently.</p>
+<ol type="1">
+<li><strong>What leaves your machine?</strong> With a hosted model, anything you type, paste or upload is sent to the provider, and so is anything an agent reads. A model running on your own machine (see <em>Adopt the Pet</em>) keeps prompts local. Web or tool calls it makes may still reach out (General practice, not checked in the docs). The Claude Code docs say it sends all prompts and model outputs over the network (read 2026-11-17). For a chat window the same reasoning holds (General practice).</li>
+<li><strong>What may the tool do?</strong> It may only produce text. It may read files. It may edit files. It may run commands.</li>
+</ol>
+<p>A chat window has the lowest second dial and can still carry a whole table to the provider if you paste one. A read-only agent has a low second dial too, and it still sends whatever it reads. Each dial needs its own decision.</p>
+</section>
+<section id="the-ladder" class="level2">
+<h2 class="anchored" data-anchor-id="the-ladder">The ladder</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>What you do</th>
+<th>What leaves</th>
+<th>What the tool can do</th>
+<th>Good for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Write the report yourself</td>
+<td>nothing</td>
+<td>nothing</td>
+<td>Always a valid choice</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Chat with no data</td>
+<td>the words you type</td>
+<td>produce text</td>
+<td>An outline, wording, how to explain a chart, a checklist for the report</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Chat with the schema (the table and column names) and a few invented example rows; you run the code it writes</td>
+<td>those names and the invented rows. Pasting the results back would send those rows too, which is step 3</td>
+<td>produce text</td>
+<td>The numbers in the report: it writes the query (a SQL request that only reads, when it starts with SELECT), you run it</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>A small extract your agreement allows, or a local model on the real data</td>
+<td>the extract; nothing for a local model</td>
+<td>produce text</td>
+<td>Tidying prose, summarising free text</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>A read-only agent on a copy of the data</td>
+<td>everything it reads</td>
+<td>read files</td>
+<td>A folder you have already looked through and know is safe to share</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>An agent that edits and runs commands</td>
+<td>everything it reads, and whatever it runs may send more</td>
+<td>change files, run commands</td>
+<td>Pipeline and code work, with a save point and permission rules</td>
+</tr>
+</tbody>
+</table>
+<p>Plan mode (a mode where the agent reads and proposes and does not edit; see <em>Recruit the Beast</em>) belongs to step 4. It limits what the agent does. What is exposed depends on what it reads, and reading sends it. A copy of the data protects the original from edits and is still sent when read.</p>
+</section>
+<section id="three-questions-before-any-step" class="level2">
+<h2 class="anchored" data-anchor-id="three-questions-before-any-step">Three questions before any step</h2>
+<ol type="1">
+<li><strong>What kind of data is it?</strong> The table gives a typical starting point (General practice). Your agreement, your data steward and your institution’s rules decide, and they can be stricter.</li>
+<li><strong>Which account will you use?</strong> Consumer and organisation accounts have different documented terms, below.</li>
+<li><strong>What leaves at this step?</strong> Say it in one sentence before you press enter.</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Kind of data</th>
+<th>Typical starting point</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Public or already published</td>
+<td>Any step</td>
+</tr>
+<tr class="even">
+<td>Internal and not personal (project names, milestone dates, status)</td>
+<td>Steps 1 to 3 on an account your organisation allows. Steps 4 to 5 only on an approved account, on a copy</td>
+</tr>
+<tr class="odd">
+<td>Personal data, including pseudonymised codes (codes that replace names, and still count as personal data)</td>
+<td>Steps 0 to 2 with no real rows. Higher steps need an approved account and agreement. Ask your data steward (the person at your organisation who looks after data rules)</td>
+</tr>
+<tr class="even">
+<td>Controlled or special-category data (health, genetic or other data under extra legal protection or a special agreement)</td>
+<td>Steps 0 to 2. A local model only if your agreement allows that copy. Anything else only if it says so in writing</td>
+</tr>
+</tbody>
+</table>
+<p>Small counts can single people out even when no names are present, so check your policy before pasting results for rare groups (General practice). <em>The Locked Cabinet</em> covers personal data, agreements and keys in more depth.</p>
+</section>
+<section id="what-the-docs-say-about-the-chat-window" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-docs-say-about-the-chat-window">What the docs say about the chat window</h2>
+<p>Read 2026-11-23 on Anthropic’s privacy and support pages, through a summarising tool, so re-check the wording on the live page. Sources are in <code>research/wade-in.md</code>.</p>
+<ul>
+<li><strong>Consumer accounts (Free, Pro, Max)</strong> have a setting that lets chats improve the models. The page states no default. With it on, data may be kept, with identifying details removed (de-identified), for up to 5 years. This page gives no number for it being off, only “as long as reasonably necessary”. (The Claude Code page gives 30 days for Claude Code sessions.)</li>
+<li><strong>Commercial accounts (such as Claude for Work and the API)</strong>: the pages say inputs and outputs are not used for training, with exceptions such as feedback you send. They are deleted from the provider’s storage within 30 days by default, and longer for content flagged for a policy violation or when a longer-retention service is used.</li>
+<li><strong>Consumer accounts, after you delete a chat</strong>: it leaves the provider’s storage within 30 days.</li>
+<li><strong>Incognito chats</strong> are not used for training, and are still kept for 30 days by default, longer if an Enterprise organisation sets a longer period, and may be kept longer if flagged for a policy violation.</li>
+<li><strong>People reading chats:</strong> for consumer accounts, Anthropic staff cannot read conversations by default, unless you share them as feedback. Designated members of a Trust and Safety team may access that data on a need-to-know basis.</li>
+<li><strong>Uploaded files:</strong> we found no page that treats files differently from typed text, so treat a file like pasted text (General practice).</li>
+<li>Other providers’ chat tools have their own terms. Read those for the tool you use.</li>
+<li><strong>Screenshots, images, chat memory, connectors and browsing features</strong> are data too (General practice). Not checked: how each is handled.</li>
+<li><strong>To find out which account you are on</strong>, look at the plan shown in your account settings, and ask your administrator if your organisation provides it. The training setting for consumer accounts sits in the privacy settings (Not checked: the exact menu names change).</li>
+</ul>
+</section>
+<section id="hands-on-the-report-without-handing-over-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="hands-on-the-report-without-handing-over-the-data">Hands-on: the report, without handing over the data</h2>
+<p><strong>Files:</strong> <a href="../../exercises/basecamp/wade-in/make_db.py">make_db.py</a>, <a href="../../exercises/basecamp/wade-in/run_query.py">run_query.py</a>, <a href="../../exercises/basecamp/wade-in/report-query.sql">report-query.sql</a> and <a href="../../exercises/basecamp/wade-in/check-samples.sql">check-samples.sql</a>. Save all four into an empty folder. Every row is invented. No LLM is called.</p>
+<ol type="1">
+<li><p><strong>Build the mock database and the schema text.</strong> Run <code>python3 make_db.py</code> (or <code>python</code>, depending on your machine). It writes <code>mock.db</code> and <code>schema-only.txt</code>. Open the text file: table and column names, no rows. That is all that would go into a chat window at step 2. Look at the column names. <code>participant_code</code> and <code>notes</code> hint at what the real database holds, so decide whether even the names are fine to send.</p></li>
+<li><p><strong>The prompt you would send.</strong></p>
+<pre class="text"><code>I have a SQLite database with this schema:
+&lt;paste schema-only.txt&gt;
+Write one read-only SQL query that gives, for each project, the number of
+samples received and the number of open milestones (done = 0).
+I will run it myself and check the numbers. Do not ask me to paste any rows.</code></pre></li>
+<li><p><strong>The reply.</strong> <code>report-query.sql</code> stands in for what a model sent back. Read it before you run it: is it a single <code>SELECT</code>, and does it touch only the tables you expect? Then run <code>python3 run_query.py report-query.sql</code>. The script opens the database read-only, so a <code>DELETE</code> fails with “attempt to write a readonly database” (verified by running it).</p></li>
+<li><p><strong>Check it against something the model did not write.</strong> Run <code>python3 run_query.py check-samples.sql</code> and compare:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Project</th>
+<th>Model’s query: samples</th>
+<th>Your check: samples</th>
+<th>Model’s query: open milestones</th>
+<th>Open milestones in the data</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Heron</td>
+<td>22</td>
+<td>11</td>
+<td>22</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Kelp</td>
+<td>28</td>
+<td>14</td>
+<td>28</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Vega</td>
+<td>34</td>
+<td>17</td>
+<td>34</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>The query ran without an error, and its numbers are wrong. If you cannot run Python, read the table as a worked example, or ask a colleague to run it with you. Each project has two open milestones, and the query pairs every sample with every open milestone, so each sample is counted twice, and the milestone column repeats the same inflated number. Ask the model (or edit the query yourself) to fix it, then run both again until you get 11 and 2 for Heron.</p></li>
+</ol>
+<p>The data stayed on your machine all the way through. Only the schema and the query text travelled. The check still mattered: running without an error and being right are separate questions, which is the lesson of <em>Spot the Mirage</em>.</p>
+</section>
+<section id="climbing-if-and-when-you-want-to" class="level2">
+<h2 class="anchored" data-anchor-id="climbing-if-and-when-you-want-to">Climbing, if and when you want to</h2>
+<ul>
+<li>Move up a step when you have a task the lower step could not do, and a sentence saying what leaves.</li>
+<li>Before steps 4 and 5, work on a <strong>copy</strong> of the data, set a save point (<em>Save Point</em>) and add permission rules (<em>Grow the Carapace</em>, the quest on limiting what an agent may do).</li>
+<li>For sensitive data you may prefer to stay on a local model (<em>Adopt the Pet</em>), when your agreement allows that copy.</li>
+<li>If you have already pasted something you should not have, stop and tell your data steward. <em>The Locked Cabinet</em> explains what a session keeps behind.</li>
+<li>A one-line message for your data steward: “For a report from the project database I want to use [tool, account type] at step [n]. What leaves is [what]. Is that allowed for [data kind]?”</li>
+<li>When you are ready for an agent, <em>Recruit the Beast</em> installs one and starts it in plan mode.</li>
+</ul>
+</section>
+<section id="battle" class="level2">
+<h2 class="anchored" data-anchor-id="battle">Battle</h2>
+<div data-ao-test="basecamp-wade-in" data-xp="60">
+
+</div>
+</section>
+<section id="lore" class="level2 ao-lore">
+<h2 class="anchored" data-anchor-id="lore">Lore</h2>
+<p><em>Further reading. Optional.</em></p>
+<ul>
+<li><a href="https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training">Is my data used for model training? (consumer)</a>: Anthropic, docs. Why read: it is the page that says the training setting exists for Free, Pro and Max chats, which decides your first account question.</li>
+<li><a href="https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data">How long do you store my data?</a>: Anthropic, docs. Why read: it gives the 5-year and 30-day figures for consumer chats and what happens after you delete one.</li>
+<li><a href="https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data">How long do you store my organization’s data?</a>: Anthropic, docs. Why read: it is the commercial-account counterpart, with the 30-day default and the cases that keep data longer.</li>
+<li><a href="https://support.claude.com/en/articles/12260368-use-incognito-chats">Use incognito chats</a>: Anthropic, docs. Why read: it shows what incognito does and does not change, so you do not over-trust the name.</li>
+<li><a href="https://code.claude.com/docs/en/data-usage">Data usage (Claude Code)</a>: Anthropic, docs. Why read: it states that the agent sends prompts and outputs over the network, which is what makes steps 4 and 5 different from running a query yourself.</li>
+<li><a href="https://docs.ollama.com/faq">Ollama FAQ</a>: Ollama, docs. Why read: it says local runs do not send prompts to Ollama and separates its cloud models, which matters if you choose a local model for sensitive data.</li>
+<li><a href="https://aiforscience.eu/short-version/">AI for Science: the short version</a>: AI for Science, article. Why read: a one-page European draft summary of research practices, useful for a conversation with your data steward. It is a draft without endorsements.</li>
+</ul>
+</section>
+
+
+
+</main> <!-- /main -->
+<script>
+(function () {
+  var l = document.querySelector('link[href$="assets/css/rpg.css"]');
+  var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
+  window.AO_BASE = base;
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+    return p.then(function () {
+      return new Promise(function (res) {
+        var s = document.createElement("script");
+        s.src = base + "assets/js/" + n + ".js"; s.onload = res; document.body.appendChild(s);
+      });
+    });
+  }, Promise.resolve());
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mahesh-panchal\.github\.io\/agent-odyssey\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
