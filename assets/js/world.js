@@ -32,6 +32,14 @@
       if (g) return g;
       return Object.keys(gateAt).map(function (k) { return gateAt[k]; }).filter(function (g) { return gst(g) === "open" && !cleared(g); })[0] || {};
     }
+    // Gates on the learner's path: start, cleared, the next stop, and any gate with a required quest ready now.
+    // Everything else stays hidden under the veil until the learner asks for the whole map.
+    var showAll = !!AO.state.prefs.showAll;
+    function revealed(g) {
+      if (showAll || g.id === world.gates[world.start].id || cleared(g) || firstOpen() === g) return true;
+      if (g.quests && g.quests.some(function (q) { return q.id === finaleId ? P.finaleUnlocked() : (!isOptional(q) && P.status(q.id) === "ready"); })) return true;
+      return false;
+    }
     function pickQuest(g) {                       // the graph's next quest if it is here, else a ready one, else the first uncleared
       var left = g.quests.filter(function (q) { return !AO.state.passed[q.id]; }), nq = P.nextQuest();
       return left.filter(function (q) { return nq && q.id === nq.id; })[0] || left.filter(function (q) { return P.status(q.id) === "ready"; })[0] || left[0] || g.quests[0];
@@ -48,6 +56,7 @@
       var nx = document.getElementById("ao-next"), f = firstOpen();
       if (nx) nx.textContent = f.name ? "▶ Next: walk to the gold gate — " + f.name + " — and press Enter." : "Every zone you can enter is cleared.";
       if (g && g.id === world.gates[world.start].id && gst(g) !== "open") { cap.textContent = "You are at " + g.name + ", where the journey starts."; return; }
+      if (g && !revealed(g)) { cap.textContent = "An unexplored place, still under the veil. Follow the gold marker, or choose “Show the whole map”."; return; }
       if (!g) { cap.textContent = "Walk with the arrow keys or WASD. Your first quest is at the gold gate: " + firstOpen().name + "."; return; }
       cap.textContent = g.name + " (" + g.track + ") — " +
         (gst(g) === "open" ? (cleared(g) ? "cleared. Press Enter to revisit." : "the Murk lingers. Press Enter to enter.")
@@ -61,6 +70,7 @@
     }
     function enter() {
       var g = gateAt[p.x + "," + p.y]; if (!g) return;
+      if (!revealed(g)) { cap.textContent = "That place is still under the veil. Follow the gold marker, or choose “Show the whole map”."; return; }
       remember(g);
       if (gst(g) === "open") {
         location.href = window.AO_BASE + pickQuest(g).page;
@@ -97,15 +107,28 @@
     function buildOverlays() {
       var f = fog[1], l = lab[1]; f.clearRect(0, 0, cv.width, cv.height); l.clearRect(0, 0, cv.width, cv.height);
       l.font = "bold 20px ui-monospace, monospace"; l.textAlign = "center"; l.textBaseline = "middle";
+      if (!showAll) {                                   // veil: dark everywhere except around revealed gates
+        f.fillStyle = "rgba(14,10,24,.9)"; f.fillRect(0, 0, cv.width, cv.height);
+        f.globalCompositeOperation = "destination-out";
+        Object.keys(gateAt).forEach(function (k) {
+          var g = gateAt[k]; if (!revealed(g)) return;
+          var x = (g.x + .5) * T * S, y = (g.y + .5) * T * S, r = 4.5 * T * S, gr = f.createRadialGradient(x, y, 10, x, y, r);
+          gr.addColorStop(0, "rgba(0,0,0,1)"); gr.addColorStop(.6, "rgba(0,0,0,.9)"); gr.addColorStop(1, "rgba(0,0,0,0)");
+          f.fillStyle = gr; f.fillRect(x - r, y - r, 2 * r, 2 * r);
+        });
+        f.globalCompositeOperation = "source-over";
+      }
       Object.keys(gateAt).forEach(function (k) {
-        var g = gateAt[k], done = cleared(g), cx = (g.x + .5) * T * S, cy = (g.y + .5) * T * S;
+        var g = gateAt[k];
+        if (!revealed(g)) return;
+        var done = cleared(g), cx = (g.x + .5) * T * S, cy = (g.y + .5) * T * S;
         if (!done) {
           var r = 2.6 * T * S, a = gst(g) === "open" ? .2 : (g.id === "basecamp" ? 0 : .8);
           var gr = f.createRadialGradient(cx, cy, 6, cx, cy, r);
           gr.addColorStop(0, "rgba(70,20,110," + a + ")"); gr.addColorStop(1, "rgba(70,20,110,0)");
           f.fillStyle = gr; f.fillRect(cx - r, cy - r, 2 * r, 2 * r);
         }
-        var nxt = firstOpen() === g, txt = (done ? "✔ CLEARED: " : g.id === "basecamp" ? "⌂ START: " : nxt ? "▶ NEXT: " : gst(g) === "open" ? "OPEN: " : "🔒 ") + g.name, ly = cy - 1.05 * T * S;
+        var nxt = firstOpen() === g, txt = (done ? "✔ CLEARED: " : nxt ? "▶ NEXT: " : g.id === world.gates[world.start].id ? "⌂ START: " : gst(g) === "open" ? "OPEN: " : "🔒 ") + g.name, ly = cy - 1.05 * T * S;
         var w = l.measureText(txt).width + 12, lx = Math.min(Math.max(cx, w / 2 + 2), cv.width - w / 2 - 2);
         l.fillStyle = "rgba(20,16,31,.88)"; l.fillRect(lx - w / 2, ly - 14, w, 28);
         l.fillStyle = done ? "#7bd88f" : gst(g) === "open" ? "#e8b84a" : "#cfc8e0"; l.fillText(txt, lx, ly);
@@ -113,6 +136,16 @@
       });
     }
     var open = firstOpen();
+    var btn = document.getElementById("ao-reveal");
+    if (btn) {
+      var lab2 = function () { btn.textContent = showAll ? "Hide the parts I have not reached" : "Show the whole map"; btn.setAttribute("aria-pressed", showAll ? "true" : "false"); };
+      lab2();
+      btn.addEventListener("click", function () {
+        showAll = !showAll; AO.state.prefs.showAll = showAll;
+        try { localStorage.setItem("agent-odyssey:v1:state", JSON.stringify(AO.state)); } catch (e) {}
+        lab2(); buildOverlays(); say();
+      });
+    }
     buildBase(); buildOverlays();
     AO.hooks.push(function () { open = firstOpen(); buildOverlays(); say(); });
     function draw(now) {
