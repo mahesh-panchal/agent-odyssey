@@ -132,7 +132,10 @@ def write_lore_page():
                 out.append("  Cited in:\n")
                 out += [f"  - [{t}]({p}): {w}" for t, p, w in c]
                 out.append("")
-    (ROOT / "lore.qmd").write_text("\n".join(out) + "\n")
+    # Write only when the content changed: `quarto preview` jumps to whichever page was rewritten last.
+    target, text = ROOT / "lore.qmd", "\n".join(out) + "\n"
+    if not target.exists() or target.read_text() != text:
+        target.write_text(text)
 
 if __name__ == "__main__":
     sys.exit(1 if lint("--require" in sys.argv[1:]) else 0)

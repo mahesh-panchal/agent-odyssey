@@ -4,6 +4,14 @@ import numpy as np
 from pathlib import Path
 from PIL import Image, ImageDraw
 
+def save(img, path):
+    """Save a PNG only when its bytes changed (keeps `quarto preview` from reloading on every pre-render)."""
+    import io
+    buf = io.BytesIO(); img.save(buf, "PNG"); data = buf.getvalue()
+    if not path.exists() or path.read_bytes() != data:
+        path.write_bytes(data)
+
+
 OUT = Path(__file__).resolve().parent.parent / "assets" / "img"
 OUT.mkdir(parents=True, exist_ok=True)
 P = {
@@ -68,13 +76,13 @@ def hero(direction, frame):
 kinds = ["grass", "path", "water", "tree", "gate", "stone"]
 sheet = Image.new("RGBA", (T * len(kinds), T))
 for i, k in enumerate(kinds): sheet.paste(tile(k), (i * T, 0))
-sheet.save(OUT / "tiles.png")
+save(sheet, OUT / "tiles.png")
 
 dirs = ["down", "left", "right", "up"]
 hs = Image.new("RGBA", (T * 3, T * 4))
 for r, dr in enumerate(dirs):
     for c in range(3): hs.paste(hero(dr, c), (c * T, r * T))
-hs.save(OUT / "hero.png")
+save(hs, OUT / "hero.png")
 
 # ---- Boss portraits (48x48 art px; the page scales them up with image-rendering: pixelated) ----
 B = 48
@@ -211,9 +219,9 @@ def boss_murk_cleared():
     sparkle(d, 9, 14); sparkle(d, 40, 11)
     return im
 
-boss_wall(0).save(OUT / "boss-wall.png")
-boss_wall(1).save(OUT / "boss-wall-cracked.png")
-boss_wall(2).save(OUT / "boss-wall-broken.png")
-boss_murk().save(OUT / "boss-murk.png")
-boss_murk_cleared().save(OUT / "boss-murk-cleared.png")
+save(boss_wall(0), OUT / "boss-wall.png")
+save(boss_wall(1), OUT / "boss-wall-cracked.png")
+save(boss_wall(2), OUT / "boss-wall-broken.png")
+save(boss_murk(), OUT / "boss-murk.png")
+save(boss_murk_cleared(), OUT / "boss-murk-cleared.png")
 print("ok art")

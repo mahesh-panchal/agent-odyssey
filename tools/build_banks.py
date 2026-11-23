@@ -4,6 +4,12 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
+def put(path, text):
+    """Write only when the content changed, so `quarto preview` is not told every file changed on each pre-render."""
+    if not path.exists() or path.read_text() != text:
+        path.write_text(text)
+
+
 OUT = ROOT / "assets" / "data"
 OUT.mkdir(parents=True, exist_ok=True)
 TYPES = {"choice", "order", "sort", "faulty-line", "match"}
@@ -44,7 +50,7 @@ for f in sorted((ROOT / "zones").glob("*/*.yml")):
         elif t == "match":
             if len(q.get("pairs", [])) < 2:
                 errors.append(f"{where}: match needs >= 2 pairs")
-    (OUT / f"{name}.json").write_text(json.dumps(bank, indent=1))
+    put(OUT / f"{name}.json", json.dumps(bank, indent=1))
     print(f"ok {name}")
 
 # world.json from zones.yml (gate positions resolved from the ASCII map)
@@ -142,7 +148,7 @@ def build_graph(world):
     return {"quests": out, "branches": branches, "trunk_order": trunk_order, "finale": finale}
 
 world["graph"] = build_graph(world)
-(OUT / "world.json").write_text(json.dumps(world))
+put(OUT / "world.json", json.dumps(world))
 print("ok world")
 
 if errors:
