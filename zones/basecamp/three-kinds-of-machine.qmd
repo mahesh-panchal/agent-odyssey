@@ -22,7 +22,7 @@ An LLM can also be called **inside a script** (for example to tidy free-text lab
 
 Before you reach for an agent or a large model, ask whether a script, a fixed workflow or a smaller specialised model does the job. A method that fits the task is often cheaper to run and easier to reproduce, and it does not change when a provider updates a hosted model. Keep the large model for the open-ended steps.
 
-Fine-tuning a model on your own examples is possible for some tasks; the Related lessons list a side quest on when it is worth it.
+Fine-tuning a model on your own examples suits only some tasks.
 
 ## What a model can do on its own
 

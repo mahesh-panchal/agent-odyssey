@@ -35,7 +35,7 @@ If one condition fails, try something else first.
 
 ## 3. What to try first for agent work
 
-A clearer prompt, better tools and a working eval usually give more return first, and they cost less to change. Fine-tune when you can show that those fall short on a narrow task.
+Try these in order: first a working eval, because it shows whether anything helps; then a clearer prompt, which is the cheapest thing to change; then better tools. Fine-tune last, when you can show that those fall short on a narrow task.
 
 ## 4. What fine-tuning adds to track
 
@@ -59,7 +59,7 @@ A lab keeps free-text sequencing notes. Two jobs come up.
 Task A is the LoRA candidate:
 
 - It is narrow and repeatable.
-- It has examples with known answers with a clear answer, so some can be held back.
+- It has hand-marked examples, each with a clear answer, so some can be held back.
 - An eval is easy to write: count IDs left in the output.
 
 Task B has no single right answer and few examples, so a clear prompt and a check by a reader come first. If the ID pattern is fixed and known, a script handles Task A without any training.

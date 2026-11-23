@@ -1,7 +1,7 @@
 """Lint learner-facing prose in zones/**/*.qmd (and start-here.qmd).
 
-Errors (exit 1): maintainer labels and caveat boxes in lesson text, mid-text references to other quests,
-fears-style run-in bold paragraphs are NOT checked here. Warnings: attribution and contrast phrasing.
+Errors (exit 1): maintainer labels and caveat boxes in lesson text, mid-text references to other quests.
+Warnings (with --warn): attribution, X-not-Y contrast phrasing and bold run-in paragraphs.
 Allowed places for another quest's title or link: the Prerequisites line in the quest-dialog, and the
 `.ao-related` block. Provenance belongs in research/claims/*.md.
 """

@@ -4,7 +4,7 @@ title: "Keep a Paper Trail"
 
 ::: {.quest-dialog}
 - **Goal:** you will let an agent draft the documentation of its work, check each draft against ground truth and supply the reasons yourself.
-- **Before you start:** [Ground Truth](ground-truth.html). A **diff** is the list of lines a change added and removed. A **commit** is a saved snapshot of your project, and git is the version control tool that keeps them.
+- **Before you start:** [Ground Truth](ground-truth.html). **Ground truth** is a check the agent did not write, such as the diff or a run. A **diff** is the list of lines a change added and removed. A **commit** is a saved snapshot of your project, and git is the version control tool that keeps them.
 - **Time:** about 20 minutes.
 :::
 
@@ -35,7 +35,7 @@ The agent drafts structure and wording well. Ground truth and the reasons come f
 
 ## 1. Changelog
 
-A **changelog** here is the agent's short account of a change: files touched, behaviour change, what it left alone, and how to verify. The diff is the ground truth. A changelog can miss a change or overstate one, so it works as a map for reading the diff and never replaces it.
+A **changelog** here is the agent's short account of a change: files touched, behaviour change, what it left alone, and how to verify. The diff is the ground truth. A changelog can miss a change or overstate one, so it works as a map for reading the diff.
 
 Ask for one after the agent finishes:
 
@@ -47,7 +47,7 @@ Mention every change in the diff, including defaults and thresholds.
 Say which tests you added or ran, or say that you added none.
 ```
 
-To check it, run `git diff` (changes you have not staged), `git diff --staged` (changes you have staged), or `git diff --stat` for a one-line-per-file summary. For a change the agent already committed, run `git log -p`. Run `git status` to list new files, which `git diff` does not show.
+To check it, run `git diff` (changes to tracked files that you have not staged), `git diff --staged` (changes you have staged), or `git diff --stat` for a one-line-per-file summary. For a change the agent already committed, run `git log -p`. Run `git status` to list new files, which `git diff` does not show.
 
 ### Try it on a small change
 
@@ -70,7 +70,7 @@ An agent was asked to fix a GC-content filter that crashed on empty sequences. T
  
  def keep(records):
 -    return [r for r in records if gc_content(r[1]) >= MIN_GC]
-+    return [r for r in records if len(r[1]) > 0 and gc_content(r[1]) >= MIN_GC]
++    return [r for r in records if len(r[1].strip()) > 0 and gc_content(r[1]) >= MIN_GC]
 ```
 
 This is the agent's changelog:
@@ -96,7 +96,7 @@ Your explain-back could be three sentences: "Lowercase bases now count. Empty se
 
 ## 2. ADR: the decision record
 
-An **ADR** (architecture decision record) is a short note about one decision. It holds four parts:
+An **ADR** (architecture decision record) is a short note about one decision. A common layout has four parts (Nygard's original post adds a title and a status such as proposed or accepted):
 
 - **Context:** the forces at play, in neutral words.
 - **Decision:** what you will do, in full sentences.
@@ -109,17 +109,18 @@ A mock example:
 
 ```text
 ADR 3: Keep the FASTA filter as a script
+Status: accepted
 Context: we filter reads by GC content once per project. The pipeline
   has no other Python step. Two people maintain it, both new to Nextflow.
 Decision: we will keep filter_gc.py as a plain script and call it from
   the run script. We will not add a workflow step.
-Alternatives: a workflow process (reproducible, but new machinery for
+Alternatives considered: a workflow process (reproducible, but new machinery for
   two maintainers); a one-off notebook (no record of parameters).
 Consequences: simple to read and run. Resume and containers do not
   cover this step. We revisit if a second filter appears.
 ```
 
-Only you can say whether "two maintainers new to Nextflow" is true. An agent that drafts that line is guessing.
+Only you can say whether "two maintainers new to Nextflow" is true. Only you can confirm that line, so an agent's draft of it is a guess to check.
 
 ## 3. Commit message
 

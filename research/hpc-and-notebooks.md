@@ -109,3 +109,7 @@ Source: https://github.com/NBISweden/claude-skills/pull/10 , file `plugins/nbis-
   - sbatch.html: `--parsable` prints only the job ID (and cluster name if present). `--wait`: "Do not exit until the submitted job terminates"; sbatch's exit code equals the job's; signal-terminated gives 1; arrays give the highest task code. `--array=0-15%4` limits simultaneous tasks to 4. `--mem-per-cpu` above `MaxMemPerCPU` is reduced and `--cpus-per-task` is raised to compensate (the page also notes `--mem` handling; the exact `--mem` above CPUs x limit behaviour and the 0:125 / 137 exit codes were not confirmed on these pages: UNCONFIRMED, treated as maintainers' practice).
   - scancel.html: other bulk selectors besides `--user`: `--me` ("jobs owned by the current user"), `--name`, `--state` (PENDING, RUNNING or SUSPENDED), `--partition`, also `--account`, `--qos`, `--reservation`, `--wckey`, `--nodelist`; combined filters must all match. The page does not say which version added `--me`.
 - NOT CHECKED: `scontrol show partition`, `MaxMemPerCPU`, `TRESBillingWeights`, `EnforcePartLimits` claims (scontrol/slurm.conf pages not fetched).
+
+
+## Status of the source skill (2026-11-23)
+The maintainer reports that the hpc-cluster-safety skill (https://github.com/NBISweden/claude-skills/pull/10) is their own work, adapted from their own skill, and has been merged into the NBIS skills. Not re-checked on GitHub by us; re-compare the Citadel quests with the merged file if its content changed in review.

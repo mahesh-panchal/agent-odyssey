@@ -44,7 +44,7 @@ Mistral's terms show how much one provider's rules can vary. Read each point as 
 
 - **Training use depends on product and plan.** Mistral Vibe (its terminal coding agent) Free, Pro, Teams and Student have training on, with an opt-out. Vibe Enterprise is opted out by default. Mistral Studio's free mode may use data for training.
 - **Opt-outs are per product.** For Studio and the API, the opt-out is in the Admin Panel under Privacy, and opting out of one product does not opt you out of another. For Labs and Public Preview models, the opt-out does not apply.
-- **Retention has its own options.** Zero data retention exists for some API requests on pay-as-you-go, and each request is reviewed. Agents, Conversations, Files, Chat requests and Vibe are excluded. You do not need zero retention to opt out of model training. For retention periods, check Mistral's current terms.
+- **Retention has its own options.** Zero data retention exists for some API requests on pay-as-you-go, and each request is reviewed. Agents, Conversations, Files, Chat and Vibe are excluded. You do not need zero retention to opt out of model training. For retention periods, check Mistral's current terms.
 - **Where inference runs can be chosen.** The global API endpoint does not commit to an inference location. The EU endpoint (`api.eu.mistral.ai`) runs in EU and EFTA data centers, so choose it on purpose if you need a European location. If location matters for Le Chat or Vibe, ask the vendor.
 - **A local open-weight model keeps prompts on your machine.** Open-weight Mistral models (for example `ministral-3:8b`, Apache 2.0) can run locally through Ollama. Tool or web calls may still send data out.
 

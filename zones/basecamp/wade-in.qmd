@@ -19,7 +19,7 @@ Between "never" and "the agent runs my machine" there are several steps, and man
 1. **What leaves your machine?** With a hosted model, anything you type, paste or upload is sent to the provider, and so is anything an agent reads. A local model keeps prompts on your machine, though web or tool calls it makes may still reach out.
 2. **What may the tool do?** Produce text, read files, edit files, or run commands.
 
-Each dial needs its own decision. A chat window has a low second dial and can still send a whole pasted table. A read-only agent sends whatever it reads.
+Each dial needs its own decision. A chat window has a low second dial and can still send a whole pasted table. A read-only agent (it can read files but not change them) sends whatever it reads.
 
 ## The ladder
 
@@ -28,11 +28,11 @@ Each dial needs its own decision. A chat window has a low second dial and can st
 | 0 | Build the table by hand | Write the query yourself | nothing |
 | 1 | Ask for an outline, no data | Ask how to explain a fall in samples | your words |
 | 2 | Headings and invented rows; you apply the formula | Schema only; you run the query read-only | names and invented rows |
-| 3 | Small allowed extract, or a local model | Same, for free-text notes | the extract; nothing if local |
+| 3 | Small allowed extract, or a local model | Small allowed extract or local model, for free-text notes | the extract; nothing if local |
 | 4 | Read-only agent on a copy | Read-only agent on a copy | everything it reads |
-| 5 | Agent edits and runs commands | Agent edits and runs pipeline code | everything it reads, plus what it sends |
+| 5 | Agent edits and runs commands | Agent edits and runs pipeline code | everything it reads, plus whatever its commands send |
 
-Pasting the results of a step 2 task back into the chat sends those rows too, which makes it step 3. Plan mode (the agent reads and proposes, and does not edit) belongs to step 4: a copy and read-only mode protect the original from edits, and anything read is still sent.
+Pasting the results of a step 2 task back into the chat sends those rows too, which makes it step 3. Plan mode (the agent reads and proposes, and does not edit) belongs to step 4: a copy protects the original from edits, and anything the agent reads is still sent.
 
 ## Three questions before any step
 
@@ -44,7 +44,7 @@ Pasting the results of a step 2 task back into the chat sends those rows too, wh
 |---|---|
 | Public or published | Any step |
 | Internal, not personal | Steps 1 to 3; 4 to 5 on an approved account, on a copy |
-| Personal, including pseudonymised codes | Steps 0 to 2, invented rows only |
+| Personal, including pseudonymised codes (codes that replace names) | Steps 0 to 2, invented rows only |
 | Health, genetic or otherwise controlled | Steps 0 to 2, unless your agreement says otherwise in writing |
 
 Pseudonymised codes still count as personal data. Small counts can single people out, so check your policy before pasting results for rare groups. Real or personal data is not pasted into consumer chat.
@@ -62,9 +62,9 @@ Pseudonymised codes still count as personal data. Small counts can single people
 
 Save [make_db.py](../../exercises/basecamp/wade-in/make_db.py), [run_query.py](../../exercises/basecamp/wade-in/run_query.py), [report-query.sql](../../exercises/basecamp/wade-in/report-query.sql) and [check-samples.sql](../../exercises/basecamp/wade-in/check-samples.sql) into an empty folder. Every row is invented, and no LLM is called.
 
-1. Run `python3 make_db.py` (or `python`). It writes `mock.db` and `schema-only.txt`. The text file holds table and column names and no rows, which is all that goes into a chat at step 2. Names such as `participant_code` and `notes` hint at the real data, so decide whether even the names are fine to send.
+1. Run `python3 make_db.py` (or `python`). It writes `mock.db` and `schema-only.txt`. The text file holds table and column names and no rows, which is all that goes into a chat at step 2. This table-and-column outline is the **schema**. Names such as `participant_code` and `notes` hint at the real data, so decide whether even the names are fine to send.
 2. Write the prompt you would send: paste the schema and ask for one read-only query giving, per project, the samples received and the open milestones (`done = 0`). Say you will run it yourself and do not want to paste rows.
-3. `report-query.sql` stands in for the reply. Check it is a single `SELECT` on the tables you expect, then run `python3 run_query.py report-query.sql`. The script opens the database read-only, so a `DELETE` fails.
+3. `report-query.sql` stands in for the reply. Check it is a single `SELECT` (a query that only reads) on the tables you expect, then run `python3 run_query.py report-query.sql`. The script opens the database read-only, so a `DELETE` fails.
 4. Run `python3 run_query.py check-samples.sql`, a count the model did not write, and compare:
 
    | Project | Model: samples | Your check: samples | Model: open milestones | Actual open milestones |
@@ -73,18 +73,18 @@ Save [make_db.py](../../exercises/basecamp/wade-in/make_db.py), [run_query.py](.
    | Kelp | 28 | 14 | 28 | 2 |
    | Vega | 34 | 17 | 34 | 2 |
 
-5. The query ran without an error and its numbers are wrong. Each project has two open milestones, and the join pairs every sample with every open milestone, so each sample is counted twice. Fix the query, then run both again until Heron shows 11 and 2.
+5. The query ran without an error and its numbers are wrong. Each project has two open milestones, and the join (how two tables are matched row by row) pairs every sample with every open milestone, so each sample is counted twice. Fix the query, then run both again until Heron shows 11 and 2.
 
 Only the schema and the query text left your machine. Running without an error and being right are separate questions, so check against a second query.
 
 ## Hands-on (manager): the same check in a spreadsheet
 
-At step 2, paste only the column headings (Project, Milestone, Owner, Status) and two or three invented rows, and ask for a formula that counts open milestones per project. Apply it to your real sheet yourself. Check it against `COUNTIF` on the rows per project. If each of three projects has 6 rows and the formula shows 18 for every project, it counted the whole column. Find out why before the number goes in the report.
+At step 2, paste only the column headings (Project, Milestone, Owner, Status) and two or three invented rows, and ask for a formula that counts open milestones per project. Apply it to your real sheet yourself. Check it with `COUNTIF` on one project's rows. If each of three projects has 6 rows and the formula shows 18 for every project, it counted the whole column. Find out why before the number goes in the report.
 
 ## Climbing, if and when you want to
 
 - Move up a step when the lower step cannot do the task and you can say what leaves.
-- Before steps 4 and 5, work on a copy, set a save point and add permission rules.
+- Before steps 4 and 5, work on a copy, keep a way to undo, and limit what the agent may do.
 - For sensitive data, stay on a local model when your agreement allows that copy.
 - If you pasted something you should not have, stop and tell your data steward.
 - Ask your steward: "I want to use [tool, account type] at step [n]. What leaves is [what]. Is that allowed for [data kind]?"

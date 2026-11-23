@@ -81,3 +81,5 @@ Format: removed text | original label | action. Sources: research/kennel-and-cry
 
 ## Move: Mistral terms block (2026-11-23)
 - The Mistral data-terms block (training by product, opt-outs, zero data retention, global vs EU endpoint, local open-weight via Ollama) moved from zones/crypt/secrets-and-sensitive-ground.qmd to a new section "A worked comparison: Mistral's terms" in zones/kennel/free-is-not-free.qmd. Facts kept are those CONFIRMED in research/mistral.md section 4; Locked Cabinet keeps one sentence ("Other providers' terms differ by product and plan"). A Lore item for the Mistral training-terms page (source in research/mistral.md section 4) now sits in Free Is Not Free; the Locked Cabinet had no Mistral-only Lore item. No bank question depended on the block.
+
+- Free Is Not Free, Mistral section: the bullet that tool or web calls a local model makes may still send data out is general advice, not from research/mistral.md.

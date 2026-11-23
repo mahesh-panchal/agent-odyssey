@@ -4,16 +4,15 @@ Agent Odyssey leans on the work of many people. Thank you to everyone below. The
 
 ## Courses, articles and ideas that shaped quests
 
-- **Matt Pocock**, [LLM Fundamentals](https://www.aihero.dev/llm-fundamentals) (AI Hero). The topics of the Codon Mill foundation quests follow this course: tokens, where machines fail, the context window, memory, sessions and usage, who said what, handoff notes, the stream of ideas, when to start fresh, and too many tools or agents.
-- **Andrej Karpathy**, ["LLM Wiki" gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). The quest Keep a Living Wiki follows this idea file.
+- **AI Hero (Matt Pocock)**. Matt Pocock's course [LLM Fundamentals](https://www.aihero.dev/llm-fundamentals) overlaps the Codon Mill foundation quests on tokens, the context window and too many tools. We used its topic list as further reading, and the lessons are our own. The AI Hero article ["Your App Is Only As Good As Its Evals"](https://www.aihero.dev/what-are-evals) is a starting point for the section on evals in Close the Loop.
+- **Andrej Karpathy**, ["LLM Wiki" gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). The quest Keep a Living Wiki builds on this idea file.
 - **Andrea Griffiths**, GitHub Blog, ["Build once, run on any agent: a practical guide to agent skills"](https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/). Ideas in Forge a Skill, Test the Skill and Bundle a Plugin.
-- **AI Hero**, ["Your App Is Only As Good As Its Evals"](https://www.aihero.dev/what-are-evals). A starting point for the section on evals in Close the Loop.
 - **IBM Think**, ["Generative AI vs. predictive AI: What's the difference?"](https://www.ibm.com/think/topics/generative-ai-vs-predictive-ai-whats-the-difference). The vocabulary in Three Kinds of Machine.
-- **AI for Science**, [best practices](https://aiforscience.eu/) (a European draft from task forces and institutions). Habits in nine quests draw on individual practices.
+- **AI for Science**, [best practices](https://aiforscience.eu/) (a European draft from task forces and institutions). Habits in many quests draw on individual practices.
 - **12britz**, [awesome-free-models](https://github.com/12britz/awesome-free-models). It prompted the quest Free Is Not Free.
 - **inevolin**, [claude-code-usage-analysis](https://github.com/inevolin/claude-code-usage-analysis). It prompted the cache and coffee-break discussion in When to Start Fresh.
 - **NirDiamant**, [rag_techniques](https://github.com/NirDiamant/rag_techniques). Further reading in the graph quest.
-- **NBIS**, the [hpc-cluster-safety skill](https://github.com/NBISweden/claude-skills/pull/10) in NBISweden/claude-skills. The Cluster Citadel quests follow its practice.
+- **NBIS**, the [hpc-cluster-safety skill](https://github.com/NBISweden/claude-skills/pull/10) in NBISweden/claude-skills. The maintainer wrote this skill, adapted from their own, and it is now merged into the NBIS skills. The Cluster Citadel quests follow its practice.
 
 ## Documentation
 
