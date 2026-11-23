@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="quest-dialog">
 <ul>
-<li><strong>Goal:</strong> you will let the agent draft job scripts while you keep submitting and cancelling under your own approval, and you will know what polling costs.</li>
+<li><strong>Goal:</strong> you will let the agent draft job scripts while you keep submitting and cancelling under your own approval, you will know what polling costs, and you will size resource requests against the partition’s limits.</li>
 <li><strong>Before you start:</strong> <a href="login-node-manners.html">Login Node Manners</a>. A <em>job script</em> is a text file of scheduler options and commands. <em>Polling</em> means asking the scheduler for status again and again.</li>
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
@@ -201,9 +201,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Poll no more than about once a minute, less often for long jobs. Run one loop at a time and scope it: <code>squeue --user=$USER</code> or <code>--jobs=&lt;id&gt;</code>.</li>
 <li>Use <code>sbatch --parsable --wait</code>, or the pipeline’s own poller, instead of a <code>sleep</code> loop. It replaces a <code>/loop</code> of <code>squeue</code>, so skip the loop.</li>
 <li>A wait can outlast the tool’s timeout. Run it in the background. Never resubmit because the wait timed out. Check <code>State</code> with <code>sacct</code> first: <code>--wait</code> passes the job’s exit code through, but a signal-killed job gives 1, so the code alone does not prove success.</li>
+<li><code>--mail-type</code> sends you an email and does not make the agent wait. If you use <code>watch</code>, keep it at <code>--interval=60</code> or slower and stop it when done.</li>
 <li>Submit many similar tasks as one array with a concurrency cap (<code>--array=1-100%10</code>) instead of a loop of <code>sbatch</code> calls.</li>
 </ul>
 <p>Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an <code>srun</code> that blocks until it finishes, gets cut off.</p>
+</section>
+<section id="size-the-request" class="level2">
+<h2 class="anchored" data-anchor-id="size-the-request">Size the request</h2>
+<p>A job can use more of the cluster than you meant to ask for, and no error tells you. Slurm counts what you allocate, whatever you use, and that count feeds your <em>fair-share priority</em> (how soon your later jobs start). A <em>partition</em> is a group of nodes with its own limits. Many partitions limit memory per CPU (<code>MaxMemPerCPU</code>), so a large memory request on one CPU can make Slurm add CPUs to fit it, or reject the job. A request like <code>--mem=120G</code> with <code>MaxMemPerCPU=4000</code> (MB) can become about 31 CPUs. Other limit settings can leave an over-limit job pending instead, so read what your site does.</p>
+<p>Habits that keep requests honest:</p>
+<ul>
+<li>Before a large or repeated job, read the partition’s limits (<code>scontrol show partition &lt;name&gt;</code>) and size the request against them. Pick a number from the limits and from earlier runs.</li>
+<li>Afterwards compare what you asked for, what was allocated and what was used: <code>sacct --jobs=&lt;id&gt; --format=JobID,State,ReqMem,AllocCPUS,MaxRSS</code>. <code>MaxRSS</code> (the most memory one task used) is filled on the step rows such as <code>.batch</code>. Keep headroom above it. If <code>sacct</code> prints nothing, accounting may be off, so say so and ask your staff.</li>
+<li>A job killed for memory can show <code>OUT_OF_MEMORY</code> in <code>State</code>. <code>MaxRSS</code> then understates the need, so raise the request above the failed one.</li>
+<li>If the memory need and the CPU count conflict, ask staff for a partition with a better memory-to-CPU ratio and check with them before using it.</li>
+</ul>
 </section>
 <section id="battle-queue-manners" class="level2">
 <h2 class="anchored" data-anchor-id="battle-queue-manners">Battle: queue manners</h2>
