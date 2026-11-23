@@ -32,6 +32,12 @@ try:
     check("Show the whole map toggle flips", B.js("document.getElementById('ao-reveal').getAttribute('aria-pressed')") == "true")
     B.js("document.getElementById('ao-reveal').click()")
 
+    # --- a veiled gate refuses Enter ---
+    B.js("localStorage.clear()"); B.go(base + "index.html")
+    for k, n in (("ArrowUp", 2), ("ArrowRight", 14), ("ArrowUp", 4), ("ArrowRight", 1)):
+        for _ in range(n): B.press(k, 0.08)
+    B.press("Enter", 1.2)
+    check("Enter on a veiled gate stays on the map", B.js("location.pathname").endswith("index.html") or B.js("location.pathname") == "/", B.js("location.pathname"))
     # --- walk to the Crypt from Basecamp: reload resets to start (3,8) ---
     B.go(base + "index.html"); B.js("document.getElementById('ao-reveal').click()")
     for k, n in (("ArrowUp", 2), ("ArrowRight", 14), ("ArrowUp", 4), ("ArrowRight", 1)):
