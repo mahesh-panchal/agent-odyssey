@@ -1,0 +1,177 @@
+---
+title: "Keep a Paper Trail"
+---
+
+::: {.quest-dialog}
+- **Goal:** you will let an agent draft the documentation of its work, check each draft against ground truth and supply the reasons yourself.
+- **Before you start:** [Ground Truth](ground-truth.html). A **diff** is the list of lines a change added and removed. A **commit** is a saved snapshot of your project, and git is the version control tool that keeps them.
+- **Time:** about 20 minutes.
+:::
+
+"I do not understand what it did" is a fair worry. A paper trail answers it: short documents that say what changed, why and how to run it. The habit is to let the agent draft them, check each one against ground truth and own the why.
+
+## The routine
+
+Every document in this lesson follows the same four steps:
+
+1. **Ask.** Request the draft, and say what it must cover.
+2. **Check against ground truth.** Compare the draft with the real thing: the diff, a run on a clean copy, the code, the logs. Look for what the draft omits and for claims the real thing lacks.
+3. **Explain back.** Say in your own words, one sentence per point, what the document records. A point you cannot put into a sentence is a point to question or leave out.
+4. **Keep, edit or revert.** Decide after steps 2 and 3.
+
+## Which document, which moment
+
+| Moment | Document | Ground truth |
+|---|---|---|
+| Right after a change | Changelog | The diff |
+| Choosing between options | ADR | Your constraints |
+| Saving the change | Commit message | Your explain-back |
+| Handing over the project | README or how-to-run | A run on a clean copy |
+| Writing tricky code | Comments, docstrings | The code's behaviour |
+| Doing science work | Analysis log, methods note | Logs, outputs, version output |
+| Ending a session | Handoff note | Files and git state |
+
+The agent drafts structure and wording well. Ground truth and the reasons come from you.
+
+## 1. Changelog
+
+A **changelog** here is the agent's short account of a change: files touched, behaviour change, what it left alone, and how to verify. The diff is the ground truth. A changelog can miss a change or overstate one, so it works as a map for reading the diff and never replaces it.
+
+Ask for one after the agent finishes:
+
+```text
+Write a changelog for the change you just made.
+List the files you touched, what behaviour changed and why,
+what you deliberately left alone, and one command I can run to verify it.
+Mention every change in the diff, including defaults and thresholds.
+Say which tests you added or ran, or say that you added none.
+```
+
+To check it, run `git diff` (changes you have not staged), `git diff --staged` (changes you have staged), or `git diff --stat` for a one-line-per-file summary. For a change the agent already committed, run `git log -p`. Run `git status` to list new files, which `git diff` does not show.
+
+### Try it on a small change
+
+An agent was asked to fix a GC-content filter that crashed on empty sequences. This is the diff of the one file it changed (mock code):
+
+```diff
+--- a/gc_filter.py
++++ b/gc_filter.py
+@@ -1,11 +1,11 @@
+-MIN_GC = 40.0
++MIN_GC = 45.0
+ 
+ 
+ def gc_content(seq):
+-    seq = seq.strip()
++    seq = seq.strip().upper()
+     gc = sum(1 for b in seq if b in "GC")
+     return 100.0 * gc / len(seq)
+ 
+ 
+ def keep(records):
+-    return [r for r in records if gc_content(r[1]) >= MIN_GC]
++    return [r for r in records if len(r[1]) > 0 and gc_content(r[1]) >= MIN_GC]
+```
+
+This is the agent's changelog:
+
+```text
+Changelog
+- Files: gc_filter.py only.
+- Lowercase bases now count towards GC (gc_content uppercases the sequence).
+- keep() skips empty sequences instead of dividing by zero.
+- Added tests for both fixes.
+- Left alone: the FASTA reading code and the output format.
+- Verify: python -c "from gc_filter import keep; print(keep([('a', ''), ('b', 'ggcc')]))"
+```
+
+Read the diff against the changelog, line by line. Two things do not match, and one of them changes which records survive the filter. Find both before you read on.
+
+You should have found:
+
+- **Omitted:** `MIN_GC` moved from 40.0 to 45.0. Fewer records pass the filter now, and the changelog never says so.
+- **Overstated:** "Added tests for both fixes". The diff touches one file and adds no test.
+
+Your explain-back could be three sentences: "Lowercase bases now count. Empty sequences are skipped. The cut-off rose from 40 to 45, which I have to decide whether to keep." Then ask the agent about the threshold, and either revert that line or keep it on purpose.
+
+## 2. ADR: the decision record
+
+An **ADR** (architecture decision record) is a short note about one decision. It holds four parts:
+
+- **Context:** the forces at play, in neutral words.
+- **Decision:** what you will do, in full sentences.
+- **Alternatives considered:** the options you weighed.
+- **Consequences:** what follows, the good and the bad.
+
+The agent does not know your constraints: your cluster's rules, your team's skills, your deadline. So the decision and the reasons are yours. The agent can structure the note and draft the options. Check that every alternative is real and every consequence is listed, including the costs.
+
+A mock example:
+
+```text
+ADR 3: Keep the FASTA filter as a script
+Context: we filter reads by GC content once per project. The pipeline
+  has no other Python step. Two people maintain it, both new to Nextflow.
+Decision: we will keep filter_gc.py as a plain script and call it from
+  the run script. We will not add a workflow step.
+Alternatives: a workflow process (reproducible, but new machinery for
+  two maintainers); a one-off notebook (no record of parameters).
+Consequences: simple to read and run. Resume and containers do not
+  cover this step. We revisit if a second filter appears.
+```
+
+Only you can say whether "two maintainers new to Nextflow" is true. An agent that drafts that line is guessing.
+
+## 3. Commit message
+
+Your explain-back from step 3 of the routine makes a good commit message. Use one sentence per change as the body, and the reason for a change travels with the code.
+
+## 4. README and how-to-run notes
+
+A README records how to set up and run the project. The agent drafts it well from the files. The ground truth is a run: copy the project into an empty folder (or clone it) and type the commands exactly as written. A step that fails, or that relies on a file only your machine has, is a gap in the document.
+
+## 5. Comments and docstrings
+
+A comment records the why that the code cannot show. Ask the agent to draft docstrings, then read each one against the code. A docstring that says "returns the GC percentage" while the function returns a fraction is wrong, and a reader will trust it.
+
+## 6. Analysis log and methods note
+
+For science work, the log records what was run: the tools and their versions, the model and version that helped, the parameters, the input files, and what the agent did. The agent can draft it from the session. Check it against the real logs, the outputs and the output of each tool's version command (often `--version`; run `--help` to see yours). Whatever you publish carries your name, so each line has to be right.
+
+## The same habit for the next session
+
+A handoff note records where the work stands for whoever starts next, including a fresh agent session. The routine is the same: let the agent draft it, check it against the files and git state, and edit it before you rely on it.
+
+## When to use the habit
+
+- **Small diffs:** always. It costs a minute.
+- **Large diffs:** ask for a changelog per commit, so each one covers a piece you can read.
+- **Better still:** ask for work in small steps, so every diff stays small.
+
+## Battle: the paper trail
+
+<div data-ao-test="maze-keep-a-paper-trail" data-xp="50"></div>
+
+<div data-ao-honour="paper-trail-real-change" data-xp="20">After the next real change an agent makes for you, ask for a changelog and check it against `git diff`. Write down one thing it missed or overstated, or note that it matched.</div>
+<div data-ao-honour="paper-trail-clean-run" data-xp="20">Run your project's README commands in an empty folder, exactly as written. Fix the first step that fails.</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Ground Truth](ground-truth.html): for more on checking an agent's claim with a tool it did not write.
+- [Boss: The Wall of Output](wall-of-output.html): for more on why a huge diff cannot be reviewed whole, and how to ask for pieces you can read.
+- [Send Small, Say So](../reef/send-small-say-so.html): for more on reading your own diff first, sending small changes and saying what the agent did.
+- [Save Point](../crypt/shield-of-undo.html): for more on committing before the agent starts, so the diff shows exactly what it changed.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Documenting Architecture Decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions): Michael Nygard, Cognitect blog, article. Why read: it is the short original post behind ADRs, with the title, status, context, decision and consequences layout.
+- [Architectural Decision Records](https://adr.github.io/): ADR GitHub organisation, docs. Why read: it defines an ADR and links to templates for writing one.
+- [Keep a Changelog](https://keepachangelog.com/en/1.1.0/): Olivier Lacan, docs. Why read: it sets out what a changelog is for and why a raw git log makes a poor one.
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it covers giving the agent a way to check its work and reviewing what it produces, the same instinct as checking a draft against ground truth.
+- [AI for Science, practice 7: provenance and citation](https://aiforscience.eu/best-practices/07-provenance-and-citation/): AI for Science (European draft best practices), docs. Why read: it covers recording what a person did and what an agent did, which an analysis log does.
+- [AI for Science, practice 9: human-in-the-loop](https://aiforscience.eu/best-practices/09-human-in-the-loop/): AI for Science (European draft best practices), docs. Why read: it shows how a human check turns into rubber-stamping and how to design one that stays real.
+:::

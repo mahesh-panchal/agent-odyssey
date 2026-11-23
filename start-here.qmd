@@ -14,7 +14,7 @@ Agent Odyssey is a short role-playing course on using coding agents (LLM tools t
 
 ## How it works
 
-- **Walk the trunk.** It is <span data-ao-n="trunk">14</span> quests in order, from fears and kinds of machine to your first agent and trust in output. The Wall of Output ends it.
+- **Walk the trunk.** It is <span data-ao-n="trunk">15</span> quests in order, from fears and kinds of machine to your first agent and trust in output. The Wall of Output ends it.
 - **Pick branches.** Each branch is a topic you can take when it matches your work. Quests marked side quest are optional.
 - **Clear the Murk.** The final boss opens after the whole trunk and any <span data-ao-n="any">3</span> of the <span data-ao-n="branches">8</span> branches.
 - **Save your progress.** It lives in this browser. **Save code** in the top bar copies a code, and **Load code** restores it elsewhere.

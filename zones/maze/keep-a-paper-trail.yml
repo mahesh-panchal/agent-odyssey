@@ -1,0 +1,56 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "The agent's changelog lists two behaviour changes. `git diff` shows a third: a default threshold moved from 40.0 to 45.0. What do you do?"
+    explain: "The diff is the ground truth. A change the changelog omits is exactly what the routine exists to find, so you ask about it and decide to keep or revert it."
+    options:
+      - { text: "Ask the agent about the threshold, then keep or revert that line on purpose", correct: true }
+      - { text: "Trust the changelog, since the agent wrote both and it knows what it meant", misconception: "The changelog is the agent's account of its change. When it disagrees with the diff, the diff wins." }
+      - { text: "Ignore it: a number changing by five is too small to matter", misconception: "A default threshold decides which records pass a filter. A small number can change results a lot." }
+      - { text: "Revert the whole change, since one omission means everything else is wrong", misconception: "One gap does not make the other changes wrong. Question the gap and judge each change by itself." }
+  - type: order
+    prompt: "Put the four-step routine in order."
+    explain: "You need the changelog before you can compare it, you must understand the change before you explain it, and you decide last."
+    items:
+      - "Ask the agent for a changelog"
+      - "Read the diff against the changelog"
+      - "Explain each change back in your own words"
+      - "Keep, edit or revert the change"
+    why:
+      "Ask the agent for a changelog": "Without it you have no map to read the diff against."
+      "Read the diff against the changelog": "Reading the diff comes before explaining, because you explain what the diff really does."
+      "Explain each change back in your own words": "Explain-back comes after you have read the diff, and before you decide."
+      "Keep, edit or revert the change": "You decide once you understand the change."
+  - type: sort
+    prompt: "Compare the worked example's changelog with its diff. Sort each item."
+    bins: ["Matches the diff", "Overstated", "Omitted"]
+    explain: "Each claim has to be found in the diff. A claim with nothing behind it is overstated, and a diff line with no claim is omitted."
+    items:
+      - { text: "Lowercase bases now count towards GC", bin: "Matches the diff", misconception: "The diff adds `.upper()` to the sequence, so this claim is backed." }
+      - { text: "keep() skips empty sequences", bin: "Matches the diff", misconception: "The diff adds a `len(r[1]) > 0` check in keep(), so this claim is backed." }
+      - { text: "Added tests for both fixes", bin: "Overstated", misconception: "The diff touches one file and adds no test, so the claim has nothing behind it." }
+      - { text: "MIN_GC changed from 40.0 to 45.0", bin: "Omitted", misconception: "This line is in the diff and absent from the changelog, so it was left out." }
+  - type: choice
+    prompt: "An agent finishes a 600-line change across twelve files in one go. How do you apply the habit?"
+    explain: "A changelog is only a map. When the diff is far too big to read, the fix is smaller pieces, each with its own changelog."
+    options:
+      - { text: "Ask for small commits, each with its own changelog", correct: true }
+      - { text: "Ask for one changelog for the whole change and read only that, since it covers every file", misconception: "Then you never read the diff, and the changelog can still miss or overstate a change." }
+      - { text: "Skip the habit: it only suits small diffs, and a big change needs a different approach", misconception: "Large diffs are where understanding slips most. Cut them into pieces the habit can handle." }
+      - { text: "Ask the agent to confirm that nothing is missing, then accept the change as it stands", misconception: "The agent confirming its own account is not a check against the diff." }
+  - type: choice
+    prompt: "An agent drafts an ADR for your lab's pipeline. Who owns the decision and its reasons?"
+    explain: "The agent does not know your constraints: your cluster rules, your team's skills, your deadline. It can structure and draft options, and you supply and own the why."
+    options:
+      - { text: "You do: the agent drafts, and you supply the constraints", correct: true }
+      - { text: "The agent, because it listed the alternatives and consequences", misconception: "Listing options is drafting. The agent cannot know which constraints are real for your lab." }
+      - { text: "Nobody, since an ADR only records what the code already shows", misconception: "Code shows what was built. An ADR records why, and the code cannot." }
+      - { text: "The reviewer, who signs off once the draft reads well", misconception: "A reviewer can question the draft, but the reasons come from whoever lives with the constraints." }
+  - type: faulty-line
+    prompt: "An agent drafted a README. You run its steps in an empty folder. Which step fails and shows a gap?"
+    explain: "The step names a file that only exists on your machine, so a fresh copy has nothing to read. Running the README on a clean copy finds gaps like this."
+    lines:
+      - { text: "1. Create the environment: pixi install", why: "Runs in any copy of the project." }
+      - { text: "2. Run the filter: python filter_gc.py data/local_reads.fasta", faulty: true }
+      - { text: "3. Check the output: head filtered.fasta", why: "Reads a file step 2 would have written." }
+      - { text: "4. Run the tests: pytest", why: "Uses files that are in the project." }

@@ -30,6 +30,7 @@ trunk_order:
   - crypt-secrets-and-sensitive-ground
   - maze-spot-the-mirage
   - maze-ground-truth
+  - maze-keep-a-paper-trail
   - maze-wall-of-output
 branches:
   - { id: memory, name: "Memory and sessions", who: "Anyone whose sessions run long or get confused, and who wants to keep work from being lost.",
@@ -150,7 +151,10 @@ gates:
          { id: maze-ground-truth, after: [maze-spot-the-mirage], suggested: [], branch: trunk, trunk: true, optional: false, title: "Ground Truth", page: zones/maze/ground-truth.html,
            story: "A glowing script claims to have been tested. Only an independent measurement can say whether it is telling the truth.",
            done: "You hold a lantern of ground truth: an independent check that does not trust the agent's word." },
-         { id: maze-wall-of-output, after: [maze-ground-truth], suggested: [], branch: trunk, trunk: true, optional: false, title: "Boss: The Wall of Output", page: zones/maze/wall-of-output.html,
+         { id: maze-keep-a-paper-trail, after: [maze-ground-truth], suggested: [], branch: trunk, trunk: true, optional: false, title: "Keep a Paper Trail", page: zones/maze/keep-a-paper-trail.html,
+          story: "A door in the maze swings shut behind the agent. Its account of what it did is plausible, and the walls have changed shape anyway.",
+          done: "You let the agent draft the paper trail, check it against ground truth and own the why." },
+        { id: maze-wall-of-output, after: [maze-keep-a-paper-trail], suggested: [], branch: trunk, trunk: true, optional: false, title: "Boss: The Wall of Output", page: zones/maze/wall-of-output.html,
            story: "At the maze's heart rises a wall of text, thousands of lines high. It does not attack. It simply cannot be reviewed.",
            done: "The Wall crumbles into small, reviewable stones. You never had to read all of it, only to refuse it whole." } ] }
   F: { id: forest,   name: "Phylogenetic Forest",   track: "Skills",     status: open,

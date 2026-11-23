@@ -26,7 +26,7 @@ An *agent* is a model running inside a program that picks and runs tools in a lo
 |---|---|---|
 | "It makes things up." | Check against something the agent did not write. | [Sequence Maze](../maze/spot-the-mirage.html) |
 | "It produces slop in bulk." | Take small steps, test before code, keep a review budget. | [Sequence Maze: Wall of Output](../maze/wall-of-output.html) |
-| "I do not understand what it did." | Ask for a changelog and explain it back. | [Sequence Maze: Spot the Mirage](../maze/spot-the-mirage.html) |
+| "I do not understand what it did." | Ask for a changelog and explain it back. | [Sequence Maze: Keep a Paper Trail](../maze/keep-a-paper-trail.html) |
 
 *Slop* is low-quality bulk output. A *review budget* means you only produce as much as you can honestly review today.
 

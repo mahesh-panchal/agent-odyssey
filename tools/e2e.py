@@ -106,7 +106,7 @@ try:
     check("honour item gives bonus XP exactly once", xp1 == 15 and B.js("AO.state.xp") == 15, f"{xp1}/{B.js('AO.state.xp')}")
     B.go(base + "character.html", 1.0)
     check("character sheet shows skill tree, armour and level", all(B.js("document.getElementById('ao-character').textContent.includes(%s)" % json.dumps(t)) for t in ("Skill tree", "Armour", "Rank")))
-    check("skill tree has a leaf per open quest", B.js("document.querySelectorAll('.ao-tree circle').length") >= 14, B.js("document.querySelectorAll('.ao-tree circle').length"))
+    check("skill tree has a leaf per open quest", B.js("document.querySelectorAll('.ao-tree circle').length") >= 15, B.js("document.querySelectorAll('.ao-tree circle').length"))
     # --- other question types ---
     B.js("localStorage.clear()"); B.go(base + "fixture.html")
     if B.js("[...document.querySelectorAll('ol li')].map(l=>l.firstChild.textContent.trim()).join(',')") == "one,two,three":
