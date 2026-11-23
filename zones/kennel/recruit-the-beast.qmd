@@ -3,7 +3,7 @@ title: "Recruit the Beast"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will install Claude Code, confirm it works, and start it in a throwaway folder in plan mode.
+- **Goal:** you will install Claude Code, confirm it works, and start it in a throwaway folder in plan mode.
 - **Before you start:** [Save Point](../crypt/shield-of-undo.html); a terminal (macOS, Linux, or WSL 2, the Windows Subsystem for Linux, on Windows); internet; and a Claude Team plan login or an Anthropic API key. An API key gives programmatic access to the models, billed per token; a plan is a subscription with usage limits.
 - **Time:** about 15 minutes. Nothing here edits your files.
 :::

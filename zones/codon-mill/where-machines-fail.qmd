@@ -6,8 +6,6 @@ title: "Where Machines Fail"
 - **Goal:** you will sort jobs into "ask the model" and "run a script", and name the other ways a model fails with one mitigation each.
 - **Before you start:** [Tokens, Not Letters](tokens-not-letters.html).
 - **Time:** about 15 minutes.
-
-Inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals).
 :::
 
 A language model is good at some jobs and bad at others. The skill is knowing which is which before you trust the output. Using a model is always your choice. This quest shows where the risk sits if you do.
@@ -88,7 +86,7 @@ Ask yourself: can I check the result cheaply and independently? If yes, ask the 
 ::: {.ao-related}
 ## Related lessons
 
-- [Spot the Mirage](../maze/spot-the-mirage.html): For more on hallucination, and how to catch a confident wrong answer.
+- [Spot the Mirage](../maze/spot-the-mirage.html): for more on hallucination, and how to catch a confident wrong answer.
 - [The Context Window](the-context-window.html): what fills the window, why long input degrades recall and what compaction drops.
 - [Plug In a Server](../gatehouse/plug-in-a-server.html): prompt injection through fetched content and connected tools.
 - [Same Every Time](../factory/same-every-time.html): non-determinism, and how to make a run repeatable.

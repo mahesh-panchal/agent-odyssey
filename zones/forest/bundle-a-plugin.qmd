@@ -3,7 +3,7 @@ title: "Bundle a Plugin"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will package Skills (and their evals) as a plugin, validate it, and see why installing one is a trust decision.
+- **Goal:** you will package Skills (and their evals) as a plugin, validate it, and see why installing one is a trust decision.
 - **Before you start:** [Test the Skill](test-the-skill.html). This is an optional side quest. An **MCP server** is an add-on connection that gives the agent extra tools.
 - **Time:** about 20 minutes.
 :::

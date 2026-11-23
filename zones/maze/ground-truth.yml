@@ -48,10 +48,10 @@ questions:
       - { text: "Test only on seq1", bin: "Misses it", misconception: "seq1 is uppercase and has no N, so the buggy code passes it." }
       - { text: "Add a soft-masked sequence to the test data", bin: "Catches it", misconception: "A lowercase case is exactly what triggers the bug." }
   - type: choice
-    prompt: "An agent helped gather references for a manuscript. Which practice from the AI for Science draft protects you best?"
+    prompt: "An agent helped gather references for a manuscript. Which practice protects you best?"
     explain: "Confirm that the DOI resolves, then build the reference from it with a deterministic tool, so a model does not write the reference text and a machine can check it. Disclose the agent's role where results are published."
     options:
       - { text: "Confirm each DOI, build the reference with a tool, and note the agent's role", correct: true }
       - { text: "Let the model format every reference from memory and skim the list", misconception: "Models can produce plausible references that do not exist. Skimming rarely catches them." }
       - { text: "Ask the model whether its references are real and keep the confirmed ones", misconception: "The model's own confirmation is not an independent check." }
-      - { text: "Leave the agent out of the methods, since the references are checked", misconception: "The draft says to disclose agent use where results are published, even when you checked the output." }
+      - { text: "Leave the agent out of the methods, since the references are checked", misconception: "Agent use is disclosed where results are published, even when you checked the output." }

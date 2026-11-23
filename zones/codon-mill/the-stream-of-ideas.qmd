@@ -6,8 +6,6 @@ title: "The Stream of Ideas"
 - **Goal:** you will triage each new thought during a task into the right place (do now, park, quick question, helper, branch, or later session), and know what undo can and cannot restore.
 - **Before you start:** [When to Start Fresh](when-to-start-fresh.html). Commands here are Claude Code commands.
 - **Time:** about 15 minutes.
-
-Inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals).
 :::
 
 Real work does not arrive in a straight line. You start fixing a samplesheet parser and think: "should I switch the aligner? What if I tried a stricter QC threshold? I also want to explore that other idea." Typed into one conversation, each of those fills the context with side tracks.
@@ -82,6 +80,11 @@ Worked example: you are fixing a samplesheet parser that rejects sample IDs cont
 - "Does the pipeline require the dot at all?" blocks the fix, so do it now.
 - "Would a stricter QC threshold help?" becomes a line in IDEAS.md.
 - "Which sample did we exclude earlier?" is a `/btw`. For "what does `--min-qual` default to?", `/btw` can only guess from memory, so check `--help`.
+- "Where else do we split sample IDs on dots?" is wide reading where only the list matters: send an Explore subagent.
+- "Let's try the other aligner and compare." is a real experiment you want now: commit the fix, then use `/branch` or a worktree session.
+- "I should also tidy the figures for the other project." is a different task for after the parser is done: commit, then `/clear` or `claude -n figures` in a later session.
+
+The main session ends with the parser fixed and a short, readable history.
 
 ::: {.panel-tabset group="companion"}
 
@@ -109,7 +112,7 @@ Check OpenCode's documentation for its side-question, branch and worktree featur
 ::: {.ao-related}
 ## Related lessons
 
-- [When to Start Fresh](when-to-start-fresh.html): For more on when a new session beats continuing this one.
+- [When to Start Fresh](when-to-start-fresh.html): for more on when a new session beats continuing this one.
 - [Handoff Notes](handoff-notes.html): carry the parked ideas and the task state into the next session.
 - [Save Point](../crypt/shield-of-undo.html): commit before you explore, so any change can be undone.
 - [Plan Before You Edit](../forest/plan-before-you-edit.html): plan mode for a side idea you want to think through.

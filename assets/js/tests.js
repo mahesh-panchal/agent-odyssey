@@ -98,9 +98,9 @@
       function run() {
         var score = 0, i = 0;
         function finish() {
-          var ok = score / qs.length >= pass;
+          var ok = score / qs.length >= pass, fresh = !AO.state.passed[id];
           el.innerHTML = "";
-          el.appendChild(h("p", { role: "status", text: (ok ? "✔ Victory! The Blight recedes. " : "✖ The Blight holds. ") + score + "/" + qs.length + " right first time." + (ok ? " Quest XP: " + xp + "." : " Need " + Math.ceil(pass * qs.length) + ".") }));
+          el.appendChild(h("p", { role: "status", text: (ok ? "✔ Victory! The Blight recedes. " : "✖ The Blight holds. ") + score + "/" + qs.length + " right first time." + (ok ? (fresh ? " Quest XP: " + xp + "." : " Already cleared, so no new XP.") : " Need " + Math.ceil(pass * qs.length) + ".") }));
           if (ok) { var rest = xp - AO.awarded(id); AO.pass(id, Math.max(0, rest)); } else { var b = h("button", { text: "Fight again" }); b.onclick = run; el.appendChild(b); }
         }
         function show() {

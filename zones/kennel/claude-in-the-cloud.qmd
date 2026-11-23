@@ -3,7 +3,7 @@ title: "Claude in the Cloud"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will say what a cloud session is, what leaves your machine when you start one, which jobs suit it, and how to review what comes back.
+- **Goal:** you will say what a cloud session is, what leaves your machine when you start one, which jobs suit it, and how to review what comes back.
 - **Before you start:** [Recruit the Beast](recruit-the-beast.html) and [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html). You need git and a GitHub account only if you later start a session.
 - **Time:** about 15 minutes. The exercise is a worksheet on a mock file tree and needs no cloud account or model.
 :::

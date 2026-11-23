@@ -5,16 +5,16 @@ title: "Too Many Tools, Too Many Agents"
 ::: {.quest-dialog}
 - **Goal:** you will explain why a large toolset costs context and accuracy, and choose between a single call, a fixed workflow, an agent and a plain script.
 - **Before you start:** [Who Said What](who-said-what.html). This is an optional side quest.
-- **Time:** about 20 minutes
+- **Time:** about 20 minutes.
 :::
 
 Every tool you give an agent has a **definition**: a name and a description of how to use it. The model needs those definitions in its context window (the text it can see at once) to choose a tool. That cost is the first half of this quest. The second half asks whether you need an agent at all.
 
 ## Tools cost context
 
-Loading every tool definition up front bloats the context. A typical five-server setup can use about 55 thousand tokens in definitions before any work starts. The ability to pick the right tool gets worse beyond roughly 30 to 50 available tools.
+Loading every tool definition up front bloats the context. Anthropic reports that a typical five-server setup can use about 55 thousand tokens in definitions before any work starts, and that choosing the right tool gets worse beyond roughly 30 to 50 available tools. Treat the numbers as a rough guide.
 
-**Tool search** keeps most definitions out of the window and loads a few on demand. It typically cuts that overhead by over 85 percent. It pays off from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.
+**Tool search** keeps most definitions out of the window and loads a few on demand. Anthropic reports that it typically cuts that overhead by over 85 percent, a figure to treat as a rough guide. It pays off from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.
 
 ::: {.panel-tabset group="companion"}
 
@@ -42,7 +42,7 @@ Using none of these is also a fine decision.
 
 ## Does a team of agents help?
 
-A 2025 preprint compared a single agent with four multi-agent set-ups across 260 configurations on six benchmarks.
+One 2025 preprint (its own tasks and models; the figures changed between versions) compared a single agent with four multi-agent set-ups across 260 configurations on six benchmarks. Read the findings as direction, not rules.
 
 - **It depends on the task.** On a task that splits into independent parts (financial analysis), multi-agent set-ups did far better than one agent, up to about 81 percent. On sequential planning, every multi-agent variant did worse, by 39 to 70 percent.
 - **A strong single agent leaves little to gain.** Once one agent scored above about 45 percent on a task, adding agents gave diminishing or negative returns.

@@ -42,10 +42,10 @@ questions:
       - { text: "3. Paste the unpublished notes in, because the plan is free and rate limited." , faulty: true }
       - { text: "4. Write down the limits and the date I checked them.", why: "Limits change, so the date tells a later reader how stale the numbers may be." }
   - type: choice
-    prompt: "A community list of free models was corrected by its own maintainer on one date: several providers had ended or cut their free tier. What is the best way to use such a list?"
+    prompt: "A community list of free models is a few weeks old. What is the best way to use it?"
     explain: "A list is a lead, not a fact. The provider's own page is the source, and it changes."
     options:
       - { text: "Use it to find options, then read each provider's own page before relying on a limit", correct: true }
-      - { text: "Trust the numbers it prints, since a list with many stars is checked daily", misconception: "Popularity does not keep numbers current. Its own banner shows free tiers changing within weeks." }
+      - { text: "Trust the numbers it prints, since a list with many stars is checked daily", misconception: "Popularity does not keep numbers current, and free tiers change within weeks." }
       - { text: "Skip the provider pages, because a router hides the provider's terms from you anyway", misconception: "A router adds a party. You still need the terms of the provider it picks." }
       - { text: "Avoid every entry, because a free hosted model cannot be useful for anything", misconception: "Free tiers suit harmless prompts, learning and trying a model. The point is to match data to the kind of free." }

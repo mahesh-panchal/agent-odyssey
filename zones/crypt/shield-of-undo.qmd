@@ -26,7 +26,7 @@ Before any agent edits your files, put them under version control:
 ::: {.ao-related}
 ## Related lessons
 
-- [The Stream of Ideas](../codon-mill/the-stream-of-ideas.html): For more on `/rewind` and its limits, and why git is the real save point.
+- [The Stream of Ideas](../codon-mill/the-stream-of-ideas.html): for more on `/rewind` and its limits, and why git is the real save point.
 - [The Context Window](../codon-mill/the-context-window.html): what fills an agent's working memory while it edits.
 - [Why Notebooks Diff Badly](../scriptorium/why-notebooks-diff-badly.html): what happens to your save point when the files are notebooks.
 - [Grow the Carapace](rules-of-the-carapace.html): permission rules, the next layer of protection.

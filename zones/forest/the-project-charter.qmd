@@ -3,7 +3,7 @@ title: "The Project Charter"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will give the agent standing instructions for a project, and know where instructions end and enforcement begins.
+- **Goal:** you will give the agent standing instructions for a project, and know where instructions end and enforcement begins.
 - **Before you start:** [Write the Brief](write-the-brief.html). [Who Said What](../codon-mill/who-said-what.html) helps.
 - **Time:** about 15 minutes.
 :::

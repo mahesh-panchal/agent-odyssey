@@ -3,7 +3,7 @@ title: "Advice or Enforcement"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will sort every control in your setup by whether it advises, asks or enforces, and choose the right one for each risk.
+- **Goal:** you will sort every control in your setup by whether it advises, asks or enforces, and choose the right one for each risk.
 - **Before you start:** [Guard the Door](guard-the-door.html). A **sandbox** is an operating-system layer that limits what shell commands can touch.
 - **Time:** about 15 minutes.
 :::
@@ -25,7 +25,7 @@ The rule of thumb: advice for preferences, a prompt for decisions you want to ma
 | Control | What it does | Where it can fail |
 |---|---|---|
 | `CLAUDE.md`, Skill text, your prompt | Advises | The model can ignore it. |
-| Permission prompt or `ask` rule | Asks | You must read each prompt. |
+| Permission prompt or `ask` rule | Asks | You must read each prompt. A project `.mcp.json` server has its own approval prompt, and `-p` runs cannot show it. |
 | `deny` rule | Enforces | Argument matching is fragile. |
 | `PreToolUse` hook, exit 2 | Enforces | Tool calls only; a crash fails open. |
 | Sandbox | Enforces | Off by default; shell commands only. |

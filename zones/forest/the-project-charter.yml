@@ -38,7 +38,7 @@ questions:
       - { text: "Reports the conflict with proposed edits, and changes nothing until you ask", correct: true }
       - { text: "Rewrites both files at once to remove the conflict", misconception: "The audit proposes edits. Nothing in your files changes until you ask Claude to apply them." }
       - { text: "Measures how many tokens the files use and trims the longest", misconception: "It checks for outdated or conflicting instructions; size and cost are outside its scope." }
-      - { text: "Does nothing, because the model resolves conflicts reliably on its own", misconception: "The docs say Claude may pick one conflicting instruction arbitrarily, which is why an audit is useful." }
+      - { text: "Does nothing, because the model resolves conflicts reliably on its own", misconception: "Claude may pick one conflicting instruction arbitrarily, which is why an audit is useful." }
   - type: choice
     prompt: "A parameter was renamed but its docstring was not, so an agent called the old name. Which habit helps most?"
     explain: "Agents work from docstrings and descriptions, so keep them current and put units, data versions and assumptions in them."

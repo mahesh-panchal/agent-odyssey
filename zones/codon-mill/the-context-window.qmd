@@ -6,8 +6,6 @@ title: "The Context Window"
 - **Goal:** you will say what fills the context window, what happens when it is full, and three habits that keep it useful.
 - **Before you start:** [Tokens, Not Letters](tokens-not-letters.html). A token is a chunk of text the model reads.
 - **Time:** about 20 minutes.
-
-Inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals).
 :::
 
 The **context window** is all the text the model can look at when it writes its next piece of output, including its own reply. It works like the model's working memory and is separate from what the model learned in training. It is measured in tokens.
@@ -26,7 +24,7 @@ Sizes depend on the model, up to 1 million tokens for some and 200 thousand for 
 
 ## Bigger is not better
 
-As the token count grows, accuracy and recall degrade. This is called **context rot**. No source gives a token count at which it starts, so check the source of any figure you see. What you put in matters as much as how much fits.
+As the token count grows, accuracy and recall degrade. This is called **context rot**. Anthropic's docs give no token count at which it starts, so check the source of any figure you see. What you put in matters as much as how much fits.
 
 ## When it fills up
 
@@ -75,7 +73,7 @@ Check OpenCode's documentation for how it compacts and how it reports window usa
 ::: {.ao-related}
 ## Related lessons
 
-- [Memory, Sessions and Usage](memory-sessions-and-usage.html): For more on what loads into every session, and how usage grows with context.
+- [Memory, Sessions and Usage](memory-sessions-and-usage.html): for more on what loads into every session, and how usage grows with context.
 - [When to Start Fresh](when-to-start-fresh.html): when to clear and when to continue.
 - [Who Said What](who-said-what.html): the system prompt, the instructions file and your own message, and which one only advises.
 - [Handoff Notes](handoff-notes.html): carry a task across a new session in a short written note.

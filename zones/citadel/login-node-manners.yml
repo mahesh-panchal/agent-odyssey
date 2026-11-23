@@ -1,7 +1,7 @@
 pass: 0.8
 questions:
   - type: sort
-    prompt: "Sort each action by where it belongs on a typical cluster (general practice; your site's guide decides)."
+    prompt: "Sort each action by where it belongs on a typical cluster (your site's guide decides)."
     explain: "Light, one-directory or read-only actions are usually fine on the login node. Heavy compute and sweeping searches go to the scheduler or get scoped."
     bins: ["fine on the login node", "hand to the scheduler", "never, or scope it first"]
     items:

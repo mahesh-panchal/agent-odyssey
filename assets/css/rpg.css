@@ -11,7 +11,6 @@ h1, h2 { color: var(--accent); font-family: ui-monospace, monospace; }
 .ao-fb.bad { border-left: 4px solid var(--bad); background: rgba(255,122,122,.12); padding: .4rem .7rem; }
 .ao-fb.ok { border-left: 4px solid var(--ok); background: rgba(123,216,143,.12); padding: .4rem .7rem; }
 .ao-next-btn { background: var(--accent) !important; color: #14101f !important; font-weight: bold; }
-.ao-badge { display: inline-block; border: 1px solid var(--ok); color: var(--ok); padding: .3rem .7rem; margin: .4rem 0; font: 14px/1.4 ui-monospace, monospace; border-radius: 4px; }
 .ao-pager { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; font-size: 15px; }
 button { background: var(--panel); color: var(--fg); border: 2px solid var(--accent); padding: .4rem .8rem; margin: .2rem; cursor: pointer; font: inherit; }
 button:focus-visible, a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
@@ -100,3 +99,4 @@ img.ao-boss-img { display: block; margin: 1rem auto; width: 192px; max-width: 10
 
 .quest-dialog ul { margin: 0; padding-left: 1.2rem; }
 .quest-dialog li { margin: .2rem 0; }
+.ao-footer { margin: 2.5rem 0 1rem; text-align: center; font-size: 14px; opacity: .85; }

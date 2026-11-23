@@ -5,7 +5,7 @@ questions:
     explain: "When ANTHROPIC_API_KEY is set it overrides a subscription login, and in -p mode it is always used."
     options:
       - { text: "The API key, which overrides the subscription login", correct: true }
-      - { text: "The subscription login, since a personal login outranks an exported key", misconception: "The docs say the API key overrides a subscription login when it is set." }
+      - { text: "The subscription login, since a personal login outranks an exported key", misconception: "The API key overrides a subscription login when it is set." }
       - { text: "Whichever was created first, because Claude Code never mixes the two", misconception: "Creation order plays no part. The environment variable takes priority." }
       - { text: "Both, splitting requests between the key and the subscription", misconception: "The docs describe an override, so there is no split. In -p mode the key is always used." }
   - type: choice
@@ -17,7 +17,7 @@ questions:
       - { text: "Nothing outside the project folder and the system temp directory", misconception: "That describes where writes are allowed, not where reads are allowed." }
       - { text: "Everything except hidden files, which are skipped automatically", misconception: "There is no automatic skipping of hidden files. ~/.ssh is a hidden directory and is readable by default." }
   - type: sort
-    prompt: "Sort each habit by how it fits shared cluster storage (general practice; your site's policy decides)."
+    prompt: "Sort each habit by how it fits shared cluster storage (your site's policy decides)."
     explain: "Keep secrets and controlled data away from shared, readable places, and keep personal files at the narrowest permission."
     bins: ["good habit", "bad habit"]
     items:

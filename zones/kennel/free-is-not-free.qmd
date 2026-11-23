@@ -3,7 +3,7 @@ title: "Free Is Not Free"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will name what a "free" model offer costs you, sort offers into four kinds, and decide which data may go to which.
+- **Goal:** you will name what a "free" model offer costs you, sort offers into four kinds, and decide which data may go to which.
 - **Before you start:** [Adopt the Pet](adopt-the-pet.html) (a small local model, "the Pet") and [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html).
 - **Time:** about 20 minutes. The hands-on step uses a dummy prompt and no sensitive data.
 :::

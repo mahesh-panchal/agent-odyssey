@@ -82,6 +82,10 @@ try:
     B.go(base + "zones/maze/wall-of-output.html", 1.0)
     check("boss fight shows a name and HP bar", B.js("!!document.querySelector('.ao-boss progress')") and "Wall of Output" in B.js("document.querySelector('.ao-boss').textContent"))
     check("exercise files are published", B.js("Promise.all(['tiny.fasta','gc.py'].map(f=>fetch('/exercises/maze/'+f).then(r=>r.ok)))").__class__ is list and all(B.js("Promise.all(['tiny.fasta','gc.py'].map(f=>fetch('/exercises/maze/'+f).then(r=>r.ok)))")))
+    # --- Continue block: Next button follows the path, Related links sit apart ---
+    B.go(base + "zones/basecamp/name-the-fears.html", 1.5)
+    check("Continue block offers Next to the following quest", B.js("(document.querySelector('.ao-nextsteps [rel=next]')||{}).href||''").endswith("three-kinds-of-machine.html"), B.js("(document.querySelector('.ao-nextsteps [rel=next]')||{}).href||''"))
+    check("Related lessons list is separate from the Continue block", B.js("!!document.querySelector('.ao-related') && !document.querySelector('.ao-nextsteps').contains(document.querySelector('.ao-related'))"))
     # --- quest log ---
     open0 = B.js("document.getElementById('ao-logbtn').getAttribute('aria-expanded')")
     B.click_text("Quest Log"); open1 = B.js("document.getElementById('ao-logbtn').getAttribute('aria-expanded')")

@@ -4,7 +4,7 @@ title: "Why Notebooks Diff Badly"
 
 ::: {.quest-dialog}
 - **Goal:** you will explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable.
-- **Before you start:** [Save Point](../crypt/shield-of-undo.html) (for `git diff`), and two tiny mock notebooks, [before.ipynb](../../exercises/scriptorium/before.ipynb) and [after.ipynb](../../exercises/scriptorium/after.ipynb) (about 2.5 KB each). Save both into an empty folder.
+- **Before you start:** [Save Point](../crypt/shield-of-undo.html) (for `git diff`), and two tiny mock notebooks, [before.ipynb](../../exercises/scriptorium/before.ipynb) and [after.ipynb](../../exercises/scriptorium/after.ipynb) (about 2.5 KB each). They are mock files that omit cell ids, so they are not strictly valid nbformat 4.5. Save both into an empty folder.
 - **Time:** about 15 minutes.
 :::
 

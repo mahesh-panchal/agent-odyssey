@@ -29,7 +29,7 @@ questions:
     options:
       - { text: "The hook does not block it", correct: true }
       - { text: "It is blocked, because a failing guard stops everything", misconception: "Exit 2 (or a JSON deny decision) blocks, and a crash leaves the action to proceed." }
-      - { text: "It is held until you answer a prompt about the crash", misconception: "The docs say the action proceeds on most events. They describe no prompt about the crash." }
+      - { text: "It is held until you answer a prompt about the crash", misconception: "The action proceeds on most events, and no prompt about the crash appears." }
       - { text: "It runs in the sandbox instead of normally", misconception: "The docs describe no sandbox fallback for hooks. They say the action proceeds." }
   - type: faulty-line
     prompt: "A colleague describes what their grep hook protects. Which line overclaims?"
@@ -38,7 +38,7 @@ questions:
       - { text: "It runs before the Bash tool and can refuse the call", why: "A PreToolUse hook fires before the tool runs." }
       - { text: "It cannot see files added with an @ reference in the prompt", why: "No tool call happens, so no hook fires." }
       - { text: "Because it blocks 'drop table', no database can ever be dropped", faulty: true }
-      - { text: "It runs with my user permissions, so I reviewed it first", why: "The docs say command hooks run with your full user permissions." }
+      - { text: "It runs with my user permissions, so I reviewed it first", why: "Command hooks run with your full user permissions." }
   - type: sort
     prompt: "In an unfamiliar repository, sort each item: can it run as you, or does it only steer the model?"
     bins: ["Code that can run as you", "Text that only steers the model"]

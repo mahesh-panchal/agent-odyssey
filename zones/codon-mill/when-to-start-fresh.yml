@@ -21,14 +21,14 @@ questions:
       - { text: "Run /resume to reload the same conversation with more room", misconception: "Resume reopens a saved conversation; a full window stays full." }
   - type: choice
     prompt: "You use an API key (five-minute cache). Your session holds a long, useful history, and you are leaving for 30 minutes to return to the same task. You do not want to write a note. What fits best?"
-    explain: "While the cache is warm, compacting is cheap. After it expires, the whole history is sent again at full price whichever way you proceed, and a late compact saves little. Compacting with a focus note before you leave keeps the thread. The community numbers behind this are small samples, so the habit rests on the cache lifetime in the docs."
+    explain: "While the cache is warm, compacting is cheap. After it expires, the whole history is sent again at full price whichever way you proceed, and a late compact saves little. Compacting with a focus note before you leave keeps the thread. The habit rests on the cache lifetime: warm means cheap, expired means full price."
     options:
       - { text: "Run /compact with a focus note before you leave", correct: true }
-      - { text: "Walk away, then run /compact when you return", misconception: "By then the cache has expired, so the compact itself reads the whole history at full price; a community test found it cost about as much as carrying on." }
+      - { text: "Walk away, then run /compact when you return", misconception: "By then the cache has expired, so the compact itself reads the whole history at full price. Compacting before you leave, while the cache is warm, is the cheap moment." }
       - { text: "Walk away and carry on when you return; the cost is the same either way", misconception: "The first message after the cache expires re-sends the whole history at full price, which a short pause would not." }
-      - { text: "Switch off a built-in tool you no longer need, so the next turn is lighter", misconception: "Changing the built-in tools mid-task discards the cache, and a community test reported a turn costing about twenty times normal." }
+      - { text: "Start a brand-new session when you return and paste the whole old conversation in", misconception: "Pasting the old history sends all of it again at full price, which is the cost you were trying to avoid. A short note or a compact before you leave carries the thread for less." }
   - type: match
-    prompt: "Match each situation to the action the docs support."
+    prompt: "Match each situation to the action that fits."
     explain: "Each action fits one situation: clear for an unrelated task, compact to keep a crowded thread, resume to return to saved work, /context to see what fills the window."
     pairs:
       - { left: "A new task unrelated to the current conversation", right: "/clear", misconception: "/compact keeps a summary of the old task in the new one, which is the clutter you are trying to avoid." }

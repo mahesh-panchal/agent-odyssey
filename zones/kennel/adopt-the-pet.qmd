@@ -3,7 +3,7 @@ title: "Adopt the Pet"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will run a small local model with Ollama, give it enough context, and point OpenCode at it.
+- **Goal:** you will run a small local model with Ollama, give it enough context, and point OpenCode at it.
 - **Before you start:** [Save Point](../crypt/shield-of-undo.html); a laptop with about 16 GB of memory; a terminal; roughly 5 GB of free disk. OpenCode is an open-source coding agent that can use local models.
 - **Time:** about 20 minutes. Everything stays on your machine.
 :::
@@ -40,7 +40,9 @@ Install OpenCode, then connect inside it with `/connect` (a `/command` is typed 
 curl -fsSL https://opencode.ai/v2/install | bash
 ```
 
-OpenCode finds Ollama at `http://127.0.0.1:11434` automatically. To spell it out, put this in `~/.config/opencode/opencode.json`. If a snippet errors, check the current OpenCode docs for your version.
+If the install command errors, check the current OpenCode docs for your version.
+
+OpenCode finds Ollama at `http://127.0.0.1:11434` automatically. To spell it out, put this in `~/.config/opencode/opencode.json`.
 
 ```json
 {

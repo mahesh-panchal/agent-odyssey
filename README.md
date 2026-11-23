@@ -40,6 +40,7 @@ pixi run preview     # live preview
 pixi run render      # build the site into _site/
 pixi run e2e         # drive the built site with real key presses
 pixi run lore        # lint the Lore blocks and rebuild the Lore page
+pixi run learner     # lint lesson prose (no maintainer labels, caveat boxes or mid-text quest references)
 pixi run shots       # screenshots for visual review (.shots/)
 pixi run publish     # publish to GitHub Pages (gh-pages branch)
 ```
@@ -58,6 +59,10 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for how to add a quest and the content r
 - Write for sceptics: mitigations over cheerleading, and no hint that LLM use is mandatory.
 
 Issues and suggestions are welcome.
+
+## Acknowledgements
+
+Credits for the courses, articles and ideas behind the quests are in [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md).
 
 ## Licence
 

@@ -26,7 +26,7 @@ The trunk takes about three hours and each branch one to two more. The order is 
 <ul id="ao-start-branches" class="ao-start-branches"></ul>
 
 <details class="ao-textlist"><summary>The whole course, in order</summary>
-<div id="ao-start-list" class="ao-start-list"></div>
+<div id="ao-start-list" class="ao-start-list"><noscript>The list needs JavaScript. Use <a href="index.html">the zone list</a>.</noscript></div>
 </details>
 
 ## Keep exploring

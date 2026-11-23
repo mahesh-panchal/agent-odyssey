@@ -3,7 +3,7 @@ title: "Forge a Skill"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will package a repeatable procedure as a Skill, install it, and confirm that it loads.
+- **Goal:** you will package a repeatable procedure as a Skill, install it, and confirm that it loads.
 - **Before you start:** [The Project Charter](the-project-charter.html). A **slash command** is a `/command` typed inside the running tool. **Frontmatter** is the settings block between the two `---` lines at the top of a file.
 - **Time:** about 20 minutes.
 :::
@@ -70,7 +70,7 @@ A Skill that is listed but never picked up points to the description or the prom
 Two slash commands help you look:
 
 - `/skills` lists the skills the tool can see, and `t` sorts them by token count (how many tokens, the chunks of text a model reads, each one takes).
-- `/skill-doctor` (v2.1.252 or later) shows each skill's context cost (how much of the model's limited reading space its text takes up) and how often it is used, and flags skills that sit in the listing but are never invoked. It excludes bundled and enterprise skills.
+- `/skill-doctor` shows each skill's context cost (how much of the model's limited reading space its text takes up) and how often it is used, and flags skills that sit in the listing but are never invoked. It excludes bundled and enterprise skills.
 
 In Claude Code, `allowed-tools` in a Skill **pre-approves** tools for that turn (one prompt and its reply). Other tools stay available to the agent. A Skill offers no sandbox, and a Skill you download is code you choose to trust, so read it before installing it, as you would read a script.
 

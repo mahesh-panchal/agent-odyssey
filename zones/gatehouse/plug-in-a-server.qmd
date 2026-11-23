@@ -3,7 +3,7 @@ title: "Plug In a Server"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will treat an MCP server as software you install, then scope it, limit it and read what it sends back.
+- **Goal:** you will treat an MCP server as software you install, then scope it, limit it and read what it sends back.
 - **Before you start:** [Grow the Carapace](../crypt/rules-of-the-carapace.html). A **permission rule** allows, asks about or denies a tool call. The **sandbox** is an operating-system layer that limits what shell commands can touch.
 - **Time:** about 15 minutes.
 :::

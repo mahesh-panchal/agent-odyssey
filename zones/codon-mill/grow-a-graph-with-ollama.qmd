@@ -120,6 +120,8 @@ With `gemma4:12b-mlx` for chat and `nomic-embed-text` for embeddings:
 - **The graph took a minute and twenty seconds to build** for 233 words and needs a model good enough to extract facts. Embedding twelve notes for simple RAG takes seconds. Build cost grows with the size of the collection, and indexing a corpus of about a million tokens took hours in Microsoft's Graph RAG paper.
 - **A whole-collection question failed in all three setups.** "Who works in this group, and what does each person do?" got "the notes do not contain the answer" from simple RAG, `--all` and the graph walk. No note lists a roster. Microsoft's Graph RAG builds community summaries for such questions; this toy graph builds none.
 
+One question, one model, one run: this shows the mechanics and does not rank the methods or the models.
+
 Try your own questions and compare.
 
 ## A second model: Mistral's Ministral 3
@@ -142,7 +144,7 @@ With this model, the right passages reached the prompt in three setups and the f
 
 ## A note on model size
 
-Extraction asks a model to produce well-formed JSON for every chunk. With Ollama, Microsoft GraphRAG users "frequently see issues with malformed responses (especially JSON)". The LightRAG README calls a 30B-parameter model "a reasonable minimum" for local use, and its programming guide says at least 32B. The 12B model here produced valid JSON for all twelve notes, and `show` lets you judge the facts. If you try a model under about 7B, read the triples before you trust the answers.
+We did not run LightRAG or Microsoft GraphRAG here; this section summarises what their documentation asks of an Ollama setup. Extraction asks a model to produce well-formed JSON for every chunk. With Ollama, Microsoft GraphRAG users "frequently see issues with malformed responses (especially JSON)". The LightRAG README calls a 30B-parameter model "a reasonable minimum" for local use, and its programming guide says at least 32B. The 12B model here produced valid JSON for all twelve notes, and `show` lets you judge the facts. If you try a model under about 7B, read the triples before you trust the answers.
 
 ## Using a real tool with Ollama
 

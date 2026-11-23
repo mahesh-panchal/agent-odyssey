@@ -6,7 +6,7 @@ questions:
     explain: "Bulk, checkable or read-only work suits a small tier or a subagent. Planning, hard debugging and unfamiliar science suit a stronger model, because errors there are costly and hard to spot."
     items:
       - { text: "Classify 5,000 tissue labels, with 200 hand-labelled rows to check against", bin: "Smaller tier or subagent", misconception: "Volume alone does not need a strong tier when a checker catches mistakes, and re-running only failures is cheap." }
-      - { text: "Skim a large log folder and report which tasks failed", bin: "Smaller tier or subagent", misconception: "Reading bulk text is the job the docs give to subagents, which keeps the main context clean." }
+      - { text: "Skim a large log folder and report which tasks failed", bin: "Smaller tier or subagent", misconception: "Reading bulk text is a job to hand to subagents, which keeps the main context clean." }
       - { text: "Plan a refactor of a shared QC script", bin: "Stronger model", misconception: "A flawed plan misdirects every later step, so the thinking is worth more than the saving." }
       - { text: "Work out why a statistical method fails on an unfamiliar assay", bin: "Stronger model", misconception: "Unfamiliar science is a knowledge gap, which a small tier is more likely to have and so test a stronger model on it." }
   - type: match

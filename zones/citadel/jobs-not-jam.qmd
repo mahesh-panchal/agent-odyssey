@@ -8,7 +8,7 @@ title: "Jobs, Not Jam"
 - **Time:** about 20 minutes.
 :::
 
-Ask your cluster staff before letting an agent near your cluster account. This quest is read-only, so read it on your laptop.
+Ask your cluster staff before letting an agent near your cluster account, and follow your cluster's policy and data agreement over this page. This quest is read-only, so read it on your laptop.
 
 ## Draft versus submit
 

@@ -44,7 +44,7 @@ A language model with no tools suits some jobs and struggles with others. A larg
 | Summarising and editing text | Counting letters or basic arithmetic |
 | Pulling out names and places | Multi-step logical reasoning |
 | Classifying a piece of text | Facts it was never given |
-| Generating tags, short creative writing | Writing code (small models) |
+| Generating tags, short creative writing | Writing code (a small on-device model) |
 
 Harder tasks become possible once the model can call tools or produce structured output. That is the idea behind an agent: the model reads and writes, and a harness gives it tools (a shell, a file editor, a script runner) for the parts it finds hard. Counting and arithmetic are good work to hand to a script.
 

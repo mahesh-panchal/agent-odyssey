@@ -6,8 +6,6 @@ title: "Tokens, Not Letters"
 - **Goal:** you will explain that a model reads tokens (chunks of text) and decide which sequence jobs belong to a script.
 - **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html).
 - **Time:** about 15 minutes.
-
-Inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals).
 :::
 
 You read a read as letters: A, C, G, T. A language model reads tokens. Before your text reaches the model, it is cut into **tokens**, and the model works with those.
@@ -62,7 +60,7 @@ Take this mock line: `>read1 ACGTTGCAAGGCTTAGGCCATTAGC`. Count the letters yours
 ::: {.ao-related}
 ## Related lessons
 
-- [The Context Window](the-context-window.html): For more on the window whose size is counted in tokens, and what fills it.
+- [The Context Window](the-context-window.html): for more on the window whose size is counted in tokens, and what fills it.
 - [Where Machines Fail](where-machines-fail.html): sort jobs into "ask the model" and "run a script", and meet the other ways a model fails.
 - [Memory, Sessions and Usage](memory-sessions-and-usage.html): how usage is counted in tokens across a session.
 :::

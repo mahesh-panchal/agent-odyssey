@@ -3,7 +3,7 @@ title: "Close the Loop"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will turn "it did the wrong thing" into a measured fix, and know when the fix has stopped working.
+- **Goal:** you will turn "it did the wrong thing" into a measured fix, and know when the fix has stopped working.
 - **Before you start:** [Forge a Skill](forge-a-skill.html). A **Skill** is a procedure the agent loads when it is relevant.
 - **Time:** about 10 minutes.
 :::

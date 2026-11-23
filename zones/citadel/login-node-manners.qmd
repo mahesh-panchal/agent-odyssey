@@ -8,7 +8,7 @@ title: "Login Node Manners"
 - **Time:** about 15 minutes.
 :::
 
-Ask your cluster staff before running an agent on the login node, and follow your cluster's user guide where it differs from this page. This quest is read-only, so read it on your laptop.
+Ask your cluster staff before running an agent on the login node. Some sites forbid agents on login nodes altogether, so follow your cluster's user guide where it differs from this page. This quest is read-only, so read it on your laptop.
 
 ## Login node versus compute node
 
@@ -22,7 +22,7 @@ Some sites allow agents only inside an interactive compute allocation, and some 
 
 Network filesystems can slow down for everyone when something touches huge numbers of files. Agents explore by searching, so a careless `find /` or a recursive `grep -r` from your home or project root is the classic mistake. Ask for searches scoped to one known directory, and keep them away from `/`. The same goes for `du`, `ls --recursive`, `ls --format=long` (it stats every file) and wide globs on big directories, and avoid making many small files in one directory. Keep the agent to your own project paths: other users' or other projects' paths are off limits unless you named them or the site documents them as shared (reference data).
 
-Claude Code's search tools (Glob, Grep) do not limit filesystem load. Scope the search yourself.
+Claude Code's search tools (Glob, Grep) are not a filesystem-load control; scope the search yourself.
 
 ## The scheduler's four commands
 
@@ -39,7 +39,7 @@ Four commands cover most of it:
 
 Set `--time`, `--mem` and `--cpus-per-task`, and use a job array for many similar tasks. Write options in their long form (`--dry-run` for `-n`) so you can read what the agent proposes.
 
-Slurm bills by what you allocate, whatever you use. A memory request can also change the CPU count Slurm allocates, because partitions limit memory per CPU. Ask your site's guide or staff for that limit. Afterwards compare request, allocation and use with `sacct --jobs=<id> --format=JobID,State,ReqMem,AllocCPUS,MaxRSS`. A job killed for memory shows `OUT_OF_MEMORY` in `State`. `MaxRSS` then understates the need, so raise the request above the failed one.
+Slurm bills by what you allocate, whatever you use. A memory request can also change the CPU count Slurm allocates, because partitions limit memory per CPU (`MaxMemPerCPU`). Above that limit Slurm may raise `--cpus-per-task` to fit the request, or reject the job. Ask your site docs how to read the partition limits. Afterwards compare request, allocation and use with `sacct --jobs=<id> --format=JobID,State,ReqMem,AllocCPUS,MaxRSS`. A job killed for memory shows `OUT_OF_MEMORY` in `State`. `MaxRSS` then understates the need, so raise the request above the failed one.
 
 Scratch space holds throwaway files. Ask where the project's scratch is and use it instead of `/tmp`, which is shared on a login node and often small. A set `$TMPDIR` does not prove you are on scratch, because Slurm can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
 

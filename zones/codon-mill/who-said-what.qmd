@@ -6,8 +6,6 @@ title: "Who Said What"
 - **Goal:** you will tell the system prompt, the instructions file and your own message apart, and know which you control and which only advise.
 - **Before you start:** [The Context Window](the-context-window.html). This is an optional side quest.
 - **Time:** about 15 minutes.
-
-Inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals).
 :::
 
 When an agent follows a rule, it is fair to ask where that rule came from. The **harness** is the program around the model that runs tools and sends your text. It works with three common sources of rules, and they differ in who writes them, how long they last and whether anything enforces them.
@@ -60,7 +58,7 @@ Check OpenCode's documentation for which instruction file names it loads, and in
 ::: {.ao-related}
 ## Related lessons
 
-- [The Context Window](the-context-window.html): For more on what loads into the window before you type.
+- [The Context Window](the-context-window.html): for more on what loads into the window before you type.
 - [Memory, Sessions and Usage](memory-sessions-and-usage.html): the instructions file and auto memory, side by side.
 - [Advice or Enforcement](../gatehouse/advice-or-enforcement.html): when a hook or a rule enforces, and when text only asks.
 - [The Project Charter](../forest/the-project-charter.html): write the instructions file for a real project.

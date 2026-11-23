@@ -23,7 +23,7 @@ questions:
     bins: ["Can catch", "Cannot catch"]
     explain: "These runs exercise the graph; checking the commands takes a real run."
     items:
-      - { text: "A step needs an input that no step produces", bin: "Can catch", misconception: "Typically reported when the plan is built, though the docs do not promise exactly which errors appear." }
+      - { text: "A step needs an input that no step produces", bin: "Can catch", misconception: "Typically reported when the plan is built, though which errors appear is not guaranteed." }
       - { text: "A tool flag that silently changes the result", bin: "Cannot catch", misconception: "The command never runs, so its behaviour is untested." }
       - { text: "A process declares an output that its stub never creates", bin: "Can catch", misconception: "A stub run can expose a declared output that is not produced. A wrong but compatible connection can still pass, so read the plan too." }
       - { text: "Filtering that drops half the reads for the wrong reason", bin: "Cannot catch", misconception: "That needs a real run on a tiny input and a check on the result." }

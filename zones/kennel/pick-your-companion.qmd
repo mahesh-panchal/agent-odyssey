@@ -3,7 +3,7 @@ title: "Pick Your Companion"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will set the model and the effort on purpose, including for a subagent, and compare two settings on your own task.
+- **Goal:** you will set the model and the effort on purpose, including for a subagent, and compare two settings on your own task.
 - **Before you start:** [Recruit the Beast](recruit-the-beast.html). [Adopt the Pet](adopt-the-pet.html) helps with the OpenCode tab.
 - **Time:** about 15 minutes. The exercise is a worksheet and needs no model.
 :::
@@ -85,9 +85,9 @@ This sketch uses `medium` because Haiku 5.5 at `low` is more likely to skip a se
 
 ## 3. Starting points
 
-Start from this table and test each row on your own jobs. The four tiers, in order of capability:
+Start from the tiers and the table below, and test each row on your own jobs. The four tiers, in order of capability:
 
-- **Haiku:** fastest replies and lowest cost; listed for subagent tasks.
+- **Haiku:** fastest replies and lowest cost; suited to subagent tasks.
 - **Sonnet:** everyday coding and agent work.
 - **Opus:** complex agentic coding; most workloads start here.
 - **Fable:** the hardest, long-running work.

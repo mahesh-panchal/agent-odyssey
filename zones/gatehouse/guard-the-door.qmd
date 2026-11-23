@@ -3,7 +3,7 @@ title: "Guard the Door"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will write a hook that refuses a command, and know where a hook's coverage ends.
+- **Goal:** you will write a hook that refuses a command, and know where a hook's coverage ends.
 - **Before you start:** [Plug In a Server](plug-in-a-server.html). An **exit code** is the number a script returns when it finishes: 0 means success, and a hook uses 2 to mean "block". **JSON** is a structured text format.
 - **Time:** about 15 minutes.
 :::

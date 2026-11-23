@@ -3,7 +3,7 @@ title: "Write the Brief"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will write prompts that make output checkable, and keep the context window in good shape so the agent stays on task.
+- **Goal:** you will write prompts that make output checkable, and keep the context window in good shape so the agent stays on task.
 - **Before you start:** [Recruit the Beast](../kennel/recruit-the-beast.html). The **context window** is everything the model can see in a session: your prompts, its replies, and the files it has read.
 - **Time:** about 15 minutes.
 :::
@@ -22,7 +22,7 @@ Two habits make the rest of this safer:
 
 ## Put effort into the brief, not a role line
 
-A common habit is to open with "You are a world-class bioinformatician." Expert personas help with tone, format, safety and preference tasks. They tend to hurt tasks that rely on what the model already knows: in one test on a knowledge benchmark (MMLU), accuracy fell from 71.6% with no persona to 68.0% with the shortest persona. Shorter personas reduce the damage but do not remove it.
+A common habit is to open with "You are a world-class bioinformatician." Expert personas help with tone, format, safety and preference tasks. They can hurt tasks that rely on what the model already knows: in one preprint on small models, tested on a knowledge benchmark (MMLU), accuracy fell from 71.6% with no persona to 68.0% with the shortest persona. Shorter personas reduce the damage but do not remove it.
 
 So:
 

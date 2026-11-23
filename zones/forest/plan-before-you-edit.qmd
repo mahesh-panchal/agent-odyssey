@@ -3,7 +3,7 @@ title: "Plan Before You Edit"
 ---
 
 ::: {.quest-dialog}
-- **Goal:** You will ask an agent for a plan before it edits, review that plan like a reviewer, and know what a plan can and cannot guarantee.
+- **Goal:** you will ask an agent for a plan before it edits, review that plan like a reviewer, and know what a plan can and cannot guarantee.
 - **Before you start:** [Write the Brief](write-the-brief.html). The exercise uses mock files on your laptop and runs no model.
 - **Time:** about 20 minutes.
 :::
@@ -82,7 +82,7 @@ A plan is text from a model that has not yet run anything. Read it the way you w
 
 If an answer is bad, choose `No, keep planning` and say what to change, or edit the plan yourself with `Ctrl+G`.
 
-## What a plan guarantees
+## What a plan does not guarantee
 
 - **A plan is advice.** An approved plan is only as good as your review of it.
 - **The agent can deviate.** The agent can still change course after approval. Afterwards, read the diff against the plan: every changed file should be one the plan named. `/code-review` reviews the diff in a fresh subagent that never saw your conversation.

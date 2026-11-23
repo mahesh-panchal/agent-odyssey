@@ -31,7 +31,7 @@ Names overlap and new ones appear every month. Each type answers the question: w
 
 - **Simple RAG:** chunk, embed, top-k, answer. It suits a pile of prose where one or two passages answer each question, and it is cheap to build and update. It struggles with questions that need several passages or the whole collection, since only the top k chunks arrive.
 - **Improved RAG:** add-ons around the same pipeline. Keyword search (BM25, a classic word-matching score) runs next to embeddings. A reranker (a second model that re-sorts the retrieved chunks) follows. A short context line is added to each chunk before embedding. The question is rewritten, or a made-up answer is drafted first (HyDE) to search with. Together they raise the chance the right chunk comes back: adding context, BM25 and a reranker cut top-20 retrieval failures from 5.7% to 1.9% in one reported test. Each add-on is another part to tune, and HyDE's drafted answer is unreal and may contain false details.
-- **Graph RAG (Microsoft):** before any question, an LLM reads every chunk and extracts entities and relationships into a knowledge graph (things as nodes, links between them as edges). It groups the graph into communities and writes a summary of each. It suits questions about the whole collection, such as "what are the main themes?". Indexing is slow and costly: 281 minutes for a roughly 1-million-token corpus with GPT-4 Turbo, and the docs warn it can consume a lot of LLM resources.
+- **Graph RAG (Microsoft):** before any question, an LLM reads every chunk and extracts entities and relationships into a knowledge graph (things as nodes, links between them as edges). It groups the graph into communities and writes a summary of each. It suits questions about the whole collection, such as "what are the main themes?". Indexing is slow and costly: the paper reports 281 minutes for a roughly 1-million-token corpus with GPT-4 Turbo, and the docs warn it can consume a lot of LLM resources.
 - **LightRAG:** also builds an entity graph with an LLM, but skips the communities. A query is turned into keywords, matched against entities and relations, and the neighbours are added. New documents merge into the graph without a rebuild. Modes run from plain chunks (`naive`) to graph-based (`local`, `global`, `hybrid`, `mix`). It needs a stronger model than plain RAG: its README calls a 30B-parameter model "a reasonable minimum" for local use.
 - **Tree RAG (RAPTOR):** clusters chunks and summarises them in layers, so a question can match a detail or a summary. It suits long documents where the answer may be a broad theme, and it adds another LLM build step.
 - **Loop-style RAG (Self-RAG, Corrective RAG, agentic RAG):** the system decides when to retrieve, checks what came back, tries again or searches the web. It suits questions where one lookup is rarely enough, at the price of more model calls per question. Self-RAG needs a model trained for it.
@@ -64,7 +64,7 @@ RAG is one of several ways to get a model to work from your documents. Choose by
 - **Small collection:** below about 200,000 tokens you can include everything with no need for RAG. Prompt caching (reusing an unchanged prompt prefix at a lower price) makes repeated questions cheaper. Check the current pricing and cache lifetime.
 - **Repeated questions:** cache-augmented generation (preload everything once) was faster than RAG on small question-answering sets, and becomes impractical for significantly larger datasets.
 - **Searchable files:** an agent can navigate code and configs "just in time" with glob and grep. Exploring at run time is slower than reading a pre-built index.
-- **Tables and databases:** a vector index returns the nearest passages, so it cannot promise a complete filter or an exact count. A query can, and you can read the query.
+- **Tables and databases:** a vector index returns the nearest passages, so it usually cannot promise a complete filter or an exact count. A query can, and you can read the query.
 - **Exact words:** BM25 is a strong baseline in the BEIR benchmark, and adding it to embeddings cut retrieval failures further.
 - **Format or style:** fine-tune when the problem is consistency or behaviour, and supply context when the model lacks knowledge.
 - **RAG:** the collection does not fit in the window, and you can update the index without retraining anything.
@@ -97,7 +97,7 @@ With Ollama you can run both halves locally: an embedding model for retrieval an
 
 <div data-ao-test="codon-mill-rag-and-its-cousins" data-xp="60"></div>
 
-## Honour
+## Bonus
 
 <div data-ao-honour="rag-pick-method" data-xp="20">Think of one question you ask about your own work (a protocol, a sample sheet, a results table). Write one sentence saying which row of the "When RAG is the right tool" table fits it best, and why.</div>
 

@@ -34,7 +34,7 @@ The split builds trust. When an answer looks odd, you walk from the wiki page ba
 
 Two small files keep the wiki navigable:
 
-- **`index.md`:** a catalogue with each page, a link and a one-line summary, grouped by category and updated on every ingest. To answer a question, the agent reads the index first and then opens the pages that look relevant. This avoids building an embedding index at moderate scale. As the wiki grows, add a search tool.
+- **`index.md`:** a catalogue with each page, a link and a one-line summary, grouped by category and updated on every ingest. To answer a question, the agent reads the index first and then opens the pages that look relevant. The gist says this avoids building an embedding index at moderate scale (the author's experience). As the wiki grows, add a search tool.
 - **`log.md`:** an append-only diary of ingests, queries and lint passes. Give every entry the same prefix so a simple `grep` can list the recent ones.
 
 An example schema you can paste into the instruction file and then edit with your agent:

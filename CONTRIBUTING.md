@@ -18,6 +18,7 @@ presses (needs `quarto install chrome-headless-shell` once). `pixi run shots` wr
   bonus items, a `.ao-related` block ('Related lessons': 2-6 links with a line each), then Lore. The body never points at another quest
   ('see X') and never mentions a later quest. Cross-links live in Related lessons. Use lists, not run-in bold paragraphs; keep table cells short.
   `pixi run learner` lints this (`--warn` adds attribution, contrast and run-in checks).
+- **Credits:** third-party courses, articles and ideas are credited in `ACKNOWLEDGEMENTS.md`, not in lesson text.
 - **Voice:** soft, plain, present tense; say what a thing is rather than what it is not. Keep a negation only when it is a fact to act on, or in a test's `misconception`.
 - **No real company or product used as a villain.** The enemy is the Blight: unchecked plausible-but-false output.
 - **Sceptic-friendly:** never imply LLM use is mandatory. Mitigations over cheerleading.

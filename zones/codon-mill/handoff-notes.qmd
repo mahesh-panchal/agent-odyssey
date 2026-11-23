@@ -6,8 +6,6 @@ title: "Handoff Notes"
 - **Goal:** you will list the five things that carry knowledge into a fresh session, and write a short handoff note a fresh session can act on, with what was checked kept apart from what was not.
 - **Before you start:** [The Stream of Ideas](the-stream-of-ideas.html). Commands here are Claude Code commands.
 - **Time:** about 15 minutes.
-
-Inspired by Matt Pocock's course LLM Fundamentals (aihero.dev/llm-fundamentals).
 :::
 
 You stop work on Friday with a half-finished refactor. On Monday you open a new **session** (one conversation with the agent, which has its own **context**: the text it can see right now). Each session begins with a fresh context window and no memory of what came before, so the new session does not know your goal, what you tried, or what you checked.
@@ -28,7 +26,7 @@ Anything it should know has to cross the gap in writing.
 | Preferences the tool picked up | Auto memory | Until deleted | The tool | Medium: it can be wrong |
 | What the files say now | Files in the repository | Until edited or deleted | You or the agent | Medium: files can be stale |
 | State of one task | Handoff note | Until the task is done | You, or the agent drafts and you review | Only as good as your review |
-| What changed, and why | Commit messages in git history | Durable unless rewritten; local until pushed | You or the agent | High for what; a summary of why |
+| What changed, and why | Commit messages in git history | Durable unless rewritten; local until pushed | You or the agent | Reliable for what changed; the why is only as good as the message |
 
 Memory the tool wrote can be wrong, and a wrong line is loaded again every session. This is **context poisoning**: a wrong statement enters the context and later answers build on it. Read `/memory` and check any claim against the source before you rely on it.
 
@@ -137,7 +135,7 @@ Commands: `/new` (alias `/clear`), `/sessions` (aliases `/resume` and `/continue
 ::: {.ao-related}
 ## Related lessons
 
-- [The Stream of Ideas](the-stream-of-ideas.html): For more on parking ideas, the open questions a note carries.
+- [The Stream of Ideas](the-stream-of-ideas.html): for more on parking ideas, the open questions a note carries.
 - [Memory, Sessions and Usage](memory-sessions-and-usage.html): both kinds of memory, and what to do about a poisoned claim.
 - [When to Start Fresh](when-to-start-fresh.html): when a fresh session beats continuing.
 - [Ground Truth](../maze/ground-truth.html): checking claims against the source, which a note's claims also need.
