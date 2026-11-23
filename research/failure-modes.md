@@ -42,6 +42,23 @@ Base: C = https://code.claude.com/docs/en/ ; P = https://platform.claude.com/doc
 - Mitigations (inference built on the above): (1) fresh session with a short, corrected brief; (2) rewind to before the bad turn rather than arguing; (3) never let Claude write a claim into CLAUDE.md/MEMORY.md until you checked it against the source (poisoned memory is reloaded every session; open it via `/memory`, delete the line); (4) have the agent re-derive from files or a script, not from earlier chat; (5) use `/doctor prompt-audit` to find stale or contradictory instruction files.
 - UNCONFIRMED: any official Anthropic use of the term "context poisoning".
 
+## 4b. Can a session forget on request?
+Checked 2026-11-23. Pages read through a summarising fetch tool; the `commands` and `memory` pages were truncated, so lines marked (summary) are not verbatim. Quotes short.
+- CONFIRMED the docs are SILENT on whether telling Claude in chat to "forget" or "ignore" something removes it. None of the pages read (context-window, checkpointing, commands, memory, data-usage, claude-directory) say it works, and none say it fails. UNCONFIRMED either way.
+- INFERENCE (ours, not a documented claim): text already in the conversation is still sent with every turn, so a chat request to ignore it adds one more message; it does not delete the earlier one. This matches the "third correction adds to a conversation that already holds two failed attempts" guidance in section 4. Do not teach as documented.
+- CONFIRMED what does change what the model sees:
+  - `/clear`: "Start a new conversation with empty context." C commands
+  - `/compact`: "replaces the conversation with a structured summary." C context-window. What a summary drops is not stated; Anthropic's context engineering article says aggressive compaction can lose detail (section 4).
+  - `/rewind` Summarize from/up to here: compresses part of the conversation into a summary. "Summarizing doesn't change files on disk, and the original messages stay in the session transcript, so Claude can still reference the details." C checkpointing
+- CONFIRMED a cleared conversation can come back: `/resume`, or in the same process the rewind menu entry "`/resume <session-id> (previous session)`", "available until you exit Claude Code or resume a different session". C commands, C checkpointing
+- CONFIRMED the transcript is a separate store: "Claude Code clients store session transcripts locally in plaintext under `~/.claude/projects/` for 30 days by default"; `cleanupPeriodDays` changes it. Not encrypted at rest. C data-usage, C claude-directory
+- CONFIRMED secrets reach disk: "If a tool reads a `.env` file or a command prints a credential, that value is written to `projects/<project>/<session>.jsonl`." Prevention is a permission rule that denies the read. C claude-directory
+- CONFIRMED real deletion on disk: `claude purge` deletes "Transcripts and auto memory under `projects/`" for one project (`--dry-run` to preview, `--all` for every project); or delete the paths by hand. Memory files ("`MEMORY.md` and topic files stay until you or Claude edits or deletes them" (summary)) are removed via `/memory` or by deleting the file. C claude-directory, C memory
+- CONFIRMED data sent to Anthropic is retained per plan (30 days; 5 years if data use for model improvement is allowed; commercial standard 30 days). Deleting it for a local session is NOT STATED; only cloud sessions can be deleted by the user. C data-usage. See privacy-and-unpublished-work.md.
+- UNCONFIRMED: whether a file read earlier is dropped by `/compact`. The page says "Right after compaction, Claude Code re-reads up to five of the files Claude has read or edited in the session, choosing the ones modified most recently" (C context-window), so a file can return to context. Whether a secret is dropped or returned is NOT STATED. Inference: do not rely on compaction to scrub a secret.
+- Three meanings of "forget" to keep apart on the site: (1) out of the live context window (`/clear`, compaction), (2) off disk (transcript: `claude purge`/`cleanupPeriodDays`; memory: `/memory`), (3) off Anthropic's side (retention rules, not user-deletable for local sessions per the pages read). Safest rule for sensitive data: never let it into the session (deny rule, work on the cluster), since removal afterwards covers only the first two.
+- Not checked: that the claude-directory and data-usage wording is current beyond 2026-11-23; no command was run (`claude purge` was not executed).
+
 ## 5. Token
 - Brief: a token is a chunk of text the model reads (word piece, character or byte); not a word. Usage and context limits are counted in tokens. Full detail and sources in fundamentals.md section 1.
 
