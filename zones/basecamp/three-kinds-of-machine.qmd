@@ -22,18 +22,7 @@ An LLM can also be called **inside a script** (for example to tidy free-text lab
 
 Before you reach for an agent or a large model, ask whether a script, a fixed workflow or a smaller specialised model does the job. A method that fits the task is often cheaper to run and easier to reproduce, and it does not change when a provider updates a hosted model. Keep the large model for the open-ended steps.
 
-## Should you fine-tune? A note on LoRA
-
-LoRA (low-rank adaptation) is a way to **fine-tune**: you freeze the model's weights and train small extra "adapter" matrices on your own examples. That needs far less memory than retraining everything, and the adapter can later be merged into the base model. It changes the model itself, so it belongs to the trained-model kind.
-
-Consider LoRA when all of these hold:
-
-- You have the **model weights**. An open-weight model you can download qualifies; a hosted model reached through an API usually does not.
-- The task is **narrow and repeatable**: the same kind of input and output every time, such as tagging text with a fixed label set.
-- You have **examples with known answers**, enough to train on and to hold some back for testing.
-- You have an **eval** that shows the tuned model beats the untuned one on that task.
-
-For agent work, a clearer prompt, better tools and a working eval usually give more return first, and they cost less to change. Fine-tune when you can show those fall short on a narrow task. Fine-tuning adds things to track: the training data, the adapter version and the base model it belongs to.
+Fine-tuning a model on your own examples is possible for some tasks; the Related lessons list a side quest on when it is worth it.
 
 ## What a model can do on its own
 
@@ -56,6 +45,7 @@ Harder tasks become possible once the model can call tools or produce structured
 ## Related lessons
 
 - [Know Your Gear](know-your-gear.html): the words for the model, the harness and the extensions around it.
+- [Should You Fine-Tune?](../kennel/should-you-fine-tune.html): for more on when training a model on your own examples is worth it.
 - [Same Every Time](../factory/same-every-time.html): keep a pipeline repeatable when a step uses an LLM.
 :::
 
@@ -68,7 +58,5 @@ Harder tasks become possible once the model can call tools or produce structured
 - [AI for Science, practice 1: match the method to the task](https://aiforscience.eu/best-practices/01-match-method-to-task/): AI for Science (European draft best practices), docs. Why read: it argues for the cheapest method that fits, with a script or small model before an agent. It is a draft with no endorsements yet.
 - [Understand model capabilities](https://developer.apple.com/documentation/foundationmodels/generating-content-and-performing-tasks-with-foundation-models#Understand-model-capabilities): Apple, docs. Why read: it is a short table of what a small on-device model suits and what it does not, a useful reminder of what a model can do before you give it tools.
 - [Generative AI vs. predictive AI: What's the difference?](https://www.ibm.com/think/topics/generative-ai-vs-predictive-ai-whats-the-difference): IBM, article. Why read: a short vendor explainer of the two terms, with business examples; it is secondary and written for enterprise readers, so use it for the vocabulary.
-- [Fine-tuning LLMs Guide](https://unsloth.ai/docs/get-started/fine-tuning-llms-guide): Unsloth, docs. Why read: a beginner-friendly walk through LoRA, QLoRA, dataset shape and training settings; it is a vendor guide for its own tool, so treat its speed and hardware claims as the vendor's.
-- [LoRA](https://huggingface.co/docs/peft/main/en/conceptual_guides/lora): Hugging Face, docs. Why read: the PEFT library's explanation of how LoRA works, what rank and alpha control, and how to merge an adapter back into the base model.
 - [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: it shows how to turn "it seems fine" into a measurable check, which is how you test an LLM step.
 :::

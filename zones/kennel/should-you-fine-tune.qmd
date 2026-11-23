@@ -1,0 +1,91 @@
+---
+title: "Should You Fine-Tune?"
+---
+
+::: {.quest-dialog}
+- **Goal:** you will say what LoRA fine-tuning is, check four conditions for it, and decide whether a task is a candidate.
+- **Before you start:** [Three Kinds of Machine](../basecamp/three-kinds-of-machine.html) and [Pick Your Companion](pick-your-companion.html).
+- **Time:** about 15 minutes. It is reading and a paper exercise; no model is trained.
+:::
+
+A model out of the box is general. Fine-tuning trains it further on your own examples so that it handles one kind of task better. It is a heavy step with its own upkeep, so it is worth asking whether you need it. Using it is optional.
+
+## 1. What fine-tuning and LoRA are
+
+To **fine-tune** a model is to continue training it on examples from your task. Its **weights** (the numbers it learned) change, so the result is a model of its own.
+
+**LoRA** (low-rank adaptation) is one way to fine-tune. It works in three steps:
+
+- **Freeze:** the model's original weights stay as they are.
+- **Train a small adapter:** you train small extra matrices (the "adapter") on your examples.
+- **Merge later:** the adapter can be merged into the base model afterwards.
+
+Training only the adapter needs far less memory than retraining everything.
+
+## 2. Four conditions
+
+Consider LoRA when all of these hold:
+
+1. **You have the model weights.** An open-weight model you can download qualifies; a hosted model reached through an API usually does not.
+2. **The task is narrow and repeatable.** The same kind of input and output every time, such as tagging text with a fixed label set.
+3. **You have examples with known answers.** You need enough to train on, and some held back for testing.
+4. **You have an eval.** It shows that the tuned model beats the untuned one on that task.
+
+If one condition fails, try something else first.
+
+## 3. What to try first for agent work
+
+A clearer prompt, better tools and a working eval usually give more return first, and they cost less to change. Fine-tune when you can show that those fall short on a narrow task.
+
+## 4. What fine-tuning adds to track
+
+- **The training data:** which examples went in, and which were held back.
+- **The adapter version:** each training run gives a new one.
+- **The base model:** an adapter belongs to the base model it was trained on.
+
+The result is a trained model that does one task, so you check it the way you check any trained model: against held-back examples on that task.
+
+## 5. Worked decision: two mock tasks
+
+A lab keeps free-text sequencing notes. Two jobs come up.
+
+| | Task A | Task B |
+|---|---|---|
+| Job | Replace sample IDs in notes with `[ID]` | Summarise the methods section of papers |
+| Input | Short free-text notes | Long papers of every kind |
+| Right answer | Clear: an ID is masked or it is not | Many acceptable summaries |
+| Examples with known answers | 2,000 notes marked by hand | A few summaries |
+
+Task A is the LoRA candidate:
+
+- It is narrow and repeatable.
+- It has examples with known answers with a clear answer, so some can be held back.
+- An eval is easy to write: count IDs left in the output.
+
+Task B has no single right answer and few examples, so a clear prompt and a check by a reader come first. If the ID pattern is fixed and known, a script handles Task A without any training.
+
+Now pick a task from your own work and write the four conditions beside it. Mark each one yes, no or unknown. Any "no" or "unknown" is where you start.
+
+## Battle: tune or not
+
+<div data-ao-test="kennel-should-you-fine-tune" data-xp="40"></div>
+
+<div data-ao-honour="tune-four-conditions" data-xp="20">Pick one task from your own work and write the four conditions beside it, marking each yes, no or unknown.</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Three Kinds of Machine](../basecamp/three-kinds-of-machine.html): for more on when a script, a trained model or an LLM fits the job.
+- [Pick Your Companion](pick-your-companion.html): choose a model and effort per job, and measure before you commit.
+- [Close the Loop](../forest/close-the-loop.html): turn a failure into a measured fix with an eval.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Fine-tuning LLMs Guide](https://unsloth.ai/docs/get-started/fine-tuning-llms-guide): Unsloth, docs. Why read: a beginner-friendly walk through LoRA, QLoRA, dataset shape and training settings; it is a vendor guide for its own tool, so treat its speed and hardware claims as the vendor's.
+- [LoRA](https://huggingface.co/docs/peft/main/en/conceptual_guides/lora): Hugging Face, docs. Why read: the PEFT library's explanation of how LoRA works, what rank and alpha control, and how to merge an adapter back into the base model.
+- [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: it shows how to turn "it seems fine" into a measurable check, which is how you compare a tuned model with an untuned one.
+:::

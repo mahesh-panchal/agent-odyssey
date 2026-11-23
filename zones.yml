@@ -129,6 +129,9 @@ gates:
          { id: kennel-pick-your-companion, after: [kennel-recruit-the-beast], suggested: [kennel-adopt-the-pet], branch: companions, trunk: false, optional: false, title: "Pick Your Companion", page: zones/kennel/pick-your-companion.html,
            story: "The Kennel keeps companions of every size. A big one is slow and costly to feed; a small one is quick and cheap but loses the trail. You must choose per job, and decide how hard each should think.",
            done: "You choose a model and effort for each job, delegate bulk reading to a cheaper helper, and measure before you commit." },
+         { id: kennel-should-you-fine-tune, after: [kennel-pick-your-companion], suggested: [], branch: companions, trunk: false, optional: true, title: "Should You Fine-Tune?", page: zones/kennel/should-you-fine-tune.html,
+           story: "A breeder offers to retrain a hound for one trick. It takes training data, a record of the lessons and a test of the result, and the keeper asks whether a better command would do.",
+           done: "You can say what LoRA is, check four conditions before tuning, and choose a better prompt, tools and an eval first." },
          { id: kennel-claude-in-the-cloud, after: [kennel-recruit-the-beast, crypt-secrets-and-sensitive-ground], suggested: [], branch: companions, trunk: false, optional: false, title: "Claude in the Cloud", page: zones/kennel/claude-in-the-cloud.html,
            story: "A tower stands far from the Kennel where the Beast works on a borrowed machine that vanishes when it is done. It is fine for sketching and writing. Nothing precious should ever be carried there.",
            done: "You send scripts and documents to the cloud, keep data and analysis at home, and know what leaves your machine when you do." } ] }
