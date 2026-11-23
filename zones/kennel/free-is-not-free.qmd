@@ -38,11 +38,23 @@ The terms can differ **per model** inside one service. OpenCode Zen lists some f
 
 Sensitive or unpublished data does not go to a hosted free tier. Use the Pet, or an approved service.
 
-## 3. Pairing a free model with an agent
+## 3. A worked comparison: Mistral's terms
+
+Mistral's terms show how much one provider's rules can vary. Read each point as a question to ask of any provider.
+
+- **Training use depends on product and plan.** Mistral Vibe (its terminal coding agent) Free, Pro, Teams and Student have training on, with an opt-out. Vibe Enterprise is opted out by default. Mistral Studio's free mode may use data for training.
+- **Opt-outs are per product.** For Studio and the API, the opt-out is in the Admin Panel under Privacy, and opting out of one product does not opt you out of another. For Labs and Public Preview models, the opt-out does not apply.
+- **Retention has its own options.** Zero data retention exists for some API requests on pay-as-you-go, and each request is reviewed. Agents, Conversations, Files, Chat requests and Vibe are excluded. You do not need zero retention to opt out of model training. For retention periods, check Mistral's current terms.
+- **Where inference runs can be chosen.** The global API endpoint does not commit to an inference location. The EU endpoint (`api.eu.mistral.ai`) runs in EU and EFTA data centers, so choose it on purpose if you need a European location. If location matters for Le Chat or Vibe, ask the vendor.
+- **A local open-weight model keeps prompts on your machine.** Open-weight Mistral models (for example `ministral-3:8b`, Apache 2.0) can run locally through Ollama. Tool or web calls may still send data out.
+
+The sensitive-data rule holds for every plan above: unpublished or sensitive data stays on the Pet or an approved service.
+
+## 4. Pairing a free model with an agent
 
 Free endpoints often speak an **OpenAI-compatible** protocol (a common way of sending chat requests). OpenCode can connect to an OpenAI-compatible gateway; its Providers page in the Lore below shows how. Free models differ in how well they follow tool instructions, so test one on a small task before you trust it.
 
-## 4. Try one, safely
+## 5. Try one, safely
 
 Pick one free tier from a provider you have read about. Create the key in the provider's console and keep it out of chat and out of files in your project. Then make one call with a harmless prompt. The shape below is the common OpenAI-compatible one; take the real base URL and model name from the provider's page.
 
@@ -84,5 +96,6 @@ If you cannot fill a cell from the provider's own page, write "not stated". That
 - [Groq: your data](https://console.groq.com/docs/your-data): Groq, docs. Why read: it states the default retention and log period for inference requests.
 - [OpenCode Zen](https://opencode.ai/docs/zen/): OpenCode, docs. Why read: it lists free models together with their data-retention line, model by model.
 - [Cloudflare Workers AI pricing](https://developers.cloudflare.com/workers-ai/platform/pricing/): Cloudflare, docs. Why read: it shows a daily free allowance and what happens when you pass it.
+- [Do you use my user data to train your models?](https://help.mistral.ai/en/articles/347617-do-you-use-my-user-data-to-train-your-models): Mistral, docs. Why read: it lists, plan by plan, which Mistral products train on your data by default and where the opt-out lives.
 - [Providers](https://opencode.ai/docs/providers/): OpenCode, docs. Why read: it shows how to connect an OpenAI-compatible gateway to a coding agent.
 :::

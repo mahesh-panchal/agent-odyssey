@@ -78,3 +78,6 @@ Format: removed text | original label | action. Sources: research/kennel-and-cry
 - Removed: "Not checked: how any particular free model behaves as an OpenCode backend" | label: Not checked | action: turned into "test one on a small task before you trust it".
 - Removed: "This snippet ... was not run for any provider here" | label: not run | action: dropped.
 - Removed: mid-text links to The Locked Cabinet (twice), Adopt the Pet | action: prerequisites in header plus Related; sensitive-data rule kept firm in the body.
+
+## Move: Mistral terms block (2026-11-23)
+- The Mistral data-terms block (training by product, opt-outs, zero data retention, global vs EU endpoint, local open-weight via Ollama) moved from zones/crypt/secrets-and-sensitive-ground.qmd to a new section "A worked comparison: Mistral's terms" in zones/kennel/free-is-not-free.qmd. Facts kept are those CONFIRMED in research/mistral.md section 4; Locked Cabinet keeps one sentence ("Other providers' terms differ by product and plan"). A Lore item for the Mistral training-terms page (source in research/mistral.md section 4) now sits in Free Is Not Free; the Locked Cabinet had no Mistral-only Lore item. No bank question depended on the block.
