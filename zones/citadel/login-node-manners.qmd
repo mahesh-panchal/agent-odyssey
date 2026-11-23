@@ -18,9 +18,15 @@ An agent does not know which node it is on or what your site tolerates. It will 
 
 Some sites allow agents only inside an interactive compute allocation, and some run a different scheduler with its own commands. If a scheduler command is missing, ask staff and skip near-matches.
 
+A pipeline's driver process, such as a Nextflow head job that only hands tasks to the scheduler, is often left running in `tmux` on the login node. Some sites forbid even that, so check your site's policy first.
+
+If the agent has a question for you and you are away, a good agent stops and lists its open questions. It does not pick a default and carry on. Ask for that behaviour in your instructions.
+
 ## Shared storage prefers scoped searches
 
 Network filesystems can slow down for everyone when something touches huge numbers of files. Agents explore by searching, so a careless `find /` or a recursive `grep -r` from your home or project root is the classic mistake. Ask for searches scoped to one known directory, and keep them away from `/`. The same goes for `du`, `ls --recursive`, `ls --format=long` (it stats every file) and wide globs on big directories, and avoid making many small files in one directory. Keep the agent to your own project paths: other users' or other projects' paths are off limits unless you named them or the site documents them as shared (reference data).
+
+Some filesystems come with their own search tools (Lustre has `lfs find`) that are cheaper than plain `find`. They make a scoped search cheaper and never make a broad one acceptable.
 
 Claude Code's search tools (Glob, Grep) are not a filesystem-load control; scope the search yourself.
 
@@ -39,11 +45,13 @@ Four commands cover most of it:
 
 Set `--time`, `--mem` and `--cpus-per-task`, and use a job array for many similar tasks. Write options in their long form (`--dry-run` for `-n`) so you can read what the agent proposes.
 
-Slurm bills by what you allocate, whatever you use. A memory request can also change the CPU count Slurm allocates, because partitions limit memory per CPU (`MaxMemPerCPU`). Above that limit Slurm may raise `--cpus-per-task` to fit the request, or reject the job. Ask your site docs how to read the partition limits. Afterwards compare request, allocation and use with `sacct --jobs=<id> --format=JobID,State,ReqMem,AllocCPUS,MaxRSS`. A job killed for memory shows `OUT_OF_MEMORY` in `State`. `MaxRSS` then understates the need, so raise the request above the failed one.
+Slurm bills by what you allocate, whatever you use. A memory request can change how many CPUs you are billed for, so size requests against the partition's limits.
 
-Scratch space holds throwaway files. Ask where the project's scratch is and use it instead of `/tmp`, which is shared on a login node and often small. A set `$TMPDIR` does not prove you are on scratch, because Slurm can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
+Scratch space holds throwaway files. Ask where the project's scratch is before the agent creates files there, and use it instead of `/tmp`, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one, and copy results to the project directory before the job ends. A set `$TMPDIR` does not prove you are on scratch, because Slurm can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
 
-Before a copy or a delete, find out what it touches. Run `rsync --dry-run --itemize-changes` first, with the same arguments, and read the list. `cp`, `scp` and `rm` have no dry run, so list the exact path or glob and delete only those names. Send large transfers through the scheduler or the site's data-transfer node.
+## Look before you copy or delete
+
+Find out what a copy or a delete will touch before it touches anything. Run `rsync --dry-run --itemize-changes` first, with the same arguments, and read the list. Does it match your request? Does it hold keys, `.env` files or personal data? Does a `*deleting` line remove something you wanted to keep? `cp`, `scp` and `rm` have no dry run, so list the exact path or glob and delete only those names. Any change to the options needs a new dry run. Do not copy from or delete a directory that a running job writes to. Before you delete a source you copied, check the copy is complete. Send large transfers through the scheduler or the site's data-transfer node.
 
 ## What the agent's sandbox covers
 

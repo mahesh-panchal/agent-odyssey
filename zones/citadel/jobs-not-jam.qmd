@@ -72,7 +72,19 @@ Habits that keep polling cheap:
 - Poll no more than about once a minute, less often for long jobs. Run one loop at a time and scope it: `squeue --user=$USER` or `--jobs=<id>`.
 - Use `sbatch --parsable --wait`, or the pipeline's own poller, instead of a `sleep` loop. It replaces a `/loop` of `squeue`, so skip the loop.
 - A wait can outlast the tool's timeout. Run it in the background. Never resubmit because the wait timed out. Check `State` with `sacct` first: `--wait` passes the job's exit code through, but a signal-killed job gives 1, so the code alone does not prove success.
+- `--mail-type` only emails you, so it cannot be used to wait. If you use `watch`, keep it at `--interval=60` or slower and stop it when done.
 - Submit many similar tasks as one array with a concurrency cap (`--array=1-100%10`) instead of a loop of `sbatch` calls.
+
+## Size the request
+
+A job can cost far more than it asked for without any error. Slurm bills by what you allocate, not what you use, and the bill feeds your fair-share priority. A large memory request can also change what is allocated. Partitions limit memory per CPU, so Slurm may add CPUs to fit the request, or reject the job, or leave it pending. What happens depends on the site's settings.
+
+Habits that keep requests honest:
+
+- Before a large or repeated job, read the partition's limits (`scontrol show partition <name>`) and size the request against them. A round "plenty" number is a guess.
+- Afterwards compare what you asked for, what was allocated and what was used: `sacct --jobs=<id> --format=JobID,State,ReqMem,AllocCPUS,MaxRSS`. Keep headroom above `MaxRSS`.
+- A job killed for memory shows `OUT_OF_MEMORY` in `State`. `MaxRSS` then understates the need, so raise the request above the failed one.
+- If the memory need and the CPU count conflict, ask before moving to another partition.
 
 Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an `srun` that blocks until it finishes, gets cut off.
 
