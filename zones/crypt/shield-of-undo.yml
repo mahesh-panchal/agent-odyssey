@@ -5,9 +5,9 @@ questions:
     explain: "With --staged and --worktree, restore puts tracked files back to the last commit immediately; no new commit is needed. Plain `git restore .` takes its source from the staging area, so staged changes would survive."
     options:
       - { text: "git restore --staged --worktree .", correct: true }
-      - { text: "git commit -a", misconception: "Committing records the broken state as a new snapshot; it does not revert your working files." }
-      - { text: "git stash pop", misconception: "Pop re-applies earlier stashed changes on top of your files; it does not discard the agent's edits." }
-      - { text: "git add -A", misconception: "Staging records the broken state; it does not undo it." }
+      - { text: "git commit -a -m wip", misconception: "Committing records the broken state as a new snapshot; it does not revert your working files." }
+      - { text: "git stash pop --index stash@{0}", misconception: "Pop re-applies earlier stashed changes on top of your files; it does not discard the agent's edits." }
+      - { text: "git add -A && git status", misconception: "Staging records the broken state; it does not undo it." }
   - type: choice
     prompt: "When should you commit a snapshot?"
     explain: "A snapshot only protects you if it exists before the mistake happens."
