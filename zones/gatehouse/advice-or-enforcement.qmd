@@ -8,7 +8,7 @@ A wall of signs hangs in the Gatehouse. Some ask politely and some lock the door
 
 ::: {.quest-dialog}
 - **Goal:** you will sort every control in your setup by whether it advises, asks or enforces, and choose the right one for each risk.
-- **Before you start:** [Guard the Door](guard-the-door.html). A **sandbox** is an operating-system layer that limits what shell commands can touch.
+- **Before you start:** [Block Actions with a Hook](guard-the-door.html). A **sandbox** is an operating-system layer that limits what shell commands can touch.
 - **Time:** about 15 minutes.
 :::
 
@@ -86,10 +86,10 @@ The same split works for a group that runs agents:
 ::: {.ao-related}
 ## Related lessons
 
-- [Guard the Door](guard-the-door.html): for more on writing a hook that enforces a rule.
-- [Plug In a Server](plug-in-a-server.html): for more on limiting what a connected server can do.
-- [Grow the Carapace](../crypt/rules-of-the-carapace.html): for more on deny rules, ask rules and the sandbox.
-- [The Project Charter](../forest/the-project-charter.html): for more on instructions files, the main form of advice.
+- [Block Actions with a Hook](guard-the-door.html): for more on writing a hook that enforces a rule.
+- [Connect an MCP Server](plug-in-a-server.html): for more on limiting what a connected server can do.
+- [Write Permission Rules](../crypt/rules-of-the-carapace.html): for more on deny rules, ask rules and the sandbox.
+- [Write an Instructions File](../forest/the-project-charter.html): for more on instructions files, the main form of advice.
 :::
 
 ::: {.ao-lore}

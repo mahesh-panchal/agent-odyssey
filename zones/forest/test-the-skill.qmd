@@ -8,7 +8,7 @@ The smith holds the Skill up against an empty hand and asks the forest one quest
 
 ::: {.quest-dialog}
 - **Goal:** you will read and write a small Claude Code eval case that checks a Skill is triggered, and know what running it costs.
-- **Before you start:** [Close the Loop](close-the-loop.html). Words used below: a **grader** is a check that marks a run pass or fail; an **arm** is one condition of the comparison (with the plugin, or without); a **judge model** is a second model that marks the answer; the **baseline** is the run without the change.
+- **Before you start:** [Turn Mistakes into Tests](close-the-loop.html). Words used below: a **grader** is a check that marks a run pass or fail; an **arm** is one condition of the comparison (with the plugin, or without); a **judge model** is a second model that marks the answer; the **baseline** is the run without the change.
 - **Time:** about 20 minutes.
 :::
 
@@ -100,8 +100,8 @@ Running an eval is the same trust decision as loading the plugin yourself (`--pl
 ## Related lessons
 
 - [Bundle a Plugin](bundle-a-plugin.html): for more on plugin layout, validation and why installing a plugin is a trust decision.
-- [Close the Loop](close-the-loop.html): for more on why the with-and-without comparison matters.
-- [Forge a Skill](forge-a-skill.html): for more on writing the description a trigger test depends on.
+- [Turn Mistakes into Tests](close-the-loop.html): for more on why the with-and-without comparison matters.
+- [Write a Skill](forge-a-skill.html): for more on writing the description a trigger test depends on.
 :::
 
 ::: {.ao-lore}

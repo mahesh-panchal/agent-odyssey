@@ -1,5 +1,5 @@
 ---
-title: "Plug In a Server"
+title: "Connect an MCP Server"
 ---
 
 ::: {.ao-story}
@@ -8,7 +8,7 @@ A heavy door in the Gatehouse opens onto the outside world, and whatever walks t
 
 ::: {.quest-dialog}
 - **Goal:** you will treat an MCP server as software you install, then scope it, limit it and read what it sends back.
-- **Before you start:** [Grow the Carapace](../crypt/rules-of-the-carapace.html). A **permission rule** allows, asks about or denies a tool call. The **sandbox** is an operating-system layer that limits what shell commands can touch.
+- **Before you start:** [Write Permission Rules](../crypt/rules-of-the-carapace.html). A **permission rule** allows, asks about or denies a tool call. The **sandbox** is an operating-system layer that limits what shell commands can touch.
 - **Time:** about 15 minutes.
 :::
 
@@ -100,9 +100,9 @@ Servers, skills and plugins either run code or supply instructions to the agent,
 ::: {.ao-related}
 ## Related lessons
 
-- [Guard the Door](guard-the-door.html): for more on refusing a command with a hook.
+- [Block Actions with a Hook](guard-the-door.html): for more on refusing a command with a hook.
 - [Advice or Enforcement](advice-or-enforcement.html): for more on choosing between a request, a prompt and a lock for each risk.
-- [Grow the Carapace](../crypt/rules-of-the-carapace.html): for more on allow, ask and deny rules.
+- [Write Permission Rules](../crypt/rules-of-the-carapace.html): for more on allow, ask and deny rules.
 - [Too Many Tools, Too Many Agents](../codon-mill/too-many-tools-too-many-agents.html): for more on keeping the toolset small.
 :::
 

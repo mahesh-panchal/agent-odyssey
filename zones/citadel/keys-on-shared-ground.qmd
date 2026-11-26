@@ -8,7 +8,7 @@ Your home directory lies on ground that hundreds of others can reach. Keys, toke
 
 ::: {.quest-dialog}
 - **Goal:** you will keep keys and agent settings private on shared storage, keep data within its agreement, and know what to ask your cluster staff.
-- **Before you start:** [Login Node Manners](login-node-manners.html) and [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html). *Egress* means data leaving the machine.
+- **Before you start:** [Login Node Manners](login-node-manners.html) and [Keep Secrets Out of Reach](../crypt/secrets-and-sensitive-ground.html). *Egress* means data leaving the machine.
 - **Time:** about 15 minutes.
 :::
 
@@ -88,7 +88,7 @@ The same questions apply. Ask staff whether a local model through Ollama changes
 ::: {.ao-related}
 ## Related lessons
 
-- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): what stays out of an agent's reach on any machine.
+- [Keep Secrets Out of Reach](../crypt/secrets-and-sensitive-ground.html): what stays out of an agent's reach on any machine.
 - [Login Node Manners](login-node-manners.html): what runs on the login node and the sandbox's limits.
 - [Jobs, Not Jam](jobs-not-jam.html): permission rules for submitting and cancelling jobs.
 :::

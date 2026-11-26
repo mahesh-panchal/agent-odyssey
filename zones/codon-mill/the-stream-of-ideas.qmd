@@ -1,5 +1,5 @@
 ---
-title: "The Stream of Ideas"
+title: "Capture Ideas Mid-Task"
 ---
 
 ::: {.ao-story}

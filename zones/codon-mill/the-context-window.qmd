@@ -8,7 +8,7 @@ A great hopper above the mill holds everything the machine can see at once. You 
 
 ::: {.quest-dialog}
 - **Goal:** you will say what fills the context window, what happens when it is full, and three habits that keep it useful.
-- **Before you start:** [Tokens, Not Letters](tokens-not-letters.html), and an installed agent from [Recruit the Beast](../kennel/recruit-the-beast.html) (on the OpenCode route, that includes Ollama and the model you pulled). A token is a chunk of text the model reads.
+- **Before you start:** [Tokens, Not Letters](tokens-not-letters.html), and an installed agent from [Set Up Your Agent](../kennel/recruit-the-beast.html) (on the OpenCode route, that includes Ollama and the model you pulled). A token is a chunk of text the model reads.
 - **Time:** about 20 minutes.
 :::
 
@@ -112,7 +112,7 @@ An agent a session starts for you can start large. A subagent started from a bri
 
 - [Memory, Sessions and Usage](memory-sessions-and-usage.html): for more on what loads into every session, and how usage grows with context.
 - [When to Start Fresh](when-to-start-fresh.html): when to clear and when to continue.
-- [Who Said What](who-said-what.html): the system prompt, the instructions file and your own message, and which one only advises.
+- [Which Instructions Apply](who-said-what.html): the system prompt, the instructions file and your own message, and which one only advises.
 - [Handoff Notes](handoff-notes.html): carry a task across a new session in a short written note.
 :::
 

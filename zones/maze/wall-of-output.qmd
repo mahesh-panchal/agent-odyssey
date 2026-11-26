@@ -1,5 +1,5 @@
 ---
-title: "Boss: The Wall of Output"
+title: "Boss: Review Large Output"
 ---
 
 ::: {.ao-story}
@@ -41,7 +41,7 @@ A human check can fail in two ways. *Automation bias* is trusting the machine's 
 
 - [Ground Truth](ground-truth.html): the check an agent did not write.
 - [The Context Window](../codon-mill/the-context-window.html): why more text in context is not free.
-- [The Reviewer's Code](../reef/the-reviewers-code.html): ask for evidence when work comes to you.
+- [Review Agent-Written Work](../reef/the-reviewers-code.html): ask for evidence when work comes to you.
 :::
 
 ::: {.ao-lore}

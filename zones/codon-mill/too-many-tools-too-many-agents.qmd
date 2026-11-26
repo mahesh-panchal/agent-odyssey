@@ -8,7 +8,7 @@ The wall of the mill is hung with every tool anyone ever made, and the kennel ma
 
 ::: {.quest-dialog}
 - **Goal:** you will explain why a large toolset costs context and accuracy, and choose between a single call, a fixed workflow, an agent and a plain script.
-- **Before you start:** [Who Said What](who-said-what.html). This is an optional side quest.
+- **Before you start:** [Which Instructions Apply](who-said-what.html). This is an optional side quest.
 - **Time:** about 20 minutes.
 :::
 
@@ -66,10 +66,10 @@ Start with one agent, measure it, and add agents only for work that splits into 
 ::: {.ao-related}
 ## Related lessons
 
-- [Plug In a Server](../gatehouse/plug-in-a-server.html): for more on connecting an MCP server and choosing which to keep.
+- [Connect an MCP Server](../gatehouse/plug-in-a-server.html): for more on connecting an MCP server and choosing which to keep.
 - [When to Start Fresh](when-to-start-fresh.html): how the cache, compacting and clearing affect cost.
 - [The Context Window](the-context-window.html): what the window holds and how definitions compete for it.
-- [Who Said What](who-said-what.html): which text in the window comes from you and which from the tool.
+- [Which Instructions Apply](who-said-what.html): which text in the window comes from you and which from the tool.
 :::
 
 ::: {.ao-lore}

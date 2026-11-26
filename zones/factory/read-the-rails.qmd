@@ -1,5 +1,5 @@
 ---
-title: "Read the Rails"
+title: "Read Agent-Written Pipelines"
 ---
 
 ::: {.ao-story}

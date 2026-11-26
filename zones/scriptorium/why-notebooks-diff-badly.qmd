@@ -92,7 +92,7 @@ The idea is the same: review the source cells. Check OpenCode's docs for how it 
 ## Related lessons
 
 - [Run It Top to Bottom](run-it-top-to-bottom.html): why a stored notebook result can differ from a fresh run.
-- [The Reviewer's Code](../reef/the-reviewers-code.html): reviewing LLM-assisted work, including formats that diff well.
+- [Review Agent-Written Work](../reef/the-reviewers-code.html): reviewing LLM-assisted work, including formats that diff well.
 :::
 
 ::: {.ao-lore}

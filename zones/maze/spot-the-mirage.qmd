@@ -1,5 +1,5 @@
 ---
-title: "Spot the Mirage"
+title: "Spot Hallucinations"
 ---
 
 ::: {.ao-story}
@@ -33,7 +33,7 @@ The cure is **checking against something the agent did not write**: run it, look
 ## Related lessons
 
 - [Ground Truth](ground-truth.html): check a script an agent called tested with a tool it did not write.
-- [Send Small, Say So](../reef/send-small-say-so.html): hand over work with the evidence that you checked it.
+- [Send Small Changes, Say What You Checked](../reef/send-small-say-so.html): hand over work with the evidence that you checked it.
 :::
 
 ::: {.ao-lore}

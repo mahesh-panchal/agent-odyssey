@@ -8,7 +8,7 @@ A breeder at the Kennel offers to retrain a hound for one trick, and the kennel 
 
 ::: {.quest-dialog}
 - **Goal:** you will say what LoRA fine-tuning is, check four conditions for it, and decide whether a task is a candidate.
-- **Before you start:** [Three Kinds of Machine](../basecamp/three-kinds-of-machine.html), [Know Your Gear](../basecamp/know-your-gear.html) and [Pick Your Companion](pick-your-companion.html).
+- **Before you start:** [Three Kinds of Machine](../basecamp/three-kinds-of-machine.html), [Know Your Tools](../basecamp/know-your-gear.html) and [Pick Your Model](pick-your-companion.html).
 - **Time:** about 15 minutes. It is reading and a paper exercise; no model is trained.
 :::
 
@@ -80,8 +80,8 @@ Now pick a task from your own work and write the four conditions beside it. Mark
 ## Related lessons
 
 - [Three Kinds of Machine](../basecamp/three-kinds-of-machine.html): for more on when a script, a trained model or an LLM fits the job.
-- [Pick Your Companion](pick-your-companion.html): choose a model and effort per job, and measure before you commit.
-- [Close the Loop](../forest/close-the-loop.html): turn a failure into a measured fix with an eval.
+- [Pick Your Model](pick-your-companion.html): choose a model and effort per job, and measure before you commit.
+- [Turn Mistakes into Tests](../forest/close-the-loop.html): turn a failure into a measured fix with an eval.
 :::
 
 ::: {.ao-lore}

@@ -8,7 +8,7 @@ You wake at the mill with a fresh companion and a half-finished job. It knows no
 
 ::: {.quest-dialog}
 - **Goal:** you will list the five things that carry knowledge into a fresh session, and write a short handoff note a fresh session can act on, with what was checked kept apart from what was not.
-- **Before you start:** [The Stream of Ideas](the-stream-of-ideas.html). Commands here are Claude Code commands.
+- **Before you start:** [Capture Ideas Mid-Task](the-stream-of-ideas.html). Commands here are Claude Code commands.
 - **Time:** about 15 minutes.
 :::
 
@@ -139,7 +139,7 @@ Commands: `/new` (alias `/clear`), `/sessions` (aliases `/resume` and `/continue
 ::: {.ao-related}
 ## Related lessons
 
-- [The Stream of Ideas](the-stream-of-ideas.html): for more on parking ideas, the open questions a note carries.
+- [Capture Ideas Mid-Task](the-stream-of-ideas.html): for more on parking ideas, the open questions a note carries.
 - [Memory, Sessions and Usage](memory-sessions-and-usage.html): both kinds of memory, and what to do about a poisoned claim.
 - [When to Start Fresh](when-to-start-fresh.html): when a fresh session beats continuing.
 - [Ground Truth](../maze/ground-truth.html): checking claims against the source, which a note's claims also need.

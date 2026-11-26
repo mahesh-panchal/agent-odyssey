@@ -1,5 +1,5 @@
 ---
-title: "Keep a Living Wiki"
+title: "Keep an LLM Wiki"
 ---
 
 ::: {.ao-story}
@@ -174,11 +174,11 @@ Put the schema in `AGENTS.md` at the root of the wiki folder (OpenCode also fall
 ## Related lessons
 
 - [RAG and Its Cousins](rag-and-its-cousins.html): for more on RAG, and a table of when to paste, retrieve or query.
-- [The Project Charter](../forest/the-project-charter.html): for more on how instruction files such as `CLAUDE.md` work.
+- [Write an Instructions File](../forest/the-project-charter.html): for more on how instruction files such as `CLAUDE.md` work.
 - [Plan Before You Edit](../forest/plan-before-you-edit.html): ask for a plan before the first ingest.
 - [Save Point](../crypt/shield-of-undo.html): commit before each ingest and undo what the agent changed.
 - [Advice or Enforcement](../gatehouse/advice-or-enforcement.html): why file permissions hold where an instruction file only advises.
-- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): what may leave your machine when you use a hosted model.
+- [Keep Secrets Out of Reach](../crypt/secrets-and-sensitive-ground.html): what may leave your machine when you use a hosted model.
 :::
 
 ::: {.ao-lore}

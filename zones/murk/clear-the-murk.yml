@@ -43,7 +43,7 @@ questions:
   - type: sort
     prompt: "Which of these should stay out of the agent's reach, and which can it see?"
     bins: ["Keep out of reach", "Fine to show the agent"]
-    explain: "Keys and credential files belong in the Locked Cabinet. Ordinary scripts and mock files can be shared."
+    explain: "Keys and credential files belong in a secret store, out of the agent's reach. Ordinary scripts and mock files can be shared."
     items:
       - { text: "~/.config/mockstore/credentials", bin: "Keep out of reach", misconception: "A credentials file holds keys. A deny rule should cover it." }
       - { text: "A .env file with the cluster key", bin: "Keep out of reach", misconception: "Anything holding a key stays out of the agent's file tools." }
@@ -102,5 +102,5 @@ questions:
     pairs:
       - { left: "'Default in varcall 2.4' (a claim nobody checked)", right: "Check it against the tool's own docs", misconception: "A claim is answered by a source the agent did not write." }
       - { left: "A NOTES.md rule guarding raw/", right: "A deny rule the harness enforces", misconception: "A rule that must hold needs enforcement, not more words." }
-      - { left: "A token in the script", right: "Keep keys in the Locked Cabinet", misconception: "Keys stay out of scripts and out of the agent's reach." }
+      - { left: "A token in the script", right: "Keep keys in a secret store, out of reach", misconception: "Keys stay out of scripts and out of the agent's reach." }
       - { left: "An awk line nobody can explain", right: "Explain it back, or drop it", misconception: "Work you cannot explain is not yet yours to hand on." }

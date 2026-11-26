@@ -1,5 +1,5 @@
 ---
-title: "Close the Loop"
+title: "Turn Mistakes into Tests"
 ---
 
 ::: {.ao-story}
@@ -8,7 +8,7 @@ A hunter's log hangs from a branch of the great tree: every time the companion w
 
 ::: {.quest-dialog}
 - **Goal:** you will describe how to turn "it did the wrong thing" into a measured fix, and how to tell when the fix has stopped working. This page teaches the idea; the commands come in the next quest listed under Related lessons.
-- **Before you start:** [Forge a Skill](forge-a-skill.html). A **Skill** is a procedure the agent loads when it is relevant.
+- **Before you start:** [Write a Skill](forge-a-skill.html). A **Skill** is a procedure the agent loads when it is relevant.
 - **Time:** about 10 minutes.
 :::
 
@@ -81,7 +81,7 @@ A case passes when every grader in its row passes. Run each case several times, 
 ## Related lessons
 
 - [Test the Skill](test-the-skill.html): for more on writing a real eval case and running it with a cost ceiling.
-- [Forge a Skill](forge-a-skill.html): for more on writing the Skill you will measure.
+- [Write a Skill](forge-a-skill.html): for more on writing the Skill you will measure.
 - [Write the Brief](write-the-brief.html): for more on prompts that give the agent a check it can run.
 :::
 

@@ -1,5 +1,5 @@
 ---
-title: "Send Small, Say So"
+title: "Send Small Changes, Say What You Checked"
 ---
 
 ::: {.ao-story}
@@ -8,7 +8,7 @@ A reef thrives on many hands, and a Review-leech clings to it, feeding on work p
 
 ::: {.quest-dialog}
 - **Goal:** you will hand work to collaborators, whether or not they use LLMs, without passing them your review burden.
-- **Before you start:** [Spot the Mirage](../maze/spot-the-mirage.html).
+- **Before you start:** [Spot Hallucinations](../maze/spot-the-mirage.html).
 - **Time:** about 15 minutes.
 :::
 
@@ -36,8 +36,8 @@ A common worry is that people will think you are lazy or unoriginal for using an
 ::: {.ao-related}
 ## Related lessons
 
-- [Boss: The Wall of Output](../maze/wall-of-output.html): why a big change is hard to review, and how to ask for smaller ones.
-- [The Reviewer's Code](the-reviewers-code.html): the other side of the hand-off, reviewing work that involved an LLM.
+- [Boss: Review Large Output](../maze/wall-of-output.html): why a big change is hard to review, and how to ask for smaller ones.
+- [Review Agent-Written Work](the-reviewers-code.html): the other side of the hand-off, reviewing work that involved an LLM.
 :::
 
 ::: {.ao-lore}

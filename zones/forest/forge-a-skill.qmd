@@ -1,5 +1,5 @@
 ---
-title: "Forge a Skill"
+title: "Write a Skill"
 ---
 
 ::: {.ao-story}
@@ -8,7 +8,7 @@ In a hollow of the forest the smith keeps procedures in folders, tired of watchi
 
 ::: {.quest-dialog}
 - **Goal:** you will package a repeatable procedure as a Skill, install it, and confirm that it loads.
-- **Before you start:** [The Project Charter](the-project-charter.html). A **slash command** is a `/command` typed inside the running agent. **Frontmatter** is the settings block between the two `---` lines at the top of a file.
+- **Before you start:** [Write an Instructions File](the-project-charter.html). A **slash command** is a `/command` typed inside the running agent. **Frontmatter** is the settings block between the two `---` lines at the top of a file.
 - **Time:** about 20 minutes.
 :::
 
@@ -111,10 +111,10 @@ Clients differ in models, tools and permissions, so a Skill that works in one ca
 ::: {.ao-related}
 ## Related lessons
 
-- [Close the Loop](close-the-loop.html): for more on measuring whether a Skill changes what the agent does.
+- [Turn Mistakes into Tests](close-the-loop.html): for more on measuring whether a Skill changes what the agent does.
 - [Test the Skill](test-the-skill.html): for more on writing an eval case that checks a Skill fires.
 - [Bundle a Plugin](bundle-a-plugin.html): for more on packaging Skills so a group can install them.
-- [The Project Charter](the-project-charter.html): for more on what belongs in the always-loaded instructions file instead.
+- [Write an Instructions File](the-project-charter.html): for more on what belongs in the always-loaded instructions file instead.
 :::
 
 ::: {.ao-lore}

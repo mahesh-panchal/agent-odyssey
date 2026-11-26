@@ -70,10 +70,10 @@ Each lesson ends with a **Battle**, a short test that earns XP.
 ::: {.ao-related}
 ## Related lessons
 
-- [Spot the Mirage](../maze/spot-the-mirage.html): see what plausible-but-false output looks like and how to check it.
+- [Spot Hallucinations](../maze/spot-the-mirage.html): see what plausible-but-false output looks like and how to check it.
 - [Save Point](../crypt/shield-of-undo.html): set up undo so a deleted or overwritten file can come back.
-- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): keep secrets and private data out of prompts.
-- [Send Small, Say So](../reef/send-small-say-so.html): hand over small, honest work and say what the agent did.
+- [Keep Secrets Out of Reach](../crypt/secrets-and-sensitive-ground.html): keep secrets and private data out of prompts.
+- [Send Small Changes, Say What You Checked](../reef/send-small-say-so.html): hand over small, honest work and say what the agent did.
 - [Teach and Share the Load](../reef/teach-and-share-the-load.html): protect your learning, your voice and your judgement.
 :::
 

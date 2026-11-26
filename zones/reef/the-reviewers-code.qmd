@@ -1,5 +1,5 @@
 ---
-title: "The Reviewer's Code"
+title: "Review Agent-Written Work"
 ---
 
 ::: {.ao-story}
@@ -8,7 +8,7 @@ Sooner or later the work comes back across the reef to you, and it is your turn 
 
 ::: {.quest-dialog}
 - **Goal:** you will review work that involved an LLM, kindly and effectively, and choose formats that review well.
-- **Before you start:** [Send Small, Say So](send-small-say-so.html).
+- **Before you start:** [Send Small Changes, Say What You Checked](send-small-say-so.html).
 - **Time:** about 15 minutes.
 :::
 
@@ -33,7 +33,7 @@ When you ask an agent to produce analysis, choose a format your reviewer can dif
 ::: {.ao-related}
 ## Related lessons
 
-- [Boss: The Wall of Output](../maze/wall-of-output.html): why an oversized change defeats review.
+- [Boss: Review Large Output](../maze/wall-of-output.html): why an oversized change defeats review.
 - [Why Notebooks Diff Badly](../scriptorium/why-notebooks-diff-badly.html): what a notebook diff shows, and four ways to make it reviewable.
 :::
 

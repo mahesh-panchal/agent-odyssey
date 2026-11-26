@@ -1,5 +1,5 @@
 ---
-title: "Recruit the Beast"
+title: "Set Up Your Agent"
 aliases:
   - adopt-the-pet.html
 ---
@@ -211,8 +211,8 @@ A bug report includes your OS, the install command and the full error output. Re
 ::: {.ao-related}
 ## Related lessons
 
-- [Pick Your Companion](pick-your-companion.html): choose the model and the effort level on purpose.
-- [Grow the Carapace](../crypt/rules-of-the-carapace.html): set permission modes and rules around the agent.
+- [Pick Your Model](pick-your-companion.html): choose the model and the effort level on purpose.
+- [Write Permission Rules](../crypt/rules-of-the-carapace.html): set permission modes and rules around the agent.
 :::
 
 ::: {.ao-lore}

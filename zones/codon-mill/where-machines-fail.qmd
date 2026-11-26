@@ -115,9 +115,9 @@ Ask yourself: can I check the result cheaply and independently? If yes, ask the 
 ::: {.ao-related}
 ## Related lessons
 
-- [Spot the Mirage](../maze/spot-the-mirage.html): for more on hallucination, and how to catch a confident wrong answer.
+- [Spot Hallucinations](../maze/spot-the-mirage.html): for more on hallucination, and how to catch a confident wrong answer.
 - [The Context Window](the-context-window.html): what fills the window, why long input degrades recall and what compaction drops.
-- [Plug In a Server](../gatehouse/plug-in-a-server.html): prompt injection through fetched content and connected tools.
+- [Connect an MCP Server](../gatehouse/plug-in-a-server.html): prompt injection through fetched content and connected tools.
 - [Same Every Time](../factory/same-every-time.html): non-determinism, and how to make a run repeatable.
 - [Tokens, Not Letters](tokens-not-letters.html): why letter-level jobs are risky for a model.
 :::

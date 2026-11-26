@@ -1,5 +1,5 @@
 ---
-title: "The Project Charter"
+title: "Write an Instructions File"
 ---
 
 ::: {.ao-story}
@@ -8,7 +8,7 @@ A carved stone stands at the forest's heart, holding what every traveller should
 
 ::: {.quest-dialog}
 - **Goal:** you will give the agent standing instructions for a project, and know where instructions end and enforcement begins.
-- **Before you start:** [Write the Brief](write-the-brief.html). [Who Said What](../codon-mill/who-said-what.html) helps.
+- **Before you start:** [Write the Brief](write-the-brief.html). [Which Instructions Apply](../codon-mill/who-said-what.html) helps.
 - **Time:** about 15 minutes.
 :::
 
@@ -86,10 +86,10 @@ An agent works on your code and data from the docstrings (the description at the
 ::: {.ao-related}
 ## Related lessons
 
-- [Forge a Skill](forge-a-skill.html): for more on moving a long procedure out of the instructions file and into a Skill.
-- [Grow the Carapace](../crypt/rules-of-the-carapace.html): for more on permission rules that enforce what an instructions file only asks.
-- [Guard the Door](../gatehouse/guard-the-door.html): for more on hooks as a way to enforce a rule in code.
-- [Who Said What](../codon-mill/who-said-what.html): for more on what the model treats as an instruction and what it treats as data.
+- [Write a Skill](forge-a-skill.html): for more on moving a long procedure out of the instructions file and into a Skill.
+- [Write Permission Rules](../crypt/rules-of-the-carapace.html): for more on permission rules that enforce what an instructions file only asks.
+- [Block Actions with a Hook](../gatehouse/guard-the-door.html): for more on hooks as a way to enforce a rule in code.
+- [Which Instructions Apply](../codon-mill/who-said-what.html): for more on what the model treats as an instruction and what it treats as data.
 :::
 
 ::: {.ao-lore}

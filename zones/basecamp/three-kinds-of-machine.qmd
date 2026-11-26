@@ -48,7 +48,7 @@ Harder tasks become possible once the model can call tools or produce structured
 ::: {.ao-related}
 ## Related lessons
 
-- [Know Your Gear](know-your-gear.html): the words for the model, the harness and the extensions around it.
+- [Know Your Tools](know-your-gear.html): the words for the model, the harness and the extensions around it.
 - [Should You Fine-Tune?](../kennel/should-you-fine-tune.html): for more on when training a model on your own examples is worth it.
 - [Same Every Time](../factory/same-every-time.html): keep a pipeline repeatable when a step uses an LLM.
 :::

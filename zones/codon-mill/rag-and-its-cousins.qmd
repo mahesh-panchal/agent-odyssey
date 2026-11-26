@@ -111,11 +111,11 @@ With Ollama you can run both halves locally: an embedding model for retrieval an
 ## Related lessons
 
 - [The Context Window](the-context-window.html): for more on what the window holds and why long prompts bury passages.
-- [Grow a Graph with Ollama](grow-a-graph-with-ollama.html): build and read a small knowledge graph with a local model.
-- [Keep a Living Wiki](llm-wiki.html): an agent-kept wiki as another way to work from a pile of documents.
-- [Plug In a Server](../gatehouse/plug-in-a-server.html): connecting a retrieval or query tool to your agent.
-- [Guard the Door](../gatehouse/guard-the-door.html): habits that limit the damage when retrieved text carries instructions.
-- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): what may leave your machine when you use a hosted model.
+- [Build a Knowledge Graph with Ollama](grow-a-graph-with-ollama.html): build and read a small knowledge graph with a local model.
+- [Keep an LLM Wiki](llm-wiki.html): an agent-kept wiki as another way to work from a pile of documents.
+- [Connect an MCP Server](../gatehouse/plug-in-a-server.html): connecting a retrieval or query tool to your agent.
+- [Block Actions with a Hook](../gatehouse/guard-the-door.html): habits that limit the damage when retrieved text carries instructions.
+- [Keep Secrets Out of Reach](../crypt/secrets-and-sensitive-ground.html): what may leave your machine when you use a hosted model.
 :::
 
 ::: {.ao-lore}

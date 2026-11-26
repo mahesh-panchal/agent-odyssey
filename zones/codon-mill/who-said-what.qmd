@@ -1,5 +1,5 @@
 ---
-title: "Who Said What"
+title: "Which Instructions Apply"
 ---
 
 ::: {.ao-story}
@@ -65,7 +65,7 @@ Check OpenCode's documentation for which instruction file names it loads, and in
 - [The Context Window](the-context-window.html): for more on what loads into the window before you type.
 - [Memory, Sessions and Usage](memory-sessions-and-usage.html): the instructions file and auto memory, side by side.
 - [Advice or Enforcement](../gatehouse/advice-or-enforcement.html): when a hook or a rule enforces, and when text only asks.
-- [The Project Charter](../forest/the-project-charter.html): write the instructions file for a real project.
+- [Write an Instructions File](../forest/the-project-charter.html): write the instructions file for a real project.
 :::
 
 ::: {.ao-lore}

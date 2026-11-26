@@ -1,5 +1,5 @@
 ---
-title: "Test the Leash"
+title: "Test Permissions and the Sandbox"
 ---
 
 ::: {.ao-story}
@@ -8,7 +8,7 @@ The Beast has fallen in beside you, strong and willing, and it wants to run ahea
 
 ::: {.quest-dialog}
 - **Goal:** you will watch an agent ask before it acts, switch it between modes, block one file with a rule, and see an operating-system boundary refuse a command.
-- **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html), and [Recruit the Beast](../kennel/recruit-the-beast.html), which installs an agent (Claude Code, or OpenCode with Ollama) and starts it in a throwaway folder. Each step has a tab for each route. The OpenCode route also needs Docker for step 4. The [Prerequisites](../../prerequisites.html) page lists the tools for the optional steps.
+- **Before you start:** [Know Your Tools](../basecamp/know-your-gear.html), and [Set Up Your Agent](../kennel/recruit-the-beast.html), which installs an agent (Claude Code, or OpenCode with Ollama) and starts it in a throwaway folder. Each step has a tab for each route. The OpenCode route also needs Docker for step 4. The [Prerequisites](../../prerequisites.html) page lists the tools for the optional steps.
 - **Time:** about 30 minutes. Everything happens in a scratch folder with invented content.
 :::
 
@@ -310,11 +310,11 @@ cd ~ && rm -f ~/sandbox-probe && rm -rf ~/odyssey-scratch/leash
 ::: {.ao-related}
 ## Related lessons
 
-- [Recruit the Beast](../kennel/recruit-the-beast.html): install the agent and start in plan mode.
-- [Grow the Carapace](rules-of-the-carapace.html): write allow, ask and deny rules for a real project.
+- [Set Up Your Agent](../kennel/recruit-the-beast.html): install the agent and start in plan mode.
+- [Write Permission Rules](rules-of-the-carapace.html): write allow, ask and deny rules for a real project.
 - [Save Point](shield-of-undo.html): set a save point so an approved edit can be undone.
 - [Advice or Enforcement](../gatehouse/advice-or-enforcement.html): why a hook enforces and an instructions file only asks.
-- [Wade In](../basecamp/wade-in.html): decide what an agent may do before you start.
+- [Choose What to Hand Over](../basecamp/wade-in.html): decide what an agent may do before you start.
 :::
 
 ::: {.ao-lore}

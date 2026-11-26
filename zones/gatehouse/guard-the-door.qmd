@@ -1,5 +1,5 @@
 ---
-title: "Guard the Door"
+title: "Block Actions with a Hook"
 ---
 
 ::: {.ao-story}
@@ -8,7 +8,7 @@ A watchman stands at the heavy door and checks every visitor against a list. The
 
 ::: {.quest-dialog}
 - **Goal:** you will write a hook that refuses a command, and know where a hook's coverage ends.
-- **Before you start:** [Plug In a Server](plug-in-a-server.html). An **exit code** is the number a script returns when it finishes: 0 means success, and a hook uses 2 to mean "block". **JSON** is a structured text format.
+- **Before you start:** [Connect an MCP Server](plug-in-a-server.html). An **exit code** is the number a script returns when it finishes: 0 means success, and a hook uses 2 to mean "block". **JSON** is a structured text format.
 - **Time:** about 15 minutes.
 :::
 
@@ -88,8 +88,8 @@ In `-p` and SDK runs (headless: non-interactive, no one to answer a dialog) ther
 ## Related lessons
 
 - [Advice or Enforcement](advice-or-enforcement.html): for more on sorting every control by whether it advises, asks or enforces.
-- [Plug In a Server](plug-in-a-server.html): for more on refusing a server's tools by name with a deny rule.
-- [Grow the Carapace](../crypt/rules-of-the-carapace.html): for more on deny and ask rules, which a hook cannot override.
+- [Connect an MCP Server](plug-in-a-server.html): for more on refusing a server's tools by name with a deny rule.
+- [Write Permission Rules](../crypt/rules-of-the-carapace.html): for more on deny and ask rules, which a hook cannot override.
 - [Bundle a Plugin](../forest/bundle-a-plugin.html): for more on plugins that ship hooks.
 :::
 

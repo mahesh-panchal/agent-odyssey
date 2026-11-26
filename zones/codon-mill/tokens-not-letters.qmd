@@ -8,7 +8,7 @@ The miller's wheel turns before the machine reads a single word, and everything 
 
 ::: {.quest-dialog}
 - **Goal:** you will explain that a model reads tokens (chunks of text) and decide which sequence jobs belong to a script.
-- **Before you start:** [Recruit the Beast](../kennel/recruit-the-beast.html), which gives you an agent to try the exercise with.
+- **Before you start:** [Set Up Your Agent](../kennel/recruit-the-beast.html), which gives you an agent to try the exercise with.
 - **Time:** about 15 minutes.
 :::
 

@@ -8,7 +8,7 @@ A reef thrives on many hands. Younger travellers ask what you know, and your com
 
 ::: {.quest-dialog}
 - **Goal:** you will pass on what you learned without leaving anyone behind, and keep your own skills and workload healthy.
-- **Before you start:** [The Reviewer's Code](the-reviewers-code.html).
+- **Before you start:** [Review Agent-Written Work](the-reviewers-code.html).
 - **Time:** about 15 minutes.
 :::
 
@@ -70,8 +70,8 @@ Heavy use of an agent can smooth your writing into a general style, crowd out th
 ::: {.ao-related}
 ## Related lessons
 
-- [Send Small, Say So](send-small-say-so.html): the hand-off habits to teach a colleague first.
-- [Boss: The Wall of Output](../maze/wall-of-output.html): checking a large output you did not write.
+- [Send Small Changes, Say What You Checked](send-small-say-so.html): the hand-off habits to teach a colleague first.
+- [Boss: Review Large Output](../maze/wall-of-output.html): checking a large output you did not write.
 :::
 
 ::: {.ao-lore}

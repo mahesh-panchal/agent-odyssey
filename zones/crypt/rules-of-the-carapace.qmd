@@ -1,5 +1,5 @@
 ---
-title: "Grow the Carapace"
+title: "Write Permission Rules"
 ---
 
 ::: {.ao-story}
@@ -8,7 +8,7 @@ Deeper in the Crypt, bare skin is not enough, and the Beast does not stop for a 
 
 ::: {.quest-dialog}
 - **Goal:** you will write permission rules that hold, and know where they stop holding.
-- **Before you start:** [Test the Leash](test-the-leash.html).
+- **Before you start:** [Test Permissions and the Sandbox](test-the-leash.html).
 - **Time:** about 20 minutes.
 :::
 
@@ -77,9 +77,9 @@ Treat rules as one layer. Git commits and a throwaway folder are other layers.
 ::: {.ao-related}
 ## Related lessons
 
-- [The Locked Cabinet](secrets-and-sensitive-ground.html): for more on keeping keys and sensitive data out of the agent's reach.
+- [Keep Secrets Out of Reach](secrets-and-sensitive-ground.html): for more on keeping keys and sensitive data out of the agent's reach.
 - [Save Point](shield-of-undo.html): the git commit that makes any change reversible.
-- [Plug In a Server](../gatehouse/plug-in-a-server.html): the permission questions MCP servers raise.
+- [Connect an MCP Server](../gatehouse/plug-in-a-server.html): the permission questions MCP servers raise.
 - [Login Node Manners](../citadel/login-node-manners.html): the rules that apply on a shared cluster.
 :::
 

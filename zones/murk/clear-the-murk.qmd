@@ -1,5 +1,5 @@
 ---
-title: "Boss: Clear the Murk"
+title: "Boss: Review a Messy Session"
 ---
 
 ::: {.ao-story}
@@ -81,10 +81,10 @@ The [Claude Code docs](https://code.claude.com/docs/en/overview) go well beyond 
 ::: {.ao-related}
 ## Related lessons
 
-- [Know Your Gear](../basecamp/know-your-gear.html): the words used in this fight, if you want any of them again.
+- [Know Your Tools](../basecamp/know-your-gear.html): the words used in this fight, if you want any of them again.
 - [Save Point](../crypt/shield-of-undo.html): undo for the `rm -rf` in the summary.
-- [Grow the Carapace](../crypt/rules-of-the-carapace.html): permission rules that hold where a note only asks.
-- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): keep keys out of the diff.
+- [Write Permission Rules](../crypt/rules-of-the-carapace.html): permission rules that hold where a note only asks.
+- [Keep Secrets Out of Reach](../crypt/secrets-and-sensitive-ground.html): keep keys out of the diff.
 :::
 
 ::: {.ao-lore}

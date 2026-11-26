@@ -8,7 +8,7 @@ A script glows in the maze and claims to have been tested, and the companion tha
 
 ::: {.quest-dialog}
 - **Goal:** you will find out whether a script an agent called "tested" is right, using a check the agent did not write. You need this before you rely on any agent-written code.
-- **Before you start:** [Spot the Mirage](spot-the-mirage.html), a terminal with Python 3 and `awk`, and the two files below (about 1 KB in total). Nothing here touches your own data.
+- **Before you start:** [Spot Hallucinations](spot-the-mirage.html), a terminal with Python 3 and `awk`, and the two files below (about 1 KB in total). Nothing here touches your own data.
 - **Time:** about 15 minutes.
 :::
 
@@ -63,9 +63,9 @@ When agent work reaches a paper or a report, a few habits keep it traceable:
 ::: {.ao-related}
 ## Related lessons
 
-- [Spot the Mirage](spot-the-mirage.html): how plausible-but-false output looks and why you check it.
+- [Spot Hallucinations](spot-the-mirage.html): how plausible-but-false output looks and why you check it.
 - [Dry Run First](../factory/dry-run-first.html): preview what a pipeline will do before it runs.
-- [Send Small, Say So](../reef/send-small-say-so.html): hand over small work and say what the agent did.
+- [Send Small Changes, Say What You Checked](../reef/send-small-say-so.html): hand over small work and say what the agent did.
 :::
 
 ::: {.ao-lore}

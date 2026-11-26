@@ -1,5 +1,5 @@
 ---
-title: "Know Your Gear"
+title: "Know Your Tools"
 ---
 
 ::: {.ao-story}
@@ -190,8 +190,8 @@ These get mixed up more than any others.
 - [Tokens, Not Letters](../codon-mill/tokens-not-letters.html): what a token is and why limits and costs count in tokens.
 - [The Context Window](../codon-mill/the-context-window.html): what the model can see at once and how it fills up.
 - [Memory, Sessions and Usage](../codon-mill/memory-sessions-and-usage.html): what outlives a session and what a session costs.
-- [Forge a Skill](../forest/forge-a-skill.html): write a `SKILL.md` of your own.
-- [Spot the Mirage](../maze/spot-the-mirage.html): how plausible-but-false output looks and how to check it.
+- [Write a Skill](../forest/forge-a-skill.html): write a `SKILL.md` of your own.
+- [Spot Hallucinations](../maze/spot-the-mirage.html): how plausible-but-false output looks and how to check it.
 :::
 
 ::: {.ao-lore}

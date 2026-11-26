@@ -8,7 +8,7 @@ The first branch of the great tree is bare. You told the companion "tidy this up
 
 ::: {.quest-dialog}
 - **Goal:** you will write prompts that make output checkable, and keep the context window in good shape so the agent stays on task. Do this before you ask an agent for any real change, because a vague prompt gets a confident guess.
-- **Before you start:** [Recruit the Beast](../kennel/recruit-the-beast.html). The **context window** is everything the model can see in a session: your prompts, its replies, and the files it has read.
+- **Before you start:** [Set Up Your Agent](../kennel/recruit-the-beast.html). The **context window** is everything the model can see in a session: your prompts, its replies, and the files it has read.
 - **Time:** about 15 minutes.
 :::
 
@@ -60,7 +60,7 @@ The Battle is the short test at the end of each quest.
 ## Related lessons
 
 - [Plan Before You Edit](plan-before-you-edit.html): for more on asking for a plan first, and how to review it.
-- [Close the Loop](close-the-loop.html): for more on testing a persona or a prompt change against a version without it.
+- [Turn Mistakes into Tests](close-the-loop.html): for more on testing a persona or a prompt change against a version without it.
 - [The Context Window](../codon-mill/the-context-window.html): for more on what fills the window and why it matters.
 :::
 

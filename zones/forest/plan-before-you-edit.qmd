@@ -132,9 +132,9 @@ Everything here is a mock on your laptop, and no model runs. Save [mock-plan.md]
 
 - [Write the Brief](write-the-brief.html): for more on what to put in the request that starts a plan.
 - [Ground Truth](../maze/ground-truth.html): for more on computing a value independently to check the agent's work.
-- [Boss: The Wall of Output](../maze/wall-of-output.html): for more on accepting only as much output as you can review.
+- [Boss: Review Large Output](../maze/wall-of-output.html): for more on accepting only as much output as you can review.
 - [Handoff Notes](../codon-mill/handoff-notes.html): for more on what a saved plan or spec file should hold.
-- [Grow the Carapace](../crypt/rules-of-the-carapace.html): for more on permission modes and deny rules.
+- [Write Permission Rules](../crypt/rules-of-the-carapace.html): for more on permission modes and deny rules.
 :::
 
 ::: {.ao-lore}

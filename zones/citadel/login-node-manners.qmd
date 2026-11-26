@@ -8,7 +8,7 @@ The Citadel gate is shared by hundreds of travellers, and the gatekeeper has see
 
 ::: {.quest-dialog}
 - **Goal:** you will keep heavy work and sprawling searches off the shared login node and shared storage, and hand heavy work to the scheduler.
-- **Before you start:** [Grow the Carapace](../crypt/rules-of-the-carapace.html). A *login node* is the shared machine you log in to. *Compute nodes* run your jobs. The *scheduler* is the program that decides which job runs where; this page uses Slurm, a common one.
+- **Before you start:** [Write Permission Rules](../crypt/rules-of-the-carapace.html). A *login node* is the shared machine you log in to. *Compute nodes* run your jobs. The *scheduler* is the program that decides which job runs where; this page uses Slurm, a common one.
 - **Time:** about 15 minutes.
 :::
 

@@ -53,8 +53,8 @@ def label_sample(text):
 ## Related lessons
 
 - [Where Machines Fail](../codon-mill/where-machines-fail.html): why an LLM's output can change or be wrong.
-- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): what data may leave your machine.
-- [Read the Rails](read-the-rails.html): pinning tool versions and other pipeline checks.
+- [Keep Secrets Out of Reach](../crypt/secrets-and-sensitive-ground.html): what data may leave your machine.
+- [Read Agent-Written Pipelines](read-the-rails.html): pinning tool versions and other pipeline checks.
 :::
 
 ::: {.ao-lore}

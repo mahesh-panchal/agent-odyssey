@@ -8,7 +8,7 @@ A tower stands far from the Kennel, where the Beast can work on a borrowed machi
 
 ::: {.quest-dialog}
 - **Goal:** you will say what a cloud session is, what leaves your machine when you start one, which jobs suit it, and how to review what comes back.
-- **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html), [Recruit the Beast](recruit-the-beast.html) and [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html). You need git and a GitHub account only if you later start a session.
+- **Before you start:** [Know Your Tools](../basecamp/know-your-gear.html), [Set Up Your Agent](recruit-the-beast.html) and [Keep Secrets Out of Reach](../crypt/secrets-and-sensitive-ground.html). You need git and a GitHub account only if you later start a session.
 - **Time:** about 15 minutes. The exercise is a worksheet on a mock file tree and needs no cloud account or model.
 :::
 
@@ -206,12 +206,12 @@ A prompt line is a request to the model. The safe version of this repository has
 ::: {.ao-related}
 ## Related lessons
 
-- [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): for more on keys, secrets and data agreements.
-- [Grow the Carapace](../crypt/rules-of-the-carapace.html): permission modes and rules in depth.
+- [Keep Secrets Out of Reach](../crypt/secrets-and-sensitive-ground.html): for more on keys, secrets and data agreements.
+- [Write Permission Rules](../crypt/rules-of-the-carapace.html): permission modes and rules in depth.
 - [Plan Before You Edit](../forest/plan-before-you-edit.html): read a plan before the agent changes anything.
 - [Save Point](../crypt/shield-of-undo.html): git snapshots, and what stays in history.
-- [The Reviewer's Code](../reef/the-reviewers-code.html): habits for reviewing a change you did not write.
-- [Boss: The Wall of Output](../maze/wall-of-output.html): reading a large diff without missing the problem.
+- [Review Agent-Written Work](../reef/the-reviewers-code.html): habits for reviewing a change you did not write.
+- [Boss: Review Large Output](../maze/wall-of-output.html): reading a large diff without missing the problem.
 :::
 
 ::: {.ao-lore}

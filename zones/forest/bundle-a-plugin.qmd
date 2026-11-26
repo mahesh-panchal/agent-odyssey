@@ -83,9 +83,9 @@ Before installing or updating a plugin:
 ## Related lessons
 
 - [Test the Skill](test-the-skill.html): for more on checking a plugin's behaviour with an eval.
-- [Forge a Skill](forge-a-skill.html): for more on writing the Skill a plugin carries.
-- [Guard the Door](../gatehouse/guard-the-door.html): for more on hooks, the plugin part that runs code.
-- [Plug In a Server](../gatehouse/plug-in-a-server.html): for more on MCP servers and how to scope them.
+- [Write a Skill](forge-a-skill.html): for more on writing the Skill a plugin carries.
+- [Block Actions with a Hook](../gatehouse/guard-the-door.html): for more on hooks, the plugin part that runs code.
+- [Connect an MCP Server](../gatehouse/plug-in-a-server.html): for more on MCP servers and how to scope them.
 :::
 
 ::: {.ao-lore}

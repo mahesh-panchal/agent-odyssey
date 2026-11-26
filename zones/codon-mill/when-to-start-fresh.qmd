@@ -108,7 +108,7 @@ OpenCode has `/new` (alias `/clear`), `/sessions` (aliases `/resume`, `/continue
 - [Memory, Sessions and Usage](memory-sessions-and-usage.html): for more on what memory keeps between sessions and what burns your usage.
 - [The Context Window](the-context-window.html): for more on what the window holds and why it fills.
 - [Handoff Notes](handoff-notes.html): what a note a fresh session can act on contains.
-- [The Stream of Ideas](the-stream-of-ideas.html): how to park side ideas so the main task stays clear.
+- [Capture Ideas Mid-Task](the-stream-of-ideas.html): how to park side ideas so the main task stays clear.
 :::
 
 ::: {.ao-lore}

@@ -163,8 +163,8 @@ A handoff note records where the work stands for whoever starts next, including 
 ## Related lessons
 
 - [Ground Truth](ground-truth.html): for more on checking an agent's claim with a tool it did not write.
-- [Boss: The Wall of Output](wall-of-output.html): for more on why a huge diff cannot be reviewed whole, and how to ask for pieces you can read.
-- [Send Small, Say So](../reef/send-small-say-so.html): for more on reading your own diff first, sending small changes and saying what the agent did.
+- [Boss: Review Large Output](wall-of-output.html): for more on why a huge diff cannot be reviewed whole, and how to ask for pieces you can read.
+- [Send Small Changes, Say What You Checked](../reef/send-small-say-so.html): for more on reading your own diff first, sending small changes and saying what the agent did.
 - [Save Point](../crypt/shield-of-undo.html): for more on committing before the agent starts, so the diff shows exactly what it changed.
 :::
 
