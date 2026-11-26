@@ -148,7 +148,7 @@ With this model, the right passages reached the prompt in three setups and the f
 
 ## A note on model size
 
-We did not run LightRAG or Microsoft GraphRAG here; this section summarises what their documentation asks of an Ollama setup. Extraction asks a model to produce well-formed JSON for every chunk. With Ollama, Microsoft GraphRAG users "frequently see issues with malformed responses (especially JSON)". The LightRAG README calls a 30B-parameter model "a reasonable minimum" for local use, and its programming guide says at least 32B. The 12B model here produced valid JSON for all twelve notes, and `show` lets you judge the facts. If you try a model under about 7B, read the triples before you trust the answers.
+We did not run LightRAG or Microsoft GraphRAG here; this section summarises what their documentation asks of an Ollama setup. Extraction asks a model to produce well-formed JSON for every chunk. With Ollama, Microsoft GraphRAG users "frequently see issues with malformed responses (especially JSON)". The LightRAG README calls Qwen3-30B-A3B-Instruct (a 30B-parameter model) "a reasonable minimum" for local use, and its programming guide says at least 32B. The 12B model here produced valid JSON for all twelve notes, and `show` lets you judge the facts. If you try a model under about 7B, read the triples before you trust the answers.
 
 ## Using a real tool with Ollama
 

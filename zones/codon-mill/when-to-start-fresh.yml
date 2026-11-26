@@ -17,7 +17,7 @@ questions:
     options:
       - { text: "Run /compact with a focus note naming what you still need", correct: true }
       - { text: "Run /clear and start again from a short prompt", misconception: "The early decisions live only in the conversation, so clearing loses them and you pay to rediscover them." }
-      - { text: "Keep typing, since a crowded window is harmless while the agent is on track", misconception: "The whole conversation is re-sent every request, so usage climbs, and the docs say accuracy and recall degrade as context grows (context rot)." }
+      - { text: "Keep typing, since a crowded window is harmless while the agent is on track", misconception: "The whole conversation is re-sent every request, so usage climbs, and the docs warn that instructions from early in the conversation can get lost." }
       - { text: "Run /resume to reload the same conversation with more room", misconception: "Resume reopens a saved conversation; a full window stays full." }
   - type: choice
     prompt: "You use an API key (five-minute cache). Your session holds a long, useful history, and you are leaving for 30 minutes to return to the same task. You do not want to write a note. What fits best?"

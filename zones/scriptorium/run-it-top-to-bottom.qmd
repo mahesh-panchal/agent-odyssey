@@ -50,7 +50,7 @@ The file says 3 and the author's screen said 2. Cell 4 changes the cutoff after 
 
 ## The habit
 
-Before you trust or share a notebook, restart the kernel and run all cells from the top ("Restart Kernel and Run All" in Jupyter). If the result changes, the stored output did not come from the file as written. Then fix the order so that cells only depend on cells above them. A fresh run rules out hidden state. A separate check, such as computing one or two values another way, shows whether the analysis is right.
+Before you trust or share a notebook, restart the kernel and run all cells from the top ("Restart Kernel and Run All Cells" in JupyterLab). If the result changes, the stored output did not come from the file as written. Then fix the order so that cells only depend on cells above them. A fresh run rules out hidden state. A separate check, such as computing one or two values another way, shows whether the analysis is right.
 
 Related options:
 
@@ -80,7 +80,7 @@ The habit works with any tool: restart, run all, and check a few numbers indepen
 
 ## Bonus
 
-<div data-ao-honour="scriptorium-fresh-run" data-xp="20">Take one of your own notebooks and run Restart and Run All. Note whether any output changed, and why.</div>
+<div data-ao-honour="scriptorium-fresh-run" data-xp="20">Take one of your own notebooks and use "Restart Kernel and Run All Cells". Note whether any output changed, and why.</div>
 
 ::: {.ao-related}
 ## Related lessons

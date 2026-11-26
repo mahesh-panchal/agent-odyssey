@@ -28,7 +28,7 @@ Add a remote server over HTTP (the transport: how the harness talks to the serve
 
 ```bash
 claude mcp add --transport http mydocs https://example.com/mcp
-claude mcp add --env API_KEY=your-key-here myserver -- <command> [args...]
+claude mcp add myserver --env API_KEY=your-key-here -- <command> [args...]
 ```
 
 Run `claude mcp add --help` for the current flags. Inside a session, `/mcp` lists the servers and their tools. An older transport called SSE (server-sent events, one-way streaming over HTTP) is deprecated in favour of HTTP where a server offers both.

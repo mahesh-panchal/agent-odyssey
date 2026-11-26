@@ -40,7 +40,7 @@ Check what loaded with `ollama ps`. A bigger context needs more memory. Look at 
 
 ## 3. Point OpenCode at it
 
-Install OpenCode, then connect inside it with `/connect` (a `/command` is typed inside the running tool):
+Install OpenCode. Once it runs, type `/models` inside it (a `/command` is typed inside the running tool) and pick your Ollama model. Ollama needs no `/connect`:
 
 ```bash
 curl -fsSL https://opencode.ai/v2/install | bash

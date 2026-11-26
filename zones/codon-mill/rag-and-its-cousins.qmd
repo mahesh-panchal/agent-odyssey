@@ -59,7 +59,7 @@ RAG is one of several ways to get a model to work from your documents. Choose by
 |---|---|
 | Whole collection under about 200,000 tokens (roughly 500 pages) | Put it all in the prompt |
 | Same large documents asked about again and again | Long context with caching |
-| Files you can search by name or exact text | Agent search tools such as glob and grep |
+| Files you can search by name or exact text | Agent search with `find` and `grep` |
 | Tables and databases (counts, filters, joins) | A query tool: SQL, an API or an MCP server |
 | Exact words matter (gene names, sample ids) | Keyword search first, or hybrid |
 | You want a format or style | Better prompts, a Skill, or fine-tuning |
@@ -89,7 +89,7 @@ In one study with 2024 models, a long-context model beat RAG on average given en
 
 ## Claude Code
 
-Claude Code finds things in a project with search tools such as glob (match file names) and grep (match text) rather than a vector index you maintain. If you want RAG over your own papers, you build it yourself or connect a tool for it, and then everything in the risks list above applies.
+Claude Code finds things in a project by searching file names and text (with `find` and `grep`) rather than with a vector index you maintain. If you want RAG over your own papers, you build it yourself or connect a tool for it, and then everything in the risks list above applies.
 
 ## OpenCode + Ollama
 

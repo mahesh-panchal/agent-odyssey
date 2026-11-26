@@ -24,7 +24,7 @@ The file is `CLAUDE.md`. It can live in:
 - `./CLAUDE.md` or `./.claude/CLAUDE.md`: the project, shared if committed.
 - `./CLAUDE.local.md`: yours, not committed.
 
-Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. `/init` drafts one from your project and `/memory` lists and edits them. `@path` imports another file, and the imported text still uses context.
+Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. `/init` drafts one from your project and `/memory` lists and edits them. `@path` imports another file, and the imported text still uses context. If a project has only an `AGENTS.md`, Claude Code reads that instead (from v2.1.277). If both files exist, only `CLAUDE.md` loads, so import the other with `@AGENTS.md`.
 
 ## OpenCode + Ollama
 
@@ -46,7 +46,7 @@ Instructions are advice. The instructions file is loaded as context, and a line 
 
 Instruction files go stale: a rule written for an older model, a path that no longer exists, two files that disagree. When instructions contradict each other, Claude may pick one arbitrarily.
 
-In Claude Code (v2.1.283 or later), `/doctor prompt-audit` checks your instruction files for outdated or conflicting content and writes a report with proposed edits. (`/doctor` is a **bundled skill**, a ready-made skill that ships inside Claude Code.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.
+In Claude Code (v2.1.283 or later), `/doctor prompt-audit` checks your instruction files (and the rules, skills and agents under `.claude/`) for outdated or conflicting content and writes a report with proposed edits. (`/doctor` is a **bundled skill**, a ready-made skill that ships inside Claude Code.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.
 
 ## Write docs for the agent too
 

@@ -14,7 +14,7 @@ Ideas keep arriving mid-task: what about this, could we also try that. One strea
 
 Real work does not arrive in a straight line. You start fixing a samplesheet parser and think: "should I switch the aligner? What if I tried a stricter QC threshold? I also want to explore that other idea." Typed into one conversation, each of those fills the context with side tracks.
 
-Accuracy and recall degrade as context grows, and the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step. A session with three unrelated tasks re-reads all of them on every turn of the fourth. Ideas are welcome. The fix is to **triage** each one.
+Instructions from early in a long conversation can get lost, and the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step. A session with three unrelated tasks re-reads all of them on every turn of the fourth. Ideas are welcome. The fix is to **triage** each one.
 
 ## Terms used here
 

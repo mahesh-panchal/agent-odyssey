@@ -57,7 +57,7 @@ A plain `SKILL.md` under `.claude/skills/` is found by OpenCode too. If your gro
 
 ## Installing one is a trust decision
 
-A plugin you install can run arbitrary code on your machine with your user privileges. Hooks, monitors, local MCP and language servers, and anything in `bin/` run **outside** the sandbox and the permission rules. Skills and agents enter the context as instructions, and instructions can steer the agent too.
+A plugin you install can run arbitrary code on your machine with your user privileges. Hooks, monitors, and local MCP and language servers run **outside** the sandbox and the permission rules. Files in `bin/` go on Claude's shell `PATH`, so Claude can run them, and each call follows your permission rules. Skills and agents enter the context as instructions, and instructions can steer the agent too.
 
 Before installing or updating a plugin:
 

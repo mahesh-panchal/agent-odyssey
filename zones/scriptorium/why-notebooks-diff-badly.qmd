@@ -68,7 +68,7 @@ Whatever you choose, the review habit is the same:
 
 ## Claude Code
 
-Claude Code reads a `.ipynb` with all its cells and outputs, and an output-heavy notebook fills the context window (the text the agent can hold at once). It edits notebooks with `NotebookEdit`, one cell at a time, by `cell_id`. Replacing a code cell clears that cell's execution count and saved outputs, so the agent's diff contains lost outputs as well as new source.
+Claude Code reads a `.ipynb` with all its cells and outputs, and an output-heavy notebook fills the context window (the text the agent can hold at once). A notebook over 256 KB is refused as a whole read. It edits notebooks with `NotebookEdit`, one cell at a time, by `cell_id`. Replacing a code cell clears that cell's execution count and saved outputs, so the agent's diff contains lost outputs as well as new source.
 
 `nbstripout` is a git filter, so outputs stay in the working file and the agent still reads them. To keep the agent on the code, strip outputs from the working copy (nbstripout's pre-commit mode does this) or point the agent at the paired `.py`. Check the docs for your version.
 

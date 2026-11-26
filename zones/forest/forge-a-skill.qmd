@@ -45,7 +45,7 @@ description: Count the records in a FASTA file and find duplicate IDs. Use befor
 
 ## Do it: install it, then confirm it loaded
 
-Writing the file is half the job. A Skill with a typo in its frontmatter loads silently with no fields set, so always check.
+Writing the file is half the job. A Skill whose frontmatter has broken YAML loads silently with no fields set, and a misspelt field name is ignored, so always check.
 
 1. In a scratch folder (never a real project), save the example above as `.claude/skills/check-fasta/SKILL.md`. The `---` must be the very first line of the file.
 2. Make a tiny test file: `printf '>a\nACGT\n>a\nGGCC\n' > reads.fa` (two records, one duplicated ID).
@@ -55,7 +55,7 @@ Writing the file is half the job. A Skill with a typo in its frontmatter loads s
 
 ## Claude Code
 
-Start `claude` in the scratch folder. Type `/` and look for `check-fasta` in the menu, or run `/skills`. If you created a top-level skills folder after the session started, run `/reload-skills`. Then ask in plain words, leaving the Skill unnamed: *"I just got reads.fa from a collaborator. Is it OK to analyse?"* The agent should load the Skill and report the commands it ran.
+Start `claude` in the scratch folder. Type `/` and look for `check-fasta` in the menu, or run `/skills`. If the Skill does not appear, run `/reload-skills`. Then ask in plain words, leaving the Skill unnamed: *"I just got reads.fa from a collaborator. Is it OK to analyse?"* The agent should load the Skill and report the commands it ran.
 
 ## OpenCode + Ollama
 

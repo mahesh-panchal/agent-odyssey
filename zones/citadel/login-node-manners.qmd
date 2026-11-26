@@ -45,11 +45,11 @@ Four commands cover most of it:
 
 `sbatch --test-only` validates a script and estimates a start time. No job is submitted, so it works as a dry run. Slurm's default time limit is the partition's default, so set limits in the script.
 
-Set `--time`, `--mem` and `--cpus-per-task`, and use a job array for many similar tasks. Write options in their long form (`--dry-run` for `-n`) so you can read what the agent proposes.
+Set `--time`, `--mem` and `--cpus-per-task`, and use a job array for many similar tasks. Write options in their long form (`--ntasks` for `-n`) so you can read what the agent proposes.
 
 Slurm counts what you allocate, whatever you use. A memory request can change how many CPUs Slurm allocates, because partitions limit memory per CPU (`MaxMemPerCPU`). Above that limit Slurm may raise the CPU count to fit, or reject the job. Read the partition's limits, and afterwards compare request, allocation and use with `sacct`.
 
-Scratch space holds throwaway files. Ask your staff where the project's scratch is, tell the agent, and use it instead of `/tmp`, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one, and copy results to the project directory before the job ends. A set `$TMPDIR` (the variable that names the temporary directory) does not prove you are on scratch, because Slurm can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
+Scratch space holds throwaway files. Ask your staff where the project's scratch is, tell the agent, and use it instead of `/tmp`, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one, and copy results to the project directory before the job ends. A set `$TMPDIR` (the variable that names the temporary directory) does not prove you are on scratch, because a site can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
 
 ## Look before you copy or delete
 

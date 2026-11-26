@@ -28,7 +28,7 @@ questions:
     prompt: "A deny rule blocks Read(./.env). An approved Python one-liner opens .env itself, outside a sandbox. What happens?"
     explain: "A Read rule limits Claude's file tools and the file commands it recognises, such as cat. It cannot see inside a program that opens the file itself. The sandbox is the guard for those programs."
     options:
-      - { text: "The program can still read the file, because Claude Code cannot see what a program opens", correct: true }
+      - { text: "The program can still read it, because the rule cannot see inside a program", correct: true }
       - { text: "The program fails, because a deny rule covers every way of reading that file", misconception: "Rules cover the file tools and recognised file commands, not what an arbitrary program opens." }
       - { text: "Claude asks again, because deny rules only apply to the first read", misconception: "A deny rule is checked on every matching request. It does not apply to other tools." }
   - type: choice

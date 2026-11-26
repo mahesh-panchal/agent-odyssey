@@ -65,7 +65,7 @@ Treat an OpenCode plugin as code running with your privileges. Before relying on
 ## What a hook covers
 
 - **A string match is easy to dodge.** The example matches the literal string "drop table" in one command. A matcher selects by tool name, not by content. If the model runs a script that contains the dangerous command, or spells it differently, a grep on the command text never sees it.
-- **Hooks fire only on tool calls.** `PreToolUse` fires when Claude calls a tool. A file added with an `@` reference in your prompt is read without a tool call, so no hook fires.
+- **Hooks fire only on tool calls.** `PreToolUse` fires when Claude calls a tool. A file added with an `@` reference in your prompt is added to the conversation directly. Do not count on a hook to see it; a `Read` deny rule is applied to it on a best-effort basis.
 - **Hooks cannot override your deny and ask rules.** A hook returning allow skips the prompt, and deny and ask rules are still evaluated.
 - **Hooks run with your full permissions.** Command hooks "execute shell commands with your full user permissions", so review and test them before adding them.
 

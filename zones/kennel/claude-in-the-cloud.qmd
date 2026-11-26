@@ -82,7 +82,7 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.
 
 A repository with no `data/` or `results/` folders is the safe one. A prompt line such as "do not read data/" is a request to the model and gives no protection. If the folder is in the repository, the cloud session can read it.
 
-- **If there is no remote.** When the repository has no GitHub remote, Claude Code **bundles** it and uploads the full history of all branches plus uncommitted changes to tracked files. **Keep data out of this route entirely.** Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your `.gitignore` covers first.
+- **If there is no remote.** When the repository has no git remote, or a GitHub repository does not have the Claude GitHub App installed, Claude Code **bundles** it and uploads the full history of all branches plus uncommitted changes to tracked files. **Keep data out of this route entirely.** Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your `.gitignore` covers first.
 - **Getting the session back.** `claude --teleport` pulls a cloud session into your local terminal. It needs a clean git state, the same repository, the branch pushed and the same claude.ai account.
 - **GitHub access.** Cloud sessions reach your repositories through the Claude GitHub App or a token that `/web-setup` sends to Anthropic. The proxy that holds your credential does not limit which branches a push can update. Use GitHub **branch protection or rulesets** (rules on which branches may be changed and by whom) for that.
 
@@ -120,7 +120,7 @@ Use **Plan** for anything you do not already understand, and read the plan befor
 
 ## 7. Limits and failure modes
 
-- **A fresh machine every time.** An idle VM pauses and may later be taken back by the system. Commit and push work you want to keep.
+- **A fresh machine every time.** An idle session stops and its VM is taken back. Commit and push work you want to keep.
 - **Size.** A cloud machine has limited CPU, memory and disk. Heavy jobs may be stopped.
 - **Shared usage.** Cloud work counts against the same plan limits as all your other Claude Code use.
 - **GitHub comments under your name.** Claude can reply on pull requests under your GitHub name, marked as from Claude Code.

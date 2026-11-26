@@ -63,7 +63,7 @@ The full comparison runs each case three times by default, with the plugin (**WI
 claude plugin eval . --max-cost-usd 2
 ```
 
-`--max-cost-usd` stops the run at a ceiling. Results land in `evals/results/<timestamp>/` with a `report.html`.
+`--max-cost-usd` stops the run at a ceiling. Results land in `evals/results/<timestamp>/` with a `report.html`. If you are signed in with a claude.ai subscription, Claude Code can also publish the report as a private artifact and print `Published: <url>`. Add `--no-publish` to keep it local.
 
 ## OpenCode + Ollama
 
@@ -74,7 +74,7 @@ Run `opencode --help` and read the OpenCode docs for your version to see whether
 ## Reading the result
 
 - **Grader types:** six exist. Four are free and computed from the transcript or files (`regex`, `tool_used`, `tool_order`, `file_exists`). Two use a judge model and cost tokens (`llm`, `baseline`; the `baseline` grader type is a different thing from the baseline run).
-- **Two arms:** in a two-arm run, `tool_used: Skill` is shown as an indicator and counts towards the score only when you set `arm: both`.
+- **Two arms:** when a case has other graders, a two-arm run shows `tool_used: Skill` as an indicator and scores it only when you set `arm: both`. A case whose only grader is `tool_used: Skill` scores it normally, and so does any `--ablation none` run.
 - **Δ near zero with the Skill not firing:** usually a real finding, because the description does not trigger on that phrasing. Change the `description`, not the grader.
 - **Pair graders:** use one **result** grader and one **process** grader. Use `llm` graders only for short output, with a concrete PASS/FAIL rubric.
 - **Isolation:** each run happens in an isolated child session (a separate session started just for that run) with only the plugin loaded, so personal settings, the instructions file and other plugins are absent. Behaviour in your own setup may differ from a pass there.

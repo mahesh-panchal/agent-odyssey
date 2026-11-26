@@ -29,7 +29,7 @@ An agent can quietly take over the parts you wanted to learn. Pick a rule that s
 
 ## Owning what you made
 
-Finishing a project mostly through an agent can leave a quiet feeling that the result is not really yours, a kind of imposter syndrome. Many people report it. Ownership grows from your decisions and your understanding. These habits build both:
+Finishing a project mostly through an agent can leave a quiet feeling that the result is not really yours, a kind of imposter syndrome. Some people report it. Ownership grows from your decisions and your understanding. These habits build both:
 
 - **Make the decisions.** Choose the question, the method and what counts as good enough. Let the agent draft.
 - **Explain it back.** Before you call the work done, walk a colleague through each step.

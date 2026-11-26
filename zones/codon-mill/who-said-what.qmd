@@ -24,7 +24,7 @@ When an agent follows a rule, it is fair to ask where that rule came from, becau
 
 In Claude Code, the system prompt is the set of instructions sent ahead of your conversation on every request: how to use tools, behave safely and format answers. Add to it with `--append-system-prompt` or replace it with `--system-prompt`.
 
-`CLAUDE.md` is loaded at the start of every session **as a user message after the system prompt** (text the model receives in the user's role). It sits outside the system prompt. Output-style instructions (a setting that changes how the model words its replies) are delivered the same way. Both arrive in the conversation as **system reminders** (notes the harness slips into the conversation).
+`CLAUDE.md` is loaded at the start of every session **as a user message after the system prompt** (text the model receives in the user's role). It sits outside the system prompt. Output-style instructions (a setting that changes how the model words its replies) also sit outside it. Both arrive in the conversation as **system reminders** (notes the harness slips into the conversation).
 
 ## Rules you did not write
 
@@ -42,7 +42,7 @@ To block an action regardless of what the model decides, use enforcement: a **Pr
 
 ## Claude Code
 
-Reads `CLAUDE.md`. If a project has only an `AGENTS.md` (and no `CLAUDE.md` in or above the working directory), it is read instead, from v2.1.277. To share one file, import it from `CLAUDE.md` with `@AGENTS.md`.
+Reads `CLAUDE.md`. If a project has only an `AGENTS.md` (and no `CLAUDE.md`, `.claude/CLAUDE.md` or `CLAUDE.local.md` in or above the working directory), it is read instead, from v2.1.277. To share one file, import it from `CLAUDE.md` with `@AGENTS.md`.
 
 ## OpenCode + Ollama
 

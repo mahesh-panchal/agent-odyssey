@@ -16,7 +16,7 @@ Claude Code can read your files and run commands, so the first session is in a t
 
 ## 1. Install
 
-On macOS (Apple Silicon), Linux, or inside a WSL 2 terminal, run the native installer:
+On macOS, Linux, or inside a WSL 2 terminal, run the native installer:
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
