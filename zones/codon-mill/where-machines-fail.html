@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>The kennel master swore his companion could fly. You led it to the mill roof, and it spread its wings, glided a few fine yards and landed in the mud. Over the mill door the miller has hung a sign with two lists: what the machine does well, and what it only seems to do well. Counting letters is on the second. Read both lists, then learn how to check what the companion hands back.</p>
+<p>The kennel master swore his companion could fly. You led it to the mill roof, and it spread its wings, glided a few fine yards and landed in the mud. Over the mill door the miller has hung a sign with two lists: what the machine does well, and what it only seems to do well. Counting letters is on the second. Read both lists, then learn which jobs to hand the machine and which to run as a script.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will sort jobs into “ask the model” and “run a script”, and name the other ways a model fails with one mitigation each.</li>
-<li><strong>Before you start:</strong> <a href="tokens-not-letters.html">Tokens, Not Letters</a>.</li>
+<li><strong>Before you start:</strong> <a href="tokens-not-letters.html">Tokens, Not Letters</a>, and a terminal.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -222,15 +222,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="hallucination" class="level3">
 <h3 class="anchored" data-anchor-id="hallucination">Hallucination</h3>
-<p>A confident statement that is false, such as a plausible DOI, gene ID or tool flag that does not exist. Allow “I don’t know”, ask for word-for-word quotes first and restrict the model to supplied documents. Look up every ID in PubMed or Ensembl, or run the tool’s <code>--help</code>.</p>
+<p>A confident statement that is false, such as a plausible DOI, gene ID or tool flag that does not exist. A model may recommend <code>--min-quality</code> for a tool that has no such option. Allow “I don’t know”, ask for word-for-word quotes first and restrict the model to supplied documents. Look up every ID in PubMed or Ensembl, or run the tool’s <code>--help</code>.</p>
 </section>
 <section id="sycophancy" class="level3">
 <h3 class="anchored" data-anchor-id="sycophancy">Sycophancy</h3>
-<p>The model tells you what you want to hear. It agrees with your wrong hypothesis, or softens a correct criticism when you push back. Ask for the strongest case against your idea, and hold back your preferred answer.</p>
+<p>The model tells you what you want to hear. It agrees with your wrong hypothesis, or softens a correct criticism when you push back. Ask “are you sure?” about a right answer and it may change to a wrong one. Ask for the strongest case against your idea, and hold back your preferred answer.</p>
 </section>
 <section id="long-context-degradation" class="level3">
 <h3 class="anchored" data-anchor-id="long-context-degradation">Long-context degradation</h3>
-<p>Accuracy and recall drop as input grows (“context rot”), and relevant text in the middle is used less. Curate the input (head, counts, filtered tables) and start fresh for a new task.</p>
+<p>Accuracy and recall drop as the input (everything the model is given to read) grows, a decline sometimes called “context rot”, and relevant text in the middle is used less. Curate the input (head, counts, filtered tables) and start fresh for a new task.</p>
 </section>
 <section id="instruction-drift" class="level3">
 <h3 class="anchored" data-anchor-id="instruction-drift">Instruction drift</h3>

@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 15 minutes. Nothing here edits your files.</li>
 </ul>
 </div>
-<p>An agent can read your files and run commands, so the first session is in a throwaway folder with edits switched off. Pick a route in each tab below. The tab you pick stays selected on the other lessons, so you can follow the same route through the course. Both routes teach the same habits.</p>
+<p>An agent can read your files and run commands, so the first session is in a throwaway folder, in a mode where it plans and does not edit your files. Pick a route in each tab below. The tab you pick stays selected on the other lessons, so you can follow the same route through the course. Both routes teach the same habits.</p>
 <section id="install" class="level2">
 <h2 class="anchored" data-anchor-id="install">1. Install</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
@@ -162,6 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>On macOS, Linux, or inside a WSL 2 terminal, run the native installer:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://claude.ai/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To read the script before it runs, use <code>curl -fsSL https://claude.ai/install.sh | less</code> first.</p>
 <p>On Windows, either run the PowerShell installer from Anthropic’s setup page, or install inside WSL 2 and use the Linux command there. WSL 2 supports sandboxed command execution; native Windows does not. Check the result:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--version</span>     <span class="co"># prints a version number</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> doctor        <span class="co"># read-only diagnostics; changes nothing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -172,7 +173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>macOS:</strong> download Ollama from <code>ollama.com/download</code>, open the <code>.dmg</code> file and drag Ollama into Applications.</li>
 <li><strong>Linux, or WSL 2 on Windows:</strong> <code>curl -fsSL https://ollama.com/install.sh | sh</code></li>
-<li><strong>Windows without WSL:</strong> run the <code>OllamaSetup.exe</code> installer from the same page.</li>
+<li><strong>Windows:</strong> use WSL 2 and the Linux command above.</li>
 </ul>
 <p>Check it, then fetch a small model (about 2.5 GB). <code>qwen3:4b</code> is one example that Ollama lists with tool support (the model can ask the agent to run actions such as reading a file). Model names change quickly, so check the “tools” badge on the model’s page at <code>ollama.com/library</code>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> <span class="at">--version</span>     <span class="co"># prints a version number</span></span>
@@ -180,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Now install OpenCode. On macOS, Linux or WSL 2:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://opencode.ai/v2/install <span class="kw">|</span> <span class="fu">bash</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> <span class="at">--version</span>   <span class="co"># prints a version number</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>On Windows without WSL, OpenCode’s docs offer a standalone <code>.zip</code> download. If <code>opencode</code> is not found, open a new terminal and try again.</p>
+<p>On Windows, use WSL 2 and the same commands. If <code>opencode</code> is not found, open a new terminal and try again. To read an install script before it runs, use <code>curl -fsSL &lt;url&gt; | less</code> first.</p>
 </div>
 </div>
 </div>
@@ -191,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>Run <code>claude</code> and a browser opens. With a Team plan, log in with the account your admin invited you to. With an API key, <code>export ANTHROPIC_API_KEY=...</code> instead.</p>
+<p>Run <code>claude</code> and a browser opens. With a Team plan, log in with the account your admin invited you to. With an API key, <code>export ANTHROPIC_API_KEY=...</code> instead. Treat the key like a password: do not paste it into a file in a project, and note that a key typed into the shell can stay in your shell history.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -209,7 +210,7 @@ Note
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>OpenCode needs no login. It looks for Ollama at <code>http://127.0.0.1:11434</code> and lists the models it finds. Check that yours appears:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> models     <span class="co"># includes a line such as ollama/qwen3:4b</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Agents need a long <strong>context length</strong> (how much text the model can see at once, counted in tokens, which are chunks of text). Ollama’s default can be as low as 4k tokens, and agents need at least 64k. In the Ollama app, open its settings and set the context length slider to 64k. If you run the server yourself, start it like this and leave that terminal open:</p>
+<p>Agents need a long <strong>context length</strong> (how much text the model can see at once, counted in tokens, which are chunks of text). Ollama’s default can be as low as 4k tokens, and agents need at least 64k. If you use the Ollama app (macOS, or Windows with the app), open its settings and set the context length slider to 64k. On Linux or WSL 2 there is no app, so start the server yourself like this and leave that terminal open:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">OLLAMA_CONTEXT_LENGTH</span><span class="op">=</span>64000 <span class="ex">ollama</span> serve</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A bigger context needs more memory. Run <code>ollama ps</code> while a model is loaded to see its size and whether it fits.</p>
 </div>
@@ -251,6 +252,7 @@ Note
 </ul>
 <section id="which-command-shows-what" class="level3">
 <h3 class="anchored" data-anchor-id="which-command-shows-what">Which command shows what</h3>
+<p>You do not need to run these now. Come back to the table when something looks wrong.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -347,13 +349,13 @@ Note
 </tr>
 </tbody>
 </table>
-<p>If a model does not appear in <code>opencode models</code>, check that Ollama is running with <code>ollama ps</code> and that you pulled the model with <code>ollama pull</code>.</p>
+<p>If a model does not appear in <code>opencode models</code>, check that Ollama is running (open the app, or run <code>ollama serve</code> on Linux) and that you pulled the model with <code>ollama pull</code>. <code>ollama ps</code> lists a model only while one is loaded.</p>
 </div>
 </div>
 </div>
 <section id="before-you-ask-for-help" class="level3">
 <h3 class="anchored" data-anchor-id="before-you-ask-for-help">Before you ask for help</h3>
-<p>A bug report includes your OS, the install command and the full error output. Read any output before you paste it into a bug report or chat, because it can contain paths and account details. With Claude Code, <code>/feedback</code> sends feedback from inside a session, and <code>/doctor</code> or <code>claude doctor</code> narrows down a problem.</p>
+<p>A bug report includes your OS, the install command and the full error output. Read any output before you paste it into a bug report or chat, because it can contain paths and account details. With Claude Code, <code>/feedback</code> sends feedback from inside a session, and <code>/doctor</code> or <code>claude doctor</code> narrows down a problem. With OpenCode, include the output of <code>opencode --version</code> and <code>opencode debug paths</code>.</p>
 </section>
 </section>
 <section id="battle-first-run" class="level2">

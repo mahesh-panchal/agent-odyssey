@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>In a corner of the Kennel a small pet blinks at you. It lives on your own machine, costs nothing to feed and forgets things easily, and the kennel master, asked a plain question, admits it is no Beast. Even a small helper needs a lead before it goes near anything that matters. First, bring it home and find out how much it can hold in its head.</p>
+<p>In a corner of the Kennel a small pet blinks at you. It is a small model that runs on your own machine, costs nothing to feed and forgets things easily, and the kennel master, asked a plain question, admits it is no Beast. Even a small helper needs a lead before it goes near anything that matters. First, bring it home and find out how much it can hold in its head.</p>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -168,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="set-the-context-length">2. Set the context length</h2>
 <p>The context length (also called the context window: how much text the model can see at once) defaults to <strong>4k tokens</strong> (a token is a chunk of text, roughly a word or part of one) in Ollama on machines with under 24 GiB of video memory (VRAM, the memory on the graphics card or shared with it). That includes a 16 GB laptop. Agents and coding tools need <strong>at least 64k</strong>; OpenCode requires 64k or higher. The server is the background process that answers requests from tools such as OpenCode. Set the context length when you start it. Run this in a separate terminal and leave that terminal open:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">OLLAMA_CONTEXT_LENGTH</span><span class="op">=</span>64000 <span class="ex">ollama</span> serve</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If Ollama already runs in the background (the desktop app and the Linux service do), set the variable on that service instead, as the Ollama FAQ describes. Then check what loaded with <code>ollama ps</code>. A bigger context needs more memory. Look at the PROCESSOR column: a model that spills onto the CPU (the main processor) runs slower than one that stays on the GPU.</p>
+<p>If the Ollama desktop app is already running, open its settings and set the context length slider to 64k instead; <code>ollama serve</code> would clash with the running server. Then check what loaded with <code>ollama ps</code>. A bigger context needs more memory. Look at the PROCESSOR column: a model that spills onto the CPU (the main processor) runs slower than one that stays on the GPU.</p>
 </section>
 <section id="point-opencode-at-it" class="level2">
 <h2 class="anchored" data-anchor-id="point-opencode-at-it">3. Point OpenCode at it</h2>

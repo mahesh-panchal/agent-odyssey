@@ -121,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
 <p>An agent can edit many files in seconds, and you may want them back as they were. Before any agent edits your files, put them under version control (a record of every saved state of a project):</p>
 <ol type="1">
 <li>Run <code>git init</code> once in the project folder.</li>
-<li>Run <code>git add -A &amp;&amp; git commit -m "before agent"</code>.</li>
+<li>List large data files in a <code>.gitignore</code> file first (for example a line <code>*.fastq.gz</code>), or git stores a copy of each. Then run <code>git add -A &amp;&amp; git commit -m "before agent"</code>.</li>
 <li>Let the agent work. If it breaks something, run <code>git restore --staged --worktree .</code> to return every <strong>tracked</strong> file to that commit. (Plain <code>git restore .</code> copies from the staging area, so it keeps anything you or the agent staged with <code>git add</code>.)</li>
 </ol>
 <p><code>git restore --staged --worktree .</code> has two limits:</p>

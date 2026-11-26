@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>Before the road, the quartermaster checks your pack. A traveller without a lantern turns back at the first tunnel. Check each item once, now, and the installs are done.</p>
+<p>Before the road, the quartermaster checks your pack. A traveller without a lantern turns back at the first tunnel. Check each item once, now, then install your agent when you reach the first agent quest.</p>
 </div>
 <p>This page lists what to install for the hands-on exercises. Reading is separate: see <a href="read-first.html">Read first</a>. Nothing here needs real data. Exercises use invented files unless the page says otherwise.</p>
 <section id="required" class="level2">
@@ -186,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pick-a-route-for-the-agent" class="level2">
 <h2 class="anchored" data-anchor-id="pick-a-route-for-the-agent">Pick a route for the agent</h2>
-<p>The exercises that run an agent work with either route. Install one. <a href="zones/kennel/recruit-the-beast.html">Recruit the Beast</a> gives the full steps and the first session for each, and the tabs on every lesson follow the route you pick there.</p>
+<p>An agent is a model with tools that can read your files and run commands. You do not need one yet. <a href="zones/kennel/recruit-the-beast.html">Recruit the Beast</a> gives the full install steps and the first session for each route, and the tabs on every lesson follow the route you pick there. The two routes are Claude Code, which uses a hosted model, and OpenCode with Ollama, which runs a model on your own computer.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -206,7 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <ul>
-<li><strong>Install.</strong> Recruit the Beast gives the installer command. Read an installer script before piping it into <code>bash</code>.</li>
+<li><strong>Install.</strong> Recruit the Beast gives the installer command. Read an installer script before piping it into <code>bash</code> (piping sends the downloaded script straight to the shell to run). To read it first, download it with <code>curl -fsSL &lt;url&gt; | less</code>.</li>
 <li><strong>An account.</strong> Claude Code needs a login on a paid Claude plan, or an Anthropic API key (a secret string that gives programmatic access, billed per use). Use the account your organisation approves.</li>
 </ul>
 </div>
@@ -256,16 +256,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>bubblewrap and socat</td>
 <td><code>bwrap --version</code></td>
-<td>the sandbox exercise on Linux and WSL 2 (two helper tools)</td>
+<td>the sandbox exercise on Linux and WSL 2 (two helper tools). A sandbox is an operating-system boundary that limits what a command can touch</td>
 </tr>
 <tr class="even">
 <td>Docker</td>
 <td><code>docker --version</code></td>
-<td>the boundary exercise on the OpenCode route (a container tool)</td>
+<td>the boundary exercise on the OpenCode route (a container is an isolated Linux environment; Docker Desktop must be running)</td>
 </tr>
 </tbody>
 </table>
-<p>Nothing in the course asks you to use an LLM.</p>
+<p>Using an LLM is always your choice. The lessons show what to check if you do.</p>
 </section>
 <section id="a-first-check" class="level2">
 <h2 class="anchored" data-anchor-id="a-first-check">A first check</h2>
