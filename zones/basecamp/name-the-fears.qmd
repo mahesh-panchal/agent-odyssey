@@ -46,15 +46,21 @@ An *agent* is a language model running inside a program that picks and runs tool
 
 ### About the output
 
+::: {.ao-fears}
+
 | The worry | The habit | Where you learn it |
 |---|---|---|
 | "It makes things up." | Check against something the agent did not write. | [Sequence Maze](../maze/spot-the-mirage.html) |
 | "It produces slop in bulk." | Take small steps, test before code, keep a review budget. | [Sequence Maze: Wall of Output](../maze/wall-of-output.html) |
 | "I do not understand what it did." | Ask for a changelog and explain it back. | [Sequence Maze: Keep a Paper Trail](../maze/keep-a-paper-trail.html) |
 
+:::
+
 *Slop* is low-quality bulk output. A *review budget* means you only produce as much as you can honestly review in a day.
 
 ### About the work and your data
+
+::: {.ao-fears}
 
 | The worry | The habit | Where you learn it |
 |---|---|---|
@@ -62,9 +68,13 @@ An *agent* is a language model running inside a program that picks and runs tool
 | "It could leak my data or my secrets." | Keep secrets and private data out of prompts; use an approved account or a local model. | [Ancient DNA Crypt](../crypt/secrets-and-sensitive-ground.html) |
 | "Someone could see my unpublished results and publish first." | Read your tool's data terms; keep unpublished work out of consumer chat tools. | [Ancient DNA Crypt](../crypt/secrets-and-sensitive-ground.html) |
 
+:::
+
 A *sandbox* is a layer of the operating system that limits what commands can touch; it is one way to protect your files. A *scratch copy* is a duplicate you let the agent work on, so the original stays safe. For unpublished work, prefer an agreement your institution has reviewed or a local model, and record the date you made each result.
 
 ### About you and the people around you
+
+::: {.ao-fears}
 
 | The worry | The habit | Where you learn it |
 |---|---|---|
@@ -76,6 +86,8 @@ A *sandbox* is a layer of the operating system that limits what commands can tou
 | "I will spend my days checking drafts." | Keep the question and interpretation; count checking as work. | [Biodiversity Reef](../reef/teach-and-share-the-load.html) |
 | "People will think I am lazy or unoriginal." | Say what the agent did and what you checked. | [Biodiversity Reef](../reef/send-small-say-so.html) |
 | "I will stop trusting my own judgement." | Decide first, then ask for a second opinion. | [Biodiversity Reef](../reef/teach-and-share-the-load.html) |
+
+:::
 
 For voice and judgement, use the agent for structure and checks, and keep a few decisions agent-free. For credit and workload, follow your team's norm, credit the agent's part openly and share how long checking took.
 
