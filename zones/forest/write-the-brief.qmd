@@ -44,7 +44,7 @@ Two habits make the rest of this safer:
 - **Plan first:** ask for a plan before any edit, and read it.
 - **Ask for evidence:** "Show the command and its output" turns a claim into something you can look at.
 
-## Put effort into the brief, not a role line
+## Put effort into the brief
 
 A common habit is to open with "You are a world-class bioinformatician." Expert personas help with tone, format, safety and preference tasks. They can hurt tasks that rely on what the model already knows, such as factual questions. A role line is not a substitute for a brief.
 

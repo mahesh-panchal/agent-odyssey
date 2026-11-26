@@ -115,7 +115,7 @@ Tell the agent where it may run what, in your project instructions or the prompt
 
 Instructions are guidance, and the agent can still slip. If a project instruction file (`AGENTS.md` or `CLAUDE.md`) is stricter than these lines, the stricter one wins.
 
-Foreground commands time out (default 2 minutes, maximum 10 by default), A timeout is not a load control: a heavy command still runs until it is cut off.
+Foreground commands time out (default 2 minutes, maximum 10 by default). A heavy command still runs until it is cut off, so a timeout does not limit load.
 
 ## OpenCode + Ollama
 

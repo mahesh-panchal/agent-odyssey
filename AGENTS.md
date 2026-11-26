@@ -14,12 +14,13 @@ Agent Odyssey is a static Quarto role-playing course that teaches bioinformatici
 ## Standing rules
 
 1. **Terse prose.** Short declarative sentences, active voice, no hedges or meta-commentary ("note that", "worth noting"). Follow the Google developer documentation style guide.
-2. **British English** in prose. Never alter code identifiers, flags, package names or established terms.
-3. **The lesson body never points at a later quest.** The story may foreshadow it. Cross-links live in Related lessons.
-4. **Build up.** A page never opens with its full diagram. Introduce one concept per figure, with its explanation next to it, and let each later figure repeat the earlier parts and add one. Words that appear in a figure are listed apart from words that do not.
-5. **Scope to the page.** A quest is about 15 to 30 minutes. It is a tutorial with explanation, not a reference manual. A paragraph that reads "the complete set of X" becomes one example and a link.
-6. **Define at first use.** Every term, command and acronym a beginner could trip over is defined in a short parenthetical on first use on that page, or is already defined on a page the header list names under Before you start. Give each metaphor a literal meaning before using it (a "dial" is a question, "never" means not using an LLM at all).
-7. **Say why now.** The opening of each lesson says what the reader will be able to do and why they need it at this point in the course.
+2. **State the point directly.** No contrast framing: "X, not Y", "not just X but Y", "it is X, not Y", "does not X; it Y", "rather than". Say what is true. Name the alternative only when the reader is likely to pick it. `pixi run learner --warn` flags the common shapes; read for the rest.
+3. **British English** in prose. Never alter code identifiers, flags, package names or established terms.
+4. **The lesson body never points at a later quest.** The story may foreshadow it. Cross-links live in Related lessons.
+5. **Build up.** A page never opens with its full diagram. Introduce one concept per figure, with its explanation next to it, and let each later figure repeat the earlier parts and add one. Words that appear in a figure are listed apart from words that do not.
+6. **Scope to the page.** A quest is about 15 to 30 minutes. It is a tutorial with explanation, not a reference manual. A paragraph that reads "the complete set of X" becomes one example and a link.
+7. **Define at first use.** Every term, command and acronym a beginner could trip over is defined in a short parenthetical on first use on that page, or is already defined on a page the header list names under Before you start. Give each metaphor a literal meaning before using it (a "dial" is a question, "never" means not using an LLM at all).
+8. **Say why now.** The opening of each lesson says what the reader will be able to do and why they need it at this point in the course.
 
 ## Review checklist
 
@@ -39,7 +40,7 @@ Run structural checks before line edits.
 12. **Density after an accuracy fix.** Re-check the paragraph against 1, 4 and 5.
 13. **Retrieval framing.** Phrase key takeaways so they can be posed as a question. The Battle does this.
 14. **Accuracy.** Check commands, config and names against current official docs. Record sources in `research/`.
-15. **Style.** Terse prose and British spelling, last.
+15. **Style.** No contrast framing ("X, not Y"), terse prose and British spelling, last.
 
 ## Process for a non-trivial page
 

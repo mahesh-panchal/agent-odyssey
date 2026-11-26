@@ -75,7 +75,7 @@ A fresh session is not empty: the items above load first, so every session has a
 
 ## Claude Code
 
-1. Start a new session (`claude`) and run `/context` before you type anything else. A `/command` is typed into the running session, not the shell.
+1. Start a new session (`claude`) and run `/context` before you type anything else. A `/command` is typed into the running session.
 2. Read the table by category. The starting load is the system prompt, system tools, MCP server instructions, memory files and skills. **Messages** is the conversation, and it should be close to zero.
 3. Look at the MCP and tool lines marked deferred. Their figures say how many tokens they would take if all were loaded. Only their names are in the window until a tool is needed.
 4. Note the largest starting item and whether you chose it. Fewer MCP servers, plugins and skills, or a shorter instructions file, lower it.

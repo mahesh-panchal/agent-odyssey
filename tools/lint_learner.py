@@ -29,7 +29,7 @@ ERR = [
 ]
 WARN = [
     (r"\b(docs|page|paper|guide|article|post|documentation) (say|says|state|states|read|reads)\b|\bAccording to\b|\bper the docs\b", "attribution"),
-    (r"\bnot (just|only) [^.]{0,50}\bbut\b|\bis not [^.]{0,40}, it is\b|\bisn't [^.]{0,40}, it's\b|\bnot a [^.]{0,30}, but\b", "X-not-Y contrast"),
+    (r"\bnot (just|only|merely|simply)\b|\b(is|are) not [^.]{0,40}[,;:] (it|they) (is|are)\b|\b(isn't|aren't) [^.]{0,40}[,;] (it's|they're)\b|\bnot an? [^.]{0,30}, but\b|\b(does|do) not [^.]{1,40}\. (It|They) (simply|just|only)\b|, not (a|an|the|in|on|by|to|one|[a-z]+ing)\b|\brather than\b|\((not|unlike|as opposed to)\b|\b(does|do) not mean\b", "X-not-Y contrast"),
     (r"\b(armou?r|the Beast|Blight|Astrals?|shokanju|automat(?:a|on)|binding circle|Summoning Scroll|Collegium|Gaia's Rest|the pact|quartermaster)\b", "odyssey imagery outside the story block"),
     (r"^\*\*[^*]+\*\*[.:]? [^\n]{40,}$", "bold run-in paragraph (consider a list)"),
 ]

@@ -89,7 +89,7 @@ In one study with 2024 models, a long-context model beat RAG on average given en
 
 ## Claude Code
 
-Claude Code finds things in a project by searching file names and text (with `find` and `grep`) rather than with a vector index you maintain. If you want RAG over your own papers, you build it yourself or connect a tool for it, and then everything in the risks list above applies.
+Claude Code finds things in a project by searching file names and text (with `find` and `grep`). It keeps no vector index. If you want RAG over your own papers, you build it yourself or connect a tool for it, and then everything in the risks list above applies.
 
 ## OpenCode + Ollama
 

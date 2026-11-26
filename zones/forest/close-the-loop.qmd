@@ -34,7 +34,7 @@ Graders come in three kinds:
 | **Human** | You read the output and judge it. | Best for quality and style. | Slow, does not scale. |
 | **Judge model** | A second model marks against a rubric. | Handles open-ended output at scale. | Costs a call per mark, can be wrong. |
 
-A deterministic check looks like this: the file exists, the command ran, the output has 3 columns. Use deterministic graders wherever you can, a person where you must, and a judge model for the rest. Because answers vary, the result is usually a **pass rate** (for example 2 of 3 runs, or 80% of graders passed) and not one pass or fail. The useful question is whether a change moved that number up or down.
+A deterministic check looks like this: the file exists, the command ran, the output has 3 columns. Use deterministic graders wherever you can, a person where you must, and a judge model for the rest. Because answers vary, the result is usually a **pass rate** (for example 2 of 3 runs, or 80% of graders passed). The useful question is whether a change moved that number up or down.
 
 The cases decide how good the eval is. A set of cases should look like your real work and include awkward ones: an empty file, a misspelt name, a request phrased differently. Ten realistic cases beat a hundred invented ones. Real failures are the best source, which is why the loop below starts with *Notice*.
 

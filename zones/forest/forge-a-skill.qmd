@@ -12,7 +12,7 @@ In a hollow of the forest the smith keeps procedures in folders, tired of watchi
 - **Time:** about 20 minutes.
 :::
 
-An instructions file is read every session. A **Skill** is a procedure loaded only when it is relevant, so it can be long without filling the **context** (the limited amount of text, counted in **tokens**, the chunks of text a model reads, that the agent holds at once). You need this now because a repeated chore belongs in a Skill, not in your prompt each session.
+An instructions file is read every session. A **Skill** is a procedure loaded only when it is relevant, so it can be long without filling the **context** (the limited amount of text, counted in **tokens**, the chunks of text a model reads, that the agent holds at once). You need this now because a repeated chore belongs in a Skill, so you stop retyping it each session.
 
 ## What a Skill is
 

@@ -41,7 +41,7 @@ def label_sample(text):
 
 - **Cache:** the file name is a hash of the model name, the prompt version and the input, so a re-run reads the saved label, and a new model or prompt version asks again.
 - **Validate:** the reply must be one of a fixed set of labels, and anything else stops the run.
-- **Log:** each fresh call records the model name, the prompt version and a short fingerprint of the input. Pin the model (one fixed version, not "latest"), though a pinned model may still return different text.
+- **Log:** each fresh call records the model name, the prompt version and a short fingerprint of the input. Pin the model (one fixed version, never "latest"), though a pinned model may still return different text.
 - **Keep a human-check sample:** look at a random handful on every run.
 - **Keep restricted data away from external models.** Data you may not share must not reach an outside API (a service your code calls over the network).
 

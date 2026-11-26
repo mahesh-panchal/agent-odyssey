@@ -44,7 +44,7 @@ seq2	6 GC of 10 total
 seq3	2 GC of 8 total
 ```
 
-Work out the percentages and compare them row by row with the script. One row differs: seq2. The seq3 row matches because both methods count the Ns in the total; whether they should is a decision, not a bug. Then take the battle.
+Work out the percentages and compare them row by row with the script. One row differs: seq2. The seq3 row matches because both methods count the Ns in the total; whether they should is a decision for you to make. Then take the battle.
 
 ## Say what the agent did
 

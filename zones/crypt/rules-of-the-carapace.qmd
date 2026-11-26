@@ -46,7 +46,7 @@ A deny from any file beats an allow from any file. A space before the `*` matter
 
 ## OpenCode
 
-OpenCode's default policy allows everything except reading `.env` files, which it asks about, and its shell is not a sandbox: a command can touch any file you can. Rules are an ordered array and the **last match wins**:
+OpenCode's default policy allows everything except reading `.env` files, which it asks about, and a command in its shell can touch any file you can. Rules are an ordered array and the **last match wins**:
 
 ```json
 {

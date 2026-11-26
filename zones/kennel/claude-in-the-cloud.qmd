@@ -110,7 +110,7 @@ Pick the narrowest level that lets the task finish.
 
 - **Setup scripts:** a **setup script** is a Bash script that runs once before Claude starts, to install what the task needs. Installs need network access, so None blocks them.
 - **Environment variables versus network secrets:** environment variables are readable by any command Claude runs. **Network secrets** are the safer option where possible: the key stays outside the VM, and a proxy adds it to requests to hosts you list.
-- **Preinstalled tools:** common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to run `check-tools` (a shell command on the cloud machine that reports tool versions; you ask Claude to run it, you do not type it with `/`) to see what is there.
+- **Preinstalled tools:** common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to run `check-tools` (a shell command on the cloud machine that reports tool versions; you ask Claude to run it) to see what is there.
 
 ## 6. Permission modes in the cloud
 

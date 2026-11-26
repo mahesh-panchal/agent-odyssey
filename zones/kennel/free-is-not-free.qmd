@@ -50,7 +50,7 @@ Providers differ, and one provider's rules can differ by product and plan. Mistr
 - **Retention:** how long does the provider keep your prompts (retention)?
 - **Location:** where are your prompts processed?
 
-Find the answers on the provider's data or privacy page, not in a blog post. Mistral's page is in the Lore below. An open-weight model such as `ministral-3:8b` (Apache 2.0 licence) runs locally through Ollama and keeps prompts on your machine, though tool or web calls may still send data out.
+Find the answers on the provider's data or privacy page. Mistral's page is in the Lore below. An open-weight model such as `ministral-3:8b` (Apache 2.0 licence) runs locally through Ollama and keeps prompts on your machine, though tool or web calls may still send data out.
 
 The sensitive-data rule holds for every provider: unpublished or sensitive data stays on your own computer or an approved service.
 

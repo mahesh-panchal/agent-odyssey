@@ -79,7 +79,7 @@ Habits that keep polling cheap:
 - `--mail-type` sends you an email and does not make the agent wait. If you use `watch`, keep it at `--interval=60` or slower and stop it when done.
 - Submit many similar tasks as one array with a concurrency cap (`--array=1-100%10`) instead of a loop of `sbatch` calls.
 
-Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an `srun` that blocks until it finishes, gets cut off. A timeout is not a load control: the command still runs until it is cut off.
+Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an `srun` that blocks until it finishes, gets cut off. The command still runs until it is cut off, so a timeout does not limit load.
 
 ## Size the request
 

@@ -26,7 +26,7 @@ The gist is an "idea file", meant to be handed to your agent so the two of you w
 
 - **Raw sources:** you add files and nobody edits them afterwards. Papers, clipped web pages, meeting transcripts, run logs, data files. The agent reads them and never changes them, so they stay the source of truth.
 - **The wiki:** the agent writes it and you read it. Markdown pages: a summary per source, a page per entity (a tool, a dataset, a person, a gene) or concept, comparisons, an overview. The agent owns this folder.
-- **The schema:** here, "schema" means the rules for the wiki, written as plain instructions (it is not a database schema). You and the agent write it over time. It is one instruction file (`CLAUDE.md` in Claude Code, `AGENTS.md` in OpenCode) that the agent reads at the start of every session. It describes how the wiki is organised and what to do on each job, and it is the key configuration file.
+- **The schema:** here, "schema" means the rules for the wiki, written as plain instructions. You and the agent write it over time. It is one instruction file (`CLAUDE.md` in Claude Code, `AGENTS.md` in OpenCode) that the agent reads at the start of every session. It describes how the wiki is organised and what to do on each job, and it is the key configuration file.
 
 The split builds trust. When an answer looks odd, you walk from the wiki page back to the raw source it cites, and the raw source is untouched.
 
@@ -74,7 +74,7 @@ The gist lists personal, research, reading a book, team, competitive analysis, d
   - Raw sources: release notes, run logs, meeting minutes, Slack exports.
   - Pages: one per pipeline release, one per known issue, a decision log.
   - A question: "Which runs used release 2.3, and what was wrong with it?"
-  - Watch out: private or unpublished material. Exact counts belong to a query tool, not a wiki page.
+  - Watch out: private or unpublished material. Exact counts belong to a query tool.
 - **A thesis or long project**
   - Raw sources: papers you read, notes on experiments, supervisor meeting notes.
   - Pages: a running thesis page, an open-questions page, one page per experiment.
@@ -146,7 +146,7 @@ Habits that help:
 - **Cost and time grow with the wiki.** Each ingest reads the index and several pages, and then writes several. Watch your usage in the first week.
 - **Scale.** As the wiki grows, add search or another layer on top of the index.
 - **You may not learn it.** A wiki you never open does little for your own understanding. Read it, correct it and argue with it.
-- **Exact answers.** Counts, filters and joins over tables belong in a query tool, not in prose pages.
+- **Exact answers.** Counts, filters and joins over tables belong in a query tool.
 
 ## Choose your setup
 

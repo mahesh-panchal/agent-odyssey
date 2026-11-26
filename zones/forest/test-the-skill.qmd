@@ -75,7 +75,7 @@ Run `opencode --help` and read the OpenCode docs for your version to see whether
 
 Open `report.html` and look at three things:
 
-- **Δ** (two-arm runs only; with `--ablation none` there is no Δ, so check that the grader passed). If WITH and W/OUT are about the same and the Skill did not fire, the `description` does not trigger on that phrasing. Change the `description`, not the grader.
+- **Δ** (two-arm runs only; with `--ablation none` there is no Δ, so check that the grader passed). If WITH and W/OUT are about the same and the Skill did not fire, the `description` does not trigger on that phrasing, so edit the `description`.
 - **The failed grader.** The report expands it with an explanation.
 - **Isolation.** Each run happens in a **child session** (a separate Claude Code session started just for that run) with only the plugin loaded, so your own settings and other plugins are absent.
 
