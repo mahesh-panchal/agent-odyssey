@@ -2,13 +2,17 @@
 title: "Login Node Manners"
 ---
 
+::: {.ao-story}
+The Citadel gate is shared by hundreds of travellers, and the gatekeeper has seen what one careless sweep of the whole library does to everyone's queue. You arrive with an agent that has never heard of manners. Before it takes one step inside, teach it where it may work and how widely it may search.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will keep heavy work and sprawling searches off the shared login node and shared storage, and hand heavy work to the scheduler.
 - **Before you start:** [Grow the Carapace](../crypt/rules-of-the-carapace.html). A *login node* is the shared machine you log in to. *Compute nodes* run your jobs. The *scheduler* (here Slurm) decides which job runs where.
 - **Time:** about 15 minutes.
 :::
 
-Ask your cluster staff before running an agent on the login node. Some sites forbid agents on login nodes altogether, so follow your cluster's user guide where it differs from this page. This quest is read-only, so read it on your laptop.
+An agent will run a command that is harmless on your laptop and slow for everyone on a shared machine. This quest sets where an agent may run work and how widely it may search. Ask your cluster staff before running an agent on the login node. Some sites forbid agents on login nodes altogether, so follow your cluster's user guide where it differs from this page. This quest is read-only, so read it on your laptop.
 
 ## Login node versus compute node
 
@@ -16,7 +20,7 @@ Everyone who logs in shares the login node. The scheduler places your jobs on co
 
 An agent does not know which node it is on or what your site tolerates. It will run a long command if you let it, so you set the rule. It also misjudges "this will only take a few seconds", so tell it to ask when a command's cost is unclear.
 
-Some sites allow agents only inside an interactive compute allocation, and some run a different scheduler with its own commands. If a scheduler command is missing, ask staff and skip near-matches.
+Some sites allow agents only inside an interactive compute allocation (a job that gives you a shell on a compute node), and some run a different scheduler with its own commands. If a scheduler command is missing, ask staff and skip near-matches.
 
 A long-running helper process left on the login node, even one that only hands tasks to the scheduler, is not always allowed. Check your site's policy first.
 
@@ -24,7 +28,7 @@ If the agent has a question for you and you are away, a good agent stops and lis
 
 ## Shared storage prefers scoped searches
 
-Network filesystems can slow down for everyone when something touches huge numbers of files. Agents explore by searching, so a careless `find /` or a recursive `grep -r` from your home or project root is the classic mistake. Ask for searches scoped to one known directory, and keep them away from `/`. The same goes for `du`, `ls --recursive`, `ls --format=long` (it stats every file) and wide globs on big directories, and avoid making many small files in one directory. Keep the agent to your own project paths: other users' or other projects' paths are off limits unless you named them or the site documents them as shared (reference data).
+Network filesystems can slow down for everyone when something touches huge numbers of files. Agents explore by searching, so a careless `find /` or a recursive `grep -r` from your home or project root is the classic mistake. Ask for searches scoped to one known directory, and keep them away from `/`. The same goes for `du`, `ls --recursive`, `ls --format=long` (it reads the details of every file) and wide globs on big directories, and avoid making many small files in one directory. Keep the agent to your own project paths: other users' or other projects' paths are off limits unless you named them or the site documents them as shared (reference data).
 
 Claude Code's search tools (Glob, Grep) are not a filesystem-load control; scope the search yourself.
 
@@ -43,18 +47,18 @@ Four commands cover most of it:
 
 Set `--time`, `--mem` and `--cpus-per-task`, and use a job array for many similar tasks. Write options in their long form (`--dry-run` for `-n`) so you can read what the agent proposes.
 
-Slurm bills by what you allocate, whatever you use. A memory request can change how many CPUs Slurm allocates, because partitions limit memory per CPU (`MaxMemPerCPU`). Above that limit Slurm may raise the CPU count to fit, or reject the job. Read the partition's limits, and afterwards compare request, allocation and use with `sacct`.
+Slurm counts what you allocate, whatever you use. A memory request can change how many CPUs Slurm allocates, because partitions limit memory per CPU (`MaxMemPerCPU`). Above that limit Slurm may raise the CPU count to fit, or reject the job. Read the partition's limits, and afterwards compare request, allocation and use with `sacct`.
 
-Scratch space holds throwaway files. Ask your staff where the project's scratch is, tell the agent, and use it instead of `/tmp`, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one, and copy results to the project directory before the job ends. A set `$TMPDIR` does not prove you are on scratch, because Slurm can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
+Scratch space holds throwaway files. Ask your staff where the project's scratch is, tell the agent, and use it instead of `/tmp`, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one, and copy results to the project directory before the job ends. A set `$TMPDIR` (the variable that names the temporary directory) does not prove you are on scratch, because Slurm can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
 
 ## Look before you copy or delete
 
-Find out what a copy or a delete will touch before it touches anything. Run `rsync --dry-run --itemize-changes` first, with the same arguments, and read the list. Does it match your request? Does it hold keys, `.env` files or personal data? Does a `*deleting` line remove something you wanted to keep? `cp`, `scp` and `rm` have no dry run, so list the exact path or glob and delete only those names. Any change to the options needs a new dry run. Do not copy from or delete a directory that a running job writes to. Before you delete a source you copied, repeat the copy as a dry run with `--checksum` and delete only if the list is empty. Options such as `--exclude` skip files without a word. `rsync --delete` and `rm --recursive` also remove what is inside a directory, so list and dry-run those too. The dry run reads the whole tree like the real run, so run it where the real run will run. Send large transfers through the scheduler or the site's data-transfer node.
+Find out what a copy or a delete will touch before it touches anything. Run `rsync --dry-run --itemize-changes` first (a dry run lists what would change and changes nothing), with the same arguments, and read the list. Does it match your request? Does it hold keys, `.env` files or personal data? Does a `*deleting` line remove something you wanted to keep? `cp`, `scp` and `rm` have no dry run, so list the exact path or glob and delete only those names. Any change to the options needs a new dry run. Do not copy from or delete a directory that a running job writes to. Before you delete a source you copied, repeat the copy as a dry run with `--checksum` and delete only if the list is empty. Options such as `--exclude` skip files without a word. `rsync --delete` and `rm --recursive` also remove what is inside a directory, so list and dry-run those too. The dry run reads the whole tree like the real run, so run it where the real run will run. Send large transfers through the scheduler or the site's data-transfer node (a machine set aside for moving files).
 
 ## What the agent's sandbox covers
 
 - Claude Code's sandbox covers shell commands only. File tools, MCP servers and hooks run outside it.
-- It fails open by default: if it cannot start, commands run **without** sandboxing, unless `sandbox.failIfUnavailable` is `true`.
+- If it cannot start, commands run **without** sandboxing by default. Setting `sandbox.failIfUnavailable` to `true` stops that.
 - On Linux it needs `bubblewrap` and `socat`. You usually cannot install packages system-wide on a cluster, so ask staff whether they are installed.
 - Check that the sandbox is on before you rely on it.
 

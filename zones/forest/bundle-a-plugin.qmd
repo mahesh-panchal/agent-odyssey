@@ -2,6 +2,10 @@
 title: "Bundle a Plugin"
 ---
 
+::: {.ao-story}
+At the forest's edge a satchel waits to be packed with the smith's finest Skills and their tests. Whatever you carry, others will unpack, and whatever you unpack from another traveller's satchel runs with your own authority. Pack with care, and open with more.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will package Skills (and their evals) as a plugin, validate it, and see why installing one is a trust decision.
 - **Before you start:** [Test the Skill](test-the-skill.html). This is an optional side quest. An **MCP server** is an add-on connection that gives the agent extra tools.
@@ -71,7 +75,7 @@ Before installing or updating a plugin:
 
 <div data-ao-honour="bundle-plugin" data-xp="30">Turn the Skill you wrote into a plugin folder with a `plugin.json`, then run `claude plugin validate` on it and read the output.</div>
 
-## Battle: the plugin
+## Battle: bundle a plugin
 
 <div data-ao-test="forest-bundle-a-plugin" data-xp="60"></div>
 

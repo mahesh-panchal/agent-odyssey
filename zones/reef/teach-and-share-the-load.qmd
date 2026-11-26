@@ -2,11 +2,17 @@
 title: "Teach and Share the Load"
 ---
 
+::: {.ao-story}
+A reef thrives on many hands. Younger travellers ask what you know, and you ask yourself what you are still learning. Share what you know, protect your own learning, and take on only what you can review.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will pass on what you learned without leaving anyone behind, and keep your own skills and workload healthy.
 - **Before you start:** [The Reviewer's Code](the-reviewers-code.html).
 - **Time:** about 15 minutes.
 :::
+
+Working with agents changes how you teach, how you learn and how much you take on. This quest covers each.
 
 ## Teaching
 
@@ -72,13 +78,13 @@ A ready second opinion can wear down confidence in your own call. Keep it in pra
 - **Keep some decisions agent-free.**
 - **Compare afterwards.** Note where your call held up and where the agent saw something you missed.
 
-## Battle: the community
+## Battle: working with others
 
 <div data-ao-test="reef-teach-and-share-the-load" data-xp="60"></div>
 
 ## Bonus
 
-<div data-ao-honour="teach-one" data-xp="25">Show one colleague one verification habit from this odyssey, such as re-running the check, or running `awk` against a script's output. Teach the habit; the tool is optional.</div>
+<div data-ao-honour="teach-one" data-xp="25">Show one colleague one verification habit from this course, such as re-running the check, or running `awk` against a script's output. Teach the habit; the tool is optional.</div>
 
 ::: {.ao-related}
 ## Related lessons

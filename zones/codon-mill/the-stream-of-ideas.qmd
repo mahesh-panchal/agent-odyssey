@@ -2,6 +2,10 @@
 title: "The Stream of Ideas"
 ---
 
+::: {.ao-story}
+Ideas keep arriving mid-task: what about this, could we also try that. One stream floods the hopper, so the mill has side channels for them. You will learn which channel each idea belongs in, and then how to carry what is left across to the next visit.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will triage each new thought during a task into the right place (do now, park, quick question, helper, branch, or later session), and know what undo can and cannot restore.
 - **Before you start:** [When to Start Fresh](when-to-start-fresh.html). Commands here are Claude Code commands.
@@ -16,7 +20,7 @@ Accuracy and recall degrade as context grows, and the whole conversation is re-s
 
 - **Context:** everything the model can see when it writes its next reply.
 - **Turn:** one prompt from you plus the model's reply.
-- **Session:** one saved conversation with the tool, tied to a project folder.
+- **Session:** one saved conversation with the agent, tied to a project folder.
 - **Subagent:** a helper the main agent starts. It works in its own separate, clean context (it knows what you tell it) and sends back a summary, so its reading stays out of your conversation.
 - **Conversation branch (`/branch`, which is separate from a git branch):** a copy of the conversation from this point, so you can try something in the copy while the original stays as it was. `/fork` is a different command: it copies the conversation into a separate background session.
 - **Git worktree:** a second checkout of the same repository in another folder, so two sessions can edit files without overwriting each other.
@@ -58,7 +62,7 @@ Every prompt you send is a checkpoint. `/rewind` (aliases `/checkpoint`, `/undo`
 
 The limits matter to bioinformatics:
 
-- Files changed **only through Bash** (the shell command tool) are not tracked.
+- Files changed **only through shell commands** (Claude Code's Bash tool) are not tracked.
 - Subagent edits are mostly not restored.
 - Edits outside the session are not tracked.
 
@@ -100,7 +104,7 @@ Check OpenCode's documentation for its side-question, branch and worktree featur
 
 :::
 
-## Battle: the side channels
+## Battle: triage a new idea
 
 <div data-ao-test="codon-mill-the-stream-of-ideas" data-xp="50"></div>
 

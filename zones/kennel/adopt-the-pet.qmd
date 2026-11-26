@@ -2,15 +2,21 @@
 title: "Adopt the Pet"
 ---
 
+::: {.ao-story}
+In a corner of the Kennel a small pet blinks at you. It lives on your own machine, costs nothing to feed and forgets things easily. The keeper says even a small helper needs a lead before it goes near anything that matters. First, bring it home and find out how much it can hold in its head.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will run a small local model with Ollama, give it enough context, and point OpenCode at it.
-- **Before you start:** [Save Point](../crypt/shield-of-undo.html); a laptop with about 16 GB of memory; a terminal; roughly 5 GB of free disk. OpenCode is an open-source coding agent that can use local models.
+- **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html) and [Save Point](../crypt/shield-of-undo.html); a laptop with about 16 GB of memory; a terminal; roughly 5 GB of free disk. OpenCode is an open-source coding agent (a program that runs a model and its tools) that can use local models.
 - **Time:** about 20 minutes. Everything stays on your machine.
 :::
 
-A small local model is gentle, free, and private. It forgets quickly, so check its answers before you rely on them.
+A local model runs on your own computer, so prompts stay there and use costs nothing. Use one when your data agreement rules out hosted models, or when you want to try an agent without paying. A small local model holds less in mind and makes more mistakes than a hosted one, so check its answers before you rely on them.
 
 ## 1. Install Ollama and fetch a model
+
+Ollama is a program that downloads and runs models on your own computer.
 
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh     # macOS and Linux
@@ -18,13 +24,13 @@ ollama pull qwen3:4b                              # about 2.5 GB
 ollama run qwen3:4b "Say hello in one sentence."
 ```
 
-`qwen3:4b` is one example of a small model that Ollama lists with tool support. Model names change quickly, so check the "tools" badge on the model's page at ollama.com/library. Run `ollama ps` while it runs to see what loaded and whether it fits your RAM (ordinary memory).
+`qwen3:4b` is one example of a small model that Ollama lists with tool support (the model can ask the agent to run actions such as reading a file). Model names change quickly, so check the "tools" badge on the model's page at ollama.com/library. Run `ollama ps` while it runs to see what loaded and whether it fits your RAM (ordinary memory).
 
 WSL (Windows Subsystem for Linux) users: run the Linux commands inside your WSL terminal, and check each tool's current docs if one fails.
 
-## 2. Give it room to think
+## 2. Set the context length
 
-The context length (also called the context window: how much text the model can see at once) defaults to **4k tokens** in Ollama on machines with under 24 GiB of video memory (VRAM, the memory on the graphics card or shared with it). That includes a 16 GB laptop. Agents and coding tools need **at least 64k**; OpenCode requires 64k or higher. Set it when you start the server:
+The context length (also called the context window: how much text the model can see at once) defaults to **4k tokens** (a token is a chunk of text, roughly a word or part of one) in Ollama on machines with under 24 GiB of video memory (VRAM, the memory on the graphics card or shared with it). That includes a 16 GB laptop. Agents and coding tools need **at least 64k**; OpenCode requires 64k or higher. Set it when you start the server:
 
 ```bash
 OLLAMA_CONTEXT_LENGTH=64000 ollama serve
@@ -53,9 +59,9 @@ OpenCode finds Ollama at `http://127.0.0.1:11434` automatically. To spell it out
 }
 ```
 
-## 4. Put the Pet on a leash
+## 4. Limit what the agent may do
 
-OpenCode's default policy is **allow everything**, except reading `.env` files, which it asks about. Shell commands run with your user's authority, and the shell is not a sandbox. Each rule says `allow` (run without asking), `ask` (prompt you first) or `deny` (never run). A safer start asks about everything first, then narrows. **Rules are checked in order and the last match wins:**
+OpenCode's default policy is **allow everything**, except reading `.env` files, which it asks about. Shell commands run with your user's authority, and the shell is not a sandbox. Each rule says `allow` (run without asking), `ask` (prompt you first) or `deny` (never run). A safer start asks about everything first, then allows only what you trust. **Rules are checked in order and the last match wins:**
 
 ```json
 {
@@ -74,13 +80,13 @@ Mistral publishes open-weight models that Ollama lists with tool support:
 - **`ministral-3`:** 3B (3.0 GB), 8B (6.0 GB) and 14B (9.1 GB) sizes, Apache 2.0.
 - **`mistral-small`:** 24B (14 GB), Apache 2.0.
 
-A 24B model needs far more memory than a 3B one, so check `ollama ps` after loading.
+A 24B model has about eight times the parameters of a 3B one and needs far more memory, so check `ollama ps` after loading.
 
-## A built-in Pet on newer Macs
+## A built-in model on newer Macs
 
-Recent Macs ship a small on-device model with the operating system, and developers call it through Apple's Foundation Models framework. Availability depends on whether your device and region support Apple Intelligence, and the model can take a while to download after you turn that on. It suits summarising, extracting and classifying text. It may struggle with basic math, code and logical reasoning.
+Recent Macs ship a small on-device model (it runs on the Mac itself) with the operating system, and developers call it through Apple's Foundation Models framework. Availability depends on whether your device and region support Apple Intelligence, and the model can take a while to download after you turn that on. It suits summarising, extracting and classifying text. It may struggle with basic math, code and logical reasoning.
 
-## Battle: the Pet's leash
+## Battle: a local model with limits
 
 <div data-ao-test="kennel-adopt-the-pet" data-xp="60"></div>
 

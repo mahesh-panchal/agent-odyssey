@@ -2,6 +2,10 @@
 title: "Run It Top to Bottom"
 ---
 
+::: {.ao-story}
+A notebook can hold a result nobody can reproduce, and in the Scriptorium the order of work matters more than the page. A scribe's note says one thing and the manuscript says another. Learn to tell which one is true.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will show that a notebook's stored result can differ from a fresh top-to-bottom run, and use that as the check before you trust or share one.
 - **Before you start:** [Save Point](../crypt/shield-of-undo.html), Python 3, and two small exercise files ([cells.py](../../exercises/scriptorium/cells.py) and [run_cells.py](../../exercises/scriptorium/run_cells.py)). Save both into an empty folder.
@@ -10,7 +14,7 @@ title: "Run It Top to Bottom"
 
 ## Hidden state
 
-A notebook kernel (the background process that runs the cells' code) keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran, and the variables stay. The page then shows a result that the file, read from the top, does not produce. This is hidden state. It appears with or without an agent.
+A notebook kernel (the background process that runs the cells' code) keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran, and the variables stay. The page then shows a result that the file, read from the top, does not produce. This is **hidden state**: the notebook's memory holds something the file does not. It appears with or without an agent.
 
 `cells.py` is a mock notebook with four cells. Each header, such as `# %% [1] load`, carries a cell number. `run_cells.py` runs cells in the order you give, sharing one namespace like a kernel. It uses `exec`, so run it only on files you wrote. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.
 

@@ -2,13 +2,17 @@
 title: "Pick Your Companion"
 ---
 
+::: {.ao-story}
+The Kennel keeps companions of every size. A big one is slow and costly to feed; a small one is quick and cheap but loses the trail. The keeper says you must choose for each job, and decide how hard each companion should think. Learn to choose, then check that you chose well.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will set the model and the effort on purpose, including for a subagent, and compare two settings on your own task.
-- **Before you start:** [Recruit the Beast](recruit-the-beast.html). [Adopt the Pet](adopt-the-pet.html) helps with the OpenCode tab.
+- **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html) and [Recruit the Beast](recruit-the-beast.html). [Adopt the Pet](adopt-the-pet.html) helps with the OpenCode tab.
 - **Time:** about 15 minutes. The exercise is a worksheet and needs no model.
 :::
 
-The companions in the Kennel are models. The harness is the program that runs a model and its tools. This page covers which companion to bring to which job, and how hard to make it think. Model names, aliases and defaults change often, so check your own tool for the current ones.
+Every session starts with a model and an effort level, and the defaults do not suit every job. A model that is too small skips checks and loses the thread. One that is too large costs more and runs slower, and you may not notice because the answer looks fine. This page covers how to choose both and how to check the choice. Model names, aliases and defaults change often, so check your own tool for the current ones.
 
 ## Words to know
 
@@ -16,20 +20,18 @@ The companions in the Kennel are models. The harness is the program that runs a 
 - **Alias:** a short nickname (such as `sonnet`) that the tool maps to a concrete model version.
 - **Effort:** how much the model thinks before each step.
 - **Subagent:** a helper the main agent starts with its own fresh context. It does a side task and returns only a summary. To **delegate** is to hand it a task.
-- **Token:** a chunk of text, the unit that usage and cost are counted in.
-- **Context:** the text the model can see right now.
 - **Frontmatter:** the small settings block at the top of a Markdown file.
 - **Pin:** name one exact model version so it never silently changes.
 - **Inherit:** use whatever the parent is using.
 - **Prompt cache:** a short-term store that makes re-reading an unchanged conversation cheaper.
 - **Compacting:** replacing the conversation history with a short summary.
 
-## 1. Two dials
+## 1. Two settings
 
-- **Model:** what the companion knows and can do.
+- **Model:** what the model knows and can do.
 - **Effort:** how much it thinks per step. Lower effort means fewer and terser tool calls (the actions the agent takes, such as reading a file or running a command); higher effort means more thoroughness.
 
-Tuning effort is often a better lever than switching models.
+Changing effort is often cheaper to try than switching models.
 
 ## 2. How to set them
 
@@ -37,7 +39,7 @@ Tuning effort is often a better lever than switching models.
 
 ## Claude Code
 
-**Model.** The aliases are `default` (clears an override and names no model), `best` (same as `opus`), `fable`, `sonnet`, `opus`, `haiku`, `sonnet[1m]`, `opus[1m]` (the `[1m]` forms ask for a longer context window), and `opusplan` (opus in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API, `opus`, `sonnet` and `haiku` map to the current 5.5 versions; other providers can resolve the same alias to older versions.
+- **Model.** The aliases are `default` (clears an override and names no model), `best` (same as `opus`), `fable`, `sonnet`, `opus`, `haiku`, `sonnet[1m]`, `opus[1m]` (the `[1m]` forms ask for a longer context window), and `opusplan` (opus in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API, `opus`, `sonnet` and `haiku` map to the current 5.5 versions; other providers can resolve the same alias to older versions.
 
 | Way | How | Note |
 |---|---|---|
@@ -48,9 +50,9 @@ Tuning effort is often a better lever than switching models.
 
 For results that must be reproducible (a lab pipeline, course material), **pin a full model name** such as `claude-opus-5-5`, because an alias moves when a new version ships. The variables `ANTHROPIC_DEFAULT_OPUS_MODEL`, `ANTHROPIC_DEFAULT_SONNET_MODEL`, `ANTHROPIC_DEFAULT_HAIKU_MODEL` and `ANTHROPIC_DEFAULT_FABLE_MODEL` pin what each alias means.
 
-**Effort.** Set it with `/effort`, `claude --effort`, the environment variable `CLAUDE_CODE_EFFORT_LEVEL`, or the `effortLevel` setting. The levels are `low`, `medium`, `high`, `xhigh` and `max`, and which ones exist depends on the model. The default differs by model and by surface: for Sonnet 5.5 it is `medium` in Claude Code and `high` on the API. Run `/effort` in your own tool to read yours.
+- **Effort.** Set it with `/effort`, `claude --effort`, the environment variable `CLAUDE_CODE_EFFORT_LEVEL`, or the `effortLevel` setting. The levels are `low`, `medium`, `high`, `xhigh` and `max`, and which ones exist depends on the model. The default differs by model and by surface: for Sonnet 5.5 it is `medium` in Claude Code and `high` on the API. Run `/effort` in your own tool to read yours.
 
-**Per skill and per subagent.** Skill files and subagent files both take `model` and `effort` in their frontmatter.
+- **Per skill and per subagent.** Skill files and subagent files both take `model` and `effort` in their frontmatter.
 
 - **Skill:** `model` takes the same values as `/model`, or `inherit`. A skill's `model` and `effort` apply for the rest of that one turn and are not saved. Its `effort` overrides the session level but not `CLAUDE_CODE_EFFORT_LEVEL`.
 - **Subagent:** `model` takes `sonnet`, `opus`, `haiku`, `fable`, a full model ID, or `inherit`. `effort` takes `low` to `max`. If the subagent's model differs from the main one and you give no `effort`, the session level does not apply to it, so set it.
@@ -109,7 +111,7 @@ Climb one rung at a time and re-check after each.
 2. **Raise effort one level.**
 3. **Change the model** to the next tier up.
 
-**Cheap-then-retry:** if outcomes are checkable (tests, or a verifier, which is a separate check that tests the output), run at low effort and re-run only the failures at higher effort. A checker that passes bad work lets failures through, and a failure costs two runs of waiting time.
+- **Cheap-then-retry:** if outcomes are checkable (tests, or a verifier, which is a separate check that tests the output), run at low effort and re-run only the failures at higher effort. A checker that passes bad work lets failures through, and a failure costs two runs of waiting time.
 
 Compare **cost per finished task**, because failed tasks still cost money and a few hard tasks can carry much of the bill.
 
@@ -130,11 +132,7 @@ Pick one small real task that has an outcome check (a test that passes, a count 
 3. After each run, open `/usage` and note the "Usage by model" block. The dollar figure is an estimate computed locally at list price, and on a subscription you may see plan usage bars instead. `/usage` resets on `/clear`.
 4. Compare cost per *passing* run. Three runs is a small sample: it can expose a big difference, and a small one needs more runs.
 
-## 7. What you gave up
-
-Choosing wrongly costs you in both directions. **Too small or too low:** the companion loses the thread, skips checks or stops early, and you redo the work, often after you have already trusted it. **Too big or too high:** the same job costs more and runs slower, and you may not notice because the answer looks fine. The checks above are how you notice either mistake.
-
-## 8. Other model families
+## 7. Other model families
 
 The ideas above carry over to other families; the names do not. Mistral is one example:
 

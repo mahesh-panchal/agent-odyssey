@@ -4,12 +4,12 @@ questions:
     prompt: "On a 16 GB laptop, what context length does Ollama use by default, and why does it matter for agents?"
     explain: "Raise it with OLLAMA_CONTEXT_LENGTH when you start the server and verify with `ollama ps`."
     options:
-      - { text: "About 4k tokens, far below the 64k that agents need, so the Pet forgets instructions", correct: true }
-      - { text: "32k tokens, which is enough for most agent work, so the Pet needs no change at all", misconception: "Larger defaults exist only with much more video memory. A 16 GB laptop gets 4k, well below the 64k that agents need." }
+      - { text: "About 4k tokens, far below the 64k that agents need, so the model forgets instructions", correct: true }
+      - { text: "32k tokens, which is enough for most agent work, so the model needs no change at all", misconception: "Larger defaults exist only with much more video memory. A 16 GB laptop gets 4k, well below the 64k that agents need." }
       - { text: "The model's own maximum, often 128k or more, so memory is the only limit you meet", misconception: "The default is a memory-based tier, lower than the model's maximum. You raise it on purpose when you start the server." }
       - { text: "256k tokens, the largest default, so a laptop can run long agent sessions as is", misconception: "The largest defaults exist only with much more video memory. A 16 GB laptop gets the small default." }
   - type: order
-    prompt: "Put the Pet's set-up in order."
+    prompt: "Put the local model's set-up in order."
     explain: "Each step depends on the one before it."
     items:
       - "Install Ollama"

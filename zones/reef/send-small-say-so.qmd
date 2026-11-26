@@ -2,20 +2,24 @@
 title: "Send Small, Say So"
 ---
 
+::: {.ao-story}
+A reef thrives on many hands, and a Review-leech clings to it, feeding on work passed along unchecked. Every reviewer on the reef has felt its bite. Four small habits starve it, and you can practise them on your next hand-off.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will hand work to collaborators, whether or not they use LLMs, without passing them your review burden.
 - **Before you start:** [Spot the Mirage](../maze/spot-the-mirage.html).
 - **Time:** about 15 minutes.
 :::
 
-A reef is a community. The **Review-leech** feeds on the cost of checking an agent's output when it lands on the next person without a word. Four habits starve it.
+Checking an agent's output takes time. When the output reaches the next person without a word, that cost moves to them. You are about to hand work to a collaborator, so four habits keep the cost with the sender.
 
 1. **Review it yourself first.** Read your own diff as if a stranger wrote it. If you cannot explain a line, it is not ready to send.
 2. **Say so.** Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Follow your team's norm for how.
 3. **Send small.** One idea per change, small enough to review in one sitting.
 4. **Bring evidence.** Include the test, the command, or the check that shows it works.
 
-These habits help every reviewer. A colleague who does not use LLMs can review your work without learning a tool.
+A colleague who does not use LLMs can review work sent this way without learning a tool.
 
 ## When you worry about looking lazy
 

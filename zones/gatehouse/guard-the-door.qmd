@@ -2,13 +2,17 @@
 title: "Guard the Door"
 ---
 
+::: {.ao-story}
+A watchman stands at the heavy door and checks every visitor against a list. The list is code, so no one can talk their way past. Learn to write one line of that list.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will write a hook that refuses a command, and know where a hook's coverage ends.
 - **Before you start:** [Plug In a Server](plug-in-a-server.html). An **exit code** is the number a script returns when it finishes: 0 means success, and a hook uses 2 to mean "block". **JSON** is a structured text format.
 - **Time:** about 15 minutes.
 :::
 
-A **hook** is a user-defined handler that runs automatically at a set point in the harness's lifecycle. In Claude Code it can be a shell command, an HTTP endpoint and other kinds, and it receives JSON about the event. An instructions file asks the model to behave. A command hook is ordinary code that the harness runs, so what it decides does not depend on what the model wants.
+Advice can be ignored, and a hook cannot. A **hook** is a user-defined handler that the harness runs automatically at a set point, such as just before a tool runs. In Claude Code it can be a shell command, an HTTP endpoint and other kinds, and it receives JSON about the event. An instructions file asks the model to behave. A command hook is ordinary code that the harness runs, so what it decides does not depend on what the model wants.
 
 ## A hook that refuses
 
@@ -52,7 +56,7 @@ Two behaviours matter for trust:
 
 ## OpenCode + Ollama
 
-The V2 docs describe plugins (files under `.opencode/plugins/` or `~/.config/opencode/plugins/`) that can register hooks. To refuse an action, use the permission hook, `ctx.permission.hook("evaluate", ...)`: it runs for `allow` and `ask` decisions, may change the effect to `allow`, `ask` or `deny`, and `event.message` is the denial reason. An explicit configured `deny` is final and never invokes the hook.
+OpenCode's V2 docs describe plugins (files under `.opencode/plugins/` or `~/.config/opencode/plugins/`) that can register hooks. To refuse an action, use the permission hook, `ctx.permission.hook("evaluate", ...)`: it runs for `allow` and `ask` decisions, may change the effect to `allow`, `ask` or `deny`, and `event.message` is the denial reason. An explicit configured `deny` is final and never invokes the hook.
 
 Treat an OpenCode plugin as code running with your privileges. Before relying on it, check your installed version's docs for shell-hook configuration and an exit-code equivalent, and test whether throwing from a tool hook blocks a call. Test the whole setup with your local Ollama model too.
 
@@ -65,7 +69,7 @@ Treat an OpenCode plugin as code running with your privileges. Before relying on
 - **Hooks cannot override your deny and ask rules.** A hook returning allow skips the prompt, and deny and ask rules are still evaluated.
 - **Hooks run with your full permissions.** Command hooks "execute shell commands with your full user permissions", so review and test them before adding them.
 
-## One door for the high-stakes actions
+## One checkpoint for high-stakes actions
 
 If an agent can reach something with real-world consequences, such as ordering DNA synthesis or commanding physical equipment, put a screening checkpoint in the path that refuses dual-use requests (requests where the same capability can help or harm). Do not connect an agent to such a capability without one. Test the checkpoint with requests you know it should refuse. A hook is one possible checkpoint for local actions, with the limits listed above.
 
@@ -77,7 +81,7 @@ In `-p` and SDK runs (headless: non-interactive, no one to answer a dialog) ther
 
 <div data-ao-honour="gatehouse-hook-in-a-scratch-folder" data-xp="20">In a throwaway folder with mock files, add the Bash-blocking hook above and ask for a harmless command that contains "drop table" in an `echo`. Note the stderr message the agent reports. Then change the script to exit 1 and see what happens.</div>
 
-## Battle: the watchman
+## Battle: hooks that refuse
 
 <div data-ao-test="gatehouse-guard-the-door" data-xp="50"></div>
 

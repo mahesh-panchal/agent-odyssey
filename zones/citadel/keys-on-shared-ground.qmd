@@ -2,13 +2,17 @@
 title: "Keys on Shared Ground"
 ---
 
+::: {.ao-story}
+Your home directory lies on ground that others can reach. Keys, tokens and agent settings lie there too, in plain files, and shared ground has many passers-by. Before the agent works here, find out who can read what it leaves behind.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will keep keys and agent settings private on shared storage, keep data within its agreement, and know what to ask your cluster staff.
 - **Before you start:** [Login Node Manners](login-node-manners.html) and [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html). *Egress* means data leaving the machine.
 - **Time:** about 15 minutes.
 :::
 
-Ask your cluster staff before sending any cluster data to an external model API, and follow your institution's data agreement. This quest is read-only, so read it on your laptop.
+Keys and agent settings live in ordinary files, and on a shared cluster other people may be able to read them. This quest covers keeping them private and keeping data within its agreement. Ask your cluster staff before sending any cluster data to an external model API, and follow your institution's data agreement. This quest is read-only, so read it on your laptop.
 
 ## What lives where
 
@@ -16,7 +20,7 @@ Claude Code keeps sessions, settings and plugins in `~/.claude`, and writes `~/.
 
 If your home directory is shared across nodes, session history sits on shared storage and can contain pasted data or paths. Check who can read it (for example `chmod 700 ~/.claude`) and whether home is backed up or group-readable.
 
-Settings files: user `~/.claude/settings.json`, project `.claude/settings.json` (commit it), local `.claude/settings.local.json`, and managed settings. Precedence is managed, then command line, then local, then shared project, then user. Permission lists merge across files. An organisation can enforce managed settings that your own files cannot override, so your site may already have decided some of this.
+Settings files: user `~/.claude/settings.json`, project `.claude/settings.json` (commit it), local `.claude/settings.local.json`, and managed settings. Precedence is managed, then command line, then local, then shared project, then user. Permission lists merge across files. An organisation can enforce managed settings (settings it sets for everyone) that your own files cannot override, so your site may already have decided some of this.
 
 ## Keys
 
@@ -29,9 +33,9 @@ Look up where OpenCode stores keys, and what the `apiKeyHelper` setting does, in
 ## Data and egress
 
 - Before any cluster data, paths, logs or code go to an external model API, check your institution's policy. Human genomic, clinical or controlled-access data often has agreements that forbid third-party processing.
-- Read is auto-approved inside the working directory, so the agent can read a project folder that holds controlled data unless a `Read(...)` deny rule or `sandbox.filesystem.denyRead` covers it. Keep controlled data outside the agent's working directory and give the agent synthetic or de-identified test data.
+- Reading files inside the working directory is approved without asking, so the agent can read a project folder that holds controlled data unless a `Read(...)` deny rule or `sandbox.filesystem.denyRead` covers it. Keep controlled data outside the agent's working directory and give the agent synthetic or de-identified test data.
 - Some sites restrict internet access from compute nodes, so an agent there may not reach a model API. Ask staff what outbound access your jobs have. A common pattern is the agent on your laptop writing scripts, with jobs running offline.
-- A plain `ssh` from inside the Claude Code sandbox does not work as a hop.
+- A plain `ssh` from inside the Claude Code sandbox cannot reach another host.
 - The sandbox's `network.allowedDomains` starts empty, so unlisted hosts prompt (in the default modes).
 
 ::: {.panel-tabset group="companion"}

@@ -2,6 +2,10 @@
 title: "Same Every Time"
 ---
 
+::: {.ao-story}
+A talkative machine sits in the middle of the line. Sometimes it says one thing and sometimes another, and the factory needs the same every time. Decide whether it belongs on the line at all.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does.
 - **Before you start:** [Three Kinds of Machine](../basecamp/three-kinds-of-machine.html).
@@ -15,7 +19,7 @@ Keep the LLM out of the run when you can. Use it to write a script, then test th
 If an LLM call really must be a step (tidying messy free-text labels, say), contain it:
 
 - **Record** the model name and version, and the exact prompt, with the outputs. A pinned model may still return different text, so recording is a start.
-- **Cache** results keyed by input (saved outputs), so a re-run does not change them silently.
+- **Cache** results keyed by input (save each output under its input), so a re-run does not change them silently.
 - **Validate** each output against a fixed set (a species list, a schema) and fail loudly when it does not match.
 - **Keep a human-check sample**: look at a random handful every time.
 - **Keep restricted data away from external models.** Data you may not share must not reach an outside API.

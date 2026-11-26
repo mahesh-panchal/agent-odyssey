@@ -2,13 +2,17 @@
 title: "Free Is Not Free"
 ---
 
+::: {.ao-story}
+Stalls outside the Kennel hand out meat for free. Some is fresh, some is a trial, and one stall will not say where it came from. The keeper asks you to read the label before you feed anything. Learn to read the label of a free model offer.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will name what a "free" model offer costs you, sort offers into four kinds, and decide which data may go to which.
-- **Before you start:** [Adopt the Pet](adopt-the-pet.html) (a small local model, "the Pet") and [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html).
+- **Before you start:** [Adopt the Pet](adopt-the-pet.html) (running a model on your own computer) and [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html).
 - **Time:** about 20 minutes. The hands-on step uses a dummy prompt and no sensitive data.
 :::
 
-The Pet is free because it runs on your machine. Many other "free" offers run on someone else's machine, so someone is paying. Sometimes it is the provider, who gains your attention or your data. Sometimes it is you, in limits and in time. Using any of them is optional.
+A model you run on your own computer is free because you supply the hardware. Many other "free" offers run on someone else's machine, so someone is paying. Before you send a prompt to one, you need to know what it costs you. Sometimes it is the provider, who gains your attention or your data. Sometimes it is you, in limits and in time. Using any of them is optional.
 
 Free tiers change often: providers have ended them, shrunk them or turned them into short trials. Read the provider's own page before you rely on one, and treat every number on it as a snapshot.
 
@@ -16,12 +20,12 @@ Free tiers change often: providers have ended them, shrunk them or turned them i
 
 | Kind | Who runs it | What you give up |
 |---|---|---|
-| **Open weights, run by you** | Your laptop or cluster (the Pet) | Speed and quality; some memory |
-| **Free tier of a provider** | The model's maker or a hosting company | Rate limits; sometimes your prompts |
+| **Open weights, run by you** (open weights: the numbers the model learned can be downloaded) | Your laptop or cluster | Speed and quality; some memory |
+| **Free tier of a provider** | The model's maker or a hosting company | Rate limits (caps on requests per minute or day); sometimes your prompts |
 | **Router or gateway** | A middleman forwarding to other providers | A second party in the path; a free list that churns |
 | **Reseller of unknown origin** | Unknown | Everything you send |
 
-If a site offers a closed frontier model with no card and no limits, ask who pays for it. Send such a site nothing you would not post publicly.
+If a site offers one of the most capable closed models with no card and no limits, ask who pays for it. Send such a site nothing you would not post publicly.
 
 ## 2. What to check on any free offer
 
@@ -30,13 +34,13 @@ If a site offers a closed frontier model with no card and no limits, ask who pay
 3. **Is a card or other detail needed?** Some free tiers need a payment method, a phone number or a data opt-in.
 4. **Does the free tier train on your prompts?** This matters most.
     - Google AI Studio: on unpaid services Google uses submitted content to improve its products, and human reviewers may read it. Paid services differ.
-    - Groq: it does not retain inference data by default, and may keep logs for up to 30 days.
+    - Groq: it does not retain inference data (your prompts and the replies) by default, and may keep logs for up to 30 days.
     - OpenRouter: it does not log prompts by default, and retention varies with the provider behind the model.
 5. **Who else is in the path?** A router adds a party. Read its terms and the terms of the provider it picks. One router can send you to providers with different rules.
 
 The terms can differ **per model** inside one service. OpenCode Zen lists some free models with zero retention and others that may use your data for training. Read the line for the model you picked.
 
-Sensitive or unpublished data does not go to a hosted free tier. Use the Pet, or an approved service.
+Sensitive or unpublished data does not go to a hosted free tier. Use a model on your own computer, or an approved service.
 
 ## 3. A worked comparison: Mistral's terms
 
@@ -46,9 +50,9 @@ Mistral's terms show how much one provider's rules can vary. Read each point as 
 - **Opt-outs are per product.** For Studio and the API, the opt-out is in the Admin Panel under Privacy, and opting out of one product does not opt you out of another. For Labs and Public Preview models, the opt-out does not apply.
 - **Retention has its own options.** Zero data retention exists for some API requests on pay-as-you-go, and each request is reviewed. Agents, Conversations, Files, Chat and Vibe are excluded. You do not need zero retention to opt out of model training. For retention periods, check Mistral's current terms.
 - **Where inference runs can be chosen.** The global API endpoint does not commit to an inference location. The EU endpoint (`api.eu.mistral.ai`) runs in EU and EFTA data centers, so choose it on purpose if you need a European location. If location matters for Le Chat or Vibe, ask the vendor.
-- **A local open-weight model keeps prompts on your machine.** Open-weight Mistral models (for example `ministral-3:8b`, Apache 2.0) can run locally through Ollama. Tool or web calls may still send data out.
+- **A local open-weight model keeps prompts on your machine.** Open-weight Mistral models (for example `ministral-3:8b`, under the Apache 2.0 open-source licence) can run locally through Ollama (a program that runs models on your computer). Tool or web calls may still send data out.
 
-The sensitive-data rule holds for every plan above: unpublished or sensitive data stays on the Pet or an approved service.
+The sensitive-data rule holds for every plan above: unpublished or sensitive data stays on your own computer or an approved service.
 
 ## 4. Pairing a free model with an agent
 

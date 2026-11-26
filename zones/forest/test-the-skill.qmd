@@ -2,13 +2,17 @@
 title: "Test the Skill"
 ---
 
+::: {.ao-story}
+The smith holds the Skill up against an empty hand and asks the forest one question: does it do anything the bare hand cannot? Only if the two differ does the Skill stay. Testing costs something each time it is done, so the smith counts the cost before the first swing.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will read and write a small Claude Code eval case that checks a Skill is triggered, and know what running it costs.
 - **Before you start:** [Close the Loop](close-the-loop.html). Words used below: a **grader** is a check that marks a run pass or fail; an **arm** is one condition of the comparison (with the plugin, or without); a **judge model** is a second model that marks the answer; the **baseline** is the run without the change.
 - **Time:** about 20 minutes.
 :::
 
-Running an eval costs money. Every eval run and every judge-model grader is a real model call on your account. Reading this page and writing the files costs nothing. Running the eval is optional here and gives bonus XP only. Check what your institution allows before you spend.
+A Skill that never fires does nothing, and an eval case is how you find out. Running an eval costs money. Every eval run and every judge-model grader is a real model call on your account. Reading this page and writing the files costs nothing. Running the eval is optional here and gives bonus XP only. Check what your institution allows before you spend.
 
 ## Set up the plugin folder
 
@@ -87,7 +91,7 @@ Running an eval is the same trust decision as loading the plugin yourself (`--pl
 <div data-ao-honour="run-eval" data-xp="30">Run the cheap one-case command above on `exercises/forge/fasta-tools` with a cost ceiling, and open the `report.html`. Note whether the Skill fired.</div>
 <div data-ao-honour="write-case" data-xp="20">Write an eval case for a Skill of your own: a prompt that leaves it unnamed, and one grader.</div>
 
-## Battle: the eval
+## Battle: test the Skill
 
 <div data-ao-test="forest-test-the-skill" data-xp="60"></div>
 

@@ -2,13 +2,17 @@
 title: "Who Said What"
 ---
 
+::: {.ao-story}
+Three voices speak in the mill: the one that built it, the one you wrote down, and yours. Only one of them is you. Learn to tell them apart, and you will know whose rule you are following and who can change it.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will tell the system prompt, the instructions file and your own message apart, and know which you control and which only advise.
 - **Before you start:** [The Context Window](the-context-window.html). This is an optional side quest.
 - **Time:** about 15 minutes.
 :::
 
-When an agent follows a rule, it is fair to ask where that rule came from. The **harness** is the program around the model that runs tools and sends your text. It works with three common sources of rules, and they differ in who writes them, how long they last and whether anything enforces them.
+When an agent follows a rule, it is fair to ask where that rule came from, because the answer tells you who can change it. The **harness** is the program around the model that runs tools and sends your text. It works with three common sources of rules, and they differ in who writes them, how long they last and whether anything enforces them.
 
 ## The three voices
 

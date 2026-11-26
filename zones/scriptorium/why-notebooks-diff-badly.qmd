@@ -2,6 +2,10 @@
 title: "Why Notebooks Diff Badly"
 ---
 
+::: {.ao-story}
+Scribes in the Scriptorium keep notebooks, and every page is stuffed with outputs and images. Reviewing one change means wading through all of it. Find out why, then find the single line that mattered.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable.
 - **Before you start:** [Save Point](../crypt/shield-of-undo.html) (for `git diff`), and two tiny mock notebooks, [before.ipynb](../../exercises/scriptorium/before.ipynb) and [after.ipynb](../../exercises/scriptorium/after.ipynb) (about 2.5 KB each). They are mock files that omit cell ids, so they are not strictly valid nbformat 4.5. Save both into an empty folder.
@@ -58,7 +62,7 @@ Whatever you choose, the review habit is the same:
 - Run `git diff --stat` before committing and look for a notebook that grew by megabytes.
 - An output in a diff shows that something ran once; a re-run shows whether the code produces it.
 
-## With a companion
+## With an agent
 
 ::: {.panel-tabset group="companion"}
 

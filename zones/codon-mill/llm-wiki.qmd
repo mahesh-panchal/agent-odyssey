@@ -2,19 +2,23 @@
 title: "Keep a Living Wiki"
 ---
 
+::: {.ao-story}
+A scribe in the mill keeps a ledger that tidies itself. Each new sack of papers is read once, and every page it touches is updated and cross-linked before the scribe sleeps. A traveller wonders what such a ledger can and cannot be trusted with. Learn how it is built and where it can mislead you.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will describe the three layers and three jobs of an agent-kept wiki, match the pattern to a use case from your own work, and know where it can mislead you.
 - **Before you start:** [RAG and Its Cousins](rag-and-its-cousins.html). This is an optional side quest.
 - **Time:** about 25 minutes. Reading and planning only; you choose whether to build anything afterwards.
 :::
 
-## The itch
+## The problem: understanding that does not accumulate
 
 Think about the last time you read ten papers on a method, or went through six months of meeting notes. You understood it all at the time. A month later, the understanding lives in your head and in a pile of files, and the next question sends you back to the pile.
 
 RAG (retrieval-augmented generation) answers that with a lookup: each question searches the pile again, pastes a few passages into the prompt, and starts from scratch. Nothing builds up between questions. If an answer needs five documents stitched together, the stitching is redone every time.
 
-This quest follows Andrej Karpathy's "LLM Wiki" gist, which proposes another arrangement. An agent keeps a **wiki**: a folder of interlinked Markdown pages that it writes and updates as new sources arrive, so the stitching is done once and stays. The gist calls it a "persistent, compounding artifact". People drop their notes because the bookkeeping is tedious (updating links, rewriting summaries, spotting that two pages now disagree), and an agent does that bookkeeping without getting bored. You keep the parts that need a person: choosing sources, asking questions, and deciding what the findings mean.
+This quest follows Andrej Karpathy's "LLM Wiki" gist (a short shared text page), which proposes another arrangement. An agent keeps a **wiki**: a folder of interlinked Markdown pages (plain text files with simple formatting) that it writes and updates as new sources arrive, so the stitching is done once and stays. The gist calls it a "persistent, compounding artifact". People drop their notes because the bookkeeping is tedious (updating links, rewriting summaries, spotting that two pages now disagree), and an agent does that bookkeeping without getting bored. You keep the parts that need a person: choosing sources, asking questions, and deciding what the findings mean.
 
 The gist is an "idea file", meant to be handed to your agent so the two of you work out the details together. It describes a pattern and includes no program.
 
@@ -144,7 +148,7 @@ Habits that help:
 - **You may not learn it.** A wiki you never open does little for your own understanding. Read it, correct it and argue with it.
 - **Exact answers.** Counts, filters and joins over tables belong in a query tool, not in prose pages.
 
-## With a companion
+## Choose your setup
 
 ::: {.panel-tabset group="companion"}
 
@@ -158,7 +162,7 @@ Put the schema in `AGENTS.md` at the root of the wiki folder (OpenCode also fall
 
 :::
 
-## Battle: the living wiki
+## Battle: the wiki
 
 <div data-ao-test="codon-mill-llm-wiki" data-xp="60"></div>
 

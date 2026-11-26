@@ -2,13 +2,17 @@
 title: "Plug In a Server"
 ---
 
+::: {.ao-story}
+A heavy door in the Gatehouse opens onto the outside world, and whatever walks through acts with your keys. Before you open it, you learn what stands on the other side. The first thing to learn is what you are inviting in.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will treat an MCP server as software you install, then scope it, limit it and read what it sends back.
 - **Before you start:** [Grow the Carapace](../crypt/rules-of-the-carapace.html). A **permission rule** allows, asks about or denies a tool call. The **sandbox** is an operating-system layer that limits what shell commands can touch.
 - **Time:** about 15 minutes.
 :::
 
-The Model Context Protocol (**MCP**) is an open-source standard for connecting AI applications to external systems. A **server** is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. MCP is optional. It widens what the agent can reach, and every widening is a decision.
+The Model Context Protocol (**MCP**) is an open-source standard for connecting AI applications to external systems. A **server** is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. MCP is optional. Each server you connect widens what the agent can reach, so you decide at each connection what it may do and what it may see.
 
 ## A server is software you installed
 
@@ -51,7 +55,7 @@ Each server's tools appear in permission rules as `mcp__<server>__<tool>`, and `
 
 ## OpenCode + Ollama
 
-In the V2 docs, servers go under `mcp.servers`; V2 does not put server names directly under `mcp`. Check which version you have installed. A remote server:
+In OpenCode's V2 docs, servers go under `mcp.servers`; V2 does not put server names directly under `mcp`. Check which version you have installed. A remote server:
 
 ```json
 { "mcp": { "servers": { "mydocs": {
@@ -76,20 +80,20 @@ A server that fetches web pages, tickets or messages hands text written by someo
 - **Read fetched content sceptically,** and supervise any write access an agent uses on it.
 - **Deny the dangerous tools by name.** Permission rules still apply to server tools.
 
-The sandbox limits shell commands even if a prompt injection bypasses the model's decision-making. A server can take other routes, so treat the sandbox as one layer.
+The sandbox limits shell commands even if a prompt injection steers the model. It does not cover MCP servers, so treat it as one layer.
 
 ## Where a server comes from
 
-Servers, skills and plugins either run code or supply instructions to the agent, so each is a way in. A listing in a registry means the thing is easy to find. The official MCP registry lists self-reported data and runs no security review.
+Servers, skills and plugins either run code or supply instructions to the agent, so each is a way in. A listing in a registry (a public index of servers) means the thing is easy to find. The official MCP registry lists self-reported data and runs no security review.
 
 - **Prefer a source that records** the maintainer and a review date.
-- **Check what the interface is allowed to do** before you connect it.
-- **Ask your institution for a vetted list.** If it has none, treat every interface as unvetted.
+- **Check what the server is allowed to do** before you connect it.
+- **Ask your institution for a vetted list.** If it has none, treat every server as unvetted.
 - **Hidden instructions are possible.** A tool description can carry instructions you never see, and a skill's instructions can tell the agent to send results to an outside address.
 
 <div data-ao-honour="gatehouse-read-a-server" data-xp="20">Pick an MCP server you might use. Write down who publishes it, the tools it lists, the credential it needs, and whether a read-only version exists. Hold off installing it for now.</div>
 
-## Battle: the heavy door
+## Battle: servers and trust
 
 <div data-ao-test="gatehouse-plug-in-a-server" data-xp="50"></div>
 

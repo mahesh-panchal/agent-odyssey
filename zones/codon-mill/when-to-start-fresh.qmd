@@ -2,6 +2,10 @@
 title: "When to Start Fresh"
 ---
 
+::: {.ao-story}
+The hopper is filling. A good miller knows the signs that it is time to empty it, and the signs that emptying it would waste the day. Today you learn to read them, and what to write down before you tip anything out.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will name the signals that say "start a new session", the signals that say "carry on", and when compacting fits better than either.
 - **Before you start:** [Memory, Sessions and Usage](memory-sessions-and-usage.html)
@@ -12,7 +16,7 @@ You have a conversation open with an agent. It has read files, tried things and 
 
 ## Words first
 
-- **Session:** one saved conversation with the tool.
+- **Session:** one saved conversation with the agent.
 - **Context:** the text the model can see right now. It has a fixed size limit.
 - **Compacting:** replacing the long history with a short summary and carrying on in the same conversation.
 - **Starting fresh:** opening a new, empty conversation. Your files stay as they are.
@@ -22,7 +26,7 @@ You have a conversation open with an agent. It has read files, tried things and 
 1. **A new, unrelated task.** Run `/clear` between unrelated tasks. It costs nothing, and the next task stops paying for the previous one's history. A session holding three unrelated tasks re-reads all three on every turn of the fourth. A name, as in `/clear oauth-migration`, labels the conversation you leave so you can find it again.
 2. **The agent repeats a wrong claim after two corrections.** Clear, and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts.
 3. **You notice it forgetting early instructions or contradicting itself.** A crowded or degraded context is the usual cause. Start fresh, and move the instruction into the instructions file (`CLAUDE.md`). Detailed early instructions can also be lost when a conversation is compacted.
-4. **You have been away for a while and the next task is new.** The tool keeps a **cache**, a short-term store that makes re-reading the conversation cheaper. It lasts about an hour on a subscription and five minutes with an API key. A very long session (past about 200 thousand tokens) that sits idle may be compacted shortly before the cache expires, so you return to a summary. If you do not need the history, a fresh session costs less.
+4. **You have been away for a while and the next task is new.** Claude Code keeps a **cache**, a short-term store that makes re-reading the conversation cheaper. It lasts about an hour on a subscription and five minutes with an API key. A very long session (past about 200 thousand tokens) that sits idle may be compacted shortly before the cache expires, so you return to a summary. If you do not need the history, a fresh session costs less.
 5. **The context is crowded.** Run `/context`: it shows what fills the window. A crowded window with a task you still need is a reason to compact (below). A crowded window full of dead ends is a reason to clear.
 6. **A task is finished and a verified result is committed.** The result lives in your files and in git, so the conversation has done its job. The same move works after a spec (a written description of what to build): write it down, then start a fresh session to build from it.
 
@@ -31,7 +35,7 @@ You have a conversation open with an agent. It has read files, tried things and 
 - **Same task, early decisions still matter:** the next step needs the same files, the decisions you made and what was already tried.
 - **The agent is on track:** nothing is repeated or contradicted. Clearing a working session throws away good context.
 - **You are returning to a named session:** `/resume` (or `claude --resume <name>`) reopens a session you chose, and `claude --continue` reopens the most recent one in this directory. Resume restores the messages, model and permission mode (what the agent may do without asking). Pass startup flags such as `--mcp-config` again. A compacted session continues from its last summary.
-- **The tool offers to resume after a long break:** on some plans a dialog estimates how much of your usage limit the saved conversation would use. Choose by whether your next task still needs it.
+- **Claude Code offers to resume after a long break:** on some plans a dialog estimates how much of your usage limit the saved conversation would use. Choose by whether your next task still needs it.
 
 ## The middle path: compact
 
@@ -40,7 +44,7 @@ You have a conversation open with an agent. It has read files, tried things and 
 - **Kept:** your requests and key code snippets.
 - **May be lost:** detailed instructions from early in the conversation. Restate any that matter.
 - **Re-supplied afterwards:** the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions. Up to five recently used files are re-read.
-- **Automatic:** the tool also compacts as you approach the limit. A manual `/compact` lets you choose the moment and the emphasis.
+- **Automatic:** Claude Code also compacts as you approach the limit. A manual `/compact` lets you choose the moment and the emphasis.
 - **Cost:** compacting reads the whole conversation once, so it uses some of your usage.
 
 ## The decision ladder
@@ -92,7 +96,7 @@ OpenCode has `/new` (alias `/clear`), `/sessions` (aliases `/resume`, `/continue
 
 :::
 
-## Battle: empty the hopper or not
+## Battle: start fresh or carry on
 
 <div data-ao-test="codon-mill-when-to-start-fresh" data-xp="50"></div>
 

@@ -2,6 +2,10 @@
 title: "Plan Before You Edit"
 ---
 
+::: {.ao-story}
+A surveyor walks the branch before the axe swings. A wrong cut on paper costs a line; a wrong cut on the tree costs the branch. The foresters keep a rule: no one cuts until the cut has been drawn, read aloud and questioned. You are about to learn how to draw one.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will ask an agent for a plan before it edits, review that plan like a reviewer, and know what a plan can and cannot guarantee.
 - **Before you start:** [Write the Brief](write-the-brief.html). The exercise uses mock files on your laptop and runs no model.
@@ -10,13 +14,13 @@ title: "Plan Before You Edit"
 
 ## Why plan first
 
-A wrong plan costs you a paragraph to read and reject. A wrong 400-line **diff** (the list of lines a change added and removed) costs you the time to review it, and the longer it is, the more likely you approve something you did not understand. A plan is the cheapest piece to ask for first. Ask for small pieces, and accept only as much output as you can honestly review.
+A wrong plan costs you a paragraph to read and reject. A wrong 400-line **diff** (the list of lines a change added and removed) costs you the time to review it, and the longer it is, the more likely you approve something you did not understand. A plan is the cheapest piece to ask for first. You do this before the agent changes anything that matters. Ask for small pieces, and accept only as much output as you can honestly review.
 
 Use plan mode for changes you want to review before they touch disk.
 
 ## How: plan mode
 
-Words used below:
+Terms used in the tabs below:
 
 - **Session:** one conversation with the agent.
 - **Shell commands:** commands you would type in a terminal, such as `ls` or `git status`.
@@ -121,7 +125,7 @@ Everything here is a mock on your laptop, and no model runs. Save [mock-plan.md]
 <div data-ao-honour="review-real-plan" data-xp="25">Review the plan the agent proposes for your next real task with the checklist before approving. Write down one thing you changed or rejected.</div>
 <div data-ao-honour="save-plan" data-xp="25">Ask for the plan to be saved to a file in your project, and open the file to check it matches what you approved.</div>
 
-## Battle: the plan
+## Battle: plan before you edit
 
 <div data-ao-test="forest-plan-before-you-edit" data-xp="50"></div>
 

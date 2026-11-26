@@ -2,13 +2,17 @@
 title: "The Project Charter"
 ---
 
+::: {.ao-story}
+A carved stone stands at the forest's heart, holding what every traveller should know: where the paths run, which trees are not to be touched. Everyone who passes reads it. The stone advises. It cannot bind. Learn to write on it, and to tell what it does from what it cannot do.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will give the agent standing instructions for a project, and know where instructions end and enforcement begins.
 - **Before you start:** [Write the Brief](write-the-brief.html). [Who Said What](../codon-mill/who-said-what.html) helps.
 - **Time:** about 15 minutes.
 :::
 
-Typing the same background every session is wasteful. A **project instructions file** is read at the start so the agent already knows the project's conventions.
+Typing the same background every session is wasteful. A **project instructions file** (a text file the agent reads at the start of each session) already holds the project's conventions. Write one early, before the agent works on real files.
 
 ::: {.panel-tabset group="companion"}
 
@@ -42,11 +46,11 @@ Instructions are advice. The instructions file is loaded as context, and a line 
 
 Instruction files go stale: a rule written for an older model, a path that no longer exists, two files that disagree. When instructions contradict each other, Claude may pick one arbitrarily.
 
-In Claude Code (v2.1.283 or later), `/doctor prompt-audit` checks your instruction files for outdated or conflicting content and writes a report with proposed edits. (`/doctor` is a **bundled skill**, a ready-made skill that ships inside the tool.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.
+In Claude Code (v2.1.283 or later), `/doctor prompt-audit` checks your instruction files for outdated or conflicting content and writes a report with proposed edits. (`/doctor` is a **bundled skill**, a ready-made skill that ships inside Claude Code.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.
 
 ## Write docs for the agent too
 
-An agent works on your code and data from the docstrings and descriptions it finds. Write them as if an agent will re-run the work:
+An agent works on your code and data from the docstrings (the description at the top of a function) and other descriptions it finds. Write them as if an agent will re-run the work:
 
 - **Units, data versions and assumptions:** put them in the docstring or next to the code.
 - **Renames:** update the docstring when you rename a parameter. An agent that reads an old docstring calls a name that no longer exists.
@@ -54,7 +58,7 @@ An agent works on your code and data from the docstrings and descriptions it fin
 
 <div data-ao-honour="write-charter" data-xp="15">Write a short instructions file (about ten lines) for one of your real projects: how to run its tests, where data lives, and one thing the agent should leave alone.</div>
 
-## Battle: the charter
+## Battle: standing instructions
 
 <div data-ao-test="forest-the-project-charter" data-xp="60"></div>
 

@@ -2,6 +2,10 @@
 title: "Close the Loop"
 ---
 
+::: {.ao-story}
+A hunter's log hangs from a branch of the great tree: every time the machine went astray, a note of what was asked and what went wrong. Most hunters read it once and forget. The careful ones turn each entry into a small test, so the same mistake cannot return unnoticed.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will turn "it did the wrong thing" into a measured fix, and know when the fix has stopped working.
 - **Before you start:** [Forge a Skill](forge-a-skill.html). A **Skill** is a procedure the agent loads when it is relevant.
@@ -52,7 +56,7 @@ The number that matters is the **difference** between *with* and *without*. The 
 
 Evals can be wrong too. A check that always passes, or that fails correct answers, tells you little. Read a few raw outputs by hand before trusting a score.
 
-## Four habits before you rely on a tool
+## Four habits before you rely on an agent setup
 
 - **Known answers:** test on cases where you already know the right answer.
 - **Repeat:** run each case several times, since one pass can be luck.
@@ -63,7 +67,7 @@ When a model does the grading, a judge from the same family as the model being j
 
 <div data-ao-honour="loop-notes" data-xp="20">Keep a short list of the times an agent went wrong for you. Each entry is a candidate Skill and a ready-made eval case.</div>
 
-## Battle: the loop
+## Battle: close the loop
 
 <div data-ao-test="forest-close-the-loop" data-xp="60"></div>
 

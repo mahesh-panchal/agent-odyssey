@@ -2,18 +2,22 @@
 title: "Read the Rails"
 ---
 
+::: {.ao-story}
+The rails look sound from a distance, but one points at a private road and another melts the cargo it carries. Reading the rails is how you find them. Learn the four flaws that turn up most.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will spot the common mistakes in agent-written pipeline rules by reading them.
 - **Before you start:** [Dry Run First](dry-run-first.html).
 - **Time:** about 10 minutes.
 :::
 
-Pipelines fail quietly in a few recurring ways. When you review a rule, ask where each input comes from, where each output goes, and what would change if you re-ran it.
+An agent can write pipeline rules that run and still produce the wrong result, so reading them is part of the check. Pipelines fail quietly in a few recurring ways. When you review a rule, ask where each input comes from, where each output goes, and what would change if you re-ran it.
 
 Common mistakes:
 
 - **Hard-coded path:** a path to someone's home directory or to one sample.
-- **Undeclared output:** the manager cannot tell what a step made.
+- **Undeclared output:** the workflow manager (the tool that runs the steps, such as Snakemake or Nextflow) cannot tell what a step made.
 - **Unpinned tool version:** results change when the environment does.
 - **Overwritten inputs:** a step changes its input in place, so there is no way back.
 

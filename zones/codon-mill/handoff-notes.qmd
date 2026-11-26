@@ -2,6 +2,10 @@
 title: "Handoff Notes"
 ---
 
+::: {.ao-story}
+A fresh session knows nothing about your task except what loads by itself or is written down. The mill keeps a ledger of notes for exactly this gap. Learn what belongs in it, and the next visit starts where the last one stopped.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will list the five things that carry knowledge into a fresh session, and write a short handoff note a fresh session can act on, with what was checked kept apart from what was not.
 - **Before you start:** [The Stream of Ideas](the-stream-of-ideas.html). Commands here are Claude Code commands.
@@ -23,12 +27,12 @@ Anything it should know has to cross the gap in writing.
 | What | Goes where | Lifetime | Who writes it | Trust |
 |---|---|---|---|---|
 | Stable rules and conventions | Instructions file | Until you edit it | You | High if short and checked |
-| Preferences the tool picked up | Auto memory | Until deleted | The tool | Medium: it can be wrong |
+| Preferences the harness picked up | Auto memory | Until deleted | The harness | Medium: it can be wrong |
 | What the files say now | Files in the repository | Until edited or deleted | You or the agent | Medium: files can be stale |
 | State of one task | Handoff note | Until the task is done | You, or the agent drafts and you review | Only as good as your review |
 | What changed, and why | Commit messages in git history | Durable unless rewritten; local until pushed | You or the agent | Reliable for what changed; the why is only as good as the message |
 
-Memory the tool wrote can be wrong, and a wrong line is loaded again every session. This is **context poisoning**: a wrong statement enters the context and later answers build on it. Read `/memory` and check any claim against the source before you rely on it.
+Memory the harness wrote can be wrong, and a wrong line is loaded again every session. This is **context poisoning**: a wrong statement enters the context and later answers build on it. Read `/memory` and check any claim against the source before you rely on it.
 
 Three habits help a long task: keep a progress notes file, make git commits with descriptive messages so bad changes can be reverted, and begin each session by reading the progress file and the recent git log, then run a basic check before new work.
 
