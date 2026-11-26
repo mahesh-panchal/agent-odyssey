@@ -8,7 +8,7 @@ A Blight spreads across the realm: plausible but false knowledge, grown wherever
 
 The Blight is not a monster from outside. It is what happens when a pact-bearer accepts gifts unexamined.
 
-## Creatures (all are **shokanju**, the umbrella word, same form for one or many)
+## Creatures (all are **shokanju**, the umbrella word for summoned creatures, same form for one or many; they are summoned, never hired)
 
 | Kind | Real thing | Nature |
 |---|---|---|
@@ -32,7 +32,7 @@ The Blight is not a monster from outside. It is what happens when a pact-bearer 
 ## Places
 
 - **Gaia's Rest** (zone slug `basecamp`): the tavern where the adventure starts. Boasters tell tales of extraordinary pacts. A few patrons whisper, quietly, of the devastation they caused. An old wanderer hands each traveller the **Summoning Scroll**, which is the Prerequisites page (story word only; the page keeps its plain title).
-- **The Collegium** (zone slug `kennel`): an academy with three halls, used as story labels only. The **tinkerers' hall** makes automata (it leads on to the Pipeline Factory and has no quest of its own). The **beastmasters' hall** trains familiars (Should You Fine-Tune?). The **spellbinders' hall** interprets scrolls and makes pacts with Astrals (Set Up Your Agent, Pick Your Model, Free Is Not Free, Claude in the Cloud). The academics warn about limits; the learner may ignore them, as the tavern patrons did.
+- **The Collegium** (zone slug `kennel`): an academy of three colleges, used as story labels only, where academics mill about and respect one another because each knows the strengths and weaknesses of the shokanju (summoned beasts, never hired). The **tinkers' college** builds automata (it leads on to the Pipeline Factory and has no quest of its own). The **beastmasters' college** trains familiars (Should You Fine-Tune?). The **sages' college** interprets scrolls and makes pacts with Astrals (Set Up Your Agent, Pick Your Model, Free Is Not Free, Claude in the Cloud). Three Kinds of Machine is set in the Collegium among all three colleges, and Set Up Your Agent returns to the sages' college. The academics warn about limits; the learner may ignore them, as the tavern patrons did.
 - Other zones keep their names (Ancient DNA Crypt, Codon Mill, Sequence Maze, Phylogenetic Forest, Gatehouse, Biodiversity Reef, Pipeline Factory, Scriptorium, Cluster Citadel, The Murk's Heart) and their local characters (warden, miller, smith, surveyor, queue master, watchman). The Crypt track label is "Wards".
 
 ## The four cautionary patrons (in Gaia's Rest, not the party)

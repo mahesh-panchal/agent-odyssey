@@ -161,7 +161,9 @@ img.ao-boss-img { display: block; margin: 1rem auto; width: 192px; max-width: 10
 .ao-tree .ao-lock { font-size: 20px; stroke: none; }
 .ao-treekey { font-size: 14px; } .ao-treekey span { margin-right: .8rem; white-space: nowrap; }
 
-img.ao-persona-img { float: left; width: 144px; max-width: 40%; height: auto; margin: 0 1rem .5rem 0; image-rendering: pixelated; }
-img.ao-kind-img { width: 31%; max-width: 160px; height: auto; margin: .5rem 1% 0; image-rendering: pixelated; }
+img.ao-persona-img { float: left; width: 192px; max-width: 45%; height: auto; margin: 0 1rem .5rem 0; image-rendering: pixelated; }
+img.ao-kind-img { width: 100%; max-width: 192px; height: auto; margin: 0; image-rendering: pixelated; }
+.ao-kinds { display: flex; justify-content: center; gap: 2%; margin: .5rem 0; }
+.ao-kinds p { flex: 1 1 0; margin: 0; text-align: center; }
 
 .ao-storykey { font-size: .8rem; opacity: .75; margin: -.5rem 0 1rem; }

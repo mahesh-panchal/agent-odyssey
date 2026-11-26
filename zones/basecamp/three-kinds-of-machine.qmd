@@ -3,9 +3,15 @@ title: "Three Kinds of Machine"
 ---
 
 ::: {.ao-story}
-Behind Gaia's Rest, in a lamplit yard, three kinds of creature wait to be hired. Clockwork automata click along the wall, doing the same thing every time and walking straight into the river if the bridge is out. Familiars rest in straw, each trained to hunt one quarry, and an Astral coils above the well, able to speak every tongue and tempted to invent when it does not know. A traveller who hires the wrong kind wastes the day. Learn what each is for, and the next stop shows how to bind one.
+The Collegium rings with work from dawn. In one college tinkers hammer automata together out of brass and patience, in another beastmasters drill familiars to hunt a single quarry, and in the sages' college robed figures bargain pacts with Astrals. The three colleges respect one another, because each knows what the shokanju it summons are good at and where they fail: automata never stray and never improvise, familiars are sure on their one trail, and an Astral can speak every tongue and still invent what it does not know. A tinker nods to a familiar as it passes, and a sage asks the tinker to build the lock that keeps an Astral honest. Learn what each is for, and later how to make a pact with an Astral of your own.
 
-![](../../assets/img/kind-automaton.png){.ao-kind-img fig-alt="Pixel-art clockwork automaton: a brass creature with a gear in its side and a wind-up key."} ![](../../assets/img/kind-familiar.png){.ao-kind-img fig-alt="Pixel-art familiar: a trained hound with a collar and a small glowing rune tag."} ![](../../assets/img/kind-astral.png){.ao-kind-img fig-alt="Pixel-art Astral: a starry dragon-serpent of light with horns and a gold eye."}
+::: {.ao-kinds}
+![](../../assets/img/kind-automaton.png){.ao-kind-img fig-alt="Pixel-art clockwork automaton: a brass creature with a gear in its side and a wind-up key."}
+
+![](../../assets/img/kind-familiar.png){.ao-kind-img fig-alt="Pixel-art familiar: a trained hound with a collar and a small glowing rune tag."}
+
+![](../../assets/img/kind-astral.png){.ao-kind-img fig-alt="Pixel-art Astral: a starry dragon-serpent of light with horns and a gold eye."}
+:::
 
 From left to right: an automaton, a familiar and an Astral.
 :::

@@ -11,13 +11,13 @@ gitignored and rebuilt at pre-render.
 | `assets/img/boss-wall-broken.png` | The Wall, broken frame | 48x48 | `make_art.py` | CC BY 4.0 |
 | `assets/img/boss-murk.png` | final boss, The Murk | 48x48 | `make_art.py` | CC BY 4.0 |
 | `assets/img/boss-murk-cleared.png` | The Murk cleared (ending screen) | 48x48 | `make_art.py` | CC BY 4.0 |
-| `assets/img/persona-guildmaster.png` | Guildmaster portrait (project or research manager), front page party | 48x48 | `make_art.py` | CC BY 4.0 |
-| `assets/img/persona-diviner.png` | Diviner portrait (bioinformatics analyst), front page party | 48x48 | `make_art.py` | CC BY 4.0 |
-| `assets/img/persona-artificer.png` | Artificer portrait (bioinformatics engineer), front page party | 48x48 | `make_art.py` | CC BY 4.0 |
-| `assets/img/persona-archivist.png` | Archivist portrait (data steward), front page party | 48x48 | `make_art.py` | CC BY 4.0 |
-| `assets/img/kind-automaton.png` | Automaton: clockwork creature for scripts and pipelines | 48x48 | `make_art.py` | CC BY 4.0 |
-| `assets/img/kind-familiar.png` | Familiar: trained creature for ML models | 48x48 | `make_art.py` | CC BY 4.0 |
-| `assets/img/kind-astral.png` | Astral: dragon spirit for LLMs | 48x48 | `make_art.py` | CC BY 4.0 |
+| `assets/img/persona-guildmaster.png` | Guildmaster portrait (project or research manager), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
+| `assets/img/persona-diviner.png` | Diviner portrait (bioinformatics analyst), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
+| `assets/img/persona-artificer.png` | Artificer portrait (bioinformatics engineer), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
+| `assets/img/persona-archivist.png` | Archivist portrait (data steward), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
+| `assets/img/kind-automaton.png` | Automaton: clockwork creature for scripts and pipelines | 96x96 | `make_art.py` | CC BY 4.0 |
+| `assets/img/kind-familiar.png` | Familiar: trained creature for ML models | 96x96 | `make_art.py` | CC BY 4.0 |
+| `assets/img/kind-astral.png` | Astral: dragon spirit for LLMs | 96x96 | `make_art.py` | CC BY 4.0 |
 
-Boss portraits are drawn at 48x48 and shown with the `ao-boss-img` image class (`image-rendering: pixelated`, about 192px wide). Party and creature-kind portraits use the same size and class. The Claude Astral and the lesser Astrals share one picture; the route shows in the tab and label. Replacement art (hand-drawn or generated)
+Boss portraits are drawn at 48x48 and shown with the `ao-boss-img` image class (`image-rendering: pixelated`, about 192px wide). Party and creature-kind portraits are drawn at 96x96 (twice the boss size) and shown at 192px, an exact multiple, so the pixels stay crisp. The Claude Astral and the lesser Astrals share one picture; the route shows in the tab and label. Replacement art (hand-drawn or generated)
 can drop into the same slots. Do not imitate any existing game's characters or sprites.

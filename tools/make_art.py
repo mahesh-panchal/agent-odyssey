@@ -225,146 +225,286 @@ save(boss_wall(2), OUT / "boss-wall-broken.png")
 save(boss_murk(), OUT / "boss-murk.png")
 save(boss_murk_cleared(), OUT / "boss-murk-cleared.png")
 
-# ---- Party portraits and creature kinds (48x48; same fixed-seed, fixed-palette approach) ----
-C = {"ink": "#1a1428", "skin": ["#f0c89a", "#c68642", "#8d5524", "#e0ac69"], "skin_sh": ["#d9aa7a", "#a86c30", "#6e3f18", "#c28d4f"],
-     "gold": "#e8b84a", "gold2": "#fff1b8", "brass": ["#b5873a", "#d7a84e", "#7e5a22"], "paper": "#efe3c2", "wax": "#a83232"}
+# ---- Party portraits and creature kinds (96x96: twice the boss size, same palette, still pixel art) ----
+Q = 96
+INK = "#1a1428"
 
-def outline_px(im, col=C["ink"]):
-    """Add a 1px ink outline around every opaque pixel."""
-    src = im.copy(); sp = src.load(); px = im.load()
-    for y in range(B):
-        for x in range(B):
-            if sp[x, y][3] == 0 and any(0 <= x + a < B and 0 <= y + b < B and sp[x + a, y + b][3] > 0
+def hx(c, a=255):
+    return tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) + (a,)
+
+def mixc(c1, c2, t):
+    a, b = hx(c1), hx(c2)
+    return "#%02x%02x%02x" % tuple(int(a[i] + (b[i] - a[i]) * t) for i in range(3))
+
+def lite(c, t=.25): return mixc(c, "#ffffff", t)
+def dark(c, t=.3): return mixc(c, "#1a1428", t)
+
+SKIN = [("#f4cfa4", "#e0b283", "#b9835a"), ("#d49a62", "#b97a45", "#8f5a30"),
+        ("#a8693a", "#8d5524", "#663a14"), ("#e8b87a", "#d09a5c", "#a8743a")]
+GOLD, GOLD2 = "#e8b84a", "#fff1b8"
+BRASS = ["#f0c870", "#d7a84e", "#b5873a", "#7e5a22"]
+
+def outline_img(im, col=INK):
+    src = im.copy(); sp = src.load(); px = im.load(); w, h = im.size
+    for y in range(h):
+        for x in range(w):
+            if sp[x, y][3] == 0 and any(0 <= x + a < w and 0 <= y + b < h and sp[x + a, y + b][3] > 40
                                          for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1))):
-                px[x, y] = tuple(int(col[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+                px[x, y] = hx(col)
     return im
 
-def bust(skin, hair, style, robe, robe2, trim, extra=None, glasses=False):
-    im = Image.new("RGBA", (B, B), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-    sk, ssh = C["skin"][skin], C["skin_sh"][skin]
-    if style == "long": d.rectangle([13, 12, 34, 34], fill=hair)
-    d.polygon([(6, 47), (9, 35), (17, 30), (30, 30), (38, 35), (41, 47)], fill=robe)       # shoulders
-    d.polygon([(6, 47), (9, 35), (13, 33), (12, 47)], fill=robe2)
-    d.polygon([(41, 47), (38, 35), (34, 33), (35, 47)], fill=robe2)
-    d.rectangle([21, 25, 26, 31], fill=ssh)                                                  # neck
-    d.polygon([(17, 30), (24, 38), (31, 30), (28, 30), (24, 34), (20, 30)], fill=trim)       # collar trim
-    d.ellipse([15, 8, 32, 27], fill=sk)                                                      # head
-    d.rectangle([15, 17, 16, 20], fill=sk); d.rectangle([31, 17, 32, 20], fill=sk)           # ears
-    if style in ("short", "long", "cap"):
-        d.pieslice([14, 5, 33, 22], 180, 360, fill=hair); d.rectangle([15, 11, 32, 13], fill=hair)
-    if style == "bald":
-        d.arc([14, 5, 33, 22], 200, 340, fill=hair)
+def sparkle2(d, x, y, big=False):
+    d.point((x, y), fill="#ffffff")
+    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)): d.point((x + dx, y + dy), fill=GOLD)
+    if big:
+        for dx, dy in ((2, 0), (-2, 0), (0, 2), (0, -2)): d.point((x + dx, y + dy), fill=GOLD2)
+
+def gear(d, cx, cy, r, teeth, body, hub):
+    import math
+    for i in range(teeth):
+        a = 2 * math.pi * i / teeth
+        x, y = cx + math.cos(a) * (r + 2), cy + math.sin(a) * (r + 2)
+        d.rectangle([x - 1.5, y - 1.5, x + 1.5, y + 1.5], fill=body)
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=body)
+    d.ellipse([cx - r + 3, cy - r + 3, cx + r - 3, cy + r - 3], outline=dark(body, .35))
+    d.ellipse([cx - 3, cy - 3, cx + 3, cy + 3], fill=hub)
+    d.point((cx - r + 3, cy - r + 3), fill=lite(body, .5))
+
+def eye(d, x, y, iris="#3a2a1a"):
+    d.rectangle([x, y, x + 6, y + 3], fill="#fff7ee")
+    d.rectangle([x + 2, y, x + 4, y + 3], fill=iris)
+    d.point((x + 3, y + 1), fill=INK); d.point((x + 2, y), fill="#ffffff")
+    d.line([x - 1, y - 1, x + 7, y - 1], fill=INK)
+
+def bust(skin, hair, style, robe, trim, extra=None, glasses=False, hood_col=None):
+    im = Image.new("RGBA", (Q, Q), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    sl, sb, ss = SKIN[skin]
+    robe_d, robe_l = dark(robe, .3), lite(robe, .18)
+    if style == "long":
+        d.polygon([(24, 40), (28, 14), (48, 8), (68, 14), (72, 40), (74, 84), (22, 84)], fill=hair)
     if style == "hood":
-        d.pieslice([12, 3, 35, 24], 180, 360, fill=robe2); d.rectangle([12, 13, 15, 26], fill=robe2); d.rectangle([32, 13, 35, 26], fill=robe2)
-        d.ellipse([16, 10, 31, 26], fill=sk)
-    d.point((20, 18), fill=C["ink"]); d.point((27, 18), fill=C["ink"])
-    d.line([22, 23, 25, 23], fill=ssh)
+        d.polygon([(14, 70), (12, 36), (22, 14), (48, 2), (74, 14), (84, 36), (82, 70)], fill=hood_col)
+        d.polygon([(14, 70), (12, 36), (22, 14), (30, 10), (22, 36), (22, 70)], fill=dark(hood_col, .3))
+    d.polygon([(6, 96), (10, 74), (28, 62), (68, 62), (86, 74), (90, 96)], fill=robe)                # shoulders
+    d.polygon([(6, 96), (10, 74), (22, 68), (20, 96)], fill=robe_d)
+    d.polygon([(90, 96), (86, 74), (74, 68), (76, 96)], fill=robe_d)
+    for (x0, y0, x1, y1) in ((34, 70, 30, 96), (62, 70, 66, 96), (48, 86, 48, 96)): d.line([x0, y0, x1, y1], fill=robe_d)
+    d.line([40, 68, 36, 96], fill=robe_l); d.line([14, 76, 24, 68], fill=robe_l)
+    d.line([12, 74, 28, 63], fill=trim)                                                              # shoulder trim
+    d.line([84, 74, 68, 63], fill=dark(trim, .2))
+    d.rectangle([41, 48, 55, 64], fill=sb); d.rectangle([41, 56, 55, 63], fill=ss)                    # neck and its shadow
+    d.polygon([(33, 62), (48, 84), (63, 62), (57, 62), (48, 74), (39, 62)], fill=trim)               # collar
+    d.line([39, 62, 48, 74], fill=dark(trim, .3)); d.line([48, 74, 57, 62], fill=lite(trim, .3))
+    d.ellipse([28, 12, 68, 58], fill=sb)                                                             # head
+    d.ellipse([28, 12, 64, 54], fill=sl)
+    d.ellipse([33, 17, 49, 32], fill=lite(sl, .35))                                                  # forehead light
+    d.arc([28, 12, 68, 58], 300, 90, fill=ss, width=3)                                               # jaw shade
+    for ex in ((25, 31), (65, 71)):
+        d.ellipse([ex[0], 32, ex[1], 45], fill=sb); d.line([ex[0] + 2, 35, ex[0] + 2, 42], fill=ss)
+    eye(d, 37, 33); eye(d, 53, 33)
+    d.line([37, 29, 44, 28], fill=dark(hair, .1)); d.line([53, 28, 60, 29], fill=dark(hair, .1))
+    d.line([48, 36, 47, 44], fill=ss); d.line([46, 45, 50, 45], fill=ss); d.point((45, 44), fill=sb)  # nose
+    d.line([43, 50, 53, 50], fill="#8a4a3a"); d.line([44, 51, 52, 51], fill="#c47a68")               # mouth
+    d.point((36, 42), fill="#e89a80"); d.point((60, 42), fill="#e89a80")                              # cheeks
+    if style in ("short", "long", "hood_cap"):
+        d.polygon([(28, 36), (27, 22), (33, 12), (48, 7), (64, 12), (69, 22), (68, 36), (64, 27), (56, 21), (48, 19), (40, 22), (33, 27)], fill=hair)
+        for (x0, y0, x1, y1) in ((36, 12, 33, 24), (44, 9, 41, 21), (52, 9, 54, 20), (60, 12, 62, 22)): d.line([x0, y0, x1, y1], fill=lite(hair, .35))
+        d.rectangle([28, 30, 30, 40], fill=hair); d.rectangle([66, 30, 68, 40], fill=hair)
+    if style == "hood":
+        d.polygon([(26, 40), (26, 20), (34, 11), (48, 8), (62, 11), (70, 20), (70, 40), (64, 26), (56, 21), (48, 19), (40, 21), (32, 26)], fill=hood_col)
+        d.line([30, 18, 38, 12], fill=lite(hood_col, .25)); d.line([58, 12, 66, 18], fill=lite(hood_col, .25))
+    if style == "long":
+        d.rectangle([26, 36, 31, 76], fill=hair); d.rectangle([65, 36, 70, 76], fill=hair)
+        d.line([28, 40, 28, 74], fill=lite(hair, .3)); d.line([68, 40, 68, 74], fill=dark(hair, .2))
     if glasses:
-        d.rectangle([18, 16, 22, 20], outline=C["ink"]); d.rectangle([25, 16, 29, 20], outline=C["ink"]); d.line([22, 18, 25, 18], fill=C["ink"])
+        d.rectangle([35, 31, 46, 39], outline=INK); d.rectangle([50, 31, 61, 39], outline=INK); d.line([46, 34, 50, 34], fill=INK)
+        d.line([36, 32, 39, 32], fill="#cfe9ff"); d.line([51, 32, 54, 32], fill="#cfe9ff")
     if extra: extra(d, im)
-    return outline_px(im)
+    return outline_img(im)
 
 def x_guildmaster(d, im):
-    d.rectangle([2, 38, 14, 47], fill=C["paper"], outline=C["ink"])                         # ledger
-    for y in (40, 42, 44): d.line([4, y, 12, y], fill="#9b8a60")
-    d.line([30, 34, 24, 40], fill=C["gold"]); d.line([18, 34, 24, 40], fill=C["gold"])       # chain of office
-    d.ellipse([22, 39, 26, 43], fill=C["gold"], outline=C["ink"])
-    d.ellipse([39, 36, 45, 42], fill=C["gold2"], outline=C["ink"]); d.point((42, 39), fill=C["gold"])   # milestone beacon
+    d.rectangle([2, 70, 32, 94], fill="#efe3c2", outline=INK)                                       # ledger
+    d.rectangle([2, 70, 6, 94], fill="#2f6b4f"); d.line([6, 70, 6, 94], fill=INK)
+    for y in (75, 79, 83, 87): d.line([10, y, 28, y], fill="#9b8a60")
+    d.rectangle([22, 90, 28, 94], fill="#a83232")
+    for (x0, y0, x1, y1) in ((34, 64, 48, 84), (62, 64, 48, 84)): d.line([x0, y0, x1, y1], fill=GOLD, width=2)   # chain
+    for t in range(1, 6):
+        x = 34 + (14 * t) / 6; y = 64 + (20 * t) / 6; d.point((x, y - 2), fill=GOLD2)
+    d.ellipse([42, 80, 54, 92], fill=GOLD, outline=INK); d.ellipse([45, 83, 51, 89], fill="#2f9a6f"); d.point((46, 84), fill="#ffffff")
+    d.ellipse([74, 64, 90, 80], fill="#fff1b8", outline=INK); d.ellipse([78, 68, 86, 76], fill=GOLD)    # milestone beacon
+    for (x, y) in ((82, 60), (92, 72), (72, 72), (82, 84)): d.point((x, y), fill=GOLD2)
+    sparkle2(d, 90, 56, True)
 
 def x_diviner(d, im):
-    d.ellipse([33, 33, 45, 45], fill="#bfe6f5", outline=C["ink"]); d.ellipse([35, 35, 40, 40], fill="#ffffff")   # ground-truth lens
-    d.line([33, 44, 28, 47], fill=C["brass"][0], width=2)
-    for (x, y) in ((5, 12), (42, 10), (7, 34)): sparkle(d, x, y)
+    d.ellipse([58, 62, 94, 96], fill=BRASS[1], outline=INK)                                         # lens in a brass ring
+    d.ellipse([62, 66, 90, 92], fill="#bfe6f5"); d.ellipse([66, 70, 80, 82], fill="#e8f8ff")
+    d.arc([62, 66, 90, 92], 200, 340, fill="#ffffff", width=2); d.point((68, 72), fill="#ffffff")
+    d.arc([62, 66, 90, 92], 20, 160, fill="#7ab8d8", width=2)
+    d.polygon([(60, 92), (52, 96), (62, 96)], fill=BRASS[2])
+    d.line([48, 64, 40, 70], fill="#a9b4ff")                                                         # clasp
+    for (x, y) in ((8, 24), (88, 18), (10, 56), (84, 48)): sparkle2(d, x, y, True)
 
 def x_artificer(d, im):
-    d.rectangle([15, 6, 32, 10], fill=C["brass"][1], outline=C["ink"])                      # goggles on the brow
-    d.ellipse([16, 5, 22, 11], fill="#9fd3e6", outline=C["ink"]); d.ellipse([25, 5, 31, 11], fill="#9fd3e6", outline=C["ink"])
-    d.rectangle([12, 34, 36, 47], fill="#7a4a24")                                            # leather apron
-    d.rectangle([20, 38, 28, 44], fill="#5a3a22", outline=C["ink"])
-    d.ellipse([36, 36, 45, 45], fill=C["brass"][1], outline=C["ink"]); d.ellipse([39, 39, 42, 42], fill=C["ink"])  # gear
-    for (x, y) in ((40, 34), (46, 40), (40, 47), (35, 40)): d.point((x, y), fill=C["brass"][1])
-    sparkle(d, 5, 20); sparkle(d, 44, 20)
+    d.rectangle([26, 14, 70, 22], fill=BRASS[2])                                                    # goggle strap on the brow
+    for cx in (36, 60):
+        d.ellipse([cx - 9, 8, cx + 9, 26], fill=BRASS[1], outline=INK); d.ellipse([cx - 6, 11, cx + 6, 23], fill="#9fd3e6")
+        d.arc([cx - 6, 11, cx + 6, 23], 200, 330, fill="#ffffff", width=1)
+    d.rectangle([44, 14, 52, 20], fill=BRASS[1])
+    d.polygon([(26, 74), (70, 74), (68, 96), (28, 96)], fill="#8a5428")                              # leather apron
+    d.polygon([(26, 74), (36, 62), (60, 62), (70, 74)], fill="#7a4a24")
+    d.rectangle([36, 82, 60, 94], fill="#6a3f1c", outline=INK); d.line([36, 86, 60, 86], fill="#b9803f")
+    for x in range(30, 68, 7): d.point((x, 76), fill="#c99a5a")
+    gear(d, 80, 82, 9, 8, BRASS[1], INK)
+    for (x, y) in ((6, 30), (88, 34), (10, 62)): sparkle2(d, x, y)
 
 def x_archivist(d, im):
-    d.ellipse([3, 36, 11, 44], outline=C["brass"][1], width=2)                               # key ring
-    d.line([11, 40, 18, 44], fill=C["brass"][1], width=2); d.rectangle([17, 43, 20, 46], fill=C["brass"][1])
-    d.rectangle([34, 37, 45, 46], fill=C["paper"], outline=C["ink"]); d.ellipse([37, 39, 42, 44], fill=C["wax"], outline=C["ink"])   # sealed scroll
-    d.rectangle([5, 12, 6, 12], fill=C["gold"])
+    d.ellipse([4, 72, 22, 90], outline=BRASS[1], width=3)                                           # key ring and keys
+    for (x0, y0, x1, y1) in ((18, 82, 34, 92), (14, 86, 28, 96)):
+        d.line([x0, y0, x1, y1], fill=BRASS[1], width=2); d.rectangle([x1 - 1, y1 - 1, x1 + 3, y1 + 3], fill=BRASS[2])
+    d.rectangle([66, 72, 92, 94], fill="#efe3c2", outline=INK); d.line([66, 78, 92, 78], fill="#cdbd90")
+    d.line([69, 82, 88, 82], fill="#9b8a60"); d.line([69, 86, 84, 86], fill="#9b8a60")
+    d.ellipse([74, 80, 86, 92], fill="#a83232", outline=INK); d.line([78, 84, 82, 88], fill="#d85a5a"); d.line([82, 84, 78, 88], fill="#d85a5a")
+    d.line([74, 94, 70, 96], fill="#a83232"); d.line([86, 94, 90, 96], fill="#a83232")
+    sparkle2(d, 10, 28)
 
 def personas():
     return {
-        "guildmaster": bust(0, "#5a3a22", "short", "#2f6b4f", "#245640", C["gold"], x_guildmaster),
-        "diviner":     bust(1, "#1a1428", "hood", "#3b3f8f", "#2b2f6e", "#a9b4ff", x_diviner),
-        "artificer":   bust(2, "#2a1a10", "short", "#b8672a", "#8f4f1f", C["brass"][1], x_artificer),
-        "archivist":   bust(3, "#7a7a8c", "long", "#6b5a8f", "#51436f", "#d8cfa3", x_archivist, glasses=True),
+        "guildmaster": bust(0, "#5a3a22", "short", "#2f6b4f", GOLD, x_guildmaster),
+        "diviner":     bust(1, "#1a1428", "hood", "#3b3f8f", "#a9b4ff", x_diviner, hood_col="#2b2f6e"),
+        "artificer":   bust(2, "#2a1a10", "short", "#b8672a", BRASS[1], x_artificer),
+        "archivist":   bust(3, "#8a8a9c", "long", "#6b5a8f", "#d8cfa3", x_archivist, glasses=True),
     }
 
+def fur(im, base, dk, lt, seed, density=.18):
+    """Scatter short fur strokes over pixels of colour `base`."""
+    r = random.Random(seed); px = im.load(); w, h = im.size; bb = hx(base)
+    for y in range(1, h - 1):
+        for x in range(1, w - 1):
+            if px[x, y][:3] == bb[:3] and r.random() < density:
+                c = hx(dk if r.random() < .6 else lt)
+                px[x, y] = c
+                if r.random() < .5 and px[x, y + 1][:3] == bb[:3]: px[x, y + 1] = c
+
 def kind_automaton():
-    im = Image.new("RGBA", (B, B), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-    b0, b1, b2 = C["brass"][0], C["brass"][1], C["brass"][2]
-    for x in (11, 18, 29, 36):                                                               # jointed legs
-        d.rectangle([x, 30, x + 3, 36], fill=b0); d.rectangle([x - 1, 36, x + 4, 42], fill=b2)
-    d.rectangle([9, 18, 38, 31], fill=b1)                                                    # body plates
-    d.line([9, 24, 38, 24], fill=b2)
-    for x in range(11, 37, 6): d.point((x, 20), fill=b2); d.point((x, 28), fill=b2)          # rivets
-    d.ellipse([18, 19, 29, 30], fill=b0, outline=C["ink"]); d.ellipse([21, 22, 26, 27], fill=C["ink"])   # gear with a hub
-    for (x, y) in ((23, 18), (23, 31), (17, 24), (30, 24)): d.rectangle([x, y, x + 1, y + 1], fill=b0)
-    d.rectangle([34, 11, 45, 22], fill=b1)                                                   # head
-    d.polygon([(40, 11), (42, 6), (44, 11)], fill=b0)                                        # ear plate
-    d.ellipse([38, 14, 43, 19], fill="#bfe6f5", outline=C["ink"]); d.point((40, 16), fill="#ffffff")      # lens eye
-    d.rectangle([43, 18, 46, 21], fill=b2)                                                   # muzzle
-    d.line([9, 22, 3, 18], fill=b2, width=2); d.line([3, 18, 3, 14], fill=b2, width=2)        # wind-up key
-    d.ellipse([1, 10, 6, 15], outline=b1, width=2)
-    d.rectangle([4, 43, 44, 44], fill=C["ink"])
-    return outline_px(im)
+    im = Image.new("RGBA", (Q, Q), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    b0, b1, b2, b3 = BRASS
+    d.ellipse([14, 88, 84, 95], fill=(26, 20, 40, 90))                                              # ground shadow
+    for x in (18, 30, 58, 68):                                                                       # legs with joints and feet
+        d.rectangle([x, 62, x + 8, 76], fill=b2); d.line([x + 1, 62, x + 1, 76], fill=b1)
+        d.ellipse([x - 1, 72, x + 9, 80], fill=b1, outline=INK); d.point((x + 4, 76), fill=b3)
+        d.rectangle([x + 1, 80, x + 7, 88], fill=b2); d.rectangle([x - 2, 88, x + 10, 92], fill=b3); d.line([x - 2, 88, x + 10, 88], fill=b1)
+    d.rounded_rectangle([10, 36, 76, 66], radius=6, fill=b1)                                         # body
+    d.rounded_rectangle([10, 36, 76, 44], radius=4, fill=b0)
+    d.line([10, 56, 76, 56], fill=b2); d.line([26, 36, 26, 66], fill=b2); d.line([60, 36, 60, 66], fill=b2)
+    for x in (14, 20, 32, 40, 48, 54, 66, 72):
+        for y in (40, 62): d.point((x, y), fill=b3); d.point((x - 1, y - 1), fill=b0)
+    d.ellipse([28, 42, 58, 64], fill=INK); d.ellipse([30, 44, 56, 62], fill="#2a2840")               # glass window on the belly
+    gear(d, 43, 53, 7, 8, b1, b3); gear(d, 52, 50, 4, 6, b0, b3)
+    d.arc([30, 44, 56, 62], 200, 300, fill="#9fd3e6", width=1)
+    d.polygon([(70, 38), (84, 24), (90, 32), (78, 52), (72, 62)], fill=b1)                           # neck
+    d.rounded_rectangle([74, 14, 94, 38], radius=4, fill=b1)                                         # head
+    d.line([76, 16, 92, 16], fill=b0)
+    d.polygon([(78, 14), (80, 4), (84, 14)], fill=b2); d.polygon([(86, 14), (90, 4), (92, 14)], fill=b2)   # ear plates
+    d.ellipse([80, 20, 90, 30], fill=INK); d.ellipse([81, 21, 89, 29], fill="#7fe0f5"); d.ellipse([83, 22, 86, 25], fill="#ffffff")
+    d.rounded_rectangle([88, 28, 96, 36], radius=2, fill=b2); d.point((93, 30), fill=INK); d.point((93, 33), fill=INK)
+    d.line([82, 14, 82, 6], fill=b3); d.ellipse([80, 2, 84, 6], fill="#7fe0f5")                      # antenna
+    pts = [(10, 44), (4, 40), (8, 36), (2, 32), (6, 28), (0, 24)]                                    # spring tail
+    d.line(pts, fill=b2, width=3)
+    d.line([30, 36, 24, 26, 18, 22], fill=b3, width=2); d.ellipse([10, 14, 24, 28], outline=b1, width=3); d.line([17, 21, 17, 28], fill=b1, width=2)   # winding key
+    for (x, y, r_) in ((66, 28, 3), (62, 20, 4), (58, 11, 3)): d.ellipse([x - r_, y - r_, x + r_, y + r_], fill=(235, 240, 250, 150))  # steam
+    return outline_img(im)
 
 def kind_familiar():
-    im = Image.new("RGBA", (B, B), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-    fur, fur2, belly = "#a8683a", "#7a4a26", "#f0d9b5"
-    d.polygon([(8, 38), (3, 24), (7, 20), (11, 30)], fill=fur2)                              # tail
-    d.polygon([(7, 20), (4, 16), (9, 18)], fill=belly)
-    d.ellipse([8, 22, 32, 44], fill=fur)                                                     # haunch and body
-    d.ellipse([20, 20, 34, 40], fill=fur)
-    d.rectangle([13, 36, 19, 45], fill=fur2); d.rectangle([24, 36, 30, 45], fill=fur2)       # legs
-    d.rectangle([12, 44, 20, 46], fill=belly); d.rectangle([23, 44, 31, 46], fill=belly)
-    d.polygon([(30, 8), (28, 0), (35, 6)], fill=fur2); d.polygon([(38, 6), (42, 0), (43, 9)], fill=fur2)   # ears
-    d.ellipse([28, 6, 44, 24], fill=fur)                                                     # head
-    d.polygon([(40, 14), (47, 18), (40, 23)], fill=belly)                                    # muzzle
-    d.point((46, 18), fill=C["ink"]); d.point((37, 12), fill=C["ink"]); d.point((38, 12), fill=C["ink"])
-    d.rectangle([29, 22, 41, 25], fill="#3b6fb6")                                            # collar
-    d.ellipse([33, 25, 38, 30], fill=C["gold"], outline=C["ink"]); d.line([35, 26, 35, 29], fill=C["ink"])       # rune tag
-    for (x, y) in ((5, 8), (44, 38), (3, 40)): sparkle(d, x, y)
-    return outline_px(im)
+    im = Image.new("RGBA", (Q, Q), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    fur1, fur2, fur3, cream = "#b06a3a", "#8a4a26", "#c98a52", "#f6e2bd"
+    d.ellipse([10, 88, 84, 95], fill=(26, 20, 40, 90))
+    d.polygon([(18, 86), (4, 60), (6, 38), (14, 30), (18, 48), (24, 68)], fill=fur2)                 # tail
+    d.polygon([(6, 38), (14, 30), (10, 44)], fill=cream)
+    d.ellipse([16, 44, 62, 92], fill=fur1)                                                           # body
+    d.ellipse([14, 60, 44, 92], fill=fur3)                                                           # haunch
+    d.polygon([(52, 44), (66, 52), (68, 80), (56, 92), (50, 70)], fill=fur1)
+    d.polygon([(54, 54), (66, 58), (62, 84), (54, 78)], fill=cream)                                  # chest tuft
+    d.rectangle([50, 74, 60, 92], fill=fur2); d.rectangle([46, 88, 62, 94], fill=cream)              # front leg and paw
+    d.rectangle([22, 84, 40, 94], fill=cream)                                                        # back paw
+    d.ellipse([46, 14, 86, 54], fill=fur1)                                                           # head
+    d.polygon([(76, 30), (96, 38), (80, 52)], fill=cream); d.polygon([(76, 30), (96, 38), (94, 42), (80, 38)], fill=fur3)   # muzzle
+    d.polygon([(48, 22), (46, 2), (62, 16)], fill=fur2); d.polygon([(52, 18), (50, 8), (58, 16)], fill="#e8a0a0")      # ears
+    d.polygon([(66, 14), (78, 0), (84, 18)], fill=fur2); d.polygon([(70, 14), (78, 6), (80, 16)], fill="#e8a0a0")
+    d.ellipse([58, 26, 70, 36], fill="#fff7ee"); d.ellipse([62, 27, 69, 36], fill="#3a2a1a"); d.point((65, 29), fill="#ffffff")
+    d.line([56, 24, 72, 22], fill=fur2, width=2)
+    d.ellipse([92, 36, 97, 41], fill=INK); d.line([86, 46, 94, 44], fill=INK)                        # nose and mouth
+    d.rectangle([52, 46, 80, 53], fill="#3b6fb6"); d.line([52, 47, 80, 47], fill="#6a9ad8")          # collar
+    d.ellipse([62, 52, 72, 62], fill=GOLD, outline=INK); d.line([67, 54, 67, 60], fill=INK); d.line([64, 57, 70, 57], fill=INK)   # rune tag
+    fur(im, fur1, fur2, fur3, 5); fur(im, fur3, fur1, "#e0a870", 6, .12)
+    for (x, y, x2, y2) in ((28, 66, 32, 74), (32, 66, 36, 74), (36, 66, 40, 74)):                    # glowing rune on the flank
+        d.line([x, y, x2, y2], fill="#7fe0f5"); d.point((x, y), fill="#ffffff")
+    for (x, y) in ((6, 12), (90, 70), (2, 82), (84, 6)): sparkle2(d, x, y)
+    return outline_img(im)
 
 def kind_astral():
-    """A starry serpent of light with a dragon's head: dark body, lighter head so the silhouette reads."""
-    im = Image.new("RGBA", (B, B), (0, 0, 0, 0)); d = ImageDraw.Draw(im); r = random.Random(21)
-    ctrl = [(5, 43), (9, 35), (17, 36), (26, 40), (34, 34), (37, 25), (31, 19)]             # S-curve from tail to neck
-    path = []
-    for i in range(len(ctrl) - 1):
-        (x0, y0), (x1, y1) = ctrl[i], ctrl[i + 1]
-        for t in range(12): path.append((x0 + (x1 - x0) * t / 12, y0 + (y1 - y0) * t / 12))
-    n = len(path); body = ["#1d2150", "#2a2f7a", "#3b3f9a", "#4d52b8"]
+    """A starry, winged serpent of light with a dragon's head. Shaded from a path, so the form reads as one creature."""
+    import numpy as np
+    r = random.Random(21)
+    ctrl = np.array([(8, 86), (14, 70), (30, 66), (44, 78), (60, 72), (72, 54), (64, 36), (56, 28)], float)
+    def spline(c, n=14):
+        out = []
+        for i in range(len(c) - 1):
+            p0 = c[max(i - 1, 0)]; p1 = c[i]; p2 = c[i + 1]; p3 = c[min(i + 2, len(c) - 1)]
+            for t in np.linspace(0, 1, n, endpoint=False):
+                out.append(.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t + (-p0 + 3 * p1 - 3 * p2 + p3) * t ** 3))
+        out.append(c[-1]); return np.array(out)
+    path = spline(ctrl); n = len(path); rad = 4 + 9 * (np.linspace(0, 1, n) ** .8)
+    im = Image.new("RGBA", (Q, Q), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    for sgn in (-1, 1):                                                                              # translucent wings behind the body
+        bx, by = path[int(n * .62)]
+        pts = [(bx, by), (bx + sgn * 8, by - 34), (bx + sgn * 30, by - 46), (bx + sgn * 40, by - 24), (bx + sgn * 22, by - 6)]
+        d.polygon(pts, fill=(185, 205, 255, 175)); d.polygon([pts[0], pts[1], pts[2]], fill=(205, 220, 255, 190))
+        for q in (pts[2], pts[3], pts[4]): d.line([pts[0], q], fill=(245, 250, 255, 230))
+    px = im.load(); ramp = ["#141844", "#1d2260", "#2a3290", "#3b46b8", "#5a6fe0", "#8aa0ff", "#c4d4ff"]
+    ys, xs = np.mgrid[0:Q, 0:Q]
+    dist = np.full((Q, Q), 1e9); idx = np.zeros((Q, Q), int)
     for i, (x, y) in enumerate(path):
-        rad = 1.5 + 4.5 * i / n
-        d.ellipse([x - rad, y - rad, x + rad, y + rad], fill=body[min(3, 4 * i // n)])
-    for i in range(0, n, 3):                                                                 # dorsal fins in cyan
-        x, y = path[i]; d.polygon([(x - 1, y - 4 - i // 12), (x + 1, y - 4 - i // 12), (x, y - 7 - i // 10)], fill="#7fe0f5")
-    hx, hy = 29, 12                                                                          # head
-    d.polygon([(hx - 7, hy - 4), (hx - 13, hy - 12), (hx - 3, hy - 8)], fill="#7fe0f5")      # horns
-    d.polygon([(hx + 1, hy - 8), (hx + 6, hy - 14), (hx + 8, hy - 6)], fill="#7fe0f5")
-    d.ellipse([hx - 8, hy - 7, hx + 8, hy + 8], fill="#b9a8ff")
-    d.polygon([(hx + 4, hy - 2), (hx + 16, hy + 2), (hx + 5, hy + 8)], fill="#d9ceff")       # snout
-    d.line([hx + 5, hy + 4, hx + 14, hy + 4], fill=C["ink"])                                 # mouth line
-    d.point((hx + 13, hy), fill=C["ink"])                                                    # nostril
-    d.rectangle([hx - 2, hy - 3, hx + 2, hy + 1], fill=C["ink"]); d.rectangle([hx - 1, hy - 2, hx + 1, hy], fill=C["gold"]); d.point((hx, hy - 2), fill=C["gold2"])
-    d.polygon([(hx - 8, hy + 2), (hx - 14, hy + 8), (hx - 6, hy + 6)], fill="#7fe0f5")       # whisker-mane
-    for _ in range(46):                                                                      # stars inside the body
-        x, y = r.randrange(2, 46), r.randrange(4, 46)
-        px = im.getpixel((x, y))
-        if px[3] > 0 and px[:3] != (0xb9, 0xa8, 0xff): d.point((x, y), fill=r.choice(["#ffffff", "#ffffff", C["gold"], "#c4d4ff"]))
-    for (x, y) in ((44, 36), (3, 22), (42, 44), (14, 12), (20, 26)): sparkle(d, x, y)
-    return outline_px(im)
+        dd = np.hypot(xs - x, ys - y); m = dd < dist; dist[m] = dd[m]; idx[m] = i
+    for y in range(Q):
+        for x in range(Q):
+            i = idx[y, x]
+            if dist[y, x] <= rad[i]:
+                f = dist[y, x] / rad[i]; up = (path[i][1] - y) / rad[i]
+                k = 2 + int(2 * (1 - f) + 2.2 * max(up, 0) - 1.4 * max(-up, 0))
+                if i % 8 == 0: k -= 1                                                                # segment rings
+                elif r.random() < .05: k += 1                                                        # faint sparkle
+                if up < -.55: k = 5 if (x // 3) % 2 else 6                                           # pale belly plates
+                px[x, y] = hx(ramp[max(0, min(6, k))])
+    d = ImageDraw.Draw(im)
+    for i in range(6, n - 6, 5):                                                                     # dorsal fins
+        x, y = path[i]; nx, ny = path[i + 1] - path[i - 1]; L = max((nx * nx + ny * ny) ** .5, 1)
+        ux, uy = ny / L, -nx / L
+        if uy > 0: ux, uy = -ux, -uy
+        h = 4 + rad[i] * .6
+        d.polygon([(x + ux * rad[i] - nx / L * 2, y + uy * rad[i] - ny / L * 2), (x + ux * (rad[i] + h), y + uy * (rad[i] + h)),
+                   (x + ux * rad[i] + nx / L * 2, y + uy * rad[i] + ny / L * 2)], fill="#7fe0f5")
+    hx_, hy_ = path[-1]                                                                              # head
+    d.polygon([(hx_ - 12, hy_ - 4), (hx_ - 24, hy_ - 14), (hx_ - 18, hy_ + 6)], fill="#ff9ad8")      # mane
+    d.polygon([(hx_ - 6, hy_ - 12), (hx_ - 16, hy_ - 26), (hx_ - 2, hy_ - 16)], fill="#7fe0f5")
+    d.polygon([(hx_ - 12, hy_ + 6), (hx_ - 26, hy_ + 10), (hx_ - 12, hy_ + 14)], fill="#7fe0f5")
+    d.ellipse([hx_ - 16, hy_ - 15, hx_ + 16, hy_ + 15], fill="#b9a8ff")
+    d.ellipse([hx_ - 14, hy_ - 15, hx_ + 6, hy_ - 3], fill="#d9ceff")
+    d.arc([hx_ - 16, hy_ - 15, hx_ + 16, hy_ + 15], 20, 140, fill="#8a78e0", width=3)
+    d.polygon([(hx_ + 8, hy_ - 6), (hx_ + 30, hy_ + 1), (hx_ + 30, hy_ + 9), (hx_ + 8, hy_ + 12)], fill="#d9ceff")   # snout
+    d.line([hx_ + 10, hy_ + 8, hx_ + 30, hy_ + 6], fill=INK)
+    for k in range(4): d.polygon([(hx_ + 12 + k * 5, hy_ + 8), (hx_ + 14 + k * 5, hy_ + 12), (hx_ + 16 + k * 5, hy_ + 7)], fill="#ffffff")   # teeth
+    d.point((hx_ + 25, hy_ - 1), fill=INK); d.point((hx_ + 27, hy_), fill=INK)
+    d.polygon([(hx_ - 4, hy_ - 10), (hx_ - 12, hy_ - 28), (hx_ + 2, hy_ - 12)], fill="#e4ecff")      # horns
+    d.polygon([(hx_ + 4, hy_ - 10), (hx_ + 8, hy_ - 26), (hx_ + 12, hy_ - 8)], fill="#e4ecff")
+    d.ellipse([hx_ - 2, hy_ - 7, hx_ + 8, hy_ + 1], fill=INK); d.ellipse([hx_, hy_ - 6, hx_ + 7, hy_], fill=GOLD)
+    d.line([hx_ + 3, hy_ - 6, hx_ + 3, hy_], fill=INK); d.point((hx_ + 1, hy_ - 5), fill=GOLD2)
+    d.line([hx_ + 20, hy_ + 2, hx_ + 34, hy_ + 14, hx_ + 40, hy_ + 10], fill="#7fe0f5")              # whiskers
+    d.line([hx_ + 20, hy_ + 6, hx_ + 32, hy_ + 22, hx_ + 38, hy_ + 22], fill="#7fe0f5")
+    for _ in range(70):                                                                              # stars in the body
+        x, y = r.randrange(2, Q - 2), r.randrange(2, Q - 2)
+        if im.getpixel((x, y))[3] == 255 and dist[y, x] <= rad[idx[y, x]] - 1: d.point((x, y), fill=r.choice(["#ffffff", "#ffffff", GOLD, "#c4d4ff"]))
+    for (x, y) in ((6, 52), (88, 82), (20, 20), (90, 20), (40, 90)): sparkle2(d, x, y, True)
+    return outline_img(im)
 
 for name, img in personas().items(): save(img, OUT / f"persona-{name}.png")
 save(kind_automaton(), OUT / "kind-automaton.png")

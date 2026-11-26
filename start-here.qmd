@@ -22,7 +22,7 @@ Agent Odyssey is a short role-playing course on using coding agents (LLM tools t
 ::: {.ao-key}
 The story uses a few names. The lessons themselves use plain technical words.
 
-- **Shokanju:** the umbrella word for every creature you can summon or hire, from scripts to language models.
+- **Shokanju:** the umbrella word for every creature you can summon (not hire), from scripts to language models.
 - **Automata:** clockwork creatures. Scripts and pipelines: obedient, the same every time, and brittle when the road changes.
 - **Familiars:** creatures trained for one task. Classical machine-learning models.
 - **Astrals:** spirits that speak every tongue. Language models and the coding agents built on them. Generous, fast and unbound from physical reality, so they invent when unchecked.
