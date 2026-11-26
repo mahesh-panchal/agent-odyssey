@@ -8,7 +8,7 @@ Stalls outside the Kennel hand out meat for free. Some is fresh, some is a trial
 
 ::: {.quest-dialog}
 - **Goal:** you will name what a "free" model offer costs you, sort offers into four kinds, and decide which data may go to which.
-- **Before you start:** [Adopt the Pet](adopt-the-pet.html) (running a model on your own computer) and [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html).
+- **Before you start:** [Recruit the Beast](recruit-the-beast.html) (including running a model on your own computer, on the OpenCode route) and [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html).
 - **Time:** about 20 minutes. The hands-on step uses a dummy prompt and no sensitive data.
 :::
 
@@ -85,7 +85,7 @@ If you cannot fill a cell from the provider's own page, write "not stated". That
 ## Related lessons
 
 - [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): for more on keys and on which data may leave your machine.
-- [Adopt the Pet](adopt-the-pet.html): run a model locally so prompts stay on your machine.
+- [Recruit the Beast](recruit-the-beast.html): run a model locally so prompts stay on your machine.
 - [Pick Your Companion](pick-your-companion.html): choose a model and effort level, and see Mistral's terminal agent.
 :::
 

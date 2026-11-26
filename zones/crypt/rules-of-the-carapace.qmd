@@ -8,7 +8,7 @@ Deeper in the Crypt, bare skin is not enough, and the Beast does not stop for a 
 
 ::: {.quest-dialog}
 - **Goal:** you will write permission rules that hold, and know where they stop holding.
-- **Before you start:** [Test the Leash](test-the-leash.html), or [Adopt the Pet](../kennel/adopt-the-pet.html) if you only run a local model.
+- **Before you start:** [Test the Leash](test-the-leash.html).
 - **Time:** about 20 minutes.
 :::
 
@@ -46,7 +46,7 @@ A deny from any file beats an allow from any file. A space before the `*` matter
 
 ## OpenCode
 
-Rules are an ordered array and the **last match wins**:
+OpenCode's default policy allows everything except reading `.env` files, which it asks about, and its shell is not a sandbox: a command can touch any file you can. Rules are an ordered array and the **last match wins**:
 
 ```json
 {

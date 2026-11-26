@@ -15,7 +15,7 @@ for t in ("order", "sort", "faulty-line", "match", "choice"):          # one rea
         (site / f"assets/data/shot-{t}.json").write_text(json.dumps({"pass": 0.8, "questions": [q]}))
         (site / f"shot-{t}.html").write_text('<!doctype html><link rel="stylesheet" href="assets/css/rpg.css"><body><div data-ao-test="shot-%s"></div>' % t + footer)
 srv = serve(site, 8766); base = "http://127.0.0.1:8766/"
-CLEARED = {"v": 1, "xp": 110, "passed": {"basecamp-name-the-fears": True, "basecamp-three-kinds-of-machine": True, "kennel-recruit-the-beast": True, "kennel-adopt-the-pet": True, "crypt-shield-of-undo": True},
+CLEARED = {"v": 1, "xp": 110, "passed": {"basecamp-name-the-fears": True, "basecamp-three-kinds-of-machine": True, "kennel-recruit-the-beast": True, "crypt-shield-of-undo": True},
            "prefs": {"companion": "claude-code", "language": "bash"}}
 
 def fresh(B, url): B.go(base + "index.html"); B.js("localStorage.clear()"); B.go(base + url)
@@ -46,7 +46,7 @@ SHOTS = [
     ("quest-gear-narrow", (600, 1800), lambda B: fresh(B, "zones/basecamp/know-your-gear.html")),
     ("quest-reef-wide", (1400, 900), lambda B: fresh(B, "zones/reef/the-reviewers-code.html")),
     ("map-midgame-narrow", (600, 900), lambda B: cleared(B, "index.html")),
-    ("quest-narrow", (600, 900), lambda B: fresh(B, "zones/kennel/adopt-the-pet.html")),
+    ("quest-narrow", (600, 900), lambda B: fresh(B, "zones/kennel/pick-your-companion.html")),
 ]
 
 def lore_view(B):                      # bring the Lore block into the frame

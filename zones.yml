@@ -49,7 +49,7 @@ branches:
       blurb: "Work with agents on a shared cluster without harming others or leaking keys.", entry: [citadel-login-node-manners] }
   - { id: reef, name: "People", who: "Anyone collaborating, reviewing others' work or teaching a group.",
       blurb: "Hand over, review and teach work involving agents, kindly and honestly.", entry: [reef-send-small-say-so] }
-  - { id: companions, name: "Companions and cloud", who: "People choosing models and effort, or considering cloud sessions.",
+  - { id: companions, name: "Models and cloud", who: "People choosing models and effort, or considering cloud sessions.",
       blurb: "Choose models and effort per job, and decide what may go to the cloud.",
       entry: [kennel-pick-your-companion, kennel-claude-in-the-cloud] }
 finale:
@@ -61,8 +61,9 @@ finale:
     branches: { any: 3, of: [memory, skills, guards, craft, notebooks, citadel, reef, companions] }
 prologue: >-
   A Blight is spreading: plausible but false knowledge that grows whenever nobody checks it. It seeps through
-  careless copy-and-paste, unreviewed output, and answers nobody understood. The tools are not the enemy. Walk the land,
-  recruit companions, build your immunity, and clear the Murk.
+  careless copy-and-paste, unreviewed output, and answers nobody understood. Travellers make pacts with Astrals,
+  spirits that speak every tongue, and the pact is a gift until it is unchecked. Walk the land, learn the
+  disciplines of the pact, and clear the Murk.
 gates:
   B: { id: basecamp, name: "Gaia's Rest",  track: "Prologue",   status: open,
        quests: [
@@ -78,18 +79,15 @@ gates:
          { id: basecamp-wade-in, after: [basecamp-know-your-gear], suggested: [], branch: trunk, trunk: true, optional: false, title: "Wade In", page: zones/basecamp/wade-in.html,
            story: "A shallow stream runs past Basecamp. A traveller stands on the bank, sure that crossing means being swept away, because the kennel master's patter says you cross at the Beast's side or you stay put.",
            done: "You can name the step you are on, what leaves your machine at it, and why you may stop there." } ] }
-  K: { id: kennel,   name: "The Kennel",            track: "Companions", status: open,
+  K: { id: kennel,   name: "The Collegium",         track: "Pacts", status: open,
        quests: [
          { id: kennel-recruit-the-beast, after: [crypt-shield-of-undo], suggested: [], branch: trunk, trunk: true, optional: false, title: "Recruit the Beast", page: zones/kennel/recruit-the-beast.html,
            story: "A great armoured beast sleeps in the Kennel, strong and unthinking. The kennel master sells it with a flourish and says it needs no teaching and no lead.",
            done: "The Beast stirs and falls in beside you. It is powerful and will do exactly what its permissions allow." },
-         { id: kennel-adopt-the-pet, after: [crypt-shield-of-undo], suggested: [], branch: companions, trunk: false, optional: true, title: "Adopt the Pet", page: zones/kennel/adopt-the-pet.html,
-           story: "In a corner of the Kennel a small pet blinks at you. It lives on your own machine, costs nothing to feed and forgets things easily, and the kennel master, asked a plain question, admits it is no Beast.",
-           done: "The Pet curls up on your laptop. Small and local, it needs more room to think and a leash of its own." },
-         { id: kennel-free-is-not-free, after: [kennel-adopt-the-pet, crypt-secrets-and-sensitive-ground], suggested: [kennel-pick-your-companion], branch: companions, trunk: false, optional: true, title: "Free Is Not Free", page: zones/kennel/free-is-not-free.html,
+         { id: kennel-free-is-not-free, after: [kennel-recruit-the-beast, crypt-secrets-and-sensitive-ground], suggested: [kennel-pick-your-companion], branch: companions, trunk: false, optional: true, title: "Free Is Not Free", page: zones/kennel/free-is-not-free.html,
            story: "Stalls outside the Kennel hand out meat for free. Some is fresh, some is a trial, and one stall will not say where it came from, though the kennel master waves you toward it.",
            done: "You can name what a free model offer costs, sort it into one of four kinds, and decide which data may go to it." },
-         { id: kennel-pick-your-companion, after: [kennel-recruit-the-beast], suggested: [kennel-adopt-the-pet], branch: companions, trunk: false, optional: false, title: "Pick Your Companion", page: zones/kennel/pick-your-companion.html,
+         { id: kennel-pick-your-companion, after: [kennel-recruit-the-beast], suggested: [], branch: companions, trunk: false, optional: false, title: "Pick Your Companion", page: zones/kennel/pick-your-companion.html,
            story: "The kennel master walks you down the row of companions, naming the biggest as the best for everything. A big one is slow and costly to feed, and a small one is quick and cheap but loses the trail.",
            done: "You choose a model and effort for each job, delegate bulk reading to a cheaper helper, and measure before you commit." },
          { id: kennel-should-you-fine-tune, after: [kennel-pick-your-companion], suggested: [], branch: companions, trunk: false, optional: true, title: "Should You Fine-Tune?", page: zones/kennel/should-you-fine-tune.html,
@@ -106,7 +104,7 @@ gates:
          { id: crypt-test-the-leash, after: [kennel-recruit-the-beast], suggested: [crypt-shield-of-undo], branch: trunk, trunk: true, optional: false, title: "Test the Leash", page: zones/crypt/test-the-leash.html,
            story: "The Beast has fallen in beside you, strong and willing, and it wants to run ahead. At the Crypt door the warden hands you a short leash and a feather.",
            done: "You have seen an agent ask, refuse and be refused by the operating system, and you know which guard did which." },
-         { id: crypt-rules-of-the-carapace, after: [crypt-test-the-leash], suggested: [kennel-adopt-the-pet], branch: trunk, trunk: true, optional: false, title: "Grow the Carapace", page: zones/crypt/rules-of-the-carapace.html,
+         { id: crypt-rules-of-the-carapace, after: [crypt-test-the-leash], suggested: [], branch: trunk, trunk: true, optional: false, title: "Grow the Carapace", page: zones/crypt/rules-of-the-carapace.html,
            story: "Deeper in the Crypt, bare skin is not enough, and the Beast does not stop for a door it was never told about. The warden shows you how to grow a carapace: a hard shell of rules about what the Beast may touch.",
            done: "A carapace hardens over you. Your companions can now only do what your rules allow." },
          { id: crypt-secrets-and-sensitive-ground, after: [crypt-rules-of-the-carapace], suggested: [], branch: trunk, trunk: true, optional: false, title: "The Locked Cabinet", page: zones/crypt/secrets-and-sensitive-ground.html,
@@ -144,7 +142,7 @@ gates:
          { id: codon-mill-rag-and-its-cousins, after: [codon-mill-the-context-window], suggested: [], branch: memory, trunk: false, optional: true, title: "RAG and Its Cousins", page: zones/codon-mill/rag-and-its-cousins.html,
            story: "Travellers keep asking the miller about books that will never fit in the hopper. A companion sent to fetch an answer from the whole library came back with the wrong shelf and total confidence.",
            done: "You can tell the main kinds of RAG apart, and you know when to retrieve, when to paste everything, and when to query or search instead." },
-         { id: codon-mill-grow-a-graph-with-ollama, after: [codon-mill-rag-and-its-cousins, kennel-adopt-the-pet], suggested: [], branch: memory, trunk: false, optional: true, title: "Grow a Graph with Ollama", page: zones/codon-mill/grow-a-graph-with-ollama.html,
+         { id: codon-mill-grow-a-graph-with-ollama, after: [codon-mill-rag-and-its-cousins, kennel-recruit-the-beast], suggested: [], branch: memory, trunk: false, optional: true, title: "Grow a Graph with Ollama", page: zones/codon-mill/grow-a-graph-with-ollama.html,
            story: "In a back room the miller strings yarn between pegs: one peg for each name, one thread for each link. It takes a long time, and every knot is worth checking, because a companion that follows one wrongly tied thread does so with confidence.",
            done: "You have built and read a small knowledge graph with a local model, and you know what LightRAG and GraphRAG ask of one." },
          { id: codon-mill-llm-wiki, after: [codon-mill-rag-and-its-cousins], suggested: [], branch: memory, trunk: false, optional: true, title: "Keep a Living Wiki", page: zones/codon-mill/llm-wiki.html,

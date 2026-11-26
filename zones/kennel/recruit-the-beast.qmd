@@ -1,9 +1,11 @@
 ---
 title: "Recruit the Beast"
+aliases:
+  - adopt-the-pet.html
 ---
 
 ::: {.ao-story}
-A great armoured beast sleeps in the Kennel, strong and unthinking. The kennel master sells it with a flourish and says it needs no teaching and no lead. You lay a hand on its flank, and it opens one eye. Wake it, then keep it close.
+The Collegium stands on a hill above the town, and its spellbinders' hall smells of ink and hot brass. An academic unrolls the Summoning Scroll you were given at Gaia's Rest and reads it aloud, turning each rune into a step: this is how a pact is made. Making it is the easy part, the academic says, and then lists the ways it goes wrong, which the boasters at the tavern left out. Follow the scroll in order, and keep the Astral on a short lead.
 :::
 
 ::: {.quest-dialog}
@@ -129,7 +131,31 @@ To use the full interface afterwards, run `opencode` in the folder and type `/mo
 
 :::
 
-## 4. Check the setup
+## 4. What to expect
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+A hosted model is capable, and it has limits you should know before you rely on it:
+
+- Everything it reads, and everything you type, is sent to the provider.
+- Use is billed per token on an API key, or counted against your plan's limits.
+- It can still be wrong with confidence, so check what it hands back.
+
+## OpenCode + Ollama
+
+A local model keeps your prompts on your computer, and it is weaker than a hosted one:
+
+- It holds less in mind. Agents need a context length of at least 64k tokens, and Ollama's default can be 4k.
+- Choose a model that Ollama lists with tool support. Without it, the agent cannot ask the model to read or edit files.
+- It makes more mistakes than a hosted model. Test it on a few questions whose answers you know before you trust it on new ones.
+- A bigger model needs far more memory. A 24B model has about eight times the parameters of a 3B one, so check `ollama ps` after loading it.
+- Its web and tool calls can still reach the network, even when the model itself stays local.
+
+:::
+
+## 5. Check the setup
 
 ::: {.panel-tabset group="companion"}
 
@@ -187,7 +213,6 @@ A bug report includes your OS, the install command and the full error output. Re
 
 - [Pick Your Companion](pick-your-companion.html): choose the model and the effort level on purpose.
 - [Grow the Carapace](../crypt/rules-of-the-carapace.html): set permission modes and rules around the agent.
-- [Adopt the Pet](adopt-the-pet.html): run a small local model on your own machine.
 :::
 
 ::: {.ao-lore}
