@@ -8,11 +8,11 @@ A great armoured beast sleeps in the Kennel, strong and unthinking. It follows o
 
 ::: {.quest-dialog}
 - **Goal:** you will install Claude Code, confirm it works, and start it in a throwaway folder in plan mode.
-- **Before you start:** [Save Point](../crypt/shield-of-undo.html); a terminal (macOS, Linux, or WSL 2, the Windows Subsystem for Linux, on Windows); internet; and a Claude Team plan login or an Anthropic API key. An API key gives programmatic access to the models, billed per token; a plan is a subscription with usage limits.
+- **Before you start:** [Save Point](../crypt/shield-of-undo.html); a terminal (macOS, Linux, or on Windows either PowerShell or WSL 2, the Windows Subsystem for Linux); internet; and a Claude Team plan login or an Anthropic API key. An API key gives programmatic access to the models, billed per token; a plan is a subscription with usage limits.
 - **Time:** about 15 minutes. Nothing here edits your files.
 :::
 
-Claude Code can read your files and run commands, so the first session is in a throwaway folder and in plan mode, where it changes nothing.
+Claude Code can read your files and run commands, so the first session is in a throwaway folder and in plan mode, where it does not edit your files.
 
 ## 1. Install
 
@@ -22,7 +22,7 @@ On macOS, Linux, or inside a WSL 2 terminal, run the native installer:
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-On Windows, install inside WSL 2 and use the Linux command there. Check the result:
+On Windows, either run the PowerShell installer from Anthropic's setup page, or install inside WSL 2 and use the Linux command there. WSL 2 supports sandboxed command execution; native Windows does not. Check the result:
 
 ```bash
 claude --version     # prints a version number
@@ -48,7 +48,7 @@ mkdir -p ~/odyssey-scratch && cd ~/odyssey-scratch
 claude --permission-mode plan
 ```
 
-A **permission mode** sets what the agent asks about before it acts. In plan mode it asks before anything beyond reading; the status bar shows the current mode.
+A **permission mode** sets what the agent asks about before it acts. In plan mode it reads files and writes a plan but does not edit your source until you approve; it may ask before running commands that are not read-only; the status bar shows the current mode.
 
 ## 4. Check the setup
 

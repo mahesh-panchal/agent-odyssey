@@ -172,13 +172,7 @@ To open one path or domain for a task, add it under `sandbox` in `settings.json`
 
 ## 5. Optional: a container
 
-A **container** is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. Docker is the common tool for this. This command mounts the scratch folder and cuts the network:
-
-```bash
-docker run -it --rm --network none -v ~/odyssey-scratch/leash:/project -w /project python:3.11 bash
-```
-
-Inside, run `ls /` (a different filesystem from yours), `curl https://example.com` (fails, no network) and `touch /project/inside.txt`. The file appears in your scratch folder because it is the mounted project folder, the only part of your machine the container can change.
+A **container** is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. Tools such as Docker create them. You do not need to install one for this lesson; `/sandbox` already gives you a boundary to test.
 
 For an agent inside a container, Anthropic's reference setup is a **dev container** (a container definition your editor starts for you). Anthropic's docs allow the flag `--dangerously-skip-permissions` (the same as `bypassPermissions` mode) only there, because the container is the boundary. Two limits remain: the agent can still change the mounted project folder, and a malicious project can reach anything inside the container, including Claude's login in `~/.claude`. Mount no host secrets such as `~/.ssh`, and restrict the network.
 

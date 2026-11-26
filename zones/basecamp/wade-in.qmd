@@ -65,7 +65,7 @@ Under GDPR (the EU data-protection law), pseudonymised codes still count as pers
 ## What a chat window keeps
 
 - **Training:** consumer accounts (Free, Pro, Max) have a setting that lets chats improve the models; with it on, data may be kept for up to 5 years. The setting is in your privacy settings.
-- **Account type:** commercial accounts (such as Claude for Work and the API) are not used for training and delete inputs and outputs within 30 days by default. Check the plan in your account settings, or ask your administrator.
+- **Account type:** commercial accounts (Team, Enterprise and the API) are not used for training unless the organisation opts in. The API deletes inputs and outputs within 30 days by default. Team and Enterprise keep saved chats until they are deleted, then remove them within 30 days. Ask your administrator which applies.
 - **Deleted chats:** they leave the provider's storage within 30 days.
 - **Incognito chats:** not used for training, and still kept for 30 days by default.
 - **Screenshots, images and uploads:** treat them as data you share, like pasted text.
@@ -124,9 +124,9 @@ At step 2, paste only the column headings (Project, Milestone, Owner, Status) an
 
 - [Is my data used for model training? (consumer)](https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training): Anthropic, docs. Why read: it is the page that says the training setting exists for Free, Pro and Max chats, which decides your first account question.
 - [How long do you store my data?](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data): Anthropic, docs. Why read: it gives the 5-year and 30-day figures for consumer chats and what happens after you delete one.
-- [How long do you store my organization's data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data): Anthropic, docs. Why read: it is the commercial-account counterpart, with the 30-day default and the cases that keep data longer.
+- [How long do you store my organization's data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data): Anthropic, docs. Why read: it is the commercial-account counterpart: the API's 30-day default, how saved chats are kept and deleted, and the cases that keep data longer.
 - [Use incognito chats](https://support.claude.com/en/articles/12260368-use-incognito-chats): Anthropic, docs. Why read: it shows what incognito does and does not change, so you do not over-trust the name.
 - [Data usage (Claude Code)](https://code.claude.com/docs/en/data-usage): Anthropic, docs. Why read: it states that the agent sends prompts and outputs over the network, which is what makes steps 4 and 5 different from running a query yourself.
 - [Ollama FAQ](https://docs.ollama.com/faq): Ollama, docs. Why read: it says local runs do not send prompts to Ollama and separates its cloud models, which matters if you choose a local model for sensitive data.
-- [AI for Science: the short version](https://aiforscience.eu/short-version/): AI for Science, article. Why read: a one-page European draft summary of research practices, useful for a conversation with your data steward. It is a draft without endorsements.
+- [AI for Science: the short version](https://aiforscience.eu/short-version/): AI for Science, article. Why read: a one-page European summary of research practices, useful for a conversation with your data steward. It describes itself as a living record and shows no endorsements.
 :::

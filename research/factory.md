@@ -41,3 +41,5 @@ Method note: pages fetched via a summarising fetch tool, not raw HTML; quotes be
 
 ## Tested
 Nothing executed; docs only.
+
+- RUN 2026-11-26: the Read the Rails rule parses in Snakemake 9.27.2 (temporary `pixi exec`, nothing installed); `snakemake -n` fails with MissingInputException for the hard-coded /home/alice path, as the page describes.

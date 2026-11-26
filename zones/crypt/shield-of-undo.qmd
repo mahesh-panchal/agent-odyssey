@@ -16,9 +16,9 @@ An agent can edit many files in seconds, and you may want them back as they were
 
 1. Run `git init` once in the project folder.
 2. Run `git add -A && git commit -m "before agent"`.
-3. Let the agent work. If it breaks something, run `git restore .` to return every **tracked** file to that commit.
+3. Let the agent work. If it breaks something, run `git restore --staged --worktree .` to return every **tracked** file to that commit. (Plain `git restore .` copies from the staging area, so it keeps anything you or the agent staged with `git add`.)
 
-`git restore .` has two limits:
+`git restore --staged --worktree .` has two limits:
 
 - It also throws away **your own** uncommitted edits to tracked files, so commit before you start.
 - It leaves **new, untracked** files the agent created where they are. `git status` shows them, and you delete them yourself.

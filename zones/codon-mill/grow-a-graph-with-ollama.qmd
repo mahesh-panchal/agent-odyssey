@@ -171,7 +171,7 @@ We did not run LightRAG or Microsoft GraphRAG here; this section summarises what
 - It calls models through LiteLLM and requires structured JSON output. Users put Ollama behind a proxy and report frequent malformed responses. Check the current docs for an Ollama setup.
 - Check that the embedding vector size in its settings matches your embedding model's (`nomic-embed-text` gives 768).
 
-To build a graph over your own notes with Ollama, start with LightRAG on a tiny folder of mock files, then look at the facts it extracted before pointing it at anything real.
+If you later build a graph over your own notes, try a tiny folder of mock files first and read the facts it extracted before pointing it at anything real.
 
 ## Verify the graph
 

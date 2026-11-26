@@ -44,3 +44,4 @@ Page prefixes: P = https://privacy.claude.com/en/articles/ , S = https://support
 - https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data (consumer retention)
 - https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data (commercial retention)
 - https://support.claude.com/en/articles/12260368-use-incognito-chats (incognito)
+- 2026-11-26 fact-check (Wade In): commercial retention reworded per privacy.claude.com 7996866 and code.claude.com/docs/en/data-usage (API 30 days; Team/Enterprise keep saved chats until deleted). Sycophancy paper venue ICLR 2024 not stated on the arXiv page; kept from general knowledge, re-check.

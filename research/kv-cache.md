@@ -18,3 +18,4 @@ Added 2026-11-26 from a follow-up the user queued on 2026-11-23.
 - Its table says standard inference "uses less memory" while also saying memory grows with text length. The lesson states only that the cache grows with the window.
 - Its benchmark (SmolLM2-1.7B on a T4 GPU, one prompt, about 5.21 times faster with the cache) is a single setup. The lesson cites no speed figure.
 - It never mentions prompt caching. The lesson separates the two: the KV cache belongs to the model, the prompt cache is a provider feature that makes a repeated start of a prompt cheaper. The prompt-cache facts are in `research/cache-and-usage.md`.
+- 2026-11-26: RAN `claude -p "/context"` (2.1.332): category table (System prompt, System tools, MCP tools, deferred lines, Skills, Messages ~10 tokens, Free space, Autocompact buffer) matches the-context-window hands-on.
