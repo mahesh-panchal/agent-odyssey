@@ -195,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="what-a-hook-covers" class="level2">
 <h2 class="anchored" data-anchor-id="what-a-hook-covers">What a hook covers</h2>
 <ul>
-<li><strong>A string match is easy to dodge.</strong> The example matches the literal string “drop table” in one command. A matcher selects by tool name, not by content. If the model runs a script that contains the dangerous command, or spells it differently, a grep on the command text never sees it.</li>
+<li><strong>A string match is easy to dodge.</strong> The example matches the literal string “drop table” in one command. A matcher selects by tool name only. If the model runs a script that contains the dangerous command, or spells it differently, a grep on the command text never sees it.</li>
 <li><strong>Hooks fire only on tool calls.</strong> <code>PreToolUse</code> fires when Claude calls a tool. A file added with an <code>@</code> reference in your prompt is added to the conversation directly. A hook does not see it, and a <code>Read</code> deny rule may not stop it. Keep secrets out of the folder.</li>
 <li><strong>Hooks cannot override your deny and ask rules.</strong> A hook’s allow never overrides a deny or ask rule: those are still evaluated.</li>
 <li><strong>Hooks run with your full permissions.</strong> Command hooks “execute shell commands with your full user permissions”, so review and test them before adding them.</li>

@@ -177,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Cache:</strong> the file name is a hash of the model name, the prompt version and the input, so a re-run reads the saved label, and a new model or prompt version asks again.</li>
 <li><strong>Validate:</strong> the reply must be one of a fixed set of labels, and anything else stops the run.</li>
-<li><strong>Log:</strong> each fresh call records the model name, the prompt version and a short fingerprint of the input. Pin the model (one fixed version, not “latest”), though a pinned model may still return different text.</li>
+<li><strong>Log:</strong> each fresh call records the model name, the prompt version and a short fingerprint of the input. Pin the model (one fixed version, never “latest”), though a pinned model may still return different text.</li>
 <li><strong>Keep a human-check sample:</strong> look at a random handful on every run.</li>
 <li><strong>Keep restricted data away from external models.</strong> Data you may not share must not reach an outside API (a service your code calls over the network).</li>
 </ul>

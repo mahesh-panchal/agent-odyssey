@@ -134,7 +134,7 @@ The model reads text and writes text. Effort is a setting on it.
 </figure>
 <ul>
 <li><strong>Model.</strong> The large language model (LLM) that reads and writes text (for example Claude Sonnet 5.5, a Mistral model, or a local model through Ollama, a program that runs models on your own computer). Aliases such as <code>sonnet</code> move to newer versions over time, so use the full model name when a result must be reproducible.</li>
-<li><strong>Effort.</strong> A setting for how much the model reasons before it answers, from <code>low</code> to <code>max</code> in Claude Code (<code>/effort</code>, <code>--effort</code>; a <code>/command</code> is typed inside the running tool, a <code>--flag</code> when you start it). Low is faster and cheaper; high thinks longer and checks more. It steers how much the model reasons per step rather than fixing a number. <code>max</code> can show diminishing returns and overthink, so raise it only where you measure a gain.</li>
+<li><strong>Effort.</strong> A setting for how much the model reasons before it answers, from <code>low</code> to <code>max</code> in Claude Code (<code>/effort</code>, <code>--effort</code>; a <code>/command</code> is typed inside the running tool, a <code>--flag</code> when you start it). Low is faster and cheaper; high thinks longer and checks more. It steers how much the model reasons per step. <code>max</code> can show diminishing returns and overthink, so raise it only where you measure a gain.</li>
 </ul>
 </section>
 <section id="the-harness" class="level2">

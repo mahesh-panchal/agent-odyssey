@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
-<p>An instructions file is read every session. A <strong>Skill</strong> is a procedure loaded only when it is relevant, so it can be long without filling the <strong>context</strong> (the limited amount of text, counted in <strong>tokens</strong>, the chunks of text a model reads, that the agent holds at once). You need this now because a repeated chore belongs in a Skill, not in your prompt each session.</p>
+<p>An instructions file is read every session. A <strong>Skill</strong> is a procedure loaded only when it is relevant, so it can be long without filling the <strong>context</strong> (the limited amount of text, counted in <strong>tokens</strong>, the chunks of text a model reads, that the agent holds at once). You need this now because a repeated chore belongs in a Skill, so you stop retyping it each session.</p>
 <section id="what-a-skill-is" class="level2">
 <h2 class="anchored" data-anchor-id="what-a-skill-is">What a Skill is</h2>
 <p>A Skill is a folder with a <code>SKILL.md</code> file, in an open format called Agent Skills, so other tools that follow the format can load the same folder. A Skill loads in three steps, which keeps the context window (the text the model can see at once) small:</p>

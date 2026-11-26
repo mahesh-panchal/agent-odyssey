@@ -166,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>A deterministic check looks like this: the file exists, the command ran, the output has 3 columns. Use deterministic graders wherever you can, a person where you must, and a judge model for the rest. Because answers vary, the result is usually a <strong>pass rate</strong> (for example 2 of 3 runs, or 80% of graders passed) and not one pass or fail. The useful question is whether a change moved that number up or down.</p>
+<p>A deterministic check looks like this: the file exists, the command ran, the output has 3 columns. Use deterministic graders wherever you can, a person where you must, and a judge model for the rest. Because answers vary, the result is usually a <strong>pass rate</strong> (for example 2 of 3 runs, or 80% of graders passed). The useful question is whether a change moved that number up or down.</p>
 <p>The cases decide how good the eval is. A set of cases should look like your real work and include awkward ones: an empty file, a misspelt name, a request phrased differently. Ten realistic cases beat a hundred invented ones. Real failures are the best source, which is why the loop below starts with <em>Notice</em>.</p>
 </section>
 <section id="the-loop" class="level2">

@@ -165,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Raw sources:</strong> you add files and nobody edits them afterwards. Papers, clipped web pages, meeting transcripts, run logs, data files. The agent reads them and never changes them, so they stay the source of truth.</li>
 <li><strong>The wiki:</strong> the agent writes it and you read it. Markdown pages: a summary per source, a page per entity (a tool, a dataset, a person, a gene) or concept, comparisons, an overview. The agent owns this folder.</li>
-<li><strong>The schema:</strong> here, “schema” means the rules for the wiki, written as plain instructions (it is not a database schema). You and the agent write it over time. It is one instruction file (<code>CLAUDE.md</code> in Claude Code, <code>AGENTS.md</code> in OpenCode) that the agent reads at the start of every session. It describes how the wiki is organised and what to do on each job, and it is the key configuration file.</li>
+<li><strong>The schema:</strong> here, “schema” means the rules for the wiki, written as plain instructions. You and the agent write it over time. It is one instruction file (<code>CLAUDE.md</code> in Claude Code, <code>AGENTS.md</code> in OpenCode) that the agent reads at the start of every session. It describes how the wiki is organised and what to do on each job, and it is the key configuration file.</li>
 </ul>
 <p>The split builds trust. When an answer looks odd, you walk from the wiki page back to the raw source it cites, and the raw source is untouched.</p>
 </section>
@@ -215,7 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Raw sources: release notes, run logs, meeting minutes, Slack exports.</li>
 <li>Pages: one per pipeline release, one per known issue, a decision log.</li>
 <li>A question: “Which runs used release 2.3, and what was wrong with it?”</li>
-<li>Watch out: private or unpublished material. Exact counts belong to a query tool, not a wiki page.</li>
+<li>Watch out: private or unpublished material. Exact counts belong to a query tool.</li>
 </ul></li>
 <li><strong>A thesis or long project</strong>
 <ul>
@@ -293,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Cost and time grow with the wiki.</strong> Each ingest reads the index and several pages, and then writes several. Watch your usage in the first week.</li>
 <li><strong>Scale.</strong> As the wiki grows, add search or another layer on top of the index.</li>
 <li><strong>You may not learn it.</strong> A wiki you never open does little for your own understanding. Read it, correct it and argue with it.</li>
-<li><strong>Exact answers.</strong> Counts, filters and joins over tables belong in a query tool, not in prose pages.</li>
+<li><strong>Exact answers.</strong> Counts, filters and joins over tables belong in a query tool.</li>
 </ul>
 </section>
 <section id="choose-your-setup" class="level2">

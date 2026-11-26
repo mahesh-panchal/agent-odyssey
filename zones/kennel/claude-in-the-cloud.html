@@ -265,7 +265,7 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.<
 <ul>
 <li><strong>Setup scripts:</strong> a <strong>setup script</strong> is a Bash script that runs once before Claude starts, to install what the task needs. Installs need network access, so None blocks them.</li>
 <li><strong>Environment variables versus network secrets:</strong> environment variables are readable by any command Claude runs. <strong>Network secrets</strong> are the safer option where possible: the key stays outside the VM, and a proxy adds it to requests to hosts you list.</li>
-<li><strong>Preinstalled tools:</strong> common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to run <code>check-tools</code> (a shell command on the cloud machine that reports tool versions; you ask Claude to run it, you do not type it with <code>/</code>) to see what is there.</li>
+<li><strong>Preinstalled tools:</strong> common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to run <code>check-tools</code> (a shell command on the cloud machine that reports tool versions; you ask Claude to run it) to see what is there.</li>
 </ul>
 </section>
 <section id="permission-modes-in-the-cloud" class="level2">

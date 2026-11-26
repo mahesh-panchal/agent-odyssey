@@ -195,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="reading-the-result">Reading the result</h2>
 <p>Open <code>report.html</code> and look at three things:</p>
 <ul>
-<li><strong>Δ</strong> (two-arm runs only; with <code>--ablation none</code> there is no Δ, so check that the grader passed). If WITH and W/OUT are about the same and the Skill did not fire, the <code>description</code> does not trigger on that phrasing. Change the <code>description</code>, not the grader.</li>
+<li><strong>Δ</strong> (two-arm runs only; with <code>--ablation none</code> there is no Δ, so check that the grader passed). If WITH and W/OUT are about the same and the Skill did not fire, the <code>description</code> does not trigger on that phrasing, so edit the <code>description</code>.</li>
 <li><strong>The failed grader.</strong> The report expands it with an explanation.</li>
 <li><strong>Isolation.</strong> Each run happens in a <strong>child session</strong> (a separate Claude Code session started just for that run) with only the plugin loaded, so your own settings and other plugins are absent.</li>
 </ul>

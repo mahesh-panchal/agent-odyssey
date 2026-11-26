@@ -207,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>--mail-type</code> sends you an email and does not make the agent wait. If you use <code>watch</code>, keep it at <code>--interval=60</code> or slower and stop it when done.</li>
 <li>Submit many similar tasks as one array with a concurrency cap (<code>--array=1-100%10</code>) instead of a loop of <code>sbatch</code> calls.</li>
 </ul>
-<p>Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an <code>srun</code> that blocks until it finishes, gets cut off. A timeout is not a load control: the command still runs until it is cut off.</p>
+<p>Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an <code>srun</code> that blocks until it finishes, gets cut off. The command still runs until it is cut off, so a timeout does not limit load.</p>
 </section>
 <section id="size-the-request" class="level2">
 <h2 class="anchored" data-anchor-id="size-the-request">Size the request</h2>

@@ -258,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>“Run nothing in the foreground on the login node. Draft an <code>sbatch</code> script and show it to me.”</li>
 </ul>
 <p>Instructions are guidance, and the agent can still slip. If a project instruction file (<code>AGENTS.md</code> or <code>CLAUDE.md</code>) is stricter than these lines, the stricter one wins.</p>
-<p>Foreground commands time out (default 2 minutes, maximum 10 by default), A timeout is not a load control: a heavy command still runs until it is cut off.</p>
+<p>Foreground commands time out (default 2 minutes, maximum 10 by default). A heavy command still runs until it is cut off, so a timeout does not limit load.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>The same habits apply. OpenCode’s permission model uses allow, ask and deny rules, and an unmatched action asks. Its base policy begins with an allow-all rule, so <code>sbatch</code> runs without a prompt until you add a rule. Add explicit rules for the cluster commands, and check your installed version’s permission docs. A local model through Ollama runs on the node you are on and touches the filesystem the same way.</p>
