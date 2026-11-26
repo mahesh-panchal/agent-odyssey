@@ -17,6 +17,15 @@ Agent Odyssey is a short role-playing course on using coding agents (LLM tools t
 
 <p id="ao-start-finale" class="ao-start-finale" aria-live="polite"></p>
 
+## Who is who
+
+The story uses a few names. The lessons themselves use plain technical words.
+
+- **Companion:** a coding agent, a model with tools that can read files and run commands for you.
+- **The Beast:** the armoured companion you recruit in the Kennel.
+- **The kennel master:** the seller of companions, whose promises are bigger than what the companions can do.
+- **The Blight:** plausible but false output that spreads when nobody checks it.
+
 ## How it works
 
 - **Walk the trunk.** It is <span data-ao-n="trunk">16</span> quests in order, from fears and kinds of machine to your first agent and trust in output. The Wall of Output ends it.

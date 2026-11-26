@@ -6,7 +6,7 @@ title: "Read First"
 A map hangs on the wall at Basecamp, and the old travellers say the road is easier for those who have read it once. You do not need to memorise it. Read for the shape of the country, then set out.
 :::
 
-This page lists background reading for the course. It is separate from [Prerequisites](prerequisites.html), which lists what to install. The three pages in the first list cover the ideas that the first quests build on.
+This page lists background reading for the course. Reading is optional, and about an hour covers all of it. The pages describe Claude Code. If you chose OpenCode, the ideas carry over, and OpenCode's own docs are at opencode.ai/docs. It is separate from [Prerequisites](prerequisites.html), which lists what to install. The three pages in the first list cover the ideas that the first quests build on.
 
 ## Read before the first quest
 

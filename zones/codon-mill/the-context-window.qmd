@@ -8,7 +8,7 @@ A great hopper above the mill holds everything the machine can see at once. You 
 
 ::: {.quest-dialog}
 - **Goal:** you will say what fills the context window, what happens when it is full, and three habits that keep it useful.
-- **Before you start:** [Tokens, Not Letters](tokens-not-letters.html), and an installed agent from [Recruit the Beast](../kennel/recruit-the-beast.html). A token is a chunk of text the model reads.
+- **Before you start:** [Tokens, Not Letters](tokens-not-letters.html), and an installed agent from [Recruit the Beast](../kennel/recruit-the-beast.html) (on the OpenCode route, that includes Ollama and the model you pulled). A token is a chunk of text the model reads.
 - **Time:** about 20 minutes.
 :::
 
@@ -75,7 +75,7 @@ A fresh session is not empty: the items above load first, so every session has a
 
 ## Claude Code
 
-1. Start a new session (`claude`) and run `/context` before you type anything else.
+1. Start a new session (`claude`) and run `/context` before you type anything else. A `/command` is typed into the running session, not the shell.
 2. Read the table by category. The starting load is the system prompt, system tools, MCP server instructions, memory files and skills. **Messages** is the conversation, and it should be close to zero.
 3. Look at the MCP and tool lines marked deferred. Their figures say how many tokens they would take if all were loaded. Only their names are in the window until a tool is needed.
 4. Note the largest starting item and whether you chose it. Fewer MCP servers, plugins and skills, or a shorter instructions file, lower it.

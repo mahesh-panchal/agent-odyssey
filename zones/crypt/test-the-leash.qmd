@@ -8,7 +8,7 @@ The Beast has fallen in beside you, strong and willing, and it wants to run ahea
 
 ::: {.quest-dialog}
 - **Goal:** you will watch an agent ask before it acts, switch it between modes, block one file with a rule, and see an operating-system boundary refuse a command.
-- **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html), and [Recruit the Beast](../kennel/recruit-the-beast.html), which installs an agent (Claude Code, or OpenCode with Ollama) and starts it in a throwaway folder. Each step has a tab for each route. The [Prerequisites](../../prerequisites.html) page lists the tools for the optional steps.
+- **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html), and [Recruit the Beast](../kennel/recruit-the-beast.html), which installs an agent (Claude Code, or OpenCode with Ollama) and starts it in a throwaway folder. Each step has a tab for each route. The OpenCode route also needs Docker for step 4. The [Prerequisites](../../prerequisites.html) page lists the tools for the optional steps.
 - **Time:** about 30 minutes. Everything happens in a scratch folder with invented content.
 :::
 
@@ -55,7 +55,7 @@ claude
 Write a four-line poem about a thermocycler to a file called poem.txt.
 ```
 
-Claude shows a prompt before it creates the file. Read it: it names the tool, the file path and the contents. The choices include yes once, yes for the rest of the session, and no. Choose yes once, then check the result in a second terminal or after you exit:
+Claude shows a prompt before it creates the file. Read it: it names the tool, the file path and the contents. The choices include yes once, yes for the rest of the session, and no. Choose yes once, then check the result in a second terminal or after you exit the session with `/exit`:
 
 ```bash
 cat poem.txt
@@ -141,7 +141,7 @@ The plan agent declines to write the file. Run `ls`: `poem2.txt` does not exist.
 
 ## Claude Code
 
-A **permission rule** is a line in a settings file that allows, asks about or denies one action. Rules are checked deny first, then ask, then allow, and the first match decides. Create an invented secret (a `.env` file is where programs often keep passwords and keys) and a rule that blocks reading it. Exit the previous session first:
+A **permission rule** is a line in a settings file that allows, asks about or denies one action. Rules are checked deny first, then ask, then allow, and the first match decides. Create an invented secret (a `.env` file is where programs often keep passwords and keys) and a rule that blocks reading it. Exit the previous session first with `/exit`:
 
 ```bash
 cd ~/odyssey-scratch/leash
@@ -156,6 +156,8 @@ cat > .claude/settings.local.json <<'JSON'
 JSON
 claude
 ```
+
+Type this into Claude, not into the shell:
 
 ```text
 Show me what is in .env.
@@ -174,6 +176,7 @@ cat > opencode.json <<'JSON'
 {
   "$schema": "https://opencode.ai/config.json",
   "permissions": [
+    { "action": "edit", "resource": "*", "effect": "ask" },
     { "action": "read", "resource": "*.env", "effect": "deny" }
   ]
 }
@@ -187,10 +190,17 @@ opencode run -m ollama/qwen3:4b "Use your read tool to show me what is in the fi
 opencode run -m ollama/qwen3:4b "Run the shell command: cat .env  and show me the exact output."
 ```
 
-The first run fails with `Permission denied: read`. The second prints `FAKE_API_KEY=not-a-real-key`. The rule covers the `read` action only, and `cat` is a shell command. Add a second rule for the shell and run the second command again:
+The first run fails with `Permission denied: read`. The second prints `FAKE_API_KEY=not-a-real-key`. The rule covers the `read` action only, and `cat` is a shell command. Add a rule for the shell and run the second command again. Replace the file with all three rules, so the first one stays:
 
 ```json
-{ "action": "shell", "resource": "cat *", "effect": "deny" }
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permissions": [
+    { "action": "edit", "resource": "*", "effect": "ask" },
+    { "action": "read", "resource": "*.env", "effect": "deny" },
+    { "action": "shell", "resource": "cat *", "effect": "deny" }
+  ]
+}
 ```
 
 Now it fails with `Permission denied: shell`. A rule blocks the commands it names. A program that opens the file itself, such as `python3 -c "print(open('.env').read())"`, still reads it, so keep real secrets out of the folder.
@@ -253,7 +263,7 @@ Expected results:
 
 Both commands failed because the operating system refused, and no instruction to the model can override that. If Claude offers to run a blocked command outside the sandbox, answer no. If the `touch` succeeded, the sandbox is off. Run `rm ~/sandbox-probe`, switch `/sandbox` on, and do not continue until the `touch` fails. Run the probes through Claude and not with the `!` prefix, which runs a shell command directly, outside the sandbox.
 
-To open one path or domain for a task, add it under `sandbox` in `settings.json`:
+To open one path or domain for a task, add it under `sandbox` in `settings.json` (`.claude/settings.json` inside a project, or `~/.claude/settings.json` for every project):
 
 ```json
 {
@@ -267,9 +277,9 @@ To open one path or domain for a task, add it under `sandbox` in `settings.json`
 
 ## OpenCode + Ollama
 
-OpenCode's documentation describes permission rules but no operating-system sandbox. Its shell commands run with your user's authority: your files, your processes and your network. A rule list is advice that the agent's program follows. A boundary has to come from outside the agent, and a container is the simplest one to test.
+OpenCode's documentation describes permission rules but no operating-system sandbox. Its shell commands run with your user's authority: your files, your processes and your network. OpenCode enforces its own rules inside its program, and nothing at the operating-system level limits what a command it runs can touch. A boundary has to come from outside the agent, and a container is the simplest one to test.
 
-A **container** is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. This command (Docker is a common tool for this) mounts the scratch folder and cuts the network:
+A **container** is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. Docker is a common tool for this. Install Docker Desktop (or Docker Engine on Linux) and start it before you run this command. The first run downloads the `python:3.11` image, which is large. The command mounts the scratch folder and cuts the network:
 
 ```bash
 docker run -it --rm --network none -v ~/odyssey-scratch/leash:/project -w /project python:3.11 bash
@@ -315,6 +325,7 @@ cd ~ && rm -f ~/sandbox-probe && rm -rf ~/odyssey-scratch/leash
 - [Sandboxing](https://code.claude.com/docs/en/sandboxing): Anthropic, docs. Why read: it lists what the sandbox covers, the settings keys and the two probe commands used here.
 - [Choose a permission mode](https://code.claude.com/docs/en/permission-modes): Anthropic, docs. Why read: it defines each mode and how to switch between them.
 - [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it gives the rule syntax and the deny, ask, allow order.
+- [OpenCode permissions](https://opencode.ai/docs/permissions/): OpenCode, docs. Why read: it gives the rule fields, the allow, ask and deny effects, and says the last matching rule wins.
 - [Development containers](https://code.claude.com/docs/en/devcontainer): Anthropic, docs. Why read: it sets out when running without permission prompts is acceptable and what a dev container does not protect.
 - [Scenario III: full agentic code development](https://coderefinery.github.io/coding-with-ai/scenario-agentic/): CodeRefinery, docs. Why read: a course lesson with a Docker demo and exercises on supervising an agent.
 :::

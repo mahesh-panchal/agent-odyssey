@@ -3,7 +3,7 @@ title: "Prerequisites"
 ---
 
 ::: {.ao-story}
-Before the road, the quartermaster checks your pack. A traveller without a lantern turns back at the first tunnel. Check each item once, now, and the installs are done.
+Before the road, the quartermaster checks your pack. A traveller without a lantern turns back at the first tunnel. Check each item once, now, then install your agent when you reach the first agent quest.
 :::
 
 This page lists what to install for the hands-on exercises. Reading is separate: see [Read first](read-first.html). Nothing here needs real data. Exercises use invented files unless the page says otherwise.
@@ -20,7 +20,7 @@ This page lists what to install for the hands-on exercises. Reading is separate:
 
 ## Pick a route for the agent
 
-The exercises that run an agent work with either route. Install one. [Recruit the Beast](zones/kennel/recruit-the-beast.html) gives the full steps and the first session for each, and the tabs on every lesson follow the route you pick there.
+An agent is a model with tools that can read your files and run commands. You do not need one yet. [Recruit the Beast](zones/kennel/recruit-the-beast.html) gives the full install steps and the first session for each route, and the tabs on every lesson follow the route you pick there. The two routes are Claude Code, which uses a hosted model, and OpenCode with Ollama, which runs a model on your own computer.
 
 ::: {.panel-tabset group="companion"}
 
@@ -30,7 +30,7 @@ The exercises that run an agent work with either route. Install one. [Recruit th
 |---|---|
 | Claude Code | `claude --version` |
 
-- **Install.** Recruit the Beast gives the installer command. Read an installer script before piping it into `bash`.
+- **Install.** Recruit the Beast gives the installer command. Read an installer script before piping it into `bash` (piping sends the downloaded script straight to the shell to run). To read it first, download it with `curl -fsSL <url> | less`.
 - **An account.** Claude Code needs a login on a paid Claude plan, or an Anthropic API key (a secret string that gives programmatic access, billed per use). Use the account your organisation approves.
 
 ## OpenCode + Ollama
@@ -49,10 +49,10 @@ The exercises that run an agent work with either route. Install one. [Recruit th
 
 | Tool | Check it works | Needed for |
 |---|---|---|
-| bubblewrap and socat | `bwrap --version` | the sandbox exercise on Linux and WSL 2 (two helper tools) |
-| Docker | `docker --version` | the boundary exercise on the OpenCode route (a container tool) |
+| bubblewrap and socat | `bwrap --version` | the sandbox exercise on Linux and WSL 2 (two helper tools). A sandbox is an operating-system boundary that limits what a command can touch |
+| Docker | `docker --version` | the boundary exercise on the OpenCode route (a container is an isolated Linux environment; Docker Desktop must be running) |
 
-Nothing in the course asks you to use an LLM.
+Using an LLM is always your choice. The lessons show what to check if you do.
 
 ## A first check
 

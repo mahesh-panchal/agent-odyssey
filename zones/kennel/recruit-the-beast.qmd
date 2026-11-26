@@ -12,7 +12,7 @@ A great armoured beast sleeps in the Kennel, strong and unthinking. The kennel m
 - **Time:** about 15 minutes. Nothing here edits your files.
 :::
 
-An agent can read your files and run commands, so the first session is in a throwaway folder with edits switched off. Pick a route in each tab below. The tab you pick stays selected on the other lessons, so you can follow the same route through the course. Both routes teach the same habits.
+An agent can read your files and run commands, so the first session is in a throwaway folder, in a mode where it plans and does not edit your files. Pick a route in each tab below. The tab you pick stays selected on the other lessons, so you can follow the same route through the course. Both routes teach the same habits.
 
 ## 1. Install
 
@@ -25,6 +25,8 @@ On macOS, Linux, or inside a WSL 2 terminal, run the native installer:
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
+
+To read the script before it runs, use `curl -fsSL https://claude.ai/install.sh | less` first.
 
 On Windows, either run the PowerShell installer from Anthropic's setup page, or install inside WSL 2 and use the Linux command there. WSL 2 supports sandboxed command execution; native Windows does not. Check the result:
 
@@ -41,7 +43,7 @@ This route has two programs. **Ollama** downloads and runs models on your own co
 
 - **macOS:** download Ollama from `ollama.com/download`, open the `.dmg` file and drag Ollama into Applications.
 - **Linux, or WSL 2 on Windows:** `curl -fsSL https://ollama.com/install.sh | sh`
-- **Windows without WSL:** run the `OllamaSetup.exe` installer from the same page.
+- **Windows:** use WSL 2 and the Linux command above.
 
 Check it, then fetch a small model (about 2.5 GB). `qwen3:4b` is one example that Ollama lists with tool support (the model can ask the agent to run actions such as reading a file). Model names change quickly, so check the "tools" badge on the model's page at `ollama.com/library`.
 
@@ -57,7 +59,7 @@ curl -fsSL https://opencode.ai/v2/install | bash
 opencode --version   # prints a version number
 ```
 
-On Windows without WSL, OpenCode's docs offer a standalone `.zip` download. If `opencode` is not found, open a new terminal and try again.
+On Windows, use WSL 2 and the same commands. If `opencode` is not found, open a new terminal and try again. To read an install script before it runs, use `curl -fsSL <url> | less` first.
 
 :::
 
@@ -67,7 +69,7 @@ On Windows without WSL, OpenCode's docs offer a standalone `.zip` download. If `
 
 ## Claude Code
 
-Run `claude` and a browser opens. With a Team plan, log in with the account your admin invited you to. With an API key, `export ANTHROPIC_API_KEY=...` instead.
+Run `claude` and a browser opens. With a Team plan, log in with the account your admin invited you to. With an API key, `export ANTHROPIC_API_KEY=...` instead. Treat the key like a password: do not paste it into a file in a project, and note that a key typed into the shell can stay in your shell history.
 
 ::: {.callout-note}
 If you have both a subscription login and `ANTHROPIC_API_KEY` set, the key is used once you approve it, so usage goes to the API account. Run `/status` (a `/command` is typed inside the running tool) to see which login is active. Run `unset ANTHROPIC_API_KEY` if you did not mean to use the key.
@@ -81,7 +83,7 @@ OpenCode needs no login. It looks for Ollama at `http://127.0.0.1:11434` and lis
 opencode models     # includes a line such as ollama/qwen3:4b
 ```
 
-Agents need a long **context length** (how much text the model can see at once, counted in tokens, which are chunks of text). Ollama's default can be as low as 4k tokens, and agents need at least 64k. In the Ollama app, open its settings and set the context length slider to 64k. If you run the server yourself, start it like this and leave that terminal open:
+Agents need a long **context length** (how much text the model can see at once, counted in tokens, which are chunks of text). Ollama's default can be as low as 4k tokens, and agents need at least 64k. If you use the Ollama app (macOS, or Windows with the app), open its settings and set the context length slider to 64k. On Linux or WSL 2 there is no app, so start the server yourself like this and leave that terminal open:
 
 ```bash
 OLLAMA_CONTEXT_LENGTH=64000 ollama serve
@@ -140,6 +142,8 @@ Two commands share the name *doctor*.
 
 ### Which command shows what
 
+You do not need to run these now. Come back to the table when something looks wrong.
+
 | Command | What it shows |
 |---|---|
 | `/status` | version, model, account, connectivity, and which settings sources are active |
@@ -166,13 +170,13 @@ Four commands cover most first problems:
 | `opencode debug paths` | where OpenCode keeps its config, data, logs and database |
 | `ollama ps` | the models Ollama has loaded, their size, and whether they run on the GPU or the CPU |
 
-If a model does not appear in `opencode models`, check that Ollama is running with `ollama ps` and that you pulled the model with `ollama pull`.
+If a model does not appear in `opencode models`, check that Ollama is running (open the app, or run `ollama serve` on Linux) and that you pulled the model with `ollama pull`. `ollama ps` lists a model only while one is loaded.
 
 :::
 
 ### Before you ask for help
 
-A bug report includes your OS, the install command and the full error output. Read any output before you paste it into a bug report or chat, because it can contain paths and account details. With Claude Code, `/feedback` sends feedback from inside a session, and `/doctor` or `claude doctor` narrows down a problem.
+A bug report includes your OS, the install command and the full error output. Read any output before you paste it into a bug report or chat, because it can contain paths and account details. With Claude Code, `/feedback` sends feedback from inside a session, and `/doctor` or `claude doctor` narrows down a problem. With OpenCode, include the output of `opencode --version` and `opencode debug paths`.
 
 ## Battle: first run
 

@@ -15,7 +15,7 @@ The first seal in the Crypt is a mark on the floor that you can step back to. So
 An agent can edit many files in seconds, and you may want them back as they were. Before any agent edits your files, put them under version control (a record of every saved state of a project):
 
 1. Run `git init` once in the project folder.
-2. Run `git add -A && git commit -m "before agent"`.
+2. List large data files in a `.gitignore` file first (for example a line `*.fastq.gz`), or git stores a copy of each. Then run `git add -A && git commit -m "before agent"`.
 3. Let the agent work. If it breaks something, run `git restore --staged --worktree .` to return every **tracked** file to that commit. (Plain `git restore .` copies from the staging area, so it keeps anything you or the agent staged with `git add`.)
 
 `git restore --staged --worktree .` has two limits:

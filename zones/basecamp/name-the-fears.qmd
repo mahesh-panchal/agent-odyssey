@@ -3,7 +3,7 @@ title: "Name the Fears"
 ---
 
 ::: {.ao-story}
-The fire at Basecamp burns low, and the travellers round it trade worries in whispers: that the road leads nowhere good, that the companions on offer cannot be trusted, that something unseen is spreading through the land. An old hand says it is called the Blight, and it grows on answers that sound right and that nobody checks. Every worry on this road has a habit that answers it. Name yours here and it shrinks, then go and look at the machines for yourself.
+The fire at Basecamp burns low, and the travellers round it trade worries in whispers: that the road leads nowhere good, that the companions on offer cannot be trusted, that something unseen is spreading through the land. Here a companion is a coding agent, the kind you will recruit, and the kennel master sells them with big promises. An old hand says the thing spreading is called the Blight, and it grows on answers that sound right and that nobody checks. Every worry on this road has a habit that answers it. Name yours here and it shrinks, then go and look at the machines for yourself.
 :::
 
 ::: {.quest-dialog}
@@ -62,6 +62,8 @@ For voice and judgement, use the agent for structure and checks, and keep a few 
 Sometimes the right answer is to skip the LLM. The next lesson shows how to tell when.
 
 ## Battle: name the habit
+
+Each lesson ends with a **Battle**, a short test that earns XP.
 
 <div data-ao-test="basecamp-name-the-fears" data-xp="40"></div>
 
