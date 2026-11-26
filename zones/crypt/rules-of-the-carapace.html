@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Grow the Carapace – Agent Odyssey</title>
+<title>Write Permission Rules – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Grow the Carapace</h1>
+<h1 class="title">Write Permission Rules</h1>
 </div>
 
 
@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>Deeper in the Crypt, bare skin is not enough, and the Beast does not stop for a door it was never told about. The warden shows you how to grow a carapace: a hard shell of rules about what the Beast may touch. She says a rule is only as good as its edges, and she has watched the Beast stroll through a gap a hand’s width wide. Learn where your rules end.</p>
+<p>Deeper in the Crypt a chalk circle is not enough, and an Astral does not stop at a door it was never told about. The warden shows you how to write wards: rules about what it may touch and what it must ask about. She says a ward is only as good as its edges, and she has watched an Astral stroll through a gap a hand’s width wide. Learn where your wards end.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will write permission rules that hold, and know where they stop holding.</li>
-<li><strong>Before you start:</strong> <a href="test-the-leash.html">Test the Leash</a>, or <a href="../kennel/adopt-the-pet.html">Adopt the Pet</a> if you only run a local model.</li>
+<li><strong>Before you start:</strong> <a href="test-the-leash.html">Test Permissions and the Sandbox</a>.</li>
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
@@ -197,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A deny from any file beats an allow from any file. A space before the <code>*</code> matters: <code>Bash(ls *)</code> matches <code>ls -la</code> but not <code>lsof</code>. Restrict reads with <code>Read(...)</code> deny rules; a <code>.claudeignore</code> file does not restrict access.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Rules are an ordered array and the <strong>last match wins</strong>:</p>
+<p>OpenCode’s default policy allows everything except reading <code>.env</code> files, which it asks about, and its shell is not a sandbox: a command can touch any file you can. Rules are an ordered array and the <strong>last match wins</strong>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"permissions"</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">"action"</span><span class="fu">:</span> <span class="st">"*"</span><span class="fu">,</span> <span class="dt">"resource"</span><span class="fu">:</span> <span class="st">"*"</span><span class="fu">,</span> <span class="dt">"effect"</span><span class="fu">:</span> <span class="st">"ask"</span> <span class="fu">}</span><span class="ot">,</span></span>
@@ -227,9 +227,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="secrets-and-sensitive-ground.html">The Locked Cabinet</a>: for more on keeping keys and sensitive data out of the agent’s reach.</li>
+<li><a href="secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>: for more on keeping keys and sensitive data out of the agent’s reach.</li>
 <li><a href="shield-of-undo.html">Save Point</a>: the git commit that makes any change reversible.</li>
-<li><a href="../gatehouse/plug-in-a-server.html">Plug In a Server</a>: the permission questions MCP servers raise.</li>
+<li><a href="../gatehouse/plug-in-a-server.html">Connect an MCP Server</a>: the permission questions MCP servers raise.</li>
 <li><a href="../citadel/login-node-manners.html">Login Node Manners</a>: the rules that apply on a shared cluster.</li>
 </ul>
 </section>
@@ -252,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

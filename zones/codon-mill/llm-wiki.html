@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Keep a Living Wiki – Agent Odyssey</title>
+<title>Keep an LLM Wiki – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Keep a Living Wiki</h1>
+<h1 class="title">Keep an LLM Wiki</h1>
 </div>
 
 
@@ -326,11 +326,11 @@ Draft a schema (instruction file) of five lines or fewer for that collection: wh
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="rag-and-its-cousins.html">RAG and Its Cousins</a>: for more on RAG, and a table of when to paste, retrieve or query.</li>
-<li><a href="../forest/the-project-charter.html">The Project Charter</a>: for more on how instruction files such as <code>CLAUDE.md</code> work.</li>
+<li><a href="../forest/the-project-charter.html">Write an Instructions File</a>: for more on how instruction files such as <code>CLAUDE.md</code> work.</li>
 <li><a href="../forest/plan-before-you-edit.html">Plan Before You Edit</a>: ask for a plan before the first ingest.</li>
 <li><a href="../crypt/shield-of-undo.html">Save Point</a>: commit before each ingest and undo what the agent changed.</li>
 <li><a href="../gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: why file permissions hold where an instruction file only advises.</li>
-<li><a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: what may leave your machine when you use a hosted model.</li>
+<li><a href="../crypt/secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>: what may leave your machine when you use a hosted model.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -351,7 +351,7 @@ Draft a schema (instruction file) of five lines or fewer for that collection: wh
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

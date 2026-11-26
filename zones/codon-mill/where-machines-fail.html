@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>The kennel master swore his companion could fly. You led it to the mill roof, and it spread its wings, glided a few fine yards and landed in the mud. Over the mill door the miller has hung a sign with two lists: what the machine does well, and what it only seems to do well. Counting letters is on the second. Read both lists, then learn which jobs to hand the machine and which to run as a script.</p>
+<p>A boaster at Gaia’s Rest swore his Astral could fly. You led it to the mill roof, and it spread its wings, glided a few fine yards and landed in the mud. Over the mill door the miller has hung a sign with two lists: what the machines do well, and what they only seem to do well. Counting letters is on the second. Read both lists, then learn which jobs to hand a creature and which to give to an automaton.</p>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -275,9 +275,9 @@ Have a model summarise a methods paragraph you wrote. Check every number, name a
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="../maze/spot-the-mirage.html">Spot the Mirage</a>: for more on hallucination, and how to catch a confident wrong answer.</li>
+<li><a href="../maze/spot-the-mirage.html">Spot Hallucinations</a>: for more on hallucination, and how to catch a confident wrong answer.</li>
 <li><a href="the-context-window.html">The Context Window</a>: what fills the window, why long input degrades recall and what compaction drops.</li>
-<li><a href="../gatehouse/plug-in-a-server.html">Plug In a Server</a>: prompt injection through fetched content and connected tools.</li>
+<li><a href="../gatehouse/plug-in-a-server.html">Connect an MCP Server</a>: prompt injection through fetched content and connected tools.</li>
 <li><a href="../factory/same-every-time.html">Same Every Time</a>: non-determinism, and how to make a run repeatable.</li>
 <li><a href="tokens-not-letters.html">Tokens, Not Letters</a>: why letter-level jobs are risky for a model.</li>
 </ul>
@@ -302,7 +302,7 @@ Have a model summarise a methods paragraph you wrote. Check every number, name a
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

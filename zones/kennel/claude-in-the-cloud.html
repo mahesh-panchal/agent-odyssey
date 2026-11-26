@@ -109,12 +109,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>A tower stands far from the Kennel, where the Beast can work on a borrowed machine that vanishes when the job is done. It is a fine place for sketching and writing, and the kennel master’s patter makes it sound fit for anything. Asked plainly, he lowers his voice: nothing precious should ever be carried to the tower. Learn what the tower is good for, and what you must leave at home.</p>
+<p>A tower stands far above the Collegium, where the Claude Astral can work on a borrowed machine that vanishes when the job is done. It is a fine place to sketch and write, and the boasters make it sound fit for any task. Asked plainly, an academic lowers their voice: nothing precious should be carried to the tower. Learn what the tower is good for, and what you must leave at home.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will say what a cloud session is, what leaves your machine when you start one, which jobs suit it, and how to review what comes back.</li>
-<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Gear</a>, <a href="recruit-the-beast.html">Recruit the Beast</a> and <a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>. You need git and a GitHub account only if you later start a session.</li>
+<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Tools</a>, <a href="recruit-the-beast.html">Set Up Your Agent</a> and <a href="../crypt/secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>. You need git and a GitHub account only if you later start a session.</li>
 <li><strong>Time:</strong> about 15 minutes. The exercise is a worksheet on a mock file tree and needs no cloud account or model.</li>
 </ul>
 </div>
@@ -361,12 +361,12 @@ Check whether your organisation’s plan allows cloud sessions at all.
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: for more on keys, secrets and data agreements.</li>
-<li><a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>: permission modes and rules in depth.</li>
+<li><a href="../crypt/secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>: for more on keys, secrets and data agreements.</li>
+<li><a href="../crypt/rules-of-the-carapace.html">Write Permission Rules</a>: permission modes and rules in depth.</li>
 <li><a href="../forest/plan-before-you-edit.html">Plan Before You Edit</a>: read a plan before the agent changes anything.</li>
 <li><a href="../crypt/shield-of-undo.html">Save Point</a>: git snapshots, and what stays in history.</li>
-<li><a href="../reef/the-reviewers-code.html">The Reviewer’s Code</a>: habits for reviewing a change you did not write.</li>
-<li><a href="../maze/wall-of-output.html">Boss: The Wall of Output</a>: reading a large diff without missing the problem.</li>
+<li><a href="../reef/the-reviewers-code.html">Review Agent-Written Work</a>: habits for reviewing a change you did not write.</li>
+<li><a href="../maze/wall-of-output.html">Boss: Review Large Output</a>: reading a large diff without missing the problem.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -390,7 +390,7 @@ Check whether your organisation’s plan allows cloud sessions at all.
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

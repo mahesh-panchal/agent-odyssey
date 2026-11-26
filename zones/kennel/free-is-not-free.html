@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>Stalls outside the Kennel hand out meat for free. Some is fresh, some is a trial, and one stall will not say where it came from, though the kennel master waves you toward it. A companion that eats from the wrong stall can carry away more than it brought. Read the label before you feed anything, and learn to read the label of a free model offer.</p>
+<p>Stalls outside the Collegium gate offer pacts for free. Some are with Astrals bred in the open, some are trials, and one stall will not say where its Astral came from. A free pact can ask its price in your data, and the porter reads the label before anything goes through the gate. Learn to read the label of a free model offer.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will name what a “free” model offer costs you, sort offers into four kinds, and decide which data may go to which.</li>
-<li><strong>Before you start:</strong> <a href="adopt-the-pet.html">Adopt the Pet</a> (running a model on your own computer) and <a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</li>
+<li><strong>Before you start:</strong> <a href="recruit-the-beast.html">Set Up Your Agent</a> (including running a model on your own computer, on the OpenCode route) and <a href="../crypt/secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>.</li>
 <li><strong>Time:</strong> about 20 minutes. The hands-on step uses a dummy prompt and no sensitive data.</li>
 </ul>
 </div>
@@ -271,9 +271,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: for more on keys and on which data may leave your machine.</li>
-<li><a href="adopt-the-pet.html">Adopt the Pet</a>: run a model locally so prompts stay on your machine.</li>
-<li><a href="pick-your-companion.html">Pick Your Companion</a>: choose a model and effort level, and see Mistral’s terminal agent.</li>
+<li><a href="../crypt/secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>: for more on keys and on which data may leave your machine.</li>
+<li><a href="recruit-the-beast.html">Set Up Your Agent</a>: run a model locally so prompts stay on your machine.</li>
+<li><a href="pick-your-companion.html">Pick Your Model</a>: choose a model and effort level, and see Mistral’s terminal agent.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -300,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

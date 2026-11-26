@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>Your home directory lies on ground that hundreds of others can reach. Keys, tokens and agent settings lie there too, in plain files, and the companion trots through them as if the ground were its own. Shared ground has many passers-by. Before the agent works here, find out who can read what it leaves behind.</p>
+<p>Your home directory lies on ground that hundreds of others can reach. Keys, tokens and settings lie there too, in plain files, and your Astral trots through them as if the ground were its own. Shared ground has many passers-by. Before it works here, find out who can read what it leaves behind.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will keep keys and agent settings private on shared storage, keep data within its agreement, and know what to ask your cluster staff.</li>
-<li><strong>Before you start:</strong> <a href="login-node-manners.html">Login Node Manners</a> and <a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>. <em>Egress</em> means data leaving the machine.</li>
+<li><strong>Before you start:</strong> <a href="login-node-manners.html">Login Node Manners</a> and <a href="../crypt/secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>. <em>Egress</em> means data leaving the machine.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -219,7 +219,7 @@ Find your cluster’s AI or acceptable-use policy (or ask the staff whether one 
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: what stays out of an agent’s reach on any machine.</li>
+<li><a href="../crypt/secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>: what stays out of an agent’s reach on any machine.</li>
 <li><a href="login-node-manners.html">Login Node Manners</a>: what runs on the login node and the sandbox’s limits.</li>
 <li><a href="jobs-not-jam.html">Jobs, Not Jam</a>: permission rules for submitting and cancelling jobs.</li>
 </ul>
@@ -243,7 +243,7 @@ Find your cluster’s AI or acceptable-use policy (or ask the staff whether one 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>The mill keeps three ledgers: what the companion remembers between visits, what it holds during one visit, and what the visit costs. You came back the next morning and it greeted you as a stranger, then followed a rule from a stray note you had forgotten writing. A wrong entry in the first two ledgers is hard to erase. The miller shows you how to read each one alone, so that when something goes wrong you know which to open.</p>
+<p>The mill keeps three ledgers: what an Astral remembers between visits, what it holds during one visit, and what the visit costs. You came back the next morning and it greeted you as a stranger, then followed a rule from a stray note you had forgotten writing. A wrong entry in the first two ledgers is hard to erase. The miller shows you how to read each one alone, so that when something goes wrong you know which to open.</p>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -287,7 +287,7 @@ In a session you already have, run <code>/usage</code> and note what dominates: 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

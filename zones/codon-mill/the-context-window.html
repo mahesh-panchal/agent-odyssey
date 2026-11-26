@@ -109,12 +109,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>A great hopper above the mill holds everything the machine can see at once. You watch your companion work, quick and willing, while the grain piles up around it. Pour in too much and the oldest grain spills out unseen, and the companion never knows what it lost. Learn what goes into the hopper and how to keep it clean. Beyond this stop the road turns toward the Maze, where you learn to check what the machine tells you.</p>
+<p>A great hopper above the mill holds everything an Astral can see at once. You watch yours work, quick and willing, while the grain piles up around it. Pour in too much and the oldest grain spills out unseen, and the Astral never knows what it lost. Learn what goes into the hopper and how to keep it clean. Beyond this stop the road turns toward the Maze, where you learn to check what a creature tells you.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will say what fills the context window, what happens when it is full, and three habits that keep it useful.</li>
-<li><strong>Before you start:</strong> <a href="tokens-not-letters.html">Tokens, Not Letters</a>, and an installed agent from <a href="../kennel/recruit-the-beast.html">Recruit the Beast</a> (on the OpenCode route, that includes Ollama and the model you pulled). A token is a chunk of text the model reads.</li>
+<li><strong>Before you start:</strong> <a href="tokens-not-letters.html">Tokens, Not Letters</a>, and an installed agent from <a href="../kennel/recruit-the-beast.html">Set Up Your Agent</a> (on the OpenCode route, that includes Ollama and the model you pulled). A token is a chunk of text the model reads.</li>
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
@@ -222,7 +222,7 @@ Find one instruction you keep retyping in chat and move it into your instruction
 <ul>
 <li><a href="memory-sessions-and-usage.html">Memory, Sessions and Usage</a>: for more on what loads into every session, and how usage grows with context.</li>
 <li><a href="when-to-start-fresh.html">When to Start Fresh</a>: when to clear and when to continue.</li>
-<li><a href="who-said-what.html">Who Said What</a>: the system prompt, the instructions file and your own message, and which one only advises.</li>
+<li><a href="who-said-what.html">Which Instructions Apply</a>: the system prompt, the instructions file and your own message, and which one only advises.</li>
 <li><a href="handoff-notes.html">Handoff Notes</a>: carry a task across a new session in a short written note.</li>
 </ul>
 </section>
@@ -247,7 +247,7 @@ Find one instruction you keep retyping in chat and move it into your instruction
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

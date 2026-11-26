@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Test the Leash – Agent Odyssey</title>
+<title>Test Permissions and the Sandbox – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Test the Leash</h1>
+<h1 class="title">Test Permissions and the Sandbox</h1>
 </div>
 
 
@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>The Beast has fallen in beside you, strong and willing, and it wants to run ahead. At the Crypt door the warden hands you a short leash and a feather. “Do not trust a rope you have not pulled,” she says, and she has heard the kennel master swear that this lead holds anything. You ask the Beast for one small poem and watch what it does at the end of its lead. Then she shows you a wall of stone around its paws: test the leash, then test the wall.</p>
+<p>The Astral has agreed to the pact and wants to run ahead. At the Crypt door the warden gives you a chalk circle and a feather. “Do not trust a ward you have not tested,” she says, remembering a boaster who swore his held against anything. You ask the Astral for one small poem and watch what it does at the edge of the circle. Then she shows you a wall of stone around it: test the circle, then test the wall.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will watch an agent ask before it acts, switch it between modes, block one file with a rule, and see an operating-system boundary refuse a command.</li>
-<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Gear</a>, and <a href="../kennel/recruit-the-beast.html">Recruit the Beast</a>, which installs an agent (Claude Code, or OpenCode with Ollama) and starts it in a throwaway folder. Each step has a tab for each route. The OpenCode route also needs Docker for step 4. The <a href="../../prerequisites.html">Prerequisites</a> page lists the tools for the optional steps.</li>
+<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Tools</a>, and <a href="../kennel/recruit-the-beast.html">Set Up Your Agent</a>, which installs an agent (Claude Code, or OpenCode with Ollama) and starts it in a throwaway folder. Each step has a tab for each route. The OpenCode route also needs Docker for step 4. The <a href="../../prerequisites.html">Prerequisites</a> page lists the tools for the optional steps.</li>
 <li><strong>Time:</strong> about 30 minutes. Everything happens in a scratch folder with invented content.</li>
 </ul>
 </div>
@@ -353,7 +353,7 @@ Permissions decide whether the command starts. The sandbox limits what it can to
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<p>OpenCode’s documentation describes permission rules but no operating-system sandbox. Its shell commands run with your user’s authority: your files, your processes and your network. OpenCode enforces its own rules inside its program, and nothing at the operating-system level limits what a command it runs can touch. A boundary has to come from outside the agent, and a container is the simplest one to test.</p>
+<p>OpenCode’s documentation describes permission rules but no operating-system sandbox. Its shell commands run with your user’s authority: your files, your processes and your network. If Docker is not available on your machine, skip this step; steps 1 to 3 already showed the rules and their limits. OpenCode enforces its own rules inside its program, and nothing at the operating-system level limits what a command it runs can touch. A boundary has to come from outside the agent, and a container is the simplest one to test.</p>
 <p>A <strong>container</strong> is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. Docker is a common tool for this. Install Docker Desktop (or Docker Engine on Linux) and start it before you run this command. The first run downloads the <code>python:3.11</code> image, which is large. The command mounts the scratch folder and cuts the network:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">--rm</span> <span class="at">--network</span> none <span class="at">-v</span> ~/odyssey-scratch/leash:/project <span class="at">-w</span> /project python:3.11 bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Inside, run <code>ls /</code> (a different filesystem from yours), <code>curl https://example.com</code> (fails, no network) and <code>touch /project/inside.txt</code>. The file appears in your scratch folder because it is the mounted project folder, the only part of your machine the container can change. Type <code>exit</code> to leave. This tests the boundary itself. Running an agent inside one takes more set-up than this lesson covers.</p>
@@ -380,11 +380,11 @@ Permissions decide whether the command starts. The sandbox limits what it can to
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="../kennel/recruit-the-beast.html">Recruit the Beast</a>: install the agent and start in plan mode.</li>
-<li><a href="rules-of-the-carapace.html">Grow the Carapace</a>: write allow, ask and deny rules for a real project.</li>
+<li><a href="../kennel/recruit-the-beast.html">Set Up Your Agent</a>: install the agent and start in plan mode.</li>
+<li><a href="rules-of-the-carapace.html">Write Permission Rules</a>: write allow, ask and deny rules for a real project.</li>
 <li><a href="shield-of-undo.html">Save Point</a>: set a save point so an approved edit can be undone.</li>
 <li><a href="../gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: why a hook enforces and an instructions file only asks.</li>
-<li><a href="../basecamp/wade-in.html">Wade In</a>: decide what an agent may do before you start.</li>
+<li><a href="../basecamp/wade-in.html">Choose What to Hand Over</a>: decide what an agent may do before you start.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -409,7 +409,7 @@ Permissions decide whether the command starts. The sandbox limits what it can to
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

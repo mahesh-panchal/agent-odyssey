@@ -109,12 +109,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>A reef thrives on many hands. Younger travellers ask what you know, and your companion could answer faster than you can, so you ask yourself what you are still learning. Share what you know, protect your own learning, and take on only what you can review.</p>
+<p>A reef thrives on many hands. Younger travellers ask what you know, and your Astral could answer faster than you can, so you ask yourself what you are still learning. Share what you know, protect your own learning, and take on only what you can review.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will pass on what you learned without leaving anyone behind, and keep your own skills and workload healthy.</li>
-<li><strong>Before you start:</strong> <a href="the-reviewers-code.html">The Reviewer’s Code</a>.</li>
+<li><strong>Before you start:</strong> <a href="the-reviewers-code.html">Review Agent-Written Work</a>.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -183,8 +183,8 @@ Show one colleague one verification habit from this course, such as re-running t
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="send-small-say-so.html">Send Small, Say So</a>: the hand-off habits to teach a colleague first.</li>
-<li><a href="../maze/wall-of-output.html">Boss: The Wall of Output</a>: checking a large output you did not write.</li>
+<li><a href="send-small-say-so.html">Send Small Changes, Say What You Checked</a>: the hand-off habits to teach a colleague first.</li>
+<li><a href="../maze/wall-of-output.html">Boss: Review Large Output</a>: checking a large output you did not write.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -205,7 +205,7 @@ Show one colleague one verification habit from this course, such as re-running t
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

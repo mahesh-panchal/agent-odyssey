@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>A notebook can hold a result nobody can reproduce, and in the Scriptorium the order of work matters more than the page. Your companion ran a cell out of turn, and the figure it drew belongs to a page that no longer exists. A scribe’s note says one thing and the manuscript says another. Learn to tell which one is true.</p>
+<p>A notebook can hold a result nobody can reproduce, and in the Scriptorium the order of work matters more than the page. Your Astral ran a cell out of turn, and the figure it drew belongs to a page that no longer exists. A scribe’s note says one thing and the manuscript says another. Learn to tell which one is true.</p>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -236,7 +236,7 @@ Take one of your own notebooks and use “Restart Kernel and Run All Cells”. N
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -144,12 +144,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>The Citadel gate is shared by hundreds of travellers, and the gatekeeper has seen what one careless sweep of the whole library does to everyone’s queue. You arrive with a companion that means well and has never heard of manners. Before it takes one step inside, teach it where it may work and how widely it may search.</p>
+<p>The Citadel gate is shared by hundreds of travellers, and the gatekeeper has seen what one careless sweep of the whole library does to everyone’s queue. You arrive with an Astral that means well and has never heard of manners. Before it takes one step inside, teach it where it may work and how widely it may search.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="persona">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Guildmaster</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Diviner</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Artificer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Archivist</a></li></ul>
+<div class="tab-content" data-group="persona">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The Guildmaster counts what one careless sweep costs the whole guild.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The Diviner submits her jobs and leaves the login node alone.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>The Artificer sets limits before the Astral runs anything.</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>The Archivist asks who can read the files left on shared ground.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will keep heavy work and sprawling searches off the shared login node and shared storage, and hand heavy work to the scheduler.</li>
-<li><strong>Before you start:</strong> <a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>. A <em>login node</em> is the shared machine you log in to. <em>Compute nodes</em> run your jobs. The <em>scheduler</em> is the program that decides which job runs where; this page uses Slurm, a common one.</li>
+<li><strong>Before you start:</strong> <a href="../crypt/rules-of-the-carapace.html">Write Permission Rules</a>. A <em>login node</em> is the shared machine you log in to. <em>Compute nodes</em> run your jobs. The <em>scheduler</em> is the program that decides which job runs where; this page uses Slurm, a common one.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -232,9 +249,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Check that the sandbox is on before you rely on it.</li>
 </ul>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>Tell the agent where it may run what, in your project instructions or the prompt, and back it with a permission rule where you can. Useful instructions:</p>
 <ul>
 <li>“Search only inside <code>./workflow/</code>. Never run <code>find</code> or <code>grep -r</code> from <code>/</code> or <code>$HOME</code>.”</li>
@@ -243,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Instructions are guidance, and the agent can still slip. If a project instruction file (<code>AGENTS.md</code> or <code>CLAUDE.md</code>) is stricter than these lines, the stricter one wins.</p>
 <p>Foreground commands time out (default 2 minutes, maximum 10 by default), A timeout is not a load control: a heavy command still runs until it is cut off.</p>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>The same habits apply. OpenCode’s permission model uses allow, ask and deny rules, and an unmatched action asks. Its base policy begins with an allow-all rule, so <code>sbatch</code> runs without a prompt until you add a rule. Add explicit rules for the cluster commands, and check your installed version’s permission docs. A local model through Ollama runs on the node you are on and touches the filesystem the same way.</p>
 </div>
 </div>
@@ -288,7 +305,7 @@ Find your cluster’s user guide page on login-node rules (or ask the staff). Wr
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

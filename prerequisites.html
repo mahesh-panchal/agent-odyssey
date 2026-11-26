@@ -186,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pick-a-route-for-the-agent" class="level2">
 <h2 class="anchored" data-anchor-id="pick-a-route-for-the-agent">Pick a route for the agent</h2>
-<p>An agent is a model with tools that can read your files and run commands. You do not need one yet. <a href="zones/kennel/recruit-the-beast.html">Recruit the Beast</a> gives the full install steps and the first session for each route, and the tabs on every lesson follow the route you pick there. The two routes are Claude Code, which uses a hosted model, and OpenCode with Ollama, which runs a model on your own computer.</p>
+<p>An agent is a model with tools that can read your files and run commands. You do not need one yet. <a href="zones/kennel/recruit-the-beast.html">Set Up Your Agent</a> gives the full install steps and the first session for each route, and the tabs on every lesson follow the route you pick there. The two routes are Claude Code, which uses a hosted model, and OpenCode with Ollama, which runs a model on your own computer.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -206,7 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <ul>
-<li><strong>Install.</strong> Recruit the Beast gives the installer command. Read an installer script before piping it into <code>bash</code> (piping sends the downloaded script straight to the shell to run). To read it first, download it with <code>curl -fsSL &lt;url&gt; | less</code>.</li>
+<li><strong>Install.</strong> Set Up Your Agent gives the installer command. Read an installer script before piping it into <code>bash</code> (piping sends the downloaded script straight to the shell to run). To read it first, download it with <code>curl -fsSL &lt;url&gt; | less</code>.</li>
 <li><strong>An account.</strong> Claude Code needs a login on a paid Claude plan, or an Anthropic API key (a secret string that gives programmatic access, billed per use). Use the account your organisation approves.</li>
 </ul>
 </div>
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <ul>
-<li><strong>Install.</strong> Recruit the Beast gives the Ollama and OpenCode install commands and the model to fetch.</li>
+<li><strong>Install.</strong> Set Up Your Agent gives the Ollama and OpenCode install commands and the model to fetch.</li>
 <li><strong>No account.</strong> Prompts stay on your computer. You need about 16 GB of memory and 5 GB of free disk. A small local model holds less in mind and makes more mistakes than a hosted one, so check its answers.</li>
 </ul>
 </div>
@@ -261,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td>Docker</td>
 <td><code>docker --version</code></td>
-<td>the boundary exercise on the OpenCode route (a container is an isolated Linux environment; Docker Desktop must be running)</td>
+<td>the boundary exercise on the OpenCode route (a container is an isolated Linux environment; Docker Desktop must be running). Skip it if your machine does not allow it</td>
 </tr>
 </tbody>
 </table>
@@ -291,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

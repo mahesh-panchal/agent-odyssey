@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Reviewer’s Code – Agent Odyssey</title>
+<title>Review Agent-Written Work – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -91,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">The Reviewer’s Code</h1>
+<h1 class="title">Review Agent-Written Work</h1>
 </div>
 
 
@@ -109,12 +109,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>Sooner or later the work comes back across the reef to you, and it is your turn to be the reviewer. A good reviewer is kind and exact, and neither tires nor hurries, even when a companion wrote the work and sounds sure of it. Learn the code that keeps both the work and the author in good shape.</p>
+<p>Sooner or later the work comes back across the reef to you, and it is your turn to be the reviewer. A good reviewer is kind and exact, and neither tires nor hurries, even when an Astral wrote the work and sounds sure of it. Learn the code that keeps both the work and the author in good shape.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will review work that involved an LLM, kindly and effectively, and choose formats that review well.</li>
-<li><strong>Before you start:</strong> <a href="send-small-say-so.html">Send Small, Say So</a>.</li>
+<li><strong>Before you start:</strong> <a href="send-small-say-so.html">Send Small Changes, Say What You Checked</a>.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -143,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="../maze/wall-of-output.html">Boss: The Wall of Output</a>: why an oversized change defeats review.</li>
+<li><a href="../maze/wall-of-output.html">Boss: Review Large Output</a>: why an oversized change defeats review.</li>
 <li><a href="../scriptorium/why-notebooks-diff-badly.html">Why Notebooks Diff Badly</a>: what a notebook diff shows, and four ways to make it reviewable.</li>
 </ul>
 </section>
@@ -165,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

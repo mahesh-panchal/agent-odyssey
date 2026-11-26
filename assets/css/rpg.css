@@ -1,6 +1,8 @@
 :root { --bg:#14101f; --fg:#f1ead7; --accent:#e8b84a; --panel:#241b3a; --bad:#ff7a7a; --ok:#7bd88f; }
 html, body { background: var(--bg); color: var(--fg); font: 18px/1.6 system-ui, sans-serif; }
-body { margin: 0 auto; max-width: 52rem; padding: 1rem; }
+body { margin: 0 auto; max-width: 56rem; padding: 1rem; }
+/* Narrower side gutters than Quarto's default grid, so the text column and the tabs get more room. */
+#quarto-content.page-columns { grid-template-columns: [screen-start] .5rem [screen-start-inset] 0 [page-start page-start-inset] 0 [body-start-outset] 0 [body-start] .5rem [body-content-start] minmax(0, 1fr) [body-content-end] .5rem [body-end] 0 [body-end-outset] 0 [page-end-inset page-end] 0 [screen-end-inset] .5rem [screen-end]; }
 a { color: var(--accent); }
 h1, h2 { color: var(--accent); font-family: ui-monospace, monospace; }
 #ao-hud { background: var(--panel); border: 2px solid var(--accent); padding: .4rem 1rem; margin-bottom: 1.5rem; font: 14px ui-monospace, monospace; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
@@ -160,3 +162,10 @@ img.ao-boss-img { display: block; margin: 1rem auto; width: 192px; max-width: 10
 .ao-tree .ao-branchname { font: bold 11px ui-monospace, monospace; fill: var(--accent); paint-order: stroke; stroke: var(--panel); stroke-width: 4px; }
 .ao-tree .ao-lock { font-size: 20px; stroke: none; }
 .ao-treekey { font-size: 14px; } .ao-treekey span { margin-right: .8rem; white-space: nowrap; }
+
+img.ao-persona-img { float: left; width: 192px; max-width: 45%; height: auto; margin: 0 1rem .5rem 0; image-rendering: pixelated; }
+img.ao-kind-img { width: 100%; max-width: 192px; height: auto; margin: 0; image-rendering: pixelated; }
+.ao-kinds { display: flex; justify-content: center; gap: 2%; margin: .5rem 0; }
+.ao-kinds p { flex: 1 1 0; margin: 0; text-align: center; }
+
+.ao-storykey { font-size: .8rem; opacity: .75; margin: -.5rem 0 1rem; }

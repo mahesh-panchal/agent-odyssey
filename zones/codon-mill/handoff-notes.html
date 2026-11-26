@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>You wake at the mill with a fresh companion and a half-finished job. It knows nothing of yesterday except what loads by itself or lies written down, and yesterday you wrote nothing. The mill keeps a ledger of notes for exactly this gap. Learn what belongs in it, and the next visit starts where the last one stopped.</p>
+<p>You wake at the mill with a fresh Astral and a half-finished job. It knows nothing of yesterday except what loads by itself or lies written down, and yesterday you wrote nothing. The mill keeps a ledger of notes for exactly this gap. Learn what belongs in it, and the next visit starts where the last one stopped.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will list the five things that carry knowledge into a fresh session, and write a short handoff note a fresh session can act on, with what was checked kept apart from what was not.</li>
-<li><strong>Before you start:</strong> <a href="the-stream-of-ideas.html">The Stream of Ideas</a>. Commands here are Claude Code commands.</li>
+<li><strong>Before you start:</strong> <a href="the-stream-of-ideas.html">Capture Ideas Mid-Task</a>. Commands here are Claude Code commands.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -325,7 +325,7 @@ Ask an agent to draft a handoff note, then mark each line in your own words as c
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="the-stream-of-ideas.html">The Stream of Ideas</a>: for more on parking ideas, the open questions a note carries.</li>
+<li><a href="the-stream-of-ideas.html">Capture Ideas Mid-Task</a>: for more on parking ideas, the open questions a note carries.</li>
 <li><a href="memory-sessions-and-usage.html">Memory, Sessions and Usage</a>: both kinds of memory, and what to do about a poisoned claim.</li>
 <li><a href="when-to-start-fresh.html">When to Start Fresh</a>: when a fresh session beats continuing.</li>
 <li><a href="../maze/ground-truth.html">Ground Truth</a>: checking claims against the source, which a note’s claims also need.</li>
@@ -352,7 +352,7 @@ Ask an agent to draft a handoff note, then mark each line in your own words as c
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

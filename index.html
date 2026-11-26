@@ -111,7 +111,38 @@ ul.task-list li input[type="checkbox"] {
 <p class="ao-start-here">
 <a class="ao-start-btn" href="start-here.html">New here? Start Here ▶</a><br>A short guide to the path, with a map of every quest and your next step.
 </p>
-<p>A Blight spreads across the land: plausible-but-false knowledge that grows when nobody checks it. Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold <strong>▶ NEXT</strong> marker is the suggested next stop. The map shows only the places on your path. More appear as you clear quests, or choose “Show the whole map” to see everything.</p>
+<div class="ao-story">
+<p>Gaia’s Rest stands at the root of the great tree, and tonight it is loud. Boasters at the bar swear they raised whole pipelines overnight, finished analyses before the ink dried, and did it all by making a pact with an Astral, a spirit that speaks every tongue (here, a language model). In a dark corner a few patrons say nothing of the kind, and when they speak at all they whisper of what the Blight did to them. An old wanderer slides a Summoning Scroll across the table, and four travellers lean in to read it.</p>
+</div>
+<section id="meet-the-party" class="level2">
+<h2 class="anchored" data-anchor-id="meet-the-party">Meet the party</h2>
+<p>Four travellers share the long table. Choose the one closest to your own work: the choice is remembered, and it adds a little extra to some of the stories. The lessons are the same for everyone.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="persona">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Guildmaster</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Diviner</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Artificer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Archivist</a></li></ul>
+<div class="tab-content" data-group="persona">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><img src="assets/img/persona-guildmaster.png" class="ao-persona-img img-fluid" alt="Pixel-art portrait of the Guildmaster: a figure in a green robe with a gold chain of office, holding a ledger and a glowing milestone beacon."></p>
+<p><strong>Research or project manager.</strong> The Guildmaster keeps the ledgers, lights the milestone beacons and rations the budget. Their guild runs on deadlines, and a pact promises roadmaps and status reports without waiting on anyone. They have watched a flawless-looking demo turn out to be nothing of the kind, so they know the difference between “it ran” and “it is done”.</p>
+<p><em>Where your discipline matters most:</em> the Gatehouse, the Scriptorium and the Cluster Citadel.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><img src="assets/img/persona-diviner.png" class="ao-persona-img img-fluid" alt="Pixel-art portrait of the Diviner: a hooded figure in an indigo cloak holding a glowing glass lens."></p>
+<p><strong>Bioinformatics analyst.</strong> The Diviner reads the signal in noisy data with trained hounds and a lens for ground truth: reference databases and controls. A pact offers literature summaries and analysis scripts in minutes. The Diviner knows how a fluent, flattering explanation can lead a tired mind to a conclusion that the primary sources never supported.</p>
+<p><em>Where your discipline matters most:</em> the Ancient DNA Crypt, the Sequence Maze and the Phylogenetic Forest.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><img src="assets/img/persona-artificer.png" class="ao-persona-img img-fluid" alt="Pixel-art portrait of the Artificer: a figure in a leather apron with goggles on their brow, beside a brass gear."></p>
+<p><strong>Bioinformatics engineer.</strong> The Artificer builds with automata: scripts, pipelines and containers that do exactly what they were built to do. A pact could draft a workflow and its tests before the kettle boils. The Artificer has inherited a pile of code that nobody could explain, and will not add to it.</p>
+<p><em>Where your discipline matters most:</em> the Codon Mill, the Sequence Maze and the Pipeline Factory.</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><img src="assets/img/persona-archivist.png" class="ao-persona-img img-fluid" alt="Pixel-art portrait of the Archivist: a long-haired figure in spectacles with a ring of keys and a sealed scroll."></p>
+<p><strong>Data steward.</strong> The Archivist guards the vaults: raw data, checksums, ontologies and the metadata that makes a dataset findable. A pact can tidy a messy sample sheet in a moment. The Archivist knows the danger of a tidy table whose missing values were quietly invented, and keeps a ledger of every change.</p>
+<p><em>Where your discipline matters most:</em> the Gatehouse, the Biodiversity Reef and the Scriptorium.</p>
+</div>
+</div>
+</div>
+<p>Read <a href="./prerequisites.html">the Summoning Scroll</a> (what to install) and then <a href="./start-here.html">Start Here</a> for the path. Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold <strong>▶ NEXT</strong> marker is the suggested next stop. The map shows only the places on your path. More appear as you clear quests, or choose “Show the whole map” to see everything.</p>
 <p id="ao-next" class="ao-next" aria-live="polite">
 </p>
 <canvas id="ao-world" tabindex="0" data-game-widget="" aria-label="Overworld map. Use the zone list below if you prefer links.">
@@ -129,7 +160,7 @@ Text-only list of zones
 </summary>
 <ul>
 <li><a href="./start-here.html">Start Here (the path and your next step)</a></li>
-<li><a href="./zones/basecamp/name-the-fears.html">Basecamp at the Root</a></li>
+<li><a href="./zones/basecamp/name-the-fears.html">Gaia’s Rest</a></li>
 <li><a href="./zones/kennel/recruit-the-beast.html">The Kennel</a></li>
 <li><a href="./zones/crypt/shield-of-undo.html">Ancient DNA Crypt</a></li>
 <li><a href="./zones/codon-mill/tokens-not-letters.html">The Codon Mill</a></li>
@@ -147,6 +178,7 @@ Text-only list of zones
 </details>
 
 
+</section>
 
 </main> <!-- /main -->
 <footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
@@ -155,7 +187,7 @@ Text-only list of zones
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

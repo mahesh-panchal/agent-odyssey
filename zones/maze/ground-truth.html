@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>A script glows in the maze and claims to have been tested, and the companion that wrote it swears it works. It sounds sure of itself, and its light shows nothing new. A traveller carries a lantern of their own: a measurement the script did not make. Light it and see whether the script is telling the truth.</p>
+<p>A script glows in the maze and claims to have been tested, and the Astral that wrote it swears it works. It sounds sure of itself, and its light shows nothing new. A traveller carries a lantern of their own: a measurement the script did not make. Light it and see whether the script is telling the truth.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will find out whether a script an agent called “tested” is right, using a check the agent did not write. You need this before you rely on any agent-written code.</li>
-<li><strong>Before you start:</strong> <a href="spot-the-mirage.html">Spot the Mirage</a>, a terminal with Python 3 and <code>awk</code>, and the two files below (about 1 KB in total). Nothing here touches your own data.</li>
+<li><strong>Before you start:</strong> <a href="spot-the-mirage.html">Spot Hallucinations</a>, a terminal with Python 3 and <code>awk</code>, and the two files below (about 1 KB in total). Nothing here touches your own data.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -191,9 +191,9 @@ seq3    2 GC of 8 total</code></pre>
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="spot-the-mirage.html">Spot the Mirage</a>: how plausible-but-false output looks and why you check it.</li>
+<li><a href="spot-the-mirage.html">Spot Hallucinations</a>: how plausible-but-false output looks and why you check it.</li>
 <li><a href="../factory/dry-run-first.html">Dry Run First</a>: preview what a pipeline will do before it runs.</li>
-<li><a href="../reef/send-small-say-so.html">Send Small, Say So</a>: hand over small work and say what the agent did.</li>
+<li><a href="../reef/send-small-say-so.html">Send Small Changes, Say What You Checked</a>: hand over small work and say what the agent did.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -217,7 +217,7 @@ seq3    2 GC of 8 total</code></pre>
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

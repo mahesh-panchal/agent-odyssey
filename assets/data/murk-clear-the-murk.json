@@ -122,7 +122,7 @@
     "Keep out of reach",
     "Fine to show the agent"
    ],
-   "explain": "Keys and credential files belong in the Locked Cabinet. Ordinary scripts and mock files can be shared.",
+   "explain": "Keys and credential files belong in a secret store, out of the agent's reach. Ordinary scripts and mock files can be shared.",
    "items": [
     {
      "text": "~/.config/mockstore/credentials",
@@ -274,7 +274,7 @@
     },
     {
      "left": "A token in the script",
-     "right": "Keep keys in the Locked Cabinet",
+     "right": "Keep keys in a secret store, out of reach",
      "misconception": "Keys stay out of scripts and out of the agent's reach."
     },
     {

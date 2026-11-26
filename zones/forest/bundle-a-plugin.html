@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>At the forest’s edge a satchel waits to be packed with the smith’s finest Skills and their tests. Whatever you carry, others will unpack, and whatever you unpack from another traveller’s satchel runs with your own authority. A pack that looked fine on the table once split open on a stranger’s back. Pack with care, and open with more.</p>
+<p>At the forest’s edge a satchel waits to be packed with the smith’s finest skills and their tests. Whatever you carry, others will unpack, and whatever you unpack from another traveller’s satchel runs with your own authority. A pack that looked fine on the table once split open on a stranger’s back. Pack with care, and open with more.</p>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -217,9 +217,9 @@ Turn the Skill you wrote into a plugin folder with a <code>plugin.json</code>, t
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="test-the-skill.html">Test the Skill</a>: for more on checking a plugin’s behaviour with an eval.</li>
-<li><a href="forge-a-skill.html">Forge a Skill</a>: for more on writing the Skill a plugin carries.</li>
-<li><a href="../gatehouse/guard-the-door.html">Guard the Door</a>: for more on hooks, the plugin part that runs code.</li>
-<li><a href="../gatehouse/plug-in-a-server.html">Plug In a Server</a>: for more on MCP servers and how to scope them.</li>
+<li><a href="forge-a-skill.html">Write a Skill</a>: for more on writing the Skill a plugin carries.</li>
+<li><a href="../gatehouse/guard-the-door.html">Block Actions with a Hook</a>: for more on hooks, the plugin part that runs code.</li>
+<li><a href="../gatehouse/plug-in-a-server.html">Connect an MCP Server</a>: for more on MCP servers and how to scope them.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -242,7 +242,7 @@ Turn the Skill you wrote into a plugin folder with a <code>plugin.json</code>, t
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

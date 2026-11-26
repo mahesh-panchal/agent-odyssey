@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Forge a Skill – Agent Odyssey</title>
+<title>Write a Skill – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Forge a Skill</h1>
+<h1 class="title">Write a Skill</h1>
 </div>
 
 
@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>In a hollow of the forest the smith keeps procedures in folders, tired of watching companions ask the same question twice. A long recipe hung on every branch would crowd the clearing, so the smith hangs only a label and fetches the rest on demand. Now the smith shows you how to forge one.</p>
+<p>In a hollow of the forest the smith keeps procedures in folders, tired of watching Astrals ask the same question twice. A long recipe hung on every branch would crowd the clearing, so the smith hangs only a label and fetches the rest on demand. Now the smith shows you how to forge one.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will package a repeatable procedure as a Skill, install it, and confirm that it loads.</li>
-<li><strong>Before you start:</strong> <a href="the-project-charter.html">The Project Charter</a>. A <strong>slash command</strong> is a <code>/command</code> typed inside the running agent. <strong>Frontmatter</strong> is the settings block between the two <code>---</code> lines at the top of a file.</li>
+<li><strong>Before you start:</strong> <a href="the-project-charter.html">Write an Instructions File</a>. A <strong>slash command</strong> is a <code>/command</code> typed inside the running agent. <strong>Frontmatter</strong> is the settings block between the two <code>---</code> lines at the top of a file.</li>
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
@@ -251,10 +251,10 @@ Write a <code>SKILL.md</code> for one chore you repeat (checking an input, summa
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="close-the-loop.html">Close the Loop</a>: for more on measuring whether a Skill changes what the agent does.</li>
+<li><a href="close-the-loop.html">Turn Mistakes into Tests</a>: for more on measuring whether a Skill changes what the agent does.</li>
 <li><a href="test-the-skill.html">Test the Skill</a>: for more on writing an eval case that checks a Skill fires.</li>
 <li><a href="bundle-a-plugin.html">Bundle a Plugin</a>: for more on packaging Skills so a group can install them.</li>
-<li><a href="the-project-charter.html">The Project Charter</a>: for more on what belongs in the always-loaded instructions file instead.</li>
+<li><a href="the-project-charter.html">Write an Instructions File</a>: for more on what belongs in the always-loaded instructions file instead.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -279,7 +279,7 @@ Write a <code>SKILL.md</code> for one chore you repeat (checking an input, summa
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

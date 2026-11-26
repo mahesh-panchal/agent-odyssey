@@ -94,7 +94,7 @@
       var x = c.getContext("2d"); x.imageSmoothingEnabled = false; return [c, x]; }
     var base = layer(), fog = layer(), lab = layer();
     ctx.imageSmoothingEnabled = false;
-    var COLORS = { Prologue: "#9ad", Companions: "#e98", Armour: "#e8b84a", Trust: "#8e8", Skills: "#6d9", Level: "#7be", Craft: "#c9f", "Final Boss": "#e66" };
+    var COLORS = { Prologue: "#9ad", Pacts: "#e98", Wards: "#e8b84a", Trust: "#8e8", Skills: "#6d9", Level: "#7be", Craft: "#c9f", "Final Boss": "#e66" };
 
     function buildBase() {
       var b = base[1];

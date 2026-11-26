@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>Travellers keep asking the miller about books that will never fit in the hopper. A companion sent to fetch an answer from the whole library came back with the wrong shelf and total confidence. Some say to fetch a few pages when a question comes, some to draw a web of names, and some to fetch nothing at all. Before choosing, learn what each way fetches and what it misses.</p>
+<p>Travellers keep asking the miller about books that will never fit in the hopper. An Astral sent to fetch an answer from the whole library came back with the wrong shelf and total confidence. Some say to fetch a few pages when a question comes, some to draw a web of names, and some to fetch nothing at all. Before choosing, learn what each way fetches and what it misses.</p>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -256,11 +256,11 @@ Estimate whether your own collection of notes would fit in a 200,000-token windo
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="the-context-window.html">The Context Window</a>: for more on what the window holds and why long prompts bury passages.</li>
-<li><a href="grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>: build and read a small knowledge graph with a local model.</li>
-<li><a href="llm-wiki.html">Keep a Living Wiki</a>: an agent-kept wiki as another way to work from a pile of documents.</li>
-<li><a href="../gatehouse/plug-in-a-server.html">Plug In a Server</a>: connecting a retrieval or query tool to your agent.</li>
-<li><a href="../gatehouse/guard-the-door.html">Guard the Door</a>: habits that limit the damage when retrieved text carries instructions.</li>
-<li><a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: what may leave your machine when you use a hosted model.</li>
+<li><a href="grow-a-graph-with-ollama.html">Build a Knowledge Graph with Ollama</a>: build and read a small knowledge graph with a local model.</li>
+<li><a href="llm-wiki.html">Keep an LLM Wiki</a>: an agent-kept wiki as another way to work from a pile of documents.</li>
+<li><a href="../gatehouse/plug-in-a-server.html">Connect an MCP Server</a>: connecting a retrieval or query tool to your agent.</li>
+<li><a href="../gatehouse/guard-the-door.html">Block Actions with a Hook</a>: habits that limit the damage when retrieved text carries instructions.</li>
+<li><a href="../crypt/secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>: what may leave your machine when you use a hosted model.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -287,7 +287,7 @@ Estimate whether your own collection of notes would fit in a 200,000-token windo
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

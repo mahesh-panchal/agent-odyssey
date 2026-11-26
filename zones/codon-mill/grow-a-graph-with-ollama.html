@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Grow a Graph with Ollama – Agent Odyssey</title>
+<title>Build a Knowledge Graph with Ollama – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Grow a Graph with Ollama</h1>
+<h1 class="title">Build a Knowledge Graph with Ollama</h1>
 </div>
 
 
@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>In a back room the miller strings yarn between pegs: one peg for each name, one thread for each link. It takes a long time, and every knot is worth checking, because a companion that follows one wrongly tied thread does so with confidence. A traveller asks whether the web finds answers that a plain search misses. You will build a small one and test that.</p>
+<p>In a back room the miller strings yarn between pegs: one peg for each name, one thread for each link. It takes a long time, and every knot is worth checking, because an Astral that follows one wrongly tied thread does so with confidence. A traveller asks whether the web finds answers that a plain search misses. You will build a small one and test that.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will build a small knowledge graph from twelve mock lab notes with a local model, query it, compare it with simple RAG, and learn what LightRAG and Microsoft GraphRAG ask of an Ollama setup.</li>
-<li><strong>Before you start:</strong> <a href="rag-and-its-cousins.html">RAG and Its Cousins</a>, and <a href="../kennel/adopt-the-pet.html">Adopt the Pet</a> (Ollama installed and running). Python 3 on your path; the scripts use only its standard library. This is an optional side quest.</li>
+<li><strong>Before you start:</strong> <a href="rag-and-its-cousins.html">RAG and Its Cousins</a>, and <a href="../kennel/recruit-the-beast.html">Set Up Your Agent</a> on the OpenCode route (Ollama installed and running). Python 3 on your path; the scripts use only its standard library. This is an optional side quest.</li>
 <li><strong>Time:</strong> about 30 minutes, most of it waiting for the model. Everything stays on your machine, and the notes are mock data.</li>
 </ul>
 </div>
@@ -349,9 +349,9 @@ Change <code>hops=2</code> to <code>hops=1</code> in <code>graph.py</code>, pred
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="rag-and-its-cousins.html">RAG and Its Cousins</a>: for more on the kinds of RAG and when to choose each.</li>
-<li><a href="../kennel/adopt-the-pet.html">Adopt the Pet</a>: installing Ollama and choosing a local model.</li>
-<li><a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: what may leave your machine when you use a hosted model.</li>
-<li><a href="llm-wiki.html">Keep a Living Wiki</a>: another way to turn a pile of documents into linked knowledge.</li>
+<li><a href="../kennel/recruit-the-beast.html">Set Up Your Agent</a>: installing Ollama and choosing a local model.</li>
+<li><a href="../crypt/secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>: what may leave your machine when you use a hosted model.</li>
+<li><a href="llm-wiki.html">Keep an LLM Wiki</a>: another way to turn a pile of documents into linked knowledge.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -378,7 +378,7 @@ Change <code>hops=2</code> to <code>hops=1</code> in <code>graph.py</code>, pred
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

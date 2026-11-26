@@ -109,12 +109,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>A wall of signs hangs in the Gatehouse. Some ask politely and some lock the door, and your companion reads every one of them in the same eager way. From across the room they look alike, and only one kind holds when the companion pushes. Learn to tell them apart before you rely on one.</p>
+<p>A wall of signs hangs in the Gatehouse. Some ask politely and some lock the door, and your Astral reads every one of them in the same eager way. From across the room they look alike, and only one kind holds when the Astral pushes. Learn to tell them apart before you rely on one.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will sort every control in your setup by whether it advises, asks or enforces, and choose the right one for each risk.</li>
-<li><strong>Before you start:</strong> <a href="guard-the-door.html">Guard the Door</a>. A <strong>sandbox</strong> is an operating-system layer that limits what shell commands can touch.</li>
+<li><strong>Before you start:</strong> <a href="guard-the-door.html">Block Actions with a Hook</a>. A <strong>sandbox</strong> is an operating-system layer that limits what shell commands can touch.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -305,10 +305,10 @@ List five controls in your own setup, such as an instructions file, a hook or a 
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="guard-the-door.html">Guard the Door</a>: for more on writing a hook that enforces a rule.</li>
-<li><a href="plug-in-a-server.html">Plug In a Server</a>: for more on limiting what a connected server can do.</li>
-<li><a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>: for more on deny rules, ask rules and the sandbox.</li>
-<li><a href="../forest/the-project-charter.html">The Project Charter</a>: for more on instructions files, the main form of advice.</li>
+<li><a href="guard-the-door.html">Block Actions with a Hook</a>: for more on writing a hook that enforces a rule.</li>
+<li><a href="plug-in-a-server.html">Connect an MCP Server</a>: for more on limiting what a connected server can do.</li>
+<li><a href="../crypt/rules-of-the-carapace.html">Write Permission Rules</a>: for more on deny rules, ask rules and the sandbox.</li>
+<li><a href="../forest/the-project-charter.html">Write an Instructions File</a>: for more on instructions files, the main form of advice.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -332,7 +332,7 @@ List five controls in your own setup, such as an instructions file, a hook or a 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

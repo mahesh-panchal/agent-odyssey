@@ -109,7 +109,13 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>At the edge of Basecamp the kennel master calls out his wares, and his patter promises one companion that does everything: it flies, it fights and it never tires. Behind his stall, on the workbench, sit three machines that fit none of his claims. One makes the same move every time, one was trained for a single trick, and one talks and talks. A traveller who bets the day on the wrong one comes home with nothing. Learn what each is for, and the next stop shows what a companion wears when it sets out.</p>
+<p>The Collegium rings with work from dawn. In one college tinkers hammer automata together out of brass and patience, in another beastmasters drill familiars to hunt a single quarry, and in the sages’ college robed figures bargain pacts with Astrals. The three colleges respect one another, because each knows what the shokanju it summons are good at and where they fail: automata never stray and never improvise, familiars are sure on their one trail, and an Astral can speak every tongue and still invent what it does not know. A tinker nods to a familiar as it passes, and a sage asks the tinker to build the lock that keeps an Astral honest. Learn what each is for, and later how to make a pact with an Astral of your own.</p>
+<div class="ao-kinds">
+<p><img src="../../assets/img/kind-automaton.png" class="ao-kind-img img-fluid" alt="Pixel-art clockwork automaton: a brass creature with a gear in its side and a wind-up key."></p>
+<p><img src="../../assets/img/kind-familiar.png" class="ao-kind-img img-fluid" alt="Pixel-art familiar: a trained hound with a collar and a small glowing rune tag."></p>
+<p><img src="../../assets/img/kind-astral.png" class="ao-kind-img img-fluid" alt="Pixel-art Astral: a starry dragon-serpent of light with horns and a gold eye."></p>
+</div>
+<p>From left to right: an automaton, a familiar and an Astral.</p>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -175,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="know-your-gear.html">Know Your Gear</a>: the words for the model, the harness and the extensions around it.</li>
+<li><a href="know-your-gear.html">Know Your Tools</a>: the words for the model, the harness and the extensions around it.</li>
 <li><a href="../kennel/should-you-fine-tune.html">Should You Fine-Tune?</a>: for more on when training a model on your own examples is worth it.</li>
 <li><a href="../factory/same-every-time.html">Same Every Time</a>: keep a pipeline repeatable when a step uses an LLM.</li>
 </ul>
@@ -201,7 +207,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

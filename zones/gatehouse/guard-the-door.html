@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Guard the Door – Agent Odyssey</title>
+<title>Block Actions with a Hook – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Guard the Door</h1>
+<h1 class="title">Block Actions with a Hook</h1>
 </div>
 
 
@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>A watchman stands at the heavy door and checks every visitor against a list. The list is code, so no one can talk their way past, and your companion tries every honeyed word it knows. Learn to write one line of that list.</p>
+<p>A watchman stands at the heavy door and checks every visitor against a list. The list is code, so no one can talk their way past, and your Astral tries every honeyed word it knows. Learn to write one line of that list.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will write a hook that refuses a command, and know where a hook’s coverage ends.</li>
-<li><strong>Before you start:</strong> <a href="plug-in-a-server.html">Plug In a Server</a>. An <strong>exit code</strong> is the number a script returns when it finishes: 0 means success, and a hook uses 2 to mean “block”. <strong>JSON</strong> is a structured text format.</li>
+<li><strong>Before you start:</strong> <a href="plug-in-a-server.html">Connect an MCP Server</a>. An <strong>exit code</strong> is the number a script returns when it finishes: 0 means success, and a hook uses 2 to mean “block”. <strong>JSON</strong> is a structured text format.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -223,8 +223,8 @@ In a throwaway folder with mock files, add the Bash-blocking hook above and ask 
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="advice-or-enforcement.html">Advice or Enforcement</a>: for more on sorting every control by whether it advises, asks or enforces.</li>
-<li><a href="plug-in-a-server.html">Plug In a Server</a>: for more on refusing a server’s tools by name with a deny rule.</li>
-<li><a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>: for more on deny and ask rules, which a hook cannot override.</li>
+<li><a href="plug-in-a-server.html">Connect an MCP Server</a>: for more on refusing a server’s tools by name with a deny rule.</li>
+<li><a href="../crypt/rules-of-the-carapace.html">Write Permission Rules</a>: for more on deny and ask rules, which a hook cannot override.</li>
 <li><a href="../forest/bundle-a-plugin.html">Bundle a Plugin</a>: for more on plugins that ship hooks.</li>
 </ul>
 </section>
@@ -248,7 +248,7 @@ In a throwaway folder with mock files, add the Bash-blocking hook above and ask 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

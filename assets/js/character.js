@@ -1,4 +1,4 @@
-/* Character sheet: skill tree (a spine of trunk quests with branches), armour plates, level. Renders into #ao-character if present. */
+/* Character sheet: skill tree (a spine of trunk quests with branches), wards, level. Renders into #ao-character if present. */
 (function () {
   var host = document.getElementById("ao-character"); if (!host) return;
   var RANKS = ["Spore", "Plankton", "Grazer", "Forager", "Hunter", "Keystone"];
@@ -14,12 +14,12 @@
       var html = "<h2>Level</h2><p><strong>Rank: " + RANKS[rank] + "</strong> · XP " + AO.state.xp + " · quests cleared " + cleared +
         "</p><p class='ao-soft'>Rank rises as you clear quests. Optional honour items add XP but never rank.</p>";
 
-      /* Armour */
-      var arm = byTrack("Armour"), plates = [];
+      /* Wards */
+      var arm = byTrack("Wards"), plates = [];
       if (arm && arm.quests) arm.quests.forEach(function (q) { plates.push([q.title, !!done[q.id], q.done, arm.name]); });
-      html += "<h2>Armour</h2><div class='ao-armour'>" + (plates.length ? plates.map(function (p) {
+      html += "<h2>Wards</h2><div class='ao-armour'>" + (plates.length ? plates.map(function (p) {
         return "<div class='" + (p[1] ? "on" : "") + "'><strong>" + (p[1] ? "✔ " : "○ ") + esc(p[0]) + "</strong><br>" + (p[1] ? esc(p[2]) : "not yet forged. Clear this quest in the " + esc(p[3]) + ".") + "</div>";
-      }).join("") : "<p>No armour quests yet.</p>") + "</div>";
+      }).join("") : "<p>No ward quests yet.</p>") + "</div>";
 
       /* Skill tree: a vertical spine of trunk quests (first at the bottom, final boss at the top). Each branch grows sideways from the
          spine quest it depends on, on a grid: one column per step, one row per spine quest. Lines are straight or right-angled and follow

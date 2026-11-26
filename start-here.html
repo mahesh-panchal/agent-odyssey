@@ -133,13 +133,17 @@ The path needs JavaScript. Use <a href="index.html">the zone list</a>.
 </section>
 <section id="who-is-who" class="level2">
 <h2 class="anchored" data-anchor-id="who-is-who">Who is who</h2>
+<div class="ao-key">
 <p>The story uses a few names. The lessons themselves use plain technical words.</p>
 <ul>
-<li><strong>Companion:</strong> a coding agent, a model with tools that can read files and run commands for you.</li>
-<li><strong>The Beast:</strong> the armoured companion you recruit in the Kennel.</li>
-<li><strong>The kennel master:</strong> the seller of companions, whose promises are bigger than what the companions can do.</li>
+<li><strong>Shokanju:</strong> the umbrella word for every creature you can summon (not hire), from scripts to language models.</li>
+<li><strong>Automata:</strong> clockwork creatures. Scripts and pipelines: obedient, the same every time, and brittle when the road changes.</li>
+<li><strong>Familiars:</strong> creatures trained for one task. Classical machine-learning models.</li>
+<li><strong>Astrals:</strong> spirits that speak every tongue. Language models and the coding agents built on them. Generous, fast and unbound from physical reality, so they invent when unchecked.</li>
+<li><strong>The pact:</strong> summoning and binding an Astral, which is installing and starting a coding agent. The binding circle is the harness, the wards are permission rules and the sandbox, and the terms of the pact are the instructions file.</li>
 <li><strong>The Blight:</strong> plausible but false output that spreads when nobody checks it.</li>
 </ul>
+</div>
 </section>
 <section id="how-it-works" class="level2">
 <h2 class="anchored" data-anchor-id="how-it-works">How it works</h2>
@@ -169,7 +173,7 @@ The list needs JavaScript. Use <a href="index.html">the zone list</a>.
 <section id="keep-exploring" class="level2">
 <h2 class="anchored" data-anchor-id="keep-exploring">Keep exploring</h2>
 <p>This course covers a small part of what these tools can do. The <a href="https://code.claude.com/docs/en/overview">Claude Code docs</a> are the best place to learn more, and each quest’s Lore section links the pages that matter for it. Browse the overview whenever you are curious.</p>
-<p>For research-specific guidance, <a href="https://aiforscience.eu/">AI for Science</a> collects draft best practices for agentic AI in science from European task forces and institutions, and has a one-page <a href="https://aiforscience.eu/short-version/">short version</a>. The practices are drafts with no endorsements yet, and several are written for institutions and funders. Nine quests draw on one practice each: Three Kinds of Machine, Advice or Enforcement, Secrets and Sensitive Ground, Close the Loop, Ground Truth, Plug In a Server, Guard the Door, the Wall of Output and The Project Charter.</p>
+<p>For research-specific guidance, <a href="https://aiforscience.eu/">AI for Science</a> collects draft best practices for agentic AI in science from European task forces and institutions, and has a one-page <a href="https://aiforscience.eu/short-version/">short version</a>. The practices are drafts with no endorsements yet, and several are written for institutions and funders. Nine quests draw on one practice each: Three Kinds of Machine, Advice or Enforcement, Secrets and Sensitive Ground, Turn Mistakes into Tests, Ground Truth, Connect an MCP Server, Block Actions with a Hook, the Wall of Output and Write an Instructions File.</p>
 <p>Back to <a href="./index.html">the overworld map</a>.</p>
 
 
@@ -182,7 +186,7 @@ The list needs JavaScript. Use <a href="index.html">the zone list</a>.
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

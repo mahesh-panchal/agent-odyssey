@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Pick Your Companion – Agent Odyssey</title>
+<title>Pick Your Model – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Pick Your Companion</h1>
+<h1 class="title">Pick Your Model</h1>
 </div>
 
 
@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>The kennel master walks you down the row of companions, naming the biggest as the best for everything. A big one is slow and costly to feed, and a small one is quick and cheap but loses the trail. You must choose for each job, and decide how hard each companion should think. Learn to choose, then check that you chose well.</p>
+<p>In the sages’ college the academics keep Astrals of every size on a long shelf. A great one speaks well, answers slowly and costs the most to feed, and a small one is quick and cheap and loses the thread. The academic says you must choose for each job, and decide how hard each should think. Learn to choose, then check that you chose well.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will set the model and the effort on purpose, including for a subagent, and compare two settings on your own task.</li>
-<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Gear</a> and <a href="recruit-the-beast.html">Recruit the Beast</a>. <a href="adopt-the-pet.html">Adopt the Pet</a> helps with the OpenCode tab.</li>
+<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Tools</a> and <a href="recruit-the-beast.html">Set Up Your Agent</a>, including the OpenCode route if you use it.</li>
 <li><strong>Time:</strong> about 15 minutes. The exercise is a worksheet and needs no model.</li>
 </ul>
 </div>
@@ -408,11 +408,11 @@ Run the same small task at two settings and compare the result and <code>/usage<
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="../forest/plan-before-you-edit.html">Plan Before You Edit</a>: for more on plan mode and reading a plan before the agent edits.</li>
-<li><a href="../forest/close-the-loop.html">Close the Loop</a>: give the agent something to check its work against.</li>
+<li><a href="../forest/close-the-loop.html">Turn Mistakes into Tests</a>: give the agent something to check its work against.</li>
 <li><a href="../forest/test-the-skill.html">Test the Skill</a>: compare behaviour with and without a change.</li>
 <li><a href="../maze/ground-truth.html">Ground Truth</a>: check an answer against an independent source.</li>
 <li><a href="../codon-mill/when-to-start-fresh.html">When to Start Fresh</a>: compacting and fresh sessions.</li>
-<li><a href="../basecamp/know-your-gear.html">Know Your Gear</a>: what <code>CLAUDE.md</code> is and how the tool loads it.</li>
+<li><a href="../basecamp/know-your-gear.html">Know Your Tools</a>: what <code>CLAUDE.md</code> is and how the tool loads it.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -438,7 +438,7 @@ Run the same small task at two settings and compare the result and <code>/usage<
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

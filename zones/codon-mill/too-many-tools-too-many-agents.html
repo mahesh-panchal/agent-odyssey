@@ -109,12 +109,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>The wall of the mill is hung with every tool anyone ever made, and the kennel master’s patter says a good companion carries them all. You tried it, and the companion staggered out under so much iron that it could not find the one it needed. A craftsman picks three and leaves the rest on their hooks. She also asks a harder question: does this job need a crew of helpers at all? Count what each tool costs before you carry it.</p>
+<p>The wall of the mill is hung with every tool anyone ever made, and the boasters say a good pact carries them all. You tried it, and the Astral staggered out under so much iron that it could not find the one it needed. A craftsman picks three and leaves the rest on their hooks. She also asks a harder question: does this job need a crew of creatures at all? Count what each tool costs before you carry it.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will explain why a large toolset costs context and accuracy, and choose between a single call, a fixed workflow, an agent and a plain script.</li>
-<li><strong>Before you start:</strong> <a href="who-said-what.html">Who Said What</a>. This is an optional side quest.</li>
+<li><strong>Before you start:</strong> <a href="who-said-what.html">Which Instructions Apply</a>. This is an optional side quest.</li>
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
@@ -172,10 +172,10 @@ Take one task you gave an agent that had a known rule. Write down the script tha
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="../gatehouse/plug-in-a-server.html">Plug In a Server</a>: for more on connecting an MCP server and choosing which to keep.</li>
+<li><a href="../gatehouse/plug-in-a-server.html">Connect an MCP Server</a>: for more on connecting an MCP server and choosing which to keep.</li>
 <li><a href="when-to-start-fresh.html">When to Start Fresh</a>: how the cache, compacting and clearing affect cost.</li>
 <li><a href="the-context-window.html">The Context Window</a>: what the window holds and how definitions compete for it.</li>
-<li><a href="who-said-what.html">Who Said What</a>: which text in the window comes from you and which from the tool.</li>
+<li><a href="who-said-what.html">Which Instructions Apply</a>: which text in the window comes from you and which from the tool.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -199,7 +199,7 @@ Take one task you gave an agent that had a known rule. Write down the script tha
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

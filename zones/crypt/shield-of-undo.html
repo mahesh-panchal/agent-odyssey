@@ -109,19 +109,37 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>The first seal in the Crypt is a mark on the floor that you can step back to. Soon you will send a companion ahead into the dark, and stone will shift as it rewrites half your corridor in a few heartbeats. The warden says every traveller who walks on without a mark has walked back along that corridor with nothing to show. Make your mark before you touch anything.</p>
+<p>The first ward in the Crypt is a mark on the floor that you can step back to. Soon you will summon an Astral, and it will rewrite half the corridor in a few heartbeats. The warden says every traveller who walked on without a mark walked back along that corridor with nothing to show, and Brannoch the tinker is one of them. Make your mark before you touch anything.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="persona">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Guildmaster</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Diviner</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Artificer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Archivist</a></li></ul>
+<div class="tab-content" data-group="persona">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The Guildmaster adds a line to the ledger: no change without a way back.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The Diviner copies the raw results into a sealed folder before touching anything.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>The Artificer commits, and commits again.</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>The Archivist already keeps every version, and nods approvingly.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will make any change reversible before an agent touches it.</li>
-<li><strong>Before you start:</strong> <a href="../basecamp/wade-in.html">Wade In</a>, a terminal and <code>git</code> (the version control tool). A <strong>commit</strong> is a saved snapshot of your project; a <strong>tracked</strong> file is one git already follows.</li>
+<li><strong>Before you start:</strong> <a href="../basecamp/wade-in.html">Choose What to Hand Over</a>, a terminal and <code>git</code> (the version control tool). A <strong>commit</strong> is a saved snapshot of your project; a <strong>tracked</strong> file is one git already follows.</li>
 <li><strong>Time:</strong> about 10 minutes.</li>
 </ul>
 </div>
 <p>An agent can edit many files in seconds, and you may want them back as they were. Before any agent edits your files, put them under version control (a record of every saved state of a project):</p>
 <ol type="1">
-<li>Run <code>git init</code> once in the project folder.</li>
-<li>List large data files in a <code>.gitignore</code> file first (for example a line <code>*.fastq.gz</code>), or git stores a copy of each. Then run <code>git add -A &amp;&amp; git commit -m "before agent"</code>.</li>
+<li>In the folder the agent will work in, run <code>git init</code> once. Tell git who you are, once: <code>git config user.name "Your Name"</code> and <code>git config user.email "you@example.org"</code>.</li>
+<li>List large data files and secrets in a <code>.gitignore</code> file first (for example the lines <code>*.fastq.gz</code> and <code>.env</code>), or git stores a copy of each. Then run <code>git add -A &amp;&amp; git commit -m "before agent"</code>.</li>
+<li>Check it worked: <code>git status</code> says the working tree is clean, and <code>git log --oneline</code> shows your commit.</li>
 <li>Let the agent work. If it breaks something, run <code>git restore --staged --worktree .</code> to return every <strong>tracked</strong> file to that commit. (Plain <code>git restore .</code> copies from the staging area, so it keeps anything you or the agent staged with <code>git add</code>.)</li>
 </ol>
 <p><code>git restore --staged --worktree .</code> has two limits:</p>
@@ -138,10 +156,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="../codon-mill/the-stream-of-ideas.html">The Stream of Ideas</a>: for more on <code>/rewind</code> and its limits, and why git is the real save point.</li>
+<li><a href="../codon-mill/the-stream-of-ideas.html">Capture Ideas Mid-Task</a>: for more on <code>/rewind</code> and its limits, and why git is the real save point.</li>
 <li><a href="../codon-mill/the-context-window.html">The Context Window</a>: what fills an agent’s working memory while it edits.</li>
 <li><a href="../scriptorium/why-notebooks-diff-badly.html">Why Notebooks Diff Badly</a>: what happens to your save point when the files are notebooks.</li>
-<li><a href="rules-of-the-carapace.html">Grow the Carapace</a>: permission rules, the next layer of protection.</li>
+<li><a href="rules-of-the-carapace.html">Write Permission Rules</a>: permission rules, the next layer of protection.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -162,7 +180,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

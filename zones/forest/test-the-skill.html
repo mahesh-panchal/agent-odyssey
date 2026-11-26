@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>The smith holds the Skill up against an empty hand and asks the forest one question: does it do anything the bare hand cannot? Only if the two differ does the Skill stay, however fine it looks on the wall. Each test costs something, so the smith counts the cost before the first swing.</p>
+<p>The smith holds the skill up against an empty hand and asks the forest one question: does it do anything the bare hand cannot? Only if the two differ does the skill stay, however fine it looks on the wall. Each test costs something, so the smith counts the cost before the first swing.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will read and write a small Claude Code eval case that checks a Skill is triggered, and know what running it costs.</li>
-<li><strong>Before you start:</strong> <a href="close-the-loop.html">Close the Loop</a>. Words used below: a <strong>grader</strong> is a check that marks a run pass or fail; an <strong>arm</strong> is one condition of the comparison (with the plugin, or without); a <strong>judge model</strong> is a second model that marks the answer; the <strong>baseline</strong> is the run without the change.</li>
+<li><strong>Before you start:</strong> <a href="close-the-loop.html">Turn Mistakes into Tests</a>. Words used below: a <strong>grader</strong> is a check that marks a run pass or fail; an <strong>arm</strong> is one condition of the comparison (with the plugin, or without); a <strong>judge model</strong> is a second model that marks the answer; the <strong>baseline</strong> is the run without the change.</li>
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
@@ -226,8 +226,8 @@ Write an eval case for a Skill of your own: a prompt that leaves it unnamed, and
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="bundle-a-plugin.html">Bundle a Plugin</a>: for more on plugin layout, validation and why installing a plugin is a trust decision.</li>
-<li><a href="close-the-loop.html">Close the Loop</a>: for more on why the with-and-without comparison matters.</li>
-<li><a href="forge-a-skill.html">Forge a Skill</a>: for more on writing the description a trigger test depends on.</li>
+<li><a href="close-the-loop.html">Turn Mistakes into Tests</a>: for more on why the with-and-without comparison matters.</li>
+<li><a href="forge-a-skill.html">Write a Skill</a>: for more on writing the description a trigger test depends on.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -249,7 +249,7 @@ Write an eval case for a Skill of your own: a prompt that leaves it unnamed, and
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

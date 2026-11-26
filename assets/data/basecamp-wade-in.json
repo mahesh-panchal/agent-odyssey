@@ -3,7 +3,7 @@
  "questions": [
   {
    "type": "sort",
-   "prompt": "A bioinformatician plans six report tasks. Sort them by whether real rows from the samples database would leave the machine.",
+   "prompt": "A researcher plans six tasks. Sort them by whether real rows from the samples database would leave the machine.",
    "bins": [
     "No real rows leave",
     "Real rows would leave"
@@ -44,7 +44,7 @@
   },
   {
    "type": "choice",
-   "prompt": "A bioinformatician runs an agent in plan mode on a copy of the database. What does the read-only part protect them from?",
+   "prompt": "An analyst runs an agent in plan mode on a copy of the database. What does the read-only part protect them from?",
    "explain": "Plan mode limits what the agent does. Reading still happens, so the contents it reads are sent to the provider.",
    "options": [
     {
@@ -63,24 +63,24 @@
   },
   {
    "type": "choice",
-   "prompt": "The model's query ran without an error and reports 22 samples for Heron. Your own count query says 11. What is the sensible next move?",
-   "explain": "Neither number is trusted until you know why they differ. Here a join repeats each sample once per open milestone.",
+   "prompt": "You want tests for one function in a private pipeline repository that holds no personal data. What is the lowest step that does the job?",
+   "explain": "Pasting the one function is a small allowed extract (step 3), and you apply the tests yourself. Giving an agent edit rights is step 5, and uploading the repository sends everything in it.",
    "options": [
     {
-     "text": "Find out why the two differ before using either number",
+     "text": "Paste the one function and apply the tests yourself",
      "correct": true
     },
     {
-     "text": "Ask the model whether it is sure, then use its answer",
-     "misconception": "A fluent yes from the same model checks nothing."
+     "text": "Give an agent edit rights in the repository so it can run everything",
+     "misconception": "That is step 5, which hands over far more than the job needs. Work up to it only on a copy, with an undo and limits."
     },
     {
-     "text": "Average the two numbers, since both could be partly right",
-     "misconception": "An average of a wrong count and a right one is still wrong. Find which is right."
+     "text": "Upload the whole repository so the model sees the full context",
+     "misconception": "Everything uploaded is sent. The task needs only one function."
     },
     {
-     "text": "Use the model's number, since it ran without an error",
-     "misconception": "Running without an error says nothing about correctness."
+     "text": "Use no LLM at all, since the code is private",
+     "misconception": "Step 0 is lower, and it does not do the job. A small allowed extract does, and the code holds no personal data."
     }
    ]
   },
@@ -151,20 +151,24 @@
   },
   {
    "type": "choice",
-   "prompt": "A manager wants a formula that counts open milestones per project in a spreadsheet. Which prompt keeps the real rows at home?",
-   "explain": "Column headings and a few invented rows are enough for a model to write a formula. You apply it to the real sheet yourself.",
+   "prompt": "An archivist must clean a sample sheet with controlled health metadata. Which request keeps the real values at home?",
+   "explain": "Headings and invented rows that copy the mess are enough for a model to write a script. You run it on the real sheet, so the values never leave.",
    "options": [
     {
-     "text": "Paste headings and three invented rows; apply the formula yourself",
+     "text": "Describe the mess, give headings and invented rows, and run the script it writes yourself",
      "correct": true
     },
     {
-     "text": "Upload the whole workbook so the formula fits the real data exactly",
-     "misconception": "An upload is sent to the provider like pasted text, so the real rows leave."
+     "text": "Upload the whole sheet to the model and ask it to harmonise all the values in it",
+     "misconception": "An upload is sent to the provider, and a model asked to harmonise values can invent plausible ones."
     },
     {
-     "text": "Paste the real rows for one project to test it, and keep the rest back",
-     "misconception": "Those rows still leave, and a status list can name people."
+     "text": "Paste the first ten rows to show it the problem, and keep the other rows back",
+     "misconception": "Those ten rows still leave, and the agreement forbids sharing the values."
+    },
+    {
+     "text": "Ask it to fill in the missing metadata from whatever it can infer from the rest",
+     "misconception": "Inferred values are made up. The sheet needs a record of what each value really was."
     }
    ]
   }

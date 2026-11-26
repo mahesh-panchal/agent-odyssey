@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>A door in the maze swings shut behind your companion. Its account of what it did is plausible, and the walls have changed shape anyway. You cannot follow the path without a record, so ask it to write one, then walk it yourself to see whether it holds.</p>
+<p>A door in the maze swings shut behind your Astral. Its account of what it did is plausible, and the walls have changed shape anyway. You cannot follow the path without a record, so ask it to write one, then walk it yourself to see whether it holds.</p>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -333,8 +333,8 @@ Run your project’s README commands in an empty folder, exactly as written. Fix
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="ground-truth.html">Ground Truth</a>: for more on checking an agent’s claim with a tool it did not write.</li>
-<li><a href="wall-of-output.html">Boss: The Wall of Output</a>: for more on why a huge diff cannot be reviewed whole, and how to ask for pieces you can read.</li>
-<li><a href="../reef/send-small-say-so.html">Send Small, Say So</a>: for more on reading your own diff first, sending small changes and saying what the agent did.</li>
+<li><a href="wall-of-output.html">Boss: Review Large Output</a>: for more on why a huge diff cannot be reviewed whole, and how to ask for pieces you can read.</li>
+<li><a href="../reef/send-small-say-so.html">Send Small Changes, Say What You Checked</a>: for more on reading your own diff first, sending small changes and saying what the agent did.</li>
 <li><a href="../crypt/shield-of-undo.html">Save Point</a>: for more on committing before the agent starts, so the diff shows exactly what it changed.</li>
 </ul>
 </section>
@@ -360,7 +360,7 @@ Run your project’s README commands in an empty folder, exactly as written. Fix
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

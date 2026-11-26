@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Spot the Mirage – Agent Odyssey</title>
+<title>Spot Hallucinations – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -91,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Spot the Mirage</h1>
+<h1 class="title">Spot Hallucinations</h1>
 </div>
 
 
@@ -109,7 +109,24 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>The maze walls shimmer. Some corridors are real, and some are Mirages: passages that look exactly right and lead nowhere, and your companion strides toward the nearest one without a doubt. A guide cannot tell them apart by their look, only by walking them. Learn what a false corridor looks like, and how to test one.</p>
+<p>The maze walls shimmer. Some corridors are real, and some are mirages: passages that look exactly right and lead nowhere, and an Astral strides toward the nearest one without a doubt. A guide cannot tell them apart by their look, only by walking them. Learn what a false corridor looks like, and how to test one.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="persona">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Guildmaster</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Diviner</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Artificer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Archivist</a></li></ul>
+<div class="tab-content" data-group="persona">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The Guildmaster has seen a flawless demo vanish when asked for its sources.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The Diviner knows the mirage best: the citation that flatters the hypothesis.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>The Artificer meets mirages as functions that were never in the library.</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>The Archivist meets them as field values nobody ever recorded.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -140,7 +157,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="ground-truth.html">Ground Truth</a>: check a script an agent called tested with a tool it did not write.</li>
-<li><a href="../reef/send-small-say-so.html">Send Small, Say So</a>: hand over work with the evidence that you checked it.</li>
+<li><a href="../reef/send-small-say-so.html">Send Small Changes, Say What You Checked</a>: hand over work with the evidence that you checked it.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -163,7 +180,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

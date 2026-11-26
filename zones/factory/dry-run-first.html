@@ -109,7 +109,24 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>Conveyor belts hum across the factory floor, and your companion has wired a new line overnight, proud and tired. One belt leads nowhere, and you cannot tell which by looking. A cheap test run shows where each belt leads before any real cargo moves. Learn the cheap runs first.</p>
+<p>Conveyor belts hum across the factory floor, where automata carry cargo along lines that an Astral wired overnight, proud and tired. One belt leads nowhere, and you cannot tell which by looking. A cheap test run shows where each belt leads before any real cargo moves. Learn the cheap runs first.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="persona">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Guildmaster</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Diviner</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Artificer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Archivist</a></li></ul>
+<div class="tab-content" data-group="persona">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The Guildmaster is glad a cheap run costs nothing from the budget.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The Diviner dry-runs on three samples before she trusts the whole cohort.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>The Artificer lives for the stub run.</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>The Archivist checks that the dry run touches no raw data.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -128,12 +145,12 @@ ul.task-list li input[type="checkbox"] {
 <li>Only then real data, through the scheduler if you are on a cluster.</li>
 </ol>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="engine">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Snakemake</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Nextflow</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Snakemake</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Nextflow</a></li></ul>
 <div class="tab-content" data-group="engine">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p><code>snakemake -n</code> (dry run) prints the jobs it would run, without running them. Use a small input file, such as a handful of records (say 5 to 10), and compare the plan with what you expect. You should see one line per job and a count of jobs to run.</p>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p><code>nextflow run main.nf -stub-run</code> runs each process’s <code>stub:</code> block instead of the real script, so the wiring is exercised quickly. <code>-resume</code> reuses cached results for tasks whose inputs and script are unchanged. A process <strong>without</strong> a <code>stub:</code> block runs its real script even under <code>-stub-run</code>, so run <code>-stub-run</code> only on the tiny input, and check every process before you rely on it being fast and harmless: search the pipeline for <code>stub:</code> blocks, then run <code>-stub-run</code> on the small input and look for any process that takes real time or fails. Stub-run results are cached separately from real runs, so a real <code>-resume</code> starts fresh.</p>
 </div>
 </div>
@@ -161,7 +178,7 @@ Note
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="../maze/ground-truth.html">Ground Truth</a>: how to compute a check value the agent did not produce.</li>
-<li><a href="read-the-rails.html">Read the Rails</a>: common mistakes to spot when you read agent-written pipeline rules.</li>
+<li><a href="read-the-rails.html">Read Agent-Written Pipelines</a>: common mistakes to spot when you read agent-written pipeline rules.</li>
 <li><a href="../citadel/jobs-not-jam.html">Jobs, Not Jam</a>: sending checked work through a cluster scheduler.</li>
 </ul>
 </section>
@@ -185,7 +202,7 @@ Note
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

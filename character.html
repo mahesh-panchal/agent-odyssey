@@ -108,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Your skill tree grows as you clear quests, your armour is forged in the Crypt, and your rank rises with progress. Everything here is stored only in this browser. Use <strong>Save code</strong> in the top bar to move it elsewhere.</p>
+<p>Your skill tree grows as you clear quests, your wards are written in the Crypt, and your rank rises with progress. Everything here is stored only in this browser. Use <strong>Save code</strong> in the top bar to move it elsewhere.</p>
 <div id="ao-character">
 
 </div>
@@ -122,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

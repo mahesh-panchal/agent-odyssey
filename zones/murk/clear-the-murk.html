@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Boss: Clear the Murk – Agent Odyssey</title>
+<title>Boss: Review a Messy Session – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Boss: Clear the Murk</h1>
+<h1 class="title">Boss: Review a Messy Session</h1>
 </div>
 
 
@@ -144,7 +144,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>At the centre of the land the Murk has gathered into one dark knot: every unchecked answer you met on the way, pressed together, and the companion at your side has begun to half believe it. The Blight hides in small things here, and each habit you carry has its use. Read one messy session closely and name what it gets wrong.</p>
+<p>At the centre of the land the Murk has gathered into one dark knot: every unchecked answer you met on the way, pressed together, and the Astral at your side has begun to half believe it. The Blight hides in small things here, and each habit you learned has its use. Read one messy session closely and name what it gets wrong.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="persona">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Guildmaster</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Diviner</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Artificer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Archivist</a></li></ul>
+<div class="tab-content" data-group="persona">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The Guildmaster stands ready to sign off, or to refuse.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The Diviner reaches for her lens.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>The Artificer opens the diff.</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>The Archivist opens the ledger.</p>
+</div>
+</div>
+</div>
 <p><img src="../../assets/img/boss-murk.png" class="ao-boss-img img-fluid" alt="Pixel-art portrait of the Murk: a heaving mass of grey-green fog with a hollow dark core and two pale eyes, with a few bright speech bubbles of false facts floating in it."></p>
 </div>
 <div class="quest-dialog">
@@ -209,10 +226,10 @@ $ ls results/*.vcf | wc -l
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="../basecamp/know-your-gear.html">Know Your Gear</a>: the words used in this fight, if you want any of them again.</li>
+<li><a href="../basecamp/know-your-gear.html">Know Your Tools</a>: the words used in this fight, if you want any of them again.</li>
 <li><a href="../crypt/shield-of-undo.html">Save Point</a>: undo for the <code>rm -rf</code> in the summary.</li>
-<li><a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>: permission rules that hold where a note only asks.</li>
-<li><a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: keep keys out of the diff.</li>
+<li><a href="../crypt/rules-of-the-carapace.html">Write Permission Rules</a>: permission rules that hold where a note only asks.</li>
+<li><a href="../crypt/secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>: keep keys out of the diff.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -237,7 +254,7 @@ $ ls results/*.vcf | wc -l
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

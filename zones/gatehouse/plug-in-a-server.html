@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Plug In a Server – Agent Odyssey</title>
+<title>Connect an MCP Server – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Plug In a Server</h1>
+<h1 class="title">Connect an MCP Server</h1>
 </div>
 
 
@@ -144,12 +144,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>A heavy door in the Gatehouse opens onto the outside world, and whatever walks through acts with your keys. Someone has pinned a note to the door, and your companion reads it aloud as if it were an order. Before you open the door, learn what stands on the other side.</p>
+<p>A heavy door in the Gatehouse opens onto the outside world, and whatever walks through acts with your keys. Someone has pinned a note to the door, and your Astral reads it aloud as if it were an order. Before you open the door, learn what stands on the other side.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="persona">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Guildmaster</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Diviner</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Artificer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Archivist</a></li></ul>
+<div class="tab-content" data-group="persona">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The Guildmaster asks who approved this door, and who holds the key.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The Diviner asks what the outside service will send back, and whether to trust it.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>The Artificer reads the server’s code before connecting anything.</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>The Archivist asks which records could pass through that door.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will treat an MCP server as software you install, then scope it, limit it and read what it sends back.</li>
-<li><strong>Before you start:</strong> <a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>. A <strong>permission rule</strong> allows, asks about or denies a tool call. The <strong>sandbox</strong> is an operating-system layer that limits what shell commands can touch.</li>
+<li><strong>Before you start:</strong> <a href="../crypt/rules-of-the-carapace.html">Write Permission Rules</a>. A <strong>permission rule</strong> allows, asks about or denies a tool call. The <strong>sandbox</strong> is an operating-system layer that limits what shell commands can touch.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -159,9 +176,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A stdio server (a program the harness starts locally and talks to over its input/output) is a command that Claude Code launches on your machine (<code>claude mcp add ... -- &lt;command&gt;</code>), and secrets can be passed to it as environment variables. Assume it can do whatever that command can do with the credentials you gave it.</p>
 <p>Verify you trust each server before connecting it. Servers that fetch external content can expose you to prompt injection: text from a file, web page or tool that the model treats as an instruction.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>Add a remote server over HTTP (the <strong>transport</strong> is how the harness talks to the server; an http server is remote), and a local one (everything after <code>--</code> is passed to the server untouched). The URL <code>https://example.com/mcp</code> is a placeholder: a real one is the address your server’s publisher gives you.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> mcp add <span class="at">--transport</span> http mydocs https://example.com/mcp</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> mcp add myserver <span class="at">--env</span> API_KEY=your-key-here <span class="at">--</span> <span class="op">&lt;</span>command<span class="op">&gt;</span> <span class="pp">[</span><span class="ss">args...</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -199,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In <code>claude -p</code> (a non-interactive run with one prompt) and Agent SDK runs (scripts that drive Claude Code from code), no one can answer a prompt, so project-scoped servers load without asking. <code>--strict-mcp-config</code> skips servers from <code>.mcp.json</code> and other config and loads only those you pass with <code>--mcp-config</code>. In <code>-p</code> runs, add <code>--strict-mcp-config</code> in any repository you have not read.</p>
 <p>Each server’s tools appear in permission rules as <code>mcp__&lt;server&gt;__&lt;tool&gt;</code>, and <code>mcp__&lt;server&gt;__*</code> (a matcher, a pattern that selects names) matches every tool of one server. Tool definitions are deferred (loaded only when needed) by default, so only tool names and server instructions take up context until a tool is used.</p>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>In OpenCode’s V2 docs (the newer documentation set), servers go under <code>mcp.servers</code>, not directly under <code>mcp</code>. Check which version you have installed. A remote server:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">"mcp"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"servers"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"mydocs"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"remote"</span><span class="fu">,</span></span>
@@ -245,9 +262,9 @@ Pick an MCP server you might use. Write down who publishes it, the tools it list
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="guard-the-door.html">Guard the Door</a>: for more on refusing a command with a hook.</li>
+<li><a href="guard-the-door.html">Block Actions with a Hook</a>: for more on refusing a command with a hook.</li>
 <li><a href="advice-or-enforcement.html">Advice or Enforcement</a>: for more on choosing between a request, a prompt and a lock for each risk.</li>
-<li><a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>: for more on allow, ask and deny rules.</li>
+<li><a href="../crypt/rules-of-the-carapace.html">Write Permission Rules</a>: for more on allow, ask and deny rules.</li>
 <li><a href="../codon-mill/too-many-tools-too-many-agents.html">Too Many Tools, Too Many Agents</a>: for more on keeping the toolset small.</li>
 </ul>
 </section>
@@ -272,7 +289,7 @@ Pick an MCP server you might use. Write down who publishes it, the tools it list
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

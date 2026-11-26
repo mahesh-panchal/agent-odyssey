@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Recruit the Beast – Agent Odyssey</title>
+<title>Set Up Your Agent – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Recruit the Beast</h1>
+<h1 class="title">Set Up Your Agent</h1>
 </div>
 
 
@@ -144,7 +144,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>A great armoured beast sleeps in the Kennel, strong and unthinking. The kennel master sells it with a flourish and says it needs no teaching and no lead. You lay a hand on its flank, and it opens one eye. Wake it, then keep it close.</p>
+<p>You return to the Collegium, where the sages’ college smells of ink and hot brass. An academic unrolls the Summoning Scroll you were given at Gaia’s Rest and reads it aloud, turning each rune into a step: this is how a pact is made. Making it is the easy part, the academic says, and then lists the ways it goes wrong, which the boasters at the tavern left out. Follow the scroll in order, and keep the Astral on a short lead.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="persona">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Guildmaster</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Diviner</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Artificer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Archivist</a></li></ul>
+<div class="tab-content" data-group="persona">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The Guildmaster asks what the pact will cost each month, and who signs it off.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The Diviner asks which Astral can cite its sources, and writes down how to check them.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>The Artificer reads every command on the scroll before running one.</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>The Archivist asks where the Astral keeps its memory, and for how long.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -157,9 +174,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="install" class="level2">
 <h2 class="anchored" data-anchor-id="install">1. Install</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>On macOS, Linux, or inside a WSL 2 terminal, run the native installer:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://claude.ai/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To read the script before it runs, use <code>curl -fsSL https://claude.ai/install.sh | less</code> first.</p>
@@ -168,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> doctor        <span class="co"># read-only diagnostics; changes nothing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If the shell says <code>command not found</code>, the launcher lives in <code>~/.local/bin/claude</code> and that folder is not on your <code>PATH</code>.</p>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>This route has two programs. <strong>Ollama</strong> downloads and runs models on your own computer, so prompts stay there. <strong>OpenCode</strong> is the open-source coding agent that talks to the model. Install Ollama first.</p>
 <ul>
 <li><strong>macOS:</strong> download Ollama from <code>ollama.com/download</code>, open the <code>.dmg</code> file and drag Ollama into Applications.</li>
@@ -176,8 +193,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Windows:</strong> use WSL 2 and the Linux command above.</li>
 </ul>
 <p>Check it, then fetch a small model (about 2.5 GB). <code>qwen3:4b</code> is one example that Ollama lists with tool support (the model can ask the agent to run actions such as reading a file). Model names change quickly, so check the “tools” badge on the model’s page at <code>ollama.com/library</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> <span class="at">--version</span>     <span class="co"># prints a version number</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull qwen3:4b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> <span class="at">--version</span>     <span class="co"># prints a line such as: ollama version is 0.x.y</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull qwen3:4b <span class="co"># shows a download progress bar and ends with: success</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now install OpenCode. On macOS, Linux or WSL 2:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://opencode.ai/v2/install <span class="kw">|</span> <span class="fu">bash</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> <span class="at">--version</span>   <span class="co"># prints a version number</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -189,10 +206,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="log-in-or-connect-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="log-in-or-connect-the-model">2. Log in or connect the model</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>Run <code>claude</code> and a browser opens. With a Team plan, log in with the account your admin invited you to. With an API key, <code>export ANTHROPIC_API_KEY=...</code> instead. Treat the key like a password: do not paste it into a file in a project, and note that a key typed into the shell can stay in your shell history.</p>
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Run <code>claude</code> and a browser opens. When login finishes, the terminal shows Claude’s prompt box. Type <code>/exit</code> to leave, then continue with step 3. With a Team plan, log in with the account your admin invited you to. With an API key, <code>export ANTHROPIC_API_KEY=...</code> instead. Treat the key like a password: do not paste it into a file in a project, and note that a key typed into the shell can stay in your shell history.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -207,10 +224,10 @@ Note
 </div>
 </div>
 </div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <p>OpenCode needs no login. It looks for Ollama at <code>http://127.0.0.1:11434</code> and lists the models it finds. Check that yours appears:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> models     <span class="co"># includes a line such as ollama/qwen3:4b</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Agents need a long <strong>context length</strong> (how much text the model can see at once, counted in tokens, which are chunks of text). Ollama’s default can be as low as 4k tokens, and agents need at least 64k. If you use the Ollama app (macOS, or Windows with the app), open its settings and set the context length slider to 64k. On Linux or WSL 2 there is no app, so start the server yourself like this and leave that terminal open:</p>
+<p>Agents need a long <strong>context length</strong> (how much text the model can see at once, counted in tokens, which are chunks of text). Ollama’s default can be as low as 4k tokens, and agents need at least 64k. If you use the Ollama app (macOS, or Windows with the app), open its settings and set the context length slider to 64k. On Linux or WSL 2 there is no app, so start the server yourself like this and leave that terminal open. Run every later command in a second terminal. If <code>ollama serve</code> says the address is already in use, Ollama is already running as a service: stop it first, or set the variable for that service as Ollama’s FAQ describes.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">OLLAMA_CONTEXT_LENGTH</span><span class="op">=</span>64000 <span class="ex">ollama</span> serve</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A bigger context needs more memory. Run <code>ollama ps</code> while a model is loaded to see its size and whether it fits.</p>
 </div>
@@ -222,29 +239,56 @@ Note
 <p>Make a throwaway folder first:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/odyssey-scratch <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/odyssey-scratch</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>Start in <strong>plan mode</strong>. It reads files, runs read-only commands and leaves your source untouched:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--permission-mode</span> plan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>At the prompt, type: <code>List the files in this folder and say what you would do next. Change nothing.</code> Claude answers in the same session, and the status bar shows plan mode. Leave with <code>/exit</code>. Keep this first session away from real or sensitive data.</p>
 <p>A <strong>permission mode</strong> sets what the agent asks about before it acts. In plan mode it reads files and writes a plan but does not edit your source until you approve; it may ask before running commands that are not read-only; the status bar shows the current mode.</p>
 </div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <p>OpenCode’s version of this is the <strong>plan agent</strong> (an agent is a preset bundle of instructions and permissions). It explores and plans without editing your project files. Send it one message:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">--agent</span> plan <span class="at">-m</span> ollama/qwen3:4b <span class="st">"List the files in this folder and say what you would do next. Change nothing."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>opencode run</code> sends one message, prints the reply and exits. If you ask the plan agent to create a file, it declines.</p>
+<p><code>opencode run</code> sends one message, prints the reply and exits. The first run can take a minute while the model loads. If you ask the plan agent to create a file, it declines.</p>
 <p>The plan agent stops file edits only. Its shell commands are still controlled by OpenCode’s permission policy, and the default policy allows them. In this first session, ask for reading and planning only.</p>
 <p>To use the full interface afterwards, run <code>opencode</code> in the folder and type <code>/models</code> to pick your Ollama model.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="check-the-setup" class="level2">
-<h2 class="anchored" data-anchor-id="check-the-setup">4. Check the setup</h2>
+<section id="what-to-expect" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-expect">4. What to expect</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
-<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<p>A hosted model is capable, and it has limits you should know before you rely on it:</p>
+<ul>
+<li>Everything it reads, and everything you type, is sent to the provider.</li>
+<li>Use is billed per token on an API key, or counted against your plan’s limits.</li>
+<li>It can still be wrong with confidence, so check what it hands back.</li>
+</ul>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<p>A local model keeps your prompts on your computer, and it is weaker than a hosted one:</p>
+<ul>
+<li>It holds less in mind. Agents need a context length of at least 64k tokens, and Ollama’s default can be 4k.</li>
+<li>Choose a model that Ollama lists with tool support. Without it, the agent cannot ask the model to read or edit files.</li>
+<li>It makes more mistakes than a hosted model. Test it on a few questions whose answers you know before you trust it on new ones.</li>
+<li>A bigger model needs far more memory. A 24B model has about eight times the parameters (the numbers a model learns in training) of a 3B one, so check <code>ollama ps</code> after loading it, and expect the machine to slow down if memory runs short.</li>
+<li>Its web and tool calls can still reach the network, even when the model itself stays local.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="check-the-setup" class="level2">
+<h2 class="anchored" data-anchor-id="check-the-setup">5. Check the setup</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <p>Two commands share the name <em>doctor</em>.</p>
 <ul>
 <li><strong><code>claude doctor</code></strong> runs in the shell. It prints read-only diagnostics of your installation and settings without starting a session, so use it when <code>claude</code> will not start.</li>
@@ -317,7 +361,7 @@ Note
 </table>
 </section>
 </div>
-<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <p>Four commands cover most first problems:</p>
 <table class="caption-top table">
 <colgroup>
@@ -367,9 +411,8 @@ Note
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="pick-your-companion.html">Pick Your Companion</a>: choose the model and the effort level on purpose.</li>
-<li><a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>: set permission modes and rules around the agent.</li>
-<li><a href="adopt-the-pet.html">Adopt the Pet</a>: run a small local model on your own machine.</li>
+<li><a href="pick-your-companion.html">Pick Your Model</a>: choose the model and the effort level on purpose.</li>
+<li><a href="../crypt/rules-of-the-carapace.html">Write Permission Rules</a>: set permission modes and rules around the agent.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -395,7 +438,7 @@ Note
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

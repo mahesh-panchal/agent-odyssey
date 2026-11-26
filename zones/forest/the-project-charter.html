@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Project Charter – Agent Odyssey</title>
+<title>Write an Instructions File – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">The Project Charter</h1>
+<h1 class="title">Write an Instructions File</h1>
 </div>
 
 
@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>A carved stone stands at the forest’s heart, holding what every traveller should know: where the paths run, and which trees are not to be touched. Your companion reads it every morning, and some mornings it forgets what it read. The stone advises. It cannot bind. Learn to write on it, and to tell what it does from what it cannot do.</p>
+<p>A carved stone stands at the forest’s heart, holding the terms of the pact: where the paths run, and which trees are not to be touched. Your Astral reads it every morning, and some mornings it forgets what it read. The stone advises. It cannot bind. Learn to write on it, and to tell what it does from what it cannot do.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will give the agent standing instructions for a project, and know where instructions end and enforcement begins.</li>
-<li><strong>Before you start:</strong> <a href="write-the-brief.html">Write the Brief</a>. <a href="../codon-mill/who-said-what.html">Who Said What</a> helps.</li>
+<li><strong>Before you start:</strong> <a href="write-the-brief.html">Write the Brief</a>. <a href="../codon-mill/who-said-what.html">Which Instructions Apply</a> helps.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -222,10 +222,10 @@ Write a short instructions file (about ten lines) for one of your real projects:
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
-<li><a href="forge-a-skill.html">Forge a Skill</a>: for more on moving a long procedure out of the instructions file and into a Skill.</li>
-<li><a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>: for more on permission rules that enforce what an instructions file only asks.</li>
-<li><a href="../gatehouse/guard-the-door.html">Guard the Door</a>: for more on hooks as a way to enforce a rule in code.</li>
-<li><a href="../codon-mill/who-said-what.html">Who Said What</a>: for more on what the model treats as an instruction and what it treats as data.</li>
+<li><a href="forge-a-skill.html">Write a Skill</a>: for more on moving a long procedure out of the instructions file and into a Skill.</li>
+<li><a href="../crypt/rules-of-the-carapace.html">Write Permission Rules</a>: for more on permission rules that enforce what an instructions file only asks.</li>
+<li><a href="../gatehouse/guard-the-door.html">Block Actions with a Hook</a>: for more on hooks as a way to enforce a rule in code.</li>
+<li><a href="../codon-mill/who-said-what.html">Which Instructions Apply</a>: for more on what the model treats as an instruction and what it treats as data.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -249,7 +249,7 @@ Write a short instructions file (about ten lines) for one of your real projects:
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -109,12 +109,29 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>The miller’s wheel turns before the machine reads a single word, and everything you feed it comes out as small chunks. The kennel master swore his companion reads letter by letter, so you handed it a sequence and asked it to count the Gs. It named a number with great pride, and the number was wrong. You carry sequences where every letter counts, so learn what the mill does to them. The next stop shows more ways the companion goes astray.</p>
+<p>The miller’s wheel turns before an Astral reads a single word, and everything you feed it comes out as small chunks. A boaster swore it reads letter by letter, so you handed it a sequence and asked it to count the Gs. It named a number with great pride, and the number was wrong. You carry sequences where every letter counts, so learn what the mill does to them. The next stop shows more ways an Astral goes astray.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="persona">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Guildmaster</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Diviner</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Artificer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Archivist</a></li></ul>
+<div class="tab-content" data-group="persona">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The Guildmaster notes that the bill is counted in tokens, and starts a budget line.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The Diviner thinks of the sequences she must count and reaches for a script.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>The Artificer tests how many tokens his longest function costs.</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>The Archivist wonders how many tokens one metadata record takes.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will explain that a model reads tokens (chunks of text) and decide which sequence jobs belong to a script.</li>
-<li><strong>Before you start:</strong> <a href="../kennel/recruit-the-beast.html">Recruit the Beast</a>, which gives you an agent to try the exercise with.</li>
+<li><strong>Before you start:</strong> <a href="../kennel/recruit-the-beast.html">Set Up Your Agent</a>, which gives you an agent to try the exercise with.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
@@ -139,12 +156,12 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>So the rule: if the answer has to be exact and a rule for it exists, have the agent <strong>run a script or a tool</strong> and report what it printed. Check any sequence the model retyped against the source file.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>Ask Claude Code to write and run the counting command and show its output. Then read both the command and the output yourself.</p>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>Same advice: ask for the command and read its output. Try the exercise below with your own model and compare.</p>
 </div>
 </div>
@@ -197,7 +214,7 @@ Replace one “ask the model to count” habit of yours with a script the model 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

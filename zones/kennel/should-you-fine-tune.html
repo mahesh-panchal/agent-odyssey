@@ -109,12 +109,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>A breeder at the Kennel offers to retrain a hound for one trick, and the kennel master nods along, selling lessons by the sack. It takes training examples, a record of the lessons and a test of the result. You ask the breeder whether a better command would do the same job. Weigh the offer before you pay for it.</p>
+<p>In the beastmasters’ college a trainer offers to raise a familiar for one trick. It takes many examples, a record of the lessons and a test of the result, and every trick costs a season. You ask whether a better command would do the same job. Weigh the offer before you pay for it.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will say what LoRA fine-tuning is, check four conditions for it, and decide whether a task is a candidate.</li>
-<li><strong>Before you start:</strong> <a href="../basecamp/three-kinds-of-machine.html">Three Kinds of Machine</a>, <a href="../basecamp/know-your-gear.html">Know Your Gear</a> and <a href="pick-your-companion.html">Pick Your Companion</a>.</li>
+<li><strong>Before you start:</strong> <a href="../basecamp/three-kinds-of-machine.html">Three Kinds of Machine</a>, <a href="../basecamp/know-your-gear.html">Know Your Tools</a> and <a href="pick-your-companion.html">Pick Your Model</a>.</li>
 <li><strong>Time:</strong> about 15 minutes. It is reading and a paper exercise; no model is trained.</li>
 </ul>
 </div>
@@ -215,8 +215,8 @@ Pick one task from your own work and write the four conditions beside it, markin
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="../basecamp/three-kinds-of-machine.html">Three Kinds of Machine</a>: for more on when a script, a trained model or an LLM fits the job.</li>
-<li><a href="pick-your-companion.html">Pick Your Companion</a>: choose a model and effort per job, and measure before you commit.</li>
-<li><a href="../forest/close-the-loop.html">Close the Loop</a>: turn a failure into a measured fix with an eval.</li>
+<li><a href="pick-your-companion.html">Pick Your Model</a>: choose a model and effort per job, and measure before you commit.</li>
+<li><a href="../forest/close-the-loop.html">Turn Mistakes into Tests</a>: turn a failure into a measured fix with an eval.</li>
 </ul>
 </section>
 <section id="lore" class="level2 ao-lore">
@@ -238,7 +238,7 @@ Pick one task from your own work and write the four conditions beside it, markin
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

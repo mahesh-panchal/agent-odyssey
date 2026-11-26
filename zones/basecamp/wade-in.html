@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Wade In – Agent Odyssey</title>
+<title>Choose What to Hand Over – Agent Odyssey</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -91,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Wade In</h1>
+<h1 class="title">Choose What to Hand Over</h1>
 </div>
 
 
@@ -109,32 +109,40 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>A shallow stream runs past Basecamp. A traveller stands on the bank, sure that crossing means being swept away, because the kennel master’s patter says you cross at the Beast’s side or you stay put. Then a stone shows above the water, and another beyond it, each a little further out, and you may stop on any of them. Before you step, you ask what you would carry across with you.</p>
+<p>In a corner of Gaia’s Rest, four travellers each picture what a pact with an Astral could do for them, and then the doubts arrive. The boasters at the bar say you cross the stream at the Astral’s side or you stay on the bank. Beside the water a stone shows, and another beyond it, each a little further out, and you may stop on any of them. Before you step, you ask what you would carry across with you.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will choose how much of your data and your machine to hand over for one task, and start at the lowest step that gets the job done.</li>
-<li><strong>Before you start:</strong> <a href="know-your-gear.html">Know Your Gear</a>, and Python 3 for the exercise. Your own data agreement (the terms under which you received the data) overrides anything here.</li>
-<li><strong>Time:</strong> about 20 minutes.</li>
+<li><strong>Before you start:</strong> <a href="know-your-gear.html">Know Your Tools</a>. Your own data agreement (the terms under which you received the data) overrides anything here.</li>
+<li><strong>Time:</strong> about 25 minutes. No code or downloads are needed.</li>
 </ul>
 </div>
 <section id="the-scene" class="level2">
 <h2 class="anchored" data-anchor-id="the-scene">The scene</h2>
-<p>Two people want help from an LLM (a large language model, the kind of tool behind chat assistants). Each has a real task and the same two worries.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Manager</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Bioinformatician</a></li></ul>
-<div class="tab-content">
+<p>Four people want help from an LLM (a large language model, the kind of tool behind chat assistants). Each pictures what it could do, and then the same two worries arrive: where their data would go, and whether using an LLM means giving a program the run of their computer.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="persona">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Guildmaster</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Diviner</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Artificer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Archivist</a></li></ul>
+<div class="tab-content" data-group="persona">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>The task is a status report across projects, kept in a spreadsheet.</p>
-<p>“Can I paste my project list into an LLM to draft this? Where does that data go once I press enter? And a colleague said I would need Claude Code (a coding agent that can read and change files on my computer), which means giving it access to all my files. I cannot do that, so I will do the report by hand.”</p>
+<p>“I keep twelve projects in one spreadsheet. If an LLM could read it, I would have a status report and a risk list for the board by lunch.”</p>
+<p>“But where does my data go once I paste it? And a colleague said I would need Claude Code (a coding agent that can read and change files on my computer), which means giving it access to all my files. I cannot allow that, so I will keep writing the report by hand.”</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>The task is a count of samples received per project, from the project database. The query is written in SQL (the language for querying a database).</p>
-<p>“Can I ask an LLM to write this query? Does that mean I have to install Claude Code and let it into my computer and my database? My data agreement may not allow it, so the answer has to be no LLM at all.”</p>
+<p>“The sample counts fell in two cohorts. If an LLM could write the query and the first summary, I would have an explanation before the meeting.”</p>
+<p>“But the samples database holds participant codes, and my data agreement is strict. Does using an LLM mean installing an agent that can reach the database? Then the answer has to be no LLM at all.”</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>“Our pipeline has a script nobody has tested. If an LLM could draft the tests and tidy the module, I would clear this week’s backlog by Friday.”</p>
+<p>“But an agent that edits files and runs commands in my repository could overwrite something, or run something I never reviewed. It is all or nothing, and nothing feels safer.”</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>“A collaborator sent a sample sheet with mixed columns and units. If an LLM could clean it and map it to our schema, a week of tidying would take an afternoon.”</p>
+<p>“But the sheet holds controlled health metadata. I cannot paste it anywhere, and I do not want an agent loose in the data store. So it is a no.”</p>
 </div>
 </div>
 </div>
-<p>Both treat the choice as all or nothing: either no LLM, or an agent with the run of the machine. They have not considered that there is a middle. Between those two ends are several steps, each handing over a little more, and many useful tasks sit on the lower ones. This lesson walks up those steps.</p>
+<p>All four treat the choice as all or nothing: either no LLM, or an agent with the run of the machine. They have not considered that there is a middle. Between those two ends are several steps, each handing over a little more, and many useful tasks sit on the lower ones. This lesson walks up those steps.</p>
 <p>You decide how much to hand over before the first prompt. A wrong choice can send data you meant to keep, or let an agent change files you meant to leave alone.</p>
 </section>
 <section id="two-questions" class="level2">
@@ -155,54 +163,46 @@ ul.task-list li input[type="checkbox"] {
 <p>A ladder is six ordered steps of how much you hand over. Each step up raises one or both answers. Terms used in the table: a <strong>schema</strong> is the list of table and column names with no rows; an <strong>extract</strong> is a small slice of the data; an <strong>agent</strong> is a model that reads files and runs commands for you; a <strong>copy</strong> is a duplicate of the data, so the original cannot be edited.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Step</th>
-<th>Manager (spreadsheet)</th>
-<th>Bioinformatician (database)</th>
+<th>What you hand over</th>
 <th>What leaves</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>0</td>
-<td>Build the table by hand</td>
-<td>Write the query yourself</td>
+<td>Nothing: do the task yourself</td>
 <td>nothing</td>
 </tr>
 <tr class="even">
 <td>1</td>
-<td>Ask for an outline, no data</td>
-<td>Ask how to explain a fall in samples</td>
+<td>A question in words, with no data in it</td>
 <td>your words</td>
 </tr>
 <tr class="odd">
 <td>2</td>
-<td>Headings and invented rows; you apply the formula</td>
-<td>Schema only; you run the query read-only</td>
+<td>Structure only: headings, a schema or invented rows. You apply the answer yourself</td>
 <td>names and invented rows</td>
 </tr>
 <tr class="even">
 <td>3</td>
-<td>Small allowed extract, or a local model</td>
-<td>Small allowed extract or local model, for free-text notes</td>
+<td>A small extract you are allowed to share, or a local model</td>
 <td>the extract; nothing if local</td>
 </tr>
 <tr class="odd">
 <td>4</td>
-<td>Read-only agent on a copy</td>
-<td>Read-only agent on a copy</td>
+<td>A read-only agent (plan mode: it reads and proposes, and does not edit) working on a copy</td>
 <td>everything it reads</td>
 </tr>
 <tr class="even">
 <td>5</td>
-<td>Agent edits and runs commands</td>
-<td>Agent edits and runs pipeline code</td>
+<td>An agent that edits files and runs commands</td>
 <td>everything it reads, plus whatever its commands send</td>
 </tr>
 </tbody>
@@ -252,69 +252,62 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="what-a-chat-window-keeps">What a chat window keeps</h2>
 <ul>
 <li><strong>Training:</strong> consumer accounts (Free, Pro, Max) have a setting that lets chats improve the models; with it on, data may be kept for up to 5 years. The setting is in your privacy settings.</li>
-<li><strong>Account type:</strong> commercial accounts (Team, Enterprise and the API) are not used for training unless the organisation opts in. The API deletes inputs and outputs within 30 days by default. Team and Enterprise keep saved chats until they are deleted, then remove them within 30 days. Ask your administrator which applies.</li>
+<li><strong>Account type:</strong> commercial accounts (Team, Enterprise and the API, which is programmatic access billed per use) are not used for training unless the organisation opts in. The API deletes inputs and outputs within 30 days by default. Team and Enterprise keep saved chats until they are deleted, then remove them within 30 days. Ask your administrator which applies.</li>
 <li><strong>Deleted chats:</strong> they leave the provider’s storage within 30 days.</li>
 <li><strong>Incognito chats:</strong> not used for training, and still kept for 30 days by default. Flagged chats can be kept longer.</li>
 <li><strong>Screenshots, images and uploads:</strong> treat them as data you share, like pasted text.</li>
 <li><strong>Other providers:</strong> their chat tools have their own terms. Read them.</li>
 </ul>
 </section>
-<section id="hands-on-bioinformatician-count-samples-without-handing-over-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="hands-on-bioinformatician-count-samples-without-handing-over-the-data">Hands-on (bioinformatician): count samples without handing over the data</h2>
-<p>No model is called in this exercise. You write the prompt, and a prepared file stands in for the model’s reply, so you can practise checking a reply before you ever trust one. Download these four files into one empty folder (right-click each link and choose Save link as): <a href="../../exercises/basecamp/wade-in/make_db.py">make_db.py</a>, <a href="../../exercises/basecamp/wade-in/run_query.py">run_query.py</a>, <a href="../../exercises/basecamp/wade-in/report-query.sql">report-query.sql</a> and <a href="../../exercises/basecamp/wade-in/check-samples.sql">check-samples.sql</a> Every row is invented.</p>
-<ol type="1">
-<li><p>Run <code>python3 make_db.py</code> (use <code>python</code> if <code>python3</code> is not found). It writes <code>mock.db</code>, a SQLite database file (a small database that lives in one file), and <code>schema-only.txt</code>. The text file holds table and column names and no rows, which is all that goes into a chat at step 2. This table-and-column outline is the <strong>schema</strong>. Names such as <code>participant_code</code> and <code>notes</code> hint at the real data, so decide whether even the names are fine to send.</p></li>
-<li><p>Write the prompt you would send: paste the schema and ask for one read-only query giving, per project, the samples received and the open milestones (<code>done = 0</code>). Say you will run it yourself and do not want to paste rows.</p></li>
-<li><p><code>report-query.sql</code> stands in for the reply. Check it is a single <code>SELECT</code> (a query that only reads) on the tables you expect, then run <code>python3 run_query.py report-query.sql</code>. The script opens the database read-only, so a <code>DELETE</code> fails.</p></li>
-<li><p>Run <code>python3 run_query.py check-samples.sql</code>, a count the model did not write, and compare:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Project</th>
-<th>Stand-in model: samples</th>
-<th>Your check: samples</th>
-<th>Stand-in model: open milestones</th>
-<th>Actual open milestones</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Heron</td>
-<td>22</td>
-<td>11</td>
-<td>22</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<td>Kelp</td>
-<td>28</td>
-<td>14</td>
-<td>28</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<td>Vega</td>
-<td>34</td>
-<td>17</td>
-<td>34</td>
-<td>2</td>
-</tr>
-</tbody>
-</table></li>
-<li><p>The query ran without an error and its numbers are wrong. Each project has two open milestones, and the join (how two tables are matched row by row) pairs every sample with every open milestone, so each sample row appears twice (22 instead of 11) and each open milestone appears once per sample (22 instead of 2). Open <code>report-query.sql</code> to see the join. Fix the query, then run both again until Heron shows 11 and 2.</p></li>
-</ol>
-<p>With a real model, only the schema and the query text would have left your machine. Check a query against a second one.</p>
-</section>
-<section id="hands-on-manager-the-same-check-in-a-spreadsheet" class="level2">
-<h2 class="anchored" data-anchor-id="hands-on-manager-the-same-check-in-a-spreadsheet">Hands-on (manager): the same check in a spreadsheet</h2>
-<p>At step 2, paste only the column headings (Project, Milestone, Owner, Status) and two or three invented rows, and ask for a formula that counts open milestones per project. Apply it to your real sheet yourself. Check it with <code>COUNTIF</code> on one project’s rows. If each of three projects has 6 rows and the formula shows 18 for every project, it counted the whole column. Find out why before the number goes in the report.</p>
+<section id="hands-on-pick-the-step" class="level2">
+<h2 class="anchored" data-anchor-id="hands-on-pick-the-step">Hands-on: pick the step</h2>
+<p>For each task, decide three things before you open the answer: the lowest step that does the job, what leaves your machine at that step, and one thing you will check in the result. The tabs hold the same four people, and the tab you chose earlier stays selected.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="persona">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Guildmaster</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Diviner</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Artificer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false" href="">Archivist</a></li></ul>
+<div class="tab-content" data-group="persona">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Task: a one-page status summary and risk list for twelve projects, from a spreadsheet of project names, milestone dates, owner names and status. The data is internal, and owner names are personal data.</p>
+<details>
+<summary>
+Check your answer
+</summary>
+<p>The answer is step 2. Paste only the column headings and three invented rows. Ask for an outline of the summary and a formula that counts open milestones per project. Apply both to the real sheet yourself. Only the headings and the invented rows leave. Step 3 would send real rows with owner names, which needs an approved account and your steward’s agreement.</p>
+<p>To check: count the open milestones of one project by hand and compare.</p>
+</details>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Task: explain why the sample count per project fell between two cohorts, from a samples database that holds participant codes under a strict agreement. Pseudonymised codes still count as personal data.</p>
+<details>
+<summary>
+Check your answer
+</summary>
+<p>The answer is step 2. Share the schema only and ask for one read-only query. Run it yourself. The table and column names leave, so decide first whether even the names are fine to send, and drop to step 0 if your agreement says they are not. Pasting the results back into the chat would make it step 3.</p>
+<p>To check: write a second, simpler count query yourself and compare the two numbers before you explain anything.</p>
+</details>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>Task: write tests for a script that reads sample sheets in your pipeline repository. The code is internal and holds no personal data.</p>
+<details>
+<summary>
+Check your answer
+</summary>
+<p>The answer is step 3. Paste the one function (a small allowed extract) and ask for tests. Apply them yourself. Only that function’s code leaves. If you later want an agent to run the tests inside the repository, that is step 5: work on a copy, keep a way to undo, and limit what the agent may do first.</p>
+<p>To check: break the function on purpose and confirm that a test fails.</p>
+</details>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<p>Task: clean and map a sample sheet with controlled health metadata to your schema, under an agreement that forbids sharing the values.</p>
+<details>
+<summary>
+Check your answer
+</summary>
+<p>The answer is step 2 at most. Describe the mess in words, give headings and invented rows that copy it, and ask for a validation and mapping script. Run the script locally on the real sheet. Do not ask a model to fill or harmonise the values itself: it can invent plausible ones. Only the headings and the invented rows leave.</p>
+<p>To check: compare row counts and a checksum before and after, and keep a log of every change.</p>
+</details>
+</div>
+</div>
+</div>
+<p>Now take your own task. Write the three answers in a sentence each, then ask your data steward the question at the end of the next section if any of them is unclear.</p>
 </section>
 <section id="climbing-if-and-when-you-want-to" class="level2">
 <h2 class="anchored" data-anchor-id="climbing-if-and-when-you-want-to">Climbing, if and when you want to</h2>
@@ -336,10 +329,9 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="../crypt/shield-of-undo.html">Save Point</a>: set a save point before an agent edits anything.</li>
-<li><a href="../crypt/rules-of-the-carapace.html">Grow the Carapace</a>: limit what an agent may do with permission rules.</li>
-<li><a href="../kennel/adopt-the-pet.html">Adopt the Pet</a>: run a local model that keeps prompts on your machine.</li>
-<li><a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: personal data, agreements and keys, and what a session keeps behind.</li>
-<li><a href="../kennel/recruit-the-beast.html">Recruit the Beast</a>: install an agent and start it in plan mode.</li>
+<li><a href="../crypt/rules-of-the-carapace.html">Write Permission Rules</a>: limit what an agent may do with permission rules.</li>
+<li><a href="../crypt/secrets-and-sensitive-ground.html">Keep Secrets Out of Reach</a>: personal data, agreements and keys, and what a session keeps behind.</li>
+<li><a href="../kennel/recruit-the-beast.html">Set Up Your Agent</a>: install an agent and start it in plan mode.</li>
 <li>For more on what a chat window keeps, read Anthropic’s pages on <a href="https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data">how long chats are stored</a> and <a href="https://support.claude.com/en/articles/12260368-use-incognito-chats">incognito chats</a>; the other privacy pages are in Lore below.</li>
 </ul>
 </section>
@@ -366,7 +358,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");
