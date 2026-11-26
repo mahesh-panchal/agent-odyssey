@@ -1,0 +1,27 @@
+---
+title: "Read First"
+---
+
+::: {.ao-story}
+A map hangs on the wall at Basecamp, and the old travellers say the road is easier for those who have read it once. You do not need to memorise it. Read for the shape of the country, then set out.
+:::
+
+This page lists background reading for the course. It is separate from [Prerequisites](prerequisites.html), which lists what to install. The three pages in the first list cover the ideas that the first quests build on.
+
+## Read before the first quest
+
+- [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works): Anthropic, docs. Describes the loop of gathering context, acting and checking. Read it for how an agent works step by step.
+- [Data usage (Claude Code)](https://code.claude.com/docs/en/data-usage): Anthropic, docs. States what an agent sends over the network. Read it before you choose what an agent may read.
+- [Scenario III: full agentic code development](https://coderefinery.github.io/coding-with-ai/scenario-agentic/): CodeRefinery, docs. A course lesson on agentic coding, its risks and how to supervise an agent.
+
+## Read when you reach the exercises
+
+- [Choose a permission mode](https://code.claude.com/docs/en/permission-modes): Anthropic, docs. Read it before the permissions exercises.
+- [Sandboxing](https://code.claude.com/docs/en/sandboxing): Anthropic, docs. Read it before the sandbox exercise.
+
+## What you should be able to say afterwards
+
+- What a model, a harness and an agent are, in one sentence each.
+- Why, with a hosted model, an agent that reads a file sends that file's content to the provider.
+
+The first quests teach each of these from the start, so a gap here is fine.

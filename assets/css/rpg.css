@@ -100,3 +100,16 @@ img.ao-boss-img { display: block; margin: 1rem auto; width: 192px; max-width: 10
 .quest-dialog ul { margin: 0; padding-left: 1.2rem; }
 .quest-dialog li { margin: .2rem 0; }
 .ao-footer { margin: 2.5rem 0 1rem; text-align: center; font-size: 14px; opacity: .85; }
+
+/* Odyssey story block: the only place for harness/armour imagery. Sits above the quest header; the lesson below stays plain. */
+.ao-story { border-left: 4px solid var(--accent); background: var(--panel); padding: .6rem 1rem; margin: 1rem 0 1.5rem; font-style: italic; }
+.ao-story > :last-child { margin-bottom: 0; }
+.ao-story::before { content: "The story so far"; display: block; font: 12px ui-monospace, monospace; font-style: normal; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin-bottom: .3rem; }
+
+/* Skill tree: cleared leaves are larger, ticked and bold (shape and text, not colour alone). */
+.ao-tree .ao-tick { stroke: #14101f; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+/* Quest pages: "In this location" list. */
+.ao-nextsteps .ao-here { margin: 0; }
+.ao-nextsteps .ao-here-next { border-left: 3px solid var(--accent); padding-left: .4rem; list-style-position: inside; }
+.ao-nextsteps .ao-here-done { margin-top: .3rem; opacity: .85; font-size: .95em; }
+.ao-nextsteps .ao-here-done summary { cursor: pointer; }

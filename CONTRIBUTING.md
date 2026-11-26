@@ -14,6 +14,8 @@ presses (needs `quarto install chrome-headless-shell` once). `pixi run shots` wr
   Lesson text states confirmed facts plainly. It carries no provenance: no 'Verified', 'Last verified', 'General practice', 'Not checked',
   'supported by' or caveat badges. Unconfirmed claims are dropped or turned into an action for the learner ('check your plan's limits').
   What was verified, run or left unconfirmed goes in `research/claims/<group>.md` (per quest) and the topic notes in `research/`.
+- **Story block:** each quest opens with a `::: {.ao-story}` block (3 to 5 sentences) before the header list. It carries the odyssey: harness and armour imagery, characters, and one closing sentence that leads into the lesson. The lesson text, tables and diagrams below it use plain technical words only (no armour, beast, Blight or similar). A story may foreshadow the next quest; the lesson body never does.
+- **Build up:** a page never opens with its full diagram. Introduce one concept per figure and add to the picture as the text explains it; the next figure repeats the earlier parts and adds one. Words that appear in a figure are listed apart from words that do not.
 - **Lesson shape:** a header list (Goal, Before you start, Time), the teaching and hands-on in learning order, `## Battle`,
   bonus items, a `.ao-related` block ('Related lessons': 2-6 links with a line each), then Lore. The body never points at another quest
   ('see X') and never mentions a later quest. Cross-links live in Related lessons. Use lists, not run-in bold paragraphs; keep table cells short.

@@ -118,6 +118,10 @@ try:
     B.go(base + "character.html", 1.0)
     check("character sheet shows skill tree, armour and level", all(B.js("document.getElementById('ao-character').textContent.includes(%s)" % json.dumps(t)) for t in ("Skill tree", "Armour", "Rank")))
     check("skill tree has a leaf per open quest", B.js("document.querySelectorAll('.ao-tree circle').length") >= 15, B.js("document.querySelectorAll('.ao-tree circle').length"))
+    B.js("AO.pass('basecamp-name-the-fears', 0)"); B.go(base + "character.html", 1.0)
+    check("skill tree marks a cleared quest with a tick and its count", B.js("document.querySelectorAll('.ao-tree .on .ao-tick').length") == 1 and B.js("document.querySelector('.ao-tree').getAttribute('aria-label')").startswith("Skill tree: 1 of"), B.js("document.querySelector('.ao-tree').getAttribute('aria-label')"))
+    B.go(base + "zones/basecamp/wade-in.html", 1.5)
+    check("quest page lists its location with cleared quests folded and one next quest marked", B.js("!!document.querySelector('.ao-here-done')") and B.js("document.querySelectorAll('.ao-here-next').length") <= 1 and B.js("document.querySelector('.ao-nextsteps').textContent.includes('In this location')"), B.js("document.querySelector('.ao-nextsteps').textContent.slice(0, 200)"))
     # --- other question types ---
     B.js("localStorage.clear()"); B.go(base + "fixture.html")
     if B.js("[...document.querySelectorAll('ol li')].map(l=>l.firstChild.textContent.trim()).join(',')") == "one,two,three":

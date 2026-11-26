@@ -1,0 +1,216 @@
+---
+title: "Test the Leash"
+---
+
+::: {.ao-story}
+The Beast has fallen in beside you, strong and willing. At the Crypt door the warden hands you a short leash and a feather. "Do not trust a rope you have not pulled," she says. You ask the Beast for one small poem and watch what it does at the end of its lead. Then she shows you a wall of stone around its paws. Test the leash, then test the wall.
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will watch an agent ask before it acts, switch it between modes, block one file with a rule, and see an operating-system sandbox refuse a command.
+- **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html), and [Recruit the Beast](../kennel/recruit-the-beast.html), which installs Claude Code and starts it in a throwaway folder. The [Prerequisites](../../prerequisites.html) page lists the tools for the optional steps.
+- **Time:** about 30 minutes. Everything happens in a scratch folder with invented content.
+:::
+
+Do this before an agent touches real files. An agent (a model with tools, running in a loop) can write files and run commands. Two separate guards limit it:
+
+- **Permissions.** The program around the model (the harness) asks you or refuses before one of its tools runs. A tool is an action such as writing a file or running a command.
+- **Sandbox.** The operating system limits what a shell command can touch, whatever the model asks for.
+
+You test each guard in a safe folder, one at a time. The first test is the simplest possible job: a poem in a text file.
+
+```bash
+mkdir -p ~/odyssey-scratch/leash && cd ~/odyssey-scratch/leash
+```
+
+## 1. Permissions: the agent asks first
+
+<figure>
+<svg viewBox="0 0 640 120" role="img" aria-labelledby="l1-t l1-d" style="width:100%;height:auto;max-width:640px;font-family:inherit">
+<title id="l1-t">The permission prompt</title>
+<desc id="l1-d">You send a prompt to the model. The model requests a tool call. The harness stops and asks you to approve before the tool writes a file.</desc>
+<g stroke-width="2" font-size="15" fill="currentColor">
+  <rect x="10" y="30" width="110" height="52" rx="8" style="fill:none;stroke:var(--fg)"/><text x="30" y="61">You: prompt</text>
+  <rect x="190" y="30" width="110" height="52" rx="8" style="fill:none;stroke:var(--fg)"/><text x="217" y="61">Model</text>
+  <rect x="370" y="30" width="120" height="52" rx="8" style="fill:var(--panel);stroke:var(--accent)"/><text x="385" y="61">Ask: allow?</text>
+  <rect x="550" y="30" width="80" height="52" rx="8" style="fill:none;stroke:var(--fg)"/><text x="565" y="61">Write</text>
+  <path d="M120 56 H190 M300 56 H370 M490 56 H550" style="fill:none;stroke:var(--fg)"/>
+  <text x="310" y="26" font-size="12">tool request</text><text x="495" y="26" font-size="12">if yes</text>
+</g>
+</svg>
+<figcaption>The question to you sits between the model's request and the write.</figcaption>
+</figure>
+
+Start Claude Code in its default mode and give it a small job:
+
+```bash
+claude
+```
+
+```text
+Write a four-line poem about a thermocycler to a file called poem.txt.
+```
+
+Claude shows a prompt before it creates the file. Read it: it names the tool, the file path and the contents. The choices include yes once, yes for the rest of the session, and no. Choose yes once, then check the result in a second terminal or after you exit:
+
+```bash
+cat poem.txt
+```
+
+Run a prompt for a different file name and answer no. Claude reports the refusal and no file appears. It may offer another way to do the job; decline that too.
+
+## 2. Modes: how much it asks
+
+A **permission mode** sets what the harness asks about. `Shift+Tab` cycles the common modes inside a session, and the status bar shows the current one.
+
+| Mode | Behaviour |
+|---|---|
+| `default` | asks before edits, shell commands and network requests |
+| `acceptEdits` | auto-accepts file edits and common file commands (`mkdir`, `touch`, `mv`, `cp`) |
+| `plan` | reads and proposes; no edits until you approve a plan |
+| `bypassPermissions` | skips most prompts; for isolated containers and virtual machines only |
+
+Try plan mode. Exit with `/exit`, then:
+
+```bash
+claude --permission-mode plan
+```
+
+```text
+Write a four-line poem about a gel box to a file called poem2.txt.
+```
+
+Claude proposes a plan and waits. Reject the plan, exit with `/exit`, then run `ls`: `poem2.txt` does not exist. Plan mode answers "what would you do?" without doing it.
+
+## 3. A rule that always applies
+
+A **permission rule** is a line in a settings file that allows, asks about or denies one action. Rules are checked deny first, then ask, then allow, and the first match decides. Create an invented secret (a `.env` file is where programs often keep passwords and keys) and a rule that blocks reading it. Exit the previous session first:
+
+```bash
+echo "FAKE_API_KEY=not-a-real-key" > .env
+mkdir -p .claude
+cat > .claude/settings.local.json <<'JSON'
+{
+  "permissions": {
+    "deny": ["Read(./.env)"]
+  }
+}
+JSON
+claude
+```
+
+```text
+Show me what is in .env.
+```
+
+Claude cannot read the file with its file tools. A shell command such as `cat .env` is a different tool, and a rule on `Read` does not cover what a shell command reads. The sandbox in the next section limits what shell commands can write and reach over the network.
+
+## 4. The sandbox: the operating system says no
+
+<figure>
+<svg viewBox="0 0 640 170" role="img" aria-labelledby="l2-t l2-d" style="width:100%;height:auto;max-width:640px;font-family:inherit">
+<title id="l2-t">Permissions and the sandbox</title>
+<desc id="l2-d">The same flow as before, with the write replaced by a shell command. A dashed box named sandbox surrounds the shell command. Inside it, writes are limited to the project folder, the home folder is read-only, and the internet is blocked by default.</desc>
+<g stroke-width="2" font-size="15" fill="currentColor">
+  <rect x="10" y="20" width="110" height="52" rx="8" style="fill:none;stroke:var(--fg)"/><text x="30" y="51">You: prompt</text>
+  <rect x="150" y="20" width="90" height="52" rx="8" style="fill:none;stroke:var(--fg)"/><text x="170" y="51">Model</text>
+  <rect x="270" y="20" width="120" height="52" rx="8" style="fill:var(--panel);stroke:var(--accent)"/><text x="285" y="51">Ask: allow?</text>
+  <rect x="420" y="10" width="210" height="150" rx="12" style="fill:none;stroke:var(--ok);stroke-dasharray:6 4"/>
+  <text x="432" y="30" font-size="13" style="fill:var(--ok)">SANDBOX (operating system)</text>
+  <rect x="440" y="42" width="170" height="40" rx="8" style="fill:none;stroke:var(--fg)"/><text x="452" y="67">Shell command</text>
+  <text x="440" y="106" font-size="13">writes: project and temp folders</text>
+  <text x="440" y="126" font-size="13">home folder: no write</text>
+  <text x="440" y="146" font-size="13">internet: blocked by default</text>
+  <path d="M120 46 H150 M240 46 H270 M390 46 H440" style="fill:none;stroke:var(--fg)"/>
+</g>
+</svg>
+<figcaption>Permissions decide whether the command starts. The sandbox limits what it can touch once it runs.</figcaption>
+</figure>
+
+The **sandbox** is a boundary the operating system enforces around the shell commands Claude runs, and around the programs those commands start. By default it allows writes in the project folder and a temporary folder, and it routes network traffic through a proxy (a gatekeeper program that traffic passes through) that starts with no allowed domains. It can still read most of your machine, so keep secrets out of reach with the rules above. It does not cover Claude's own Read, Edit and Write tools or MCP servers (programs that offer Claude extra tools); those stay under permission rules.
+
+Set-up differs by system:
+
+- **macOS:** nothing to install.
+- **Linux and WSL 2 (Windows Subsystem for Linux):** install the two helper tools the sandbox is built from, `sudo apt-get install bubblewrap socat` (Debian, Ubuntu) or `sudo dnf install bubblewrap socat` (Fedora), then restart Claude Code.
+- **Native Windows:** commands run without a sandbox. Use WSL 2.
+
+Start Claude, type `/sandbox`, and choose a mode:
+
+- **Auto-allow:** sandboxed commands run without asking.
+- **Regular permissions:** every command still asks.
+
+Both modes enforce the same boundary. Choose regular permissions for this exercise so you see each command first. Then ask:
+
+```text
+Run this command and show me the exact result: touch ~/sandbox-probe
+```
+
+```text
+Run this command and show me the exact result: curl --noproxy '*' https://example.com
+```
+
+Expected results:
+
+- `touch`: `Operation not permitted` on macOS, `Read-only file system` on Linux and WSL 2.
+- `curl`: `Could not resolve host`.
+
+Both commands failed because the operating system refused, and no instruction to the model can override that. If Claude offers to run a blocked command outside the sandbox, answer no. If the `touch` succeeded, run `rm ~/sandbox-probe` and check that `/sandbox` is switched on. Run the probes through Claude and not with the `!` prefix, which runs a shell command directly, outside the sandbox.
+
+To open one path or domain for a task, add it under `sandbox` in `settings.json`:
+
+```json
+{
+  "sandbox": {
+    "enabled": true,
+    "filesystem": { "allowWrite": ["~/odyssey-scratch/build"] },
+    "network": { "allowedDomains": ["github.com"] }
+  }
+}
+```
+
+## 5. Optional: a container
+
+A **container** is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. Docker is the common tool for this. This command mounts the scratch folder and cuts the network:
+
+```bash
+docker run -it --rm --network none -v "$(pwd):/project" -w /project python:3.11 bash
+```
+
+Inside, run `ls /` (a different filesystem from yours), `curl https://example.com` (fails, no network) and `touch /project/inside.txt`. The file appears in your scratch folder because it is the mounted project folder, the only part of your machine the container can change.
+
+For an agent inside a container, Anthropic's reference setup is a **dev container** (a container definition your editor starts for you). Anthropic's docs allow the flag `--dangerously-skip-permissions` (the same as `bypassPermissions` mode) only there, because the container is the boundary. Two limits remain: the agent can still change the mounted project folder, and a malicious project can reach anything inside the container, including Claude's login in `~/.claude`. Mount no host secrets such as `~/.ssh`, and restrict the network.
+
+## Clean up
+
+Exit Claude, switch `/sandbox` off if you do not want it on, then:
+
+```bash
+cd ~ && rm -f ~/sandbox-probe && rm -rf ~/odyssey-scratch/leash
+```
+
+## Battle
+
+<div data-ao-test="crypt-test-the-leash" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Recruit the Beast](../kennel/recruit-the-beast.html): install the agent and start in plan mode.
+- [Grow the Carapace](rules-of-the-carapace.html): write allow, ask and deny rules for a real project.
+- [Save Point](shield-of-undo.html): set a save point so an approved edit can be undone.
+- [Advice or Enforcement](../gatehouse/advice-or-enforcement.html): why a hook enforces and an instructions file only asks.
+- [Wade In](../basecamp/wade-in.html): decide what an agent may do before you start.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Sandboxing](https://code.claude.com/docs/en/sandboxing): Anthropic, docs. Why read: it lists what the sandbox covers, the settings keys and the two probe commands used here.
+- [Choose a permission mode](https://code.claude.com/docs/en/permission-modes): Anthropic, docs. Why read: it defines each mode and how to switch between them.
+- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it gives the rule syntax and the deny, ask, allow order.
+- [Development containers](https://code.claude.com/docs/en/devcontainer): Anthropic, docs. Why read: it sets out when running without permission prompts is acceptable and what a dev container does not protect.
+- [Scenario III: full agentic code development](https://coderefinery.github.io/coding-with-ai/scenario-agentic/): CodeRefinery, docs. Why read: a course lesson with a Docker demo and exercises on supervising an agent.
+:::

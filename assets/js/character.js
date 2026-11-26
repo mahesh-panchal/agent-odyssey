@@ -23,7 +23,7 @@
 
       /* Skill tree: one clade per zone, one leaf per quest. Text-first: list below the picture. */
       var tracks = gates.filter(function (g) { return g.quests && g.quests.length; });
-      var W = 640, rowH = 34, H = tracks.reduce(function (n, g) { return n + g.quests.length; }, 0) * rowH + 30, y = 20, svg = "";
+      var total = tracks.reduce(function (n, g) { return n + g.quests.length; }, 0), W = 640, rowH = 34, H = tracks.reduce(function (n, g) { return n + g.quests.length; }, 0) * rowH + 30, y = 20, svg = "";
       var rootX = 24, rootY = H / 2;
       tracks.forEach(function (g) {
         var ys = g.quests.map(function (_, i) { return y + i * rowH; }), midY = (ys[0] + ys[ys.length - 1]) / 2, cx = 200;
@@ -33,12 +33,14 @@
         g.quests.forEach(function (q, i) {
           var on = !!done[q.id];
           svg += "<path d='M" + cx + " " + midY + " H 230 V " + ys[i] + " H 260' stroke='" + (on ? "#e8b84a" : "#6b5f86") + "' fill='none' stroke-width='2'/>" +
-            "<g class='" + (on ? "on" : "") + "'><circle cx='268' cy='" + ys[i] + "' r='7'/><text x='284' y='" + (ys[i] + 4) + "'>" + (on ? "✔ " : "") + esc(q.title) + "</text></g>";
+            "<g class='" + (on ? "on" : "") + "'><title>" + esc(q.title) + (on ? " (cleared)" : " (not cleared)") + "</title><circle cx='268' cy='" + ys[i] + "' r='" + (on ? 9 : 6) + "'/>" +
+            (on ? "<path class='ao-tick' d='M263 " + ys[i] + " l4 4 l7 -8' fill='none'/>" : "") +
+            "<text x='286' y='" + (ys[i] + 4) + "'>" + (on ? "✔ " : "") + esc(q.title) + "</text></g>";
         });
         y += g.quests.length * rowH;
       });
       svg = "<circle cx='" + rootX + "' cy='" + rootY + "' r='8' fill='#e8b84a'/>" + svg;
-      html += "<h2>Skill tree</h2><svg class='ao-tree' viewBox='0 0 " + W + " " + H + "' role='img' aria-label='Skill tree: " + cleared + " quests cleared'>" + svg + "</svg>";
+      html += "<h2>Skill tree</h2><svg class='ao-tree' viewBox='0 0 " + W + " " + H + "' role='img' aria-label='Skill tree: " + cleared + " of " + total + " quests cleared'>" + svg + "</svg>";
       html += "<details class='ao-textlist'><summary>Skill tree as text</summary><ul>" + tracks.map(function (g) {
         return "<li><strong>" + esc(g.name) + "</strong> (" + esc(g.track) + "): " + g.quests.map(function (q) { return (done[q.id] ? "✔ " : "○ ") + esc(q.title); }).join(", ") + "</li>";
       }).join("") + "</ul></details>";

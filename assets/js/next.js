@@ -7,6 +7,17 @@
   function link(q) {
     return "<li>" + (passed(q.id) ? "<span class='ao-mark'>✔</span> " : "") + "<a href='" + base + q.page + "'>" + esc(q.title) + "</a></li>";
   }
+  function here(G, P, quest) {   // this location's quests: finished ones folded away, the next open one highlighted
+    var ids = Object.keys(G.quests).filter(function (k) { return G.quests[k].gate === G.quests[quest.id].gate; });
+    if (ids.length < 2) return "";
+    var done = ids.filter(passed), left = ids.filter(function (k) { return !passed(k); });
+    var focus = left.filter(function (k) { return k !== quest.id && P.status(k) === "ready"; })[0];
+    var item = function (k) { var q = P.quest(k) || G.quests[k]; return "<li" + (k === focus ? " class='ao-here-next'" : "") + ">" + (k === focus ? "<strong>➜ " : "") + "<a href='" + base + q.page + "'" + (k === quest.id ? " aria-current='page'" : "") + ">" + esc(q.title) + "</a>" + (k === focus ? "</strong>" : "") + (k === quest.id ? " (this page)" : "") + "</li>"; };
+    var h = "<h3>In this location (" + done.length + " of " + ids.length + " cleared)</h3>";
+    if (left.length) h += "<ul class='ao-here'>" + left.map(item).join("") + "</ul>";
+    if (done.length) h += "<details class='ao-here-done'><summary>Cleared here (" + done.length + ")</summary><ul>" + done.map(function (k) { var q = P.quest(k) || G.quests[k]; return "<li><span class='ao-mark'>✔</span> <a href='" + base + q.page + "'>" + esc(q.title) + "</a></li>"; }).join("") + "</ul></details>";
+    return h;
+  }
   function list(title, qs) { return qs.length ? "<h3>" + title + "</h3><ul>" + qs.map(link).join("") + "</ul>" : ""; }
 
   function init(G) {
@@ -37,6 +48,7 @@
         var go = fol && !passed(fol.id) ? fol : rec[0], others = rec.filter(function (r) { return !go || r.id !== go.id; }).slice(0, 2);
         h += "<p class='ao-go'>" + (go ? "<a class='ao-start-btn' rel='next' href='" + base + go.page + "'>Next: " + esc(go.title) + " ▶</a>" : "<span>Every step in reach is cleared.</span>") +
           (prev ? " <a class='ao-back' rel='prev' href='" + base + prev.page + "'>◀ Back: " + esc(prev.title) + "</a>" : "") + "</p>";
+        h += here(G, P, quest);
         h += list("Other ways on", others) + list("Side quests (optional)", s.optional);
         var last = G.trunk_order[G.trunk_order.length - 1] === quest.id;
         if (last) {

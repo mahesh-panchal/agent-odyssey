@@ -1,0 +1,49 @@
+---
+title: "Prerequisites"
+---
+
+::: {.ao-story}
+Before the road, the quartermaster checks your pack. A traveller without a lantern turns back at the first tunnel. Check each item once, now, and the installs are done.
+:::
+
+This page lists what to install for the hands-on exercises. Reading is separate: see [Read first](read-first.html). Nothing here needs real data. Exercises use invented files unless the page says otherwise.
+
+## Required
+
+| Tool | Check it works | Needed for |
+|---|---|---|
+| A terminal | open it and type `echo hello` | every exercise |
+| Python 3 | `python3 --version` | the database exercise and the analysis exercises |
+| git | `git --version` | the undo and change-history exercises |
+| Claude Code | `claude --version` | every exercise that runs an agent |
+
+- **Terminal.** macOS: Terminal. Linux: any terminal. Windows: a WSL 2 (Windows Subsystem for Linux) terminal, because the exercises assume a Linux-style shell and the sandbox needs it.
+- **Claude Code install.** The first agent quest gives the installer command. Read an installer script before piping it into `bash`.
+- **An account.** Claude Code needs a login on a paid Claude plan, or an Anthropic API key (a secret string that gives programmatic access, billed per use). Use the account your organisation approves.
+- **WSL 2 on Windows.** Follow Microsoft's WSL install page, then open the Ubuntu terminal.
+
+## Optional
+
+| Tool | Check it works | Needed for |
+|---|---|---|
+| Docker | `docker --version` | the optional container exercise |
+| Ollama | `ollama --version` | running a model on your own computer |
+| OpenCode | `opencode --version` | an open-source agent, if you prefer one |
+| bubblewrap and socat | `bwrap --version` | the sandbox exercise on Linux and WSL 2 (two helper tools) |
+
+Claude Code is the agent the exercises use. Nothing in the course asks you to use an LLM.
+
+## A first check
+
+Run this once from any folder. Each tool should print a version number:
+
+```bash
+python3 --version && git --version && claude --version
+```
+
+## If something fails
+
+- `command not found`: the program is not installed, or its folder is not on your `PATH` (the list of folders the shell searches for programs).
+- If the shell cannot find `claude`, add its folder to `PATH`: `export PATH="$HOME/.local/bin:$PATH"` in `~/.bashrc` or `~/.zshrc`, then open a new terminal.
+- On a managed laptop, ask your administrator before installing.
+- Do not run the exercises on a cluster login node (the shared machine you log in to first).

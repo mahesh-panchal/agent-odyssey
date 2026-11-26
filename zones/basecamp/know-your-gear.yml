@@ -10,7 +10,7 @@ questions:
       - { left: "Plugin", right: "A bundle of skills, hooks, servers and more", misconception: "A plugin packages other extensions. It is not a single instruction file." }
   - type: choice
     prompt: "The same model gives a careful answer in one tool and a sloppy one in another. Which is the better first suspicion?"
-    explain: "The harness decides tools, permissions, loop and context. Different armour can change behaviour even with the same model."
+    explain: "The harness decides tools, permissions, loop and context. A different harness can change behaviour even with the same model."
     options:
       - { text: "The harness differs: tools, context, permissions or settings", correct: true }
       - { text: "One copy of the model must be defective", misconception: "Copies of a model are identical. The surroundings are what differ." }

@@ -26,6 +26,7 @@ trunk_order:
   - codon-mill-the-context-window
   - crypt-shield-of-undo
   - kennel-recruit-the-beast
+  - crypt-test-the-leash
   - crypt-rules-of-the-carapace
   - crypt-secrets-and-sensitive-ground
   - maze-spot-the-mirage
@@ -140,7 +141,10 @@ gates:
          { id: crypt-shield-of-undo, after: [basecamp-know-your-gear], suggested: [codon-mill-the-context-window], branch: trunk, trunk: true, optional: false, title: "Save Point", page: zones/crypt/shield-of-undo.html,
            story: "The Crypt door is sealed with Murk. A faded note reads: nothing here is safe to touch without a way back.",
            done: "The first seal cracks. You have a save point: any change can now be reversed." },
-         { id: crypt-rules-of-the-carapace, after: [kennel-recruit-the-beast], suggested: [kennel-adopt-the-pet], branch: trunk, trunk: true, optional: false, title: "Grow the Carapace", page: zones/crypt/rules-of-the-carapace.html,
+         { id: crypt-test-the-leash, after: [kennel-recruit-the-beast], suggested: [crypt-shield-of-undo], branch: trunk, trunk: true, optional: false, title: "Test the Leash", page: zones/crypt/test-the-leash.html,
+           story: "At the Crypt door a warden hands you a leash and says: do not trust a rope you have not pulled. You ask the Beast for one small poem and watch what it does at the end of its lead.",
+           done: "You have seen an agent ask, refuse and be refused by the operating system, and you know which guard did which." },
+         { id: crypt-rules-of-the-carapace, after: [crypt-test-the-leash], suggested: [kennel-adopt-the-pet], branch: trunk, trunk: true, optional: false, title: "Grow the Carapace", page: zones/crypt/rules-of-the-carapace.html,
            story: "Deeper in the Crypt, bare skin is not enough. You must grow a carapace: rules about what your companions may touch.",
            done: "A carapace hardens over you. Your companions can now only do what your rules allow." },
          { id: crypt-secrets-and-sensitive-ground, after: [crypt-rules-of-the-carapace], suggested: [], branch: trunk, trunk: true, optional: false, title: "The Locked Cabinet", page: zones/crypt/secrets-and-sensitive-ground.html,

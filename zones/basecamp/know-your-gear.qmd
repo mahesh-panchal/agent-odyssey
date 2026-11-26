@@ -2,90 +2,181 @@
 title: "Know Your Gear"
 ---
 
+::: {.ao-story}
+The quartermaster lays out the kit on a long table: a companion, the armour it wears, and a pile of fittings no one has labelled. They pick the pieces up one at a time and say what each is for. Start with the companion alone, then watch the armour go on.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will use the words this site relies on (model, harness, skill, MCP, hook, plugin, effort, eval and the context terms below) and say how they fit together.
 - **Before you start:** [Three Kinds of Machine](three-kinds-of-machine.html).
 - **Time:** about 15 minutes.
 :::
 
-People mix these words up, and the mix-ups cause real mistakes, such as blaming "the model" for something a setting did. Other tools name things differently; the ideas carry over. In this world the **companions are models**, and the **harness is their armour**.
+People mix these words up, and the mix-ups cause real mistakes, such as blaming "the model" for something a setting did. The pictures below start with one part and add one more each time.
 
-## The picture
+## 1. The model
 
 <figure>
-<svg viewBox="0 0 760 400" role="img" aria-labelledby="gear-t gear-d" style="width:100%;height:auto;max-width:760px;font-family:inherit">
-<title id="gear-t">How model, harness and extensions relate</title>
-<desc id="gear-d">A large box named harness contains a smaller box named model, with an effort dial on the model. Inside the harness are tools, permissions, and the loop with context. A row of extensions sits in the harness: skill, MCP, hook, and plugin which bundles them. Outside the harness an eval measures results by running with and without an extension. To the right, the same model is shown inside two different harnesses.</desc>
+<svg viewBox="0 0 520 200" role="img" aria-labelledby="gear1-t gear1-d" style="width:100%;height:auto;max-width:520px;font-family:inherit">
+<title id="gear1-t">A model with an effort setting</title>
+<desc id="gear1-d">One box named model, which reads text and writes text. A dashed box inside it, named effort, shows how much it thinks per step.</desc>
 <g stroke-width="2" font-size="16" fill="currentColor">
-  <rect x="10" y="10" width="470" height="330" rx="14" style="fill:var(--panel);stroke:var(--accent)"/>
-  <text x="26" y="36" font-weight="bold" style="fill:var(--accent)">HARNESS (the armour)</text>
-  <rect x="40" y="56" width="190" height="130" rx="10" style="fill:none;stroke:var(--fg)"/>
-  <text x="56" y="82" font-weight="bold">MODEL (companion)</text>
-  <text x="56" y="104" font-size="14">reads text, writes text</text>
-  <rect x="56" y="122" width="158" height="48" rx="8" style="fill:none;stroke:var(--fg);stroke-dasharray:5 3"/>
-  <text x="64" y="142" font-size="14">EFFORT: how much</text>
-  <text x="66" y="160" font-size="14">it thinks per step</text>
-  <rect x="260" y="56" width="200" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="80">Tools: read, edit</text>
-  <rect x="260" y="104" width="200" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="128">Permissions</text>
-  <rect x="260" y="152" width="200" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="176">Loop, context</text>
-  <text x="40" y="224" font-weight="bold" style="fill:var(--accent)">EXTENSIONS you plug in</text>
-  <rect x="40" y="236" width="90" height="36" rx="8" style="fill:none;stroke:var(--fg)"/><text x="58" y="259">SKILL</text>
-  <rect x="140" y="236" width="90" height="36" rx="8" style="fill:none;stroke:var(--fg)"/><text x="165" y="259">MCP</text>
-  <rect x="240" y="236" width="90" height="36" rx="8" style="fill:none;stroke:var(--fg)"/><text x="263" y="259">HOOK</text>
-  <path d="M40 290 H330 M40 290 V280 M330 290 V280" style="fill:none;stroke:var(--accent)"/>
-  <text x="40" y="312" style="fill:var(--accent)">PLUGIN: a bundle of the above</text>
-  <rect x="350" y="236" width="110" height="36" rx="8" style="fill:none;stroke:var(--fg);stroke-dasharray:5 3"/><text x="357" y="259" font-size="12" textLength="94" lengthAdjust="spacingAndGlyphs">INSTRUCTIONS</text>
-  <rect x="10" y="352" width="470" height="40" rx="10" style="fill:none;stroke:var(--ok)"/>
-  <text x="26" y="377" style="fill:var(--ok)">EVAL: run with and without, compare</text>
-  <rect x="520" y="10" width="230" height="382" rx="14" style="fill:none;stroke:var(--fg);stroke-dasharray:6 4"/>
-  <text x="536" y="36" font-weight="bold" font-size="14" style="fill:var(--accent)">TWO HARNESSES</text>
-  <rect x="540" y="56" width="190" height="64" rx="10" style="fill:none;stroke:var(--fg)"/>
-  <text x="556" y="82">Model X</text><text x="556" y="102" font-size="14">inside harness A</text>
-  <rect x="540" y="140" width="190" height="64" rx="10" style="fill:none;stroke:var(--fg)"/>
-  <text x="556" y="166">Model X</text><text x="556" y="186" font-size="14">inside harness B</text>
-  <text x="536" y="236" font-size="14">Different tools, permission</text>
-  <text x="536" y="256" font-size="14">rules and loop, so the same</text>
-  <text x="536" y="276" font-size="14">model can behave differently.</text>
-  <text x="536" y="312" font-size="14">Claude Code and OpenCode</text>
-  <text x="536" y="332" font-size="14">are two harnesses.</text>
+  <rect x="30" y="50" width="190" height="130" rx="10" style="fill:none;stroke:var(--fg)"/>
+  <text x="46" y="76" font-weight="bold">MODEL</text>
+  <text x="46" y="98" font-size="14">reads text, writes text</text>
+  <rect x="46" y="116" width="158" height="48" rx="8" style="fill:none;stroke:var(--fg);stroke-dasharray:5 3"/>
+  <text x="54" y="136" font-size="14">EFFORT: how much</text>
+  <text x="56" y="154" font-size="14">it thinks per step</text>
 </g>
 </svg>
-<figcaption>Models think. The harness decides what they can touch and runs the loop. Extensions change what the harness offers. Evals measure from outside. Text version below.</figcaption>
+<figcaption>The model reads text and writes text. Effort is a setting on it.</figcaption>
 </figure>
 
-## The words
+- **Model.** The large language model (LLM) that reads and writes text (for example Claude Sonnet 5.5, a Mistral model, or a local model through Ollama, a program that runs models on your own computer). Aliases such as `sonnet` move to newer versions over time, so use the full model name when a result must be reproducible.
+- **Effort.** A setting for how much the model reasons before it answers, from `low` to `max` in Claude Code (`/effort`, `--effort`; a `/command` is typed inside the running tool, a `--flag` when you start it). Low is faster and cheaper; high thinks longer and checks more. It guides behaviour and sets no exact budget. `max` can show diminishing returns and overthink, so raise it only where you measure a gain.
 
-- **Model.** The large language model (LLM) that reads and writes text (for example Claude Sonnet 5.5, a Mistral model, or a local model through Ollama, a program that runs models on your own computer). The product you type into is the harness. Aliases such as `sonnet` move to newer versions over time, so pin the full name when a result must be reproducible.
-- **Harness.** The program around the model. It provides the tools, manages the context the model sees, runs the loop (gather context, act, check, repeat) and enforces permissions. Claude Code, OpenCode (an open-source harness) and Mistral Vibe (Mistral's open-source terminal coding agent) are harnesses. Many questions are really about the harness: what may it touch, what does it remember, what does it ask first?
-- **Prompt.** The text you send to the model.
-- **Turn.** One prompt from you plus the model's reply.
+## 2. The harness
+
+<figure>
+<svg viewBox="0 0 520 220" role="img" aria-labelledby="gear2-t gear2-d" style="width:100%;height:auto;max-width:520px;font-family:inherit">
+<title id="gear2-t">A model inside a harness</title>
+<desc id="gear2-d">A large box named harness contains the model with its effort setting, and three boxes: tools, permissions, and the loop with context.</desc>
+<g stroke-width="2" font-size="16" fill="currentColor">
+  <rect x="10" y="10" width="500" height="200" rx="14" style="fill:var(--panel);stroke:var(--accent)"/>
+  <text x="26" y="36" font-weight="bold" style="fill:var(--accent)">HARNESS</text>
+  <rect x="30" y="56" width="190" height="130" rx="10" style="fill:none;stroke:var(--fg)"/>
+  <text x="46" y="82" font-weight="bold">MODEL</text>
+  <text x="46" y="104" font-size="14">reads text, writes text</text>
+  <rect x="46" y="122" width="158" height="48" rx="8" style="fill:none;stroke:var(--fg);stroke-dasharray:5 3"/>
+  <text x="54" y="142" font-size="14">EFFORT: how much</text>
+  <text x="56" y="160" font-size="14">it thinks per step</text>
+  <rect x="260" y="56" width="230" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="80">Tools: read, edit, run</text>
+  <rect x="260" y="104" width="230" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="128">Permissions</text>
+  <rect x="260" y="152" width="230" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="176">Loop, context</text>
+</g>
+</svg>
+<figcaption>The harness surrounds the model. It supplies tools, applies permissions and runs the loop.</figcaption>
+</figure>
+
+- **Harness.** The program around the model. The product you type into is the harness. It provides the tools, manages the context the model sees, runs the loop (gather context, act, check, repeat) and enforces permissions. Claude Code, OpenCode (an open-source harness) and Mistral Vibe (Mistral's open-source terminal coding agent) are harnesses.
+- **Tool.** An action the model can request and the harness runs, such as reading a file or running a shell command. A tool call is one such request; tool output is what comes back.
+- **Permissions.** The harness's rules for which tool calls it runs, asks about or refuses.
 - **Agent.** A model inside a harness that picks and runs tools in a loop toward a goal.
-- **Tool.** An action the model can request and the harness runs, such as reading a file or running a shell command. A tool call is one such request; tool output is what comes back. The program you run is also called "the tool"; that is the harness.
-- **Subagent.** A helper agent with its own context window; only its summary comes back.
+
+## 3. Extensions
+
+<figure>
+<svg viewBox="0 0 520 340" role="img" aria-labelledby="gear3-t gear3-d" style="width:100%;height:auto;max-width:520px;font-family:inherit">
+<title id="gear3-t">Extensions plugged into the harness</title>
+<desc id="gear3-d">The harness from the previous picture, with a row of extensions: skill, MCP, hook, and an instructions file. A line under skill, MCP and hook marks a plugin as a bundle of them.</desc>
+<g stroke-width="2" font-size="16" fill="currentColor">
+  <rect x="10" y="10" width="500" height="320" rx="14" style="fill:var(--panel);stroke:var(--accent)"/>
+  <text x="26" y="36" font-weight="bold" style="fill:var(--accent)">HARNESS</text>
+  <rect x="30" y="56" width="190" height="130" rx="10" style="fill:none;stroke:var(--fg)"/>
+  <text x="46" y="82" font-weight="bold">MODEL</text>
+  <text x="46" y="104" font-size="14">reads text, writes text</text>
+  <rect x="46" y="122" width="158" height="48" rx="8" style="fill:none;stroke:var(--fg);stroke-dasharray:5 3"/>
+  <text x="54" y="142" font-size="14">EFFORT: how much</text>
+  <text x="56" y="160" font-size="14">it thinks per step</text>
+  <rect x="260" y="56" width="230" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="80">Tools: read, edit, run</text>
+  <rect x="260" y="104" width="230" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="128">Permissions</text>
+  <rect x="260" y="152" width="230" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="176">Loop, context</text>
+  <text x="30" y="226" font-weight="bold" style="fill:var(--accent)">EXTENSIONS you plug in</text>
+  <rect x="30" y="238" width="90" height="36" rx="8" style="fill:none;stroke:var(--fg)"/><text x="48" y="261">SKILL</text>
+  <rect x="130" y="238" width="90" height="36" rx="8" style="fill:none;stroke:var(--fg)"/><text x="155" y="261">MCP</text>
+  <rect x="230" y="238" width="90" height="36" rx="8" style="fill:none;stroke:var(--fg)"/><text x="253" y="261">HOOK</text>
+  <rect x="330" y="238" width="160" height="36" rx="8" style="fill:none;stroke:var(--fg);stroke-dasharray:5 3"/><text x="340" y="261" font-size="14">INSTRUCTIONS FILE</text>
+  <path d="M30 292 H320 M30 292 V282 M320 292 V282" style="fill:none;stroke:var(--accent)"/>
+  <text x="30" y="314" style="fill:var(--accent)">PLUGIN: a bundle of skills, hooks, MCP</text>
+</g>
+</svg>
+<figcaption>Extensions change what the harness offers. A plugin installs several as one unit.</figcaption>
+</figure>
+
 - **Instructions file.** A text file (`CLAUDE.md` in Claude Code, `AGENTS.md` in OpenCode where read) that the harness loads at session start. It advises and does not enforce.
-- **Sandbox.** An operating-system layer that limits what commands can touch. A scratch folder is a throwaway directory.
-- **Hallucination** (also called a **Mirage**). A plausible-looking statement that is false, such as an invented DOI (a paper's permanent identifier).
-- **Prompt injection.** Text from a file, web page or tool that the model treats as an instruction.
 - **Skill.** A folder with a `SKILL.md`. Only its short description is preloaded; the body loads when it is used. It advises.
 - **MCP (Model Context Protocol).** An open standard for connecting the harness to outside tools and data, such as a database or a literature search. A server you connect can act on your behalf, so treat it like software you install.
-- **Hook.** Your own command, request or prompt that the harness runs automatically at a set point, such as before a tool call. A command hook that exits with code 2 before a tool runs stops that action whatever the model wants (a nonzero exit code is how a script signals failure; a hook uses 2 to mean block). A rule in an instructions file can only ask, so hooks are the stronger guard.
-- **Plugin.** A folder that bundles skills, hooks, MCP servers and more, installed as one unit. It can run code, so it is a trust decision.
-- **Effort.** A setting for how much the model reasons per step, from `low` to `max` in Claude Code (`/effort`, `--effort`; a `/command` is typed inside the running tool, a `--flag` when you start it). Low is faster and cheaper; high thinks longer and checks more. It guides behaviour and sets no exact budget. `max` can show diminishing returns and overthink, so raise it only where you measure a gain. Higher effort makes answers more careful, and correctness is still yours to check.
-- **Eval.** A repeatable test of agent behaviour: a prompt plus checks on the result. Comparing runs **with** and **without** something (a skill, a rule) shows what it contributed. A score of 100% both ways means it contributed nothing.
+- **Hook.** Your own command, request or prompt that the harness runs automatically at a set point, such as before a tool call. A command hook that exits with code 2 before a tool runs stops that action whatever the model wants (an exit code is the number a script returns; 0 means success, and a hook uses 2 to mean block). A rule in an instructions file can only ask, so hooks are the stronger guard.
+- **Plugin.** A folder that bundles skills, hooks, MCP servers and more, installed as one unit. It can run code, so install only plugins you trust.
 
-## Words about what the model can see
+## 4. Evals
+
+<figure>
+<svg viewBox="0 0 520 400" role="img" aria-labelledby="gear4-t gear4-d" style="width:100%;height:auto;max-width:520px;font-family:inherit">
+<title id="gear4-t">An eval measuring from outside</title>
+<desc id="gear4-d">The harness with its extensions, and below it, outside the harness, a box named eval that runs with and without an extension and compares the results.</desc>
+<g stroke-width="2" font-size="16" fill="currentColor">
+  <rect x="10" y="10" width="500" height="320" rx="14" style="fill:var(--panel);stroke:var(--accent)"/>
+  <text x="26" y="36" font-weight="bold" style="fill:var(--accent)">HARNESS</text>
+  <rect x="30" y="56" width="190" height="130" rx="10" style="fill:none;stroke:var(--fg)"/>
+  <text x="46" y="82" font-weight="bold">MODEL</text>
+  <text x="46" y="104" font-size="14">reads text, writes text</text>
+  <rect x="46" y="122" width="158" height="48" rx="8" style="fill:none;stroke:var(--fg);stroke-dasharray:5 3"/>
+  <text x="54" y="142" font-size="14">EFFORT: how much</text>
+  <text x="56" y="160" font-size="14">it thinks per step</text>
+  <rect x="260" y="56" width="230" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="80">Tools: read, edit, run</text>
+  <rect x="260" y="104" width="230" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="128">Permissions</text>
+  <rect x="260" y="152" width="230" height="38" rx="8" style="fill:none;stroke:var(--fg)"/><text x="274" y="176">Loop, context</text>
+  <text x="30" y="226" font-weight="bold" style="fill:var(--accent)">EXTENSIONS you plug in</text>
+  <rect x="30" y="238" width="90" height="36" rx="8" style="fill:none;stroke:var(--fg)"/><text x="48" y="261">SKILL</text>
+  <rect x="130" y="238" width="90" height="36" rx="8" style="fill:none;stroke:var(--fg)"/><text x="155" y="261">MCP</text>
+  <rect x="230" y="238" width="90" height="36" rx="8" style="fill:none;stroke:var(--fg)"/><text x="253" y="261">HOOK</text>
+  <rect x="330" y="238" width="160" height="36" rx="8" style="fill:none;stroke:var(--fg);stroke-dasharray:5 3"/><text x="340" y="261" font-size="14">INSTRUCTIONS FILE</text>
+  <path d="M30 292 H320 M30 292 V282 M320 292 V282" style="fill:none;stroke:var(--accent)"/>
+  <text x="30" y="314" style="fill:var(--accent)">PLUGIN: a bundle of skills, hooks, MCP</text>
+  <rect x="10" y="350" width="500" height="40" rx="10" style="fill:none;stroke:var(--ok)"/>
+  <text x="26" y="375" style="fill:var(--ok)">EVAL: run with and without, compare</text>
+</g>
+</svg>
+<figcaption>An eval sits outside the harness and compares runs.</figcaption>
+</figure>
+
+- **Eval.** A repeatable test of agent behaviour: a prompt plus checks on the result. Comparing runs **with** and **without** something (a skill, a rule) shows what it contributed. A score of 100% both ways means the test cannot tell the difference, so make it harder.
+
+## 5. One model, different harnesses
+
+<figure>
+<svg viewBox="0 0 520 200" role="img" aria-labelledby="gear5-t gear5-d" style="width:100%;height:auto;max-width:520px;font-family:inherit">
+<title id="gear5-t">The same model in two harnesses</title>
+<desc id="gear5-d">Two harness boxes side by side, each holding the same model X, each with its own tools, permission rules and loop.</desc>
+<g stroke-width="2" font-size="16" fill="currentColor">
+  <rect x="10" y="10" width="230" height="170" rx="14" style="fill:var(--panel);stroke:var(--accent)"/>
+  <text x="26" y="36" font-weight="bold" style="fill:var(--accent)">HARNESS A</text>
+  <rect x="30" y="56" width="190" height="64" rx="10" style="fill:none;stroke:var(--fg)"/><text x="46" y="82">Model X</text>
+  <text x="26" y="150" font-size="14">its own tools, rules, loop</text>
+  <rect x="270" y="10" width="230" height="170" rx="14" style="fill:var(--panel);stroke:var(--accent)"/>
+  <text x="286" y="36" font-weight="bold" style="fill:var(--accent)">HARNESS B</text>
+  <rect x="290" y="56" width="190" height="64" rx="10" style="fill:none;stroke:var(--fg)"/><text x="306" y="82">Model X</text>
+  <text x="286" y="150" font-size="14">its own tools, rules, loop</text>
+</g>
+</svg>
+<figcaption>Claude Code and OpenCode are two harnesses.</figcaption>
+</figure>
+
+The same model can behave differently in each harness, because tools, permission rules and the loop differ. Naming differs between tools too. Check another tool's docs for how its hooks, plugins and effort settings work.
+
+## Other words you will meet
+
+These are not in the pictures.
+
+- **Prompt.** The text you send to the model.
+- **Turn.** One prompt from you plus the model's reply.
+- **Subagent.** A helper agent with its own context window; only its summary comes back.
+- **Sandbox.** An operating-system layer that limits what commands can touch.
+- **Hallucination**. A plausible-looking statement that is false, such as an invented DOI (a paper's permanent identifier).
+- **Prompt injection.** Text from a file, web page or tool that the model treats as an instruction.
+
+### Words about what the model can see
 
 These get mixed up more than any others.
 
 - **Token.** The chunk of text a model actually reads and writes. Somewhere between a letter and a word. Limits and costs are counted in tokens.
 - **Context window.** Everything the model can see at once right now: instructions, files it has read, tool output and the conversation so far. It has a size limit, and a fuller window is not automatically a better one.
 - **Session (session context).** One running conversation, and the context window it has built up. A new session starts with an empty conversation. Two sessions do not share their context.
-- **Memory.** Notes that the harness loads at the start of every session, such as your instructions file and, in Claude Code, notes the tool writes itself. Memory outlives a session; session context does not.
+- **Memory.** Notes that the harness loads at the start of every session, such as your instructions file and, in Claude Code, notes the harness writes itself. Memory outlives a session; session context does not.
 - **Compaction.** The harness replaces old conversation with a summary to free room.
 - **Session usage.** How much of your allowance or bill a session spends. It climbs with the size of the context, because the whole conversation is sent again with each request.
 - **Context poisoning.** A community term: a wrong statement gets into the context, and later answers build on it. Start a fresh session and keep unverified claims out of memory files.
-
-Naming differs between tools. Check another tool's docs for how its hooks, plugins and effort settings work.
 
 <div data-ao-honour="gear-map" data-xp="20">Redraw the picture from memory for the tool you actually use: which model, which harness, which extensions are loaded right now?</div>
 

@@ -1,0 +1,47 @@
+pass: 0.8
+questions:
+  - type: choice
+    prompt: "You run claude in default mode and ask for poem.txt. Before the file exists, Claude shows a prompt. What does that prompt mean?"
+    explain: "The harness stops between the model's tool request and the write, and waits for your answer. Until you answer yes, nothing is written."
+    options:
+      - { text: "The harness is waiting for your answer before the write happens", correct: true }
+      - { text: "The file is already written and the prompt asks whether to keep it", misconception: "The write is held back until you approve it." }
+      - { text: "The model is unsure what to write and needs a better prompt", misconception: "The prompt comes from the harness and concerns permission, not the model's confidence." }
+      - { text: "The operating system is blocking the write", misconception: "That would be a sandbox refusal. This prompt comes from the harness." }
+  - type: choice
+    prompt: "You ask for a poem file in plan mode, decline the plan, and run ls. What do you expect?"
+    explain: "Plan mode lets Claude read and propose. Edits wait for an approved plan, so declining leaves the folder unchanged."
+    options:
+      - { text: "No poem file, because nothing is edited until a plan is approved", correct: true }
+      - { text: "An empty poem file, created so the plan has a target", misconception: "Plan mode creates nothing before you approve." }
+      - { text: "The finished poem file, written while the plan was shown", misconception: "A plan is a proposal, so no write happens during it." }
+  - type: sort
+    prompt: "Sort each guard by what enforces it."
+    bins: ["The harness asks or refuses", "The operating system refuses"]
+    explain: "Permission modes and rules belong to the harness and govern its tools. The sandbox is enforced by the operating system around shell commands."
+    items:
+      - { text: "A deny rule on Read(./.env)", bin: "The harness asks or refuses", misconception: "A permission rule is a harness setting." }
+      - { text: "The prompt before a file is written in default mode", bin: "The harness asks or refuses", misconception: "The prompt is the harness checking its permission rules." }
+      - { text: "touch ~/sandbox-probe failing with Operation not permitted", bin: "The operating system refuses", misconception: "A sandbox boundary is enforced by the operating system, whatever the model asked for." }
+      - { text: "curl failing with Could not resolve host in the sandbox", bin: "The operating system refuses", misconception: "The sandbox cuts network access at the operating-system level." }
+  - type: choice
+    prompt: "A deny rule blocks Read(./.env). An approved shell command runs cat .env outside a sandbox. What happens?"
+    explain: "A Read rule limits Claude's file tools. A shell command that reads the file is a different tool, so the rule does not cover it. The sandbox is the guard for shell commands."
+    options:
+      - { text: "The command can still read the file, because the rule covers the file tools only", correct: true }
+      - { text: "The command fails, because a deny rule covers every way of reading that file", misconception: "Rules on one tool do not cover what a shell command reads." }
+      - { text: "Claude asks again, because deny rules only apply to the first read", misconception: "A deny rule is checked on every matching request. It does not apply to other tools." }
+  - type: choice
+    prompt: "You are on native Windows and run /sandbox, then ask Claude to run touch on a file in your home folder. What should you expect?"
+    explain: "On native Windows Claude Code runs commands without a sandbox. Use WSL 2 to get one."
+    options:
+      - { text: "The command runs unsandboxed, so use WSL 2 for the sandbox", correct: true }
+      - { text: "The command is refused, as it would be on macOS", misconception: "The sandbox is not available on native Windows." }
+      - { text: "Windows has its own built-in sandbox that Claude Code switches on", misconception: "Claude Code does not use one on native Windows." }
+  - type: choice
+    prompt: "A colleague says they run claude with --dangerously-skip-permissions in a container, so it is safe. What still applies?"
+    explain: "The container limits the machine, and the agent can still change the mounted project folder. Anything inside the container, including credentials, can be reached by a malicious project."
+    options:
+      - { text: "It can still change the mounted folder and reach what is in the container", correct: true }
+      - { text: "Nothing, because a container makes every file and prompt harmless", misconception: "A container is a boundary, and what is inside it stays exposed." }
+      - { text: "The flag stops working in a container, so permission prompts return", misconception: "The flag is intended for containers and works there." }
