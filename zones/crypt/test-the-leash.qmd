@@ -17,7 +17,7 @@ Do this before an agent touches real files. An agent (a model with tools, runnin
 - **Permissions.** The program around the model (the harness) asks you or refuses before one of its tools runs. A tool is an action such as writing a file or running a command.
 - **Sandbox.** The operating system limits what a shell command can touch, whatever the model asks for.
 
-You test each guard in a safe folder, one at a time. The first test is the simplest possible job: a poem in a text file.
+You test each guard in a safe folder, one at a time. Every command below runs in `~/odyssey-scratch/leash`. If you open a new terminal, run `cd ~/odyssey-scratch/leash` and check with `pwd` before you continue. The first test is the simplest possible job: a poem in a text file.
 
 ```bash
 mkdir -p ~/odyssey-scratch/leash && cd ~/odyssey-scratch/leash
@@ -87,6 +87,7 @@ Claude proposes a plan and waits. Reject the plan, exit with `/exit`, then run `
 A **permission rule** is a line in a settings file that allows, asks about or denies one action. Rules are checked deny first, then ask, then allow, and the first match decides. Create an invented secret (a `.env` file is where programs often keep passwords and keys) and a rule that blocks reading it. Exit the previous session first:
 
 ```bash
+cd ~/odyssey-scratch/leash
 echo "FAKE_API_KEY=not-a-real-key" > .env
 mkdir -p .claude
 cat > .claude/settings.local.json <<'JSON'
@@ -103,7 +104,7 @@ claude
 Show me what is in .env.
 ```
 
-Claude cannot read the file with its file tools. A shell command such as `cat .env` is a different tool, and a rule on `Read` does not cover what a shell command reads. The sandbox in the next section limits what shell commands can write and reach over the network.
+Claude cannot read the file with its file tools. Claude Code also applies the rule to shell commands it recognises as file readers, such as `cat .env`. It cannot apply the rule to a program that opens the file itself, such as `python3 -c "print(open('.env').read())"`. The sandbox in the next section is the guard that covers those programs.
 
 ## 4. The sandbox: the operating system says no
 
@@ -174,7 +175,7 @@ To open one path or domain for a task, add it under `sandbox` in `settings.json`
 A **container** is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. Docker is the common tool for this. This command mounts the scratch folder and cuts the network:
 
 ```bash
-docker run -it --rm --network none -v "$(pwd):/project" -w /project python:3.11 bash
+docker run -it --rm --network none -v ~/odyssey-scratch/leash:/project -w /project python:3.11 bash
 ```
 
 Inside, run `ls /` (a different filesystem from yours), `curl https://example.com` (fails, no network) and `touch /project/inside.txt`. The file appears in your scratch folder because it is the mounted project folder, the only part of your machine the container can change.

@@ -25,11 +25,11 @@ questions:
       - { text: "touch ~/sandbox-probe failing with Operation not permitted", bin: "The operating system refuses", misconception: "A sandbox boundary is enforced by the operating system, whatever the model asked for." }
       - { text: "curl failing with Could not resolve host in the sandbox", bin: "The operating system refuses", misconception: "The sandbox cuts network access at the operating-system level." }
   - type: choice
-    prompt: "A deny rule blocks Read(./.env). An approved shell command runs cat .env outside a sandbox. What happens?"
-    explain: "A Read rule limits Claude's file tools. A shell command that reads the file is a different tool, so the rule does not cover it. The sandbox is the guard for shell commands."
+    prompt: "A deny rule blocks Read(./.env). An approved Python one-liner opens .env itself, outside a sandbox. What happens?"
+    explain: "A Read rule limits Claude's file tools and the file commands it recognises, such as cat. It cannot see inside a program that opens the file itself. The sandbox is the guard for those programs."
     options:
-      - { text: "The command can still read the file, because the rule covers the file tools only", correct: true }
-      - { text: "The command fails, because a deny rule covers every way of reading that file", misconception: "Rules on one tool do not cover what a shell command reads." }
+      - { text: "The program can still read the file, because Claude Code cannot see what a program opens", correct: true }
+      - { text: "The program fails, because a deny rule covers every way of reading that file", misconception: "Rules cover the file tools and recognised file commands, not what an arbitrary program opens." }
       - { text: "Claude asks again, because deny rules only apply to the first read", misconception: "A deny rule is checked on every matching request. It does not apply to other tools." }
   - type: choice
     prompt: "You are on native Windows and run /sandbox, then ask Claude to run touch on a file in your home folder. What should you expect?"
