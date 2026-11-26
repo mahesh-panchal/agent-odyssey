@@ -12,8 +12,6 @@ assets/data/
 __pycache__/
 lore.qmd
 exercises/codon-mill/mini-rag/graph.json
-exercises/basecamp/wade-in/mock.db
-exercises/basecamp/wade-in/schema-only.txt
 
 # stray output when two renders overlap
 /site_libs/

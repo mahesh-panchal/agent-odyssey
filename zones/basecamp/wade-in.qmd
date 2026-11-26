@@ -3,36 +3,48 @@ title: "Wade In"
 ---
 
 ::: {.ao-story}
-A shallow stream runs past Basecamp. A traveller stands on the bank, sure that crossing means being swept away, because the kennel master's patter says you cross at the Beast's side or you stay put. Then a stone shows above the water, and another beyond it, each a little further out, and you may stop on any of them. Before you step, you ask what you would carry across with you.
+In a corner of Gaia's Rest, four travellers each picture what a pact with an Astral could do for them, and then the doubts arrive. The boasters at the bar say you cross the stream at the Astral's side or you stay on the bank. Beside the water a stone shows, and another beyond it, each a little further out, and you may stop on any of them. Before you step, you ask what you would carry across with you.
 :::
 
 ::: {.quest-dialog}
 - **Goal:** you will choose how much of your data and your machine to hand over for one task, and start at the lowest step that gets the job done.
-- **Before you start:** [Know Your Gear](know-your-gear.html), and Python 3 for the exercise. Your own data agreement (the terms under which you received the data) overrides anything here.
-- **Time:** about 20 minutes.
+- **Before you start:** [Know Your Gear](know-your-gear.html). Your own data agreement (the terms under which you received the data) overrides anything here.
+- **Time:** about 20 minutes. No code or downloads are needed.
 :::
 
 ## The scene
 
-Two people want help from an LLM (a large language model, the kind of tool behind chat assistants). Each has a real task and the same two worries.
+Four people want help from an LLM (a large language model, the kind of tool behind chat assistants). Each pictures what it could do, and then the same two worries arrive: where their data would go, and whether using an LLM means giving a program the run of their computer.
 
-::: {.panel-tabset}
+::: {.panel-tabset group="persona"}
 
-## Manager
+## Guildmaster
 
-The task is a status report across projects, kept in a spreadsheet.
+"I keep twelve projects in one spreadsheet. If an LLM could read it, I would have a status report and a risk list for the board by lunch."
 
-"Can I paste my project list into an LLM to draft this? Where does that data go once I press enter? And a colleague said I would need Claude Code (a coding agent that can read and change files on my computer), which means giving it access to all my files. I cannot do that, so I will do the report by hand."
+"But where does my data go once I paste it? And a colleague said I would need Claude Code (a coding agent that can read and change files on my computer), which means giving it access to all my files. I cannot allow that, so I will keep writing the report by hand."
 
-## Bioinformatician
+## Diviner
 
-The task is a count of samples received per project, from the project database. The query is written in SQL (the language for querying a database).
+"The sample counts fell in two cohorts. If an LLM could write the query and the first summary, I would have an explanation before the meeting."
 
-"Can I ask an LLM to write this query? Does that mean I have to install Claude Code and let it into my computer and my database? My data agreement may not allow it, so the answer has to be no LLM at all."
+"But the samples database holds participant codes, and my data agreement is strict. Does using an LLM mean installing an agent that can reach the database? Then the answer has to be no LLM at all."
+
+## Artificer
+
+"Our pipeline has a script nobody has tested. If an LLM could draft the tests and tidy the module, I would clear this week's backlog by Friday."
+
+"But an agent that edits files and runs commands in my repository could overwrite something, or run something I never reviewed. It is all or nothing, and nothing feels safer."
+
+## Archivist
+
+"A collaborator sent a sample sheet with mixed columns and units. If an LLM could clean it and map it to our schema, a week of tidying would take an afternoon."
+
+"But the sheet holds controlled health metadata. I cannot paste it anywhere, and I do not want an agent loose in the data store. So it is a no."
 
 :::
 
-Both treat the choice as all or nothing: either no LLM, or an agent with the run of the machine. They have not considered that there is a middle. Between those two ends are several steps, each handing over a little more, and many useful tasks sit on the lower ones. This lesson walks up those steps.
+All four treat the choice as all or nothing: either no LLM, or an agent with the run of the machine. They have not considered that there is a middle. Between those two ends are several steps, each handing over a little more, and many useful tasks sit on the lower ones. This lesson walks up those steps.
 
 You decide how much to hand over before the first prompt. A wrong choice can send data you meant to keep, or let an agent change files you meant to leave alone.
 
@@ -52,14 +64,14 @@ The more data leaves, the higher the first answer. The more the agent may change
 
 A ladder is six ordered steps of how much you hand over. Each step up raises one or both answers. Terms used in the table: a **schema** is the list of table and column names with no rows; an **extract** is a small slice of the data; an **agent** is a model that reads files and runs commands for you; a **copy** is a duplicate of the data, so the original cannot be edited.
 
-| Step | Manager (spreadsheet) | Bioinformatician (database) | What leaves |
-|---|---|---|---|
-| 0 | Build the table by hand | Write the query yourself | nothing |
-| 1 | Ask for an outline, no data | Ask how to explain a fall in samples | your words |
-| 2 | Headings and invented rows; you apply the formula | Schema only; you run the query read-only | names and invented rows |
-| 3 | Small allowed extract, or a local model | Small allowed extract or local model, for free-text notes | the extract; nothing if local |
-| 4 | Read-only agent on a copy | Read-only agent on a copy | everything it reads |
-| 5 | Agent edits and runs commands | Agent edits and runs pipeline code | everything it reads, plus whatever its commands send |
+| Step | What you hand over | What leaves |
+|---|---|---|
+| 0 | Nothing: do the task yourself | nothing |
+| 1 | A question in words, with no data in it | your words |
+| 2 | Structure only: headings, a schema or invented rows. You apply the answer yourself | names and invented rows |
+| 3 | A small extract you are allowed to share, or a local model | the extract; nothing if local |
+| 4 | A read-only agent working on a copy | everything it reads |
+| 5 | An agent that edits files and runs commands | everything it reads, plus whatever its commands send |
 
 Pasting the results of a step 2 task back into the chat sends those rows too, which makes it step 3. Plan mode (the agent reads and proposes, and does not edit) belongs to step 4: a copy protects the original from edits, and anything the agent reads is still sent.
 
@@ -87,28 +99,63 @@ Under GDPR (the EU data-protection law), pseudonymised codes still count as pers
 - **Screenshots, images and uploads:** treat them as data you share, like pasted text.
 - **Other providers:** their chat tools have their own terms. Read them.
 
-## Hands-on (bioinformatician): count samples without handing over the data
+## Hands-on: pick the step
 
-No model is called in this exercise. You write the prompt, and a prepared file stands in for the model's reply, so you can practise checking a reply before you ever trust one. Download these four files into one empty folder (right-click each link and choose Save link as): [make_db.py](../../exercises/basecamp/wade-in/make_db.py), [run_query.py](../../exercises/basecamp/wade-in/run_query.py), [report-query.sql](../../exercises/basecamp/wade-in/report-query.sql) and [check-samples.sql](../../exercises/basecamp/wade-in/check-samples.sql) Every row is invented.
+For each task, decide three things before you open the answer: the lowest step that does the job, what leaves your machine at that step, and one thing you will check in the result. The tabs hold the same four people, and the tab you chose earlier stays selected.
 
-1. Run `python3 make_db.py` (use `python` if `python3` is not found). It writes `mock.db`, a SQLite database file (a small database that lives in one file), and `schema-only.txt`. The text file holds table and column names and no rows, which is all that goes into a chat at step 2. This table-and-column outline is the **schema**. Names such as `participant_code` and `notes` hint at the real data, so decide whether even the names are fine to send.
-2. Write the prompt you would send: paste the schema and ask for one read-only query giving, per project, the samples received and the open milestones (`done = 0`). Say you will run it yourself and do not want to paste rows.
-3. `report-query.sql` stands in for the reply. Check it is a single `SELECT` (a query that only reads) on the tables you expect, then run `python3 run_query.py report-query.sql`. The script opens the database read-only, so a `DELETE` fails.
-4. Run `python3 run_query.py check-samples.sql`, a count the model did not write, and compare:
+::: {.panel-tabset group="persona"}
 
-   | Project | Stand-in model: samples | Your check: samples | Stand-in model: open milestones | Actual open milestones |
-   |---|---|---|---|---|
-   | Heron | 22 | 11 | 22 | 2 |
-   | Kelp | 28 | 14 | 28 | 2 |
-   | Vega | 34 | 17 | 34 | 2 |
+## Guildmaster
 
-5. The query ran without an error and its numbers are wrong. Each project has two open milestones, and the join (how two tables are matched row by row) pairs every sample with every open milestone, so each sample row appears twice (22 instead of 11) and each open milestone appears once per sample (22 instead of 2). Open `report-query.sql` to see the join. Fix the query, then run both again until Heron shows 11 and 2.
+Task: a one-page status summary and risk list for twelve projects, from a spreadsheet of project names, milestone dates, owner names and status. The data is internal, and owner names are personal data.
 
-With a real model, only the schema and the query text would have left your machine. Check a query against a second one.
+<details><summary>Check your answer</summary>
 
-## Hands-on (manager): the same check in a spreadsheet
+The answer is step 2. Paste only the column headings and three invented rows. Ask for an outline of the summary and a formula that counts open milestones per project. Apply both to the real sheet yourself. Only the headings and the invented rows leave. Step 3 would send real rows with owner names, which needs an approved account and your steward's agreement.
 
-At step 2, paste only the column headings (Project, Milestone, Owner, Status) and two or three invented rows, and ask for a formula that counts open milestones per project. Apply it to your real sheet yourself. Check it with `COUNTIF` on one project's rows. If each of three projects has 6 rows and the formula shows 18 for every project, it counted the whole column. Find out why before the number goes in the report.
+To check: count the open milestones of one project by hand and compare.
+
+</details>
+
+## Diviner
+
+Task: explain why the sample count per project fell between two cohorts, from a samples database that holds participant codes under a strict agreement. Pseudonymised codes still count as personal data.
+
+<details><summary>Check your answer</summary>
+
+The answer is step 2. Share the schema only and ask for one read-only query. Run it yourself. The table and column names leave, so decide first whether even the names are fine to send, and drop to step 0 if your agreement says they are not. Pasting the results back into the chat would make it step 3.
+
+To check: write a second, simpler count query yourself and compare the two numbers before you explain anything.
+
+</details>
+
+## Artificer
+
+Task: write tests for a script that reads sample sheets in your pipeline repository. The code is internal and holds no personal data.
+
+<details><summary>Check your answer</summary>
+
+The answer is step 3. Paste the one function (a small allowed extract) and ask for tests. Apply them yourself. Only that function's code leaves. If you later want an agent to run the tests inside the repository, that is step 5: work on a copy, keep a way to undo, and limit what the agent may do first.
+
+To check: break the function on purpose and confirm that a test fails.
+
+</details>
+
+## Archivist
+
+Task: clean and map a sample sheet with controlled health metadata to your schema, under an agreement that forbids sharing the values.
+
+<details><summary>Check your answer</summary>
+
+The answer is step 2 at most. Describe the mess in words, give headings and invented rows that copy it, and ask for a validation and mapping script. Run the script locally on the real sheet. Do not ask a model to fill or harmonise the values itself: it can invent plausible ones. Only the headings and the invented rows leave.
+
+To check: compare row counts and a checksum before and after, and keep a log of every change.
+
+</details>
+
+:::
+
+Now take your own task. Write the three answers in a sentence each, then ask your data steward the question at the end of the next section if any of them is unclear.
 
 ## Climbing, if and when you want to
 
@@ -127,7 +174,6 @@ At step 2, paste only the column headings (Project, Milestone, Owner, Status) an
 
 - [Save Point](../crypt/shield-of-undo.html): set a save point before an agent edits anything.
 - [Grow the Carapace](../crypt/rules-of-the-carapace.html): limit what an agent may do with permission rules.
-- [Adopt the Pet](../kennel/adopt-the-pet.html): run a local model that keeps prompts on your machine.
 - [The Locked Cabinet](../crypt/secrets-and-sensitive-ground.html): personal data, agreements and keys, and what a session keeps behind.
 - [Recruit the Beast](../kennel/recruit-the-beast.html): install an agent and start it in plan mode.
 - For more on what a chat window keeps, read Anthropic's pages on [how long chats are stored](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data) and [incognito chats](https://support.claude.com/en/articles/12260368-use-incognito-chats); the other privacy pages are in Lore below.

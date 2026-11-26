@@ -46,3 +46,5 @@ Page prefixes: P = https://privacy.claude.com/en/articles/ , S = https://support
 - https://support.claude.com/en/articles/12260368-use-incognito-chats (incognito)
 - 2026-11-26 fact-check (Wade In): commercial retention reworded per privacy.claude.com 7996866 and code.claude.com/docs/en/data-usage (API 30 days; Team/Enterprise keep saved chats until deleted). Sycophancy paper venue ICLR 2024 not stated on the arXiv page; kept from general knowledge, re-check.
 - 2026-11-26: sycophancy paper (arXiv 2310.13548) venue CONFIRMED as ICLR 2024 by https://iclr.cc/virtual/2024/poster/17593 and the ICLR proceedings entry https://proceedings.iclr.cc/paper_files/paper/2024/hash/0105f7972202c1d4fb817da9f21a9663-Abstract-Conference.html (search result summaries, pages not opened by us). arXiv v1 abstract says 'negligible', later versions 'non-negligible' for preferred-over-correct; the course quotes neither.
+
+2026-11-26: the mock database exercise (make_db.py, run_query.py, SQL files, 22 versus 11 join check) was removed. Wade In now has four persona scenes and a decision exercise (pick the step, what leaves, one check). The retention and privacy facts above are unchanged.
