@@ -12,11 +12,11 @@ The smith holds the Skill up against an empty hand and asks the forest one quest
 - **Time:** about 20 minutes.
 :::
 
-A Skill that never fires does nothing, and an eval case is how you find out. Running an eval costs money. Every eval run and every judge-model grader is a real model call on your account. Reading this page and writing the files costs nothing. Running the eval is optional here and gives bonus XP only. Check what your institution allows before you spend.
+You have a Skill and need to know that the agent actually uses it. A Skill that never fires does nothing, and an eval case is how you find out. Running an eval costs money. Every eval run and every judge-model grader is a real model call on your account. Reading this page and writing the files costs nothing. Running the eval is optional here and gives bonus XP only. Check what your institution allows before you spend.
 
 ## Set up the plugin folder
 
-`claude plugin eval` needs Claude Code **v2.1.269 or later**. It evaluates a **plugin directory**: a folder with `.claude-plugin/plugin.json`. To evaluate your own Skill, put it in a folder of this shape. The example `exercises/forge/fasta-tools` in this repository already has it:
+`claude plugin eval` is the Claude Code command that runs eval cases against a plugin. It needs Claude Code **v2.1.269 or later**. It evaluates a **plugin directory**: a folder with `.claude-plugin/plugin.json`. To evaluate your own Skill, put it in a folder of this shape. The example `exercises/forge/fasta-tools` already has it. It is a folder in the course repository (clone or download the repository to get it):
 
 ```text
 fasta-tools/
@@ -51,19 +51,19 @@ input_match: '"skill"\s*:\s*"(?:[\w-]+:)?check-fasta"'
 The check-fasta skill should be used when the user asks to check a new FASTA file, without naming the skill.
 ```
 
-Run it cheaply while you iterate, one case, one run, no baseline arm:
+Run it cheaply while you iterate: one case, one run, and `--ablation none`, which skips the without-plugin run (an **ablation** removes a part to see what it adds):
 
 ```bash
 claude plugin eval . --case skill-triggers --runs 1 --ablation none
 ```
 
-The full comparison runs each case three times by default, with the plugin (**WITH**) and without it (**W/OUT**), and reports the difference (**Δ**):
+The full comparison runs each case three times by default, with the plugin (**WITH**) and without it (**W/OUT**), and reports the difference (**Δ**). The cost ceiling is `--max-cost-usd`, in US dollars:
 
 ```bash
 claude plugin eval . --max-cost-usd 2
 ```
 
-`--max-cost-usd` stops the run at a ceiling. Results land in `evals/results/<timestamp>/` with a `report.html`. If you are signed in with a claude.ai subscription, Claude Code can also publish the report as a private artifact and print `Published: <url>`. Add `--no-publish` to keep it local.
+The run stops at the ceiling. Results land in `evals/results/<timestamp>/` with a `report.html`. If you are signed in with a claude.ai subscription, Claude Code can also publish the report as a private artifact and print `Published: <url>`. Add `--no-publish` to keep it local.
 
 ## OpenCode + Ollama
 
@@ -73,12 +73,13 @@ Run `opencode --help` and read the OpenCode docs for your version to see whether
 
 ## Reading the result
 
-- **Grader types:** six exist. Four are free and computed from the transcript or files (`regex`, `tool_used`, `tool_order`, `file_exists`). Two use a judge model and cost tokens (`llm`, `baseline`; the `baseline` grader type is a different thing from the baseline run).
-- **Two arms:** when a case has other graders, a two-arm run shows `tool_used: Skill` as an indicator and scores it only when you set `arm: both`. A case whose only grader is `tool_used: Skill` scores it normally, and so does any `--ablation none` run.
-- **Δ near zero with the Skill not firing:** usually a real finding, because the description does not trigger on that phrasing. Change the `description`, not the grader.
-- **Pair graders:** use one **result** grader and one **process** grader. Use `llm` graders only for short output, with a concrete PASS/FAIL rubric.
-- **Isolation:** each run happens in an isolated child session (a separate session started just for that run) with only the plugin loaded, so personal settings, the instructions file and other plugins are absent. Behaviour in your own setup may differ from a pass there.
-- **Validate:** `claude plugin validate <folder>` checks that the plugin's files are well formed. Behaviour needs an eval.
+Open `report.html` and look at three things:
+
+- **Δ.** If WITH and W/OUT are about the same and the Skill did not fire, the `description` does not trigger on that phrasing. Change the `description`, not the grader.
+- **The failed grader.** The report expands it with an explanation.
+- **Isolation.** Each run happens in a **child session** (a separate Claude Code session started just for that run) with only the plugin loaded, so your own settings and other plugins are absent.
+
+Graders that suit a first case: one on the result and one on the process (such as `tool_used`). In a two-arm run, `tool_used: Skill` is shown only as an **indicator** (a pass or fail chip that does not count towards the score), because it can never pass without the plugin. Set `arm: both` on the grader to score it in both arms. `claude plugin validate <folder>` checks that the plugin's files are well formed. Four grader types are free (`regex`, `tool_used`, `tool_order`, `file_exists`) and two call a judge model (`llm`, `baseline`).
 
 Running an eval is the same trust decision as loading the plugin yourself (`--plugin-dir` loads a local plugin folder for one session): hooks you did not write still run code. Review the plugin for safety, since a passing eval does not cover that.
 

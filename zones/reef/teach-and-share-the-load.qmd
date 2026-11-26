@@ -12,7 +12,7 @@ A reef thrives on many hands. Younger travellers ask what you know, and you ask 
 - **Time:** about 15 minutes.
 :::
 
-Working with agents changes how you teach, how you learn and how much you take on. This quest covers each.
+You need this once you use agents with others around you: they change how you teach, how you learn and how much you take on. This quest covers each.
 
 ## Teaching
 
@@ -33,7 +33,7 @@ Finishing a project mostly through an agent can leave a quiet feeling that the r
 
 - **Make the decisions.** Choose the question, the method and what counts as good enough. Let the agent draft.
 - **Explain it back.** Before you call the work done, walk a colleague through each step.
-- **Keep a short decision log.** Note what you chose, what you changed, what you set aside, and why.
+- **Keep a short decision log** (a running list of your choices). One line is enough: "Used a mapping-quality cutoff of 30, not 20, because the agent's 20 kept multi-mapped reads."
 - **Do one hard part yourself.** Pick the part you most want to understand.
 - **Credit the agent's part plainly** in your methods or commit messages. Honest credit lifts the pressure.
 - **Judge the result by what you can explain and defend.**
@@ -47,36 +47,17 @@ Agents make it easy to start many things. Count the cost of **reviewing** what t
 A quick draft can quietly raise what everyone expects. A first version that once took a day now arrives in an hour, and the time for reading, checking and understanding it stays what it always was. These habits help keep the pace realistic:
 
 - **Say where the time goes.** Drafting is fast. Reading the diff, running the checks and making sense of the result take the time they take.
-- **Agree timelines before you start**, and put review time in the estimate.
-- **Share the whole picture** with the people asking: how long the draft took and how long checking took.
+- **Agree timelines before you start**, put review time in the estimate, and tell the people asking how long the draft took and how long checking took.
 - **Hand over a quick draft as a draft**, and say so.
-- **Spend the time you saved on checking.**
 
-## Keeping your voice
+## Keeping your voice, thinking and judgement
 
-Heavy use of an agent can smooth your writing into a general style. These habits keep it yours:
+Heavy use of an agent can smooth your writing into a general style, crowd out the thinking you enjoy and wear down confidence in your own call. Keep each in practice:
 
-- **Draft the first version in your own words**, then edit.
-- **Read it aloud.** Your ear spots phrases you would never say.
-- **Keep a sample of your earlier writing** as a reference for how you sound.
-- **Use the agent for structure and consistency checks**, such as headings, terms and abbreviations.
-- **The same goes for emails to collaborators**, and for your voice in letters and reviews.
-
-## Keeping the creative part
-
-Checking drafts can crowd out the thinking you enjoy. These habits protect it:
-
-- **Keep the question, the design and the interpretation** for yourself.
-- **Give the agent the routine drafting**, such as boilerplate, formatting and first-pass summaries.
+- **Write the first version in your own words**, then edit. Read it aloud, and keep a sample of your earlier writing to check how you sound.
+- **Keep the question, the design and the interpretation** for yourself. Give the agent routine drafting, such as boilerplate, formatting and first-pass summaries, or structure and consistency checks.
+- **Decide first and write your call down**, then ask for a second opinion. Afterwards note where your call held up and where the agent saw something you missed.
 - **Schedule checking as real work**, with time in your calendar.
-
-## Trusting your own judgement
-
-A ready second opinion can wear down confidence in your own call. Keep it in practice:
-
-- **Decide first and write your call down**, then ask for a second opinion.
-- **Keep some decisions agent-free.**
-- **Compare afterwards.** Note where your call held up and where the agent saw something you missed.
 
 ## Battle: working with others
 
@@ -84,7 +65,7 @@ A ready second opinion can wear down confidence in your own call. Keep it in pra
 
 ## Bonus
 
-<div data-ao-honour="teach-one" data-xp="25">Show one colleague one verification habit from this course, such as re-running the check, or running `awk` against a script's output. Teach the habit; the tool is optional.</div>
+<div data-ao-honour="teach-one" data-xp="25">Show one colleague one verification habit from this course, such as re-running the check, or running `awk` (a text-processing command) over a script's output to count lines and compare the count with what the script reported. Teach the habit; the tool is optional.</div>
 
 ::: {.ao-related}
 ## Related lessons

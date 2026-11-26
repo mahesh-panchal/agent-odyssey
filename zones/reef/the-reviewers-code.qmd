@@ -12,17 +12,19 @@ Sooner or later the work comes back across the reef to you, and it is your turn 
 - **Time:** about 15 minutes.
 :::
 
-You will also receive LLM-assisted work to review. This quest covers what to ask for and how to say it. Reviewing it is the same craft as any review, with a few shifts in attention.
+You need this because you will also receive LLM-assisted work to review. This quest covers what to ask for and how to say it. Reviewing it is the same craft as any review, with a few shifts in attention.
 
 - **Ask for the evidence.** "Which test shows this works?" works better than "are you sure?".
-- **Watch for the usual signs.** Plausible but unused code, tests weakened to pass, and confident comments that do not match the code.
+- **Watch for the usual signs.** Plausible but unused code, tests weakened to pass, and confident comments that do not match the code. Two invented examples:
+  - *Weakened test:* `assert len(hits) == 12` becomes `assert len(hits) >= 0`. The test now passes whatever the code returns.
+  - *Plausible but unused code:* a helper `normalise_counts()` is defined, and nothing calls it.
 - **Ask for understanding.** "Can you explain why this branch exists?" is fair for any author.
 - **Say when it is too big.** "Please split this" is a legitimate review comment.
 - **Be kind.** The aim is better science, so keep the tone friendly and aim at the work and leave the author's competence alone.
 
 ## Formats that review well
 
-Notebooks show the difference well. A [marimo](https://marimo.io/) notebook is stored as a plain `.py` file, so a diff shows what changed. A Jupyter `.ipynb` is JSON that also stores outputs and run counts, so diffs are noisy and hard to read, though stripping tools exist. When you ask an agent to produce analysis, choose a format your reviewer can diff.
+When you ask an agent to produce analysis, choose a format your reviewer can diff. A [marimo](https://marimo.io/) notebook is stored as a plain `.py` file, so a diff shows what changed. A Jupyter `.ipynb` is JSON that also stores outputs, so its diffs are noisy unless you strip outputs with a tool such as `nbstripout`.
 
 ## Battle: the review
 

@@ -12,19 +12,21 @@ The wall of the mill is hung with every tool anyone ever made, and the traveller
 - **Time:** about 20 minutes.
 :::
 
-An agent (a model that runs tools in a loop) has a **tool** for each action it can take, such as reading a file or searching the web. Each tool has a **definition**: a name and a description of how to use it. The model needs those definitions in its context window (the text it can see at once) to choose a tool. Too many tools make the agent slower, costlier and less accurate, so the first half of this quest is about keeping the set small. The second half asks whether you need an agent at all.
+You need this lesson now because every server you connect adds to the window. An agent (a model that runs tools in a loop) has a **tool** for each action it can take, such as reading a file or searching the web. Each tool has a **definition**: a name and a description of how to use it. The model needs those definitions in its context window (the text it can see at once) to choose a tool. Too many tools make the agent slower, costlier and less accurate, so the first half of this quest is about keeping the set small. The second half asks whether you need an agent at all.
 
 ## Tools cost context
 
 Loading every tool definition up front bloats the context. Anthropic reports that a typical five-server setup (an MCP server is a program that offers tools to the agent) can use about 55 thousand tokens in definitions before any work starts, and that choosing the right tool gets worse beyond roughly 30 to 50 available tools.
 
-**Tool search** keeps most definitions out of the window and loads a few on demand. Anthropic reports that it typically cuts that overhead by over 85 percent. Treat both figures as rough guides. It pays off from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.
+**Tool search** (loading a tool's definition only when the agent needs it) keeps most definitions out of the window and loads a few on demand. Anthropic reports that it typically cuts that overhead by over 85 percent (its own measurement). Treat both figures as rough guides. It pays off from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.
 
 ::: {.panel-tabset group="companion"}
 
 ## Claude Code
 
-MCP tool search is on by default. Tool names and server instructions load at session start, and a full definition loads when needed. Extra MCP servers therefore have a small effect on the window. Set `ENABLE_TOOL_SEARCH=false` to turn it off. On some older models it falls back to loading everything. Skill descriptions also load at start. Run `/context` to see what takes space, and choose your tool set before you start a task.
+Tool search (the feature above, which loads a definition only when the agent needs the tool) is on by default for MCP tools. Tool names and server instructions load at session start, and a full definition loads when needed. Extra MCP servers therefore have a small effect on the window. To turn it off, set the environment variable `ENABLE_TOOL_SEARCH=false` before starting `claude`. On some older models it falls back to loading everything. Skill descriptions also load at start.
+
+To count your tools, run `/mcp` to list your connected servers and `/context` to see how much of the window tools and skills take. Choose your tool set before you start a task.
 
 ## OpenCode + Ollama
 
@@ -46,11 +48,11 @@ Doing the task by hand is also a fine decision.
 
 ## Does a team of agents help?
 
-One 2025 preprint (its own tasks and models; the figures changed between versions) compared a single agent with four multi-agent set-ups across 260 configurations on six benchmarks. Read the findings as direction, not rules.
+One 2025 preprint (its own tasks and models) compared a single agent with several multi-agent set-ups across six benchmarks. Read the findings as direction, not rules.
 
-- **It depends on the task.** On a task that splits into independent parts (financial analysis), multi-agent set-ups did far better than one agent, up to about 81 percent. On sequential planning, every multi-agent variant did worse, by 39 to 70 percent.
-- **A strong single agent leaves little to gain.** Once one agent scored above about 45 percent on a task, adding agents gave diminishing or negative returns.
-- **Unchecked agents pass errors on.** Agents working independently amplified errors about 17 times, against about 4 times when a central agent checked the work.
+- **It depends on the task.** On a task that splits into independent parts (financial analysis), multi-agent set-ups did much better than one agent. On sequential planning, every multi-agent variant did worse.
+- **A strong single agent leaves little to gain.** Once one agent already did well on a task, adding agents gave diminishing or negative returns.
+- **Unchecked agents pass errors on.** Agents working independently amplified each other's errors far more than agents whose work a central agent checked.
 
 Start with one agent, measure it, and add agents only for work that splits into independent parts and only if the measurement says it helps.
 

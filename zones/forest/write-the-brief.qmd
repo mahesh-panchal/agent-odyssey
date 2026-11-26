@@ -12,12 +12,12 @@ The first branch of the great tree is bare. A vague instruction leaves the sap t
 - **Time:** about 15 minutes.
 :::
 
-The **brief** is what you tell the agent. A vague brief invites a plausible guess. A good brief names the file and the symptom, says what "done" looks like, and gives the agent a **check it can run**.
+The **brief** is what you tell the agent. A vague brief invites a plausible guess. A good brief names the file and the symptom (what you see going wrong), says what "done" looks like, and gives the agent a **check it can run**.
 
 | Vague | Specific |
 |---|---|
 | "Fix the GC script." | "`gc.py` reports 20.0 for `seq2` in `tiny.fasta` but `awk` (a command-line text tool) gives 60.0. Find why and fix it. Done when both agree." |
-| "Make it faster." | "Profile `align.py` on `small.fa`, name the slowest function, and propose a change. Do not edit anything yet." |
+| "Make it faster." | "Profile (measure where the time goes in) `align.py` on `small.fa`, name the slowest function, and propose a change. Do not edit anything yet." |
 
 Two habits make the rest of this safer:
 
@@ -26,7 +26,7 @@ Two habits make the rest of this safer:
 
 ## Put effort into the brief, not a role line
 
-A common habit is to open with "You are a world-class bioinformatician." Expert personas help with tone, format, safety and preference tasks. They can hurt tasks that rely on what the model already knows: in one preprint on small models, tested on a knowledge benchmark (MMLU), accuracy fell from 71.6% with no persona to 68.0% with the shortest persona. Shorter personas reduce the damage but do not remove it.
+A common habit is to open with "You are a world-class bioinformatician." Expert personas help with tone, format, safety and preference tasks. They can hurt tasks that rely on what the model already knows, such as factual questions. A role line is not a substitute for a brief.
 
 So:
 
@@ -51,6 +51,8 @@ Everything in the conversation takes up room in the context window, and the room
 :::
 
 ## Battle: write the brief
+
+The Battle is the short test at the end of each quest.
 
 <div data-ao-test="forest-write-the-brief" data-xp="60"></div>
 

@@ -14,7 +14,7 @@ Ideas keep arriving mid-task: what about this, could we also try that. One strea
 
 Real work does not arrive in a straight line. You start fixing a samplesheet parser and think: "should I switch the aligner? What if I tried a stricter QC threshold? I also want to explore that other idea." Typed into one conversation, each of those fills the context with side tracks.
 
-Instructions from early in a long conversation can get lost, and the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step. A session with three unrelated tasks re-reads all of them on every turn of the fourth. Ideas are welcome. The fix is to **triage** each one.
+Instructions from early in a long conversation can get lost, and the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step. A session with three unrelated tasks re-reads all of them on every turn of the fourth. Ideas are welcome. You need a way to handle them without losing the main task: **triage** (sort) each one.
 
 ## Terms used here
 
@@ -24,6 +24,7 @@ Instructions from early in a long conversation can get lost, and the whole conve
 - **Subagent:** a helper the main agent starts. It works in its own separate, clean context (it knows what you tell it) and sends back a summary, so its reading stays out of your conversation.
 - **Conversation branch (`/branch`, which is separate from a git branch):** a copy of the conversation from this point, so you can try something in the copy while the original stays as it was. `/fork` is a different command: it copies the conversation into a separate background session.
 - **Git worktree:** a second checkout of the same repository in another folder, so two sessions can edit files without overwriting each other.
+- **`/btw`:** a side question. It sees the conversation so far, has no tools and leaves no trace in the history.
 - **Checkpoint:** a snapshot Claude Code takes at each prompt you send, so you can roll back with `/rewind`.
 
 ## The triage
@@ -48,11 +49,11 @@ For each new thought, ask in this order. The key question is step 2: **do you wa
 
 ## What a worktree shares
 
-A worktree session isolates file edits only.
+You need to know this before you start a test in a second worktree. A worktree session isolates file edits only.
 
 - `claude --worktree <name>` creates `.claude/worktrees/<name>/` on a branch called `worktree-<name>`.
 - Worktrees share the repository's `.git`, and auto memory is per repository, so all worktrees share it.
-- A fresh checkout does not contain gitignored files such as `.env` unless you list them in `.worktreeinclude`. Large data folders need `worktree.symlinkDirectories` or a setup step. Plan for that before you start a pipeline test in one.
+- A fresh checkout does not contain gitignored files (files git skips, such as `.env` or large data folders). Claude Code copies the ones you list in a `.worktreeinclude` file (a list of file patterns at the repository root). Large data folders are not copied: link them with the `worktree.symlinkDirectories` setting (a list of folders to symlink instead of duplicate), or add a setup step of your own. Without either, a pipeline test in the worktree cannot find its data.
 
 `/branch` copies the conversation. Any background helpers still running keep reporting into the branch.
 

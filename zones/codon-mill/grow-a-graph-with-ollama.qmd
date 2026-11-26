@@ -12,7 +12,7 @@ In a back room the miller strings yarn between pegs: one peg for each name, one 
 - **Time:** about 30 minutes, most of it waiting for the model. Everything stays on your machine, and the notes are mock data.
 :::
 
-This exercise tests whether a graph answers a question that plain lookup misses, using notes small enough to check by hand. Three terms first:
+You need this exercise before you pay for a graph tool: it tests whether a graph answers a question that plain lookup misses, using notes small enough to check by hand. It runs on Ollama (a program that runs language models on your own machine). Three terms first:
 
 - **Simple RAG:** embed every note, embed the question, keep the *k* closest notes, and ask the model to answer from them.
 - **Knowledge graph:** facts stored as `(subject, relation, object)` triples. Things are nodes and the links between them are edges.
@@ -20,17 +20,17 @@ This exercise tests whether a graph answers a question that plain lookup misses,
 
 ## Set up
 
-[`mini-rag`](https://github.com/mahesh-panchal/agent-odyssey/tree/main/exercises/codon-mill/mini-rag) holds `ollama_min.py` (two helpers), `rag.py` (simple RAG), `graph.py` (a hand-made graph RAG) and `notes/` (twelve short mock notes, 233 words in all). Save the folder anywhere. If the link is not available, ask your agent to recreate it from the descriptions below.
+[`mini-rag`](https://github.com/mahesh-panchal/agent-odyssey/tree/main/exercises/codon-mill/mini-rag) holds `ollama_min.py` (two helpers), `rag.py` (simple RAG), `graph.py` (a hand-made graph RAG) and `notes/` (twelve short mock notes, 233 words in all). Save the folder anywhere. It sits at `exercises/codon-mill/mini-rag` in the course repository, so a clone of the course already has it. If neither works, ask your agent to recreate it from the descriptions below.
 
-Pull an embedding model and pick a chat model you already have.
+Pull an embedding model (it turns text into vectors for search) and pick a chat model. `ollama pull <name>` downloads a model; wait for it to finish. The run below used the tag `gemma4:12b-mlx`. Any chat model on your machine works: run `ollama list` to see what you have, or pull another and use its name.
 
 ```bash
 ollama pull nomic-embed-text
-export CHAT_MODEL=gemma4:12b-mlx      # or any chat model you have pulled
+export CHAT_MODEL=gemma4:12b-mlx      # or any chat model from `ollama list`
 cd mini-rag
 ```
 
-The scripts read three environment variables: `CHAT_MODEL`, `EMBED_MODEL` (default `nomic-embed-text`) and `OLLAMA_URL` (default `http://127.0.0.1:11434`). Ollama's default context is small, so the scripts send each request with `num_ctx` set to 8192 and you do not have to restart the server.
+The scripts read three environment variables: `CHAT_MODEL`, `EMBED_MODEL` (default `nomic-embed-text`) and `OLLAMA_URL` (default `http://127.0.0.1:11434`). Ollama's default context window is small, so the scripts send each request with `num_ctx` (the context window size in tokens) set to 8192. You do not have to restart the server.
 
 Open `notes/` and read a few. They are fictional: two sequencers (Orion and Vega), two projects (Heron and Kelp), two pipeline releases, and some distractors such as the lunch rota. One question needs a chain of four hops: Project Heron studies samples S31 to S36, run R7 loaded those samples, run R7 used pipeline release 2.3, and release 2.3 has a known bug.
 
@@ -71,7 +71,7 @@ Then try `--all`, which skips retrieval and pastes every note into the prompt. I
 
 ## Step 2: build the graph
 
-`graph.py build` sends each note to the chat model and asks for `(subject, relation, object)` facts. It uses Ollama's structured outputs: the request carries a JSON schema in the `format` field, so the reply is JSON in the shape the script expects. Temperature 0 gives more deterministic output, and the helper sets it.
+`graph.py build` sends each note to the chat model and asks for `(subject, relation, object)` facts. It uses Ollama's structured outputs: the request carries a JSON schema (a description of the JSON shape wanted: JSON is a text format of keys and values) in the `format` field, so the reply has the shape the script expects. The helper also sets temperature to 0 (the model picks its most likely word each time, so output varies little).
 
 ```bash
 python3 graph.py build
@@ -121,7 +121,7 @@ With `gemma4:12b-mlx` for chat and `nomic-embed-text` for embeddings:
 - **Simple RAG missed at k=3 and succeeded at k=5.** The run log was not among the top three notes. Raising *k* fixed it, at the price of more text in the prompt.
 - **Putting everything in the prompt also worked,** because the collection is tiny.
 - **The graph walk reached the run log without a bigger *k*,** because the link from Heron's samples to run R7 is an edge. It also pulled in 40 of the 67 facts and 8 of the 12 notes. A bigger collection needs a smaller hop count or a ranking step.
-- **The graph took a minute and twenty seconds to build** for 233 words and needs a model good enough to extract facts. Embedding twelve notes for simple RAG takes seconds. Build cost grows with the size of the collection, and indexing a corpus of about a million tokens took hours in Microsoft's Graph RAG paper.
+- **The graph took a minute and twenty seconds to build** for 233 words and needs a model good enough to extract facts. Embedding twelve notes for simple RAG takes seconds. Build cost grows with the size of the collection, and Microsoft's Graph RAG paper describes indexing a large corpus as slow.
 - **A whole-collection question failed in all three setups.** "Who works in this group, and what does each person do?" got "the notes do not contain the answer" from simple RAG, `--all` and the graph walk. No note lists a roster. Microsoft's Graph RAG builds community summaries for such questions; this toy graph builds none.
 
 One question, one model, one run: this shows the mechanics and does not rank the methods or the models.
@@ -144,7 +144,7 @@ In the `--all` run, `ministral-3:8b` listed R7 using 2.3, which has the bug, the
 
 The graph build with `ministral-3:8b` took about a minute, saved 80 facts and returned valid JSON for all twelve notes. `show` printed a few odd entries: `Pipeline 2.3 --has issue fix--> Dana Okafor`, a node called `Pipeline 2.3 issue`, and a `User` node taken from the safety note. Read `show` against the notes yourself.
 
-With this model, the right passages reached the prompt in three setups and the final answer was still wrong. Retrieval is one half of the job and the reader model is the other half. Read the notes the answer names and see whether they say what the answer says. Test a model on a few questions whose answers you know before you trust it on new ones. `mistral-small` (24B, 14 GB) is also on Ollama if you want a larger one to try.
+With this model, the right passages reached the prompt in three setups and the final answer was still wrong. Retrieval is one half of the job and the reader model is the other half. Read the notes the answer names and see whether they say what the answer says. Test a model on a few questions whose answers you know before you trust it on new ones.
 
 ## A note on model size
 

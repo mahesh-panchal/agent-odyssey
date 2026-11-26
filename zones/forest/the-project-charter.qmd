@@ -12,7 +12,7 @@ A carved stone stands at the forest's heart, holding what every traveller should
 - **Time:** about 15 minutes.
 :::
 
-Typing the same background every session is wasteful. A **project instructions file** (a text file the agent reads at the start of each session) already holds the project's conventions. Write one early, before the agent works on real files.
+Typing the same background every session is wasteful. A **project instructions file** (a text file the agent reads at the start of each session) already holds the project's conventions. Write one early, before the agent works on real files; this lesson gives you the file you will keep for the rest of the course.
 
 ::: {.panel-tabset group="companion"}
 
@@ -24,17 +24,36 @@ The file is `CLAUDE.md`. It can live in:
 - `./CLAUDE.md` or `./.claude/CLAUDE.md`: the project, shared if committed.
 - `./CLAUDE.local.md`: yours, not committed.
 
-Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. `/init` drafts one from your project and `/memory` lists and edits them. `@path` imports another file, and the imported text still uses context. If a project has only an `AGENTS.md`, Claude Code reads that instead (from v2.1.277). If both files exist, only `CLAUDE.md` loads, so import the other with `@AGENTS.md`.
+Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. `/init` (a command typed inside the session) drafts one from your project. `/memory` lists the instruction files that loaded and opens them for editing. `@path` inside the file imports another file (for example `@docs/conventions.md`), and the imported text still uses context. If a project has only an `AGENTS.md`, Claude Code reads that instead. If both files exist, only `CLAUDE.md` loads, so import the other with `@AGENTS.md`.
 
 ## OpenCode + Ollama
 
-The file is `AGENTS.md` in the project root (or `~/.config/opencode/AGENTS.md` for all projects). `/init` creates or updates it. The `instructions` array in `opencode.json` adds more files. OpenCode also falls back to `CLAUDE.md` if there is no `AGENTS.md`.
+The file is `AGENTS.md` in the project root (or `~/.config/opencode/AGENTS.md` for all projects). `/init` (a command typed inside the session) creates or updates it. The `instructions` array in `opencode.json` adds more files. OpenCode also falls back to `CLAUDE.md` if there is no `AGENTS.md`.
 
 :::
 
 ## What goes in
 
 Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, "never edit `raw/`". Keep it short (aim for under 200 lines per file) because very long instructions are followed less well.
+
+Here is a short example `CLAUDE.md` for a mock RNA-seq project, saved in the project root. All names are invented:
+
+```markdown
+# RNA-seq project
+
+## Commands
+- Run the tests: `pytest tests/`
+- Run the pipeline on the mock data: `nextflow run main.nf -profile test`
+
+## Data
+- Real data lives outside this repository, under the path in `$DATA_DIR`.
+- Use only `data/mock/` when you need a sample input.
+
+## Rules
+- Never edit anything under `raw/`.
+- Sample IDs are strings like `S01`. Keep them as text, never as numbers.
+- Ask before adding a dependency.
+```
 
 Write the file yourself first and read what `/init` produces critically. A generated file can contain wrong guesses about your project.
 
@@ -46,7 +65,9 @@ Instructions are advice. The instructions file is loaded as context, and a line 
 
 Instruction files go stale: a rule written for an older model, a path that no longer exists, two files that disagree. When instructions contradict each other, Claude may pick one arbitrarily.
 
-In Claude Code (v2.1.283 or later), `/doctor prompt-audit` checks your instruction files (and the rules, skills and agents under `.claude/`) for outdated or conflicting content and writes a report with proposed edits. (`/doctor` is a **bundled skill**, a ready-made skill that ships inside Claude Code.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.
+In Claude Code, `/doctor prompt-audit` checks your instruction files (and the rules, skills and agents under `.claude/`) for outdated or conflicting content and writes a report with proposed edits. (`/doctor` is a **bundled skill**, a ready-made skill that ships inside Claude Code.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.
+
+Later: `/doctor prompt-audit` needs Claude Code v2.1.283 or later, and reading a lone `AGENTS.md` needs v2.1.277 or later.
 
 ## Write docs for the agent too
 

@@ -12,11 +12,11 @@ The Kennel keeps companions of every size. A big one is slow and costly to feed;
 - **Time:** about 15 minutes. The exercise is a worksheet and needs no model.
 :::
 
-Every session starts with a model and an effort level, and the defaults do not suit every job. A model that is too small skips checks and loses the thread. One that is too large costs more and runs slower, and you may not notice because the answer looks fine. This page covers how to choose both and how to check the choice. Model names, aliases and defaults change often, so check your own tool for the current ones.
+Every session starts with a model and an effort level, and the defaults do not suit every job. A model that is too small skips checks and loses the thread. One that is too large costs more and runs slower, and you may not notice because the answer looks fine. This page covers how to choose both, so you can run later quests without overspending or under-powering them and how to check the choice. Model names, aliases and defaults change often, so check your own tool for the current ones.
 
 ## Words to know
 
-- **Model tier:** a size class of model. A smaller one is faster and cheaper; a larger one is more capable and costs more.
+- **Model tier:** a size class of model. A smaller one is faster and cheaper; a larger one is more capable and costs more. Anthropic names its tiers Haiku, Sonnet, Opus and Fable, from smallest and fastest (Haiku) to largest and slowest (Fable).
 - **Alias:** a short nickname (such as `sonnet`) that the tool maps to a concrete model version.
 - **Effort:** how much the model thinks before each step.
 - **Subagent:** a helper the main agent starts with its own fresh context. It does a side task and returns only a summary. To **delegate** is to hand it a task.
@@ -39,7 +39,7 @@ Changing effort is often cheaper to try than switching models.
 
 ## Claude Code
 
-- **Model.** The aliases are `default` (clears an override and names no model), `best` (same as `opus`), `fable`, `sonnet`, `opus`, `haiku`, `sonnet[1m]`, `opus[1m]` (the `[1m]` forms ask for a longer context window), and `opusplan` (opus in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API, `opus`, `sonnet` and `haiku` map to the current 5.5 versions; other providers can resolve the same alias to older versions.
+- **Model.** You choose a model by alias, and you pin a full name when results must be reproducible (shown below the table). The aliases are `default` (clears an override and names no model), `best` (same as `opus`), `fable`, `sonnet`, `opus`, `haiku`, `sonnet[1m]`, `opus[1m]` (the `[1m]` forms ask for a longer context window), and `opusplan` (opus in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API, `opus`, `sonnet` and `haiku` map to the current 5.5 versions; other providers can resolve the same alias to older versions.
 
 | Way | How | Note |
 |---|---|---|
@@ -50,7 +50,7 @@ Changing effort is often cheaper to try than switching models.
 
 For results that must be reproducible (a lab pipeline, course material), **pin a full model name** such as `claude-opus-5-5`, because an alias moves when a new version ships. The variables `ANTHROPIC_DEFAULT_OPUS_MODEL`, `ANTHROPIC_DEFAULT_SONNET_MODEL`, `ANTHROPIC_DEFAULT_HAIKU_MODEL` and `ANTHROPIC_DEFAULT_FABLE_MODEL` pin what each alias means.
 
-- **Effort.** Set it with `/effort`, `claude --effort`, the environment variable `CLAUDE_CODE_EFFORT_LEVEL`, or the `effortLevel` setting. The levels are `low`, `medium`, `high`, `xhigh` and `max`, and which ones exist depends on the model. The default differs by model and by surface: for Sonnet 5.5 it is `medium` in Claude Code and `high` on the API. Run `/effort` in your own tool to read yours.
+- **Effort.** Set it with `/effort`, `claude --effort`, the environment variable `CLAUDE_CODE_EFFORT_LEVEL`, or the `effortLevel` setting. The levels are `low`, `medium`, `high`, `xhigh` (between `high` and `max`) and `max`, and which ones exist depends on the model. The default differs by model and by surface: for Sonnet 5.5 it is `medium` in Claude Code and `high` on the API. Run `/effort` in your own tool to read yours.
 
 - **Per skill and per subagent.** Skill files and subagent files both take `model` and `effort` in their frontmatter.
 
@@ -129,7 +129,7 @@ Pick one small real task that has an outcome check (a test that passes, a count 
 
 1. Choose two settings to compare, for example the same model at `medium` and `high`. Change only one thing.
 2. For each, start a fresh session, run the task **three times**, and record pass or fail from the outcome check.
-3. After each run, open `/usage` and note the "Usage by model" block. The dollar figure is an estimate computed locally at list price, and on a subscription you may see plan usage bars instead. `/usage` resets on `/clear`.
+3. After each run, open `/usage` (shows what the session cost) and note the "Usage by model" block. The dollar figure is an estimate computed locally at list price, and on a subscription you may see plan usage bars instead. `/usage` resets on `/clear`.
 4. Compare cost per *passing* run. Three runs is a small sample: it can expose a big difference, and a small one needs more runs.
 
 ## 7. Other model families

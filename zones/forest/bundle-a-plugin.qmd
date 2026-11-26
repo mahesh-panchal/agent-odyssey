@@ -12,7 +12,7 @@ At the forest's edge a satchel waits to be packed with the smith's finest Skills
 - **Time:** about 20 minutes.
 :::
 
-A single Skill in your folder helps you. A **plugin** is a folder that bundles Skills, and optionally agents, hooks and MCP servers, so a whole group can install the same set and get updates.
+A single Skill in your folder helps you. You need a plugin when a group should install the same set and get updates. A **plugin** is a folder that bundles Skills and, optionally, **agents** (helper assistants with their own instructions), **hooks** (scripts the harness runs at set points) and MCP servers.
 
 ::: {.panel-tabset group="companion"}
 
@@ -35,7 +35,7 @@ Layout rules that trip people up:
 - The plugin `name` becomes a namespace (a prefix that keeps names from clashing), so the Skill is invoked as `/fasta-tools:check-fasta`.
 - Put your evals in `evals/<case>/` so they travel with the plugin.
 
-Try it without installing anything:
+Try it without installing anything. If you do not have `./fasta-tools`, clone or download the course repository and copy `exercises/forge/fasta-tools` into your folder, or use your own plugin folder:
 
 ```bash
 claude --plugin-dir ./fasta-tools      # load for this session only
@@ -57,20 +57,20 @@ A plain `SKILL.md` under `.claude/skills/` is found by OpenCode too. If your gro
 
 ## Installing one is a trust decision
 
-A plugin you install can run arbitrary code on your machine with your user privileges. Hooks, monitors, and local MCP and language servers run **outside** the sandbox and the permission rules. Files in `bin/` go on Claude's shell `PATH`, so Claude can run them, and each call follows your permission rules. Skills and agents enter the context as instructions, and instructions can steer the agent too.
+A plugin you install can run arbitrary code on your machine with your user privileges. Hooks, monitors (background watchers that feed output to the agent), and local MCP and language servers (programs that give editor-style code checks) run **outside** the sandbox and the permission rules. A plugin's `bin/` folder holds executables that go on Claude's shell `PATH` (the list of places commands are found), so Claude can run them, and each call follows your permission rules. Skills and agents enter the context as instructions, and instructions can steer the agent too.
 
 Before installing or updating a plugin:
 
 1. Check where it comes from. A marketplace name says who publishes it. Reading the plugin shows what it does.
 2. Read `hooks/hooks.json`, `.mcp.json`, and anything in `bin/`. These are where code lives.
-3. In a session, `/plugin` shows what will be installed. `claude --plugin-dir <dir> plugin details <name>` lists a component inventory without a session.
+3. In a session, `/plugin` shows what will be installed. `claude --plugin-dir <dir> plugin details <name>` prints a list of the plugin's components without starting a session.
 4. Remember that auto-update can change files you reviewed. Pin a `version` for plugins you publish.
 
 ## When a team shares Skills
 
-- **Keep project names and conventions in one file.** The reference genome build, the sample-ID pattern and the results folder names belong in a single **project-facts file** (a plain file that lists them) which every Skill reads, so no `SKILL.md` repeats them. Then another lab can reuse your Skills with its own file and no rewriting, and a rename touches one place.
-- **Keep discovered details apart from team standards.** A pattern the agent finds in your code is an observation. Store it separately, and have a person confirm it before it becomes a standard.
-- **If you generate copies, check for drift.** Say you keep one source `SKILL.md` and generate copies for other tools. Run a check in CI (automated checks that run on every change) that fails when a copy no longer matches its source.
+- **Keep project names and conventions in one file.** Put the reference genome build, the sample-ID pattern and the results folder names in a **project-facts file** (a plain file that lists them) that every Skill reads. Another lab can then reuse your Skills with its own file.
+- **Keep discovered details apart from team standards.** A pattern the agent finds in your code is an observation. A person confirms it before it becomes a standard.
+- **Check generated copies.** If you generate copies of a `SKILL.md`, run a check in CI (automated checks that run on every change) that fails when a copy differs from its source.
 - **Merge blocking is a repository setting.** Whether a bad change is stopped depends on repository rules and required checks. A review step written in a Skill is advice unless a required check backs it.
 
 <div data-ao-honour="bundle-plugin" data-xp="30">Turn the Skill you wrote into a plugin folder with a `plugin.json`, then run `claude plugin validate` on it and read the output.</div>

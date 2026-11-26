@@ -12,7 +12,7 @@ In a hollow of the forest, a smith keeps procedures in folders and takes each ou
 - **Time:** about 20 minutes.
 :::
 
-An instructions file is read every session. A **Skill** is a procedure loaded only when it is relevant, so it can be long without crowding the context.
+An instructions file is read every session. A **Skill** is a procedure loaded only when it is relevant, so it can be long without filling the **context** (the limited amount of text, counted in **tokens**, the chunks of text a model reads, that the agent holds at once). You need this now because a repeated chore belongs in a Skill, not in your prompt each session.
 
 ## What a Skill is
 
@@ -47,15 +47,15 @@ description: Count the records in a FASTA file and find duplicate IDs. Use befor
 
 Writing the file is half the job. A Skill whose frontmatter has broken YAML loads silently with no fields set, and a misspelt field name is ignored, so always check.
 
-1. In a scratch folder (never a real project), save the example above as `.claude/skills/check-fasta/SKILL.md`. The `---` must be the very first line of the file.
-2. Make a tiny test file: `printf '>a\nACGT\n>a\nGGCC\n' > reads.fa` (two records, one duplicated ID).
+1. Make a scratch folder (never a real project) and move into it: `mkdir skill-scratch && cd skill-scratch`. Save the example above as `.claude/skills/check-fasta/SKILL.md`. The `---` must be the very first line of the file.
+2. In the same folder, make a tiny test file: `printf '>a\nACGT\n>a\nGGCC\n' > reads.fa` (two records, one duplicated ID).
 3. Confirm the agent can see it:
 
 ::: {.panel-tabset group="companion"}
 
 ## Claude Code
 
-Start `claude` in the scratch folder. Type `/` and look for `check-fasta` in the menu, or run `/skills`. If the Skill does not appear, run `/reload-skills`. Then ask in plain words, leaving the Skill unnamed: *"I just got reads.fa from a collaborator. Is it OK to analyse?"* The agent should load the Skill and report the commands it ran.
+Start `claude` in the scratch folder. Type `/` and look for `check-fasta` in the menu, or run `/skills`, which lists the skills the agent can see. If the Skill does not appear, run `/reload-skills` (it re-reads the skill folders) and look again. Then ask in plain words, leaving the Skill unnamed: *"I just got reads.fa from a collaborator. Is it OK to analyse?"* The agent should say it is using the `check-fasta` Skill, run the two `grep` commands, and report two records and the duplicated ID `a`.
 
 ## OpenCode + Ollama
 
@@ -73,18 +73,18 @@ A Skill that is listed but never picked up points to the description or the prom
 
 Two slash commands help you look:
 
-- `/skills` lists the skills the agent can see, and `t` sorts them by token count (how many tokens, the chunks of text a model reads, each one takes).
-- `/skill-doctor` shows each skill's context cost (how much of the model's limited reading space its text takes up) and how often it is used, and flags skills that sit in the listing but are never invoked. It excludes bundled and enterprise skills.
+- `/skills` lists the skills the agent can see, and `t` sorts them by token count.
+- `/skill-doctor` shows each skill's context cost (how much of the context its text takes up) and how often it is used, and flags skills that sit in the listing but are never invoked. It excludes bundled and enterprise skills.
 
 In Claude Code, `allowed-tools` in a Skill **pre-approves** tools for that turn (one prompt and its reply). Other tools stay available to the agent. A Skill offers no sandbox, and a Skill you download is code you choose to trust, so read it before installing it, as you would read a script.
 
 ## Design the Skill like a small job
 
-- **One Skill, one job.** Give it a defined **input** (what it is handed, such as a FASTA path) and a defined **output** (what it must return, such as a count and a list of duplicate IDs). If you need "and also" in the description, you probably have two Skills.
-- **Say what it does and when to use it.** The `name` and `description` state the task and its purpose. In the body, add a short **When to use** part, and a **What evidence to report** part (the commands run and their output), so a reviewer can see what happened.
-- **Start from a task you keep explaining.** If you re-explain the same check each session, such as how to confirm a FASTQ file has no truncated records, that check is your first Skill. Write down its inputs, its limits and what a reviewer needs to see.
-- **A Skill describes the method.** The tool that runs it supplies the tools, credentials and permissions. A Skill that says "submit this to the cluster" brings no cluster account or allocation with it.
-- **Know when a Skill is the wrong fit.** Skills suit bounded, repeatable work such as a pre-submission checklist for a samplesheet. Work that needs a stable interface, shared state, an audit trail or permissions enforced from outside, such as a lab's shared sample-tracking service, suits an **application** (a separate program with its own tests and access rules) better than instructions.
+- **One Skill, one job.** Give it a defined **input** (what it is handed, such as a FASTA path) and a defined **output** (what it must return, such as a count and a list of duplicate IDs). If the description needs "and also", split it into two Skills.
+- **Say when to use it and what evidence to report** (the commands run and their output), so a reviewer can see what happened.
+- **Start from a task you keep explaining,** such as confirming a FASTQ file has no truncated records.
+- **A Skill describes the method.** The tool that runs it supplies the tools, credentials and permissions. "Submit this to the cluster" brings no cluster account with it.
+- **Use an application when you need more.** Work that needs a stable interface, shared state, an audit trail or permissions enforced from outside, such as a lab's shared sample-tracking service, suits an **application** (a separate program with its own tests and access rules).
 
 For portability: both Claude Code and OpenCode read `.claude/skills`, so one `SKILL.md` can serve both. After installing, verify in **each client** (the tool that runs the agent, such as Claude Code or OpenCode) you use:
 

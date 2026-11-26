@@ -14,14 +14,14 @@ A fresh session knows nothing about your task except what loads by itself or is 
 
 You stop work on Friday with a half-finished refactor. On Monday you open a new **session** (one conversation with the agent, which has its own **context**: the text it can see right now). Each session begins with a fresh context window and no memory of what came before, so the new session does not know your goal, what you tried, or what you checked.
 
-Anything it should know has to cross the gap in writing.
+You need this lesson now because a fresh session is where the earlier lessons' habits pay off: whatever it should know has to cross the gap in writing.
 
 ## Five things that cross the gap
 
 1. **The instructions file** (`CLAUDE.md` in Claude Code). A file **you** write that is loaded at the start of every session. Good for stable facts and conventions: how to run the tests, which folders are off limits.
 2. **Auto memory.** Notes the **harness** (the program around the model) writes itself, from your corrections and preferences. In Claude Code, `/memory` lists and opens them.
 3. **Files in the repository** (the project folder under version control): code, tests, a README, and, if you keep one, a progress or handoff file.
-4. **Git history.** A **commit** is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when. It is durable unless rewritten (rebase, amend, force-push), and unpushed commits are local only.
+4. **Git history.** A **commit** is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when. It is durable unless someone rewrites it (with git commands that replace past commits, such as `git rebase`, `git commit --amend` or `git push --force`), and unpushed commits are local only.
 5. **Your handoff note.** A short file about the state of one task, written for the next session.
 
 | What | Goes where | Lifetime | Who writes it | Trust |
@@ -95,7 +95,7 @@ Put the note in a file the next session can find. Two options:
 - A file in the repo, such as `HANDOFF.md`, if the team should see it.
 - A gitignored ordinary file you point to, if it is personal. This is the simpler choice.
 
-`CLAUDE.local.md` at the project root (add it to `.gitignore`) holds private per-project preferences and loads after `CLAUDE.md`. It exists only in the worktree where you created it.
+A `CLAUDE.local.md` file in the project's top-level folder (add it to `.gitignore`) holds private per-project preferences and loads after `CLAUDE.md`. It exists only in the worktree (separate checkout folder) where you created it.
 
 Anything loaded every session takes room in the window, so keep a handoff note out of `CLAUDE.md` and remove it once its task is done.
 

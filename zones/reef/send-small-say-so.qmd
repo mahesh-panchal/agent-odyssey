@@ -15,7 +15,7 @@ A reef thrives on many hands, and a Review-leech clings to it, feeding on work p
 Checking an agent's output takes time. When the output reaches the next person without a word, that cost moves to them. You are about to hand work to a collaborator, so four habits keep the cost with the sender.
 
 1. **Review it yourself first.** Read your own diff as if a stranger wrote it. If you cannot explain a line, it is not ready to send.
-2. **Say so.** Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Follow your team's norm for how.
+2. **Say so.** Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Follow your team's norm for how. For example: "The agent drafted `plot_coverage.py`. I wrote the tests."
 3. **Send small.** One idea per change, small enough to review in one sitting.
 4. **Bring evidence.** Include the test, the command, or the check that shows it works.
 
@@ -26,10 +26,8 @@ A colleague who does not use LLMs can review work sent this way without learning
 A common worry is that people will think you are lazy or unoriginal for using an agent. Make the facts easy to see.
 
 - **Say plainly what the agent did and what you checked.** "The agent drafted the plotting code. I read it and compared the output with a hand calculation."
-- **Follow your team's norm.** Some groups want a note in the commit message, some in the methods. Use what yours agrees on.
+- **Follow the local norm.** Some groups want a note in the commit message, some in the methods. A journal or conference may have a disclosure policy, so read its own page before you submit. A lead or an editor can tell you what they expect.
 - **Let the evidence speak.** Tests, checks and your ability to explain every line show the work is yours.
-- **Ask.** A lead or a journal editor can tell you what they expect.
-- **Check the venue.** A journal or conference may have a disclosure policy. Read its own page before you submit.
 
 ## Battle: the hand-off
 

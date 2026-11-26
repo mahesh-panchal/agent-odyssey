@@ -16,7 +16,7 @@ A surveyor walks the branch before the axe swings. A wrong cut on paper costs a 
 
 A wrong plan costs you a paragraph to read and reject. A wrong 400-line **diff** (the list of lines a change added and removed) costs you the time to review it, and the longer it is, the more likely you approve something you did not understand. A plan is the cheapest piece to ask for first. You do this before the agent changes anything that matters. Ask for small pieces, and accept only as much output as you can honestly review.
 
-Use plan mode for changes you want to review before they touch disk.
+Use **plan mode** (a setting in which the agent writes a plan and edits nothing until you approve it) for changes you want to review before they touch disk. Before your first real edit, you need to know how to enter it and how to read what it proposes.
 
 ## How: plan mode
 
@@ -36,21 +36,19 @@ Terms used in the tabs below:
 
 ## Claude Code
 
-In Claude Code, plan mode is a **permission mode**: a setting for what the agent may do without asking you. In plan mode the agent reads files, may run shell commands to explore, and writes a plan. It is meant to leave your source files unedited until you **approve** the plan (tell it to go ahead).
+In Claude Code, plan mode is one **permission mode**: a setting for what the agent may do without asking you. In plan mode the agent reads files, may run shell commands to explore, and writes a plan. It is meant to leave your source files unedited until you **approve** the plan (tell it to go ahead).
 
 Three ways in:
 
-- `Shift+Tab` during a session, until the status bar shows `⏸ plan mode on`.
+- `Shift+Tab` during a session (it cycles through the permission modes) until the status bar (the line of text at the bottom of the terminal) shows `⏸ plan mode on`.
 - `/plan` followed by your request, for example `/plan add a strandedness column to the samplesheet parser`.
 - `claude --permission-mode plan` when you start it.
 
-When the plan is ready, the agent presents it and asks how to proceed. The options, with their exact labels:
+When the plan is ready, the agent presents it and asks how to proceed. On your first run, pick `Yes, manually approve edits`, which keeps approval on. The options, with their exact labels:
 
 - `Yes, and use auto mode`: auto mode decides what runs without a prompt. If auto mode is unavailable, this reads `Yes, auto-accept edits`. If your session started with bypass, it reads `Yes, and switch to BYPASS PERMISSIONS (no further prompts) for this session`. Bypass skips most prompts.
 - `Yes, manually approve edits`: each edit still asks you.
 - `No, keep planning`: you say what to change.
-
-The setting `showClearContextOnPlanAccept` adds a first option that approves and also clears the planning context. Look at your approval prompt to see whether it is on.
 
 ::: {.callout-note}
 At the approval prompt, `Shift+Tab` **approves** the plan. If you want to think, change something or back out, press `Esc` first. To leave plan mode when no prompt is open, press `Shift+Tab`.

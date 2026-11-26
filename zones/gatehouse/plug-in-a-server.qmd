@@ -12,7 +12,7 @@ A heavy door in the Gatehouse opens onto the outside world, and whatever walks t
 - **Time:** about 15 minutes.
 :::
 
-The Model Context Protocol (**MCP**) is an open-source standard for connecting AI applications to external systems. A **server** is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. MCP is optional. Each server you connect widens what the agent can reach, so you decide at each connection what it may do and what it may see.
+The Model Context Protocol (**MCP**) is an open-source standard for connecting AI applications to external systems. A **server** is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. MCP is optional. You need this lesson before you connect your first one: each server you connect widens what the agent can reach, so you decide at each connection what it may do and what it may see.
 
 ## A server is software you installed
 
@@ -24,7 +24,7 @@ Verify you trust each server before connecting it. Servers that fetch external c
 
 ## Claude Code
 
-Add a remote server over HTTP (the transport: how the harness talks to the server; an http server is remote), and a local one (everything after `--` is passed to the server untouched):
+Add a remote server over HTTP (the **transport** is how the harness talks to the server; an http server is remote), and a local one (everything after `--` is passed to the server untouched). The URL `https://example.com/mcp` is a placeholder: a real one is the address your server's publisher gives you.
 
 ```bash
 claude mcp add --transport http mydocs https://example.com/mcp
@@ -49,13 +49,13 @@ A project-scoped server is a file in the repository:
 
 In interactive sessions, Claude Code asks for approval before using project-scoped servers from `.mcp.json`. `claude mcp reset-project-choices` resets your answers. Read that file as you would read a script from a stranger's repository, because it asks to start something on your machine.
 
-In `claude -p` and Agent SDK (software development kit) runs, which are headless (non-interactive), there is no prompt and project-scoped servers load without asking. `--strict-mcp-config` is one mitigation.
+In `claude -p` (a non-interactive run with one prompt) and Agent SDK runs (scripts that drive Claude Code from code), no one can answer a prompt, so project-scoped servers load without asking. `--strict-mcp-config` skips servers from `.mcp.json` and other config and loads only those you pass with `--mcp-config`.
 
 Each server's tools appear in permission rules as `mcp__<server>__<tool>`, and `mcp__<server>__*` (a matcher, a pattern that selects names) matches every tool of one server. Tool definitions are deferred (loaded only when needed) by default, so only tool names and server instructions take up context until a tool is used.
 
 ## OpenCode + Ollama
 
-In OpenCode's V2 docs, servers go under `mcp.servers`; V2 does not put server names directly under `mcp`. Check which version you have installed. A remote server:
+In OpenCode's V2 docs (the newer documentation set), servers go under `mcp.servers`, not directly under `mcp`. Check which version you have installed. A remote server:
 
 ```json
 { "mcp": { "servers": { "mydocs": {

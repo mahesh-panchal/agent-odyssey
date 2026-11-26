@@ -12,7 +12,7 @@ In a corner of the Kennel a small pet blinks at you. It lives on your own machin
 - **Time:** about 20 minutes. Everything stays on your machine.
 :::
 
-A local model runs on your own computer, so prompts stay there and use costs nothing. Use one when your data agreement rules out hosted models, or when you want to try an agent without paying. A small local model holds less in mind and makes more mistakes than a hosted one, so check its answers before you rely on them.
+A local model runs on your own computer, so prompts stay there and use costs nothing. Use one when your data agreement rules out hosted models, or when you want to try an agent without paying. You need this lesson now because the next lessons assume you can run a model without sending data out. A small local model holds less in mind and makes more mistakes than a hosted one, so check its answers before you rely on them.
 
 ## 1. Install Ollama and fetch a model
 
@@ -24,23 +24,23 @@ ollama pull qwen3:4b                              # about 2.5 GB
 ollama run qwen3:4b "Say hello in one sentence."
 ```
 
-`qwen3:4b` is one example of a small model that Ollama lists with tool support (the model can ask the agent to run actions such as reading a file). Model names change quickly, so check the "tools" badge on the model's page at ollama.com/library. Run `ollama ps` while it runs to see what loaded and whether it fits your RAM (ordinary memory).
+`qwen3:4b` is one example of a small model that Ollama lists with tool support (the model can ask the agent to run actions such as reading a file). Model names change quickly, so check the "tools" badge on the model's page at ollama.com/library. The `ollama run` command prints a short greeting from the model. Run `ollama ps` (lists the loaded models) in a second terminal while it runs to see what loaded and whether it fits your RAM (ordinary memory).
 
 WSL (Windows Subsystem for Linux) users: run the Linux commands inside your WSL terminal, and check each tool's current docs if one fails.
 
 ## 2. Set the context length
 
-The context length (also called the context window: how much text the model can see at once) defaults to **4k tokens** (a token is a chunk of text, roughly a word or part of one) in Ollama on machines with under 24 GiB of video memory (VRAM, the memory on the graphics card or shared with it). That includes a 16 GB laptop. Agents and coding tools need **at least 64k**; OpenCode requires 64k or higher. Set it when you start the server:
+The context length (also called the context window: how much text the model can see at once) defaults to **4k tokens** (a token is a chunk of text, roughly a word or part of one) in Ollama on machines with under 24 GiB of video memory (VRAM, the memory on the graphics card or shared with it). That includes a 16 GB laptop. Agents and coding tools need **at least 64k**; OpenCode requires 64k or higher. The server is the background process that answers requests from tools such as OpenCode. Set the context length when you start it. Run this in a separate terminal and leave that terminal open:
 
 ```bash
 OLLAMA_CONTEXT_LENGTH=64000 ollama serve
 ```
 
-Check what loaded with `ollama ps`. A bigger context needs more memory. Look at the PROCESSOR column: a model that spills onto the CPU (the main processor) runs slower than one that stays on the GPU.
+If Ollama already runs in the background (the desktop app and the Linux service do), set the variable on that service instead, as the Ollama FAQ describes. Then check what loaded with `ollama ps`. A bigger context needs more memory. Look at the PROCESSOR column: a model that spills onto the CPU (the main processor) runs slower than one that stays on the GPU.
 
 ## 3. Point OpenCode at it
 
-Install OpenCode. Once it runs, type `/models` inside it (a `/command` is typed inside the running tool) and pick your Ollama model. Ollama needs no `/connect`:
+Install OpenCode, then start it with `opencode` in a project folder. Type `/models` inside it (a `/command` is typed inside the running tool) and pick your Ollama model. Ollama needs no `/connect`. A working screen shows a prompt box where you type; your first message gets an answer from the local model.
 
 ```bash
 curl -fsSL https://opencode.ai/v2/install | bash
@@ -48,7 +48,7 @@ curl -fsSL https://opencode.ai/v2/install | bash
 
 If the install command errors, check the current OpenCode docs for your version.
 
-OpenCode finds Ollama at `http://127.0.0.1:11434` automatically. To spell it out, put this in `~/.config/opencode/opencode.json`.
+OpenCode finds Ollama at `http://127.0.0.1:11434` automatically, so this step is optional. To spell the address out, create `~/.config/opencode/opencode.json` (the global OpenCode config file) with this content:
 
 ```json
 {
@@ -61,7 +61,7 @@ OpenCode finds Ollama at `http://127.0.0.1:11434` automatically. To spell it out
 
 ## 4. Limit what the agent may do
 
-OpenCode's default policy is **allow everything**, except reading `.env` files, which it asks about. Shell commands run with your user's authority, and the shell is not a sandbox. Each rule says `allow` (run without asking), `ask` (prompt you first) or `deny` (never run). A safer start asks about everything first, then allows only what you trust. **Rules are checked in order and the last match wins:**
+OpenCode's default policy is **allow everything**, except reading `.env` files, which it asks about. Shell commands run with your user's authority, and the shell is not a sandbox (nothing confines a command to one folder, so a command can touch any file you can). Each rule says `allow` (run without asking), `ask` (prompt you first) or `deny` (never run). A safer start asks about everything first, then allows only what you trust. Add this to the same `opencode.json` file, next to the `providers` block from step 3. **Rules are checked in order and the last match wins:**
 
 ```json
 {
@@ -75,7 +75,7 @@ OpenCode's default policy is **allow everything**, except reading `.env` files, 
 
 ## Other small models to try
 
-Mistral publishes open-weight models that Ollama lists with tool support:
+Mistral publishes open-weight models (models whose trained weights you can download and run yourself) that Ollama lists with tool support. Apache 2.0 is a permissive open-source licence that allows commercial use.
 
 - **`ministral-3`:** 3B (3.0 GB), 8B (6.0 GB) and 14B (9.1 GB) sizes, Apache 2.0.
 - **`mistral-small`:** 24B (14 GB), Apache 2.0.

@@ -7,12 +7,12 @@ A hunter's log hangs from a branch of the great tree: every time the machine wen
 :::
 
 ::: {.quest-dialog}
-- **Goal:** you will turn "it did the wrong thing" into a measured fix, and know when the fix has stopped working.
+- **Goal:** you will describe how to turn "it did the wrong thing" into a measured fix, and how to tell when the fix has stopped working. This page teaches the idea; the commands come in the next quest listed under Related lessons.
 - **Before you start:** [Forge a Skill](forge-a-skill.html). A **Skill** is a procedure the agent loads when it is relevant.
 - **Time:** about 10 minutes.
 :::
 
-Sooner or later the agent does something you did not want: it skips a check, names files badly, or uses a method your lab avoids. A chat correction helps that one reply, and a Skill helps next time. An **eval** tells you whether the fix works, and keeps telling you after the model or tool changes.
+Once you have a Skill, you need a way to know it works. Sooner or later the agent does something you did not want: it skips a check, names files badly, or uses a method your lab avoids. A chat correction helps that one reply, and a Skill helps next time. An **eval** tells you whether the fix works, and keeps telling you after the model or tool changes.
 
 ## What is an eval?
 
@@ -41,9 +41,9 @@ The cases decide how good the eval is. A set of cases should look like your real
 ## The loop
 
 1. **Notice.** Something did not go your way. Write down the prompt you used and what was wrong with the result.
-2. **Steer.** Write or edit a Skill (or an instructions-file line) that says what to do instead. Keep it short and concrete.
-3. **Measure.** Run the same prompt **with** the Skill and **without** it, several times each. Models vary between runs, so several tries give a fairer picture than one.
-4. **Compare.** If *with* is clearly better than *without*, the Skill earns its place. If they are about the same, the Skill adds little: it may not be triggering, it may repeat what the model already does, or it may be too vague.
+2. **Steer.** Write or edit a Skill (or a line in your instructions file, the file the agent reads every session) that says what to do instead. Keep it short and concrete.
+3. **Measure.** Run the same prompt **with** the Skill and **without** it, several times each (for example, once with the Skill folder in place and once with it moved away). Models vary between runs, so several tries give a fairer picture than one.
+4. **Compare.** If *with* is clearly better than *without*, the Skill earns its place. If they are about the same, the Skill adds little: it may not be triggering (the agent never loads it), it may repeat what the model already does, or it may be too vague.
 5. **Repeat later.** A new model version can make a Skill unnecessary, or break it. Re-run the evals when the model, the tool, or the Skill changes.
 
 The number that matters is the **difference** between *with* and *without*. The *without* run is the **baseline**: it shows what the model does on its own. A Skill that scores 100% both ways has added nothing the model lacked.
@@ -63,7 +63,7 @@ Evals can be wrong too. A check that always passes, or that fails correct answer
 - **Write down failures:** keep a list of the failure modes you see.
 - **Test again:** repeat the tests when the tool, the model or your task changes.
 
-When a model does the grading, a judge from the same family as the model being judged is not an independent grader. Check a sample of its marks by hand against reference answers fixed in advance.
+When a model does the grading, a judge from the same family (made by the same developer, so it may share the same blind spots) as the model being judged is not an independent grader. Check a sample of its marks by hand against reference answers fixed in advance.
 
 <div data-ao-honour="loop-notes" data-xp="20">Keep a short list of the times an agent went wrong for you. Each entry is a candidate Skill and a ready-made eval case.</div>
 

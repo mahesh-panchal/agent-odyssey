@@ -16,7 +16,7 @@ A scribe in the mill keeps a ledger that tidies itself. Each new sack of papers 
 
 Think about the last time you read ten papers on a method, or went through six months of meeting notes. You understood it all at the time. A month later, the understanding lives in your head and in a pile of files, and the next question sends you back to the pile.
 
-RAG (retrieval-augmented generation) answers that with a lookup: each question searches the pile again, pastes a few passages into the prompt, and starts from scratch. Nothing builds up between questions. If an answer needs five documents stitched together, the stitching is redone every time.
+You need this lesson now to judge whether a wiki suits your material before you build one. RAG (retrieval-augmented generation) answers that with a lookup: each question searches the pile again, pastes a few passages into the prompt, and starts from scratch. Nothing builds up between questions. If an answer needs five documents stitched together, the stitching is redone every time.
 
 This quest follows Andrej Karpathy's "LLM Wiki" gist (a short shared text page), which proposes another arrangement. An agent keeps a **wiki**: a folder of interlinked Markdown pages (plain text files with simple formatting) that it writes and updates as new sources arrive, so the stitching is done once and stays. The gist calls it a "persistent, compounding artifact". People drop their notes because the bookkeeping is tedious (updating links, rewriting summaries, spotting that two pages now disagree), and an agent does that bookkeeping without getting bored. You keep the parts that need a person: choosing sources, asking questions, and deciding what the findings mean.
 
@@ -26,13 +26,13 @@ The gist is an "idea file", meant to be handed to your agent so the two of you w
 
 - **Raw sources:** you add files and nobody edits them afterwards. Papers, clipped web pages, meeting transcripts, run logs, data files. The agent reads them and never changes them, so they stay the source of truth.
 - **The wiki:** the agent writes it and you read it. Markdown pages: a summary per source, a page per entity (a tool, a dataset, a person, a gene) or concept, comparisons, an overview. The agent owns this folder.
-- **The schema:** you and the agent write it over time. One instruction file (`CLAUDE.md` in Claude Code, `AGENTS.md` in OpenCode) that the agent reads at the start of every session. It describes how the wiki is organised and what to do on each job, and it is the key configuration file.
+- **The schema:** here, "schema" means the rules for the wiki, written as plain instructions (it is not a database schema). You and the agent write it over time. It is one instruction file (`CLAUDE.md` in Claude Code, `AGENTS.md` in OpenCode) that the agent reads at the start of every session. It describes how the wiki is organised and what to do on each job, and it is the key configuration file.
 
 The split builds trust. When an answer looks odd, you walk from the wiki page back to the raw source it cites, and the raw source is untouched.
 
 ## Three jobs
 
-- **Ingest:** you drop one source into the raw folder and ask the agent to process it. The agent reads the source, tells you the main takeaways, writes a summary page, updates the pages for the entities and concepts it mentions, adds it to the index, and appends a line to the log. One source may touch 10 to 15 pages. Ingest one source at a time and stay involved. Batching with less supervision is possible.
+- **Ingest** (take a new source into the wiki): copy one source into `raw/`, then ask the agent, for example, "Ingest `raw/paper-1.md` following the rules in `CLAUDE.md`." The agent reads the source, tells you the main takeaways, writes a summary page, updates the pages for the entities and concepts it mentions, adds it to the index, and appends a line to the log. One source may touch 10 to 15 pages. Ingest one source at a time and stay involved. Batching with less supervision is possible.
 - **Query:** you ask a question. The agent finds the relevant wiki pages, reads them and answers with citations. A good answer (a comparison table, a timeline, a short report) is filed back as a new page, so your explorations add to the wiki and do not vanish into chat history.
 - **Lint:** from time to time you ask for a health check. It looks for pages that contradict each other, claims that a newer source has overtaken, pages that nothing links to, concepts that are mentioned but have no page, missing cross-references, and gaps that a web search might fill.
 
@@ -41,7 +41,7 @@ Two small files keep the wiki navigable:
 - **`index.md`:** a catalogue with each page, a link and a one-line summary, grouped by category and updated on every ingest. To answer a question, the agent reads the index first and then opens the pages that look relevant. The gist says this avoids building an embedding index at moderate scale (the author's experience). As the wiki grows, add a search tool.
 - **`log.md`:** an append-only diary of ingests, queries and lint passes. Give every entry the same prefix so a simple `grep` can list the recent ones.
 
-An example schema you can paste into the instruction file and then edit with your agent:
+An example schema. Paste it into the instruction file (`CLAUDE.md` or `AGENTS.md`) in the wiki folder's top level, then edit it with your agent:
 
 ```markdown
 # Wiki rules
@@ -107,7 +107,7 @@ If the sources fit in one prompt, try that first. If the question is an exact fi
 
 ## Where Obsidian fits
 
-An Obsidian vault is a folder of Markdown files, so an agent can read and write it like any other folder, and Obsidian shows whatever is there. Work with the agent on one side and Obsidian open on the other: "Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase." You read, and the agent edits.
+Obsidian is a free note-taking app that opens a folder of Markdown files as a **vault**. A vault is an ordinary folder, so an agent can read and write it like any other folder, and Obsidian shows whatever is there. Work with the agent on one side and Obsidian open on the other: "Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase." You read, and the agent edits.
 
 A layout that follows the three layers:
 
@@ -126,8 +126,8 @@ Obsidian tools that help:
 
 - **Web Clipper:** a browser extension that turns a web article into a Markdown file, so a source can land in `raw/` in one click.
 - **Graph view:** shows the shape of the wiki, with hubs and orphan pages that nothing links to. It doubles as a quick visual check.
-- **Dataview:** a plugin that queries the properties at the top of each page. If your schema asks the agent to add them (a source type, a date, a version), you get live tables, such as every page whose status is `unsourced`.
-- **Marp:** a Markdown slide format with an Obsidian plugin, for turning an answer into slides.
+- **Dataview:** a plugin (an add-on) that queries the properties (named fields in a block at the top of a page). If your schema asks the agent to add them (a source type, a date, a version), you get live tables, such as every page whose status is `unsourced`.
+- **Marp:** a Markdown slide format with an Obsidian plugin, for turning an answer into slides. Skip it unless you need slides.
 - **Images:** fix the attachment folder (for example `raw/assets/`) and bind a hotkey that downloads a clipped page's images locally. An agent cannot read a Markdown file with inline images in a single pass, so have it read the text first and look at the images afterwards.
 
 Habits that help:

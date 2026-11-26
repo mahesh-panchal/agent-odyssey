@@ -40,5 +40,5 @@ questions:
     pairs:
       - { left: "CLAUDE_CONFIG_DIR", right: "Moves where settings, session history and plugins are stored", misconception: "It relocates the config directory and leaves the API key and the sandbox alone." }
       - { left: "ANTHROPIC_API_KEY", right: "Overrides a subscription login when set", misconception: "It takes priority when set." }
-      - { left: "Managed settings", right: "Organisation rules that user files cannot override", misconception: "Managed settings sit at the top of the precedence order." }
+      - { left: "Managed settings", right: "Organisation rules that user files cannot override", misconception: "Managed settings override both your user and project files." }
       - { left: "sandbox.filesystem.denyRead", right: "Blocks sandboxed commands from reading listed paths", misconception: "It applies to shell commands in the sandbox and leaves hooks and MCP servers outside it." }

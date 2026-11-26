@@ -12,13 +12,24 @@ The rails look sound from a distance, but one points at a private road and anoth
 - **Time:** about 10 minutes.
 :::
 
-An agent can write pipeline rules that run and still produce the wrong result, so reading them is part of the check. Pipelines fail quietly in a few recurring ways. When you review a rule, ask where each input comes from, where each output goes, and what would change if you re-ran it.
+You need to read pipeline code before you trust it. A **rule** is one step of a Snakemake pipeline: it names the inputs, outputs and command. An agent can write rules that run and still produce the wrong result, so reading them is part of the check. Pipelines fail quietly in a few recurring ways. When you review a rule, ask where each input comes from, where each output goes, and what would change if you re-ran it.
 
-Common mistakes:
+Here is a Snakemake rule with the first two mistakes:
+
+```python
+rule count_reads:
+    input: "/home/alice/data/sample1.fastq"
+    shell: "wc -l {input} > counts.txt"
+```
+
+- The input is a **hard-coded path** to one person's home folder and one sample.
+- The rule has no `output:` line, so Snakemake does not know that `counts.txt` is made. The file is an **undeclared output**, so Snakemake cannot track it or build the next step from it.
+
+Four common mistakes. The first two are in the rule above:
 
 - **Hard-coded path:** a path to someone's home directory or to one sample.
 - **Undeclared output:** the workflow manager (the tool that runs the steps, such as Snakemake or Nextflow) cannot tell what a step made.
-- **Unpinned tool version:** results change when the environment does.
+- **Unpinned tool version** (no fixed version stated): results change when the environment does.
 - **Overwritten inputs:** a step changes its input in place, so there is no way back.
 
 ## Battle: spot the flaw

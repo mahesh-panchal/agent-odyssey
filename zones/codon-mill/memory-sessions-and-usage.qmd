@@ -12,7 +12,7 @@ The mill keeps three ledgers: what it remembers between visits, what it holds du
 - **Time:** about 15 minutes.
 :::
 
-People say "it remembers", "the session got long" and "I hit my usage" as if these were one thing. They are different things, each stored in a different place and reset in a different way. Knowing which is which tells you what to clear when a wrong claim has got in, and why a long session costs more.
+This lesson matters now because the next lessons on sessions and cost depend on these terms. People say "it remembers", "the session got long" and "I hit my usage" as if these were one thing. They are different things, each stored in a different place and reset in a different way. Knowing which is which tells you what to clear when a wrong claim has got in, and why a long session costs more.
 
 ## The glossary
 
@@ -30,15 +30,15 @@ Both kinds are loaded at session start:
 - **`CLAUDE.md`:** instructions **you** write (the file can be set at project, user or organisation scope: who or where it applies).
 - **Auto memory:** notes the **harness** (the program around the model) writes itself from your corrections and preferences. It is per git repository and machine-local, kept in `~/.claude/projects/<project>/memory/` as plain markdown with a `MEMORY.md` index. Only the first 200 lines or 25KB of `MEMORY.md` load at start; topic files are read on demand.
 
-Memory is advisory context, and it takes room in the window every session. Run `/clear` and the conversation goes while memory stays. Compaction (replacing old conversation with a summary) shrinks a session and leaves memory as it was.
+Memory is advisory context, and it takes room in the window every session. `/clear` (a command that starts a new, empty conversation) drops the conversation and leaves memory in place. Compaction (replacing old conversation with a summary) shrinks a session and leaves memory as it was.
 
 ### Session usage in Claude Code
 
 - `/usage` shows an estimated session cost (worked out locally from token counts at list price, the published per-token price), plan usage limits and activity stats. `/cost` and `/stats` are aliases.
-- The displayed session total resets on `/clear`. Check your plan's documentation for when spent allowance resets.
-- With a subscription, the plan bars are what matter and the dollar figure is an estimate. Plans have usage limit windows; your plan's documentation gives the exact ones.
+- The displayed session total resets on `/clear`. The allowance itself resets on your plan's schedule: look for a reset time in the `/usage` screen. If your plan shows none, `/usage` is not reporting it.
+- With a subscription, the plan bars on the `/usage` screen are what matter and the dollar figure is an estimate. If the screen shows no bars, your plan reports no limits there.
 - With the API, usage is billed per token, and thinking tokens (the tokens the model spends reasoning before it answers) count as output tokens.
-- For allowance sizes, check the vendor's pricing page.
+- Allowance sizes are on the vendor's pricing page.
 
 ## Side by side
 
@@ -57,7 +57,7 @@ Memory is advisory context, and it takes room in the window every session. Run `
 - Large tool outputs stay in the conversation. Reading a 10,000-line log is one example.
 - Subagents (helper agents with their own context window) each have their own context, and their requests still count.
 - `/compact` itself reads the whole conversation.
-- Cached text has a lifetime, and a long break can outlast it, which makes the next message much more expensive.
+- Cached text expires after a set time. If you leave the session idle for longer than that, the next message re-sends everything at full price.
 
 Remedies:
 
@@ -70,7 +70,7 @@ If `/usage` shows "rate limited until ...", Claude Code could not fetch your pla
 
 ## When a wrong claim gets in
 
-If you have corrected the same thing twice and it is still wrong, run `/clear` and write one new prompt that folds in what you learned. A third correction mostly adds to a conversation that already holds two failed attempts for the model to re-read. `/rewind` can roll back to before the bad turn.
+If you have corrected the same thing twice and it is still wrong, run `/clear` and write one new prompt that folds in what you learned. A third correction mostly adds to a conversation that already holds two failed attempts for the model to re-read. `/rewind` (a command that rolls the conversation back to an earlier turn) can return to before the bad turn.
 
 Memory persists, so a wrong line costs the most there. Check a claim against the source, such as the data, the program's own `--help` or the paper, before it goes into `CLAUDE.md` or auto memory. If a bad line is already there, open `/memory`, read what has been written about your project, and delete it.
 

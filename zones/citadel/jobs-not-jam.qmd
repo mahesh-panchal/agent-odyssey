@@ -31,7 +31,7 @@ The agent's harness (the program around the model) enforces permission rules, ch
 
 ## Claude Code
 
-A teaching configuration:
+A teaching configuration. Put it in `.claude/settings.json` in your project folder (shared with the team) or `.claude/settings.local.json` (only you), or in `~/.claude/settings.json` for all projects:
 
 ```json
 {
@@ -49,7 +49,7 @@ Bash rules are not a security boundary. `Bash(rm *)` does not stop `/bin/rm` or 
 
 ## OpenCode + Ollama
 
-OpenCode accepts `allow`, `ask` and `deny`, and an unmatched action asks. Its base policy begins with an allow-all rule, so `sbatch` runs without a prompt until you add a rule. Check your installed version's permission docs, then add this to the permissions array in `opencode.jsonc`:
+OpenCode accepts `allow`, `ask` and `deny`, and an unmatched action asks. Its base policy begins with an allow-all rule, so `sbatch` runs without a prompt until you add a rule. `opencode.jsonc` is OpenCode's configuration file. Create or open it in your project folder, check your installed version's permission docs, then add this to its permissions array:
 
 ```json
 "permissions": [
@@ -63,18 +63,18 @@ Add similar rules for `srun`, `salloc` and `scancel`, and a `deny` for `scancel 
 
 ## Why `scancel -u` is the dangerous one
 
-`scancel -u <you>` signals **all** your jobs, including ones the agent did not submit. Whole jobs are terminated, and other work of yours dies with them. `scancel --me` does the same. The man page lists more bulk selectors: `--name`, `--state`, `--partition`, plus account, QOS, reservation and node list. Each acts on every job it matches, and combined filters must all match. Deny rules cannot cover every spelling, so the single `ask` rule on `scancel *` is the net and the deny rules catch the worst two. Use `scancel <jobid>` for an ID the agent itself submitted. Slurm can rate-limit a user whose requests arrive at a sustained high rate, so a runaway loop of commands is a problem for the scheduler as well as for you.
+`scancel -u <you>` signals **all** your jobs, including ones the agent did not submit. Whole jobs are terminated, and other work of yours dies with them. `scancel --me` does the same. Selectors such as `--name`, `--state` and `--partition` also act on every job they match, and combined filters must all match. Deny rules cannot cover every spelling, so the single `ask` rule on `scancel *` is the net and the deny rules catch the worst two. Use `scancel <jobid>` for an ID the agent itself submitted. Slurm can rate-limit a user whose requests arrive at a sustained high rate, so a runaway loop of commands is a problem for the scheduler as well as for you.
 
 ## Polling costs money and attention
 
-Claude Code charges by token use. The whole conversation is sent with every request, and each tool use sends another request. A `/loop` (a command that re-runs a prompt on a timer) that polls `squeue` keeps firing on its interval, even while the session is idle, and sends your full context each time. Verbose output such as long logs also inflates the context.
+Claude Code charges by token use (the units of text the model reads and writes). The whole conversation, called the context, is sent with every request, and each tool use sends another request. A `/loop` (a command that re-runs a prompt on a timer) that polls `squeue` keeps firing on its interval, even while the session is idle, and sends your full context each time. Verbose output such as long logs also inflates the context.
 
 The scheduler pays too. The `squeue` and `sacct` manual pages warn against running them from loops, because it can slow `slurmctld` (the scheduler daemon) or `slurmdbd` (the accounting database) for everyone.
 
 Habits that keep polling cheap:
 
 - Poll no more than about once a minute, less often for long jobs. Run one loop at a time and scope it: `squeue --user=$USER` or `--jobs=<id>`.
-- Use `sbatch --parsable --wait`, or the pipeline's own poller, instead of a `sleep` loop. It replaces a `/loop` of `squeue`, so skip the loop.
+- Use `sbatch --parsable --wait` (it prints only the job ID, then waits until the job ends), or the pipeline's own poller, instead of a `sleep` loop. It replaces a `/loop` of `squeue`, so skip the loop.
 - A wait can outlast the tool's timeout. Run it in the background. Never resubmit because the wait timed out. Check `State` with `sacct` first: `--wait` passes the job's exit code through, but a signal-killed job gives 1, so the code alone does not prove success.
 - `--mail-type` sends you an email and does not make the agent wait. If you use `watch`, keep it at `--interval=60` or slower and stop it when done.
 - Submit many similar tasks as one array with a concurrency cap (`--array=1-100%10`) instead of a loop of `sbatch` calls.
@@ -88,7 +88,7 @@ A job can use more of the cluster than you meant to ask for, and no error tells 
 Habits that keep requests honest:
 
 - Before a large or repeated job, read the partition's limits (`scontrol show partition <name>`) and size the request against them. Pick a number from the limits and from earlier runs.
-- Afterwards compare what you asked for, what was allocated and what was used: `sacct --jobs=<id> --format=JobID,State,ReqMem,AllocCPUS,MaxRSS`. `MaxRSS` (the most memory one task used) is filled on the step rows such as `.batch`. Keep headroom above it. If `sacct` prints nothing, accounting may be off, so say so and ask your staff.
+- Afterwards compare what you asked for, what was allocated and what was used: `sacct --jobs=<id> --format=JobID,State,ReqMem,AllocCPUS,MaxRSS`. It prints one row per job and step. `ReqMem` is the memory requested, `AllocCPUS` the CPUs allocated and `MaxRSS` the most memory one task used. `MaxRSS` is filled on the step rows such as `.batch`. Keep headroom above it. If `sacct` prints nothing, accounting may be off, so say so and ask your staff.
 - A job killed for memory can show `OUT_OF_MEMORY` in `State`. `MaxRSS` then understates the need, so raise the request above the failed one.
 - If the memory need and the CPU count conflict, ask staff for a partition with a better memory-to-CPU ratio and check with them before using it.
 

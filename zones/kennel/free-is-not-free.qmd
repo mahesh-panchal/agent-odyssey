@@ -12,7 +12,7 @@ Stalls outside the Kennel hand out meat for free. Some is fresh, some is a trial
 - **Time:** about 20 minutes. The hands-on step uses a dummy prompt and no sensitive data.
 :::
 
-A model you run on your own computer is free because you supply the hardware. Many other "free" offers run on someone else's machine, so someone is paying. Before you send a prompt to one, you need to know what it costs you. Sometimes it is the provider, who gains your attention or your data. Sometimes it is you, in limits and in time. Using any of them is optional.
+A model you run on your own computer is free because you supply the hardware. Many other "free" offers run on someone else's machine, so someone is paying. Before you send a prompt to one, you need to know what it costs you, and this lesson gives you the checklist. Sometimes it is the provider, who gains your attention or your data. Sometimes it is you, in limits and in time. Using any of them is optional.
 
 Free tiers change often: providers have ended them, shrunk them or turned them into short trials. Read the provider's own page before you rely on one, and treat every number on it as a snapshot.
 
@@ -22,7 +22,7 @@ Free tiers change often: providers have ended them, shrunk them or turned them i
 |---|---|---|
 | **Open weights, run by you** (open weights: the numbers the model learned can be downloaded) | Your laptop or cluster | Speed and quality; some memory |
 | **Free tier of a provider** | The model's maker or a hosting company | Rate limits (caps on requests per minute or day); sometimes your prompts |
-| **Router or gateway** | A middleman forwarding to other providers | A second party in the path; a free list that churns |
+| **Router or gateway** (a service that forwards your request to other providers) | A middleman | A second party in the path; a free list that churns |
 | **Reseller of unknown origin** | Unknown | Everything you send |
 
 If a site offers one of the most capable closed models with no card and no limits, ask who pays for it. Send such a site nothing you would not post publicly.
@@ -34,7 +34,7 @@ If a site offers one of the most capable closed models with no card and no limit
 3. **Is a card or other detail needed?** Some free tiers need a payment method, a phone number or a data opt-in.
 4. **Does the free tier train on your prompts?** This matters most.
     - Google AI Studio: on unpaid services Google uses submitted content to improve its products, and human reviewers may read it. Paid services differ.
-    - Groq: it does not retain inference data (your prompts and the replies) by default, and may keep logs for up to 30 days.
+    - Groq: it does not retain inference data (it does not store your prompts and the replies) by default, and may keep logs for up to 30 days.
     - OpenRouter: it does not log prompts by default, and retention varies with the provider behind the model.
 5. **Who else is in the path?** A router adds a party. Read its terms and the terms of the provider it picks. One router can send you to providers with different rules.
 
@@ -42,25 +42,25 @@ The terms can differ **per model** inside one service. OpenCode Zen lists some f
 
 Sensitive or unpublished data does not go to a hosted free tier. Use a model on your own computer, or an approved service.
 
-## 3. A worked comparison: Mistral's terms
+## 3. A worked example: Mistral
 
-Mistral's terms show how much one provider's rules can vary. Read each point as a question to ask of any provider.
+Providers differ, and one provider's rules can differ by product and plan. Mistral is one example. For any provider, check three things:
 
-- **Training use depends on product and plan.** On Vibe (Mistral's product family, including its terminal coding agent), the Free, Pro, Teams and Student plans have training on, with an opt-out. Vibe Enterprise is opted out by default. Mistral Studio's free mode may use data for training.
-- **Opt-outs are per product.** For Studio and the API, the opt-out is in the Admin Panel under Privacy, and opting out of one product does not opt you out of another. For Labs and Public Preview models, the opt-out does not apply.
-- **Retention has its own options.** Zero data retention exists for some API requests on pay-as-you-go, and each request is reviewed. Agents, Conversations, Files, Chat and Vibe Work are excluded. You do not need zero retention to opt out of model training. For retention periods, check Mistral's current terms.
-- **Where inference runs can be chosen.** The global API endpoint does not commit to an inference location. The EU endpoint (`api.eu.mistral.ai`) runs in EU and EFTA data centers, so choose it on purpose if you need a European location. If location matters for Le Chat or Vibe, ask the vendor.
-- **A local open-weight model keeps prompts on your machine.** Open-weight Mistral models (for example `ministral-3:8b`, under the Apache 2.0 open-source licence) can run locally through Ollama (a program that runs models on your computer). Tool or web calls may still send data out.
+- **Training:** is training on your prompts on by default for your plan, and where is the opt-out?
+- **Retention:** how long does the provider keep your prompts (retention)?
+- **Location:** where are your prompts processed?
 
-The sensitive-data rule holds for every plan above: unpublished or sensitive data stays on your own computer or an approved service.
+Find the answers on the provider's data or privacy page, not in a blog post. Mistral's page is in the Lore below. An open-weight model such as `ministral-3:8b` (Apache 2.0 licence) runs locally through Ollama and keeps prompts on your machine, though tool or web calls may still send data out.
+
+The sensitive-data rule holds for every provider: unpublished or sensitive data stays on your own computer or an approved service.
 
 ## 4. Pairing a free model with an agent
 
-Free endpoints often speak an **OpenAI-compatible** protocol (a common way of sending chat requests). OpenCode can connect to an OpenAI-compatible gateway; its Providers page in the Lore below shows how. Free models differ in how well they follow tool instructions, so test one on a small task before you trust it.
+Free endpoints often speak an **OpenAI-compatible** protocol (the request format OpenAI's chat API uses, which many providers copy). OpenCode can connect to an OpenAI-compatible gateway; its Providers page in the Lore below shows how. Free models differ in how well they follow tool instructions, so test one on a small task before you trust it.
 
 ## 5. Try one, safely
 
-Pick one free tier from a provider you have read about. Create the key in the provider's console and keep it out of chat and out of files in your project. Then make one call with a harmless prompt. The shape below is the common OpenAI-compatible one; take the real base URL and model name from the provider's page.
+Pick one free tier from a provider you have read about. Create the key in the provider's console and keep it out of chat and out of files in your project. Then make one call with a harmless prompt. The shape below is the common OpenAI-compatible one. Set `BASE_URL` to the API address (base URL) and `MODEL_NAME` to a model name, both from the provider's API documentation, for example `export BASE_URL="https://api.example.com/v1"` (an invented address). A reply with a short greeting inside the JSON means it worked. An error message about the key or the model name means one of those values is wrong.
 
 ```bash
 export FREE_API_KEY="..."          # set it in your shell, not in a file you commit

@@ -29,13 +29,15 @@ The rule of thumb: advice for preferences, a prompt for decisions you want to ma
 | Control | What it does | Where it can fail |
 |---|---|---|
 | `CLAUDE.md`, Skill text, your prompt | Advises | The model can ignore it. |
-| Permission prompt or `ask` rule | Asks | You must read each prompt. A project `.mcp.json` server has its own approval prompt, and `-p` runs cannot show it. |
+| Permission prompt or `ask` rule | Asks | You must read each prompt. A server listed in a project's `.mcp.json` file (the shared MCP server list) has its own approval prompt, and `-p` runs (non-interactive, one prompt) cannot show it. |
 | `deny` rule | Enforces | Argument matching is fragile. |
 | `PreToolUse` hook, exit 2 | Enforces | Tool calls only; a crash fails open. |
 | Sandbox | Enforces | Off by default; shell commands only. |
 | Git history | Recovers | Prevents nothing. |
 
-A hook that **exits 0 with no JSON decision adds no control**: it expresses no decision and the normal permission flow runs. (A hook can also exit 0 and print a JSON `deny` decision, which does block.) Deny and ask rules are still evaluated when a hook returns allow. The sandbox's restrictions still apply if a prompt injection bypasses the model's decision.
+A hook that **exits 0 with no JSON decision adds no control**. It expresses no decision, and the normal permission flow runs. A hook can also exit 0 and print a JSON `deny` decision, which does block.
+
+Deny and ask rules are still evaluated when a hook returns allow. The sandbox's restrictions still apply if a prompt injection bypasses the model's decision.
 
 ## OpenCode + Ollama
 
@@ -69,7 +71,7 @@ Layer them: advice to steer, enforcement for the non-negotiable, git for the day
 
 The same split works for a group that runs agents:
 
-- **Put limits in the system that runs the agent:** permission scopes, and spend caps in the metering system (the system that counts usage and cost). A budget the agent can exceed is not a limit.
+- **Put limits in the system that runs the agent:** permission scopes, and spend caps in the metering system (the service that counts each user's usage and cost). A budget the agent can exceed is not a limit.
 - **Name a human owner** for each agent duty.
 - **Log what an agent did** under an identity you can trace.
 - **Keep a list of the agents in use,** including personal ones connected to mail or files. Institutions can keep one, and a group can keep its own.

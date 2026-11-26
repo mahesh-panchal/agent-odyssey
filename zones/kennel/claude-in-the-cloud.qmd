@@ -14,7 +14,7 @@ A tower stands far from the Kennel. The Beast can work there on a borrowed machi
 
 ## The rule for this page
 
-You may be offered a way to run an agent on someone else's computer. Decide what may go there before you start one, because what you send is stored away from your machine.
+You may be offered a way to run an agent on someone else's computer. You need this lesson before you start one, because what you send is stored away from your machine. Decide what may go there first.
 
 ::: {.callout-note}
 ## Cloud sessions are for drafting scripts and documentation. Data analysis stays on your machine or the cluster.
@@ -43,7 +43,7 @@ Read this part twice. When you start a cloud session:
 - **Your repository contents** are cloned onto Anthropic's VM. Anthropic reads only the repository you start the session in.
 - **Your prompts and everything the agent reads and writes** go to the model.
 - **The session transcript** (the saved record of the whole conversation, including tool output) is stored by Anthropic so you can return to it later.
-- **Retention** (how long Anthropic keeps stored data) follows your account type. Consumer plans keep it 5 years if you allow training and 30 days if you do not. Commercial plans (Team, Enterprise, API) keep it 30 days as standard. Check your own plan for its current terms. Deleting a cloud session permanently removes its event data.
+- **Retention** (how long Anthropic keeps stored data) depends on your account type: from 30 days up to 5 years. Check your plan's current terms on the Data usage page in Lore. Deleting a cloud session permanently removes its event data.
 - **Network level None may still let data exit.** A **network access level** is the setting that says which internet hosts the VM may reach (None, Limited or Full; see section 5). The Anthropic API stays reachable even at None, which may allow data to exit the VM.
 - **Environment variables** (named settings handed to programs, often used for keys) set in a cloud environment can be read by any command Claude runs, and anyone who uses that environment can read the values.
 
@@ -62,7 +62,7 @@ Keep controlled data out of the cloud repository. Treat the clone, the transcrip
 | Review a pull request that holds no identifiers | Anything that needs a local database or the cluster |
 | Triage issues that hold no identifiers | Anything that needs your institution's network or files |
 
-A cloud machine has no GPU and no access to your institution's network. Work that needs a GPU, a VPN or local databases stays on your side.
+A cloud machine has no GPU and no access to your institution's network. Work that needs a GPU, a VPN (a private network link into your institution) or local databases stays on your side.
 
 ## 4. How to start
 
@@ -82,9 +82,9 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.
 
 A repository with no `data/` or `results/` folders is the safe one. A prompt line such as "do not read data/" is a request to the model and gives no protection. If the folder is in the repository, the cloud session can read it.
 
-- **If there is no remote.** When the repository has no git remote, or a GitHub repository does not have the Claude GitHub App installed, Claude Code **bundles** it and uploads the full history of all branches plus uncommitted changes to tracked files. **Keep data out of this route entirely.** Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your `.gitignore` covers first.
+- **If there is no remote.** When the repository has no git remote, or a GitHub repository does not have the Claude GitHub App (an app you install on a repository to let Claude clone it) installed, Claude Code **bundles** it and uploads the full history of all branches plus uncommitted changes to tracked files. **Keep data out of this route entirely.** Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your `.gitignore` covers first.
 - **Getting the session back.** `claude --teleport` pulls a cloud session into your local terminal. It needs a clean git state, the same repository, the branch pushed and the same claude.ai account.
-- **GitHub access.** Cloud sessions reach your repositories through the Claude GitHub App or a token that `/web-setup` sends to Anthropic. The proxy that holds your credential does not limit which branches a push can update. Use GitHub **branch protection or rulesets** (rules on which branches may be changed and by whom) for that.
+- **GitHub access.** Cloud sessions reach your repositories through the Claude GitHub App or a token that `/web-setup` (a command you run in the terminal) sends to Anthropic; it sends your local `gh` (GitHub command-line tool) token. The proxy that holds your credential does not limit which branches a push can update. Use GitHub **branch protection or rulesets** (rules on which branches may be changed and by whom) for that.
 
 ## OpenCode + Ollama
 
@@ -110,7 +110,7 @@ Pick the narrowest level that lets the task finish.
 
 - **Setup scripts:** a **setup script** is a Bash script that runs once before Claude starts, to install what the task needs. Installs need network access, so None blocks them.
 - **Environment variables versus network secrets:** environment variables are readable by any command Claude runs. **Network secrets** are the safer option where possible: the key stays outside the VM, and a proxy adds it to requests to hosts you list.
-- **Preinstalled tools:** common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to run `check-tools` to see what is there.
+- **Preinstalled tools:** common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to run `check-tools` (a shell command on the cloud machine that reports tool versions; you ask Claude to run it, you do not type it with `/`) to see what is there.
 
 ## 6. Permission modes in the cloud
 
@@ -138,7 +138,7 @@ A green test in the cloud is a claim to verify. A test passing on mock data tell
 
 ## Exercise: the safe-to-send checklist
 
-No cloud account and no model needed. Open [tree.txt](../../exercises/kennel/cloud-safe/tree.txt), a **mock** repository tree (every name is invented).
+No cloud account, GitHub account or model needed, and no repository to clone. The tree is a text file in this course's exercises folder. Open [tree.txt](../../exercises/kennel/cloud-safe/tree.txt), a **mock** repository tree (every name is invented).
 
 1. **Mark each path** that must not reach anything a cloud session can see. Say whether it needs removing from history (it is already committed) or only ignoring, and write one reason each.
 2. **Write the `.gitignore` lines** that would have stopped it.

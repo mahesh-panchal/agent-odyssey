@@ -7,7 +7,7 @@ Conveyor belts hum across the factory floor, but one belt is wired to nowhere. A
 :::
 
 ::: {.quest-dialog}
-- **Goal:** you will check pipeline code an agent wrote cheaply, before it touches real data or a cluster queue.
+- **Goal:** you will check pipeline code an agent wrote cheaply, before it touches real data or a cluster queue (the **scheduler** on a shared computing cluster, which decides when each job runs).
 - **Before you start:** [Ground Truth](../maze/ground-truth.html). A *dry run* asks a workflow manager what it would run; a *stub run* runs placeholder steps.
 - **Time:** about 15 minutes.
 :::
@@ -19,27 +19,23 @@ Check in layers, cheapest first:
 1. **Read the diff.** Ask for small changes so it stays readable.
 2. **Dry run:** ask the workflow manager what it would run. It shows the plan, meaning which files feed which steps. Nothing runs, so it cannot show that the commands are correct.
 3. **Stub run** (Nextflow) or a **tiny real input:** run the whole graph in seconds on a few records.
-4. **Compare with ground truth** on that tiny input: compute the expected answer by another route and compare.
+4. **Compare with ground truth** (an answer you know is right) on that tiny input: compute the expected answer by another route and compare.
 5. Only then real data, through the scheduler if you are on a cluster.
 
 ::: {.panel-tabset group="engine"}
 
 ## Snakemake
 
-`snakemake -n` (dry run) prints the jobs it would run, without running them. Use a small input file and compare the plan with what you expect.
+`snakemake -n` (dry run) prints the jobs it would run, without running them. Use a small input file, such as a handful of records (say 5 to 10), and compare the plan with what you expect. You should see one line per job and a count of jobs to run.
 
 ## Nextflow
 
-`nextflow run main.nf -stub-run` runs each process's `stub:` block instead of the real script, so the wiring is exercised quickly. `-resume` reuses cached results for tasks whose inputs and script are unchanged. A process **without** a `stub:` block runs its real script even under `-stub-run`, so check that every process has a stub before you rely on it being fast and harmless. Stub-run results are cached separately from real runs, so a real `-resume` starts fresh.
+`nextflow run main.nf -stub-run` runs each process's `stub:` block instead of the real script, so the wiring is exercised quickly. `-resume` reuses cached results for tasks whose inputs and script are unchanged. A process **without** a `stub:` block runs its real script even under `-stub-run`, so check every process before you rely on it being fast and harmless: search the pipeline for `stub:` blocks, then run `-stub-run` on the small input and look for any process that takes real time or fails. Stub-run results are cached separately from real runs, so a real `-resume` starts fresh.
 
 :::
 
 ::: {.callout-note}
-What each layer tells you:
-
-- **Dry run passes:** a plan could be built.
-- **Stub run passes:** the declared steps and outputs line up. Look at each connection to confirm it is the one you meant.
-- **Tiny real input plus ground truth:** the tool commands are right and the results are correct.
+A passing stub run shows that the declared steps and outputs line up. Look at each connection to confirm it is the one you meant. Only the tiny real input with ground truth shows that the commands and results are correct.
 :::
 
 ## Battle: layers of checking

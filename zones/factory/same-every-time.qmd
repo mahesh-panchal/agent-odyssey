@@ -12,17 +12,17 @@ A talkative machine sits in the middle of the line. Sometimes it says one thing 
 - **Time:** about 15 minutes.
 :::
 
-A pipeline earns trust by giving the same answer from the same input. An LLM call can return different text from run to run, so an LLM inside a step changes the pipeline's behaviour.
+You need this before you put a model inside a pipeline. A pipeline earns trust by giving the same answer from the same input. An LLM call can return different text from run to run, so an LLM inside a step changes the pipeline's behaviour.
 
-Keep the LLM out of the run when you can. Use it to write a script, then test the script and run the script. The script behaves the same every time and you can review it.
+Keep the LLM out of the run when you can. Use it to write a script, then test the script and run the script. Ask the LLM for the script, read it, run it on a small input where you know the answer, and fix it until the output matches. The script behaves the same every time and you can review it.
 
 If an LLM call really must be a step (tidying messy free-text labels, say), contain it:
 
-- **Record** the model name and version, and the exact prompt, with the outputs. A pinned model may still return different text, so recording is a start.
-- **Cache** results keyed by input (save each output under its input), so a re-run does not change them silently.
-- **Validate** each output against a fixed set (a species list, a schema) and fail loudly when it does not match.
+- **Record** the model name and version, and the exact prompt, with the outputs. A **pinned** model (one fixed version, not "latest") may still return different text, so recording is a start.
+- **Cache** results keyed by input (save each output under a name made from its input, and reuse it on a re-run), so a re-run does not change them silently.
+- **Validate** each output against a fixed set (a species list, or a **schema**: a written description of the allowed fields and values) and fail loudly when it does not match.
 - **Keep a human-check sample**: look at a random handful every time.
-- **Keep restricted data away from external models.** Data you may not share must not reach an outside API.
+- **Keep restricted data away from external models.** Data you may not share must not reach an outside API (a service your code calls over the network).
 
 ## Battle: reproducible runs
 
