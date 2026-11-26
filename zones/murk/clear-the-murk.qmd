@@ -2,19 +2,23 @@
 title: "Boss: Clear the Murk"
 ---
 
+::: {.ao-story}
+At the centre of the land the Murk has gathered into one dark knot: every unchecked answer you met on the way, pressed together. The Blight hides in small things here, and each habit you carry has its use. Read one messy session closely and name what it gets wrong.
+
+![](../../assets/img/boss-murk.png){.ao-boss-img fig-alt="Pixel-art portrait of the Murk: a heaving mass of grey-green fog with a hollow dark core and two pale eyes, with a few bright speech bubbles of false facts floating in it."}
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will read one messy agent session end to end and catch every habit it breaks.
 - **Before you start:** the whole trunk and any three branches (Start Here lists them). Everything here is mock: no model is called and no real data is used.
 - **Time:** about 15 to 20 minutes. Each right answer on the first try damages the boss.
 :::
 
-![](../../assets/img/boss-murk.png){.ao-boss-img fig-alt="Pixel-art portrait of the Murk: a heaving mass of grey-green fog with a hollow dark core and two pale eyes, with a few bright speech bubbles of false facts floating in it."}
+## What to look for
 
-## The Murk's Heart
+This exercise is the capstone: every habit from the course meets the same session, and the problems hide in small details. The test questions point at them.
 
-A **Blight** is plausible-but-false knowledge that grows when nobody checks. At the Murk's Heart every habit you have met meets the same session, and the Blight hides in the small things.
-
-You can stop here and walk away. Using an agent is always your choice. This fight shows what to look for if you do.
+You can stop here. Using an agent is always your choice. This exercise shows what to look for if you do.
 
 ## The scenario
 
@@ -56,7 +60,7 @@ $ ls results/*.vcf | wc -l
  awk '$5 > 20 { n++ } END { print n }' "$OUT" > "$OUT.count"
 ```
 
-## Battle: the Murk's Heart
+## Battle: the messy session
 
 Each question points at one part of the session above. Answer from what you see.
 
@@ -65,7 +69,7 @@ Each question points at one part of the session above. Answer from what you see.
 ::: {data-ao-ending}
 ![](../../assets/img/boss-murk-cleared.png){.ao-boss-img fig-alt="Pixel-art portrait of the cleared Murk: the fog has lifted, leaving a small green sprout with a glowing light on a mossy mound."}
 
-You cleared the Murk by looking at the claim, the command, the rule, the key, the loop, the count, the hand-off, the deadline and the line you could not explain.
+You cleared the exercise by looking at the claim, the command, the rule, the key, the loop, the count, the hand-off, the deadline and the line you could not explain.
 
 From here you decide how much of this to use and when. Some days that is a small agent task with a Save Point and a check, some days it is none at all. Both are fine.
 

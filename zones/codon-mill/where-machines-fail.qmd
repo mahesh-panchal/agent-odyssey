@@ -2,13 +2,17 @@
 title: "Where Machines Fail"
 ---
 
+::: {.ao-story}
+Over the mill door hangs a sign with two lists. The first names what the machine does well. The second names what it only seems to do well, and counting letters is on it. A sensible traveller reads both before trusting the machine with a task. Then the sign explains how to check what it hands back.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will sort jobs into "ask the model" and "run a script", and name the other ways a model fails with one mitigation each.
 - **Before you start:** [Tokens, Not Letters](tokens-not-letters.html).
 - **Time:** about 15 minutes.
 :::
 
-A language model is good at some jobs and bad at others. The skill is knowing which is which before you trust the output. Using a model is always your choice. This quest shows where the risk sits if you do.
+A language model is good at some jobs and bad at others, and a wrong answer often looks like a right one. Knowing which jobs are which, before you trust the output, saves time and prevents errors. Using a model is your choice; this lesson shows where the risk sits if you do.
 
 ## Good jobs: the result is checkable
 
@@ -26,7 +30,7 @@ Summaries can leave things out or bend them. Spot-check against the source: numb
 
 Ask a model: "How many n are in banana?" The right answer is 2 (b-a-n-a-n-a). A model can get this wrong, and can be wrong while sounding sure.
 
-Researchers disagree on why. One explanation is that the model reads tokens, which are chunks of letters. One study finds word length and the true count matter more than tokenisation. The fix works whichever cause is right.
+Researchers disagree on why. One explanation is that the model reads tokens (chunks of letters), not letters. One study finds word length and the true count matter more than tokenisation. The fix works whichever cause is right.
 
 The fix is to run a script:
 
@@ -34,7 +38,7 @@ The fix is to run a script:
 echo banana | grep -o n | wc -l
 ```
 
-It prints `2`. The macOS `wc` pads the number with spaces; the number is 2. A model asked to write Python for a counting task does better than a model asked to answer it directly. So for exact counts, have the model **write the script** and read the script and its output. Treat a count it states from "doing the sum in its head" as a guess to check.
+It prints `2` (macOS pads the number with spaces). A model asked to write Python for a counting task does better than a model asked to answer it directly. So for exact counts, have the model **write the script** and read the script and its output.
 
 The bioinformatics versions of the same trap:
 
@@ -45,13 +49,13 @@ The bioinformatics versions of the same trap:
 | A p-value or any test statistic | a stats library in a script you can read and re-run |
 | Sum or mean of a column | `awk`, or a script that prints the number |
 
-Rule of thumb: ask for the command and its output, and treat a count stated in prose as a guess to check.
+Ask for the command and its output, and treat a count stated in prose as a guess to check.
 
 ::: {.panel-tabset group="companion"}
 
 ## Claude Code
 
-It can run Bash (the shell command tool) and write scripts, so ask: "write and run a command for this, and show me both the command and its output."
+Claude Code can run shell commands and write scripts, so ask: "write and run a command for this, and show me both the command and its output."
 
 ## OpenCode + Ollama
 
@@ -64,7 +68,7 @@ Same rule: ask for a script, and read the command and its output. Try the banana
 - **Hallucination:** a confident statement that is false, such as a plausible DOI, gene ID or tool flag that does not exist. Allow "I don't know", ask for word-for-word quotes first, restrict the model to supplied documents, and look up every ID in PubMed or Ensembl or run the tool's `--help`.
 - **Sycophancy:** telling you what you want to hear. The model agrees with your wrong hypothesis, or softens a correct criticism when you push back. Ask for the strongest case against your idea, and hold back your preferred answer.
 - **Long-context degradation:** accuracy and recall drop as input grows ("context rot"), and relevant text in the middle is used less. Curate the input (head, counts, filtered tables) and start fresh for a new task.
-- **Instruction drift:** an early instruction is forgotten, for example after compaction (the harness replacing old conversation with a summary to free room). Keep a short instructions file (`CLAUDE.md` or similar, loaded at session start) and use a hook (a script the harness runs at set moments) for must-never rules.
+- **Instruction drift:** an early instruction is forgotten, for example after compaction (the program around the model replacing old conversation with a summary to free room). Keep a short instructions file (`CLAUDE.md` or similar, loaded at session start) and use a hook (a script that runs automatically at set moments, such as before a command) for must-never rules.
 - **Non-determinism:** the same prompt may give different answers, so run it twice and compare. Record the command, model and version, and treat the script the model wrote as the reproducible part.
 - **Overconfidence:** the model reports a task as done while it is unfinished, often because it had no way to check. Give it a check to run (tests, row counts, md5) and read the output.
 - **Prompt injection:** text from fetched content that the model treats as an instruction, for example a README, PDF or FASTA header that contains instructions the agent follows. Treat fetched content as data, review commands before approving them, and remember no system is fully immune.
@@ -74,7 +78,7 @@ Same rule: ask for a script, and read the command and its output. Try the banana
 
 Ask yourself: can I check the result cheaply and independently? If yes, ask the model: a bad answer is likely to show (omissions may not, so check those deliberately). If the answer must be exactly right and cannot be checked, use a script.
 
-## Battle: the sign over the door
+## Battle: ask the model or run a script
 
 <div data-ao-test="codon-mill-where-machines-fail" data-xp="50"></div>
 

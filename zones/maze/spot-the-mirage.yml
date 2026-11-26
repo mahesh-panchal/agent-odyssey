@@ -1,7 +1,7 @@
 pass: 0.8
 questions:
   - type: faulty-line
-    prompt: "An agent wrote this snippet to reverse-complement a plain Python string. Which line is a Mirage?"
+    prompt: "An agent wrote this snippet to reverse-complement a plain Python string. Which line is a hallucination?"
     explain: "Python strings have no reverse_complement method. The call fails with AttributeError; you would need your own code or a library that provides it."
     lines:
       - { text: 'seq = "ATGCGC"', why: "Just a string assignment." }

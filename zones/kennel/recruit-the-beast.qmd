@@ -2,13 +2,17 @@
 title: "Recruit the Beast"
 ---
 
+::: {.ao-story}
+A great armoured beast sleeps in the Kennel, strong and unthinking. It follows only someone who can wake it and keep it on a short lead. You lay a hand on its flank, and it opens one eye. Wake it, then keep it close.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will install Claude Code, confirm it works, and start it in a throwaway folder in plan mode.
 - **Before you start:** [Save Point](../crypt/shield-of-undo.html); a terminal (macOS, Linux, or WSL 2, the Windows Subsystem for Linux, on Windows); internet; and a Claude Team plan login or an Anthropic API key. An API key gives programmatic access to the models, billed per token; a plan is a subscription with usage limits.
 - **Time:** about 15 minutes. Nothing here edits your files.
 :::
 
-Claude Code is strong, so you start it on a short lead before it does anything.
+Claude Code can read your files and run commands, so the first session is in a throwaway folder and in plan mode, where it changes nothing.
 
 ## 1. Install
 
@@ -35,7 +39,7 @@ Run `claude` and a browser opens. With a Team plan, log in with the account your
 If you have both a subscription login and `ANTHROPIC_API_KEY` set, the key is used once you approve it, so usage goes to the API account. Run `/status` (a `/command` is typed inside the running tool) to see which login is active. Run `unset ANTHROPIC_API_KEY` if you did not mean to use the key.
 :::
 
-## 3. Start on a short lead
+## 3. Start in plan mode
 
 Make a throwaway folder and start in **plan mode**. It reads files, runs read-only commands and leaves your source untouched:
 
@@ -44,7 +48,7 @@ mkdir -p ~/odyssey-scratch && cd ~/odyssey-scratch
 claude --permission-mode plan
 ```
 
-`Shift+Tab` cycles `default`, `acceptEdits` and `plan` inside a session; the status bar shows the current mode.
+`Shift+Tab` cycles the common modes inside a session; the status bar shows the current one. A **permission mode** sets what the agent asks about before it acts.
 
 | Mode | What it does |
 |---|---|
@@ -58,7 +62,7 @@ claude --permission-mode plan
 Two commands share the name *doctor*.
 
 - **`claude doctor`** runs in the shell. It prints read-only diagnostics of your installation and settings without starting a session, so use it when `claude` will not start.
-- **`/doctor`** (alias `/checkup`) runs inside a session as a bundled skill, a ready-made skill that ships inside the tool. It reports first and changes something only after you confirm. It looks at installation health, extensions and their context cost, instruction files, permissions and usage.
+- **`/doctor`** (alias `/checkup`) runs inside a session as a bundled skill, a ready-made skill, a packaged set of instructions, that ships with Claude Code. It reports first and changes something only after you confirm. It looks at installation health, extensions and their context cost, instruction files, permissions and usage.
 
 ### Which command shows what
 
@@ -83,7 +87,7 @@ OpenCode has `opencode debug paths`, which prints where its files live.
 
 A bug report includes your OS, the install command and the full error output. `/feedback` sends feedback from inside a session. If you are unsure which problem applies, run `/doctor` or `claude doctor` to narrow it down. Read any output before you paste it into a bug report or chat, because it can contain paths and account details.
 
-## Battle: the Beast's leash
+## Battle: first run
 
 <div data-ao-test="kennel-recruit-the-beast" data-xp="60"></div>
 

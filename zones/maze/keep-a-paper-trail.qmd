@@ -2,6 +2,10 @@
 title: "Keep a Paper Trail"
 ---
 
+::: {.ao-story}
+A door in the maze swings shut behind the agent. Its account of what it did is plausible, and the walls have changed shape anyway. You cannot follow the path without a record, so you ask the agent to write one and then walk it yourself to see whether it holds.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will let an agent draft the documentation of its work, check each draft against ground truth and supply the reasons yourself.
 - **Before you start:** [Ground Truth](ground-truth.html). **Ground truth** is a check the agent did not write, such as the diff or a run. A **diff** is the list of lines a change added and removed. A **commit** is a saved snapshot of your project, and git is the version control tool that keeps them.
@@ -35,7 +39,7 @@ The agent drafts structure and wording well. Ground truth and the reasons come f
 
 ## 1. Changelog
 
-A **changelog** here is the agent's short account of a change: files touched, behaviour change, what it left alone, and how to verify. The diff is the ground truth. A changelog can miss a change or overstate one, so it works as a map for reading the diff.
+A **changelog** here is the agent's short account of a change: files touched, behaviour change, what it left alone, and how to verify. The diff is the ground truth. A changelog can miss a change or overstate one, so use it as a guide to what to look for in the diff.
 
 Ask for one after the agent finishes:
 

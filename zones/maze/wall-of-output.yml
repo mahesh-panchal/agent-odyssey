@@ -54,7 +54,7 @@ questions:
     explain: "Each enemy is a failure of checking or ownership, and each habit gives the check or ownership back."
     pairs:
       - { left: "Slop-ooze (too much output)", right: "Small pieces and a review budget", misconception: "Volume is beaten by refusing to take it in one go." }
-      - { left: "Mirage (confident falsehood)", right: "Independent verification", misconception: "A false claim is beaten by checking it against something the agent did not write." }
+      - { left: "Hallucination (confident falsehood)", right: "Independent verification", misconception: "A false claim is beaten by checking it against something the agent did not write." }
       - { left: "Review-leech (work pushed to others)", right: "Self-review and disclosure before asking", misconception: "Pushing work onto others is beaten by owning the first pass." }
       - { left: "Black-box husk (nobody understands it)", right: "Explain it back, or drop it", misconception: "Code nobody understands is beaten by understanding it, or removing it." }
   - type: choice

@@ -2,27 +2,31 @@
 title: "Three Kinds of Machine"
 ---
 
+::: {.ao-story}
+On the workbench at Basecamp sit three machines. One does the same thing every time, one was trained for a single task, and one talks. A traveller who picks the wrong one wastes the day. Learn what each is for, and the next stop will show what they wear when they set out.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will tell apart a deterministic program, a trained model and an LLM, and pick the right one for a job.
 - **Before you start:** [Name the Fears](name-the-fears.html).
 - **Time:** about 10 minutes.
 :::
 
+Before you pick a tool for a job, you need to know what kinds exist. Tools differ in how predictable they are and in how you check them.
+
 ## Three kinds
 
 - **A deterministic program** (a script, `awk`, `samtools`): the same input always gives the same output, and you can read why. Use it whenever the rule is known.
 - **A trained model** (a classifier, a gene-finder, a structure predictor): learned from data to do **one task**, with measured accuracy on that task. It is the predictive side of AI: it forecasts from past data and gives you an estimate to act on. Use it when the rule is unknown but the task is narrow and validated.
-- **A large language model (LLM)**: trained on large amounts of text, then tuned to follow instructions. It is the generative side of AI: it produces new content (text, code, images) that you review, flexible and fluent, with no built-in guarantee of correctness. Use it where the task is open-ended and you can check the result, such as drafting, explaining, or writing a first version of code that you then test.
+- **A large language model (LLM)**: trained on large amounts of text, then tuned to follow instructions. ChatGPT and Claude are LLMs. It is the generative side of AI: it produces new content (text, code, images) that you review, flexible and fluent, with no built-in guarantee of correctness. Use it where the task is open-ended and you can check the result, such as drafting, explaining, or writing a first version of code that you then test.
 
-The line between the last two is not clean. An LLM can be asked to classify, and some generative models predict structure or sequences. Judge a tool by the task you give it and how you will check the result. For a forecast, a simpler predictive model usually does the job more cheaply than a generative one.
+The line between the last two is not clean. An LLM can be asked to classify, and some generative models predict structure or sequences. Judge a tool by the task you give it and how you will check the result. For a forecast, a predictive model usually costs less than a generative one.
 
-Two common mistakes: using an LLM to do something a one-line script does exactly (slow, costly, and sometimes wrong), and trusting a model outside the task it was validated for.
+Two common mistakes: using an LLM for something a one-line script does exactly (slow, costly, and sometimes wrong), and trusting a model outside the task it was validated for.
 
-An LLM can also be called **inside a script** (for example to tidy free-text labels). That makes your pipeline non-deterministic, so the result needs its own checks and the exact model and version recorded.
+An LLM can also be called **inside a script** (for example to tidy free-text labels). That makes your pipeline non-deterministic (the same input may give different output), so the result needs its own checks and the exact model and version recorded.
 
-Before you reach for an agent or a large model, ask whether a script, a fixed workflow or a smaller specialised model does the job. A method that fits the task is often cheaper to run and easier to reproduce, and it does not change when a provider updates a hosted model. Keep the large model for the open-ended steps.
-
-Fine-tuning a model on your own examples suits only some tasks.
+Before you reach for an agent or a large model, ask whether a script, a fixed workflow or a smaller specialised model does the job. A method that fits the task is often cheaper to run and easier to reproduce. A hosted model (one that runs on a provider's servers) can change when the provider updates it. Keep the large model for the open-ended steps. Fine-tuning (further training a model on your own examples) suits only some tasks.
 
 ## What a model can do on its own
 
@@ -33,9 +37,9 @@ A language model with no tools suits some jobs and struggles with others. A larg
 | Summarising and editing text | Counting letters or basic arithmetic |
 | Pulling out names and places | Multi-step logical reasoning |
 | Classifying a piece of text | Facts it was never given |
-| Generating tags, short creative writing | Writing code (a small on-device model) |
+| Generating tags, short creative writing | Writing code (for a small model that runs on your own device) |
 
-Harder tasks become possible once the model can call tools or produce structured output. That is the idea behind an agent: the model reads and writes, and a harness gives it tools (a shell, a file editor, a script runner) for the parts it finds hard. Counting and arithmetic are good work to hand to a script.
+Harder tasks become possible once the model can call tools or produce structured output. That is the idea behind an agent: the model reads and writes, and the program around it (called the harness) gives it tools, such as a shell, a file editor and a script runner, for the parts it finds hard. Counting and arithmetic are good work to hand to a script.
 
 ## Battle: pick the right machine
 

@@ -2,23 +2,27 @@
 title: "Tokens, Not Letters"
 ---
 
+::: {.ao-story}
+A mill at the foot of the hill grinds every sentence into small chunks before the machine reads a word. The machine never sees the letters you see. You carry sequences where every letter counts, so learn what the mill does to them. The next stop shows more ways the machine goes wrong.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will explain that a model reads tokens (chunks of text) and decide which sequence jobs belong to a script.
 - **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html).
 - **Time:** about 15 minutes.
 :::
 
-You read a read as letters: A, C, G, T. A language model reads tokens. Before your text reaches the model, it is cut into **tokens**, and the model works with those.
+You read a sequencing read as letters: A, C, G, T. A language model reads tokens. Before your text reaches the model, it is cut into **tokens**, and the model works with those. Sequence work needs exact letters, so you need to know when this difference matters.
 
 ## What a token is
 
-A token is the smallest unit a model works with. It can be a whole word, part of a word, a single character or a byte. Common strings get larger tokens because that is efficient. Rare or unseen words are broken into smaller pieces so the model can still handle them.
+A token is the smallest unit a model works with. It can be a whole word, part of a word, a single character or a byte. Common strings get larger tokens. Rare or unseen words are broken into smaller pieces so the model can still handle them.
 
 Three consequences:
 
 - **Tokens are not words.** A sentence of ten words rarely comes to ten tokens; the count depends on the model and the language.
 - **The count changes between models.** Models from Claude 4.7 onward, including Sonnet 5.5, use a newer tokenizer (the part that cuts text into tokens). It produces about 30 percent more tokens for the same text, and the exact increase depends on the content. Count again for each model generation.
-- **Limits and cost are measured in tokens.** The context window (all the text a model can look at when it writes its next piece of output) is counted in tokens, and the same prompt can cost different amounts on different models. The API (programmatic access to the model, billed per token, as opposed to a chat plan) has a free token-counting endpoint. Its answer is an estimate that may differ slightly from real use.
+- **Limits and cost are measured in tokens.** The context window (all the text a model can look at when it writes its next piece of output) is counted in tokens, and the same prompt can cost different amounts on different models. The API (programmatic access to the model, billed per token) has a free token-counting endpoint. Its answer is an estimate.
 
 ## Why this matters for sequences
 
@@ -28,27 +32,25 @@ The model sees chunks of letters, so jobs that depend on every single letter are
 - **Copying exactly** a long string, such as a barcode or an accession, needs a check against the source.
 - **Positions, reverse complements and checksums** depend on every single letter.
 
-The exercise below shows how a tokenizer cuts a DNA line.
-
 So the rule: if the answer has to be exact and a rule for it exists, have the agent **run a script or a tool** and report what it printed. Check any sequence the model retyped against the source file.
 
 ::: {.panel-tabset group="companion"}
 
 ## Claude Code
 
-Ask it to write and run the counting command and read its output. You can then read the command and the output yourself.
+Ask Claude Code to write and run the counting command and show its output. Then read both the command and the output yourself.
 
 ## OpenCode + Ollama
 
-Same advice: ask for the command and read its output. Run the exercise below with your own model and compare.
+Same advice: ask for the command and read its output. Try the exercise below with your own model and compare.
 
 :::
 
 ## Optional exercise (laptop, no real data)
 
-Take this mock line: `>read1 ACGTTGCAAGGCTTAGGCCATTAGC`. Count the letters yourself with a command you already have, for example `echo ACGTTGCAAGGCTTAGGCCATTAGC | grep -o G | wc -l`. Then paste the same line and a plain English sentence of similar length into any tokenizer page you trust, or a token counter you have. Compare the token counts. Keep real or sensitive sequences out of web tools.
+Take this mock line: `>read1 ACGTTGCAAGGCTTAGGCCATTAGC`. Count the letters yourself with a command you already have, for example `echo ACGTTGCAAGGCTTAGGCCATTAGC | grep -o G | wc -l`. Then paste the same line and a plain English sentence of similar length into any tokenizer page you trust (a web page that shows how text is cut into tokens), or a token counter you have. Compare the token counts. Keep real or sensitive sequences out of web tools.
 
-## Battle: the mill
+## Battle: tokens and scripts
 
 <div data-ao-test="codon-mill-tokens-not-letters" data-xp="50"></div>
 

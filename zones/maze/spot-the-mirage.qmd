@@ -2,17 +2,21 @@
 title: "Spot the Mirage"
 ---
 
+::: {.ao-story}
+The maze walls shimmer. Some corridors are real, and some are Mirages: passages that look exactly right and lead nowhere. A guide cannot tell them apart by their look, only by walking them. Learn what a false corridor looks like, and how to test one.
+:::
+
 ::: {.quest-dialog}
-- **Goal:** you will learn how plausible-but-false output looks, and check it without asking the thing that produced it.
+- **Goal:** you will recognise plausible-but-false output (a hallucination), and check it without asking the model that produced it.
 - **Before you start:** [Where Machines Fail](../codon-mill/where-machines-fail.html), a terminal and Python.
 - **Time:** about 10 minutes.
 :::
 
-## The Mirage
+## Plausible but false output
 
-A language model produces text that *fits*. Sometimes it fits reality and sometimes it only fits the pattern of what a correct answer would look like. The second kind is a **Mirage**. It reads smoothly, it is confident, and it is wrong. Confidence and detail tell you nothing about which kind you have.
+You will rely on agent output in analysis, so you need to know how it goes wrong. A language model produces text that *fits*. Sometimes it fits reality, and sometimes it only fits the pattern of what a correct answer would look like. The second kind is a **hallucination**. It reads smoothly, sounds confident, and is wrong. Confidence and detail tell you nothing about which kind you have.
 
-Common Mirages in analysis work:
+Common hallucinations in analysis work:
 
 - **Invented functions and flags**: a method or option that sounds right but does not exist. Try it: `"ATGCGC".reverse_complement()` raises `AttributeError: 'str' object has no attribute 'reverse_complement'`.
 - **Invented references**: a citation with a believable author, journal and DOI that points to nothing, or to a different paper.
@@ -21,7 +25,7 @@ Common Mirages in analysis work:
 
 The cure is **checking against something the agent did not write**: run it, look it up, recompute it another way.
 
-## Battle: the Mirage
+## Battle: spot the hallucination
 
 <div data-ao-test="maze-spot-the-mirage" data-xp="60"></div>
 

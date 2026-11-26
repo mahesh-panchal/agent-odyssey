@@ -2,15 +2,19 @@
 title: "Grow the Carapace"
 ---
 
+::: {.ao-story}
+Deeper in the Crypt, bare skin is not enough. The warden shows you how to grow a carapace: a hard shell of rules about what the Beast may touch. She says a rule is only as good as its edges, so you will learn where yours end.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will write permission rules that hold, and know where they stop holding.
 - **Before you start:** [Test the Leash](test-the-leash.html), or [Adopt the Pet](../kennel/adopt-the-pet.html) if you only run a local model.
 - **Time:** about 20 minutes.
 :::
 
-The **harness** (the program around the model) enforces rules. A line in your instructions file (such as `CLAUDE.md`) asking the agent to avoid something is guidance; only a rule the harness enforces changes what is allowed.
+The harness (the program around the model) enforces permission rules. A line in your instructions file (such as `CLAUDE.md`, a text file the agent reads at the start) asking the agent to avoid something is guidance; only a rule the harness enforces changes what is allowed.
 
-Sort every action into three bins:
+A single deny rule in a file is enough to block one action. A real project needs a set of rules, so sort every action into three bins:
 
 - **allow:** safe and routine.
 - **ask:** you want to decide each time.
@@ -58,15 +62,15 @@ Start with the ask-everything rule, then narrow, then put denies last.
 
 :::
 
-## Where the carapace has gaps
+## Where rules stop holding
 
 - Rules that match command **arguments** are fragile: `Bash(rm *)` does not match `/bin/rm` or `bash -c 'rm ...'`.
-- Claude Code's sandbox (a restricted environment for commands) is off by default. When on, it limits **shell commands only**: file tools, MCP servers (tools added from outside servers) and hooks (scripts the harness runs at set moments) run outside it, and by default it can still read `~/.ssh`.
-- Your secrets in environment variables are inherited by the commands it runs.
+- Claude Code's sandbox (an operating-system boundary around shell commands) is off by default. When on, it limits **shell commands only**: Claude's file tools and MCP servers (programs that add tools from outside) run outside it, and by default it can still read `~/.ssh`.
+- Secrets stored in environment variables (named values the shell passes to every program it starts) are inherited by every command the agent runs.
 
-Treat rules as one layer. Git and a throwaway folder are the other layers.
+Treat rules as one layer. Git commits and a throwaway folder are other layers.
 
-## Battle: harden your carapace
+## Battle: rules that hold
 
 <div data-ao-test="crypt-rules-of-the-carapace" data-xp="80"></div>
 

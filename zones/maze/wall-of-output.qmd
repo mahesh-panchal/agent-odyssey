@@ -2,19 +2,28 @@
 title: "Boss: The Wall of Output"
 ---
 
+::: {.ao-story}
+At the maze's heart rises a wall of text, thousands of lines high. It does not attack. It simply cannot be read in one sitting, and everything you have learned so far is needed to get past it.
+
+![](../../assets/img/boss-wall.png){.ao-boss-img fig-alt="Pixel-art portrait of the Wall of Output: a tall wall of terminal-style bricks filled with green scrolling text, with two glowing amber cursor eyes."}
+:::
+
 ::: {.quest-dialog}
-- **Goal:** you will survive a wall of agent output without reading all of it and without trusting all of it.
+- **Goal:** you will review a very large amount of agent output without reading all of it and without trusting all of it.
 - **Before you start:** [Ground Truth](ground-truth.html). This is the boss at the end of the trunk.
 - **Time:** about 10 minutes. Each right answer on the first try damages the boss.
 :::
 
-![](../../assets/img/boss-wall.png){.ao-boss-img fig-alt="Pixel-art portrait of the Wall of Output: a tall wall of terminal-style bricks filled with green scrolling text, with two glowing amber cursor eyes."}
+## Too much output to review
 
-## The Wall
+An agent can produce thousands of lines of diff (the list of lines a change added and removed) faster than anyone can review them. If you merge them unread, unchecked errors enter your work. If you try to read all of them, your attention thins and you approve things you did not understand. Both routes fail.
 
-The Wall is thousands of lines of generated diff (the list of lines a change added and removed), produced faster than anyone can review. If you merge it unread, the Blight spreads. If you try to read all of it, your attention thins and you approve things you did not understand. Both routes fail.
+Instead, accept only what you can check:
 
-The way through is to **refuse it whole**: keep a **review budget** (only produce as much as you can honestly review today, because bulk low-quality output is called *slop*), ask for smaller pieces, ground each piece in a check, and pass on only work you have read yourself.
+- Keep a **review budget**: ask for no more than you can honestly review today. Bulk low-quality output is called *slop*.
+- Ask for smaller pieces.
+- Ground each piece in a check.
+- Pass on only work you have read yourself.
 
 A human check can fail in two ways. *Automation bias* is trusting the machine's output too readily. *Rubber-stamping* is approving without reading. An "approve each item" step at hundreds of items an hour turns into clicking through. A check that works:
 
@@ -23,7 +32,7 @@ A human check can fail in two ways. *Automation bias* is trusting the machine's 
 - keeps a real decision point wherever results or other people are affected;
 - records the human step as part of the work's provenance (the record of where a result came from).
 
-## Battle: the Wall
+## Battle: large output
 
 <div data-ao-test="maze-wall-of-output" data-xp="120"></div>
 

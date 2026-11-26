@@ -2,6 +2,10 @@
 title: "Name the Fears"
 ---
 
+::: {.ao-story}
+The fire at Basecamp burns low, and the travellers gathered round it each carry a worry. Some say it aloud and some keep it quiet. Name yours here and it shrinks, because every worry on this road has a habit that answers it. Then you can look at the machines themselves.
+:::
+
 ::: {.quest-dialog}
 - **Goal:** you will name what worries you about large language model (LLM) agents and pick the habit that answers each worry, whether you plan to use them or not.
 - **Before you start:** nothing.
@@ -10,15 +14,15 @@ title: "Name the Fears"
 
 ## Where people start
 
-People come to these tools from different places:
+Before you learn any habit, it helps to name the worry it answers. People come to these tools from different places:
 
 - Some are keen and want to know how to begin well.
 - Some are curious and want to see what is involved before deciding.
 - Some hold back, often for good reasons: the environmental cost of AI, harm to people and their work, or the quality of what comes out.
 
-Every one of these starting points is reasonable, and nothing here asks you to use these tools. This odyssey leaves the larger questions to you. It covers the practical worries that come with using an agent and gives each one a **habit** that makes the risk smaller. Whether you go on to use agents or decide to leave them alone, you will have a clear picture of what they ask of you.
+Every one of these starting points is reasonable, and nothing here asks you to use these tools. This course leaves the larger questions to you. It covers the practical worries that come with using an agent and gives each one a **habit** that makes the risk smaller. Whether you go on to use agents or decide to leave them alone, you will have a clear picture of what they ask of you.
 
-An *agent* is a model running inside a program that picks and runs tools in a loop toward a goal. A *prompt* is the text you send to the model. The rest of the odyssey trains the habits below, and each row links to the zone that teaches it.
+An *agent* is a language model running inside a program that picks and runs tools (such as reading a file or running a command) in a loop toward a goal. A *prompt* is the text you send to the model. The rest of the course trains the habits below, and each row links to the lesson that teaches it.
 
 ### About the output
 
@@ -28,7 +32,7 @@ An *agent* is a model running inside a program that picks and runs tools in a lo
 | "It produces slop in bulk." | Take small steps, test before code, keep a review budget. | [Sequence Maze: Wall of Output](../maze/wall-of-output.html) |
 | "I do not understand what it did." | Ask for a changelog and explain it back. | [Sequence Maze: Keep a Paper Trail](../maze/keep-a-paper-trail.html) |
 
-*Slop* is low-quality bulk output. A *review budget* means you only produce as much as you can honestly review today.
+*Slop* is low-quality bulk output. A *review budget* means you only produce as much as you can honestly review in a day.
 
 ### About the work and your data
 
@@ -38,7 +42,7 @@ An *agent* is a model running inside a program that picks and runs tools in a lo
 | "It could leak my data or my secrets." | Keep secrets and private data out of prompts; use an approved account or a local model. | [Ancient DNA Crypt](../crypt/secrets-and-sensitive-ground.html) |
 | "Someone could see my unpublished results and publish first." | Read your tool's data terms; keep unpublished work out of consumer chat tools. | [Ancient DNA Crypt](../crypt/secrets-and-sensitive-ground.html) |
 
-A *sandbox* is an operating-system layer that limits what commands can touch; it is one way to protect your files. For unpublished work, prefer an agreement your institution has reviewed or a local model, and date-stamp your work.
+A *sandbox* is a layer of the operating system that limits what commands can touch; it is one way to protect your files. A *scratch copy* is a duplicate you let the agent work on, so the original stays safe. For unpublished work, prefer an agreement your institution has reviewed or a local model, and record the date you made each result.
 
 ### About you and the people around you
 
@@ -55,9 +59,9 @@ A *sandbox* is an operating-system layer that limits what commands can touch; it
 
 For voice and judgement, use the agent for structure and checks, and keep a few decisions agent-free. For credit and workload, follow your team's norm, credit the agent's part openly and share how long checking took.
 
-Sometimes the right answer is to skip the LLM. Part of the skill is knowing when.
+Sometimes the right answer is to skip the LLM. The next lesson shows how to tell when.
 
-## Battle: name the counter-habit
+## Battle: name the habit
 
 <div data-ao-test="basecamp-name-the-fears" data-xp="40"></div>
 
