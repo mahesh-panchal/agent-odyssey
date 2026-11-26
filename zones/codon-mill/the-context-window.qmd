@@ -59,6 +59,18 @@ Check OpenCode's documentation for how it compacts and how it reports window usa
 
 :::
 
+## Hands-on: how big is a fresh session?
+
+A fresh session is not empty: the items above load first, so every session has a starting size. Measure yours:
+
+1. Start a new session (`claude`) and run `/context` before you type anything else.
+2. Read the table by category. The starting load is the system prompt, system tools, MCP server instructions, memory files and skills. **Messages** is the conversation, and it should be close to zero.
+3. Look at the MCP and tool lines marked deferred. Their figures say how many tokens they would take if all were loaded. Only their names are in the window until a tool is needed.
+4. Note the largest starting item and whether you chose it. Fewer MCP servers, plugins and skills, or a shorter instructions file, lower it.
+5. Open a long session you already have and run `/context` there. The difference is the part a fresh start removes.
+
+An agent a session starts for you can start large. A subagent started from a brief begins with that brief. A forked agent (an option in some tools) inherits the whole conversation, so it starts as large as the session that spawned it. A new session or agent that opens with a high count is worth checking with `/context` before you work in it.
+
 ## Three habits
 
 1. **Start fresh for a new task.** An unrelated earlier thread takes room and can distract.
@@ -71,7 +83,7 @@ Check OpenCode's documentation for how it compacts and how it reports window usa
 
 ## Bonus
 
-<div data-ao-honour="check-context" data-xp="20">In a session you already have, look at what is using the window (in Claude Code, run <code>/context</code>). Note the largest item and whether you chose it.</div>
+<div data-ao-honour="check-context" data-xp="20">Write down your fresh-session starting size from the exercise, change one thing that lowers it, and run <code>/context</code> again to see the difference.</div>
 <div data-ao-honour="move-fact" data-xp="20">Find one instruction you keep retyping in chat and move it into your instructions file in one short line.</div>
 
 ::: {.ao-related}
