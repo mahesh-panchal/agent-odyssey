@@ -96,7 +96,7 @@ Start from the tiers and the table below, and test each row on your own jobs. Th
 
 | Job | Start with | Effort | Why |
 |---|---|---|---|
-| Most everyday work, no better information | Opus | the tool's default | most workloads start here |
+| Most everyday work, no better information | Sonnet or Opus | the tool's default | both suit everyday work; compare them on one of your own jobs |
 | Bulk reading, classifying or extracting with output you can check | Haiku, often as a subagent | `medium`, or `low` if you re-run failures | cheap per item; a checker catches errors |
 | Exploratory reading ("where is X handled?") | a subagent | `low` or `medium` | the main context stays clean; only a summary returns |
 | Planning a change | consider Opus or Fable | `medium` to `high` | a bad plan makes every later step wrong |
@@ -121,7 +121,7 @@ Compare **cost per finished task**, because failed tasks still cost money and a 
 - **Spot-check summaries.** A subagent returns only a summary, and summaries omit and distort. Ask for exact quotes or file paths and open two yourself. Many subagents returning long answers can also fill the main context again.
 - **State your rules in the delegation prompt.** The built-in Explore subagent (a read-only search helper) and Plan subagent (a read-only research helper used in plan mode) skip `CLAUDE.md`, the instructions file the tool loads at session start. A rule like "never touch `raw/`" must be written into the task you hand them. Custom subagents load `CLAUDE.md` unless set to skip it.
 - **Switch models at a quiet moment.** Switching model mid-conversation can change prompt-cache behaviour, and the tool may ask you to confirm.
-- **Change effort between sessions when you are comparing.** On older models, and on Bedrock, Vertex and Foundry, changing effort mid-session invalidates the cache. On Fable 5.1 and later, Opus 5.5, Sonnet 5.5 and Haiku 5.5 with an API key or subscription, it keeps the cache.
+- **Change effort only between sessions when you compare,** so one session never mixes two settings. On older models, and on Bedrock, Vertex and Foundry, changing effort mid-session invalidates the cache. On Fable 5.1 and later, Opus 5.5, Sonnet 5.5 and Haiku 5.5 with an API key or subscription, it keeps the cache.
 
 ## 6. Measure on your own task
 

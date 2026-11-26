@@ -29,4 +29,4 @@ questions:
     options:
       - { text: "You are not ready to send it, so go and understand or remove it", correct: true }
       - { text: "The reviewer is asking about something that does not matter much", misconception: "Explaining the reason for a line is an ordinary expectation of any author." }
-      - { text: "Ask the agent to explain the branch and paste its explanation in", misconception: "A justification written after the fact may not reflect why the code exists, and you still have not checked it." }
+      - { text: "Paste in the agent's explanation of the branch without checking it", misconception: "A justification written after the fact may not reflect why the code exists, and you still have not checked it." }

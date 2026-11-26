@@ -26,7 +26,7 @@ questions:
       - { text: "curl failing with Could not resolve host in the sandbox", bin: "The operating system refuses", misconception: "The sandbox cuts network access at the operating-system level." }
   - type: choice
     prompt: "A deny rule blocks Read(./.env). An approved Python one-liner opens .env itself, outside a sandbox. What happens?"
-    explain: "A Read rule limits Claude's file tools and the file commands it recognises, such as cat. It cannot see inside a program that opens the file itself. The sandbox is the guard for those programs."
+    explain: "A Read rule limits Claude's file tools and the file commands it recognises, such as cat. It cannot see inside a program that opens the file itself. The sandbox limits writes and network access, and by default it still lets programs read most files."
     options:
       - { text: "The program can still read it, because the rule cannot see inside a program", correct: true }
       - { text: "The program fails, because a deny rule covers every way of reading that file", misconception: "Rules cover the file tools and recognised file commands, not what an arbitrary program opens." }

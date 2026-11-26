@@ -31,7 +31,7 @@ claude mcp add --transport http mydocs https://example.com/mcp
 claude mcp add myserver --env API_KEY=your-key-here -- <command> [args...]
 ```
 
-Run `claude mcp add --help` for the current flags. Inside a session, `/mcp` lists the servers and their tools. An older transport called SSE (server-sent events, one-way streaming over HTTP) is deprecated in favour of HTTP where a server offers both.
+Replace `your-key-here` with a value from an environment variable, such as `API_KEY="$MY_KEY"`, so a real key never lands in shell history or a shared log. Run `claude mcp add --help` for the current flags. Inside a session, `/mcp` lists the servers and their tools. An older transport called SSE (server-sent events, one-way streaming over HTTP) is deprecated in favour of HTTP where a server offers both.
 
 Three **scopes** (who or where a setting applies) decide who gets the server (set with `-s`/`--scope`):
 
@@ -49,7 +49,7 @@ A project-scoped server is a file in the repository:
 
 In interactive sessions, Claude Code asks for approval before using project-scoped servers from `.mcp.json`. `claude mcp reset-project-choices` resets your answers. Read that file as you would read a script from a stranger's repository, because it asks to start something on your machine.
 
-In `claude -p` (a non-interactive run with one prompt) and Agent SDK runs (scripts that drive Claude Code from code), no one can answer a prompt, so project-scoped servers load without asking. `--strict-mcp-config` skips servers from `.mcp.json` and other config and loads only those you pass with `--mcp-config`.
+In `claude -p` (a non-interactive run with one prompt) and Agent SDK runs (scripts that drive Claude Code from code), no one can answer a prompt, so project-scoped servers load without asking. `--strict-mcp-config` skips servers from `.mcp.json` and other config and loads only those you pass with `--mcp-config`. In `-p` runs, add `--strict-mcp-config` in any repository you have not read.
 
 Each server's tools appear in permission rules as `mcp__<server>__<tool>`, and `mcp__<server>__*` (a matcher, a pattern that selects names) matches every tool of one server. Tool definitions are deferred (loaded only when needed) by default, so only tool names and server instructions take up context until a tool is used.
 

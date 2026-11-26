@@ -54,7 +54,7 @@ The check-fasta skill should be used when the user asks to check a new FASTA fil
 Run it cheaply while you iterate: one case, one run, and `--ablation none`, which skips the without-plugin run (an **ablation** removes a part to see what it adds):
 
 ```bash
-claude plugin eval . --case skill-triggers --runs 1 --ablation none
+claude plugin eval . --case skill-triggers --runs 1 --ablation none --max-cost-usd 1
 ```
 
 The full comparison runs each case three times by default, with the plugin (**WITH**) and without it (**W/OUT**), and reports the difference (**Δ**). The cost ceiling is `--max-cost-usd`, in US dollars:
@@ -63,7 +63,7 @@ The full comparison runs each case three times by default, with the plugin (**WI
 claude plugin eval . --max-cost-usd 2
 ```
 
-The run stops at the ceiling. Results land in `evals/results/<timestamp>/` with a `report.html`. If you are signed in with a claude.ai subscription, Claude Code can also publish the report as a private artifact and print `Published: <url>`. Add `--no-publish` to keep it local.
+The run stops at the ceiling. Results land in `evals/results/<timestamp>/` with a `report.html`. When you are signed in with a claude.ai subscription, Claude Code also uploads the report as a private artifact and prints `Published: <url>`. The report holds your prompts and outputs, so add `--no-publish` for data that must stay local.
 
 ## OpenCode + Ollama
 
@@ -75,7 +75,7 @@ Run `opencode --help` and read the OpenCode docs for your version to see whether
 
 Open `report.html` and look at three things:
 
-- **Δ.** If WITH and W/OUT are about the same and the Skill did not fire, the `description` does not trigger on that phrasing. Change the `description`, not the grader.
+- **Δ** (two-arm runs only; with `--ablation none` there is no Δ, so check that the grader passed). If WITH and W/OUT are about the same and the Skill did not fire, the `description` does not trigger on that phrasing. Change the `description`, not the grader.
 - **The failed grader.** The report expands it with an explanation.
 - **Isolation.** Each run happens in a **child session** (a separate Claude Code session started just for that run) with only the plugin loaded, so your own settings and other plugins are absent.
 

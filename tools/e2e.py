@@ -96,6 +96,11 @@ try:
     # --- Continue block: Next button follows the path, Related links sit apart ---
     B.go(base + "zones/basecamp/name-the-fears.html", 1.5)
     check("Continue block offers Next to the following quest", B.js("(document.querySelector('.ao-nextsteps [rel=next]')||{}).href||''").endswith("three-kinds-of-machine.html"), B.js("(document.querySelector('.ao-nextsteps [rel=next]')||{}).href||''"))
+    saved_state = B.js("AO.exportCode()"); B.js("localStorage.clear()"); B.go(base + "zones/basecamp/name-the-fears.html", 1.5)
+    check("uncleared quest says so and links to its Battle", B.js("(document.querySelector('.ao-nextsteps .ao-uncleared a')||{}).getAttribute('href')") == "#ao-battle" and B.js("!!document.getElementById('ao-battle')"))
+    B.js("AO.pass('basecamp-name-the-fears', 0)"); B.go(base + "zones/basecamp/name-the-fears.html", 1.5)
+    check("cleared quest has no uncleared notice", B.js("!document.querySelector('.ao-nextsteps .ao-uncleared')"))
+    B.js("AO.importCode(%s)" % json.dumps(saved_state)); B.go(base + "zones/basecamp/name-the-fears.html", 1.5)
     check("Related lessons list is separate from the Continue block", B.js("!!document.querySelector('.ao-related') && !document.querySelector('.ao-nextsteps').contains(document.querySelector('.ao-related'))"))
     # --- quest log ---
     open0 = B.js("document.getElementById('ao-logbtn').getAttribute('aria-expanded')")

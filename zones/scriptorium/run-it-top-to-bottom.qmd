@@ -16,7 +16,7 @@ A notebook can hold a result nobody can reproduce, and in the Scriptorium the or
 
 You need this check before you trust or share any notebook, whether you or an agent edited it. A notebook kernel (the background process that runs the cells' code) keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran, and the variables stay. The page then shows a result that the file, read from the top, does not produce. This is **hidden state**: the notebook's memory holds something the file does not. It appears with or without an agent.
 
-`cells.py` is a mock notebook with four cells. Cell 1 loads a list of reads, cell 2 sets `threshold = 30`, cell 3 keeps the reads at or above the threshold and prints how many, and cell 4 sets `threshold = 40`. Each header, such as `# %% [1] load`, carries a cell number. `run_cells.py` runs cells in the order you give, sharing one namespace like a kernel. It uses `exec`, so run it only on files you wrote. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.
+`cells.py` is a mock notebook with four cells. Cell 1 loads a list of reads, cell 2 sets `threshold = 30`, cell 3 keeps the reads at or above the threshold and prints how many, and cell 4 sets `threshold = 40`. Each header, such as `# %% [1] load`, carries a cell number. `run_cells.py` runs cells in the order you give, sharing one namespace like a kernel. It uses `exec`, so run it only on files you trust, such as these two. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.
 
 ```bash
 python run_cells.py cells.py 1 2 3 4 3

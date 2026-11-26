@@ -17,7 +17,7 @@ You need to read pipeline code before you trust it. A **rule** is one step of a 
 Here is a Snakemake rule with the first two mistakes:
 
 ```python
-rule count_reads:
+rule count_lines:
     input: "/home/alice/data/sample1.fastq"
     shell: "wc -l {input} > counts.txt"
 ```

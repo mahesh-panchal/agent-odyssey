@@ -38,4 +38,4 @@ questions:
       - { text: "Keep the few tools used every day, with clear names", why: "A small, well-named set is the advice." }
       - { text: "Install every MCP server in the catalogue just in case", faulty: true }
       - { text: "Check what is using the window with a usage command", why: "Measuring first shows what actually costs space." }
-      - { text: "Disable servers that have not been used this month", why: "Unused definitions only cost room." }
+      - { text: "Disable servers that have not been used this month", why: "With tool search the cost is small, but unused servers still add names and risk." }

@@ -63,7 +63,7 @@ Add similar rules for `srun`, `salloc` and `scancel`, and a `deny` for `scancel 
 
 ## Why `scancel -u` is the dangerous one
 
-`scancel -u <you>` signals **all** your jobs, including ones the agent did not submit. Whole jobs are terminated, and other work of yours dies with them. `scancel --me` does the same. Selectors such as `--name`, `--state` and `--partition` also act on every job they match, and combined filters must all match. Deny rules cannot cover every spelling, so the single `ask` rule on `scancel *` is the net and the deny rules catch the worst two. Use `scancel <jobid>` for an ID the agent itself submitted. Slurm can rate-limit a user whose requests arrive at a sustained high rate, so a runaway loop of commands is a problem for the scheduler as well as for you.
+`scancel -u <you>` signals **all** your jobs, including ones the agent did not submit. Whole jobs are terminated, and other work of yours dies with them. `scancel --me` does the same. Selectors such as `--name`, `--state` and `--partition` also act on every job they match, and combined filters must all match. Deny rules cannot cover every spelling, so the single `ask` rule on `scancel *` is the net and the deny rules catch the worst two. Approve `scancel <jobid>` only for a job you approved the agent submitting. Slurm can rate-limit a user whose requests arrive at a sustained high rate, so a runaway loop of commands is a problem for the scheduler as well as for you.
 
 ## Polling costs money and attention
 
@@ -79,17 +79,29 @@ Habits that keep polling cheap:
 - `--mail-type` sends you an email and does not make the agent wait. If you use `watch`, keep it at `--interval=60` or slower and stop it when done.
 - Submit many similar tasks as one array with a concurrency cap (`--array=1-100%10`) instead of a loop of `sbatch` calls.
 
-Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an `srun` that blocks until it finishes, gets cut off.
+Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an `srun` that blocks until it finishes, gets cut off. A timeout is not a load control: the command still runs until it is cut off.
 
 ## Size the request
 
-A job can use more of the cluster than you meant to ask for, and no error tells you. Slurm counts what you allocate, whatever you use, and that count feeds your *fair-share priority* (how soon your later jobs start). A *partition* is a group of nodes with its own limits. Many partitions limit memory per CPU (`MaxMemPerCPU`), so a large memory request on one CPU can make Slurm add CPUs to fit it, or reject the job. A request like `--mem=120G` with `MaxMemPerCPU=4000` (MB) can become about 31 CPUs. Other limit settings can leave an over-limit job pending instead, so read what your site does.
+A job can use more of the cluster than you meant to ask for, and no error tells you. Slurm counts what you allocate, whatever you use, and that count feeds your *fair-share priority* (how soon your later jobs start). A *partition* is a group of nodes with its own limits. Many partitions limit memory per CPU (`MaxMemPerCPU`), so a large memory request on one CPU can make Slurm add CPUs to fit it, or reject the job. Other limit settings can leave an over-limit job pending instead, so read what your site does.
 
-Habits that keep requests honest:
+Before a large or repeated job, read the partition's limits (`scontrol show partition <name>`). Afterwards compare what you asked for with what the job used. This command prints one row per job and step:
 
-- Before a large or repeated job, read the partition's limits (`scontrol show partition <name>`) and size the request against them. Pick a number from the limits and from earlier runs.
-- Afterwards compare what you asked for, what was allocated and what was used: `sacct --jobs=<id> --format=JobID,State,ReqMem,AllocCPUS,MaxRSS`. It prints one row per job and step. `ReqMem` is the memory requested, `AllocCPUS` the CPUs allocated and `MaxRSS` the most memory one task used. `MaxRSS` is filled on the step rows such as `.batch`. Keep headroom above it. If `sacct` prints nothing, accounting may be off, so say so and ask your staff.
+```bash
+sacct --jobs=<id> --format=JobID,State,ReqMem,MaxRSS,Elapsed,Timelimit
+```
+
+`ReqMem` is the memory requested, `MaxRSS` the most memory one task used, `Elapsed` the run time and `Timelimit` the time requested. `MaxRSS` is filled on the step rows such as `.batch`. Here is a finished alignment job. The numbers are invented:
+
+| JobID | State | ReqMem | MaxRSS | Elapsed | Timelimit |
+|---|---|---|---|---|---|
+| 123456 | COMPLETED | 32G | | 00:41:10 | 04:00:00 |
+| 123456.batch | COMPLETED | 32G | 9.8G | 00:41:10 | |
+
+The job used 9.8 GB of the 32 GB requested and ran 41 minutes of the 4 hours allowed. For the next run, ask for `--mem=14G` (about 1.4 times `MaxRSS`) and `--time=01:15:00` (about 1.8 times `Elapsed`). In this invented case the extra is headroom for a larger sample. Choose your own margin.
+
 - A job killed for memory can show `OUT_OF_MEMORY` in `State`. `MaxRSS` then understates the need, so raise the request above the failed one.
+- If `sacct` prints nothing, accounting may be off. Ask your staff.
 - If the memory need and the CPU count conflict, ask staff for a partition with a better memory-to-CPU ratio and check with them before using it.
 
 ## Battle: queue manners

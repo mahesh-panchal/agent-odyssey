@@ -104,7 +104,7 @@ claude
 Show me what is in .env.
 ```
 
-Claude cannot read the file with its file tools. Claude Code also applies the rule to shell commands it recognises as file readers, such as `cat .env`. It cannot apply the rule to a program that opens the file itself, such as `python3 -c "print(open('.env').read())"`. The sandbox in the next section is the guard that covers those programs.
+Claude cannot read the file with its file tools. Claude Code also applies the rule to shell commands it recognises as file readers, such as `cat .env`. It cannot apply the rule to a program that opens the file itself, such as `python3 -c "print(open('.env').read())"`. The sandbox in the next section limits what such a program can write and send over the network. By default it can still read `.env`, so keep real secrets out of the folder.
 
 ## 4. The sandbox: the operating system says no
 
@@ -156,7 +156,7 @@ Expected results:
 - `touch`: `Operation not permitted` on macOS, `Read-only file system` on Linux and WSL 2.
 - `curl`: `Could not resolve host`.
 
-Both commands failed because the operating system refused, and no instruction to the model can override that. If Claude offers to run a blocked command outside the sandbox, answer no. If the `touch` succeeded, run `rm ~/sandbox-probe` and check that `/sandbox` is switched on. Run the probes through Claude and not with the `!` prefix, which runs a shell command directly, outside the sandbox.
+Both commands failed because the operating system refused, and no instruction to the model can override that. If Claude offers to run a blocked command outside the sandbox, answer no. If the `touch` succeeded, the sandbox is off. Run `rm ~/sandbox-probe`, switch `/sandbox` on, and do not continue until the `touch` fails. Run the probes through Claude and not with the `!` prefix, which runs a shell command directly, outside the sandbox.
 
 To open one path or domain for a task, add it under `sandbox` in `settings.json`:
 
@@ -184,7 +184,7 @@ For an agent inside a container, Anthropic's reference setup is a **dev containe
 
 ## Clean up
 
-Exit Claude, switch `/sandbox` off if you do not want it on, then:
+Exit Claude and switch `/sandbox` off if you do not want it on. Then delete the probe file and the scratch folder, nothing else:
 
 ```bash
 cd ~ && rm -f ~/sandbox-probe && rm -rf ~/odyssey-scratch/leash

@@ -57,7 +57,7 @@ RAG is one of several ways to get a model to work from your documents. Choose by
 
 | Your situation | Often a better fit |
 |---|---|
-| Whole collection under about 200,000 tokens (roughly 500 pages) | Put it all in the prompt |
+| Whole collection fits your model's window with room to spare (under about 200,000 tokens, roughly 500 pages, for a 200,000-token window) | Put it all in the prompt. A hosted model then receives all of it |
 | Same large documents asked about again and again | Long context with caching |
 | Files you can search by name or exact text | Agent search with `find` and `grep` |
 | Tables and databases (counts, filters, joins) | A query tool: SQL, an API or an MCP server |

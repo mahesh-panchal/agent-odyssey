@@ -51,7 +51,7 @@ When the plan is ready, the agent presents it and asks how to proceed. On your f
 - `No, keep planning`: you say what to change.
 
 ::: {.callout-note}
-At the approval prompt, `Shift+Tab` **approves** the plan. If you want to think, change something or back out, press `Esc` first. To leave plan mode when no prompt is open, press `Shift+Tab`.
+At the approval prompt, `Shift+Tab` **approves** the plan, so press it only when you mean to approve. If you want to think, change something or back out, press `Esc` instead. To leave plan mode when no prompt is open, press `Shift+Tab`.
 :::
 
 Two more details:
@@ -63,7 +63,7 @@ Two more details:
 
 OpenCode has a built-in `plan` agent. It explores and plans without editing normal project files, and it can edit only under its plan directory, `~/.opencode/plan`. That edit restriction is a deny rule, and saved approvals do not override a deny. Its shell commands follow the normal permission rules.
 
-The base policy for every agent allows everything except asking before reading `.env` files, so shell commands can run without a prompt. Check the permission rules in your version before you rely on the `plan` agent.
+The base policy for every agent allows everything except asking before reading `.env` files. So the `plan` agent cannot edit project files, but its shell commands can still change files without a prompt. Check the permission rules in your version before you rely on the `plan` agent.
 
 You can turn the `plan` agent off with `{"agents": {"plan": {"disabled": true}}}`.
 

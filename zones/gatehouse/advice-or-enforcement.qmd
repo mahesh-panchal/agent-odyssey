@@ -30,7 +30,7 @@ The rule of thumb: advice for preferences, a prompt for decisions you want to ma
 |---|---|---|
 | `CLAUDE.md`, Skill text, your prompt | Advises | The model can ignore it. |
 | Permission prompt or `ask` rule | Asks | You must read each prompt. A server listed in a project's `.mcp.json` file (the shared MCP server list) has its own approval prompt, and `-p` runs (non-interactive, one prompt) cannot show it. |
-| `deny` rule | Enforces | Argument matching is fragile. |
+| `deny` rule | Enforces | Matches command text, so a reworded command can slip past. |
 | `PreToolUse` hook, exit 2 | Enforces | Tool calls only; a crash fails open. |
 | Sandbox | Enforces | Off by default; shell commands only. |
 | Git history | Recovers | Prevents nothing. |

@@ -32,7 +32,7 @@ If a site offers one of the most capable closed models with no card and no limit
 1. **Free tier or trial?** A trial ends, and a free tier may too. Several of OpenCode Zen's free models are free for a limited time.
 2. **What are the limits?** Look for requests per day and per minute, and what happens past them. On Cloudflare Workers AI, past the daily allowance further operations fail with an error.
 3. **Is a card or other detail needed?** Some free tiers need a payment method, a phone number or a data opt-in.
-4. **Does the free tier train on your prompts?** This matters most.
+4. **Does the free tier train on your prompts?** This matters most. A provider that keeps nothing is still not approved for sensitive data; the rule below applies to every free tier.
     - Google AI Studio: on unpaid services Google uses submitted content to improve its products, and human reviewers may read it. Paid services differ.
     - Groq: it does not retain inference data (it does not store your prompts and the replies) by default, and may keep logs for up to 30 days.
     - OpenRouter: it does not log prompts by default, and retention varies with the provider behind the model.

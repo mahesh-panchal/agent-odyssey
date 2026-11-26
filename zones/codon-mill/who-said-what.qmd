@@ -22,7 +22,7 @@ When an agent follows a rule, you need to know where that rule came from, becaus
 | **Instructions file** (`CLAUDE.md`) | You or your team | Loaded at the start of every session | Yes |
 | **Your message** | You, now | This task | Yes |
 
-In Claude Code, the system prompt is the set of instructions sent ahead of your conversation on every request: how to use tools, behave safely and format answers. You add to it by starting `claude` with the flag `--append-system-prompt "<text>"`, or replace it with `--system-prompt "<text>"` (a flag is an option typed after the command).
+In Claude Code, the system prompt is the set of instructions sent ahead of your conversation on every request: how to use tools, behave safely and format answers. You add to it by starting `claude` with the flag `--append-system-prompt "<text>"`, or replace it with `--system-prompt "<text>"` (a flag is an option typed after the command). Replacing the prompt removes that built-in guidance, so prefer appending.
 
 `CLAUDE.md` is loaded at the start of every session **as a user message after the system prompt** (text the model receives in the user's role). It sits outside the system prompt. Output-style instructions (a setting that changes how the model words its replies) also sit outside it. Both arrive in the conversation as **system reminders** (extra notes the harness inserts into the conversation, which you do not type).
 

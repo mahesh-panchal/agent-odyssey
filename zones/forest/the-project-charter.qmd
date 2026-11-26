@@ -34,7 +34,7 @@ The file is `AGENTS.md` in the project root (or `~/.config/opencode/AGENTS.md` f
 
 ## What goes in
 
-Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, "never edit `raw/`". Keep it short (aim for under 200 lines per file) because very long instructions are followed less well.
+Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, "never edit `raw/`". Keep each file short, about 200 lines or fewer, because very long instructions are followed less well.
 
 Here is a short example `CLAUDE.md` for a mock RNA-seq project, saved in the project root. All names are invented:
 

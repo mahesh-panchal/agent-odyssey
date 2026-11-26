@@ -61,7 +61,7 @@ OpenCode finds Ollama at `http://127.0.0.1:11434` automatically, so this step is
 
 ## 4. Limit what the agent may do
 
-OpenCode's default policy is **allow everything**, except reading `.env` files, which it asks about. Shell commands run with your user's authority, and the shell is not a sandbox (nothing confines a command to one folder, so a command can touch any file you can). Each rule says `allow` (run without asking), `ask` (prompt you first) or `deny` (never run). A safer start asks about everything first, then allows only what you trust. Add this to the same `opencode.json` file, next to the `providers` block from step 3. **Rules are checked in order and the last match wins:**
+OpenCode's default policy is **allow everything**, except reading `.env` files, which it asks about. Shell commands run with your user's authority, and the shell is not a sandbox (nothing confines a command to one folder, so a command can touch any file you can). Each rule says `allow` (run without asking), `ask` (prompt you first) or `deny` (never run). A safer start puts the ask-everything rule first, then allows only what you trust. A catch-all rule placed later overrides the rules above it, because the last matching rule wins. Add this to the same `opencode.json` file, next to the `providers` block from step 3. **Rules are checked in order and the last match wins:**
 
 ```json
 {

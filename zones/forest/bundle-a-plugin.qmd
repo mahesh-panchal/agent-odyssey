@@ -64,7 +64,7 @@ Before installing or updating a plugin:
 1. Check where it comes from. A marketplace name says who publishes it. Reading the plugin shows what it does.
 2. Read `hooks/hooks.json`, `.mcp.json`, and anything in `bin/`. These are where code lives.
 3. In a session, `/plugin` shows what will be installed. `claude --plugin-dir <dir> plugin details <name>` prints a list of the plugin's components without starting a session.
-4. Remember that auto-update can change files you reviewed. Pin a `version` for plugins you publish.
+4. Remember that auto-update can change files you reviewed, so re-read a plugin after each update. Pin a `version` for plugins you publish.
 
 ## When a team shares Skills
 

@@ -12,7 +12,7 @@ The Citadel gate is shared by hundreds of travellers, and the gatekeeper has see
 - **Time:** about 15 minutes.
 :::
 
-You need this before an agent touches a cluster: it will run a command that is harmless on your laptop and slow for everyone on a shared machine. This quest sets where an agent may run work and how widely it may search. Ask your cluster staff before running an agent on the login node. Some sites forbid agents on login nodes altogether, so follow your cluster's user guide where it differs from this page. This quest is read-only, so read it on your laptop.
+You need this before an agent touches a cluster: it will run a command that is harmless on your laptop and slow for everyone on a shared machine. This quest sets where an agent may run work and how widely it may search. Ask your cluster staff before running an agent on the login node. Some sites forbid agents on login nodes altogether, so follow your cluster's user guide where it differs from this page. Read this quest on your laptop. On the cluster, run its dry checks on small trees only, or inside a job.
 
 ## Login node versus compute node
 
@@ -20,9 +20,7 @@ Everyone who logs in shares the login node. The scheduler places your jobs on co
 
 An agent does not know which node it is on or what your site tolerates. It will run a long command if you let it, so you set the rule. It also misjudges "this will only take a few seconds", so tell it to ask when a command's cost is unclear.
 
-Some sites allow agents only inside an interactive compute allocation (a job that gives you a shell on a compute node), and some run a different scheduler with its own commands. If a scheduler command is missing, ask staff and skip near-matches.
-
-A long-running helper process left on the login node, even one that only hands tasks to the scheduler, is not always allowed. Check your site's policy first.
+Some sites allow agents only inside an interactive compute allocation (a job that gives you a shell on a compute node). If a scheduler command is missing, ask staff.
 
 If the agent has a question for you and you are away, a good agent stops and lists its open questions. Ask for that in your instructions: do the steps that need no answer, stop, and list the questions.
 
@@ -34,8 +32,6 @@ Claude Code's search tools (Glob, Grep) are not a filesystem-load control; scope
 
 ## The scheduler's four commands
 
-Four Slurm commands cover most of it:
-
 | Command | What it does |
 |---|---|
 | `sbatch` | submit a job script; returns a job ID |
@@ -43,19 +39,30 @@ Four Slurm commands cover most of it:
 | `squeue` | report the state of jobs |
 | `scancel` | cancel a pending or running job |
 
-`sbatch --test-only` validates a script and estimates a start time. No job is submitted, so it works as a dry run. Slurm's default time limit is the partition's default (a partition is a named group of compute nodes with its own limits), so set limits in the script. Put these lines at the top of the job script:
+Slurm's default time limit is the partition's default (a partition is a named group of compute nodes with its own limits), so set limits in the script. This job script aligns one sample. The job and file names are invented:
 
 ```bash
-#SBATCH --time=02:00:00
-#SBATCH --mem=8G
-#SBATCH --cpus-per-task=4
+#!/bin/bash
+#SBATCH --job-name=align-s1        # name shown in squeue
+#SBATCH --time=02:00:00            # wall-clock limit: 2 hours
+#SBATCH --mem=8G                   # memory for the whole job
+#SBATCH --cpus-per-task=4          # CPUs for the one task
+#SBATCH --output=align-s1-%j.log   # log file; %j becomes the job ID
+
+bwa mem -t 4 ref.fa sample1_R1.fq.gz sample1_R2.fq.gz > sample1.sam
 ```
 
-They ask for 2 hours, 8 GB of memory and 4 CPUs for the task. Use a job array (one script submitted as many numbered tasks, such as `--array=1-100`) for many similar tasks. Write options in their long form (`--ntasks` for `-n`) so you can read what the agent proposes.
+Save it as `script.sh` and run the dry check:
+
+```bash
+sbatch --test-only script.sh
+```
+
+`--test-only` validates the script and estimates a start time. No job is submitted, so the check works as a dry run. Submit with `sbatch script.sh` yourself after you read the script. Use a job array (one script submitted as many numbered tasks, such as `--array=1-100%10`, which runs at most ten tasks at a time) for many similar tasks. Write options in their long form (`--ntasks` for `-n`) so you can read what the agent proposes.
 
 Slurm counts what you allocate, whatever you use. A partition's memory-per-CPU limit (`MaxMemPerCPU`) can make Slurm raise the CPU count to fit a large memory request, or reject the job. For example, `--mem=120G` with `MaxMemPerCPU=4000` (MB) can become about 31 CPUs. Afterwards compare request, allocation and use with `sacct` (the command that reports what finished jobs requested and used).
 
-Scratch space holds throwaway files. Ask your staff where the project's scratch is, tell the agent, and use it instead of `/tmp`, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one, and copy results to the project directory before the job ends. A set `$TMPDIR` (the variable that names the temporary directory) does not prove you are on scratch, because a site can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
+Scratch space holds throwaway files. Ask your staff where the project's scratch is, tell the agent, and use it instead of `/tmp`, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one. Write throwaway files to scratch, and write final outputs straight to the project directory or copy them there before the job ends. A set `$TMPDIR` (the variable that names the temporary directory) does not prove you are on scratch, because a site can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
 
 ## Look before you copy or delete
 
@@ -63,7 +70,7 @@ Find out what a copy or a delete will touch before it touches anything.
 
 - Run `rsync --dry-run --itemize-changes` first, with the same arguments, and read the list. A dry run lists what would change and changes nothing.
 - Check that the list matches your request. Look for keys, `.env` files and personal data. Look for a `*deleting` line that removes something you wanted to keep.
-- Run a new dry run after any change to the options. Run it where the real run will run, because it reads the whole tree.
+- Run a new dry run after any change to the options. Run it where the real run will run, because it reads the whole tree. On a big tree, run the dry run inside a job.
 - `cp`, `scp` and `rm` have no dry run. List the exact path or glob and delete only those names.
 - `--exclude` skips files without a word. `rsync --delete` and `rm --recursive` also remove what is inside a directory, so list and dry-run those too.
 - Do not copy from or delete a directory that a running job writes to.
@@ -88,7 +95,7 @@ Tell the agent where it may run what, in your project instructions or the prompt
 
 Instructions are guidance, and the agent can still slip. If a project instruction file (`AGENTS.md` or `CLAUDE.md`) is stricter than these lines, the stricter one wins.
 
-Foreground commands time out (default 2 minutes, maximum 10 by default), so a long-running foreground command in the agent's shell is cut off anyway.
+Foreground commands time out (default 2 minutes, maximum 10 by default), A timeout is not a load control: a heavy command still runs until it is cut off.
 
 ## OpenCode + Ollama
 

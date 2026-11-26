@@ -26,6 +26,14 @@ Every file it reads and every tool output then adds more. With the API (programm
 
 Sizes depend on the model, up to 1 million tokens for some and 200 thousand for others. A big window gives room for more text; quality depends on what fills it.
 
+## What the model stores while it writes
+
+To write each new token, the model looks back at every earlier token in the window. Redoing that work for the whole window at every step would be slow, so the model keeps the results. For each earlier token it stores numbers computed from that token (called its **keys** and **values**) in a store named the **KV cache** (key-value cache). Each new token adds one entry, and the model reuses the rest.
+
+The KV cache sits in the memory of the machine that runs the model. It grows with every token in the window, so a longer window needs more memory.
+
+The KV cache is separate from the **prompt cache**, a provider feature that makes a repeated start of your prompt cheaper to process. The KV cache belongs to the model. The prompt cache belongs to the bill.
+
 ## Bigger is not better
 
 As the token count grows, accuracy and recall degrade. This is called **context rot**. Anthropic's docs give no token count at which it starts, so check the source of any figure you see.
@@ -104,4 +112,5 @@ An agent a session starts for you can start large. A subagent started from a bri
 - [Context windows](https://platform.claude.com/docs/en/build-with-claude/context-windows): Anthropic, docs. Why read: it states what counts toward the window and names context rot, the page's own warning that more context is not better.
 - [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: it explains why long contexts degrade and why curating what goes in matters; compaction trade-offs are discussed.
 - [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it says CLAUDE.md and auto memory are context, which is why they take up room in the window.
+- [KV Caching Explained](https://huggingface.co/blog/not-lain/kv-caching): Hafedh Hichri (Hugging Face), article. Why read: a step-by-step picture of what the model stores and reuses for each token. It shows one attention head and does not cover the prompt cache.
 :::

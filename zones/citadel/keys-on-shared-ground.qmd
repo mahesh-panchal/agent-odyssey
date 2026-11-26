@@ -12,37 +12,58 @@ Your home directory lies on ground that others can reach. Keys, tokens and agent
 - **Time:** about 15 minutes.
 :::
 
-You need this before you run an agent under your cluster account: keys and agent settings live in ordinary files, and on a shared cluster other people may be able to read them. It covers Claude Code only, and keeping them private and keeping data within its agreement. Ask your cluster staff before sending any cluster data to an external model API, and follow your institution's data agreement. This quest is read-only, so read it on your laptop.
+You need this before you run an agent under your cluster account: keys and agent settings live in ordinary files, and on a shared cluster other people may be able to read them. It covers Claude Code only, and keeping them private and keeping data within its agreement. Ask your cluster staff before sending any cluster data to an external model API, and follow your institution's data agreement. Step 1 below checks your cluster home, so run it on the cluster. Steps 2 and 3 are safe to practise on your laptop.
 
 ## What lives where
 
 Claude Code keeps sessions, settings and plugins in the folder `~/.claude`. It also writes the file `~/.claude.json`, which holds account details, MCP configuration (the list of external tool servers you connected) and trust decisions. The environment variable `CLAUDE_CONFIG_DIR` moves the `~/.claude` folder elsewhere.
 
-If your home directory is shared across nodes, session history sits on shared storage and can contain pasted data or paths. Check who can read the folder:
+If your home directory is shared across nodes, session history sits on shared storage and can contain pasted data or paths. Three commands check and fix this.
 
-```bash
-ls -ld ~/.claude
-```
+1. Check who can read the folder:
 
-Safe looks like `drwx------`: only you can read, write or enter it. Any `r` or `x` in the last six characters means a group or other users can get in. Fix it with `chmod 700 ~/.claude`. To see what the output looks like, make a folder in a scratch location, run `chmod 700` on it, and run `ls -ld` on it. Also ask whether home is backed up or group-readable.
+   ```bash
+   ls -ld ~/.claude
+   ```
+
+   Safe looks like `drwx------`: only you can read, write or enter the folder. Any `r` or `x` in the last six characters lets a group or other users in. Fix it with `chmod 700 ~/.claude`.
+
+2. Practise the key-file mode on a throwaway file. In a scratch folder, make a stand-in file and lock it to you:
+
+   ```bash
+   mkdir -p ~/odyssey-scratch/keys-demo && cd ~/odyssey-scratch/keys-demo && touch demo_key && chmod 600 demo_key && ls -l demo_key
+   ```
+
+   `ls -l` shows `-rw-------` at the start of the line: you can read and write the file and nobody else can.
+
+3. Block the agent's file-read tool from your SSH keys. Add this to `~/.claude/settings.json` (merge it with any `permissions` block you already have):
+
+   ```json
+   {
+     "permissions": {
+       "deny": ["Read(~/.ssh/**)"]
+     }
+   }
+   ```
+
+   `Read(...)` is the rule for the file-read tool. `~/` anchors the path at your home directory, and `**` matches everything below `.ssh`.
 
 Two settings files are yours to control: user `~/.claude/settings.json` (all your projects) and project `.claude/settings.json` (commit it for the team). Managed settings (settings an organisation sets for everyone) override both, so your site may already have decided some of this.
 
 ## Keys
 
 - `ANTHROPIC_API_KEY`, when set, overrides a subscription login. In `-p` mode (one prompt, no interactive session) it is always used, and interactive mode asks you once to approve it. If a key is exported in a shared profile, the key in use may not be the one you expect.
-- Never put a key in a script or in a committed `.claude/settings.json`. On a shared account, use a per-user key kept in a file readable only by you (mode 600, set with `chmod 600 <file>`; `ls -l` then shows `-rw-------`), and keep a lab-wide key out of shared directories.
-- The sandbox's default reads cover most of the machine, including credential files such as `~/.ssh` and `~/.aws/credentials`. The sandbox is the restricted environment Claude Code runs shell commands in. To block key files, add a `Read(...)` deny rule (a permission rule that stops the agent's file-read tool, such as `Read(~/.ssh/**)`) and the `sandbox.filesystem.denyRead` setting (a list of paths the sandbox hides from shell commands). The sandbox covers shell commands only, so you need both.
+- Never put a key in a script or in a committed `.claude/settings.json`. On a shared account, use a per-user key kept in a file readable only by you (mode 600, as in step 2), and keep a lab-wide key out of shared directories.
+- The sandbox's default reads cover most of the machine, including credential files such as `~/.ssh` and `~/.aws/credentials`. The sandbox is the restricted environment Claude Code runs shell commands in. To block key files, add the `Read(...)` deny rule from step 3 and the `sandbox.filesystem.denyRead` setting (a list of paths the sandbox hides from shell commands). The sandbox covers shell commands only, so you need both.
 
-`apiKeyHelper` is a Claude Code setting that runs a shell script you provide and uses the key it returns, so the key need not sit in a file. This page covers Claude Code only. For OpenCode, read your version's docs on where it stores keys before you use it on a shared account.
+`apiKeyHelper` is a Claude Code setting that runs a shell script you provide and uses the key it returns, so the key need not sit in a file. For OpenCode, read your version's docs on where it stores keys before you use it on a shared account.
 
 ## Data and egress
 
 - Before any cluster data, paths, logs or code go to an external model API, check your institution's policy. Human genomic, clinical or controlled-access data often has agreements that forbid third-party processing.
-- Reading files inside the working directory is approved without asking, so the agent can read a project folder that holds controlled data unless a `Read(...)` deny rule or `sandbox.filesystem.denyRead` covers it. Keep controlled data outside the agent's working directory and give the agent synthetic or de-identified test data.
+- Reading files inside the working directory is approved without asking, so the agent can read a project folder that holds controlled data unless a `Read(...)` deny rule or `sandbox.filesystem.denyRead` covers it. Keep controlled data off every path the agent can reach: outside its working directory, or under a `Read` deny rule and `sandbox.filesystem.denyRead`. Give the agent synthetic or de-identified test data.
 - Some sites restrict internet access from compute nodes, so an agent there may not reach a model API. Ask staff what outbound access your jobs have. A common pattern is the agent on your laptop writing scripts, with jobs running offline.
-- A plain `ssh` from inside the Claude Code sandbox cannot reach another host.
-- The sandbox's `network.allowedDomains` starts empty, so unlisted hosts prompt (in the default modes).
+- The sandbox's `network.allowedDomains` starts empty, so a shell command that reaches an unlisted host prompts you. The sandbox does not cover file tools, MCP servers or hooks.
 
 ::: {.panel-tabset group="companion"}
 

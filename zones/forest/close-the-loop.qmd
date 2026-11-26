@@ -18,7 +18,7 @@ Once you have a Skill, you need a way to know it works. Sooner or later the agen
 
 An **eval** (short for evaluation) is a repeatable check of how well an AI system does a task. It is the AI version of a unit test, with one difference. Ordinary code gives the same output for the same input, so a test can assert one answer. A model can answer the same prompt differently each time, so you run the check several times and ask how often, and how well, it does the job.
 
-Trying a few favourite prompts and judging whether it "feels better" is a quick start but a weak habit. A new model, a new prompt or a new Skill can help one task and hurt another, and you will not see it from a handful of tries. An eval runs the same cases every time, so a change shows up as a number you can compare.
+Trying a few favourite prompts and judging whether it "feels better" is a weak habit. A new model, prompt or Skill can help one task and hurt another, and a handful of tries will not show it. An eval runs the same cases every time, so a change shows up as a number.
 
 An eval has three parts:
 
@@ -56,14 +56,20 @@ The number that matters is the **difference** between *with* and *without*. The 
 
 Evals can be wrong too. A check that always passes, or that fails correct answers, tells you little. Read a few raw outputs by hand before trusting a score.
 
-## Four habits before you rely on an agent setup
-
-- **Known answers:** test on cases where you already know the right answer.
-- **Repeat:** run each case several times, since one pass can be luck.
-- **Write down failures:** keep a list of the failure modes you see.
-- **Test again:** repeat the tests when the tool, the model or your task changes.
-
 When a model does the grading, a judge from the same family (made by the same developer, so it may share the same blind spots) as the model being judged is not an independent grader. Check a sample of its marks by hand against reference answers fixed in advance.
+
+## A worked eval
+
+The Skill `check-fasta` counts the records in a FASTA file and lists duplicated header lines, using `grep -c '>' FILE` and `grep '>' FILE | sort | uniq -d`. Here are four cases for it. The prompts, file names and the planted duplicate are invented examples. Each case runs with the Skill and without it. The transcript is the saved record of a run: the commands the agent ran and its reply.
+
+| Case | Prompt (example) | Deterministic grader | Pass rule |
+|---|---|---|---|
+| 1. Skill fires | "I got a new file, `reads.fa`. Is it OK to use?" | The transcript shows the `check-fasta` Skill loaded. | Present |
+| 2. Duplicate | "Check `isolates.fa` before I align it." The file has the header `>iso7` twice. | The reply names `iso7`. | Named |
+| 3. Empty file | "Check `empty.fa`." The file has no records. | The transcript shows the `grep -c` command, and the reply says 0 records. | Both |
+| 4. Skill stays out | "What is a FASTA header line?" | The transcript shows no `check-fasta` Skill load. | Absent |
+
+A case passes when every grader in its row passes. Run each case several times, then compare the pass rate with the Skill against the pass rate without it. Case 1 checks only that the Skill fires, so its gap proves nothing. Cases 2 and 3 carry the comparison, and they should score higher with the Skill. Case 4 should score high both ways, and a drop with the Skill means it fires when it should not.
 
 <div data-ao-honour="loop-notes" data-xp="20">Keep a short list of the times an agent went wrong for you. Each entry is a candidate Skill and a ready-made eval case.</div>
 

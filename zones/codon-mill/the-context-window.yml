@@ -18,6 +18,13 @@ questions:
       - { text: "Quality usually rises steadily until the window is full", misconception: "The docs describe accuracy and recall degrading as context grows." }
       - { text: "Nothing changes, since the model weighs all tokens equally", misconception: "The docs describe degradation, so equal weighing is a risky assumption." }
   - type: choice
+    prompt: "What does the KV cache hold while a model writes a long reply?"
+    explain: "The model stores numbers (keys and values) computed from each earlier token and reuses them, so it does not redo that work at every step. The store grows with the window. The prompt cache is a separate, provider-side feature."
+    options:
+      - { text: "Numbers computed from earlier tokens, reused for each new token", correct: true }
+      - { text: "A saved copy of your prompt that the provider bills at a lower rate", misconception: "That describes the prompt cache. The KV cache belongs to the model." }
+      - { text: "The files in your project, kept in memory between sessions", misconception: "Project files enter the window only when the agent reads them." }
+  - type: choice
     prompt: "You told the agent a rule once early in a long session, and after compaction it is ignored. What is the most likely reason?"
     explain: "The docs say detailed instructions from early in the conversation may be lost when history is summarised. Rules that must last belong in the instructions file."
     options:
@@ -25,7 +32,7 @@ questions:
       - { text: "The model refuses rules it has been given only once", misconception: "The cause is the window: the text is no longer in it." }
       - { text: "The instructions file was deleted by the compaction", misconception: "The project-root instructions file is supplied again after compaction." }
   - type: order
-    prompt: "Put these steps in order for a session that is getting heavy. Each step builds on the one before."
+    prompt: "Put these steps in order for a session that is getting heavy. Each step builds on the one before, and the last applies only once your next task is unrelated."
     explain: "Measuring comes first, since you can only trim what you can see. Trimming the biggest source comes before compacting, so the summary has less to carry. Clearing comes last because it discards everything, which fits once the next task is unrelated."
     items:
       - "Measure what is using the window"

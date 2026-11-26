@@ -43,6 +43,11 @@
 
     function paint() {
       var h = "<h2>Continue the journey</h2>";
+      var battle = document.querySelector("[data-ao-test]");
+      if (battle && !battle.id) battle.id = "ao-battle";
+      if (quest && !onFinale && battle && !passed(quest.id)) {
+        h += "<p class='ao-uncleared'>This quest is not cleared yet. <a href='#ao-battle'>Pass its Battle</a> to clear it. A location opens on the map when its quests are cleared.</p>";
+      }
       if (quest && !onFinale) {
         var s = P.nextSteps(quest.id);
         var rec = s.recommended.filter(function (r) { return !passed(r.id); });

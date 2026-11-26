@@ -32,7 +32,7 @@ Instructions from early in a long conversation can get lost, and the whole conve
 For each new thought, ask in this order. The key question is step 2: **do you want the answer or the work during this session?** If not, park it. If you do, steps 3 to 6 are the ways to get it.
 
 1. **Does it block the current task?** Do it now, in this session.
-2. **Do you not want the answer or the work this session?** Park it: write one line in a file and carry on. Parked ideas leave through the "later session" exit: once the current task is done, pick from the file.
+2. **Do you want the answer or the work in this session? If not,** park it: write one line in a file and carry on. Parked ideas leave through the "later session" exit: once the current task is done, pick from the file.
 3. **You want it now: is it a quick question you do not need on record?** Use `/btw <question>`. It sees the conversation so far, has no tool access (it cannot read files, run commands or look at `--help`) and adds nothing to the history. So it suits questions about this conversation. An answer about a tool's flags or defaults comes from the model's memory: verify it against `--help` or the docs.
 4. **You want it now: is it exploration where you only need a summary?** Ask for a subagent (the built-in Explore helper is a fast read-only searcher), or use `/subtask <task>`, which starts a background helper that inherits the whole conversation and returns its result here.
 5. **You want it now: is it a competing approach you want to try for real?** Use `/branch [name]` to copy the conversation (the original stays reachable via `/resume`), or start a second session in its own worktree with `claude --worktree <name>`.
@@ -44,7 +44,7 @@ For each new thought, ask in this order. The key question is step 2: **do you wa
 | "Maybe a stricter QC threshold would help" | Parking-lot line | You do not want the answer this session; no cost to the context |
 | "Which sample did we exclude earlier?" | `/btw` | One answer from the conversation; no tools; stays out of the history |
 | "Where is the aligner configured across the repo?" | Explore subagent or `/subtask` | Heavy reading stays out of your main context; you get a summary |
-| "Try the other aligner and compare" | `/branch` or `claude --worktree <name>` | A real attempt that can fail without spoiling the main path |
+| "Try the other aligner and compare" | `/branch` or `claude --worktree <name>` | A real attempt that can fail. `/branch` keeps the history apart, and only a worktree keeps the files apart, so commit first |
 | "Redo the plots for the other project" (you want to start it now) | Commit, then `/clear` or a new named session | Different task, different files, different context |
 
 ## What a worktree shares

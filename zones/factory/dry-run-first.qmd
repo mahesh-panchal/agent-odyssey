@@ -30,7 +30,7 @@ Check in layers, cheapest first:
 
 ## Nextflow
 
-`nextflow run main.nf -stub-run` runs each process's `stub:` block instead of the real script, so the wiring is exercised quickly. `-resume` reuses cached results for tasks whose inputs and script are unchanged. A process **without** a `stub:` block runs its real script even under `-stub-run`, so check every process before you rely on it being fast and harmless: search the pipeline for `stub:` blocks, then run `-stub-run` on the small input and look for any process that takes real time or fails. Stub-run results are cached separately from real runs, so a real `-resume` starts fresh.
+`nextflow run main.nf -stub-run` runs each process's `stub:` block instead of the real script, so the wiring is exercised quickly. `-resume` reuses cached results for tasks whose inputs and script are unchanged. A process **without** a `stub:` block runs its real script even under `-stub-run`, so run `-stub-run` only on the tiny input, and check every process before you rely on it being fast and harmless: search the pipeline for `stub:` blocks, then run `-stub-run` on the small input and look for any process that takes real time or fails. Stub-run results are cached separately from real runs, so a real `-resume` starts fresh.
 
 :::
 

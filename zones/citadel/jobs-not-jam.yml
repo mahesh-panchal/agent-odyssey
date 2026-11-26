@@ -19,7 +19,7 @@ questions:
       - { text: "Fully, provided the rule is in the user settings file", misconception: "File location sets scope and leaves strength unchanged. The matching limitation applies everywhere." }
       - { text: "Not at all, because deny only matches the first command of a compound line", misconception: "Ask and deny rules apply to every part of a compound command. The weakness is differently spelled commands, and a compound line changes nothing." }
   - type: choice
-    prompt: "An agent is told to `/loop` a `squeue` check every 30 seconds for an overnight run. What is the main problem?"
+    prompt: "An agent is told to `/loop` a `squeue` check every 30 seconds for an overnight run. Which cost adds up on every poll, even while the session sits idle?"
     explain: "Each firing sends the full context again and keeps spending tokens, even when the session is idle. A sleep-style loop at that rate also hits the scheduler, so prefer sbatch --wait or a poll about once a minute."
     options:
       - { text: "Every poll resends the whole conversation and costs tokens", correct: true }

@@ -16,7 +16,13 @@ An instructions file is read every session. A **Skill** is a procedure loaded on
 
 ## What a Skill is
 
-A Skill is a folder with a `SKILL.md` file. Only each Skill's short `description` is preloaded. The body is read when the Skill is used. A Skill can also bundle scripts and other files. In Claude Code, both you (by name, such as `/check-fasta`) and the agent (by matching the description) can start one.
+A Skill is a folder with a `SKILL.md` file, in an open format called Agent Skills, so other tools that follow the format can load the same folder. A Skill loads in three steps, which keeps the context window (the text the model can see at once) small:
+
+1. At session start the agent sees only each Skill's `name` and short `description`. The format's specification puts this at about 100 tokens per Skill.
+2. When a task matches, the agent reads the body of `SKILL.md`. The specification recommends keeping it under 5,000 tokens.
+3. Bundled scripts and reference files are read only when the body points to them.
+
+ In Claude Code, both you (by name, such as `/check-fasta`) and the agent (by matching the description) can start one.
 
 ::: {.panel-tabset group="companion"}
 
@@ -76,17 +82,18 @@ Two slash commands help you look:
 - `/skills` lists the skills the agent can see, and `t` sorts them by token count.
 - `/skill-doctor` shows each skill's context cost (how much of the context its text takes up) and how often it is used, and flags skills that sit in the listing but are never invoked. It excludes bundled and enterprise skills.
 
-In Claude Code, `allowed-tools` in a Skill **pre-approves** tools for that turn (one prompt and its reply). Other tools stay available to the agent. A Skill offers no sandbox, and a Skill you download is code you choose to trust, so read it before installing it, as you would read a script.
+In Claude Code, `allowed-tools` in a Skill **pre-approves** tools for that turn (one prompt and its reply). It restricts nothing: other tools still ask as usual. A Skill offers no sandbox, and a Skill you download is code you choose to trust, so read it before installing it, as you would read a script.
 
 ## Design the Skill like a small job
 
 - **One Skill, one job.** Give it a defined **input** (what it is handed, such as a FASTA path) and a defined **output** (what it must return, such as a count and a list of duplicate IDs). If the description needs "and also", split it into two Skills.
 - **Say when to use it and what evidence to report** (the commands run and their output), so a reviewer can see what happened.
+- **Write only what the agent would get wrong without you.** For each line, ask whether the agent would make a mistake if the line were missing. If not, cut the line. A short list of gotchas (for example "a FASTA header may contain spaces") earns its place.
 - **Start from a task you keep explaining,** such as confirming a FASTQ file has no truncated records.
 - **A Skill describes the method.** The tool that runs it supplies the tools, credentials and permissions. "Submit this to the cluster" brings no cluster account with it.
 - **Use an application when you need more.** Work that needs a stable interface, shared state, an audit trail or permissions enforced from outside, such as a lab's shared sample-tracking service, suits an **application** (a separate program with its own tests and access rules).
 
-For portability: both Claude Code and OpenCode read `.claude/skills`, so one `SKILL.md` can serve both. After installing, verify in **each client** (the tool that runs the agent, such as Claude Code or OpenCode) you use:
+For portability: both Claude Code and OpenCode read `.claude/skills`, so one `SKILL.md` can serve both. The open format requires a `name` and a `description`, while Claude Code treats both as optional. Write both. Make the `name` match the folder name (lowercase letters, digits and hyphens, up to 64 characters), and keep the `description` under 1,024 characters. After installing, verify in **each client** (the tool that runs the agent, such as Claude Code or OpenCode) you use:
 
 - Does it trigger on the right request?
 - Does it load the files the Skill refers to?
@@ -116,7 +123,8 @@ Clients differ in models, tools and permissions, so a Skill that works in one ca
 *Further reading. Optional.*
 
 - [Extend Claude with skills](https://code.claude.com/docs/en/skills): Anthropic, docs. Why read: the reference for SKILL.md fields, where skills live and how to confirm one loaded.
-- [Agent Skills Overview](https://agentskills.io): Agent Skills, docs. Why read: the open format behind SKILL.md and how skills load in stages.
+- [Agent Skills specification](https://agentskills.io/specification): Agent Skills, docs. Why read: the open format behind SKILL.md, its required fields and limits, and how skills load in stages.
+- [Best practices for skill creators](https://agentskills.io/skill-creation/best-practices): Agent Skills, docs. Why read: how to decide what a skill should contain, with a test for each line.
 - [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices): Anthropic, docs. Why read: practical rules for descriptions, size and structure.
 - [Skills](https://opencode.ai/docs/skills/): OpenCode, docs. Why read: it lists where OpenCode looks for skills, including the shared .claude/skills path.
 - [Build once, run on any agent: a practical guide to agent skills](https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/): Andrea Griffiths, GitHub Blog, article. Why read: a vendor article with advice on one job per Skill, naming inputs and outputs, reporting evidence and knowing when not to use a Skill.

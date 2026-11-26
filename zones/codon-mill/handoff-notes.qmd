@@ -12,7 +12,7 @@ A fresh session knows nothing about your task except what loads by itself or is 
 - **Time:** about 15 minutes.
 :::
 
-You stop work on Friday with a half-finished refactor. On Monday you open a new **session** (one conversation with the agent, which has its own **context**: the text it can see right now). Each session begins with a fresh context window and no memory of what came before, so the new session does not know your goal, what you tried, or what you checked.
+You stop work on Friday with a half-finished refactor. On Monday you open a new **session** (one conversation with the agent, which has its own **context**: the text it can see right now). Each session begins with a fresh context window and no conversation history from before, so the new session does not know your goal, what you tried, or what you checked.
 
 You need this lesson now because a fresh session is where the earlier lessons' habits pay off: whatever it should know has to cross the gap in writing.
 

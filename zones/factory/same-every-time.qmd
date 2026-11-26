@@ -16,12 +16,33 @@ You need this before you put a model inside a pipeline. A pipeline earns trust b
 
 Keep the LLM out of the run when you can. Use it to write a script, then test the script and run the script. Ask the LLM for the script, read it, run it on a small input where you know the answer, and fix it until the output matches. The script behaves the same every time and you can review it.
 
-If an LLM call really must be a step (tidying messy free-text labels, say), contain it:
+If an LLM call really must be a step, contain it. Take an example: assigning a sample-type label to free-text metadata such as "liver carcinoma biopsy". The function wraps the call, and `call_model` is a stub for the model call.
 
-- **Record** the model name and version, and the exact prompt, with the outputs. A **pinned** model (one fixed version, not "latest") may still return different text, so recording is a start.
-- **Cache** results keyed by input (save each output under a name made from its input, and reuse it on a re-run), so a re-run does not change them silently.
-- **Validate** each output against a fixed set (a species list, or a **schema**: a written description of the allowed fields and values) and fail loudly when it does not match.
-- **Keep a human-check sample**: look at a random handful every time.
+```python
+import hashlib, json, logging, pathlib
+
+MODEL, PROMPT_VERSION = "model-x-2026-01", "v3"   # example values
+LABELS = {"tumour", "normal", "cell line", "unknown"}
+CACHE = pathlib.Path("cache")
+
+def label_sample(text):
+    key = hashlib.sha256(f"{MODEL}|{PROMPT_VERSION}|{text}".encode()).hexdigest()
+    path = CACHE / f"{key}.json"
+    if path.exists():                                  # 1. cache
+        return json.loads(path.read_text())["label"]
+    label = call_model(text).strip().lower()
+    if label not in LABELS:                            # 2. validate
+        raise ValueError(f"bad label {label!r} for {text!r}")
+    logging.warning("model=%s prompt=%s input=%s label=%s", MODEL, PROMPT_VERSION, key[:12], label)  # 3. log
+    CACHE.mkdir(exist_ok=True)
+    path.write_text(json.dumps({"label": label}))
+    return label
+```
+
+- **Cache:** the file name is a hash of the model name, the prompt version and the input, so a re-run reads the saved label, and a new model or prompt version asks again.
+- **Validate:** the reply must be one of a fixed set of labels, and anything else stops the run.
+- **Log:** each fresh call records the model name, the prompt version and a short fingerprint of the input. Pin the model (one fixed version, not "latest"), though a pinned model may still return different text.
+- **Keep a human-check sample:** look at a random handful on every run.
 - **Keep restricted data away from external models.** Data you may not share must not reach an outside API (a service your code calls over the network).
 
 ## Battle: reproducible runs
