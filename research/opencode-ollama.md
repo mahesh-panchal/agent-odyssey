@@ -25,3 +25,5 @@ RUN locally with `opencode run -m ollama/ministral-3:8b` in scratch folders (Ope
 NOT RUN: the interactive prompt and `Shift+Tab` (needs the full interface), `qwen3:4b` (not pulled; the lesson's example model), Windows, Linux.
 
 Secrets page, OpenCode note (2026-11-26): `opencode session list|delete|export` exist (`opencode session --help`); the local `opencode.db` has session, message and part tables (table names only were listed). "Allow always" saving project allow rules is from the permissions page (summary). Default retention of OpenCode sessions was NOT found.
+
+Context Window hands-on, OpenCode route (2026-11-26): RAN `opencode run -m ollama/ministral-3:8b "Say hello..."` then `ollama ps`: columns NAME, ID, SIZE, PROCESSOR, CONTEXT, RUNNER, UNTIL; the 6 GB model showed SIZE 42 GB at CONTEXT 262144 on 100% GPU, so SIZE includes memory for the window. NOT run: a smaller context for comparison.

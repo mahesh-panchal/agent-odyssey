@@ -21,14 +21,14 @@ trunk_order:
   - basecamp-three-kinds-of-machine
   - basecamp-know-your-gear
   - basecamp-wade-in
-  - codon-mill-tokens-not-letters
-  - codon-mill-where-machines-fail
-  - codon-mill-the-context-window
   - crypt-shield-of-undo
   - kennel-recruit-the-beast
   - crypt-test-the-leash
   - crypt-rules-of-the-carapace
   - crypt-secrets-and-sensitive-ground
+  - codon-mill-tokens-not-letters
+  - codon-mill-where-machines-fail
+  - codon-mill-the-context-window
   - maze-spot-the-mirage
   - maze-ground-truth
   - maze-keep-a-paper-trail
@@ -98,9 +98,23 @@ gates:
          { id: kennel-claude-in-the-cloud, after: [kennel-recruit-the-beast, crypt-secrets-and-sensitive-ground], suggested: [], branch: companions, trunk: false, optional: false, title: "Claude in the Cloud", page: zones/kennel/claude-in-the-cloud.html,
            story: "A tower stands far from the Kennel, where the Beast can work on a borrowed machine that vanishes when the job is done. It is a fine place for sketching and writing, and the kennel master's patter makes it sound fit for anything.",
            done: "You send scripts and documents to the cloud, keep data and analysis at home, and know what leaves your machine when you do." } ] }
+  C: { id: crypt,    name: "Ancient DNA Crypt",     track: "Armour",     status: open,
+       quests: [
+         { id: crypt-shield-of-undo, after: [basecamp-wade-in], suggested: [], branch: trunk, trunk: true, optional: false, title: "Save Point", page: zones/crypt/shield-of-undo.html,
+           story: "The first seal in the Crypt is a mark on the floor that you can step back to. Soon you will send a companion ahead into the dark, and stone will shift as it rewrites half your corridor in a few heartbeats.",
+           done: "The first seal cracks. You have a save point: any change can now be reversed." },
+         { id: crypt-test-the-leash, after: [kennel-recruit-the-beast], suggested: [crypt-shield-of-undo], branch: trunk, trunk: true, optional: false, title: "Test the Leash", page: zones/crypt/test-the-leash.html,
+           story: "The Beast has fallen in beside you, strong and willing, and it wants to run ahead. At the Crypt door the warden hands you a short leash and a feather.",
+           done: "You have seen an agent ask, refuse and be refused by the operating system, and you know which guard did which." },
+         { id: crypt-rules-of-the-carapace, after: [crypt-test-the-leash], suggested: [kennel-adopt-the-pet], branch: trunk, trunk: true, optional: false, title: "Grow the Carapace", page: zones/crypt/rules-of-the-carapace.html,
+           story: "Deeper in the Crypt, bare skin is not enough, and the Beast does not stop for a door it was never told about. The warden shows you how to grow a carapace: a hard shell of rules about what the Beast may touch.",
+           done: "A carapace hardens over you. Your companions can now only do what your rules allow." },
+         { id: crypt-secrets-and-sensitive-ground, after: [crypt-rules-of-the-carapace], suggested: [], branch: trunk, trunk: true, optional: false, title: "The Locked Cabinet", page: zones/crypt/secrets-and-sensitive-ground.html,
+           story: "In the deepest chamber of the Crypt lie sealed relics: keys, tokens and samples bound by special agreements. The Beast pads in behind you, curious, and its nose is already at the nearest seal.",
+           done: "Your visor closes. Keys and sensitive ground stay out of reach, and you know where the agreement lives." } ] }
   L: { id: codon-mill, name: "The Codon Mill", track: "Foundations", status: open,
        quests: [
-         { id: codon-mill-tokens-not-letters, after: [basecamp-wade-in], suggested: [], branch: trunk, trunk: true, optional: false, title: "Tokens, Not Letters", page: zones/codon-mill/tokens-not-letters.html,
+         { id: codon-mill-tokens-not-letters, after: [crypt-secrets-and-sensitive-ground], suggested: [], branch: trunk, trunk: true, optional: false, title: "Tokens, Not Letters", page: zones/codon-mill/tokens-not-letters.html,
            story: "The miller's wheel turns before the machine reads a single word, and everything you feed it comes out as small chunks. The kennel master swore his companion reads letter by letter, so you handed it a sequence and asked it to count the Gs.",
            done: "You know the machine reads chunks, so counting letters and reading sequences exactly are jobs for a script." },
          { id: codon-mill-where-machines-fail, after: [codon-mill-tokens-not-letters], suggested: [], branch: trunk, trunk: true, optional: false, title: "Where Machines Fail", page: zones/codon-mill/where-machines-fail.html,
@@ -136,20 +150,6 @@ gates:
          { id: codon-mill-llm-wiki, after: [codon-mill-rag-and-its-cousins], suggested: [], branch: memory, trunk: false, optional: true, title: "Keep a Living Wiki", page: zones/codon-mill/llm-wiki.html,
            story: "A scribe in the mill keeps a ledger that tidies itself. Each new sack of papers is read once, and every page it touches is updated and cross-linked before the scribe sleeps.",
            done: "You can describe the three layers and three jobs of an agent-kept wiki, you have matched it to a use of your own, and you know where it can mislead you." } ] }
-  C: { id: crypt,    name: "Ancient DNA Crypt",     track: "Armour",     status: open,
-       quests: [
-         { id: crypt-shield-of-undo, after: [basecamp-know-your-gear], suggested: [codon-mill-the-context-window], branch: trunk, trunk: true, optional: false, title: "Save Point", page: zones/crypt/shield-of-undo.html,
-           story: "The first seal in the Crypt is a mark on the floor that you can step back to. Soon you will send a companion ahead into the dark, and stone will shift as it rewrites half your corridor in a few heartbeats.",
-           done: "The first seal cracks. You have a save point: any change can now be reversed." },
-         { id: crypt-test-the-leash, after: [kennel-recruit-the-beast], suggested: [crypt-shield-of-undo], branch: trunk, trunk: true, optional: false, title: "Test the Leash", page: zones/crypt/test-the-leash.html,
-           story: "The Beast has fallen in beside you, strong and willing, and it wants to run ahead. At the Crypt door the warden hands you a short leash and a feather.",
-           done: "You have seen an agent ask, refuse and be refused by the operating system, and you know which guard did which." },
-         { id: crypt-rules-of-the-carapace, after: [crypt-test-the-leash], suggested: [kennel-adopt-the-pet], branch: trunk, trunk: true, optional: false, title: "Grow the Carapace", page: zones/crypt/rules-of-the-carapace.html,
-           story: "Deeper in the Crypt, bare skin is not enough, and the Beast does not stop for a door it was never told about. The warden shows you how to grow a carapace: a hard shell of rules about what the Beast may touch.",
-           done: "A carapace hardens over you. Your companions can now only do what your rules allow." },
-         { id: crypt-secrets-and-sensitive-ground, after: [crypt-rules-of-the-carapace], suggested: [], branch: trunk, trunk: true, optional: false, title: "The Locked Cabinet", page: zones/crypt/secrets-and-sensitive-ground.html,
-           story: "In the deepest chamber of the Crypt lie sealed relics: keys, tokens and samples bound by special agreements. The Beast pads in behind you, curious, and its nose is already at the nearest seal.",
-           done: "Your visor closes. Keys and sensitive ground stay out of reach, and you know where the agreement lives." } ] }
   M: { id: maze,     name: "Sequence Maze",         track: "Trust",      status: open,
        quests: [
          { id: maze-spot-the-mirage, after: [codon-mill-where-machines-fail], suggested: [], branch: trunk, trunk: true, optional: false, title: "Spot the Mirage", page: zones/maze/spot-the-mirage.html,

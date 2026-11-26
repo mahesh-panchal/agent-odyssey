@@ -3,12 +3,12 @@ title: "The Context Window"
 ---
 
 ::: {.ao-story}
-A great hopper above the mill holds everything the machine can see at once. You watch your companion work, quick and willing, while the grain piles up around it. Pour in too much and the oldest grain spills out unseen, and the companion never knows what it lost. Learn what goes into the hopper and how to keep it clean. Beyond this stop the road turns toward the Crypt, where you will make ways to undo mistakes.
+A great hopper above the mill holds everything the machine can see at once. You watch your companion work, quick and willing, while the grain piles up around it. Pour in too much and the oldest grain spills out unseen, and the companion never knows what it lost. Learn what goes into the hopper and how to keep it clean. Beyond this stop the road turns toward the Maze, where you learn to check what the machine tells you.
 :::
 
 ::: {.quest-dialog}
 - **Goal:** you will say what fills the context window, what happens when it is full, and three habits that keep it useful.
-- **Before you start:** [Tokens, Not Letters](tokens-not-letters.html). A token is a chunk of text the model reads.
+- **Before you start:** [Tokens, Not Letters](tokens-not-letters.html), and an installed agent from [Recruit the Beast](../kennel/recruit-the-beast.html). A token is a chunk of text the model reads.
 - **Time:** about 20 minutes.
 :::
 
@@ -71,11 +71,24 @@ Check OpenCode's documentation for how it compacts and how it reports window usa
 
 A fresh session is not empty: the items above load first, so every session has a starting size. Measure yours:
 
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
 1. Start a new session (`claude`) and run `/context` before you type anything else.
 2. Read the table by category. The starting load is the system prompt, system tools, MCP server instructions, memory files and skills. **Messages** is the conversation, and it should be close to zero.
 3. Look at the MCP and tool lines marked deferred. Their figures say how many tokens they would take if all were loaded. Only their names are in the window until a tool is needed.
 4. Note the largest starting item and whether you chose it. Fewer MCP servers, plugins and skills, or a shorter instructions file, lower it.
 5. Open a long session you already have and run `/context` there. The difference is the part a fresh start removes.
+
+## OpenCode + Ollama
+
+1. Send one short message: `opencode run -m ollama/qwen3:4b "Say hello in one sentence."`
+2. While the model is loaded (Ollama keeps it for a few minutes), run `ollama ps` in a second terminal.
+3. Read two columns. **CONTEXT** is the window the server set aside, in tokens. **SIZE** is the memory the loaded model uses, and it includes the working memory for that window.
+4. A larger CONTEXT needs a larger SIZE. If your model spills onto the CPU, the PROCESSOR column says so.
+
+:::
 
 An agent a session starts for you can start large. A subagent started from a brief begins with that brief. A forked agent (an option in some tools) inherits the whole conversation, so it starts as large as the session that spawned it. A new session or agent that opens with a high count is worth checking with `/context` before you work in it.
 

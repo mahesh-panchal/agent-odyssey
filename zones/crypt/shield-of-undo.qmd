@@ -8,7 +8,7 @@ The first seal in the Crypt is a mark on the floor that you can step back to. So
 
 ::: {.quest-dialog}
 - **Goal:** you will make any change reversible before an agent touches it.
-- **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html), a terminal and `git` (the version control tool). A **commit** is a saved snapshot of your project; a **tracked** file is one git already follows.
+- **Before you start:** [Wade In](../basecamp/wade-in.html), a terminal and `git` (the version control tool). A **commit** is a saved snapshot of your project; a **tracked** file is one git already follows.
 - **Time:** about 10 minutes.
 :::
 
