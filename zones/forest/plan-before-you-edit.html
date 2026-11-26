@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>A surveyor walks the branch before the axe swings. A wrong cut on paper costs a line; a wrong cut on the tree costs the branch. The foresters keep a rule: no one cuts until the cut has been drawn, read aloud and questioned. You are about to learn how to draw one.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will ask an agent for a plan before it edits, review that plan like a reviewer, and know what a plan can and cannot guarantee.</li>
@@ -117,12 +120,12 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="why-plan-first" class="level2">
 <h2 class="anchored" data-anchor-id="why-plan-first">Why plan first</h2>
-<p>A wrong plan costs you a paragraph to read and reject. A wrong 400-line <strong>diff</strong> (the list of lines a change added and removed) costs you the time to review it, and the longer it is, the more likely you approve something you did not understand. A plan is the cheapest piece to ask for first. Ask for small pieces, and accept only as much output as you can honestly review.</p>
+<p>A wrong plan costs you a paragraph to read and reject. A wrong 400-line <strong>diff</strong> (the list of lines a change added and removed) costs you the time to review it, and the longer it is, the more likely you approve something you did not understand. A plan is the cheapest piece to ask for first. You do this before the agent changes anything that matters. Ask for small pieces, and accept only as much output as you can honestly review.</p>
 <p>Use plan mode for changes you want to review before they touch disk.</p>
 </section>
 <section id="how-plan-mode" class="level2">
 <h2 class="anchored" data-anchor-id="how-plan-mode">How: plan mode</h2>
-<p>Words used below:</p>
+<p>Terms used in the tabs below:</p>
 <ul>
 <li><strong>Session:</strong> one conversation with the agent.</li>
 <li><strong>Shell commands:</strong> commands you would type in a terminal, such as <code>ls</code> or <code>git status</code>.</li>
@@ -239,8 +242,8 @@ Review the plan the agent proposes for your next real task with the checklist be
 Ask for the plan to be saved to a file in your project, and open the file to check it matches what you approved.
 </div>
 </section>
-<section id="battle-the-plan" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-plan">Battle: the plan</h2>
+<section id="battle-plan-before-you-edit" class="level2">
+<h2 class="anchored" data-anchor-id="battle-plan-before-you-edit">Battle: plan before you edit</h2>
 <div data-ao-test="forest-plan-before-you-edit" data-xp="50">
 
 </div>
@@ -274,7 +277,7 @@ Ask for the plan to be saved to a file in your project, and open the file to che
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

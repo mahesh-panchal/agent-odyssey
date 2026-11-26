@@ -143,6 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>At the forest’s edge a satchel waits to be packed with the smith’s finest Skills and their tests. Whatever you carry, others will unpack, and whatever you unpack from another traveller’s satchel runs with your own authority. Pack with care, and open with more.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will package Skills (and their evals) as a plugin, validate it, and see why installing one is a trust decision.</li>
@@ -204,8 +207,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Turn the Skill you wrote into a plugin folder with a <code>plugin.json</code>, then run <code>claude plugin validate</code> on it and read the output.
 </div>
 </section>
-<section id="battle-the-plugin" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-plugin">Battle: the plugin</h2>
+<section id="battle-bundle-a-plugin" class="level2">
+<h2 class="anchored" data-anchor-id="battle-bundle-a-plugin">Battle: bundle a plugin</h2>
 <div data-ao-test="forest-bundle-a-plugin" data-xp="60">
 
 </div>
@@ -239,7 +242,7 @@ Turn the Skill you wrote into a plugin folder with a <code>plugin.json</code>, t
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>On the workbench at Basecamp sit three machines. One does the same thing every time, one was trained for a single task, and one talks. A traveller who picks the wrong one wastes the day. Learn what each is for, and the next stop will show what they wear when they set out.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will tell apart a deterministic program, a trained model and an LLM, and pick the right one for a job.</li>
@@ -115,18 +118,18 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 10 minutes.</li>
 </ul>
 </div>
+<p>Before you pick a tool for a job, you need to know what kinds exist. Tools differ in how predictable they are and in how you check them.</p>
 <section id="three-kinds" class="level2">
 <h2 class="anchored" data-anchor-id="three-kinds">Three kinds</h2>
 <ul>
 <li><strong>A deterministic program</strong> (a script, <code>awk</code>, <code>samtools</code>): the same input always gives the same output, and you can read why. Use it whenever the rule is known.</li>
 <li><strong>A trained model</strong> (a classifier, a gene-finder, a structure predictor): learned from data to do <strong>one task</strong>, with measured accuracy on that task. It is the predictive side of AI: it forecasts from past data and gives you an estimate to act on. Use it when the rule is unknown but the task is narrow and validated.</li>
-<li><strong>A large language model (LLM)</strong>: trained on large amounts of text, then tuned to follow instructions. It is the generative side of AI: it produces new content (text, code, images) that you review, flexible and fluent, with no built-in guarantee of correctness. Use it where the task is open-ended and you can check the result, such as drafting, explaining, or writing a first version of code that you then test.</li>
+<li><strong>A large language model (LLM)</strong>: trained on large amounts of text, then tuned to follow instructions. ChatGPT and Claude are LLMs. It is the generative side of AI: it produces new content (text, code, images) that you review, flexible and fluent, with no built-in guarantee of correctness. Use it where the task is open-ended and you can check the result, such as drafting, explaining, or writing a first version of code that you then test.</li>
 </ul>
-<p>The line between the last two is not clean. An LLM can be asked to classify, and some generative models predict structure or sequences. Judge a tool by the task you give it and how you will check the result. For a forecast, a simpler predictive model usually does the job more cheaply than a generative one.</p>
-<p>Two common mistakes: using an LLM to do something a one-line script does exactly (slow, costly, and sometimes wrong), and trusting a model outside the task it was validated for.</p>
-<p>An LLM can also be called <strong>inside a script</strong> (for example to tidy free-text labels). That makes your pipeline non-deterministic, so the result needs its own checks and the exact model and version recorded.</p>
-<p>Before you reach for an agent or a large model, ask whether a script, a fixed workflow or a smaller specialised model does the job. A method that fits the task is often cheaper to run and easier to reproduce, and it does not change when a provider updates a hosted model. Keep the large model for the open-ended steps.</p>
-<p>Fine-tuning a model on your own examples suits only some tasks.</p>
+<p>The line between the last two is not clean. An LLM can be asked to classify, and some generative models predict structure or sequences. Judge a tool by the task you give it and how you will check the result. For a forecast, a predictive model usually costs less than a generative one.</p>
+<p>Two common mistakes: using an LLM for something a one-line script does exactly (slow, costly, and sometimes wrong), and trusting a model outside the task it was validated for.</p>
+<p>An LLM can also be called <strong>inside a script</strong> (for example to tidy free-text labels). That makes your pipeline non-deterministic (the same input may give different output), so the result needs its own checks and the exact model and version recorded.</p>
+<p>Before you reach for an agent or a large model, ask whether a script, a fixed workflow or a smaller specialised model does the job. A method that fits the task is often cheaper to run and easier to reproduce. A hosted model (one that runs on a provider’s servers) can change when the provider updates it. Keep the large model for the open-ended steps. Fine-tuning (further training a model on your own examples) suits only some tasks.</p>
 </section>
 <section id="what-a-model-can-do-on-its-own" class="level2">
 <h2 class="anchored" data-anchor-id="what-a-model-can-do-on-its-own">What a model can do on its own</h2>
@@ -157,11 +160,11 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td>Generating tags, short creative writing</td>
-<td>Writing code (a small on-device model)</td>
+<td>Writing code (for a small model that runs on your own device)</td>
 </tr>
 </tbody>
 </table>
-<p>Harder tasks become possible once the model can call tools or produce structured output. That is the idea behind an agent: the model reads and writes, and a harness gives it tools (a shell, a file editor, a script runner) for the parts it finds hard. Counting and arithmetic are good work to hand to a script.</p>
+<p>Harder tasks become possible once the model can call tools or produce structured output. That is the idea behind an agent: the model reads and writes, and the program around it (called the harness) gives it tools, such as a shell, a file editor and a script runner, for the parts it finds hard. Counting and arithmetic are good work to hand to a script.</p>
 </section>
 <section id="battle-pick-the-right-machine" class="level2">
 <h2 class="anchored" data-anchor-id="battle-pick-the-right-machine">Battle: pick the right machine</h2>
@@ -198,7 +201,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

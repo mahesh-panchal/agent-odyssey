@@ -143,6 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>A watchman stands at the heavy door and checks every visitor against a list. The list is code, so no one can talk their way past. Learn to write one line of that list.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will write a hook that refuses a command, and know where a hook’s coverage ends.</li>
@@ -150,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>A <strong>hook</strong> is a user-defined handler that runs automatically at a set point in the harness’s lifecycle. In Claude Code it can be a shell command, an HTTP endpoint and other kinds, and it receives JSON about the event. An instructions file asks the model to behave. A command hook is ordinary code that the harness runs, so what it decides does not depend on what the model wants.</p>
+<p>Advice can be ignored, and a hook cannot. A <strong>hook</strong> is a user-defined handler that the harness runs automatically at a set point, such as just before a tool runs. In Claude Code it can be a shell command, an HTTP endpoint and other kinds, and it receives JSON about the event. An instructions file asks the model to behave. A command hook is ordinary code that the harness runs, so what it decides does not depend on what the model wants.</p>
 <section id="a-hook-that-refuses" class="level2">
 <h2 class="anchored" data-anchor-id="a-hook-that-refuses">A hook that refuses</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
@@ -184,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>The V2 docs describe plugins (files under <code>.opencode/plugins/</code> or <code>~/.config/opencode/plugins/</code>) that can register hooks. To refuse an action, use the permission hook, <code>ctx.permission.hook("evaluate", ...)</code>: it runs for <code>allow</code> and <code>ask</code> decisions, may change the effect to <code>allow</code>, <code>ask</code> or <code>deny</code>, and <code>event.message</code> is the denial reason. An explicit configured <code>deny</code> is final and never invokes the hook.</p>
+<p>OpenCode’s V2 docs describe plugins (files under <code>.opencode/plugins/</code> or <code>~/.config/opencode/plugins/</code>) that can register hooks. To refuse an action, use the permission hook, <code>ctx.permission.hook("evaluate", ...)</code>: it runs for <code>allow</code> and <code>ask</code> decisions, may change the effect to <code>allow</code>, <code>ask</code> or <code>deny</code>, and <code>event.message</code> is the denial reason. An explicit configured <code>deny</code> is final and never invokes the hook.</p>
 <p>Treat an OpenCode plugin as code running with your privileges. Before relying on it, check your installed version’s docs for shell-hook configuration and an exit-code equivalent, and test whether throwing from a tool hook blocks a call. Test the whole setup with your local Ollama model too.</p>
 </div>
 </div>
@@ -199,8 +202,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Hooks run with your full permissions.</strong> Command hooks “execute shell commands with your full user permissions”, so review and test them before adding them.</li>
 </ul>
 </section>
-<section id="one-door-for-the-high-stakes-actions" class="level2">
-<h2 class="anchored" data-anchor-id="one-door-for-the-high-stakes-actions">One door for the high-stakes actions</h2>
+<section id="one-checkpoint-for-high-stakes-actions" class="level2">
+<h2 class="anchored" data-anchor-id="one-checkpoint-for-high-stakes-actions">One checkpoint for high-stakes actions</h2>
 <p>If an agent can reach something with real-world consequences, such as ordering DNA synthesis or commanding physical equipment, put a screening checkpoint in the path that refuses dual-use requests (requests where the same capability can help or harm). Do not connect an agent to such a capability without one. Test the checkpoint with requests you know it should refuse. A hook is one possible checkpoint for local actions, with the limits listed above.</p>
 </section>
 <section id="a-hook-in-a-repository-is-code-you-did-not-write" class="level2">
@@ -211,8 +214,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 In a throwaway folder with mock files, add the Bash-blocking hook above and ask for a harmless command that contains “drop table” in an <code>echo</code>. Note the stderr message the agent reports. Then change the script to exit 1 and see what happens.
 </div>
 </section>
-<section id="battle-the-watchman" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-watchman">Battle: the watchman</h2>
+<section id="battle-hooks-that-refuse" class="level2">
+<h2 class="anchored" data-anchor-id="battle-hooks-that-refuse">Battle: hooks that refuse</h2>
 <div data-ao-test="gatehouse-guard-the-door" data-xp="50">
 
 </div>
@@ -246,7 +249,7 @@ In a throwaway folder with mock files, add the Bash-blocking hook above and ask 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

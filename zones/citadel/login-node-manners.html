@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>The Citadel gate is shared by hundreds of travellers, and the gatekeeper has seen what one careless sweep of the whole library does to everyone’s queue. You arrive with an agent that has never heard of manners. Before it takes one step inside, teach it where it may work and how widely it may search.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will keep heavy work and sprawling searches off the shared login node and shared storage, and hand heavy work to the scheduler.</li>
@@ -115,18 +118,18 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>Ask your cluster staff before running an agent on the login node. Some sites forbid agents on login nodes altogether, so follow your cluster’s user guide where it differs from this page. This quest is read-only, so read it on your laptop.</p>
+<p>An agent will run a command that is harmless on your laptop and slow for everyone on a shared machine. This quest sets where an agent may run work and how widely it may search. Ask your cluster staff before running an agent on the login node. Some sites forbid agents on login nodes altogether, so follow your cluster’s user guide where it differs from this page. This quest is read-only, so read it on your laptop.</p>
 <section id="login-node-versus-compute-node" class="level2">
 <h2 class="anchored" data-anchor-id="login-node-versus-compute-node">Login node versus compute node</h2>
 <p>Everyone who logs in shares the login node. The scheduler places your jobs on compute nodes. Light work (editing text, <code>git</code>, listing one directory, checking a log with <code>head</code> or <code>tail</code>) is normally fine on the login node. Heavy work belongs on compute nodes: aligners, long foreground pipelines, compressing or indexing big files, building large environments, or running a test suite at scale.</p>
 <p>An agent does not know which node it is on or what your site tolerates. It will run a long command if you let it, so you set the rule. It also misjudges “this will only take a few seconds”, so tell it to ask when a command’s cost is unclear.</p>
-<p>Some sites allow agents only inside an interactive compute allocation, and some run a different scheduler with its own commands. If a scheduler command is missing, ask staff and skip near-matches.</p>
+<p>Some sites allow agents only inside an interactive compute allocation (a job that gives you a shell on a compute node), and some run a different scheduler with its own commands. If a scheduler command is missing, ask staff and skip near-matches.</p>
 <p>A long-running helper process left on the login node, even one that only hands tasks to the scheduler, is not always allowed. Check your site’s policy first.</p>
 <p>If the agent has a question for you and you are away, a good agent stops and lists its open questions. Ask for that in your instructions: do the steps that need no answer, stop, and list the questions.</p>
 </section>
 <section id="shared-storage-prefers-scoped-searches" class="level2">
 <h2 class="anchored" data-anchor-id="shared-storage-prefers-scoped-searches">Shared storage prefers scoped searches</h2>
-<p>Network filesystems can slow down for everyone when something touches huge numbers of files. Agents explore by searching, so a careless <code>find /</code> or a recursive <code>grep -r</code> from your home or project root is the classic mistake. Ask for searches scoped to one known directory, and keep them away from <code>/</code>. The same goes for <code>du</code>, <code>ls --recursive</code>, <code>ls --format=long</code> (it stats every file) and wide globs on big directories, and avoid making many small files in one directory. Keep the agent to your own project paths: other users’ or other projects’ paths are off limits unless you named them or the site documents them as shared (reference data).</p>
+<p>Network filesystems can slow down for everyone when something touches huge numbers of files. Agents explore by searching, so a careless <code>find /</code> or a recursive <code>grep -r</code> from your home or project root is the classic mistake. Ask for searches scoped to one known directory, and keep them away from <code>/</code>. The same goes for <code>du</code>, <code>ls --recursive</code>, <code>ls --format=long</code> (it reads the details of every file) and wide globs on big directories, and avoid making many small files in one directory. Keep the agent to your own project paths: other users’ or other projects’ paths are off limits unless you named them or the site documents them as shared (reference data).</p>
 <p>Claude Code’s search tools (Glob, Grep) are not a filesystem-load control; scope the search yourself.</p>
 </section>
 <section id="the-schedulers-four-commands" class="level2">
@@ -160,18 +163,18 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <p><code>sbatch --test-only</code> validates a script and estimates a start time. No job is submitted, so it works as a dry run. Slurm’s default time limit is the partition’s default, so set limits in the script.</p>
 <p>Set <code>--time</code>, <code>--mem</code> and <code>--cpus-per-task</code>, and use a job array for many similar tasks. Write options in their long form (<code>--dry-run</code> for <code>-n</code>) so you can read what the agent proposes.</p>
-<p>Slurm bills by what you allocate, whatever you use. A memory request can change how many CPUs Slurm allocates, because partitions limit memory per CPU (<code>MaxMemPerCPU</code>). Above that limit Slurm may raise the CPU count to fit, or reject the job. Read the partition’s limits, and afterwards compare request, allocation and use with <code>sacct</code>.</p>
-<p>Scratch space holds throwaway files. Ask your staff where the project’s scratch is, tell the agent, and use it instead of <code>/tmp</code>, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one, and copy results to the project directory before the job ends. A set <code>$TMPDIR</code> does not prove you are on scratch, because Slurm can set it to <code>/tmp</code>. Scripts, logs and final outputs stay in the project directory.</p>
+<p>Slurm counts what you allocate, whatever you use. A memory request can change how many CPUs Slurm allocates, because partitions limit memory per CPU (<code>MaxMemPerCPU</code>). Above that limit Slurm may raise the CPU count to fit, or reject the job. Read the partition’s limits, and afterwards compare request, allocation and use with <code>sacct</code>.</p>
+<p>Scratch space holds throwaway files. Ask your staff where the project’s scratch is, tell the agent, and use it instead of <code>/tmp</code>, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one, and copy results to the project directory before the job ends. A set <code>$TMPDIR</code> (the variable that names the temporary directory) does not prove you are on scratch, because Slurm can set it to <code>/tmp</code>. Scripts, logs and final outputs stay in the project directory.</p>
 </section>
 <section id="look-before-you-copy-or-delete" class="level2">
 <h2 class="anchored" data-anchor-id="look-before-you-copy-or-delete">Look before you copy or delete</h2>
-<p>Find out what a copy or a delete will touch before it touches anything. Run <code>rsync --dry-run --itemize-changes</code> first, with the same arguments, and read the list. Does it match your request? Does it hold keys, <code>.env</code> files or personal data? Does a <code>*deleting</code> line remove something you wanted to keep? <code>cp</code>, <code>scp</code> and <code>rm</code> have no dry run, so list the exact path or glob and delete only those names. Any change to the options needs a new dry run. Do not copy from or delete a directory that a running job writes to. Before you delete a source you copied, repeat the copy as a dry run with <code>--checksum</code> and delete only if the list is empty. Options such as <code>--exclude</code> skip files without a word. <code>rsync --delete</code> and <code>rm --recursive</code> also remove what is inside a directory, so list and dry-run those too. The dry run reads the whole tree like the real run, so run it where the real run will run. Send large transfers through the scheduler or the site’s data-transfer node.</p>
+<p>Find out what a copy or a delete will touch before it touches anything. Run <code>rsync --dry-run --itemize-changes</code> first (a dry run lists what would change and changes nothing), with the same arguments, and read the list. Does it match your request? Does it hold keys, <code>.env</code> files or personal data? Does a <code>*deleting</code> line remove something you wanted to keep? <code>cp</code>, <code>scp</code> and <code>rm</code> have no dry run, so list the exact path or glob and delete only those names. Any change to the options needs a new dry run. Do not copy from or delete a directory that a running job writes to. Before you delete a source you copied, repeat the copy as a dry run with <code>--checksum</code> and delete only if the list is empty. Options such as <code>--exclude</code> skip files without a word. <code>rsync --delete</code> and <code>rm --recursive</code> also remove what is inside a directory, so list and dry-run those too. The dry run reads the whole tree like the real run, so run it where the real run will run. Send large transfers through the scheduler or the site’s data-transfer node (a machine set aside for moving files).</p>
 </section>
 <section id="what-the-agents-sandbox-covers" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-agents-sandbox-covers">What the agent’s sandbox covers</h2>
 <ul>
 <li>Claude Code’s sandbox covers shell commands only. File tools, MCP servers and hooks run outside it.</li>
-<li>It fails open by default: if it cannot start, commands run <strong>without</strong> sandboxing, unless <code>sandbox.failIfUnavailable</code> is <code>true</code>.</li>
+<li>If it cannot start, commands run <strong>without</strong> sandboxing by default. Setting <code>sandbox.failIfUnavailable</code> to <code>true</code> stops that.</li>
 <li>On Linux it needs <code>bubblewrap</code> and <code>socat</code>. You usually cannot install packages system-wide on a cluster, so ask staff whether they are installed.</li>
 <li>Check that the sandbox is on before you rely on it.</li>
 </ul>
@@ -232,7 +235,7 @@ Find your cluster’s user guide page on login-node rules (or ask the staff). Wr
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

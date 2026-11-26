@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>A hunter’s log hangs from a branch of the great tree: every time the machine went astray, a note of what was asked and what went wrong. Most hunters read it once and forget. The careful ones turn each entry into a small test, so the same mistake cannot return unnoticed.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will turn “it did the wrong thing” into a measured fix, and know when the fix has stopped working.</li>
@@ -186,8 +189,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Evals can be wrong too. A check that always passes, or that fails correct answers, tells you little. Read a few raw outputs by hand before trusting a score.</p>
 </section>
-<section id="four-habits-before-you-rely-on-a-tool" class="level2">
-<h2 class="anchored" data-anchor-id="four-habits-before-you-rely-on-a-tool">Four habits before you rely on a tool</h2>
+<section id="four-habits-before-you-rely-on-an-agent-setup" class="level2">
+<h2 class="anchored" data-anchor-id="four-habits-before-you-rely-on-an-agent-setup">Four habits before you rely on an agent setup</h2>
 <ul>
 <li><strong>Known answers:</strong> test on cases where you already know the right answer.</li>
 <li><strong>Repeat:</strong> run each case several times, since one pass can be luck.</li>
@@ -199,8 +202,8 @@ ul.task-list li input[type="checkbox"] {
 Keep a short list of the times an agent went wrong for you. Each entry is a candidate Skill and a ready-made eval case.
 </div>
 </section>
-<section id="battle-the-loop" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-loop">Battle: the loop</h2>
+<section id="battle-close-the-loop" class="level2">
+<h2 class="anchored" data-anchor-id="battle-close-the-loop">Battle: close the loop</h2>
 <div data-ao-test="forest-close-the-loop" data-xp="60">
 
 </div>
@@ -234,7 +237,7 @@ Keep a short list of the times an agent went wrong for you. Each entry is a cand
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

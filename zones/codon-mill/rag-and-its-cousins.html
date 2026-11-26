@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>Travellers keep asking the miller about books that will never fit in the hopper. Some say to fetch a few pages when a question comes, some to draw a web of names, and some to fetch nothing at all. The miller listens to each and asks what is actually being looked for. Before choosing, learn what each way fetches and what it misses.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will explain what retrieval-augmented generation (RAG) is, tell apart its main kinds, and choose between RAG and the other ways of answering questions from a pile of documents.</li>
@@ -117,8 +120,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="why-anyone-brings-rag-up" class="level2">
 <h2 class="anchored" data-anchor-id="why-anyone-brings-rag-up">Why anyone brings RAG up</h2>
-<p>A model knows what it learned in training. It has not read your lab’s protocols, last month’s run logs or the paper that came out last week. You can paste documents into the prompt, but the context window (the text the model can see at once) is finite, and a long prompt costs money and time.</p>
-<p><strong>RAG</strong> is the idea of looking things up first. A program searches your documents for the passages most likely to matter, pastes only those into the prompt, and asks the model to answer from them. The name comes from a 2020 paper that paired a generator with a vector index of Wikipedia. The recipe most people mean today is a later, simpler version of that idea.</p>
+<p>This quest helps you pick a method before you build anything, because each method costs time and can fail in a different way. A model knows what it learned in training. It has not read your lab’s protocols, last month’s run logs or the paper that came out last week. You can paste documents into the prompt, but the context window (the text the model can see at once) is finite, and a long prompt costs money and time.</p>
+<p><strong>RAG</strong> (retrieval-augmented generation) is the idea of looking things up first. A program searches your documents for the passages most likely to matter, pastes only those into the prompt, and asks the model to answer from them. The name comes from a 2020 paper that paired a generator with a vector index of Wikipedia. The recipe most people mean today is a later, simpler version of that idea.</p>
 </section>
 <section id="simple-rag-in-four-steps" class="level2">
 <h2 class="anchored" data-anchor-id="simple-rag-in-four-steps">Simple RAG in four steps</h2>
@@ -133,10 +136,10 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="a-tour-of-the-types" class="level2">
 <h2 class="anchored" data-anchor-id="a-tour-of-the-types">A tour of the types</h2>
-<p>Names overlap and new ones appear every month. Each type answers the question: what goes wrong with simple RAG, and what did someone add to fix it?</p>
+<p>Each type below answers one question: what goes wrong with simple RAG, and what did someone add to fix it?</p>
 <ul>
 <li><strong>Simple RAG:</strong> chunk, embed, top-k, answer. It suits a pile of prose where one or two passages answer each question, and it is cheap to build and update. It struggles with questions that need several passages or the whole collection, since only the top k chunks arrive.</li>
-<li><strong>Improved RAG:</strong> add-ons around the same pipeline. Keyword search (BM25, a classic word-matching score) runs next to embeddings. A reranker (a second model that re-sorts the retrieved chunks) follows. A short context line is added to each chunk before embedding. The question is rewritten, or a made-up answer is drafted first (HyDE) to search with. Together they raise the chance the right chunk comes back: adding context, BM25 and a reranker cut top-20 retrieval failures from 5.7% to 1.9% in one reported test. Each add-on is another part to tune, and HyDE’s drafted answer is unreal and may contain false details.</li>
+<li><strong>Improved RAG:</strong> add-ons around the same pipeline. Keyword search (BM25, a classic word-matching score) runs next to embeddings. A reranker (a second model that re-sorts the retrieved chunks) follows. A short context line is added to each chunk before embedding. The question is rewritten, or a made-up answer is drafted first (HyDE) to search with. In one reported test, adding context, BM25 and a reranker cut top-20 retrieval failures from 5.7% to 1.9%. Each add-on is another part to tune, and HyDE’s drafted answer may contain false details.</li>
 <li><strong>Graph RAG (Microsoft):</strong> before any question, an LLM reads every chunk and extracts entities and relationships into a knowledge graph (things as nodes, links between them as edges). It groups the graph into communities and writes a summary of each. It suits questions about the whole collection, such as “what are the main themes?”. Indexing is slow and costly: the paper reports 281 minutes for a roughly 1-million-token corpus with GPT-4 Turbo, and the docs warn it can consume a lot of LLM resources.</li>
 <li><strong>LightRAG:</strong> also builds an entity graph with an LLM, but skips the communities. A query is turned into keywords, matched against entities and relations, and the neighbours are added. New documents merge into the graph without a rebuild. Modes run from plain chunks (<code>naive</code>) to graph-based (<code>local</code>, <code>global</code>, <code>hybrid</code>, <code>mix</code>). It needs a stronger model than plain RAG: its README calls a 30B-parameter model “a reasonable minimum” for local use.</li>
 <li><strong>Tree RAG (RAPTOR):</strong> clusters chunks and summarises them in layers, so a question can match a detail or a summary. It suits long documents where the answer may be a broad theme, and it adds another LLM build step.</li>
@@ -220,13 +223,13 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>The index goes stale.</strong> Anything you indexed last month does not know about today’s edits until you rebuild it.</li>
 </ul>
 </section>
-<section id="with-a-companion" class="level2">
-<h2 class="anchored" data-anchor-id="with-a-companion">With a companion</h2>
+<section id="choose-your-setup" class="level2">
+<h2 class="anchored" data-anchor-id="choose-your-setup">Choose your setup</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Claude Code finds things in a project with search tools such as glob and grep rather than a vector index you maintain. If you want RAG over your own papers, you build it yourself or connect a tool for it, and then everything in the risks list above applies.</p>
+<p>Claude Code finds things in a project with search tools such as glob (match file names) and grep (match text) rather than a vector index you maintain. If you want RAG over your own papers, you build it yourself or connect a tool for it, and then everything in the risks list above applies.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>With Ollama you can run both halves locally: an embedding model for retrieval and a chat model for the answer.</p>
@@ -234,8 +237,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="battle-the-lookup" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-lookup">Battle: the lookup</h2>
+<section id="battle-choose-a-method" class="level2">
+<h2 class="anchored" data-anchor-id="battle-choose-a-method">Battle: choose a method</h2>
 <div data-ao-test="codon-mill-rag-and-its-cousins" data-xp="60">
 
 </div>
@@ -284,7 +287,7 @@ Estimate whether your own collection of notes would fit in a 200,000-token windo
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

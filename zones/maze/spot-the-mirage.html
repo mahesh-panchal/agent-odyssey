@@ -108,17 +108,20 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>The maze walls shimmer. Some corridors are real, and some are Mirages: passages that look exactly right and lead nowhere. A guide cannot tell them apart by their look, only by walking them. Learn what a false corridor looks like, and how to test one.</p>
+</div>
 <div class="quest-dialog">
 <ul>
-<li><strong>Goal:</strong> you will learn how plausible-but-false output looks, and check it without asking the thing that produced it.</li>
+<li><strong>Goal:</strong> you will recognise plausible-but-false output (a hallucination), and check it without asking the model that produced it.</li>
 <li><strong>Before you start:</strong> <a href="../codon-mill/where-machines-fail.html">Where Machines Fail</a>, a terminal and Python.</li>
 <li><strong>Time:</strong> about 10 minutes.</li>
 </ul>
 </div>
-<section id="the-mirage" class="level2">
-<h2 class="anchored" data-anchor-id="the-mirage">The Mirage</h2>
-<p>A language model produces text that <em>fits</em>. Sometimes it fits reality and sometimes it only fits the pattern of what a correct answer would look like. The second kind is a <strong>Mirage</strong>. It reads smoothly, it is confident, and it is wrong. Confidence and detail tell you nothing about which kind you have.</p>
-<p>Common Mirages in analysis work:</p>
+<section id="plausible-but-false-output" class="level2">
+<h2 class="anchored" data-anchor-id="plausible-but-false-output">Plausible but false output</h2>
+<p>You will rely on agent output in analysis, so you need to know how it goes wrong. A language model produces text that <em>fits</em>. Sometimes it fits reality, and sometimes it only fits the pattern of what a correct answer would look like. The second kind is a <strong>hallucination</strong>. It reads smoothly, sounds confident, and is wrong. Confidence and detail tell you nothing about which kind you have.</p>
+<p>Common hallucinations in analysis work:</p>
 <ul>
 <li><strong>Invented functions and flags</strong>: a method or option that sounds right but does not exist. Try it: <code>"ATGCGC".reverse_complement()</code> raises <code>AttributeError: 'str' object has no attribute 'reverse_complement'</code>.</li>
 <li><strong>Invented references</strong>: a citation with a believable author, journal and DOI that points to nothing, or to a different paper.</li>
@@ -127,8 +130,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>The cure is <strong>checking against something the agent did not write</strong>: run it, look it up, recompute it another way.</p>
 </section>
-<section id="battle-the-mirage" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-mirage">Battle: the Mirage</h2>
+<section id="battle-spot-the-hallucination" class="level2">
+<h2 class="anchored" data-anchor-id="battle-spot-the-hallucination">Battle: spot the hallucination</h2>
 <div data-ao-test="maze-spot-the-mirage" data-xp="60">
 
 </div>
@@ -160,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

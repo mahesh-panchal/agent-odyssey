@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>The mill keeps three ledgers: what it remembers between visits, what it holds during one visit, and what the visit costs. A wrong entry in the first two is hard to erase. The miller teaches you to read each ledger on its own, so that when something goes wrong you know which one to open.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will use six terms precisely (token, context window, session context, memory, session usage, context poisoning), and say what to do when a wrong claim has got into a session or into memory.</li>
@@ -115,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>People say “it remembers”, “the session got long” and “I hit my usage” as if these were one thing. They are different things, with different places they live and different ways to reset them. Think of a lab glossary: one term, one meaning.</p>
+<p>People say “it remembers”, “the session got long” and “I hit my usage” as if these were one thing. They are different things, each stored in a different place and reset in a different way. Knowing which is which tells you what to clear when a wrong claim has got in, and why a long session costs more.</p>
 <section id="the-glossary" class="level2">
 <h2 class="anchored" data-anchor-id="the-glossary">The glossary</h2>
 <ul>
@@ -178,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td>Auto memory</td>
-<td>Markdown files the tool writes</td>
+<td>Markdown files the harness writes</td>
 <td>Yes</td>
 <td><code>/memory</code> (read, edit, delete, toggle)</td>
 </tr>
@@ -205,7 +208,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Large tool outputs stay in the conversation. Reading a 10,000-line log is one example.</li>
 <li>Subagents (helper agents with their own context window) each have their own context, and their requests still count.</li>
 <li><code>/compact</code> itself reads the whole conversation.</li>
-<li>Cached text has a lifetime, and a long break can outlast it, which makes the next message much dearer.</li>
+<li>Cached text has a lifetime, and a long break can outlast it, which makes the next message much more expensive.</li>
 </ul>
 <p>Remedies:</p>
 <ul>
@@ -214,12 +217,12 @@ ul.task-list li input[type="checkbox"] {
 <li><code>/context</code> to see what fills the window.</li>
 <li>Keep <code>CLAUDE.md</code> under 200 lines.</li>
 </ul>
-<p>If <code>/usage</code> shows “rate limited until …”, the tool could not fetch your plan limits.</p>
+<p>If <code>/usage</code> shows “rate limited until …”, Claude Code could not fetch your plan limits.</p>
 </section>
 <section id="when-a-wrong-claim-gets-in" class="level2">
 <h2 class="anchored" data-anchor-id="when-a-wrong-claim-gets-in">When a wrong claim gets in</h2>
 <p>If you have corrected the same thing twice and it is still wrong, run <code>/clear</code> and write one new prompt that folds in what you learned. A third correction mostly adds to a conversation that already holds two failed attempts for the model to re-read. <code>/rewind</code> can roll back to before the bad turn.</p>
-<p>Memory persists, so a wrong line costs the most there. Check a claim against the source, such as the data, the tool’s <code>--help</code> or the paper, before it goes into <code>CLAUDE.md</code> or auto memory. If a bad line is already there, open <code>/memory</code>, read what has been written about your project, and delete it.</p>
+<p>Memory persists, so a wrong line costs the most there. Check a claim against the source, such as the data, the program’s own <code>--help</code> or the paper, before it goes into <code>CLAUDE.md</code> or auto memory. If a bad line is already there, open <code>/memory</code>, read what has been written about your project, and delete it.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -241,8 +244,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="battle-the-three-ledgers" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-three-ledgers">Battle: the three ledgers</h2>
+<section id="battle-memory-session-and-usage" class="level2">
+<h2 class="anchored" data-anchor-id="battle-memory-session-and-usage">Battle: memory, session and usage</h2>
 <div data-ao-test="codon-mill-memory-sessions-and-usage" data-xp="50">
 
 </div>
@@ -284,7 +287,7 @@ In a session you already have, run <code>/usage</code> and note what dominates: 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -114,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="most-cited">Most cited</h2>
 <ul>
 <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: 12 quests</li>
-<li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: 9 quests</li>
+<li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: 10 quests</li>
 <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations">Reduce hallucinations</a>: 7 quests</li>
 <li><a href="https://code.claude.com/docs/en/security">Security</a>: 7 quests</li>
 <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a>: 6 quests</li>
@@ -390,9 +390,25 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/crypt/shield-of-undo.html">Save Point</a>: it explains <code>/rewind</code> and its limits, including that Bash-made changes need version control, so you see why git is the real save point.</li>
 <li><a href="./zones/murk/clear-the-murk.html">Boss: Clear the Murk</a>: it says Bash-made changes need version control, which is why the <code>rm -rf</code> in the summary had no way back.</li>
 </ul></li>
-<li><p><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Cited by 9 quests; each quest says what to read it for.</p>
+<li><p><a href="https://code.claude.com/docs/en/sandboxing">Sandboxing</a>: Anthropic, docs. Cited by 5 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
+<li><a href="./zones/crypt/test-the-leash.html">Test the Leash</a>: it lists what the sandbox covers, the settings keys and the two probe commands used here.</li>
+<li><a href="./zones/crypt/rules-of-the-carapace.html">Grow the Carapace</a>: it states what the sandbox covers and what it does not, so you do not over-trust it.</li>
+<li><a href="./zones/gatehouse/plug-in-a-server.html">Plug In a Server</a>: it states what the sandbox limits and where that limit ends, so you can judge it as one layer.</li>
+<li><a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: it shows an operating-system limit on shell commands and where that limit ends.</li>
+<li><a href="./zones/citadel/keys-on-shared-ground.html">Keys on Shared Ground</a>: it states the sandbox reads most of the machine, including ~/.ssh, unless you deny it, and it fails open by default.</li>
+</ul></li>
+<li><p><a href="https://code.claude.com/docs/en/permission-modes">Choose a permission mode</a>: Anthropic, docs. Cited by 2 quests; each quest says what to read it for.</p>
+<p>Cited in:</p>
+<ul>
+<li><a href="./zones/crypt/test-the-leash.html">Test the Leash</a>: it defines each mode and how to switch between them.</li>
+<li><a href="./zones/forest/plan-before-you-edit.html">Plan Before You Edit</a>: it is the source for how plan mode is entered, approved and (not always) enforced.</li>
+</ul></li>
+<li><p><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Cited by 10 quests; each quest says what to read it for.</p>
+<p>Cited in:</p>
+<ul>
+<li><a href="./zones/crypt/test-the-leash.html">Test the Leash</a>: it gives the rule syntax and the deny, ask, allow order.</li>
 <li><a href="./zones/crypt/rules-of-the-carapace.html">Grow the Carapace</a>: it documents allow, ask and deny rules and how settings files combine, which is the core of this quest.</li>
 <li><a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: it shows the deny rules that keep the agent’s file tools away from files such as <code>.env</code>.</li>
 <li><a href="./zones/gatehouse/plug-in-a-server.html">Plug In a Server</a>: it shows how to allow or deny a server’s tools by name, the way to grant read-only access.</li>
@@ -403,14 +419,8 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/citadel/keys-on-shared-ground.html">Keys on Shared Ground</a>: it explains how settings files apply and combine by scope, so you can see which level should hold deny rules for your keys; it warns Bash rules are not a security boundary.</li>
 <li><a href="./zones/murk/clear-the-murk.html">Boss: Clear the Murk</a>: it shows deny rules that hold where a line in NOTES.md only asks.</li>
 </ul></li>
-<li><p><a href="https://code.claude.com/docs/en/sandboxing">Sandboxing</a>: Anthropic, docs. Cited by 4 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/crypt/rules-of-the-carapace.html">Grow the Carapace</a>: it states what the sandbox covers and what it does not, so you do not over-trust it.</li>
-<li><a href="./zones/gatehouse/plug-in-a-server.html">Plug In a Server</a>: it states what the sandbox limits and where that limit ends, so you can judge it as one layer.</li>
-<li><a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: it shows an operating-system limit on shell commands and where that limit ends.</li>
-<li><a href="./zones/citadel/keys-on-shared-ground.html">Keys on Shared Ground</a>: it states the sandbox reads most of the machine, including ~/.ssh, unless you deny it, and it fails open by default.</li>
-</ul></li>
+<li><p><a href="https://code.claude.com/docs/en/devcontainer">Development containers</a>: Anthropic, docs. Why read: it sets out when running without permission prompts is acceptable and what a dev container does not protect. Cited in: <a href="./zones/crypt/test-the-leash.html">Test the Leash</a>.</p></li>
+<li><p><a href="https://coderefinery.github.io/coding-with-ai/scenario-agentic/">Scenario III: full agentic code development</a>: CodeRefinery, docs. Why read: a course lesson with a Docker demo and exercises on supervising an agent. Cited in: <a href="./zones/crypt/test-the-leash.html">Test the Leash</a>.</p></li>
 <li><p><a href="https://aiforscience.eu/best-practices/11-decide-where-research-data-may-go/">AI for Science, practice 11: decide where research data may go</a>: AI for Science (European draft best practices), docs. Why read: it ties the choice of service to the contract and legal basis for your data, and limits agent sends through the environment. A draft with no endorsements yet; it is not legal advice. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/claude-directory">The .claude directory</a>: Anthropic, docs. Why read: it says what is written to transcripts on disk, how long it stays, and how <code>claude purge</code> clears it. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/settings">Settings</a>: Anthropic, docs. Why read: it explains where “don’t ask again” approvals are saved and how <code>settings.local.json</code> is kept out of git. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
@@ -442,7 +452,6 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="phylogenetic-forest">Phylogenetic Forest</h2>
 <ul>
 <li><p><a href="https://arxiv.org/abs/2603.18507">Expert Personas Improve LLM Alignment but Damage Accuracy</a>: Hu, Rostami and Thomason, arXiv (2026), paper. Why read: it measures where expert personas help and where they hurt; a preprint on small models, so read it as one data point. Cited in: <a href="./zones/forest/write-the-brief.html">Write the Brief</a>.</p></li>
-<li><p><a href="https://code.claude.com/docs/en/permission-modes">Choose a permission mode</a>: Anthropic, docs. Why read: it is the source for how plan mode is entered, approved and (not always) enforced. Cited in: <a href="./zones/forest/plan-before-you-edit.html">Plan Before You Edit</a>.</p></li>
 <li><p><a href="https://opencode.ai/docs/agents/">Agents</a>: OpenCode, docs. Why read: it covers OpenCode agent profiles, including the built-in plan agent. Cited in: <a href="./zones/forest/plan-before-you-edit.html">Plan Before You Edit</a>.</p></li>
 <li><p><a href="https://aiforscience.eu/best-practices/05-documentation-and-data-for-agents/">AI for Science, practice 5: documentation and data for agents</a>: AI for Science (European draft best practices), docs. Why read: it argues that precise, current docstrings, units and metadata are what agents work from. A draft with no endorsements yet; it also mentions llms.txt, which it calls a proposal that no body has ratified. Cited in: <a href="./zones/forest/the-project-charter.html">The Project Charter</a>.</p></li>
 <li><p><a href="https://opencode.ai/docs/rules/">Rules</a>: OpenCode, docs. Why read: it explains AGENTS.md and the instructions setting for the OpenCode side. Cited in: <a href="./zones/forest/the-project-charter.html">The Project Charter</a>.</p></li>
@@ -558,7 +567,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>Sooner or later the work comes back across the reef to you, and it is your turn to be the reviewer. A good reviewer is kind and exact, and neither tires nor hurries. Learn the code that keeps both the work and the author in good shape.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will review work that involved an LLM, kindly and effectively, and choose formats that review well.</li>
@@ -115,10 +118,10 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>You will also be on the receiving end of LLM-assisted work. Reviewing it is the same craft as any review, with a few shifts in attention.</p>
+<p>You will also receive LLM-assisted work to review. This quest covers what to ask for and how to say it. Reviewing it is the same craft as any review, with a few shifts in attention.</p>
 <ul>
 <li><strong>Ask for the evidence.</strong> “Which test shows this works?” works better than “are you sure?”.</li>
-<li><strong>Watch for the usual tells.</strong> Plausible but unused code, tests weakened to pass, and confident comments that do not match the code.</li>
+<li><strong>Watch for the usual signs.</strong> Plausible but unused code, tests weakened to pass, and confident comments that do not match the code.</li>
 <li><strong>Ask for understanding.</strong> “Can you explain why this branch exists?” is fair for any author.</li>
 <li><strong>Say when it is too big.</strong> “Please split this” is a legitimate review comment.</li>
 <li><strong>Be kind.</strong> The aim is better science, so keep the tone friendly and aim at the work and leave the author’s competence alone.</li>
@@ -158,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

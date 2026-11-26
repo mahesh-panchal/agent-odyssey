@@ -108,15 +108,19 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>A tower stands far from the Kennel. The Beast can work there on a borrowed machine that vanishes when the job is done. It is a fine place for sketching and writing. The keeper says nothing precious should ever be carried to the tower. Learn what the tower is good for, and what you must leave at home.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will say what a cloud session is, what leaves your machine when you start one, which jobs suit it, and how to review what comes back.</li>
-<li><strong>Before you start:</strong> <a href="recruit-the-beast.html">Recruit the Beast</a> and <a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>. You need git and a GitHub account only if you later start a session.</li>
+<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Gear</a>, <a href="recruit-the-beast.html">Recruit the Beast</a> and <a href="../crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>. You need git and a GitHub account only if you later start a session.</li>
 <li><strong>Time:</strong> about 15 minutes. The exercise is a worksheet on a mock file tree and needs no cloud account or model.</li>
 </ul>
 </div>
 <section id="the-rule-for-this-page" class="level2">
 <h2 class="anchored" data-anchor-id="the-rule-for-this-page">The rule for this page</h2>
+<p>You may be offered a way to run an agent on someone else’s computer. Decide what may go there before you start one, because what you send is stored away from your machine.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -135,15 +139,13 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="what-a-cloud-session-is" class="level2">
 <h2 class="anchored" data-anchor-id="what-a-cloud-session-is">1. What a cloud session is</h2>
-<p>A <strong>cloud session</strong> is a Claude Code session that runs on Anthropic’s servers, away from your laptop. Each one gets a fresh <strong>virtual machine</strong> (a computer simulated inside a bigger one, thrown away afterwards; Ubuntu 24.04 on x86_64) with a fresh <strong>clone</strong> (a full copy of a repository) of your code, made from its copy on GitHub. It keeps working after you close your laptop. When it is done, the work comes back as a <strong>branch</strong>, which you can turn into a <strong>pull request</strong> (a proposal on GitHub to merge that branch, with a place to review the changes).</p>
-<p>Only <strong>committed</strong> files (changes you have saved into git history with <code>git commit</code>) travel, because the clone is made from GitHub. A committed <code>CLAUDE.md</code> (the instructions file Claude Code reads at the start of a session), the rules under <code>.claude/</code> (the folder where a repository keeps Claude Code settings and instruction files), skills and agents come along. What stays behind:</p>
+<p>A <strong>cloud session</strong> is a Claude Code session that runs on Anthropic’s servers, away from your laptop. Each one gets a fresh <strong>virtual machine</strong> (a computer simulated inside a bigger one, thrown away afterwards) with a fresh <strong>clone</strong> (a full copy of a repository) of your code, made from its copy on GitHub. It keeps working after you close your laptop. When it is done, the work comes back as a <strong>branch</strong>, which you can turn into a <strong>pull request</strong> (a proposal on GitHub to merge that branch, with a place to review the changes).</p>
+<p>Only <strong>committed</strong> files (changes you have saved into git history with <code>git commit</code>) travel, because the clone is made from GitHub. A committed <code>CLAUDE.md</code> (the instructions file Claude Code reads at the start of a session) and the project’s skills and agents come along. What stays behind:</p>
 <ul>
-<li>your personal <code>~/.claude/CLAUDE.md</code> (the same kind of file, kept in your home folder), skills, agents and commands, and your user-level settings;</li>
-<li>MCP servers (add-on connections that give the agent extra tools) you added at local or user scope;</li>
-<li><code>.claude/settings.local.json</code>;</li>
-<li>interactive sign-ins such as AWS SSO (single sign-on, one shared login for many services).</li>
+<li>your personal <code>~/.claude/CLAUDE.md</code> (the same kind of file, kept in your home folder), skills, agents and user-level settings;</li>
+<li>MCP servers (add-on connections that give the agent extra tools) you added only for yourself;</li>
+<li><code>.claude/settings.local.json</code> and interactive sign-ins.</li>
 </ul>
-<p>Organisation-managed server settings do still apply.</p>
 </section>
 <section id="what-leaves-your-machine" class="level2">
 <h2 class="anchored" data-anchor-id="what-leaves-your-machine">2. What leaves your machine</h2>
@@ -153,12 +155,10 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Your prompts and everything the agent reads and writes</strong> go to the model.</li>
 <li><strong>The session transcript</strong> (the saved record of the whole conversation, including tool output) is stored by Anthropic so you can return to it later.</li>
 <li><strong>Retention</strong> (how long Anthropic keeps stored data) follows your account type. Consumer plans keep it 5 years if you allow training and 30 days if you do not. Commercial plans (Team, Enterprise, API) keep it 30 days as standard. Check your own plan for its current terms. Deleting a cloud session permanently removes its event data.</li>
-<li><strong>All outbound traffic</strong> from Anthropic-hosted sessions passes through a <strong>proxy</strong> (a go-between server that forwards requests, here for audit logging and abuse prevention).</li>
 <li><strong>Network level None may still let data exit.</strong> A <strong>network access level</strong> is the setting that says which internet hosts the VM may reach (None, Limited or Full; see section 5). The Anthropic API stays reachable even at None, which may allow data to exit the VM.</li>
 <li><strong>Environment variables</strong> (named settings handed to programs, often used for keys) set in a cloud environment can be read by any command Claude runs, and anyone who uses that environment can read the values.</li>
-<li><strong>Sharing:</strong> a session can be visible to others, and sessions may contain code and credentials from private repositories.</li>
 </ul>
-<p>Three organisation settings block cloud sessions outright: <strong>Zero Data Retention</strong>, a <strong>HIPAA configuration</strong> (HIPAA is the US health-data privacy law) and <strong>customer-managed encryption keys</strong> (your organisation holds the keys). If your organisation uses one of them, cloud sessions are not available. Your administrator can also switch cloud sessions off (the <code>allow_remote_sessions</code> policy).</p>
+<p>Some organisation settings block cloud sessions outright, and your administrator can switch them off. Ask whether yours are available.</p>
 <p>Keep controlled data out of the cloud repository. Treat the clone, the transcript and anything you paste as held by Anthropic. Read your data agreement before you push anything to a remote that a cloud session can see (a <strong>remote</strong> is the copy of a repository hosted elsewhere, such as on GitHub).</p>
 </section>
 <section id="good-uses-and-bad-uses" class="level2">
@@ -201,7 +201,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>A session has a roughly 30 GB disk and no GPU is listed. Work that needs a GPU, a VPN or local databases stays on your side.</p>
+<p>A cloud machine has no GPU and no access to your institution’s network. Work that needs a GPU, a VPN or local databases stays on your side.</p>
 </section>
 <section id="how-to-start" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-start">4. How to start</h2>
@@ -219,10 +219,9 @@ Check: pytest tests/test_validate_samplesheet.py (mock rows only).
 Add a test for the duplicate case. Only change files under scripts/ and tests/.</code></pre>
 <p>A repository with no <code>data/</code> or <code>results/</code> folders is the safe one. A prompt line such as “do not read data/” is a request to the model and gives no protection. If the folder is in the repository, the cloud session can read it.</p>
 <ul>
-<li><strong>If there is no remote.</strong> When a repository has no GitHub remote, or the Claude <strong>GitHub App</strong> (a program you install on a repository or organisation to grant it limited access) is not on it, Claude Code <strong>bundles</strong> the repository and uploads it: full history of all branches plus uncommitted changes to tracked files, under 100 MB. Untracked files are left out. On macOS, Linux and WSL the upload needs <strong>git 2.31 or later</strong>; with an older git the CLI refuses to start the session and tells you to update. On those systems, uncommitted changes to <code>.env</code>, <code>*.pem</code>, <code>*.tfvars</code>, <code>id_rsa</code> and Git LFS-managed files (large files stored outside normal git history) are skipped; on native Windows everything tracked uploads. <strong>Keep data out of this route entirely.</strong> Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your <code>.gitignore</code> covers first. Non-GitHub hosts can only use the bundle, and cannot push back.</li>
-<li><strong><code>/web-setup</code></strong>, typed inside Claude Code (not in your shell), sends your <code>gh auth token</code> (GitHub’s command-line login token) to Anthropic so cloud sessions can reach your repositories without the GitHub App. It needs a claude.ai sign-in; API-key sign-in does not work, and neither does a Bedrock or Vertex-style provider. On Team and Enterprise plans an Owner has to enable it first.</li>
-<li><strong>Getting the session back: teleport.</strong> To <strong>teleport</strong> is to pull a cloud session into your local terminal: <code>claude --teleport</code> (shows a picker), <code>claude --teleport &lt;session-id&gt;</code>, or <code>/teleport</code> (alias <code>/tp</code>) inside a session. It needs a clean git state (it offers to <strong>stash</strong> your changes, that is, set them aside temporarily with <code>git stash</code>), the same repository (not a <strong>fork</strong>, which is your own copy of someone else’s repository), the branch pushed, and the same claude.ai account.</li>
-<li><strong>GitHub access, in short.</strong> Two ways in: the GitHub App or your <code>/web-setup</code> token. For Anthropic-hosted sessions, your GitHub credential is stored encrypted on Anthropic’s servers and does not enter the VM; the VM holds a short-lived credential, and a GitHub proxy swaps it in. The proxy rejects branch deletions and tag pushes, but <strong>it does not limit which branches a push can update</strong>. Use GitHub <strong>branch protection or rulesets</strong> (rules on which branches may be changed and by whom) for that. A rule that the connected access can bypass will not block the push.</li>
+<li><strong>If there is no remote.</strong> When the repository has no GitHub remote, Claude Code <strong>bundles</strong> it and uploads the full history of all branches plus uncommitted changes to tracked files. <strong>Keep data out of this route entirely.</strong> Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your <code>.gitignore</code> covers first.</li>
+<li><strong>Getting the session back.</strong> <code>claude --teleport</code> pulls a cloud session into your local terminal. It needs a clean git state, the same repository, the branch pushed and the same claude.ai account.</li>
+<li><strong>GitHub access.</strong> Cloud sessions reach your repositories through the Claude GitHub App or a token that <code>/web-setup</code> sends to Anthropic. The proxy that holds your credential does not limit which branches a push can update. Use GitHub <strong>branch protection or rulesets</strong> (rules on which branches may be changed and by whom) for that.</li>
 </ul>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
@@ -264,24 +263,23 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.<
 </table>
 <p>Pick the narrowest level that lets the task finish.</p>
 <ul>
-<li><strong>Setup scripts:</strong> a <strong>setup script</strong> is a Bash script that runs once as root before Claude starts, to install what the task needs. It must exit with status 0 and should stay under about five minutes, or it is not cached. The result is cached as a filesystem snapshot (packages and files stay; running processes and databases do not), and rebuilt when the script or allowed hosts change or after about 7 days. Installs need network access, so None blocks them.</li>
-<li><strong>Environment variables versus network secrets:</strong> environment variables are readable by any command Claude runs. <strong>Network secrets</strong> are the safer option where possible: the key stays outside the VM, and Anthropic’s agent proxy adds it to requests to hosts you list.</li>
-<li><strong>Preinstalled tools:</strong> Python with pip, uv, poetry and pytest, Node, Ruby, PHP, Java, Go, Rust, C and C++, Docker, PostgreSQL 16, Redis, git, gh and jq. No R, conda or bioinformatics tools are listed. Ask Claude to run <code>check-tools</code> to see what is present.</li>
+<li><strong>Setup scripts:</strong> a <strong>setup script</strong> is a Bash script that runs once before Claude starts, to install what the task needs. Installs need network access, so None blocks them.</li>
+<li><strong>Environment variables versus network secrets:</strong> environment variables are readable by any command Claude runs. <strong>Network secrets</strong> are the safer option where possible: the key stays outside the VM, and a proxy adds it to requests to hosts you list.</li>
+<li><strong>Preinstalled tools:</strong> common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to run <code>check-tools</code> to see what is there.</li>
 </ul>
 </section>
 <section id="permission-modes-in-the-cloud" class="level2">
 <h2 class="anchored" data-anchor-id="permission-modes-in-the-cloud">6. Permission modes in the cloud</h2>
-<p>A <strong>permission mode</strong> says how much the agent may do before asking you. Cloud sessions offer three: <strong>Accept edits</strong>, <strong>Plan</strong> and <strong>Auto</strong> (your organisation can switch Auto off). There is no Manual and no Bypass mode in the cloud, and a <code>bypassPermissions</code> setting in your files is ignored there. You pick the mode in the dropdown; there is no <code>--cloud</code> flag for it.</p>
+<p>A <strong>permission mode</strong> says how much the agent may do before asking you. Cloud sessions offer <strong>Accept edits</strong>, <strong>Plan</strong> and <strong>Auto</strong>. There is no Manual or Bypass mode there. You pick the mode in the dropdown.</p>
 <p>Use <strong>Plan</strong> for anything you do not already understand, and read the plan before it edits. You can also plan locally with <code>claude --permission-mode plan</code>, commit and push the plan, and then start <code>claude --cloud</code>.</p>
 </section>
 <section id="limits-and-failure-modes" class="level2">
 <h2 class="anchored" data-anchor-id="limits-and-failure-modes">7. Limits and failure modes</h2>
 <ul>
-<li><strong>A fresh machine every time.</strong> An idle VM pauses and may later be <strong>reclaimed</strong> (taken back by the system). Files are kept while it is paused. Commit and push work you want to keep. Reopening restores the conversation, but running commands and subagents (helper agents the main agent started) are lost.</li>
-<li><strong>Timeouts.</strong> A foreground command defaults to 2 minutes (up to 10), then moves to the background for up to 30 more.</li>
-<li><strong>Size.</strong> Approximate ceilings are 4 vCPUs, 16 GB RAM and 30 GB disk. Heavy jobs may be stopped.</li>
-<li><strong>Shared usage.</strong> Cloud work counts against the same plan limits as all your other Claude Code use. Check your plan’s limits.</li>
-<li><strong>GitHub comments under your name.</strong> Claude can reply on pull requests under your GitHub name, marked as from Claude Code. That can trigger any comment-driven automation you have set up.</li>
+<li><strong>A fresh machine every time.</strong> An idle VM pauses and may later be taken back by the system. Commit and push work you want to keep.</li>
+<li><strong>Size.</strong> A cloud machine has limited CPU, memory and disk. Heavy jobs may be stopped.</li>
+<li><strong>Shared usage.</strong> Cloud work counts against the same plan limits as all your other Claude Code use.</li>
+<li><strong>GitHub comments under your name.</strong> Claude can reply on pull requests under your GitHub name, marked as from Claude Code.</li>
 </ul>
 </section>
 <section id="review-what-comes-back" class="level2">
@@ -307,18 +305,20 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.<
 <summary>
 Answer key (some entries depend on your data agreement)
 </summary>
-<p><strong>Every listed path below is in the tree as committed, so each one needs removing from history before you push anything a cloud session can see.</strong> The ignore lines further down only prevent a repeat.</p>
+<ul>
+<li><strong>Every listed path below is in the tree as committed, so each one needs removing from history before you push anything a cloud session can see.</strong> The ignore lines further down only prevent a repeat.</li>
+</ul>
 <p><strong>Paths to remove:</strong></p>
 <ul>
-<li><code>.env</code>: a secret. It was already committed, so remove it from history and replace the token; ignoring it helps only from now on.</li>
-<li><code>samplesheet_real.csv</code>: identifiers and genotype calls.</li>
-<li><code>data/raw/</code> and <code>data/processed/</code>: real reads and real counts.</li>
-<li><code>notebooks/01_qc.ipynb</code> and <code>notebooks/02_diffexp.ipynb</code>: outputs saved inside them contain real sample IDs, tables and plots. Clear the outputs, or keep the notebooks out.</li>
-<li><code>results/</code> (including <code>de_genes.csv</code> and <code>pca_real_samples.png</code>): results.</li>
-<li><code>logs/slurm-482913.out</code>: real sample IDs and cluster paths.</li>
-<li><code>notebooks/.ipynb_checkpoints/</code>: autosave copies of the notebooks, with the same saved outputs.</li>
+<li><p><code>.env</code>: a secret. It was already committed, so remove it from history and replace the token; ignoring it helps only from now on.</p></li>
+<li><p><code>samplesheet_real.csv</code>: identifiers and genotype calls.</p></li>
+<li><p><code>data/raw/</code> and <code>data/processed/</code>: real reads and real counts.</p></li>
+<li><p><code>notebooks/01_qc.ipynb</code> and <code>notebooks/02_diffexp.ipynb</code>: outputs saved inside them contain real sample IDs, tables and plots. Clear the outputs, or keep the notebooks out.</p></li>
+<li><p><code>results/</code> (including <code>de_genes.csv</code> and <code>pca_real_samples.png</code>): results.</p></li>
+<li><p><code>logs/slurm-482913.out</code>: real sample IDs and cluster paths.</p></li>
+<li><p><code>notebooks/.ipynb_checkpoints/</code>: autosave copies of the notebooks, with the same saved outputs.</p></li>
+<li><p><strong>Fine to send</strong> (they hold no real data): <code>README.md</code>, <code>environment.yml</code>, <code>samplesheet_template.csv</code>, <code>config/params.yaml</code> (check it for real paths), <code>data/mock/</code>, <code>docs/</code>, <code>scripts/</code>, <code>tests/</code>.</p></li>
 </ul>
-<p><strong>Fine to send</strong> (they hold no real data): <code>README.md</code>, <code>environment.yml</code>, <code>samplesheet_template.csv</code>, <code>config/params.yaml</code> (check it for real paths), <code>data/mock/</code>, <code>docs/</code>, <code>scripts/</code>, <code>tests/</code>.</p>
 <p><strong>Ignore lines</strong> that would help:</p>
 <pre class="text"><code>.env
 .env.*
@@ -390,7 +390,7 @@ Check whether your organisation’s plan allows cloud sessions at all.
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

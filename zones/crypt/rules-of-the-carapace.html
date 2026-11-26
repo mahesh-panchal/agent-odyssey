@@ -143,15 +143,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>Deeper in the Crypt, bare skin is not enough. The warden shows you how to grow a carapace: a hard shell of rules about what the Beast may touch. She says a rule is only as good as its edges, so you will learn where yours end.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will write permission rules that hold, and know where they stop holding.</li>
-<li><strong>Before you start:</strong> <a href="../kennel/recruit-the-beast.html">Recruit the Beast</a>, or <a href="../kennel/adopt-the-pet.html">Adopt the Pet</a> if you only run a local model.</li>
+<li><strong>Before you start:</strong> <a href="test-the-leash.html">Test the Leash</a>, or <a href="../kennel/adopt-the-pet.html">Adopt the Pet</a> if you only run a local model.</li>
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
-<p>The <strong>harness</strong> (the program around the model) enforces rules. A line in your instructions file (such as <code>CLAUDE.md</code>) asking the agent to avoid something is guidance; only a rule the harness enforces changes what is allowed.</p>
-<p>Sort every action into three bins:</p>
+<p>The harness (the program around the model) enforces permission rules. A line in your instructions file (such as <code>CLAUDE.md</code>, a text file the agent reads at the start) asking the agent to avoid something is guidance; only a rule the harness enforces changes what is allowed.</p>
+<p>A single deny rule in a file is enough to block one action. A real project needs a set of rules, so sort every action into three bins:</p>
 <ul>
 <li><strong>allow:</strong> safe and routine.</li>
 <li><strong>ask:</strong> you want to decide each time.</li>
@@ -206,17 +209,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="where-the-carapace-has-gaps" class="level2">
-<h2 class="anchored" data-anchor-id="where-the-carapace-has-gaps">Where the carapace has gaps</h2>
+<section id="where-rules-stop-holding" class="level2">
+<h2 class="anchored" data-anchor-id="where-rules-stop-holding">Where rules stop holding</h2>
 <ul>
 <li>Rules that match command <strong>arguments</strong> are fragile: <code>Bash(rm *)</code> does not match <code>/bin/rm</code> or <code>bash -c 'rm ...'</code>.</li>
-<li>Claude Code’s sandbox (a restricted environment for commands) is off by default. When on, it limits <strong>shell commands only</strong>: file tools, MCP servers (tools added from outside servers) and hooks (scripts the harness runs at set moments) run outside it, and by default it can still read <code>~/.ssh</code>.</li>
-<li>Your secrets in environment variables are inherited by the commands it runs.</li>
+<li>Claude Code’s sandbox (an operating-system boundary around shell commands) is off by default. When on, it limits <strong>shell commands only</strong>: Claude’s file tools and MCP servers (programs that add tools from outside) run outside it, and by default it can still read <code>~/.ssh</code>.</li>
+<li>Secrets stored in environment variables (named values the shell passes to every program it starts) are inherited by every command the agent runs.</li>
 </ul>
-<p>Treat rules as one layer. Git and a throwaway folder are the other layers.</p>
+<p>Treat rules as one layer. Git commits and a throwaway folder are other layers.</p>
 </section>
-<section id="battle-harden-your-carapace" class="level2">
-<h2 class="anchored" data-anchor-id="battle-harden-your-carapace">Battle: harden your carapace</h2>
+<section id="battle-rules-that-hold" class="level2">
+<h2 class="anchored" data-anchor-id="battle-rules-that-hold">Battle: rules that hold</h2>
 <div data-ao-test="crypt-rules-of-the-carapace" data-xp="80">
 
 </div>
@@ -249,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

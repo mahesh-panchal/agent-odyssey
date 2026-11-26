@@ -1,0 +1,6 @@
+sample_id,lane,fastq_1,fastq_2
+S01,L1,s01_L1_R1.fastq.gz,s01_L1_R2.fastq.gz
+S02,L1,s02_L1_R1.fastq.gz,s02_L1_R2.fastq.gz
+S03,L1,s03_L1_R1.fastq.gz,s03_L1_R2.fastq.gz
+S03,L2,s03_L2_R1.fastq.gz,s03_L2_R2.fastq.gz
+S04,L1,s04_L1_R1.fastq.gz,

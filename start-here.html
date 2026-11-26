@@ -109,6 +109,13 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Agent Odyssey is a short role-playing course on using coding agents (LLM tools that read and run code for you) safely in bioinformatics work. You need no LLM experience, and nothing here asks you to use these tools. It shows how to use them with care if you choose to.</p>
+<section id="before-you-begin" class="level2">
+<h2 class="anchored" data-anchor-id="before-you-begin">Before you begin</h2>
+<ul>
+<li><a href="prerequisites.html">Prerequisites</a>: what to install for the exercises.</li>
+<li><a href="read-first.html">Read first</a>: background reading.</li>
+</ul>
+</section>
 <section id="your-path" class="level2">
 <h2 class="anchored" data-anchor-id="your-path">Your path</h2>
 <p id="ao-start-next" class="ao-next" aria-live="polite">
@@ -127,7 +134,7 @@ The path needs JavaScript. Use <a href="index.html">the zone list</a>.
 <section id="how-it-works" class="level2">
 <h2 class="anchored" data-anchor-id="how-it-works">How it works</h2>
 <ul>
-<li><strong>Walk the trunk.</strong> It is <span data-ao-n="trunk">15</span> quests in order, from fears and kinds of machine to your first agent and trust in output. The Wall of Output ends it.</li>
+<li><strong>Walk the trunk.</strong> It is <span data-ao-n="trunk">16</span> quests in order, from fears and kinds of machine to your first agent and trust in output. The Wall of Output ends it.</li>
 <li><strong>Pick branches.</strong> Each branch is a topic you can take when it matches your work. Quests marked side quest are optional.</li>
 <li><strong>Clear the Murk.</strong> The final boss opens after the whole trunk and any <span data-ao-n="any">3</span> of the <span data-ao-n="branches">8</span> branches.</li>
 <li><strong>Save your progress.</strong> It lives in this browser. <strong>Save code</strong> in the top bar copies a code, and <strong>Load code</strong> restores it elsewhere.</li>
@@ -165,7 +172,7 @@ The list needs JavaScript. Use <a href="index.html">the zone list</a>.
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

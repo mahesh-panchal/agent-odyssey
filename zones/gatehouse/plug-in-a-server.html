@@ -143,6 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>A heavy door in the Gatehouse opens onto the outside world, and whatever walks through acts with your keys. Before you open it, you learn what stands on the other side. The first thing to learn is what you are inviting in.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will treat an MCP server as software you install, then scope it, limit it and read what it sends back.</li>
@@ -150,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>The Model Context Protocol (<strong>MCP</strong>) is an open-source standard for connecting AI applications to external systems. A <strong>server</strong> is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. MCP is optional. It widens what the agent can reach, and every widening is a decision.</p>
+<p>The Model Context Protocol (<strong>MCP</strong>) is an open-source standard for connecting AI applications to external systems. A <strong>server</strong> is the piece on the other side: it offers the harness tools or data, such as an issue tracker, a database or a monitoring system. MCP is optional. Each server you connect widens what the agent can reach, so you decide at each connection what it may do and what it may see.</p>
 <section id="a-server-is-software-you-installed" class="level2">
 <h2 class="anchored" data-anchor-id="a-server-is-software-you-installed">A server is software you installed</h2>
 <p>A stdio server (a program the harness starts locally and talks to over its input/output) is a command that Claude Code launches on your machine (<code>claude mcp add ... -- &lt;command&gt;</code>), and secrets can be passed to it as environment variables. Assume it can do whatever that command can do with the credentials you gave it.</p>
@@ -197,7 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Each server’s tools appear in permission rules as <code>mcp__&lt;server&gt;__&lt;tool&gt;</code>, and <code>mcp__&lt;server&gt;__*</code> (a matcher, a pattern that selects names) matches every tool of one server. Tool definitions are deferred (loaded only when needed) by default, so only tool names and server instructions take up context until a tool is used.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>In the V2 docs, servers go under <code>mcp.servers</code>; V2 does not put server names directly under <code>mcp</code>. Check which version you have installed. A remote server:</p>
+<p>In OpenCode’s V2 docs, servers go under <code>mcp.servers</code>; V2 does not put server names directly under <code>mcp</code>. Check which version you have installed. A remote server:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">"mcp"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"servers"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"mydocs"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"remote"</span><span class="fu">,</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"url"</span><span class="fu">:</span> <span class="st">"https://example.com/mcp"</span><span class="fu">,</span></span>
@@ -218,23 +221,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Read fetched content sceptically,</strong> and supervise any write access an agent uses on it.</li>
 <li><strong>Deny the dangerous tools by name.</strong> Permission rules still apply to server tools.</li>
 </ul>
-<p>The sandbox limits shell commands even if a prompt injection bypasses the model’s decision-making. A server can take other routes, so treat the sandbox as one layer.</p>
+<p>The sandbox limits shell commands even if a prompt injection steers the model. It does not cover MCP servers, so treat it as one layer.</p>
 </section>
 <section id="where-a-server-comes-from" class="level2">
 <h2 class="anchored" data-anchor-id="where-a-server-comes-from">Where a server comes from</h2>
-<p>Servers, skills and plugins either run code or supply instructions to the agent, so each is a way in. A listing in a registry means the thing is easy to find. The official MCP registry lists self-reported data and runs no security review.</p>
+<p>Servers, skills and plugins either run code or supply instructions to the agent, so each is a way in. A listing in a registry (a public index of servers) means the thing is easy to find. The official MCP registry lists self-reported data and runs no security review.</p>
 <ul>
 <li><strong>Prefer a source that records</strong> the maintainer and a review date.</li>
-<li><strong>Check what the interface is allowed to do</strong> before you connect it.</li>
-<li><strong>Ask your institution for a vetted list.</strong> If it has none, treat every interface as unvetted.</li>
+<li><strong>Check what the server is allowed to do</strong> before you connect it.</li>
+<li><strong>Ask your institution for a vetted list.</strong> If it has none, treat every server as unvetted.</li>
 <li><strong>Hidden instructions are possible.</strong> A tool description can carry instructions you never see, and a skill’s instructions can tell the agent to send results to an outside address.</li>
 </ul>
 <div data-ao-honour="gatehouse-read-a-server" data-xp="20">
 Pick an MCP server you might use. Write down who publishes it, the tools it lists, the credential it needs, and whether a read-only version exists. Hold off installing it for now.
 </div>
 </section>
-<section id="battle-the-heavy-door" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-heavy-door">Battle: the heavy door</h2>
+<section id="battle-servers-and-trust" class="level2">
+<h2 class="anchored" data-anchor-id="battle-servers-and-trust">Battle: servers and trust</h2>
 <div data-ao-test="gatehouse-plug-in-a-server" data-xp="50">
 
 </div>
@@ -269,7 +272,7 @@ Pick an MCP server you might use. Write down who publishes it, the tools it list
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

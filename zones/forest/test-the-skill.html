@@ -143,6 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>The smith holds the Skill up against an empty hand and asks the forest one question: does it do anything the bare hand cannot? Only if the two differ does the Skill stay. Testing costs something each time it is done, so the smith counts the cost before the first swing.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will read and write a small Claude Code eval case that checks a Skill is triggered, and know what running it costs.</li>
@@ -150,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
-<p>Running an eval costs money. Every eval run and every judge-model grader is a real model call on your account. Reading this page and writing the files costs nothing. Running the eval is optional here and gives bonus XP only. Check what your institution allows before you spend.</p>
+<p>A Skill that never fires does nothing, and an eval case is how you find out. Running an eval costs money. Every eval run and every judge-model grader is a real model call on your account. Reading this page and writing the files costs nothing. Running the eval is optional here and gives bonus XP only. Check what your institution allows before you spend.</p>
 <section id="set-up-the-plugin-folder" class="level2">
 <h2 class="anchored" data-anchor-id="set-up-the-plugin-folder">Set up the plugin folder</h2>
 <p><code>claude plugin eval</code> needs Claude Code <strong>v2.1.269 or later</strong>. It evaluates a <strong>plugin directory</strong>: a folder with <code>.claude-plugin/plugin.json</code>. To evaluate your own Skill, put it in a folder of this shape. The example <code>exercises/forge/fasta-tools</code> in this repository already has it:</p>
@@ -214,8 +217,8 @@ Run the cheap one-case command above on <code>exercises/forge/fasta-tools</code>
 Write an eval case for a Skill of your own: a prompt that leaves it unnamed, and one grader.
 </div>
 </section>
-<section id="battle-the-eval" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-eval">Battle: the eval</h2>
+<section id="battle-test-the-skill" class="level2">
+<h2 class="anchored" data-anchor-id="battle-test-the-skill">Battle: test the Skill</h2>
 <div data-ao-test="forest-test-the-skill" data-xp="60">
 
 </div>
@@ -247,7 +250,7 @@ Write an eval case for a Skill of your own: a prompt that leaves it unnamed, and
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

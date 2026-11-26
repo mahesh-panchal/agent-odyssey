@@ -143,6 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>Over the mill door hangs a sign with two lists. The first names what the machine does well. The second names what it only seems to do well, and counting letters is on it. A sensible traveller reads both before trusting the machine with a task. Then the sign explains how to check what it hands back.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will sort jobs into “ask the model” and “run a script”, and name the other ways a model fails with one mitigation each.</li>
@@ -150,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>A language model is good at some jobs and bad at others. The skill is knowing which is which before you trust the output. Using a model is always your choice. This quest shows where the risk sits if you do.</p>
+<p>A language model is good at some jobs and bad at others, and a wrong answer often looks like a right one. Knowing which jobs are which, before you trust the output, saves time and prevents errors. Using a model is your choice; this lesson shows where the risk sits if you do.</p>
 <section id="good-jobs-the-result-is-checkable" class="level2">
 <h2 class="anchored" data-anchor-id="good-jobs-the-result-is-checkable">Good jobs: the result is checkable</h2>
 <p>Use a model where you can read the result, or run it, and judge it yourself:</p>
@@ -166,10 +169,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="bad-job-exact-counting-and-arithmetic" class="level2">
 <h2 class="anchored" data-anchor-id="bad-job-exact-counting-and-arithmetic">Bad job: exact counting and arithmetic</h2>
 <p>Ask a model: “How many n are in banana?” The right answer is 2 (b-a-n-a-n-a). A model can get this wrong, and can be wrong while sounding sure.</p>
-<p>Researchers disagree on why. One explanation is that the model reads tokens, which are chunks of letters. One study finds word length and the true count matter more than tokenisation. The fix works whichever cause is right.</p>
+<p>Researchers disagree on why. One explanation is that the model reads tokens (chunks of letters), not letters. One study finds word length and the true count matter more than tokenisation. The fix works whichever cause is right.</p>
 <p>The fix is to run a script:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> banana <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-o</span> n <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>It prints <code>2</code>. The macOS <code>wc</code> pads the number with spaces; the number is 2. A model asked to write Python for a counting task does better than a model asked to answer it directly. So for exact counts, have the model <strong>write the script</strong> and read the script and its output. Treat a count it states from “doing the sum in its head” as a guess to check.</p>
+<p>It prints <code>2</code> (macOS pads the number with spaces). A model asked to write Python for a counting task does better than a model asked to answer it directly. So for exact counts, have the model <strong>write the script</strong> and read the script and its output.</p>
 <p>The bioinformatics versions of the same trap:</p>
 <table class="caption-top table">
 <colgroup>
@@ -201,12 +204,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>Rule of thumb: ask for the command and its output, and treat a count stated in prose as a guess to check.</p>
+<p>Ask for the command and its output, and treat a count stated in prose as a guess to check.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>It can run Bash (the shell command tool) and write scripts, so ask: “write and run a command for this, and show me both the command and its output.”</p>
+<p>Claude Code can run shell commands and write scripts, so ask: “write and run a command for this, and show me both the command and its output.”</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Same rule: ask for a script, and read the command and its output. Try the banana example with your own model to see how it does.</p>
@@ -220,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Hallucination:</strong> a confident statement that is false, such as a plausible DOI, gene ID or tool flag that does not exist. Allow “I don’t know”, ask for word-for-word quotes first, restrict the model to supplied documents, and look up every ID in PubMed or Ensembl or run the tool’s <code>--help</code>.</li>
 <li><strong>Sycophancy:</strong> telling you what you want to hear. The model agrees with your wrong hypothesis, or softens a correct criticism when you push back. Ask for the strongest case against your idea, and hold back your preferred answer.</li>
 <li><strong>Long-context degradation:</strong> accuracy and recall drop as input grows (“context rot”), and relevant text in the middle is used less. Curate the input (head, counts, filtered tables) and start fresh for a new task.</li>
-<li><strong>Instruction drift:</strong> an early instruction is forgotten, for example after compaction (the harness replacing old conversation with a summary to free room). Keep a short instructions file (<code>CLAUDE.md</code> or similar, loaded at session start) and use a hook (a script the harness runs at set moments) for must-never rules.</li>
+<li><strong>Instruction drift:</strong> an early instruction is forgotten, for example after compaction (the program around the model replacing old conversation with a summary to free room). Keep a short instructions file (<code>CLAUDE.md</code> or similar, loaded at session start) and use a hook (a script that runs automatically at set moments, such as before a command) for must-never rules.</li>
 <li><strong>Non-determinism:</strong> the same prompt may give different answers, so run it twice and compare. Record the command, model and version, and treat the script the model wrote as the reproducible part.</li>
 <li><strong>Overconfidence:</strong> the model reports a task as done while it is unfinished, often because it had no way to check. Give it a check to run (tests, row counts, md5) and read the output.</li>
 <li><strong>Prompt injection:</strong> text from fetched content that the model treats as an instruction, for example a README, PDF or FASTA header that contains instructions the agent follows. Treat fetched content as data, review commands before approving them, and remember no system is fully immune.</li>
@@ -231,8 +234,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="the-decision-rule">The decision rule</h2>
 <p>Ask yourself: can I check the result cheaply and independently? If yes, ask the model: a bad answer is likely to show (omissions may not, so check those deliberately). If the answer must be exactly right and cannot be checked, use a script.</p>
 </section>
-<section id="battle-the-sign-over-the-door" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-sign-over-the-door">Battle: the sign over the door</h2>
+<section id="battle-ask-the-model-or-run-a-script" class="level2">
+<h2 class="anchored" data-anchor-id="battle-ask-the-model-or-run-a-script">Battle: ask the model or run a script</h2>
 <div data-ao-test="codon-mill-where-machines-fail" data-xp="50">
 
 </div>
@@ -276,7 +279,7 @@ Have a model summarise a methods paragraph you wrote. Check every number, name a
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

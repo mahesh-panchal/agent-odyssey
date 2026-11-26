@@ -7,11 +7,11 @@
    "explain": "Raise it with OLLAMA_CONTEXT_LENGTH when you start the server and verify with `ollama ps`.",
    "options": [
     {
-     "text": "About 4k tokens, far below the 64k that agents need, so the Pet forgets instructions",
+     "text": "About 4k tokens, far below the 64k that agents need, so the model forgets instructions",
      "correct": true
     },
     {
-     "text": "32k tokens, which is enough for most agent work, so the Pet needs no change at all",
+     "text": "32k tokens, which is enough for most agent work, so the model needs no change at all",
      "misconception": "Larger defaults exist only with much more video memory. A 16 GB laptop gets 4k, well below the 64k that agents need."
     },
     {
@@ -26,7 +26,7 @@
   },
   {
    "type": "order",
-   "prompt": "Put the Pet's set-up in order.",
+   "prompt": "Put the local model's set-up in order.",
    "explain": "Each step depends on the one before it.",
    "items": [
     "Install Ollama",

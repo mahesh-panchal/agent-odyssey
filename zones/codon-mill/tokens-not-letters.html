@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>A mill at the foot of the hill grinds every sentence into small chunks before the machine reads a word. The machine never sees the letters you see. You carry sequences where every letter counts, so learn what the mill does to them. The next stop shows more ways the machine goes wrong.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will explain that a model reads tokens (chunks of text) and decide which sequence jobs belong to a script.</li>
@@ -115,15 +118,15 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>You read a read as letters: A, C, G, T. A language model reads tokens. Before your text reaches the model, it is cut into <strong>tokens</strong>, and the model works with those.</p>
+<p>You read a sequencing read as letters: A, C, G, T. A language model reads tokens. Before your text reaches the model, it is cut into <strong>tokens</strong>, and the model works with those. Sequence work needs exact letters, so you need to know when this difference matters.</p>
 <section id="what-a-token-is" class="level2">
 <h2 class="anchored" data-anchor-id="what-a-token-is">What a token is</h2>
-<p>A token is the smallest unit a model works with. It can be a whole word, part of a word, a single character or a byte. Common strings get larger tokens because that is efficient. Rare or unseen words are broken into smaller pieces so the model can still handle them.</p>
+<p>A token is the smallest unit a model works with. It can be a whole word, part of a word, a single character or a byte. Common strings get larger tokens. Rare or unseen words are broken into smaller pieces so the model can still handle them.</p>
 <p>Three consequences:</p>
 <ul>
 <li><strong>Tokens are not words.</strong> A sentence of ten words rarely comes to ten tokens; the count depends on the model and the language.</li>
 <li><strong>The count changes between models.</strong> Models from Claude 4.7 onward, including Sonnet 5.5, use a newer tokenizer (the part that cuts text into tokens). It produces about 30 percent more tokens for the same text, and the exact increase depends on the content. Count again for each model generation.</li>
-<li><strong>Limits and cost are measured in tokens.</strong> The context window (all the text a model can look at when it writes its next piece of output) is counted in tokens, and the same prompt can cost different amounts on different models. The API (programmatic access to the model, billed per token, as opposed to a chat plan) has a free token-counting endpoint. Its answer is an estimate that may differ slightly from real use.</li>
+<li><strong>Limits and cost are measured in tokens.</strong> The context window (all the text a model can look at when it writes its next piece of output) is counted in tokens, and the same prompt can cost different amounts on different models. The API (programmatic access to the model, billed per token) has a free token-counting endpoint. Its answer is an estimate.</li>
 </ul>
 </section>
 <section id="why-this-matters-for-sequences" class="level2">
@@ -134,26 +137,25 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Copying exactly</strong> a long string, such as a barcode or an accession, needs a check against the source.</li>
 <li><strong>Positions, reverse complements and checksums</strong> depend on every single letter.</li>
 </ul>
-<p>The exercise below shows how a tokenizer cuts a DNA line.</p>
 <p>So the rule: if the answer has to be exact and a rule for it exists, have the agent <strong>run a script or a tool</strong> and report what it printed. Check any sequence the model retyped against the source file.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Ask it to write and run the counting command and read its output. You can then read the command and the output yourself.</p>
+<p>Ask Claude Code to write and run the counting command and show its output. Then read both the command and the output yourself.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Same advice: ask for the command and read its output. Run the exercise below with your own model and compare.</p>
+<p>Same advice: ask for the command and read its output. Try the exercise below with your own model and compare.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="optional-exercise-laptop-no-real-data" class="level2">
 <h2 class="anchored" data-anchor-id="optional-exercise-laptop-no-real-data">Optional exercise (laptop, no real data)</h2>
-<p>Take this mock line: <code>&gt;read1 ACGTTGCAAGGCTTAGGCCATTAGC</code>. Count the letters yourself with a command you already have, for example <code>echo ACGTTGCAAGGCTTAGGCCATTAGC | grep -o G | wc -l</code>. Then paste the same line and a plain English sentence of similar length into any tokenizer page you trust, or a token counter you have. Compare the token counts. Keep real or sensitive sequences out of web tools.</p>
+<p>Take this mock line: <code>&gt;read1 ACGTTGCAAGGCTTAGGCCATTAGC</code>. Count the letters yourself with a command you already have, for example <code>echo ACGTTGCAAGGCTTAGGCCATTAGC | grep -o G | wc -l</code>. Then paste the same line and a plain English sentence of similar length into any tokenizer page you trust (a web page that shows how text is cut into tokens), or a token counter you have. Compare the token counts. Keep real or sensitive sequences out of web tools.</p>
 </section>
-<section id="battle-the-mill" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-mill">Battle: the mill</h2>
+<section id="battle-tokens-and-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="battle-tokens-and-scripts">Battle: tokens and scripts</h2>
 <div data-ao-test="codon-mill-tokens-not-letters" data-xp="50">
 
 </div>
@@ -195,7 +197,7 @@ Replace one “ask the model to count” habit of yours with a script the model 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

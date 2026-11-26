@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>A reef thrives on many hands, and a Review-leech clings to it, feeding on work passed along unchecked. Every reviewer on the reef has felt its bite. Four small habits starve it, and you can practise them on your next hand-off.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will hand work to collaborators, whether or not they use LLMs, without passing them your review burden.</li>
@@ -115,14 +118,14 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>A reef is a community. The <strong>Review-leech</strong> feeds on the cost of checking an agent’s output when it lands on the next person without a word. Four habits starve it.</p>
+<p>Checking an agent’s output takes time. When the output reaches the next person without a word, that cost moves to them. You are about to hand work to a collaborator, so four habits keep the cost with the sender.</p>
 <ol type="1">
 <li><strong>Review it yourself first.</strong> Read your own diff as if a stranger wrote it. If you cannot explain a line, it is not ready to send.</li>
 <li><strong>Say so.</strong> Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Follow your team’s norm for how.</li>
 <li><strong>Send small.</strong> One idea per change, small enough to review in one sitting.</li>
 <li><strong>Bring evidence.</strong> Include the test, the command, or the check that shows it works.</li>
 </ol>
-<p>These habits help every reviewer. A colleague who does not use LLMs can review your work without learning a tool.</p>
+<p>A colleague who does not use LLMs can review work sent this way without learning a tool.</p>
 <section id="when-you-worry-about-looking-lazy" class="level2">
 <h2 class="anchored" data-anchor-id="when-you-worry-about-looking-lazy">When you worry about looking lazy</h2>
 <p>A common worry is that people will think you are lazy or unoriginal for using an agent. Make the facts easy to see.</p>
@@ -165,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

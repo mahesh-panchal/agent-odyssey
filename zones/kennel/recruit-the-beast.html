@@ -143,6 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>A great armoured beast sleeps in the Kennel, strong and unthinking. It follows only someone who can wake it and keep it on a short lead. You lay a hand on its flank, and it opens one eye. Wake it, then keep it close.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will install Claude Code, confirm it works, and start it in a throwaway folder in plan mode.</li>
@@ -150,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 15 minutes. Nothing here edits your files.</li>
 </ul>
 </div>
-<p>Claude Code is strong, so you start it on a short lead before it does anything.</p>
+<p>Claude Code can read your files and run commands, so the first session is in a throwaway folder and in plan mode, where it changes nothing.</p>
 <section id="install" class="level2">
 <h2 class="anchored" data-anchor-id="install">1. Install</h2>
 <p>On macOS (Apple Silicon), Linux, or inside a WSL 2 terminal, run the native installer:</p>
@@ -177,49 +180,19 @@ Note
 </div>
 </div>
 </section>
-<section id="start-on-a-short-lead" class="level2">
-<h2 class="anchored" data-anchor-id="start-on-a-short-lead">3. Start on a short lead</h2>
+<section id="start-in-plan-mode" class="level2">
+<h2 class="anchored" data-anchor-id="start-in-plan-mode">3. Start in plan mode</h2>
 <p>Make a throwaway folder and start in <strong>plan mode</strong>. It reads files, runs read-only commands and leaves your source untouched:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/odyssey-scratch <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/odyssey-scratch</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--permission-mode</span> plan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>Shift+Tab</code> cycles <code>default</code>, <code>acceptEdits</code> and <code>plan</code> inside a session; the status bar shows the current mode.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Mode</th>
-<th>What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>default</code></td>
-<td>asks the first time each tool is used</td>
-</tr>
-<tr class="even">
-<td><code>acceptEdits</code></td>
-<td>auto-accepts file edits and common file commands (<code>mkdir</code>, <code>touch</code>, <code>mv</code>, <code>cp</code>) in the working directory</td>
-</tr>
-<tr class="odd">
-<td><code>plan</code></td>
-<td>reads and runs read-only commands; leaves source files untouched</td>
-</tr>
-<tr class="even">
-<td><code>bypassPermissions</code></td>
-<td>skips prompts; use only in containers or VMs</td>
-</tr>
-</tbody>
-</table>
+<p>A <strong>permission mode</strong> sets what the agent asks about before it acts. In plan mode it asks before anything beyond reading; the status bar shows the current mode.</p>
 </section>
 <section id="check-the-setup" class="level2">
 <h2 class="anchored" data-anchor-id="check-the-setup">4. Check the setup</h2>
 <p>Two commands share the name <em>doctor</em>.</p>
 <ul>
 <li><strong><code>claude doctor</code></strong> runs in the shell. It prints read-only diagnostics of your installation and settings without starting a session, so use it when <code>claude</code> will not start.</li>
-<li><strong><code>/doctor</code></strong> (alias <code>/checkup</code>) runs inside a session as a bundled skill, a ready-made skill that ships inside the tool. It reports first and changes something only after you confirm. It looks at installation health, extensions and their context cost, instruction files, permissions and usage.</li>
+<li><strong><code>/doctor</code></strong> (alias <code>/checkup</code>) runs inside a session as a bundled skill, a ready-made skill, a packaged set of instructions, that ships with Claude Code. It reports first and changes something only after you confirm. It looks at installation health, extensions and their context cost, instruction files, permissions and usage.</li>
 </ul>
 <section id="which-command-shows-what" class="level3">
 <h3 class="anchored" data-anchor-id="which-command-shows-what">Which command shows what</h3>
@@ -292,8 +265,8 @@ Note
 <p>A bug report includes your OS, the install command and the full error output. <code>/feedback</code> sends feedback from inside a session. If you are unsure which problem applies, run <code>/doctor</code> or <code>claude doctor</code> to narrow it down. Read any output before you paste it into a bug report or chat, because it can contain paths and account details.</p>
 </section>
 </section>
-<section id="battle-the-beasts-leash" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-beasts-leash">Battle: the Beast’s leash</h2>
+<section id="battle-first-run" class="level2">
+<h2 class="anchored" data-anchor-id="battle-first-run">Battle: first run</h2>
 <div data-ao-test="kennel-recruit-the-beast" data-xp="60">
 
 </div>
@@ -327,7 +300,7 @@ Note
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

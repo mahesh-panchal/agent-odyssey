@@ -1,0 +1,1 @@
+Pipeline release 2.3 trims adapters and aligns reads. Release 2.3 has a known bug that double-counts duplicate reads. Dana Okafor wrote the fix, which ships in release 2.4.

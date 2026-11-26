@@ -143,6 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>A door in the maze swings shut behind the agent. Its account of what it did is plausible, and the walls have changed shape anyway. You cannot follow the path without a record, so you ask the agent to write one and then walk it yourself to see whether it holds.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will let an agent draft the documentation of its work, check each draft against ground truth and supply the reasons yourself.</li>
@@ -218,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="changelog" class="level2">
 <h2 class="anchored" data-anchor-id="changelog">1. Changelog</h2>
-<p>A <strong>changelog</strong> here is the agent’s short account of a change: files touched, behaviour change, what it left alone, and how to verify. The diff is the ground truth. A changelog can miss a change or overstate one, so it works as a map for reading the diff.</p>
+<p>A <strong>changelog</strong> here is the agent’s short account of a change: files touched, behaviour change, what it left alone, and how to verify. The diff is the ground truth. A changelog can miss a change or overstate one, so use it as a guide to what to look for in the diff.</p>
 <p>Ask for one after the agent finishes:</p>
 <pre class="text"><code>Write a changelog for the change you just made.
 List the files you touched, what behaviour changed and why,
@@ -357,7 +360,7 @@ Run your project’s README commands in an empty folder, exactly as written. Fix
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

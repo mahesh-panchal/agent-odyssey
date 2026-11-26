@@ -108,28 +108,38 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>A shallow stream runs past Basecamp. A traveller stands at the edge, sure that crossing means being swept away, and then notices the stepping stones. Each stone is a little further out, and you may stop on any of them. Before you step, you ask what you would carry across with you.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will choose how much of your data and your machine to hand over for one task, and start at the lowest step that gets the job done.</li>
-<li><strong>Before you start:</strong> <a href="know-your-gear.html">Know Your Gear</a>, and Python 3 for the exercise. Your own data agreement overrides anything here.</li>
+<li><strong>Before you start:</strong> <a href="know-your-gear.html">Know Your Gear</a>, and Python 3 for the exercise. Your own data agreement (the terms under which you received the data) overrides anything here.</li>
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
 <section id="the-scene" class="level2">
 <h2 class="anchored" data-anchor-id="the-scene">The scene</h2>
-<p>A manager needs a status report across projects, kept in a spreadsheet. A data analyst needs a count of samples received per project from the project database, using SQL (the language for querying a database). Both have two worries: where the data goes, and the belief that using an LLM means letting an agent loose on their computer.</p>
-<p>Between “never” and “the agent runs my machine” there are several steps, and many useful tasks sit on the lower ones. You may stop at any step.</p>
+<p>A manager needs a status report across projects, kept in a spreadsheet. A data analyst needs a count of samples received per project from the project database, using SQL (the language for querying a database). Both hesitate for two reasons: where their data goes, and the belief that using an LLM means letting an agent loose on their computer. So their answer is “never”: no LLM at all.</p>
+<p>Between “never” and handing an agent control of your computer there are several steps, and many useful tasks sit on the lower ones.</p>
+<p>You decide how much to hand over before the first prompt. A wrong choice can send data you meant to keep, or let an agent change files you meant to leave alone.</p>
 </section>
-<section id="two-dials" class="level2">
-<h2 class="anchored" data-anchor-id="two-dials">Two dials</h2>
+<section id="two-questions" class="level2">
+<h2 class="anchored" data-anchor-id="two-questions">Two questions</h2>
 <ol type="1">
-<li><strong>What leaves your machine?</strong> With a hosted model, anything you type, paste or upload is sent to the provider, and so is anything an agent reads. A local model keeps prompts on your machine, though web or tool calls it makes may still reach out.</li>
-<li><strong>What may the tool do?</strong> Produce text, read files, edit files, or run commands.</li>
+<li><strong>What leaves your machine?</strong> A hosted model runs on the provider’s servers, so anything you type, paste or upload is sent there, and so is anything an agent reads. A local model runs on your computer and keeps prompts there, though an agent’s web or tool calls can still reach out.</li>
+<li><strong>What may the agent do?</strong> Produce text, read files, edit files, or run commands.</li>
 </ol>
-<p>Each dial needs its own decision. A chat window has a low second dial and can still send a whole pasted table. A read-only agent (it can read files but not change them) sends whatever it reads.</p>
+<p>Question 1 is about data leaving. Question 2 is about changes on your machine. They vary independently:</p>
+<ul>
+<li>A chat window with a pasted table: it can only write text, so little can change on your machine, but the whole table is sent.</li>
+<li>A local model in an agent with access to your files: nothing is sent to a provider, but it can edit files and run commands.</li>
+</ul>
+<p>The more data leaves, the higher the first answer. The more the agent may change, the higher the second.</p>
 </section>
 <section id="the-ladder" class="level2">
 <h2 class="anchored" data-anchor-id="the-ladder">The ladder</h2>
+<p>A ladder is six ordered steps of how much you hand over. Each step up raises one or both answers. Terms used in the table: a <strong>schema</strong> is the list of table and column names with no rows; an <strong>extract</strong> is a small slice of the data; an <strong>agent</strong> is a model that reads files and runs commands for you; a <strong>copy</strong> is a duplicate of the data, so the original cannot be edited.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -223,7 +233,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>Pseudonymised codes still count as personal data. Small counts can single people out, so check your policy before pasting results for rare groups. Real or personal data is not pasted into consumer chat.</p>
+<p>Under GDPR (the EU data-protection law), pseudonymised codes still count as personal data. Small counts can single people out, so check your policy before pasting results for rare groups.</p>
 </section>
 <section id="what-a-chat-window-keeps" class="level2">
 <h2 class="anchored" data-anchor-id="what-a-chat-window-keeps">What a chat window keeps</h2>
@@ -255,9 +265,9 @@ ul.task-list li input[type="checkbox"] {
 <thead>
 <tr class="header">
 <th>Project</th>
-<th>Model: samples</th>
+<th>Stand-in model: samples</th>
 <th>Your check: samples</th>
-<th>Model: open milestones</th>
+<th>Stand-in model: open milestones</th>
 <th>Actual open milestones</th>
 </tr>
 </thead>
@@ -285,9 +295,9 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table></li>
-<li><p>The query ran without an error and its numbers are wrong. Each project has two open milestones, and the join (how two tables are matched row by row) pairs every sample with every open milestone, so each sample is counted twice. Fix the query, then run both again until Heron shows 11 and 2.</p></li>
+<li><p>The query ran without an error and its numbers are wrong. Each project has two open milestones, and the join (how two tables are matched row by row) pairs every sample with every open milestone, so each sample row appears twice (22 instead of 11) and each open milestone appears once per sample (22 instead of 2). Open <code>report-query.sql</code> to see the join. Fix the query, then run both again until Heron shows 11 and 2.</p></li>
 </ol>
-<p>Only the schema and the query text left your machine. Running without an error and being right are separate questions, so check against a second query.</p>
+<p>With a real model, only the schema and the query text would have left your machine. Check a query against a second one.</p>
 </section>
 <section id="hands-on-manager-the-same-check-in-a-spreadsheet" class="level2">
 <h2 class="anchored" data-anchor-id="hands-on-manager-the-same-check-in-a-spreadsheet">Hands-on (manager): the same check in a spreadsheet</h2>
@@ -298,7 +308,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Move up a step when the lower step cannot do the task and you can say what leaves.</li>
 <li>Before steps 4 and 5, work on a copy, keep a way to undo, and limit what the agent may do.</li>
-<li>For sensitive data, stay on a local model when your agreement allows that copy.</li>
+<li>For personal or controlled data, a local model (step 3) is allowed only where your agreement says so.</li>
 <li>If you pasted something you should not have, stop and tell your data steward.</li>
 <li>Ask your steward: “I want to use [tool, account type] at step [n]. What leaves is [what]. Is that allowed for [data kind]?”</li>
 </ul>
@@ -343,7 +353,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

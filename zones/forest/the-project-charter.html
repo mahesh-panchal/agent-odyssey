@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>A carved stone stands at the forest’s heart, holding what every traveller should know: where the paths run, which trees are not to be touched. Everyone who passes reads it. The stone advises. It cannot bind. Learn to write on it, and to tell what it does from what it cannot do.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will give the agent standing instructions for a project, and know where instructions end and enforcement begins.</li>
@@ -115,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>Typing the same background every session is wasteful. A <strong>project instructions file</strong> is read at the start so the agent already knows the project’s conventions.</p>
+<p>Typing the same background every session is wasteful. A <strong>project instructions file</strong> (a text file the agent reads at the start of each session) already holds the project’s conventions. Write one early, before the agent works on real files.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -145,11 +148,11 @@ ul.task-list li input[type="checkbox"] {
 <section id="keep-the-file-current" class="level2">
 <h2 class="anchored" data-anchor-id="keep-the-file-current">Keep the file current</h2>
 <p>Instruction files go stale: a rule written for an older model, a path that no longer exists, two files that disagree. When instructions contradict each other, Claude may pick one arbitrarily.</p>
-<p>In Claude Code (v2.1.283 or later), <code>/doctor prompt-audit</code> checks your instruction files for outdated or conflicting content and writes a report with proposed edits. (<code>/doctor</code> is a <strong>bundled skill</strong>, a ready-made skill that ships inside the tool.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.</p>
+<p>In Claude Code (v2.1.283 or later), <code>/doctor prompt-audit</code> checks your instruction files for outdated or conflicting content and writes a report with proposed edits. (<code>/doctor</code> is a <strong>bundled skill</strong>, a ready-made skill that ships inside Claude Code.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.</p>
 </section>
 <section id="write-docs-for-the-agent-too" class="level2">
 <h2 class="anchored" data-anchor-id="write-docs-for-the-agent-too">Write docs for the agent too</h2>
-<p>An agent works on your code and data from the docstrings and descriptions it finds. Write them as if an agent will re-run the work:</p>
+<p>An agent works on your code and data from the docstrings (the description at the top of a function) and other descriptions it finds. Write them as if an agent will re-run the work:</p>
 <ul>
 <li><strong>Units, data versions and assumptions:</strong> put them in the docstring or next to the code.</li>
 <li><strong>Renames:</strong> update the docstring when you rename a parameter. An agent that reads an old docstring calls a name that no longer exists.</li>
@@ -159,8 +162,8 @@ ul.task-list li input[type="checkbox"] {
 Write a short instructions file (about ten lines) for one of your real projects: how to run its tests, where data lives, and one thing the agent should leave alone.
 </div>
 </section>
-<section id="battle-the-charter" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-charter">Battle: the charter</h2>
+<section id="battle-standing-instructions" class="level2">
+<h2 class="anchored" data-anchor-id="battle-standing-instructions">Battle: standing instructions</h2>
 <div data-ao-test="forest-the-project-charter" data-xp="60">
 
 </div>
@@ -195,7 +198,7 @@ Write a short instructions file (about ten lines) for one of your real projects:
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

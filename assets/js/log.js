@@ -23,7 +23,7 @@
                   : "<div class='ao-now'><strong>Now:</strong> every open quest is cleared. More zones open in later versions.</div>";
       gates.forEach(function (g) {
         var qs = g.quests || [], open = cur && cur.g === g;
-        html += "<details" + (open ? " open" : "") + "><summary>" + esc(g.name) + (g.status !== "open" && !(g.id === "murk" && AO.path && AO.path.finaleUnlocked && AO.path.finaleUnlocked()) ? " 🔒" : (function () { var req = qs.filter(function (q) { var n = AO.path && AO.path.quest(q.id); return !(n && n.optional); }); return req.length && req.every(function (q) { return done[q.id]; }); })() ? " ✔" : "") + "</summary>";
+        html += "<details" + (open ? " open" : "") + "><summary>" + esc(g.name) + (g.status !== "open" && !(g.id === "murk" && AO.path && AO.path.finaleUnlocked && AO.path.finaleUnlocked()) ? " 🔒" : (function () { var req = qs.filter(function (q) { var n = AO.path && AO.path.quest(q.id); return !(n && n.optional); }); return req.length && req.every(function (q) { return done[q.id]; }); })() ? " ✔" : (function () { var n = qs.filter(function (q) { return done[q.id]; }).length; return n ? " (" + n + "/" + qs.length + " cleared)" : ""; })()) + "</summary>";
         if (!qs.length) html += "<p class='ao-soft'>" + esc(g.blurb || "") + "</p>";
         qs.forEach(function (q) {
           var st = done[q.id] ? "✔" : (cur && cur.q === q ? "➜" : "○");

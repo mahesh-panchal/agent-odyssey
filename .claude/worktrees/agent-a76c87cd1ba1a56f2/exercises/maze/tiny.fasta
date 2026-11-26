@@ -1,0 +1,7 @@
+>seq1 clean sequence
+ATGCGC
+ATATGC
+>seq2 soft-masked repeat
+atgcgcATGC
+>seq3 contains ambiguity
+GCNNNNAT

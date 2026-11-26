@@ -143,6 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>In a back room the miller strings yarn between pegs: one peg for each name, one thread for each link. It takes a long time, and every knot is worth checking. A traveller asks whether the web finds answers that a plain search misses. You will build a small one and test that.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will build a small knowledge graph from twelve mock lab notes with a local model, query it, compare it with simple RAG, and learn what LightRAG and Microsoft GraphRAG ask of an Ollama setup.</li>
@@ -150,14 +153,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 30 minutes, most of it waiting for the model. Everything stays on your machine, and the notes are mock data.</li>
 </ul>
 </div>
-<section id="words-first" class="level2">
-<h2 class="anchored" data-anchor-id="words-first">Words first</h2>
+<p>This exercise tests whether a graph answers a question that plain lookup misses, using notes small enough to check by hand. Three terms first:</p>
 <ul>
 <li><strong>Simple RAG:</strong> embed every note, embed the question, keep the <em>k</em> closest notes, and ask the model to answer from them.</li>
 <li><strong>Knowledge graph:</strong> facts stored as <code>(subject, relation, object)</code> triples. Things are nodes and the links between them are edges.</li>
 <li><strong>Hop:</strong> one step along an edge from one entity to a linked one.</li>
 </ul>
-</section>
 <section id="set-up" class="level2">
 <h2 class="anchored" data-anchor-id="set-up">Set up</h2>
 <p><a href="https://github.com/mahesh-panchal/agent-odyssey/tree/main/exercises/codon-mill/mini-rag"><code>mini-rag</code></a> holds <code>ollama_min.py</code> (two helpers), <code>rag.py</code> (simple RAG), <code>graph.py</code> (a hand-made graph RAG) and <code>notes/</code> (twelve short mock notes, 233 words in all). Save the folder anywhere. If the link is not available, ask your agent to recreate it from the descriptions below.</p>
@@ -318,8 +319,8 @@ Notes used:
 <li>Keep real and controlled data out of this exercise. The same scripts pointed at a hosted model send every note to that provider.</li>
 </ul>
 </section>
-<section id="with-a-companion" class="level2">
-<h2 class="anchored" data-anchor-id="with-a-companion">With a companion</h2>
+<section id="choose-your-setup" class="level2">
+<h2 class="anchored" data-anchor-id="choose-your-setup">Choose your setup</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -327,7 +328,7 @@ Notes used:
 <p>Ask Claude Code to read <code>graph.py</code> and explain the walk in <code>ask</code>, then predict what changes if you set <code>hops=1</code> before you run it. Running the scripts needs your approval for each shell command. These notes are mock data, so sending them to a hosted model is fine for this exercise. Check your data agreement before a hosted agent reads your own unpublished notes.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>The scripts talk to Ollama directly, so any companion can run them. If you use OpenCode with the Pet, ask it to explain the code and change <code>hops</code>.</p>
+<p>The scripts talk to Ollama directly, so any agent can run them. If you use OpenCode with the Pet, ask it to explain the code and change <code>hops</code>.</p>
 </div>
 </div>
 </div>
@@ -377,7 +378,7 @@ Change <code>hops=2</code> to <code>hops=1</code> in <code>graph.py</code>, pred
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -143,6 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>A notebook can hold a result nobody can reproduce, and in the Scriptorium the order of work matters more than the page. A scribe’s note says one thing and the manuscript says another. Learn to tell which one is true.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will show that a notebook’s stored result can differ from a fresh top-to-bottom run, and use that as the check before you trust or share one.</li>
@@ -152,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="hidden-state" class="level2">
 <h2 class="anchored" data-anchor-id="hidden-state">Hidden state</h2>
-<p>A notebook kernel (the background process that runs the cells’ code) keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran, and the variables stay. The page then shows a result that the file, read from the top, does not produce. This is hidden state. It appears with or without an agent.</p>
+<p>A notebook kernel (the background process that runs the cells’ code) keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran, and the variables stay. The page then shows a result that the file, read from the top, does not produce. This is <strong>hidden state</strong>: the notebook’s memory holds something the file does not. It appears with or without an agent.</p>
 <p><code>cells.py</code> is a mock notebook with four cells. Each header, such as <code># %% [1] load</code>, carries a cell number. <code>run_cells.py</code> runs cells in the order you give, sharing one namespace like a kernel. It uses <code>exec</code>, so run it only on files you wrote. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> run_cells.py cells.py 1 2 3 4 3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>[cell 1]
@@ -234,7 +237,7 @@ Take one of your own notebooks and run Restart and Run All. Note whether any out
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

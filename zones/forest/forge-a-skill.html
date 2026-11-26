@@ -143,10 +143,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>In a hollow of the forest, a smith keeps procedures in folders and takes each out only when it is needed. A long recipe hung on every branch would crowd the clearing, so the smith hangs only a label and fetches the rest on demand. The smith will now show you how to make one.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will package a repeatable procedure as a Skill, install it, and confirm that it loads.</li>
-<li><strong>Before you start:</strong> <a href="the-project-charter.html">The Project Charter</a>. A <strong>slash command</strong> is a <code>/command</code> typed inside the running tool. <strong>Frontmatter</strong> is the settings block between the two <code>---</code> lines at the top of a file.</li>
+<li><strong>Before you start:</strong> <a href="the-project-charter.html">The Project Charter</a>. A <strong>slash command</strong> is a <code>/command</code> typed inside the running agent. <strong>Frontmatter</strong> is the settings block between the two <code>---</code> lines at the top of a file.</li>
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
@@ -181,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>In a scratch folder (never a real project), save the example above as <code>.claude/skills/check-fasta/SKILL.md</code>. The <code>---</code> must be the very first line of the file.</li>
 <li>Make a tiny test file: <code>printf '&gt;a\nACGT\n&gt;a\nGGCC\n' &gt; reads.fa</code> (two records, one duplicated ID).</li>
-<li>Confirm the tool can see it:</li>
+<li>Confirm the agent can see it:</li>
 </ol>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
@@ -206,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A Skill that is listed but never picked up points to the description or the prompt.</p>
 <p>Two slash commands help you look:</p>
 <ul>
-<li><code>/skills</code> lists the skills the tool can see, and <code>t</code> sorts them by token count (how many tokens, the chunks of text a model reads, each one takes).</li>
+<li><code>/skills</code> lists the skills the agent can see, and <code>t</code> sorts them by token count (how many tokens, the chunks of text a model reads, each one takes).</li>
 <li><code>/skill-doctor</code> shows each skill’s context cost (how much of the model’s limited reading space its text takes up) and how often it is used, and flags skills that sit in the listing but are never invoked. It excludes bundled and enterprise skills.</li>
 </ul>
 <p>In Claude Code, <code>allowed-tools</code> in a Skill <strong>pre-approves</strong> tools for that turn (one prompt and its reply). Other tools stay available to the agent. A Skill offers no sandbox, and a Skill you download is code you choose to trust, so read it before installing it, as you would read a script.</p>
@@ -232,8 +235,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Write a <code>SKILL.md</code> for one chore you repeat (checking an input, summarising a log). Make the description say when to use it.
 </div>
 </section>
-<section id="battle-the-skill" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-skill">Battle: the Skill</h2>
+<section id="battle-write-a-skill" class="level2">
+<h2 class="anchored" data-anchor-id="battle-write-a-skill">Battle: write a Skill</h2>
 <div data-ao-test="forest-forge-a-skill" data-xp="60">
 
 </div>
@@ -268,7 +271,7 @@ Write a <code>SKILL.md</code> for one chore you repeat (checking an input, summa
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

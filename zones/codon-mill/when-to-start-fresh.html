@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>The hopper is filling. A good miller knows the signs that it is time to empty it, and the signs that emptying it would waste the day. Today you learn to read them, and what to write down before you tip anything out.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will name the signals that say “start a new session”, the signals that say “carry on”, and when compacting fits better than either.</li>
@@ -119,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="words-first" class="level2">
 <h2 class="anchored" data-anchor-id="words-first">Words first</h2>
 <ul>
-<li><strong>Session:</strong> one saved conversation with the tool.</li>
+<li><strong>Session:</strong> one saved conversation with the agent.</li>
 <li><strong>Context:</strong> the text the model can see right now. It has a fixed size limit.</li>
 <li><strong>Compacting:</strong> replacing the long history with a short summary and carrying on in the same conversation.</li>
 <li><strong>Starting fresh:</strong> opening a new, empty conversation. Your files stay as they are.</li>
@@ -131,8 +134,8 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>A new, unrelated task.</strong> Run <code>/clear</code> between unrelated tasks. It costs nothing, and the next task stops paying for the previous one’s history. A session holding three unrelated tasks re-reads all three on every turn of the fourth. A name, as in <code>/clear oauth-migration</code>, labels the conversation you leave so you can find it again.</li>
 <li><strong>The agent repeats a wrong claim after two corrections.</strong> Clear, and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts.</li>
 <li><strong>You notice it forgetting early instructions or contradicting itself.</strong> A crowded or degraded context is the usual cause. Start fresh, and move the instruction into the instructions file (<code>CLAUDE.md</code>). Detailed early instructions can also be lost when a conversation is compacted.</li>
-<li><strong>You have been away for a while and the next task is new.</strong> The tool keeps a <strong>cache</strong>, a short-term store that makes re-reading the conversation cheaper. It lasts about an hour on a subscription and five minutes with an API key. A very long session (past about 200 thousand tokens) that sits idle may be compacted shortly before the cache expires, so you return to a summary. If you do not need the history, a fresh session costs less.</li>
-<li><strong>The context is crowded.</strong> Run <code>/context</code>: it shows what fills the window. A crowded window with a task you still need is a reason to compact (below). A crowded window full of dead ends is a reason to clear.</li>
+<li><strong>You have been away for a while and the next task is new.</strong> Claude Code keeps a <strong>cache</strong>, a short-term store that makes re-reading the conversation cheaper. It lasts about an hour on a subscription and five minutes with an API key. A very long session (past about 200 thousand tokens) that sits idle may be compacted shortly before the cache expires, so you return to a summary. If you do not need the history, a fresh session costs less.</li>
+<li><strong>The context is crowded.</strong> Run <code>/context</code>: it shows what fills the window. A fresh session still starts with its fixed load (instructions, tools, skills), so a fresh start saves only the conversation part. A crowded window with a task you still need is a reason to compact (below). A crowded window full of dead ends is a reason to clear.</li>
 <li><strong>A task is finished and a verified result is committed.</strong> The result lives in your files and in git, so the conversation has done its job. The same move works after a spec (a written description of what to build): write it down, then start a fresh session to build from it.</li>
 </ol>
 </section>
@@ -142,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Same task, early decisions still matter:</strong> the next step needs the same files, the decisions you made and what was already tried.</li>
 <li><strong>The agent is on track:</strong> nothing is repeated or contradicted. Clearing a working session throws away good context.</li>
 <li><strong>You are returning to a named session:</strong> <code>/resume</code> (or <code>claude --resume &lt;name&gt;</code>) reopens a session you chose, and <code>claude --continue</code> reopens the most recent one in this directory. Resume restores the messages, model and permission mode (what the agent may do without asking). Pass startup flags such as <code>--mcp-config</code> again. A compacted session continues from its last summary.</li>
-<li><strong>The tool offers to resume after a long break:</strong> on some plans a dialog estimates how much of your usage limit the saved conversation would use. Choose by whether your next task still needs it.</li>
+<li><strong>Claude Code offers to resume after a long break:</strong> on some plans a dialog estimates how much of your usage limit the saved conversation would use. Choose by whether your next task still needs it.</li>
 </ul>
 </section>
 <section id="the-middle-path-compact" class="level2">
@@ -152,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Kept:</strong> your requests and key code snippets.</li>
 <li><strong>May be lost:</strong> detailed instructions from early in the conversation. Restate any that matter.</li>
 <li><strong>Re-supplied afterwards:</strong> the system prompt, the project-root <code>CLAUDE.md</code>, auto memory and skill descriptions. Up to five recently used files are re-read.</li>
-<li><strong>Automatic:</strong> the tool also compacts as you approach the limit. A manual <code>/compact</code> lets you choose the moment and the emphasis.</li>
+<li><strong>Automatic:</strong> Claude Code also compacts as you approach the limit. A manual <code>/compact</code> lets you choose the moment and the emphasis.</li>
 <li><strong>Cost:</strong> compacting reads the whole conversation once, so it uses some of your usage.</li>
 </ul>
 </section>
@@ -251,8 +254,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="battle-empty-the-hopper-or-not" class="level2">
-<h2 class="anchored" data-anchor-id="battle-empty-the-hopper-or-not">Battle: empty the hopper or not</h2>
+<section id="battle-start-fresh-or-carry-on" class="level2">
+<h2 class="anchored" data-anchor-id="battle-start-fresh-or-carry-on">Battle: start fresh or carry on</h2>
 <div data-ao-test="codon-mill-when-to-start-fresh" data-xp="50">
 
 </div>
@@ -293,7 +296,7 @@ At the end of your next working session, write one line saying which signal (new
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

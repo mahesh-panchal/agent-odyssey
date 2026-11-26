@@ -1,0 +1,1 @@
+Run R8 loaded samples S41, S42, S43, S44, S45 and S46 onto the sequencer Vega. Primary analysis of run R8 used pipeline release 2.4.

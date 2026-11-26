@@ -143,6 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>A scribe in the mill keeps a ledger that tidies itself. Each new sack of papers is read once, and every page it touches is updated and cross-linked before the scribe sleeps. A traveller wonders what such a ledger can and cannot be trusted with. Learn how it is built and where it can mislead you.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will describe the three layers and three jobs of an agent-kept wiki, match the pattern to a use case from your own work, and know where it can mislead you.</li>
@@ -150,11 +153,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 25 minutes. Reading and planning only; you choose whether to build anything afterwards.</li>
 </ul>
 </div>
-<section id="the-itch" class="level2">
-<h2 class="anchored" data-anchor-id="the-itch">The itch</h2>
+<section id="the-problem-understanding-that-does-not-accumulate" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem-understanding-that-does-not-accumulate">The problem: understanding that does not accumulate</h2>
 <p>Think about the last time you read ten papers on a method, or went through six months of meeting notes. You understood it all at the time. A month later, the understanding lives in your head and in a pile of files, and the next question sends you back to the pile.</p>
 <p>RAG (retrieval-augmented generation) answers that with a lookup: each question searches the pile again, pastes a few passages into the prompt, and starts from scratch. Nothing builds up between questions. If an answer needs five documents stitched together, the stitching is redone every time.</p>
-<p>This quest follows Andrej Karpathy’s “LLM Wiki” gist, which proposes another arrangement. An agent keeps a <strong>wiki</strong>: a folder of interlinked Markdown pages that it writes and updates as new sources arrive, so the stitching is done once and stays. The gist calls it a “persistent, compounding artifact”. People drop their notes because the bookkeeping is tedious (updating links, rewriting summaries, spotting that two pages now disagree), and an agent does that bookkeeping without getting bored. You keep the parts that need a person: choosing sources, asking questions, and deciding what the findings mean.</p>
+<p>This quest follows Andrej Karpathy’s “LLM Wiki” gist (a short shared text page), which proposes another arrangement. An agent keeps a <strong>wiki</strong>: a folder of interlinked Markdown pages (plain text files with simple formatting) that it writes and updates as new sources arrive, so the stitching is done once and stays. The gist calls it a “persistent, compounding artifact”. People drop their notes because the bookkeeping is tedious (updating links, rewriting summaries, spotting that two pages now disagree), and an agent does that bookkeeping without getting bored. You keep the parts that need a person: choosing sources, asking questions, and deciding what the findings mean.</p>
 <p>The gist is an “idea file”, meant to be handed to your agent so the two of you work out the details together. It describes a pattern and includes no program.</p>
 </section>
 <section id="three-layers" class="level2">
@@ -293,8 +296,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Exact answers.</strong> Counts, filters and joins over tables belong in a query tool, not in prose pages.</li>
 </ul>
 </section>
-<section id="with-a-companion" class="level2">
-<h2 class="anchored" data-anchor-id="with-a-companion">With a companion</h2>
+<section id="choose-your-setup" class="level2">
+<h2 class="anchored" data-anchor-id="choose-your-setup">Choose your setup</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -307,8 +310,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="battle-the-living-wiki" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-living-wiki">Battle: the living wiki</h2>
+<section id="battle-the-wiki" class="level2">
+<h2 class="anchored" data-anchor-id="battle-the-wiki">Battle: the wiki</h2>
 <div data-ao-test="codon-mill-llm-wiki" data-xp="60">
 
 </div>
@@ -348,7 +351,7 @@ Draft a schema (instruction file) of five lines or fewer for that collection: wh
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

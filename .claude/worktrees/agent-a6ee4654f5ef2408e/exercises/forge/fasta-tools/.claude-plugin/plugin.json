@@ -1,0 +1,6 @@
+{
+  "name": "fasta-tools",
+  "description": "Small checks for FASTA files, as a teaching example.",
+  "version": "0.1.0",
+  "author": { "name": "Agent Odyssey contributors" }
+}

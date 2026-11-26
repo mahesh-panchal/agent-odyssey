@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>The rails look sound from a distance, but one points at a private road and another melts the cargo it carries. Reading the rails is how you find them. Learn the four flaws that turn up most.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will spot the common mistakes in agent-written pipeline rules by reading them.</li>
@@ -115,11 +118,11 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 10 minutes.</li>
 </ul>
 </div>
-<p>Pipelines fail quietly in a few recurring ways. When you review a rule, ask where each input comes from, where each output goes, and what would change if you re-ran it.</p>
+<p>An agent can write pipeline rules that run and still produce the wrong result, so reading them is part of the check. Pipelines fail quietly in a few recurring ways. When you review a rule, ask where each input comes from, where each output goes, and what would change if you re-ran it.</p>
 <p>Common mistakes:</p>
 <ul>
 <li><strong>Hard-coded path:</strong> a path to someone’s home directory or to one sample.</li>
-<li><strong>Undeclared output:</strong> the manager cannot tell what a step made.</li>
+<li><strong>Undeclared output:</strong> the workflow manager (the tool that runs the steps, such as Snakemake or Nextflow) cannot tell what a step made.</li>
 <li><strong>Unpinned tool version:</strong> results change when the environment does.</li>
 <li><strong>Overwritten inputs:</strong> a step changes its input in place, so there is no way back.</li>
 </ul>
@@ -156,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

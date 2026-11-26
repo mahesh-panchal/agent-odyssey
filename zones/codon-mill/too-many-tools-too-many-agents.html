@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>The wall of the mill is hung with every tool anyone ever made, and the travellers are tempted to take them all. A craftsman picks three and leaves the rest on their hooks. She also asks a harder question: does this job need a crew of helpers at all? Count what each tool costs before you carry it.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will explain why a large toolset costs context and accuracy, and choose between a single call, a fixed workflow, an agent and a plain script.</li>
@@ -115,33 +118,33 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
-<p>Every tool you give an agent has a <strong>definition</strong>: a name and a description of how to use it. The model needs those definitions in its context window (the text it can see at once) to choose a tool. That cost is the first half of this quest. The second half asks whether you need an agent at all.</p>
+<p>An agent (a model that runs tools in a loop) has a <strong>tool</strong> for each action it can take, such as reading a file or searching the web. Each tool has a <strong>definition</strong>: a name and a description of how to use it. The model needs those definitions in its context window (the text it can see at once) to choose a tool. Too many tools make the agent slower, costlier and less accurate, so the first half of this quest is about keeping the set small. The second half asks whether you need an agent at all.</p>
 <section id="tools-cost-context" class="level2">
 <h2 class="anchored" data-anchor-id="tools-cost-context">Tools cost context</h2>
-<p>Loading every tool definition up front bloats the context. Anthropic reports that a typical five-server setup can use about 55 thousand tokens in definitions before any work starts, and that choosing the right tool gets worse beyond roughly 30 to 50 available tools. Treat the numbers as a rough guide.</p>
-<p><strong>Tool search</strong> keeps most definitions out of the window and loads a few on demand. Anthropic reports that it typically cuts that overhead by over 85 percent, a figure to treat as a rough guide. It pays off from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.</p>
+<p>Loading every tool definition up front bloats the context. Anthropic reports that a typical five-server setup (an MCP server is a program that offers tools to the agent) can use about 55 thousand tokens in definitions before any work starts, and that choosing the right tool gets worse beyond roughly 30 to 50 available tools.</p>
+<p><strong>Tool search</strong> keeps most definitions out of the window and loads a few on demand. Anthropic reports that it typically cuts that overhead by over 85 percent. Treat both figures as rough guides. It pays off from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>MCP tool search is on by default. Tool names and server instructions load at session start, and a full definition loads when needed. Extra MCP servers therefore have a small effect on the window. Set <code>ENABLE_TOOL_SEARCH=false</code> to turn it off. On some older models it falls back to loading everything. Skill descriptions also load at start. Run <code>/context</code> to see what takes space. Choose your tool set before you start a task.</p>
+<p>MCP tool search is on by default. Tool names and server instructions load at session start, and a full definition loads when needed. Extra MCP servers therefore have a small effect on the window. Set <code>ENABLE_TOOL_SEARCH=false</code> to turn it off. On some older models it falls back to loading everything. Skill descriptions also load at start. Run <code>/context</code> to see what takes space, and choose your tool set before you start a task.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Run <code>/help</code> in OpenCode and check its docs for how it loads tool definitions. Until you know, assume definitions cost context and keep the set small, especially on a local model with a small window.</p>
+<p>Check OpenCode’s docs for how it loads tool definitions. Until you know, assume definitions cost context and keep the set small, especially on a local model with a small window.</p>
 </div>
 </div>
 </div>
-<p>The habit that follows: few, clearly named tools, and remove the servers you do not use.</p>
+<p>Keep few, clearly named tools, and remove the servers you do not use.</p>
 </section>
 <section id="single-call-workflow-agent-or-script" class="level2">
 <h2 class="anchored" data-anchor-id="single-call-workflow-agent-or-script">Single call, workflow, agent, or script</h2>
-<p>A <strong>workflow</strong> orchestrates models and tools through paths fixed in code. An <strong>agent</strong> is a system where the model directs its own process and tool use. The advice in Anthropic’s article “Building effective agents” is to start with the simplest solution that works. For many uses, one well-prepared call is enough. Agents trade speed and cost for performance, and autonomy brings compounding errors, so test with limits such as a <strong>stopping condition</strong>: a maximum number of steps.</p>
+<p>A <strong>workflow</strong> orchestrates models and tools through paths fixed in code. An <strong>agent</strong> is a system where the model directs its own process and tool use. Anthropic’s article “Building effective agents” advises starting with the simplest solution that works, and for many uses one well-prepared call is enough. Agents trade speed and cost for performance, and their mistakes compound, so test with limits such as a <strong>stopping condition</strong> (a maximum number of steps).</p>
 <ul>
-<li><strong>A plain script:</strong> use it when the rule is known. Counting reads, converting a format, running fastqc then trim then align in a fixed order. A Nextflow pipeline is already a workflow.</li>
+<li><strong>A plain script:</strong> use it when the rule is known. Counting reads, converting a format, running fastqc then trim then align in a fixed order. A pipeline written in a workflow manager such as Nextflow is already a workflow.</li>
 <li><strong>A single call:</strong> use it when you paste the input and want a text answer, such as an explanation of an error.</li>
 <li><strong>An agent:</strong> use it when the next step depends on what it finds, such as debugging a failing run or exploring an unfamiliar repository. Give it a way to check its own work and a limit.</li>
 </ul>
-<p>Using none of these is also a fine decision.</p>
+<p>Doing the task by hand is also a fine decision.</p>
 </section>
 <section id="does-a-team-of-agents-help" class="level2">
 <h2 class="anchored" data-anchor-id="does-a-team-of-agents-help">Does a team of agents help?</h2>
@@ -153,8 +156,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Start with one agent, measure it, and add agents only for work that splits into independent parts and only if the measurement says it helps.</p>
 </section>
-<section id="battle-the-wall-of-tools" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-wall-of-tools">Battle: the wall of tools</h2>
+<section id="battle-choose-the-smallest-option" class="level2">
+<h2 class="anchored" data-anchor-id="battle-choose-the-smallest-option">Battle: choose the smallest option</h2>
 <div data-ao-test="codon-mill-too-many-tools-too-many-agents" data-xp="50">
 
 </div>
@@ -195,7 +198,7 @@ Take one task you gave an agent that had a known rule. Write down the script tha
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

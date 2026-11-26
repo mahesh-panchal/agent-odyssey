@@ -143,17 +143,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>A script glows in the maze and claims to have been tested. It sounds sure of itself, and its light shows nothing new. A traveller carries a lantern of their own: a measurement the script did not make. Light it and see whether the script is telling the truth.</p>
+</div>
 <div class="quest-dialog">
 <ul>
-<li><strong>Goal:</strong> you will find out whether a script an agent called “tested” is actually right, using a check the agent did not write.</li>
+<li><strong>Goal:</strong> you will find out whether a script an agent called “tested” is right, using a check the agent did not write. You need this before you rely on any agent-written code.</li>
 <li><strong>Before you start:</strong> <a href="spot-the-mirage.html">Spot the Mirage</a>, a terminal with Python 3 and <code>awk</code>, and the two files below (about 1 KB in total). Nothing here touches your own data.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>Files: <a href="../../exercises/maze/tiny.fasta">tiny.fasta</a> and <a href="../../exercises/maze/gc.py">gc.py</a>. Save both into an empty folder.</p>
-<section id="the-lantern" class="level2">
-<h2 class="anchored" data-anchor-id="the-lantern">The lantern</h2>
-<p>An agent gave you <code>gc.py</code>, which reports the GC content of each sequence, and said “tested, works”. Test it yourself:</p>
+<p>Files: <a href="../../exercises/maze/tiny.fasta">tiny.fasta</a> (three short DNA sequences in FASTA, a text format where each <code>&gt;</code> line names a sequence) and <a href="../../exercises/maze/gc.py">gc.py</a>. Save both into an empty folder.</p>
+<section id="check-the-script-with-an-independent-count" class="level2">
+<h2 class="anchored" data-anchor-id="check-the-script-with-an-independent-count">Check the script with an independent count</h2>
+<p>An agent gave you <code>gc.py</code>, which reports the GC content of each sequence (the percentage of its bases that are G or C), and said “tested, works”. Run it yourself:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> gc.py tiny.fasta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You should see:</p>
 <pre><code>seq1    50.0
@@ -166,7 +169,7 @@ seq3    25.0</code></pre>
 <pre><code>seq1    6 GC of 12 total
 seq2    6 GC of 10 total
 seq3    2 GC of 8 total</code></pre>
-<p>Work out the percentages and compare them row by row with the script. Two of the three rows tell a story, and one of them is not a bug at all. Then take the battle.</p>
+<p>Work out the percentages and compare them row by row with the script. Two of the three rows differ, and one of those differences is not a bug at all. Then take the battle.</p>
 </section>
 <section id="say-what-the-agent-did" class="level2">
 <h2 class="anchored" data-anchor-id="say-what-the-agent-did">Say what the agent did</h2>
@@ -179,8 +182,8 @@ seq3    2 GC of 8 total</code></pre>
 <li><strong>Stay accountable:</strong> the judgement is yours whatever the agent found.</li>
 </ul>
 </section>
-<section id="battle-the-lantern" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-lantern">Battle: the lantern</h2>
+<section id="battle-ground-truth" class="level2">
+<h2 class="anchored" data-anchor-id="battle-ground-truth">Battle: ground truth</h2>
 <div data-ao-test="maze-ground-truth" data-xp="80">
 
 </div>
@@ -214,7 +217,7 @@ seq3    2 GC of 8 total</code></pre>
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

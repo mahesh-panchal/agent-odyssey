@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>A talkative machine sits in the middle of the line. Sometimes it says one thing and sometimes another, and the factory needs the same every time. Decide whether it belongs on the line at all.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will decide whether an LLM belongs inside a pipeline, and keep the pipeline reproducible if it does.</li>
@@ -120,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
 <p>If an LLM call really must be a step (tidying messy free-text labels, say), contain it:</p>
 <ul>
 <li><strong>Record</strong> the model name and version, and the exact prompt, with the outputs. A pinned model may still return different text, so recording is a start.</li>
-<li><strong>Cache</strong> results keyed by input (saved outputs), so a re-run does not change them silently.</li>
+<li><strong>Cache</strong> results keyed by input (save each output under its input), so a re-run does not change them silently.</li>
 <li><strong>Validate</strong> each output against a fixed set (a species list, a schema) and fail loudly when it does not match.</li>
 <li><strong>Keep a human-check sample</strong>: look at a random handful every time.</li>
 <li><strong>Keep restricted data away from external models.</strong> Data you may not share must not reach an outside API.</li>
@@ -159,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

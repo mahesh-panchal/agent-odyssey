@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>A wall of signs hangs in the Gatehouse. Some ask politely and some lock the door, and from across the room they look the same. Learn to tell them apart before you rely on one.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will sort every control in your setup by whether it advises, asks or enforces, and choose the right one for each risk.</li>
@@ -115,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>Every control does one of three things.</p>
+<p>A common mistake is to use advice where a lock was needed. Every control does one of three things.</p>
 <ul>
 <li><strong>Advises:</strong> it puts words in front of the model: an instructions file, Skill text, a line in your prompt. The model reads it and weighs it against everything else in its context. Nothing stops a tool call.</li>
 <li><strong>Asks:</strong> the harness pauses and puts the decision to you: a permission prompt, or an <code>ask</code> rule. It is only as good as your attention at the tenth prompt of the hour.</li>
@@ -292,8 +295,8 @@ ul.task-list li input[type="checkbox"] {
 List five controls in your own setup, such as an instructions file, a hook or a deny rule. Label each advises, asks or enforces, and write the way it could fail.
 </div>
 </section>
-<section id="battle-signs-and-locks" class="level2">
-<h2 class="anchored" data-anchor-id="battle-signs-and-locks">Battle: signs and locks</h2>
+<section id="battle-advise-ask-or-enforce" class="level2">
+<h2 class="anchored" data-anchor-id="battle-advise-ask-or-enforce">Battle: advise, ask or enforce</h2>
 <div data-ao-test="gatehouse-advice-or-enforcement" data-xp="50">
 
 </div>
@@ -328,7 +331,7 @@ List five controls in your own setup, such as an instructions file, a hook or a 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

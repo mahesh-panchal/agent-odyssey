@@ -143,6 +143,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="ao-story">
+<p>Scribes in the Scriptorium keep notebooks, and every page is stuffed with outputs and images. Reviewing one change means wading through all of it. Find out why, then find the single line that mattered.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable.</li>
@@ -193,8 +196,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>An output in a diff shows that something ran once; a re-run shows whether the code produces it.</li>
 </ul>
 </section>
-<section id="with-a-companion" class="level2">
-<h2 class="anchored" data-anchor-id="with-a-companion">With a companion</h2>
+<section id="with-an-agent" class="level2">
+<h2 class="anchored" data-anchor-id="with-an-agent">With an agent</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -251,7 +254,7 @@ Write one sentence naming which of the four options your team could adopt this w
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

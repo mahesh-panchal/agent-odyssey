@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>The fire at Basecamp burns low, and the travellers gathered round it each carry a worry. Some say it aloud and some keep it quiet. Name yours here and it shrinks, because every worry on this road has a habit that answers it. Then you can look at the machines themselves.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will name what worries you about large language model (LLM) agents and pick the habit that answers each worry, whether you plan to use them or not.</li>
@@ -117,14 +120,14 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="where-people-start" class="level2">
 <h2 class="anchored" data-anchor-id="where-people-start">Where people start</h2>
-<p>People come to these tools from different places:</p>
+<p>Before you learn any habit, it helps to name the worry it answers. People come to these tools from different places:</p>
 <ul>
 <li>Some are keen and want to know how to begin well.</li>
 <li>Some are curious and want to see what is involved before deciding.</li>
 <li>Some hold back, often for good reasons: the environmental cost of AI, harm to people and their work, or the quality of what comes out.</li>
 </ul>
-<p>Every one of these starting points is reasonable, and nothing here asks you to use these tools. This odyssey leaves the larger questions to you. It covers the practical worries that come with using an agent and gives each one a <strong>habit</strong> that makes the risk smaller. Whether you go on to use agents or decide to leave them alone, you will have a clear picture of what they ask of you.</p>
-<p>An <em>agent</em> is a model running inside a program that picks and runs tools in a loop toward a goal. A <em>prompt</em> is the text you send to the model. The rest of the odyssey trains the habits below, and each row links to the zone that teaches it.</p>
+<p>Every one of these starting points is reasonable, and nothing here asks you to use these tools. This course leaves the larger questions to you. It covers the practical worries that come with using an agent and gives each one a <strong>habit</strong> that makes the risk smaller. Whether you go on to use agents or decide to leave them alone, you will have a clear picture of what they ask of you.</p>
+<p>An <em>agent</em> is a language model running inside a program that picks and runs tools (such as reading a file or running a command) in a loop toward a goal. A <em>prompt</em> is the text you send to the model. The rest of the course trains the habits below, and each row links to the lesson that teaches it.</p>
 <section id="about-the-output" class="level3">
 <h3 class="anchored" data-anchor-id="about-the-output">About the output</h3>
 <table class="caption-top table">
@@ -153,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p><em>Slop</em> is low-quality bulk output. A <em>review budget</em> means you only produce as much as you can honestly review today.</p>
+<p><em>Slop</em> is low-quality bulk output. A <em>review budget</em> means you only produce as much as you can honestly review in a day.</p>
 </section>
 <section id="about-the-work-and-your-data" class="level3">
 <h3 class="anchored" data-anchor-id="about-the-work-and-your-data">About the work and your data</h3>
@@ -183,7 +186,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>A <em>sandbox</em> is an operating-system layer that limits what commands can touch; it is one way to protect your files. For unpublished work, prefer an agreement your institution has reviewed or a local model, and date-stamp your work.</p>
+<p>A <em>sandbox</em> is a layer of the operating system that limits what commands can touch; it is one way to protect your files. A <em>scratch copy</em> is a duplicate you let the agent work on, so the original stays safe. For unpublished work, prefer an agreement your institution has reviewed or a local model, and record the date you made each result.</p>
 </section>
 <section id="about-you-and-the-people-around-you" class="level3">
 <h3 class="anchored" data-anchor-id="about-you-and-the-people-around-you">About you and the people around you</h3>
@@ -239,11 +242,11 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 <p>For voice and judgement, use the agent for structure and checks, and keep a few decisions agent-free. For credit and workload, follow your team’s norm, credit the agent’s part openly and share how long checking took.</p>
-<p>Sometimes the right answer is to skip the LLM. Part of the skill is knowing when.</p>
+<p>Sometimes the right answer is to skip the LLM. The next lesson shows how to tell when.</p>
 </section>
 </section>
-<section id="battle-name-the-counter-habit" class="level2">
-<h2 class="anchored" data-anchor-id="battle-name-the-counter-habit">Battle: name the counter-habit</h2>
+<section id="battle-name-the-habit" class="level2">
+<h2 class="anchored" data-anchor-id="battle-name-the-habit">Battle: name the habit</h2>
 <div data-ao-test="basecamp-name-the-fears" data-xp="40">
 
 </div>
@@ -278,7 +281,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

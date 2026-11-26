@@ -108,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>The first seal in the Crypt is not a lock. It is a mark on the floor that you can step back to. The warden says every traveller who walks on without one has walked back along the same corridor with nothing to show. Make your mark before you touch anything.</p>
+</div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will make any change reversible before an agent touches it.</li>
@@ -115,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 10 minutes.</li>
 </ul>
 </div>
-<p>Before any agent edits your files, put them under version control:</p>
+<p>An agent can edit many files in seconds, and you may want them back as they were. Before any agent edits your files, put them under version control (a record of every saved state of a project):</p>
 <ol type="1">
 <li>Run <code>git init</code> once in the project folder.</li>
 <li>Run <code>git add -A &amp;&amp; git commit -m "before agent"</code>.</li>
@@ -159,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

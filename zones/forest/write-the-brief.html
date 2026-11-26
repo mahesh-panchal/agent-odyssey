@@ -108,14 +108,17 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="ao-story">
+<p>The first branch of the great tree is bare. A vague instruction leaves the sap to wander; a clear one makes the bark grow. The old foresters say every good cut starts with a few plain words about where, why and how you will know it worked. Learn to write them before you swing anything.</p>
+</div>
 <div class="quest-dialog">
 <ul>
-<li><strong>Goal:</strong> you will write prompts that make output checkable, and keep the context window in good shape so the agent stays on task.</li>
+<li><strong>Goal:</strong> you will write prompts that make output checkable, and keep the context window in good shape so the agent stays on task. Do this before you ask an agent for any real change, because a vague prompt gets a confident guess.</li>
 <li><strong>Before you start:</strong> <a href="../kennel/recruit-the-beast.html">Recruit the Beast</a>. The <strong>context window</strong> is everything the model can see in a session: your prompts, its replies, and the files it has read.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>The first branch of the skill tree is the <strong>brief</strong>: what you tell the agent. A vague brief invites a plausible guess. A good brief names the file and the symptom, says what “done” looks like, and gives the agent a <strong>check it can run</strong>.</p>
+<p>The <strong>brief</strong> is what you tell the agent. A vague brief invites a plausible guess. A good brief names the file and the symptom, says what “done” looks like, and gives the agent a <strong>check it can run</strong>.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -130,11 +133,11 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td>“Fix the GC script.”</td>
-<td>“<code>gc.py</code> reports 20.0 for <code>seq2</code> in <code>tiny.fasta</code> but <code>awk</code> gives 60.0. Find why and fix it. Done when both agree.”</td>
+<td>“<code>gc.py</code> reports 20.0 for <code>seq2</code> in <code>tiny.fasta</code> but <code>awk</code> (a command-line text tool) gives 60.0. Find why and fix it. Done when both agree.”</td>
 </tr>
 <tr class="even">
 <td>“Make it faster.”</td>
-<td>“Profile <code>align.py</code> on <code>small.fa</code>, name the slowest function, and propose a change. Hold off on edits for now.”</td>
+<td>“Profile <code>align.py</code> on <code>small.fa</code>, name the slowest function, and propose a change. Do not edit anything yet.”</td>
 </tr>
 </tbody>
 </table>
@@ -153,9 +156,9 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Test a persona:</strong> if you use one on a factual task, compare the result against a version without one.</li>
 </ul>
 </section>
-<section id="context-is-a-budget" class="level2">
-<h2 class="anchored" data-anchor-id="context-is-a-budget">Context is a budget</h2>
-<p>Everything in the conversation takes up room in the context window. Old conversation can crowd out the files you need next.</p>
+<section id="the-context-window-has-a-size-limit" class="level2">
+<h2 class="anchored" data-anchor-id="the-context-window-has-a-size-limit">The context window has a size limit</h2>
+<p>Everything in the conversation takes up room in the context window, and the room is limited. Old conversation can crowd out the files you need next.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -168,8 +171,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="battle-the-brief" class="level2">
-<h2 class="anchored" data-anchor-id="battle-the-brief">Battle: the brief</h2>
+<section id="battle-write-the-brief" class="level2">
+<h2 class="anchored" data-anchor-id="battle-write-the-brief">Battle: write the brief</h2>
 <div data-ao-test="forest-write-the-brief" data-xp="60">
 
 </div>
@@ -202,7 +205,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "next"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");
