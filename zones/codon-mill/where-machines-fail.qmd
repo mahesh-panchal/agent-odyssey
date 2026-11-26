@@ -14,7 +14,7 @@ Over the mill door hangs a sign with two lists. The first names what the machine
 
 A language model is good at some jobs and bad at others, and a wrong answer often looks like a right one. Knowing which jobs are which, before you trust the output, saves time and prevents errors. Using a model is your choice; this lesson shows where the risk sits if you do.
 
-## Good jobs: the result is checkable
+## Where a model helps: the result is checkable
 
 Use a model where you can read the result, or run it, and judge it yourself:
 
@@ -26,7 +26,11 @@ Use a model where you can read the result, or run it, and judge it yourself:
 
 Summaries can leave things out or bend them. Spot-check against the source: numbers, gene and sample names, direction of effect, negations. Omissions are harder to see, so skim the abstract and limitations yourself. Ask the model to quote the supporting lines first, then summarise.
 
-## Bad job: exact counting and arithmetic
+## Where a model fails
+
+Each failure below has the same shape: what goes wrong, then what to do about it.
+
+### Exact counting and arithmetic
 
 Ask a model: "How many n are in banana?" The right answer is 2 (b-a-n-a-n-a). A model can get this wrong, and can be wrong while sounding sure.
 
@@ -63,16 +67,37 @@ Same rule: ask for a script, and read the command and its output. Try the banana
 
 :::
 
-## Other ways it fails
+### Hallucination
 
-- **Hallucination:** a confident statement that is false, such as a plausible DOI, gene ID or tool flag that does not exist. Allow "I don't know", ask for word-for-word quotes first, restrict the model to supplied documents, and look up every ID in PubMed or Ensembl or run the tool's `--help`.
-- **Sycophancy:** telling you what you want to hear. The model agrees with your wrong hypothesis, or softens a correct criticism when you push back. Ask for the strongest case against your idea, and hold back your preferred answer.
-- **Long-context degradation:** accuracy and recall drop as input grows ("context rot"), and relevant text in the middle is used less. Curate the input (head, counts, filtered tables) and start fresh for a new task.
-- **Instruction drift:** an early instruction is forgotten, for example after compaction (the program around the model replacing old conversation with a summary to free room). Keep a short instructions file (`CLAUDE.md` or similar, loaded at session start) and use a hook (a script that runs automatically at set moments, such as before a command) for must-never rules.
-- **Non-determinism:** the same prompt may give different answers, so run it twice and compare. Record the command, model and version, and treat the script the model wrote as the reproducible part.
-- **Overconfidence:** the model reports a task as done while it is unfinished, often because it had no way to check. Give it a check to run (tests, row counts, md5) and read the output.
-- **Prompt injection:** text from fetched content that the model treats as an instruction, for example a README, PDF or FASTA header that contains instructions the agent follows. Treat fetched content as data, review commands before approving them, and remember no system is fully immune.
-- **Stale knowledge:** newer tool versions or database releases postdate the model's training. Check `--version` and the current docs. Current Claude models list a June 2026 training cutoff.
+A confident statement that is false, such as a plausible DOI, gene ID or tool flag that does not exist. Allow "I don't know", ask for word-for-word quotes first and restrict the model to supplied documents. Look up every ID in PubMed or Ensembl, or run the tool's `--help`.
+
+### Sycophancy
+
+The model tells you what you want to hear. It agrees with your wrong hypothesis, or softens a correct criticism when you push back. Ask for the strongest case against your idea, and hold back your preferred answer.
+
+### Long-context degradation
+
+Accuracy and recall drop as input grows ("context rot"), and relevant text in the middle is used less. Curate the input (head, counts, filtered tables) and start fresh for a new task.
+
+### Instruction drift
+
+An early instruction is forgotten, for example after compaction (the program around the model replacing old conversation with a summary to free room). Keep a short instructions file (`CLAUDE.md` or similar, loaded at session start). Use a hook (a script that runs automatically at set moments, such as before a command) for must-never rules.
+
+### Non-determinism
+
+The same prompt may give different answers, so run it twice and compare. Record the command, model and version, and treat the script the model wrote as the reproducible part.
+
+### Overconfidence
+
+The model reports a task as done while it is unfinished, often because it had no way to check. Give it a check to run (tests, row counts, md5) and read the output.
+
+### Prompt injection
+
+Text from fetched content that the model treats as an instruction, for example a README, PDF or FASTA header that contains instructions the agent follows. Treat fetched content as data, review commands before approving them, and remember no system is fully immune.
+
+### Stale knowledge
+
+Newer tool versions or database releases postdate the model's training. Check `--version` and the current docs. Current Claude models list a June 2026 training cutoff.
 
 ## The decision rule
 
