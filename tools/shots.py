@@ -84,6 +84,8 @@ SHOTS += [
     ("path-finale-unlocked-wide", (1400, 1800), lambda B: with_state(B, "zones/murk/clear-the-murk.html", _ids(True, _B3))),
     ("path-finale-cleared-wide", (1400, 1800), lambda B: with_state(B, "zones/murk/clear-the-murk.html", _ids(True, _B3) + [_FIN])),
     page("path-boss-wall-wide", "zones/maze/wall-of-output.html"),
+    page("home-party-wide", "index.html", 1400, 2400),
+    page("home-party-narrow", "index.html", 500, 3200),
     ("path-quest-nextsteps-wide", (1400, 900), lambda B: (with_state(B, "zones/basecamp/name-the-fears.html", ["basecamp-name-the-fears"]),
         B.js("(document.querySelector('.ao-nextsteps')||document.body).scrollIntoView({block:'center'})"))),
 ]

@@ -64,7 +64,7 @@ prologue: >-
   careless copy-and-paste, unreviewed output, and answers nobody understood. The tools are not the enemy. Walk the land,
   recruit companions, build your immunity, and clear the Murk.
 gates:
-  B: { id: basecamp, name: "Basecamp at the Root",  track: "Prologue",   status: open,
+  B: { id: basecamp, name: "Gaia's Rest",  track: "Prologue",   status: open,
        quests: [
          { id: basecamp-name-the-fears, after: [], suggested: [], branch: trunk, trunk: true, optional: false, title: "Name the Fears", page: zones/basecamp/name-the-fears.html,
            story: "The fire at Basecamp burns low, and the travellers round it trade worries in whispers: that the road leads nowhere good, that the companions on offer cannot be trusted, that something unseen is spreading through the land.",
