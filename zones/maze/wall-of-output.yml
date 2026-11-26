@@ -1,5 +1,5 @@
 pass: 0.8
-boss: { name: "The Wall of Output" }
+boss: { name: "The Wall of Output", portraits: [boss-wall, boss-wall-cracked, boss-wall-broken] }
 questions:
   - type: choice
     prompt: "The agent finished and reports a 2,000-line change across 40 files. What is your first move?"

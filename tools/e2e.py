@@ -92,6 +92,11 @@ try:
     check("after the finale the next quest returns to a branch", st["done"]["next"] not in (None, st["f"]) and st["done"]["nextBranch"] not in ("trunk", "finale"), json.dumps(st["done"]))
     B.go(base + "zones/maze/wall-of-output.html", 1.0)
     check("boss fight shows a name and HP bar", B.js("!!document.querySelector('.ao-boss progress')") and "Wall of Output" in B.js("document.querySelector('.ao-boss').textContent"))
+    check("Wall portrait loads and shows full health", B.js("(()=>{const i=document.querySelector('img.ao-boss-img');return !!i && i.complete && i.naturalWidth>0 && /boss-wall\\.png$/.test(i.getAttribute('src'))})()"))
+    boss_state = B.js("AO.exportCode()"); B.click_text("Do not accept")
+    check("first correct hit keeps the full-health Wall portrait", B.js("/boss-wall\\.png$/.test(document.querySelector('img.ao-boss-img').getAttribute('src'))"))
+    check("every boss portrait file loads", B.js("Promise.all(['boss-wall','boss-wall-cracked','boss-wall-broken','boss-murk','boss-murk-cleared'].map(n=>new Promise(r=>{const i=new Image();i.onload=()=>r(i.naturalWidth>0);i.onerror=()=>r(false);i.src='/assets/img/'+n+'.png'})))").__class__ is list and all(B.js("Promise.all(['boss-wall','boss-wall-cracked','boss-wall-broken','boss-murk','boss-murk-cleared'].map(n=>new Promise(r=>{const i=new Image();i.onload=()=>r(i.naturalWidth>0);i.onerror=()=>r(false);i.src='/assets/img/'+n+'.png'})))")))
+    B.js("AO.importCode(%s)" % json.dumps(boss_state))
     check("exercise files are published", B.js("Promise.all(['tiny.fasta','gc.py'].map(f=>fetch('/exercises/maze/'+f).then(r=>r.ok)))").__class__ is list and all(B.js("Promise.all(['tiny.fasta','gc.py'].map(f=>fetch('/exercises/maze/'+f).then(r=>r.ok)))")))
     # --- Continue block: Next button follows the path, Related links sit apart ---
     B.go(base + "zones/basecamp/name-the-fears.html", 1.5)

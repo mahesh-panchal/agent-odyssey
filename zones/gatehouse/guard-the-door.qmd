@@ -3,7 +3,7 @@ title: "Guard the Door"
 ---
 
 ::: {.ao-story}
-A watchman stands at the heavy door and checks every visitor against a list. The list is code, so no one can talk their way past. Learn to write one line of that list.
+A watchman stands at the heavy door and checks every visitor against a list. The list is code, so no one can talk their way past, and your companion tries every honeyed word it knows. Learn to write one line of that list.
 :::
 
 ::: {.quest-dialog}

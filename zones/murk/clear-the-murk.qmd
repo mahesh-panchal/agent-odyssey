@@ -3,7 +3,7 @@ title: "Boss: Clear the Murk"
 ---
 
 ::: {.ao-story}
-At the centre of the land the Murk has gathered into one dark knot: every unchecked answer you met on the way, pressed together. The Blight hides in small things here, and each habit you carry has its use. Read one messy session closely and name what it gets wrong.
+At the centre of the land the Murk has gathered into one dark knot: every unchecked answer you met on the way, pressed together, and the companion at your side has begun to half believe it. The Blight hides in small things here, and each habit you carry has its use. Read one messy session closely and name what it gets wrong.
 
 ![](../../assets/img/boss-murk.png){.ao-boss-img fig-alt="Pixel-art portrait of the Murk: a heaving mass of grey-green fog with a hollow dark core and two pale eyes, with a few bright speech bubbles of false facts floating in it."}
 :::

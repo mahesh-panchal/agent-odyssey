@@ -3,7 +3,7 @@ title: "Wade In"
 ---
 
 ::: {.ao-story}
-A shallow stream runs past Basecamp. A traveller stands at the edge, sure that crossing means being swept away, and then notices the stepping stones. Each stone is a little further out, and you may stop on any of them. Before you step, you ask what you would carry across with you.
+A shallow stream runs past Basecamp. A traveller stands on the bank, sure that crossing means being swept away, because the kennel master's patter says you cross at the Beast's side or you stay put. Then a stone shows above the water, and another beyond it, each a little further out, and you may stop on any of them. Before you step, you ask what you would carry across with you.
 :::
 
 ::: {.quest-dialog}

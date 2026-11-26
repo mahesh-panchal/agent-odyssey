@@ -3,7 +3,7 @@ title: "Send Small, Say So"
 ---
 
 ::: {.ao-story}
-A reef thrives on many hands, and a Review-leech clings to it, feeding on work passed along unchecked. Every reviewer on the reef has felt its bite. Four small habits starve it, and you can practise them on your next hand-off.
+A reef thrives on many hands, and a Review-leech clings to it, feeding on work passed along unchecked. Your companion's vast haul of changes lands on one reviewer's desk, and the leech grows fat. Four small habits starve it, and you can practise them on your next hand-off.
 :::
 
 ::: {.quest-dialog}

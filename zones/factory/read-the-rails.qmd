@@ -3,7 +3,7 @@ title: "Read the Rails"
 ---
 
 ::: {.ao-story}
-The rails look sound from a distance, but one points at a private road and another melts the cargo it carries. Reading the rails is how you find them. Learn the four flaws that turn up most.
+The rails your companion laid look sound from a distance, but one points at a private road and another melts the cargo it carries. Nothing it said gave warning. Reading the rails yourself is how you find the flaws. Learn the four that turn up most.
 :::
 
 ::: {.quest-dialog}

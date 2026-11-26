@@ -3,7 +3,7 @@ title: "Where Machines Fail"
 ---
 
 ::: {.ao-story}
-Over the mill door hangs a sign with two lists. The first names what the machine does well. The second names what it only seems to do well, and counting letters is on it. A sensible traveller reads both before trusting the machine with a task. Then the sign explains how to check what it hands back.
+The kennel master swore his companion could fly. You led it to the mill roof, and it spread its wings, glided a few fine yards and landed in the mud. Over the mill door the miller has hung a sign with two lists: what the machine does well, and what it only seems to do well. Counting letters is on the second. Read both lists, then learn how to check what the companion hands back.
 :::
 
 ::: {.quest-dialog}

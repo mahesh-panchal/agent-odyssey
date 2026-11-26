@@ -15,35 +15,56 @@ This page lists what to install for the hands-on exercises. Reading is separate:
 | A terminal | open it and type `echo hello` | every exercise |
 | Python 3 | `python3 --version` | the database exercise and the analysis exercises |
 | git | `git --version` | the undo and change-history exercises |
-| Claude Code | `claude --version` | every exercise that runs an agent |
 
-- **Terminal.** macOS: Terminal. Linux: any terminal. Windows: a WSL 2 (Windows Subsystem for Linux) terminal, because the exercises assume a Linux-style shell and the sandbox needs it.
-- **Claude Code install.** The first agent quest gives the installer command. Read an installer script before piping it into `bash`.
+- **Terminal.** macOS: Terminal. Linux: any terminal. Windows: a WSL 2 (Windows Subsystem for Linux) terminal, because the exercises assume a Linux-style shell and the sandbox needs it. Follow Microsoft's WSL install page, then open the Ubuntu terminal.
+
+## Pick a route for the agent
+
+The exercises that run an agent work with either route. Install one. [Recruit the Beast](zones/kennel/recruit-the-beast.html) gives the full steps and the first session for each, and the tabs on every lesson follow the route you pick there.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+| Tool | Check it works |
+|---|---|
+| Claude Code | `claude --version` |
+
+- **Install.** Recruit the Beast gives the installer command. Read an installer script before piping it into `bash`.
 - **An account.** Claude Code needs a login on a paid Claude plan, or an Anthropic API key (a secret string that gives programmatic access, billed per use). Use the account your organisation approves.
-- **WSL 2 on Windows.** Follow Microsoft's WSL install page, then open the Ubuntu terminal.
+
+## OpenCode + Ollama
+
+| Tool | Check it works |
+|---|---|
+| Ollama (runs a model on your own computer) | `ollama --version` |
+| OpenCode (an open-source coding agent) | `opencode --version` |
+
+- **Install.** Recruit the Beast gives the Ollama and OpenCode install commands and the model to fetch.
+- **No account.** Prompts stay on your computer. You need about 16 GB of memory and 5 GB of free disk. A small local model holds less in mind and makes more mistakes than a hosted one, so check its answers.
+
+:::
 
 ## Optional
 
 | Tool | Check it works | Needed for |
 |---|---|---|
-| Docker | `docker --version` | the optional container exercise |
-| Ollama | `ollama --version` | running a model on your own computer |
-| OpenCode | `opencode --version` | an open-source agent, if you prefer one |
 | bubblewrap and socat | `bwrap --version` | the sandbox exercise on Linux and WSL 2 (two helper tools) |
+| Docker | `docker --version` | the boundary exercise on the OpenCode route (a container tool) |
 
-Claude Code is the agent the exercises use. Nothing in the course asks you to use an LLM.
+Nothing in the course asks you to use an LLM.
 
 ## A first check
 
-Run this once from any folder. Each tool should print a version number:
+Run this once from any folder. Each tool should print a version number. Then run the version command for your agent route:
 
 ```bash
-python3 --version && git --version && claude --version
+python3 --version && git --version
 ```
 
 ## If something fails
 
 - `command not found`: the program is not installed, or its folder is not on your `PATH` (the list of folders the shell searches for programs).
-- If the shell cannot find `claude`, add its folder to `PATH`: `export PATH="$HOME/.local/bin:$PATH"` in `~/.bashrc` or `~/.zshrc`, then open a new terminal.
+- If the shell cannot find `claude`, add its folder to `PATH`: `export PATH="$HOME/.local/bin:$PATH"` in `~/.bashrc` or `~/.zshrc`, then open a new terminal. If it cannot find `opencode` or `ollama`, open a new terminal and try again.
 - On a managed laptop, ask your administrator before installing.
 - Do not run the exercises on a cluster login node (the shared machine you log in to first).

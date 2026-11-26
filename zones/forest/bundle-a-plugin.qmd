@@ -3,7 +3,7 @@ title: "Bundle a Plugin"
 ---
 
 ::: {.ao-story}
-At the forest's edge a satchel waits to be packed with the smith's finest Skills and their tests. Whatever you carry, others will unpack, and whatever you unpack from another traveller's satchel runs with your own authority. Pack with care, and open with more.
+At the forest's edge a satchel waits to be packed with the smith's finest Skills and their tests. Whatever you carry, others will unpack, and whatever you unpack from another traveller's satchel runs with your own authority. A pack that looked fine on the table once split open on a stranger's back. Pack with care, and open with more.
 :::
 
 ::: {.quest-dialog}

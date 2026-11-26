@@ -3,7 +3,7 @@ title: "Know Your Gear"
 ---
 
 ::: {.ao-story}
-The quartermaster lays out the kit on a long table: a companion, the armour it wears, and a pile of fittings no one has labelled. They pick the pieces up one at a time and say what each is for. Start with the companion alone, then watch the armour go on.
+You came to Basecamp for a companion, and the quartermaster lays out a long table of other things: the companion itself, the armour it wears, and a pile of fittings no one has labelled. The kennel master swore that a good companion needs nothing more than a name. The quartermaster picks the pieces up one at a time and says what each is for. Start with the companion alone, then watch the armour go on.
 :::
 
 ::: {.quest-dialog}

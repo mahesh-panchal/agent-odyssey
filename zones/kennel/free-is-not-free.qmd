@@ -3,7 +3,7 @@ title: "Free Is Not Free"
 ---
 
 ::: {.ao-story}
-Stalls outside the Kennel hand out meat for free. Some is fresh, some is a trial, and one stall will not say where it came from. The keeper asks you to read the label before you feed anything. Learn to read the label of a free model offer.
+Stalls outside the Kennel hand out meat for free. Some is fresh, some is a trial, and one stall will not say where it came from, though the kennel master waves you toward it. A companion that eats from the wrong stall can carry away more than it brought. Read the label before you feed anything, and learn to read the label of a free model offer.
 :::
 
 ::: {.quest-dialog}

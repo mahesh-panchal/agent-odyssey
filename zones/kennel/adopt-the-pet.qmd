@@ -3,7 +3,7 @@ title: "Adopt the Pet"
 ---
 
 ::: {.ao-story}
-In a corner of the Kennel a small pet blinks at you. It lives on your own machine, costs nothing to feed and forgets things easily. The keeper says even a small helper needs a lead before it goes near anything that matters. First, bring it home and find out how much it can hold in its head.
+In a corner of the Kennel a small pet blinks at you. It lives on your own machine, costs nothing to feed and forgets things easily, and the kennel master, asked a plain question, admits it is no Beast. Even a small helper needs a lead before it goes near anything that matters. First, bring it home and find out how much it can hold in its head.
 :::
 
 ::: {.quest-dialog}
@@ -15,6 +15,8 @@ In a corner of the Kennel a small pet blinks at you. It lives on your own machin
 A local model runs on your own computer, so prompts stay there and use costs nothing. Use one when your data agreement rules out hosted models, or when you want to try an agent without paying. You need this lesson now because the next lessons assume you can run a model without sending data out. A small local model holds less in mind and makes more mistakes than a hosted one, so check its answers before you rely on them.
 
 ## 1. Install Ollama and fetch a model
+
+If you already installed Ollama and OpenCode on the OpenCode route, you have done steps 1 to 3. Go to step 4.
 
 Ollama is a program that downloads and runs models on your own computer.
 

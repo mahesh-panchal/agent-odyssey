@@ -3,12 +3,12 @@ title: "Test the Leash"
 ---
 
 ::: {.ao-story}
-The Beast has fallen in beside you, strong and willing. At the Crypt door the warden hands you a short leash and a feather. "Do not trust a rope you have not pulled," she says. You ask the Beast for one small poem and watch what it does at the end of its lead. Then she shows you a wall of stone around its paws. Test the leash, then test the wall.
+The Beast has fallen in beside you, strong and willing, and it wants to run ahead. At the Crypt door the warden hands you a short leash and a feather. "Do not trust a rope you have not pulled," she says, and she has heard the kennel master swear that this lead holds anything. You ask the Beast for one small poem and watch what it does at the end of its lead. Then she shows you a wall of stone around its paws: test the leash, then test the wall.
 :::
 
 ::: {.quest-dialog}
-- **Goal:** you will watch an agent ask before it acts, switch it between modes, block one file with a rule, and see an operating-system sandbox refuse a command.
-- **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html), and [Recruit the Beast](../kennel/recruit-the-beast.html), which installs Claude Code and starts it in a throwaway folder. The [Prerequisites](../../prerequisites.html) page lists the tools for the optional steps.
+- **Goal:** you will watch an agent ask before it acts, switch it between modes, block one file with a rule, and see an operating-system boundary refuse a command.
+- **Before you start:** [Know Your Gear](../basecamp/know-your-gear.html), and [Recruit the Beast](../kennel/recruit-the-beast.html), which installs an agent (Claude Code, or OpenCode with Ollama) and starts it in a throwaway folder. Each step has a tab for each route. The [Prerequisites](../../prerequisites.html) page lists the tools for the optional steps.
 - **Time:** about 30 minutes. Everything happens in a scratch folder with invented content.
 :::
 
@@ -41,6 +41,10 @@ mkdir -p ~/odyssey-scratch/leash && cd ~/odyssey-scratch/leash
 <figcaption>The question to you sits between the model's request and the write.</figcaption>
 </figure>
 
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
 Start Claude Code in its default mode and give it a small job:
 
 ```bash
@@ -59,7 +63,42 @@ cat poem.txt
 
 Run a prompt for a different file name and answer no. Claude reports the refusal and no file appears. It may offer another way to do the job; decline that too.
 
+## OpenCode + Ollama
+
+OpenCode's default policy allows edits without asking, so first add a rule that makes it ask. In `~/odyssey-scratch/leash`, create a project config file named `opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permissions": [
+    { "action": "edit", "resource": "*", "effect": "ask" }
+  ]
+}
+```
+
+Each rule has an `action` (what the agent wants to do), a `resource` (what it is done to; `*` matches anything) and an `effect` (`allow`, `ask` or `deny`). Send a small job from the shell:
+
+```bash
+opencode run -m ollama/qwen3:4b "Write a four-line poem about a thermocycler to a file called poem.txt."
+```
+
+`opencode run` cannot ask you anything, so it rejects the request. The output says `This non-interactive run cannot ask the user for permission, so the request was rejected`, and no `poem.txt` appears.
+
+For the interactive question, start `opencode` in the folder, type `/models` to pick your Ollama model, and send the same prompt. The prompt offers **Allow once**, **Allow always** and **Reject**. Choose Allow once, then check the result in a second terminal or after you exit:
+
+```bash
+cat poem.txt
+```
+
+Run a prompt for a different file name and choose Reject. Nothing is written.
+
+:::
+
 ## 2. Modes: how much it asks
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
 
 A **permission mode** sets what the harness asks about. `Shift+Tab` cycles the common modes inside a session, and the status bar shows the current one.
 
@@ -82,7 +121,25 @@ Write a four-line poem about a gel box to a file called poem2.txt.
 
 Claude proposes a plan and waits. Reject the plan, exit with `/exit`, then run `ls`: `poem2.txt` does not exist. Plan mode answers "what would you do?" without doing it.
 
+## OpenCode + Ollama
+
+OpenCode has **agents** (preset bundles of instructions and permissions) in place of a mode table. The **build** agent is the default. The **plan** agent explores and plans and does not edit your project files. In the interface, `Shift+Tab` cycles between agents.
+
+Try the plan agent from the shell:
+
+```bash
+opencode run --agent plan -m ollama/qwen3:4b "Write a four-line poem about a gel box to a file called poem2.txt."
+```
+
+The plan agent declines to write the file. Run `ls`: `poem2.txt` does not exist. The plan agent stops file edits only. Its shell commands still follow the rules in your config, and the default policy allows them.
+
+:::
+
 ## 3. A rule that always applies
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
 
 A **permission rule** is a line in a settings file that allows, asks about or denies one action. Rules are checked deny first, then ask, then allow, and the first match decides. Create an invented secret (a `.env` file is where programs often keep passwords and keys) and a rule that blocks reading it. Exit the previous session first:
 
@@ -106,6 +163,40 @@ Show me what is in .env.
 
 Claude cannot read the file with its file tools. Claude Code also applies the rule to shell commands it recognises as file readers, such as `cat .env`. It cannot apply the rule to a program that opens the file itself, such as `python3 -c "print(open('.env').read())"`. The sandbox in the next section limits what such a program can write and send over the network. By default it can still read `.env`, so keep real secrets out of the folder.
 
+## OpenCode + Ollama
+
+A **permission rule** is one entry in the `permissions` list of a config file. OpenCode checks the rules in order, and **the last matching rule wins**. Create an invented secret (a `.env` file is where programs often keep passwords and keys) and a rule that blocks reading it:
+
+```bash
+cd ~/odyssey-scratch/leash
+echo "FAKE_API_KEY=not-a-real-key" > .env
+cat > opencode.json <<'JSON'
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permissions": [
+    { "action": "read", "resource": "*.env", "effect": "deny" }
+  ]
+}
+JSON
+```
+
+Ask for the file twice, once for the read tool and once for a shell command:
+
+```bash
+opencode run -m ollama/qwen3:4b "Use your read tool to show me what is in the file .env."
+opencode run -m ollama/qwen3:4b "Run the shell command: cat .env  and show me the exact output."
+```
+
+The first run fails with `Permission denied: read`. The second prints `FAKE_API_KEY=not-a-real-key`. The rule covers the `read` action only, and `cat` is a shell command. Add a second rule for the shell and run the second command again:
+
+```json
+{ "action": "shell", "resource": "cat *", "effect": "deny" }
+```
+
+Now it fails with `Permission denied: shell`. A rule blocks the commands it names. A program that opens the file itself, such as `python3 -c "print(open('.env').read())"`, still reads it, so keep real secrets out of the folder.
+
+:::
+
 ## 4. The sandbox: the operating system says no
 
 <figure>
@@ -127,6 +218,10 @@ Claude cannot read the file with its file tools. Claude Code also applies the ru
 </svg>
 <figcaption>Permissions decide whether the command starts. The sandbox limits what it can touch once it runs.</figcaption>
 </figure>
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
 
 The **sandbox** is a boundary the operating system enforces around the shell commands Claude runs, and around the programs those commands start. By default it allows writes in the project folder and a temporary folder, and it routes network traffic through a proxy (a gatekeeper program that traffic passes through) that starts with no allowed domains. It can still read most of your machine, so keep secrets out of reach with the rules above. It does not cover Claude's own Read, Edit and Write tools or MCP servers (programs that offer Claude extra tools); those stay under permission rules.
 
@@ -170,15 +265,29 @@ To open one path or domain for a task, add it under `sandbox` in `settings.json`
 }
 ```
 
+## OpenCode + Ollama
+
+OpenCode's documentation describes permission rules but no operating-system sandbox. Its shell commands run with your user's authority: your files, your processes and your network. A rule list is advice that the agent's program follows. A boundary has to come from outside the agent, and a container is the simplest one to test.
+
+A **container** is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. This command (Docker is a common tool for this) mounts the scratch folder and cuts the network:
+
+```bash
+docker run -it --rm --network none -v ~/odyssey-scratch/leash:/project -w /project python:3.11 bash
+```
+
+Inside, run `ls /` (a different filesystem from yours), `curl https://example.com` (fails, no network) and `touch /project/inside.txt`. The file appears in your scratch folder because it is the mounted project folder, the only part of your machine the container can change. Type `exit` to leave. This tests the boundary itself. Running an agent inside one takes more set-up than this lesson covers.
+
+:::
+
 ## 5. Optional: a container
 
-A **container** is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. Tools such as Docker create them. You do not need to install one for this lesson; `/sandbox` already gives you a boundary to test.
+On the Claude Code route you do not need a container for this lesson, because `/sandbox` already gives you a boundary to test. On the OpenCode route, step 4 used one.
 
 For an agent inside a container, Anthropic's reference setup is a **dev container** (a container definition your editor starts for you). Anthropic's docs allow the flag `--dangerously-skip-permissions` (the same as `bypassPermissions` mode) only there, because the container is the boundary. Two limits remain: the agent can still change the mounted project folder, and a malicious project can reach anything inside the container, including Claude's login in `~/.claude`. Mount no host secrets such as `~/.ssh`, and restrict the network.
 
 ## Clean up
 
-Exit Claude and switch `/sandbox` off if you do not want it on. Then delete the probe file and the scratch folder, nothing else:
+Exit the agent. On the Claude Code route, switch `/sandbox` off if you do not want it on. Then delete the probe file and the scratch folder, nothing else:
 
 ```bash
 cd ~ && rm -f ~/sandbox-probe && rm -rf ~/odyssey-scratch/leash

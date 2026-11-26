@@ -3,7 +3,7 @@ title: "Test the Skill"
 ---
 
 ::: {.ao-story}
-The smith holds the Skill up against an empty hand and asks the forest one question: does it do anything the bare hand cannot? Only if the two differ does the Skill stay. Testing costs something each time it is done, so the smith counts the cost before the first swing.
+The smith holds the Skill up against an empty hand and asks the forest one question: does it do anything the bare hand cannot? Only if the two differ does the Skill stay, however fine it looks on the wall. Each test costs something, so the smith counts the cost before the first swing.
 :::
 
 ::: {.quest-dialog}

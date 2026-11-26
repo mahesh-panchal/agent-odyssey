@@ -3,7 +3,7 @@ title: "Advice or Enforcement"
 ---
 
 ::: {.ao-story}
-A wall of signs hangs in the Gatehouse. Some ask politely and some lock the door, and from across the room they look the same. Learn to tell them apart before you rely on one.
+A wall of signs hangs in the Gatehouse. Some ask politely and some lock the door, and your companion reads every one of them in the same eager way. From across the room they look alike, and only one kind holds when the companion pushes. Learn to tell them apart before you rely on one.
 :::
 
 ::: {.quest-dialog}

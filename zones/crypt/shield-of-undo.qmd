@@ -3,7 +3,7 @@ title: "Save Point"
 ---
 
 ::: {.ao-story}
-The first seal in the Crypt is not a lock. It is a mark on the floor that you can step back to. The warden says every traveller who walks on without one has walked back along the same corridor with nothing to show. Make your mark before you touch anything.
+The first seal in the Crypt is a mark on the floor that you can step back to. Soon you will send a companion ahead into the dark, and stone will shift as it rewrites half your corridor in a few heartbeats. The warden says every traveller who walks on without a mark has walked back along that corridor with nothing to show. Make your mark before you touch anything.
 :::
 
 ::: {.quest-dialog}

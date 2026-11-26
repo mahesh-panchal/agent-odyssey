@@ -3,7 +3,7 @@ title: "Forge a Skill"
 ---
 
 ::: {.ao-story}
-In a hollow of the forest, a smith keeps procedures in folders and takes each out only when it is needed. A long recipe hung on every branch would crowd the clearing, so the smith hangs only a label and fetches the rest on demand. The smith will now show you how to make one.
+In a hollow of the forest the smith keeps procedures in folders, tired of watching companions ask the same question twice. A long recipe hung on every branch would crowd the clearing, so the smith hangs only a label and fetches the rest on demand. Now the smith shows you how to forge one.
 :::
 
 ::: {.quest-dialog}

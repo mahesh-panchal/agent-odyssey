@@ -3,7 +3,7 @@ title: "The Context Window"
 ---
 
 ::: {.ao-story}
-A great hopper above the mill holds everything the machine can see at once. Fill it with grain you need and it works well. Pour in too much and the oldest grain spills out unseen. Learn what goes into the hopper and how to keep it clean. Beyond this stop, the road turns toward the Crypt, where you set up ways to undo mistakes.
+A great hopper above the mill holds everything the machine can see at once. You watch your companion work, quick and willing, while the grain piles up around it. Pour in too much and the oldest grain spills out unseen, and the companion never knows what it lost. Learn what goes into the hopper and how to keep it clean. Beyond this stop the road turns toward the Crypt, where you will make ways to undo mistakes.
 :::
 
 ::: {.quest-dialog}

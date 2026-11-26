@@ -97,18 +97,24 @@
       var qs = bank.questions, pass = bank.pass || 0.8;
       function run() {
         var score = 0, i = 0;
+        function portrait(hp, broken) {
+          var names = bank.boss && bank.boss.portraits, img = document.querySelector("img.ao-boss-img");
+          if (!names || !img) return;
+          var k = broken || hp === 0 ? 2 : (hp < qs.length * 0.67 ? 1 : 0);
+          img.setAttribute("src", img.getAttribute("src").replace(/[^\/]+$/, names[k] + ".png"));
+        }
         function finish() {
           var ok = score / qs.length >= pass, fresh = !AO.state.passed[id];
           el.innerHTML = "";
           el.appendChild(h("p", { role: "status", text: (ok ? "✔ Victory! The Blight recedes. " : "✖ The Blight holds. ") + score + "/" + qs.length + " right first time." + (ok ? (fresh ? " Quest XP: " + xp + "." : " Already cleared, so no new XP.") : " Need " + Math.ceil(pass * qs.length) + ".") }));
-          if (ok) { var rest = xp - AO.awarded(id); AO.pass(id, Math.max(0, rest)); } else { var b = h("button", { text: "Fight again" }); b.onclick = run; el.appendChild(b); }
+          if (ok) { portrait(0, true); var rest = xp - AO.awarded(id); AO.pass(id, Math.max(0, rest)); } else { var b = h("button", { text: "Fight again" }); b.onclick = run; el.appendChild(b); }
         }
         function show() {
           if (i >= qs.length) return finish();
           var q = qs[i], tries = 0, solved = false;
           el.innerHTML = "";
           if (bank.boss) {
-            var hp = Math.max(0, qs.length - score), bar = h("progress", { max: qs.length, value: hp, "aria-label": "Boss HP" });
+            var hp = Math.max(0, qs.length - score); portrait(hp); var bar = h("progress", { max: qs.length, value: hp, "aria-label": "Boss HP" });
             el.appendChild(h("p", { class: "ao-boss" }, [h("strong", { text: "⚔ " + bank.boss.name + "  " }), bar, h("span", { text: "  HP " + hp + "/" + qs.length })]));
           }
           el.appendChild(h("p", { text: "Round " + (i + 1) + " of " + qs.length, class: "ao-round" }));
@@ -118,7 +124,7 @@
           R[q.type](q, box, function (ok, msg) {
             if (solved) return;
             tries++;
-            if (ok) { solved = true; var gain = 0; if (tries === 1) { score++; if (!AO.state.passed[id]) gain = AO.award(id + "#" + i, Math.floor(xp / qs.length)); } var pr = el.querySelector(".ao-boss progress"); if (pr) { pr.value = qs.length - score; pr.nextSibling.textContent = "  HP " + (qs.length - score) + "/" + qs.length; } fb.className = "ao-fb ok"; fb.textContent = (tries === 1 ? "✔ Correct." + (gain ? " +" + gain + " XP." : "") : "✔ Correct (not first try).") + (q.explain ? " " + q.explain : ""); var w = why(q); if (w) fb.parentNode.insertBefore(w, next); next.hidden = false; next.focus(); }
+            if (ok) { solved = true; var gain = 0; if (tries === 1) { score++; if (!AO.state.passed[id]) gain = AO.award(id + "#" + i, Math.floor(xp / qs.length)); } var pr = el.querySelector(".ao-boss progress"); if (pr) { pr.value = qs.length - score; pr.nextSibling.textContent = "  HP " + (qs.length - score) + "/" + qs.length; portrait(qs.length - score); } fb.className = "ao-fb ok"; fb.textContent = (tries === 1 ? "✔ Correct." + (gain ? " +" + gain + " XP." : "") : "✔ Correct (not first try).") + (q.explain ? " " + q.explain : ""); var w = why(q); if (w) fb.parentNode.insertBefore(w, next); next.hidden = false; next.focus(); }
             else { fb.className = "ao-fb bad"; fb.textContent = "✖ Not quite. " + msg; }
           });
           el.appendChild(box); el.appendChild(fb); el.appendChild(next);

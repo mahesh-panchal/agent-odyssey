@@ -3,7 +3,7 @@ title: "Too Many Tools, Too Many Agents"
 ---
 
 ::: {.ao-story}
-The wall of the mill is hung with every tool anyone ever made, and the travellers are tempted to take them all. A craftsman picks three and leaves the rest on their hooks. She also asks a harder question: does this job need a crew of helpers at all? Count what each tool costs before you carry it.
+The wall of the mill is hung with every tool anyone ever made, and the kennel master's patter says a good companion carries them all. You tried it, and the companion staggered out under so much iron that it could not find the one it needed. A craftsman picks three and leaves the rest on their hooks. She also asks a harder question: does this job need a crew of helpers at all? Count what each tool costs before you carry it.
 :::
 
 ::: {.quest-dialog}

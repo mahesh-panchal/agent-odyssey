@@ -3,7 +3,7 @@ title: "Claude in the Cloud"
 ---
 
 ::: {.ao-story}
-A tower stands far from the Kennel. The Beast can work there on a borrowed machine that vanishes when the job is done. It is a fine place for sketching and writing. The keeper says nothing precious should ever be carried to the tower. Learn what the tower is good for, and what you must leave at home.
+A tower stands far from the Kennel, where the Beast can work on a borrowed machine that vanishes when the job is done. It is a fine place for sketching and writing, and the kennel master's patter makes it sound fit for anything. Asked plainly, he lowers his voice: nothing precious should ever be carried to the tower. Learn what the tower is good for, and what you must leave at home.
 :::
 
 ::: {.quest-dialog}
