@@ -3,7 +3,7 @@ title: "Keys on Shared Ground"
 ---
 
 ::: {.ao-story}
-Your home directory lies on ground that hundreds of others can reach. Keys, tokens and agent settings lie there too, in plain files, and the companion trots through them as if the ground were its own. Shared ground has many passers-by. Before the agent works here, find out who can read what it leaves behind.
+Your home directory lies on ground that hundreds of others can reach. Keys, tokens and settings lie there too, in plain files, and your Astral trots through them as if the ground were its own. Shared ground has many passers-by. Before it works here, find out who can read what it leaves behind.
 :::
 
 ::: {.quest-dialog}

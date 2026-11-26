@@ -50,7 +50,7 @@ An agent is a model with tools that can read your files and run commands. You do
 | Tool | Check it works | Needed for |
 |---|---|---|
 | bubblewrap and socat | `bwrap --version` | the sandbox exercise on Linux and WSL 2 (two helper tools). A sandbox is an operating-system boundary that limits what a command can touch |
-| Docker | `docker --version` | the boundary exercise on the OpenCode route (a container is an isolated Linux environment; Docker Desktop must be running) |
+| Docker | `docker --version` | the boundary exercise on the OpenCode route (a container is an isolated Linux environment; Docker Desktop must be running). Skip it if your machine does not allow it |
 
 Using an LLM is always your choice. The lessons show what to check if you do.
 

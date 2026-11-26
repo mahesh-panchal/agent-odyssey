@@ -10,7 +10,7 @@ A role-playing course on using LLM coding agents safely in bioinformatics. It is
 
 A static website built with [Quarto](https://quarto.org/). You walk an overworld map, clear quests, and answer short quizzes (choice, ordering, sorting, matching and spot-the-faulty-line). The site calls no LLM, and every exercise runs on tiny mock data in your browser or on your laptop. Progress lives in your browser, and a save code lets you move it between machines.
 
-The story is simple. A Blight is spreading: plausible but false knowledge that grows when nobody checks. You recruit a companion, build armour, and learn the habits that keep the Blight small.
+The story is simple. A Blight is spreading: plausible but false knowledge that grows when nobody checks. You make a pact with an Astral, a spirit that speaks every tongue, and learn the habits that keep the Blight small.
 
 Using an agent is always your choice. The course shows how to do it with care, and it says plainly when the right answer is to use a script or nothing at all.
 
@@ -18,7 +18,7 @@ Using an agent is always your choice. The course shows how to do it with care, a
 
 Open **Start Here** on the site. The path is a trunk, then branches, then a final boss:
 
-- **Trunk (16 quests):** worries and habits, kinds of machine, how much to hand over (a step-by-step way in that needs no agent), an undo point, your first agent, a test of its leash, its armour, secrets, tokens and failure modes, the context window, and trust in output (including keeping a paper trail). It ends with the mid-boss, the Wall of Output.
+- **Trunk (16 quests):** worries and habits, kinds of machine, how much to hand over (a step-by-step way in that needs no agent), an undo point, your first agent, a test of its permissions, rules for them, secrets, tokens and failure modes, the context window, and trust in output (including keeping a paper trail). It ends with the mid-boss, the Wall of Output.
 - **Eight branches, by interest:** memory and sessions, skills and plugins, guards (MCP and hooks), pipelines, notebooks, shared clusters, working with people, and models and cloud.
 - **Final boss:** *Clear the Murk* opens when you finish the trunk and any three branches.
 

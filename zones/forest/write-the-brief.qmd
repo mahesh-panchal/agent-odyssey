@@ -3,7 +3,27 @@ title: "Write the Brief"
 ---
 
 ::: {.ao-story}
-The first branch of the great tree is bare. You told the companion "tidy this up" and came back to find it had cut down something you loved. The old foresters say every good cut starts with a few plain words about where, why and how you will know it worked. Learn to write them before you swing anything.
+The first branch of the great tree is bare. You told your Astral "tidy this up" and came back to find it had cut down something you loved. The old foresters say every good cut starts with a few plain words about where, why and how you will know it worked. Learn to write them before you swing anything.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster
+
+The Guildmaster's brief names the deadline, the budget and the proof of done.
+
+## Diviner
+
+The Diviner's brief names the controls and the reference to check against.
+
+## Artificer
+
+The Artificer's brief names the test that must pass.
+
+## Archivist
+
+The Archivist's brief names the fields that must never change.
+
+:::
 :::
 
 ::: {.quest-dialog}

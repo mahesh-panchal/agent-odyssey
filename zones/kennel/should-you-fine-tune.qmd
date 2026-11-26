@@ -3,7 +3,7 @@ title: "Should You Fine-Tune?"
 ---
 
 ::: {.ao-story}
-A breeder at the Kennel offers to retrain a hound for one trick, and the kennel master nods along, selling lessons by the sack. It takes training examples, a record of the lessons and a test of the result. You ask the breeder whether a better command would do the same job. Weigh the offer before you pay for it.
+In the beastmasters' hall a trainer offers to raise a familiar for one trick. It takes many examples, a record of the lessons and a test of the result, and every trick costs a season. You ask whether a better command would do the same job. Weigh the offer before you pay for it.
 :::
 
 ::: {.quest-dialog}

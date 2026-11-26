@@ -3,7 +3,7 @@ title: "Same Every Time"
 ---
 
 ::: {.ao-story}
-A talkative machine sits in the middle of the line. Sometimes it says one thing and sometimes another, and the factory's customers need the same answer every time. The kennel master called this its charm. Decide whether it belongs on the line at all.
+A talkative creature sits in the middle of the line. Sometimes it says one thing and sometimes another, and the factory's customers need the same answer every time, as the automata give. The boasters called this its charm. Decide whether it belongs on the line at all.
 :::
 
 ::: {.quest-dialog}

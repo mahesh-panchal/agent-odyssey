@@ -3,7 +3,7 @@ title: "Memory, Sessions and Usage"
 ---
 
 ::: {.ao-story}
-The mill keeps three ledgers: what the companion remembers between visits, what it holds during one visit, and what the visit costs. You came back the next morning and it greeted you as a stranger, then followed a rule from a stray note you had forgotten writing. A wrong entry in the first two ledgers is hard to erase. The miller shows you how to read each one alone, so that when something goes wrong you know which to open.
+The mill keeps three ledgers: what an Astral remembers between visits, what it holds during one visit, and what the visit costs. You came back the next morning and it greeted you as a stranger, then followed a rule from a stray note you had forgotten writing. A wrong entry in the first two ledgers is hard to erase. The miller shows you how to read each one alone, so that when something goes wrong you know which to open.
 :::
 
 ::: {.quest-dialog}

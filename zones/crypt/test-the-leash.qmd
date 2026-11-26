@@ -3,7 +3,7 @@ title: "Test Permissions and the Sandbox"
 ---
 
 ::: {.ao-story}
-The Beast has fallen in beside you, strong and willing, and it wants to run ahead. At the Crypt door the warden hands you a short leash and a feather. "Do not trust a rope you have not pulled," she says, and she has heard the kennel master swear that this lead holds anything. You ask the Beast for one small poem and watch what it does at the end of its lead. Then she shows you a wall of stone around its paws: test the leash, then test the wall.
+The Astral has agreed to the pact and wants to run ahead. At the Crypt door the warden gives you a chalk circle and a feather. "Do not trust a ward you have not tested," she says, remembering a boaster who swore his held against anything. You ask the Astral for one small poem and watch what it does at the edge of the circle. Then she shows you a wall of stone around it: test the circle, then test the wall.
 :::
 
 ::: {.quest-dialog}
@@ -277,7 +277,7 @@ To open one path or domain for a task, add it under `sandbox` in `settings.json`
 
 ## OpenCode + Ollama
 
-OpenCode's documentation describes permission rules but no operating-system sandbox. Its shell commands run with your user's authority: your files, your processes and your network. OpenCode enforces its own rules inside its program, and nothing at the operating-system level limits what a command it runs can touch. A boundary has to come from outside the agent, and a container is the simplest one to test.
+OpenCode's documentation describes permission rules but no operating-system sandbox. Its shell commands run with your user's authority: your files, your processes and your network. If Docker is not available on your machine, skip this step; steps 1 to 3 already showed the rules and their limits. OpenCode enforces its own rules inside its program, and nothing at the operating-system level limits what a command it runs can touch. A boundary has to come from outside the agent, and a container is the simplest one to test.
 
 A **container** is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. Docker is a common tool for this. Install Docker Desktop (or Docker Engine on Linux) and start it before you run this command. The first run downloads the `python:3.11` image, which is large. The command mounts the scratch folder and cuts the network:
 

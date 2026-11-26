@@ -30,15 +30,31 @@ ERR = [
 WARN = [
     (r"\b(docs|page|paper|guide|article|post|documentation) (say|says|state|states|read|reads)\b|\bAccording to\b|\bper the docs\b", "attribution"),
     (r"\bnot (just|only) [^.]{0,50}\bbut\b|\bis not [^.]{0,40}, it is\b|\bisn't [^.]{0,40}, it's\b|\bnot a [^.]{0,30}, but\b", "X-not-Y contrast"),
-    (r"\b(armou?r|the Beast|Blight|companions? are|quartermaster)\b", "odyssey imagery outside the story block"),
+    (r"\b(armou?r|the Beast|Blight|Astrals?|shokanju|automat(?:a|on)|binding circle|Summoning Scroll|Collegium|Gaia's Rest|the pact|quartermaster)\b", "odyssey imagery outside the story block"),
     (r"^\*\*[^*]+\*\*[.:]? [^\n]{40,}$", "bold run-in paragraph (consider a list)"),
 ]
+
+
+def strip_blocks(text, classes):
+    """Remove fenced divs whose class is in `classes`, honouring nested fences."""
+    lines, out, i = text.split("\n"), [], 0
+    while i < len(lines):
+        m = re.match(r"^::: ?\{\.(" + "|".join(classes) + r")\}\s*$", lines[i])
+        if not m: out.append(lines[i]); i += 1; continue
+        depth = 1; i += 1
+        while i < len(lines) and depth:
+            if re.match(r"^:::+\s*\S", lines[i]): depth += 1
+            elif re.match(r"^:::+\s*$", lines[i]): depth -= 1
+            i += 1
+        out.append("")
+    return "\n".join(out)
+
 
 def body_of(text):
     text = re.sub(r"\A---.*?---\n", "", text, flags=re.S)
     text = re.split(r"\n::: ?\{\.ao-lore\}", text)[0]
     text = re.sub(r"\n::: ?\{\.ao-related\}.*?\n:::\n?", "\n", text, flags=re.S)
-    text = re.sub(r"::: ?\{\.ao-story\}.*?\n:::\n?", "\n", text, flags=re.S)  # story blocks may use odyssey imagery and foreshadow
+    text = strip_blocks(text, ("ao-story", "ao-key"))  # story blocks and the story key may use odyssey imagery and foreshadow
     text = re.sub(r"::: ?\{\.quest-dialog\}.*?\n:::", lambda m: "\n".join(l for l in m.group(0).splitlines() if "Prerequisites" not in l and "Before you start" not in l), text, flags=re.S)
     return text
 

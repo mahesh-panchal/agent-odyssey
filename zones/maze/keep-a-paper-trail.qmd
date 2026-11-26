@@ -3,7 +3,7 @@ title: "Keep a Paper Trail"
 ---
 
 ::: {.ao-story}
-A door in the maze swings shut behind your companion. Its account of what it did is plausible, and the walls have changed shape anyway. You cannot follow the path without a record, so ask it to write one, then walk it yourself to see whether it holds.
+A door in the maze swings shut behind your Astral. Its account of what it did is plausible, and the walls have changed shape anyway. You cannot follow the path without a record, so ask it to write one, then walk it yourself to see whether it holds.
 :::
 
 ::: {.quest-dialog}

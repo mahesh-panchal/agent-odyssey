@@ -3,7 +3,11 @@ title: "Three Kinds of Machine"
 ---
 
 ::: {.ao-story}
-At the edge of Basecamp the kennel master calls out his wares, and his patter promises one companion that does everything: it flies, it fights and it never tires. Behind his stall, on the workbench, sit three machines that fit none of his claims. One makes the same move every time, one was trained for a single trick, and one talks and talks. A traveller who bets the day on the wrong one comes home with nothing. Learn what each is for, and the next stop shows what a companion wears when it sets out.
+Behind Gaia's Rest, in a lamplit yard, three kinds of creature wait to be hired. Clockwork automata click along the wall, doing the same thing every time and walking straight into the river if the bridge is out. Familiars rest in straw, each trained to hunt one quarry, and an Astral coils above the well, able to speak every tongue and tempted to invent when it does not know. A traveller who hires the wrong kind wastes the day. Learn what each is for, and the next stop shows how to bind one.
+
+![](../../assets/img/kind-automaton.png){.ao-kind-img fig-alt="Pixel-art clockwork automaton: a brass creature with a gear in its side and a wind-up key."} ![](../../assets/img/kind-familiar.png){.ao-kind-img fig-alt="Pixel-art familiar: a trained hound with a collar and a small glowing rune tag."} ![](../../assets/img/kind-astral.png){.ao-kind-img fig-alt="Pixel-art Astral: a starry dragon-serpent of light with horns and a gold eye."}
+
+From left to right: an automaton, a familiar and an Astral.
 :::
 
 ::: {.quest-dialog}

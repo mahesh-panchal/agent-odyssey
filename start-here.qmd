@@ -19,12 +19,16 @@ Agent Odyssey is a short role-playing course on using coding agents (LLM tools t
 
 ## Who is who
 
+::: {.ao-key}
 The story uses a few names. The lessons themselves use plain technical words.
 
-- **Companion:** a coding agent, a model with tools that can read files and run commands for you.
-- **The Beast:** the armoured companion you recruit in the Kennel.
-- **The kennel master:** the seller of companions, whose promises are bigger than what the companions can do.
+- **Shokanju:** the umbrella word for every creature you can summon or hire, from scripts to language models.
+- **Automata:** clockwork creatures. Scripts and pipelines: obedient, the same every time, and brittle when the road changes.
+- **Familiars:** creatures trained for one task. Classical machine-learning models.
+- **Astrals:** spirits that speak every tongue. Language models and the coding agents built on them. Generous, fast and unbound from physical reality, so they invent when unchecked.
+- **The pact:** summoning and binding an Astral, which is installing and starting a coding agent. The binding circle is the harness, the wards are permission rules and the sandbox, and the terms of the pact are the instructions file.
 - **The Blight:** plausible but false output that spreads when nobody checks it.
+:::
 
 ## How it works
 

@@ -3,7 +3,7 @@ title: "RAG and Its Cousins"
 ---
 
 ::: {.ao-story}
-Travellers keep asking the miller about books that will never fit in the hopper. A companion sent to fetch an answer from the whole library came back with the wrong shelf and total confidence. Some say to fetch a few pages when a question comes, some to draw a web of names, and some to fetch nothing at all. Before choosing, learn what each way fetches and what it misses.
+Travellers keep asking the miller about books that will never fit in the hopper. An Astral sent to fetch an answer from the whole library came back with the wrong shelf and total confidence. Some say to fetch a few pages when a question comes, some to draw a web of names, and some to fetch nothing at all. Before choosing, learn what each way fetches and what it misses.
 :::
 
 ::: {.quest-dialog}

@@ -12,7 +12,7 @@ Agent Odyssey leans on the work of many people. Thank you to everyone below. The
 - **12britz**, [awesome-free-models](https://github.com/12britz/awesome-free-models). It prompted the quest Free Is Not Free.
 - **inevolin**, [claude-code-usage-analysis](https://github.com/inevolin/claude-code-usage-analysis). It prompted the cache and coffee-break discussion in When to Start Fresh.
 - **NirDiamant**, [rag_techniques](https://github.com/NirDiamant/rag_techniques). Further reading in the graph quest.
-- **NBIS**, the [hpc-cluster-safety skill](https://github.com/NBISweden/claude-skills/pull/10) in NBISweden/claude-skills. The maintainer wrote this skill, adapted from their own, and it is now merged into the NBIS skills. The Cluster Citadel quests follow its practice.
+- **NBIS**, the [hpc-cluster-safety skill](https://github.com/NBISweden/claude-skills/blob/main/plugins/nbis-safety/skills/hpc-cluster-safety/SKILL.md) in NBISweden/claude-skills. The maintainer wrote this skill, adapted from their own, and it is now merged into the NBIS skills. The Cluster Citadel quests follow its practice.
 
 ## Documentation
 

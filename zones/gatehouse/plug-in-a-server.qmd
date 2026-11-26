@@ -3,7 +3,27 @@ title: "Connect an MCP Server"
 ---
 
 ::: {.ao-story}
-A heavy door in the Gatehouse opens onto the outside world, and whatever walks through acts with your keys. Someone has pinned a note to the door, and your companion reads it aloud as if it were an order. Before you open the door, learn what stands on the other side.
+A heavy door in the Gatehouse opens onto the outside world, and whatever walks through acts with your keys. Someone has pinned a note to the door, and your Astral reads it aloud as if it were an order. Before you open the door, learn what stands on the other side.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster
+
+The Guildmaster asks who approved this door, and who holds the key.
+
+## Diviner
+
+The Diviner asks what the outside service will send back, and whether to trust it.
+
+## Artificer
+
+The Artificer reads the server's code before connecting anything.
+
+## Archivist
+
+The Archivist asks which records could pass through that door.
+
+:::
 :::
 
 ::: {.quest-dialog}

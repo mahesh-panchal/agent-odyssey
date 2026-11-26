@@ -3,7 +3,7 @@ title: "Write an Instructions File"
 ---
 
 ::: {.ao-story}
-A carved stone stands at the forest's heart, holding what every traveller should know: where the paths run, and which trees are not to be touched. Your companion reads it every morning, and some mornings it forgets what it read. The stone advises. It cannot bind. Learn to write on it, and to tell what it does from what it cannot do.
+A carved stone stands at the forest's heart, holding the terms of the pact: where the paths run, and which trees are not to be touched. Your Astral reads it every morning, and some mornings it forgets what it read. The stone advises. It cannot bind. Learn to write on it, and to tell what it does from what it cannot do.
 :::
 
 ::: {.quest-dialog}

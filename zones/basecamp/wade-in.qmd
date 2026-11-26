@@ -9,7 +9,7 @@ In a corner of Gaia's Rest, four travellers each picture what a pact with an Ast
 ::: {.quest-dialog}
 - **Goal:** you will choose how much of your data and your machine to hand over for one task, and start at the lowest step that gets the job done.
 - **Before you start:** [Know Your Tools](know-your-gear.html). Your own data agreement (the terms under which you received the data) overrides anything here.
-- **Time:** about 20 minutes. No code or downloads are needed.
+- **Time:** about 25 minutes. No code or downloads are needed.
 :::
 
 ## The scene
@@ -70,7 +70,7 @@ A ladder is six ordered steps of how much you hand over. Each step up raises one
 | 1 | A question in words, with no data in it | your words |
 | 2 | Structure only: headings, a schema or invented rows. You apply the answer yourself | names and invented rows |
 | 3 | A small extract you are allowed to share, or a local model | the extract; nothing if local |
-| 4 | A read-only agent working on a copy | everything it reads |
+| 4 | A read-only agent (plan mode: it reads and proposes, and does not edit) working on a copy | everything it reads |
 | 5 | An agent that edits files and runs commands | everything it reads, plus whatever its commands send |
 
 Pasting the results of a step 2 task back into the chat sends those rows too, which makes it step 3. Plan mode (the agent reads and proposes, and does not edit) belongs to step 4: a copy protects the original from edits, and anything the agent reads is still sent.
@@ -93,7 +93,7 @@ Under GDPR (the EU data-protection law), pseudonymised codes still count as pers
 ## What a chat window keeps
 
 - **Training:** consumer accounts (Free, Pro, Max) have a setting that lets chats improve the models; with it on, data may be kept for up to 5 years. The setting is in your privacy settings.
-- **Account type:** commercial accounts (Team, Enterprise and the API) are not used for training unless the organisation opts in. The API deletes inputs and outputs within 30 days by default. Team and Enterprise keep saved chats until they are deleted, then remove them within 30 days. Ask your administrator which applies.
+- **Account type:** commercial accounts (Team, Enterprise and the API, which is programmatic access billed per use) are not used for training unless the organisation opts in. The API deletes inputs and outputs within 30 days by default. Team and Enterprise keep saved chats until they are deleted, then remove them within 30 days. Ask your administrator which applies.
 - **Deleted chats:** they leave the provider's storage within 30 days.
 - **Incognito chats:** not used for training, and still kept for 30 days by default. Flagged chats can be kept longer.
 - **Screenshots, images and uploads:** treat them as data you share, like pasted text.

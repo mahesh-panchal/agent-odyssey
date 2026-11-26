@@ -3,7 +3,27 @@ title: "Save Point"
 ---
 
 ::: {.ao-story}
-The first seal in the Crypt is a mark on the floor that you can step back to. Soon you will send a companion ahead into the dark, and stone will shift as it rewrites half your corridor in a few heartbeats. The warden says every traveller who walks on without a mark has walked back along that corridor with nothing to show. Make your mark before you touch anything.
+The first ward in the Crypt is a mark on the floor that you can step back to. Soon you will summon an Astral, and it will rewrite half the corridor in a few heartbeats. The warden says every traveller who walked on without a mark walked back along that corridor with nothing to show, and Brannoch the tinker is one of them. Make your mark before you touch anything.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster
+
+The Guildmaster adds a line to the ledger: no change without a way back.
+
+## Diviner
+
+The Diviner copies the raw results into a sealed folder before touching anything.
+
+## Artificer
+
+The Artificer commits, and commits again.
+
+## Archivist
+
+The Archivist already keeps every version, and nods approvingly.
+
+:::
 :::
 
 ::: {.quest-dialog}
@@ -14,9 +34,10 @@ The first seal in the Crypt is a mark on the floor that you can step back to. So
 
 An agent can edit many files in seconds, and you may want them back as they were. Before any agent edits your files, put them under version control (a record of every saved state of a project):
 
-1. Run `git init` once in the project folder.
-2. List large data files in a `.gitignore` file first (for example a line `*.fastq.gz`), or git stores a copy of each. Then run `git add -A && git commit -m "before agent"`.
-3. Let the agent work. If it breaks something, run `git restore --staged --worktree .` to return every **tracked** file to that commit. (Plain `git restore .` copies from the staging area, so it keeps anything you or the agent staged with `git add`.)
+1. In the folder the agent will work in, run `git init` once. Tell git who you are, once: `git config user.name "Your Name"` and `git config user.email "you@example.org"`.
+2. List large data files and secrets in a `.gitignore` file first (for example the lines `*.fastq.gz` and `.env`), or git stores a copy of each. Then run `git add -A && git commit -m "before agent"`.
+3. Check it worked: `git status` says the working tree is clean, and `git log --oneline` shows your commit.
+4. Let the agent work. If it breaks something, run `git restore --staged --worktree .` to return every **tracked** file to that commit. (Plain `git restore .` copies from the staging area, so it keeps anything you or the agent staged with `git add`.)
 
 `git restore --staged --worktree .` has two limits:
 

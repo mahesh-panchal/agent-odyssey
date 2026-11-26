@@ -3,7 +3,27 @@ title: "Tokens, Not Letters"
 ---
 
 ::: {.ao-story}
-The miller's wheel turns before the machine reads a single word, and everything you feed it comes out as small chunks. The kennel master swore his companion reads letter by letter, so you handed it a sequence and asked it to count the Gs. It named a number with great pride, and the number was wrong. You carry sequences where every letter counts, so learn what the mill does to them. The next stop shows more ways the companion goes astray.
+The miller's wheel turns before an Astral reads a single word, and everything you feed it comes out as small chunks. A boaster swore it reads letter by letter, so you handed it a sequence and asked it to count the Gs. It named a number with great pride, and the number was wrong. You carry sequences where every letter counts, so learn what the mill does to them. The next stop shows more ways an Astral goes astray.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster
+
+The Guildmaster notes that the bill is counted in tokens, and starts a budget line.
+
+## Diviner
+
+The Diviner thinks of the sequences she must count and reaches for a script.
+
+## Artificer
+
+The Artificer tests how many tokens his longest function costs.
+
+## Archivist
+
+The Archivist wonders how many tokens one metadata record takes.
+
+:::
 :::
 
 ::: {.quest-dialog}

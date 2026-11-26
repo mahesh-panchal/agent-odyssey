@@ -3,7 +3,27 @@ title: "Spot Hallucinations"
 ---
 
 ::: {.ao-story}
-The maze walls shimmer. Some corridors are real, and some are Mirages: passages that look exactly right and lead nowhere, and your companion strides toward the nearest one without a doubt. A guide cannot tell them apart by their look, only by walking them. Learn what a false corridor looks like, and how to test one.
+The maze walls shimmer. Some corridors are real, and some are mirages: passages that look exactly right and lead nowhere, and an Astral strides toward the nearest one without a doubt. A guide cannot tell them apart by their look, only by walking them. Learn what a false corridor looks like, and how to test one.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster
+
+The Guildmaster has seen a flawless demo vanish when asked for its sources.
+
+## Diviner
+
+The Diviner knows the mirage best: the citation that flatters the hypothesis.
+
+## Artificer
+
+The Artificer meets mirages as functions that were never in the library.
+
+## Archivist
+
+The Archivist meets them as field values nobody ever recorded.
+
+:::
 :::
 
 ::: {.quest-dialog}

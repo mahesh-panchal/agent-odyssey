@@ -6,6 +6,26 @@ aliases:
 
 ::: {.ao-story}
 The Collegium stands on a hill above the town, and its spellbinders' hall smells of ink and hot brass. An academic unrolls the Summoning Scroll you were given at Gaia's Rest and reads it aloud, turning each rune into a step: this is how a pact is made. Making it is the easy part, the academic says, and then lists the ways it goes wrong, which the boasters at the tavern left out. Follow the scroll in order, and keep the Astral on a short lead.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster
+
+The Guildmaster asks what the pact will cost each month, and who signs it off.
+
+## Diviner
+
+The Diviner asks which Astral can cite its sources, and writes down how to check them.
+
+## Artificer
+
+The Artificer reads every command on the scroll before running one.
+
+## Archivist
+
+The Archivist asks where the Astral keeps its memory, and for how long.
+
+:::
 :::
 
 ::: {.quest-dialog}
@@ -50,8 +70,8 @@ This route has two programs. **Ollama** downloads and runs models on your own co
 Check it, then fetch a small model (about 2.5 GB). `qwen3:4b` is one example that Ollama lists with tool support (the model can ask the agent to run actions such as reading a file). Model names change quickly, so check the "tools" badge on the model's page at `ollama.com/library`.
 
 ```bash
-ollama --version     # prints a version number
-ollama pull qwen3:4b
+ollama --version     # prints a line such as: ollama version is 0.x.y
+ollama pull qwen3:4b # shows a download progress bar and ends with: success
 ```
 
 Now install OpenCode. On macOS, Linux or WSL 2:
@@ -71,7 +91,7 @@ On Windows, use WSL 2 and the same commands. If `opencode` is not found, open a 
 
 ## Claude Code
 
-Run `claude` and a browser opens. With a Team plan, log in with the account your admin invited you to. With an API key, `export ANTHROPIC_API_KEY=...` instead. Treat the key like a password: do not paste it into a file in a project, and note that a key typed into the shell can stay in your shell history.
+Run `claude` and a browser opens. When login finishes, the terminal shows Claude's prompt box. Type `/exit` to leave, then continue with step 3. With a Team plan, log in with the account your admin invited you to. With an API key, `export ANTHROPIC_API_KEY=...` instead. Treat the key like a password: do not paste it into a file in a project, and note that a key typed into the shell can stay in your shell history.
 
 ::: {.callout-note}
 If you have both a subscription login and `ANTHROPIC_API_KEY` set, the key is used once you approve it, so usage goes to the API account. Run `/status` (a `/command` is typed inside the running tool) to see which login is active. Run `unset ANTHROPIC_API_KEY` if you did not mean to use the key.
@@ -85,7 +105,8 @@ OpenCode needs no login. It looks for Ollama at `http://127.0.0.1:11434` and lis
 opencode models     # includes a line such as ollama/qwen3:4b
 ```
 
-Agents need a long **context length** (how much text the model can see at once, counted in tokens, which are chunks of text). Ollama's default can be as low as 4k tokens, and agents need at least 64k. If you use the Ollama app (macOS, or Windows with the app), open its settings and set the context length slider to 64k. On Linux or WSL 2 there is no app, so start the server yourself like this and leave that terminal open:
+Agents need a long **context length** (how much text the model can see at once, counted in tokens, which are chunks of text). Ollama's default can be as low as 4k tokens, and agents need at least 64k. If you use the Ollama app (macOS, or Windows with the app), open its settings and set the context length slider to 64k. On Linux or WSL 2 there is no app, so start the server yourself like this and leave that terminal open. Run every later command in a second terminal. If `ollama serve` says the address is already in use, Ollama is already running as a service: stop it first, or set the variable for that service as Ollama's FAQ describes.
+
 
 ```bash
 OLLAMA_CONTEXT_LENGTH=64000 ollama serve
@@ -113,6 +134,8 @@ Start in **plan mode**. It reads files, runs read-only commands and leaves your 
 claude --permission-mode plan
 ```
 
+At the prompt, type: `List the files in this folder and say what you would do next. Change nothing.` Claude answers in the same session, and the status bar shows plan mode. Leave with `/exit`. Keep this first session away from real or sensitive data.
+
 A **permission mode** sets what the agent asks about before it acts. In plan mode it reads files and writes a plan but does not edit your source until you approve; it may ask before running commands that are not read-only; the status bar shows the current mode.
 
 ## OpenCode + Ollama
@@ -123,7 +146,7 @@ OpenCode's version of this is the **plan agent** (an agent is a preset bundle of
 opencode run --agent plan -m ollama/qwen3:4b "List the files in this folder and say what you would do next. Change nothing."
 ```
 
-`opencode run` sends one message, prints the reply and exits. If you ask the plan agent to create a file, it declines.
+`opencode run` sends one message, prints the reply and exits. The first run can take a minute while the model loads. If you ask the plan agent to create a file, it declines.
 
 The plan agent stops file edits only. Its shell commands are still controlled by OpenCode's permission policy, and the default policy allows them. In this first session, ask for reading and planning only.
 
@@ -150,7 +173,7 @@ A local model keeps your prompts on your computer, and it is weaker than a hoste
 - It holds less in mind. Agents need a context length of at least 64k tokens, and Ollama's default can be 4k.
 - Choose a model that Ollama lists with tool support. Without it, the agent cannot ask the model to read or edit files.
 - It makes more mistakes than a hosted model. Test it on a few questions whose answers you know before you trust it on new ones.
-- A bigger model needs far more memory. A 24B model has about eight times the parameters of a 3B one, so check `ollama ps` after loading it.
+- A bigger model needs far more memory. A 24B model has about eight times the parameters (the numbers a model learns in training) of a 3B one, so check `ollama ps` after loading it, and expect the machine to slow down if memory runs short.
 - Its web and tool calls can still reach the network, even when the model itself stays local.
 
 :::

@@ -2,7 +2,7 @@
 title: "Character"
 ---
 
-Your skill tree grows as you clear quests, your armour is forged in the Crypt, and your rank rises with progress.
+Your skill tree grows as you clear quests, your wards are written in the Crypt, and your rank rises with progress.
 Everything here is stored only in this browser. Use **Save code** in the top bar to move it elsewhere.
 
 <div id="ao-character"></div>

@@ -3,7 +3,7 @@ title: "Pick Your Model"
 ---
 
 ::: {.ao-story}
-The kennel master walks you down the row of companions, naming the biggest as the best for everything. A big one is slow and costly to feed, and a small one is quick and cheap but loses the trail. You must choose for each job, and decide how hard each companion should think. Learn to choose, then check that you chose well.
+In the spellbinders' hall the academics keep Astrals of every size on a long shelf. A great one speaks well, answers slowly and costs the most to feed, and a small one is quick and cheap and loses the thread. The academic says you must choose for each job, and decide how hard each should think. Learn to choose, then check that you chose well.
 :::
 
 ::: {.quest-dialog}

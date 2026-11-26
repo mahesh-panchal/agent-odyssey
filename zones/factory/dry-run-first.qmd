@@ -3,7 +3,27 @@ title: "Dry Run First"
 ---
 
 ::: {.ao-story}
-Conveyor belts hum across the factory floor, and your companion has wired a new line overnight, proud and tired. One belt leads nowhere, and you cannot tell which by looking. A cheap test run shows where each belt leads before any real cargo moves. Learn the cheap runs first.
+Conveyor belts hum across the factory floor, where automata carry cargo along lines that an Astral wired overnight, proud and tired. One belt leads nowhere, and you cannot tell which by looking. A cheap test run shows where each belt leads before any real cargo moves. Learn the cheap runs first.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster
+
+The Guildmaster is glad a cheap run costs nothing from the budget.
+
+## Diviner
+
+The Diviner dry-runs on three samples before she trusts the whole cohort.
+
+## Artificer
+
+The Artificer lives for the stub run.
+
+## Archivist
+
+The Archivist checks that the dry run touches no raw data.
+
+:::
 :::
 
 ::: {.quest-dialog}

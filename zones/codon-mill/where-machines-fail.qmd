@@ -3,7 +3,7 @@ title: "Where Machines Fail"
 ---
 
 ::: {.ao-story}
-The kennel master swore his companion could fly. You led it to the mill roof, and it spread its wings, glided a few fine yards and landed in the mud. Over the mill door the miller has hung a sign with two lists: what the machine does well, and what it only seems to do well. Counting letters is on the second. Read both lists, then learn which jobs to hand the machine and which to run as a script.
+A boaster at Gaia's Rest swore his Astral could fly. You led it to the mill roof, and it spread its wings, glided a few fine yards and landed in the mud. Over the mill door the miller has hung a sign with two lists: what the machines do well, and what they only seem to do well. Counting letters is on the second. Read both lists, then learn which jobs to hand a creature and which to give to an automaton.
 :::
 
 ::: {.quest-dialog}
