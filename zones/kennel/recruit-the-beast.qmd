@@ -48,14 +48,7 @@ mkdir -p ~/odyssey-scratch && cd ~/odyssey-scratch
 claude --permission-mode plan
 ```
 
-`Shift+Tab` cycles the common modes inside a session; the status bar shows the current one. A **permission mode** sets what the agent asks about before it acts.
-
-| Mode | What it does |
-|---|---|
-| `default` | asks the first time each tool is used |
-| `acceptEdits` | auto-accepts file edits and common file commands (`mkdir`, `touch`, `mv`, `cp`) in the working directory |
-| `plan` | reads and runs read-only commands; leaves source files untouched |
-| `bypassPermissions` | skips prompts; use only in containers or VMs |
+A **permission mode** sets what the agent asks about before it acts. In plan mode it asks before anything beyond reading; the status bar shows the current mode.
 
 ## 4. Check the setup
 

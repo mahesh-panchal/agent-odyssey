@@ -45,3 +45,11 @@ questions:
       - { text: "It can still change the mounted folder and reach what is in the container", correct: true }
       - { text: "Nothing, because a container makes every file and prompt harmless", misconception: "A container is a boundary, and what is inside it stays exposed." }
       - { text: "The flag stops working in a container, so permission prompts return", misconception: "The flag is intended for containers and works there." }
+  - type: match
+    prompt: "Match each permission mode to what it does."
+    explain: "Modes trade convenience for control. Plan mode is the safest for first contact."
+    pairs:
+      - { left: "default", right: "Asks before edits, shell commands and network requests", misconception: "default is the ask-first mode." }
+      - { left: "acceptEdits", right: "Auto-accepts file edits and common file commands", misconception: "acceptEdits accepts edits without prompting. plan is the read-only mode." }
+      - { left: "plan", right: "Reads and proposes; no edits until you approve a plan", misconception: "plan is the look-only mode." }
+      - { left: "bypassPermissions", right: "Skips most prompts; for containers and virtual machines only", misconception: "bypassPermissions removes the safety prompts, which is why it belongs in disposable environments." }
