@@ -178,19 +178,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>git --version</code></td>
 <td>the undo and change-history exercises</td>
 </tr>
-<tr class="even">
+</tbody>
+</table>
+<ul>
+<li><strong>Terminal.</strong> macOS: Terminal. Linux: any terminal. Windows: a WSL 2 (Windows Subsystem for Linux) terminal, because the exercises assume a Linux-style shell and the sandbox needs it. Follow Microsoft’s WSL install page, then open the Ubuntu terminal.</li>
+</ul>
+</section>
+<section id="pick-a-route-for-the-agent" class="level2">
+<h2 class="anchored" data-anchor-id="pick-a-route-for-the-agent">Pick a route for the agent</h2>
+<p>The exercises that run an agent work with either route. Install one. <a href="zones/kennel/recruit-the-beast.html">Recruit the Beast</a> gives the full steps and the first session for each, and the tabs on every lesson follow the route you pick there.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Check it works</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td>Claude Code</td>
 <td><code>claude --version</code></td>
-<td>every exercise that runs an agent</td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><strong>Terminal.</strong> macOS: Terminal. Linux: any terminal. Windows: a WSL 2 (Windows Subsystem for Linux) terminal, because the exercises assume a Linux-style shell and the sandbox needs it.</li>
-<li><strong>Claude Code install.</strong> The first agent quest gives the installer command. Read an installer script before piping it into <code>bash</code>.</li>
+<li><strong>Install.</strong> Recruit the Beast gives the installer command. Read an installer script before piping it into <code>bash</code>.</li>
 <li><strong>An account.</strong> Claude Code needs a login on a paid Claude plan, or an Anthropic API key (a secret string that gives programmatic access, billed per use). Use the account your organisation approves.</li>
-<li><strong>WSL 2 on Windows.</strong> Follow Microsoft’s WSL install page, then open the Ubuntu terminal.</li>
 </ul>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Check it works</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ollama (runs a model on your own computer)</td>
+<td><code>ollama --version</code></td>
+</tr>
+<tr class="even">
+<td>OpenCode (an open-source coding agent)</td>
+<td><code>opencode --version</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Install.</strong> Recruit the Beast gives the Ollama and OpenCode install commands and the model to fetch.</li>
+<li><strong>No account.</strong> Prompts stay on your computer. You need about 16 GB of memory and 5 GB of free disk. A small local model holds less in mind and makes more mistakes than a hosted one, so check its answers.</li>
+</ul>
+</div>
+</div>
+</div>
 </section>
 <section id="optional" class="level2">
 <h2 class="anchored" data-anchor-id="optional">Optional</h2>
@@ -209,39 +254,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td>Docker</td>
-<td><code>docker --version</code></td>
-<td>the optional container exercise</td>
-</tr>
-<tr class="even">
-<td>Ollama</td>
-<td><code>ollama --version</code></td>
-<td>running a model on your own computer</td>
-</tr>
-<tr class="odd">
-<td>OpenCode</td>
-<td><code>opencode --version</code></td>
-<td>an open-source agent, if you prefer one</td>
-</tr>
-<tr class="even">
 <td>bubblewrap and socat</td>
 <td><code>bwrap --version</code></td>
 <td>the sandbox exercise on Linux and WSL 2 (two helper tools)</td>
 </tr>
+<tr class="even">
+<td>Docker</td>
+<td><code>docker --version</code></td>
+<td>the boundary exercise on the OpenCode route (a container tool)</td>
+</tr>
 </tbody>
 </table>
-<p>Claude Code is the agent the exercises use. Nothing in the course asks you to use an LLM.</p>
+<p>Nothing in the course asks you to use an LLM.</p>
 </section>
 <section id="a-first-check" class="level2">
 <h2 class="anchored" data-anchor-id="a-first-check">A first check</h2>
-<p>Run this once from any folder. Each tool should print a version number:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">--version</span> <span class="kw">&amp;&amp;</span> <span class="fu">git</span> <span class="at">--version</span> <span class="kw">&amp;&amp;</span> <span class="ex">claude</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Run this once from any folder. Each tool should print a version number. Then run the version command for your agent route:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">--version</span> <span class="kw">&amp;&amp;</span> <span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="if-something-fails" class="level2">
 <h2 class="anchored" data-anchor-id="if-something-fails">If something fails</h2>
 <ul>
 <li><code>command not found</code>: the program is not installed, or its folder is not on your <code>PATH</code> (the list of folders the shell searches for programs).</li>
-<li>If the shell cannot find <code>claude</code>, add its folder to <code>PATH</code>: <code>export PATH="$HOME/.local/bin:$PATH"</code> in <code>~/.bashrc</code> or <code>~/.zshrc</code>, then open a new terminal.</li>
+<li>If the shell cannot find <code>claude</code>, add its folder to <code>PATH</code>: <code>export PATH="$HOME/.local/bin:$PATH"</code> in <code>~/.bashrc</code> or <code>~/.zshrc</code>, then open a new terminal. If it cannot find <code>opencode</code> or <code>ollama</code>, open a new terminal and try again.</li>
 <li>On a managed laptop, ask your administrator before installing.</li>
 <li>Do not run the exercises on a cluster login node (the shared machine you log in to first).</li>
 </ul>

@@ -109,12 +109,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>The first seal in the Crypt is not a lock. It is a mark on the floor that you can step back to. The warden says every traveller who walks on without one has walked back along the same corridor with nothing to show. Make your mark before you touch anything.</p>
+<p>The first seal in the Crypt is a mark on the floor that you can step back to. Soon you will send a companion ahead into the dark, and stone will shift as it rewrites half your corridor in a few heartbeats. The warden says every traveller who walks on without a mark has walked back along that corridor with nothing to show. Make your mark before you touch anything.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will make any change reversible before an agent touches it.</li>
-<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Gear</a>, a terminal and <code>git</code> (the version control tool). A <strong>commit</strong> is a saved snapshot of your project; a <strong>tracked</strong> file is one git already follows.</li>
+<li><strong>Before you start:</strong> <a href="../basecamp/wade-in.html">Wade In</a>, a terminal and <code>git</code> (the version control tool). A <strong>commit</strong> is a saved snapshot of your project; a <strong>tracked</strong> file is one git already follows.</li>
 <li><strong>Time:</strong> about 10 minutes.</li>
 </ul>
 </div>
@@ -122,9 +122,9 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li>Run <code>git init</code> once in the project folder.</li>
 <li>Run <code>git add -A &amp;&amp; git commit -m "before agent"</code>.</li>
-<li>Let the agent work. If it breaks something, run <code>git restore .</code> to return every <strong>tracked</strong> file to that commit.</li>
+<li>Let the agent work. If it breaks something, run <code>git restore --staged --worktree .</code> to return every <strong>tracked</strong> file to that commit. (Plain <code>git restore .</code> copies from the staging area, so it keeps anything you or the agent staged with <code>git add</code>.)</li>
 </ol>
-<p><code>git restore .</code> has two limits:</p>
+<p><code>git restore --staged --worktree .</code> has two limits:</p>
 <ul>
 <li>It also throws away <strong>your own</strong> uncommitted edits to tracked files, so commit before you start.</li>
 <li>It leaves <strong>new, untracked</strong> files the agent created where they are. <code>git status</code> shows them, and you delete them yourself.</li>

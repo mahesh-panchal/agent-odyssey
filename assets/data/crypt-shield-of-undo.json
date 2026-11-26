@@ -4,22 +4,22 @@
   {
    "type": "choice",
    "prompt": "An agent rewrote your analysis script and the results look wrong. Which command returns tracked files to your last commit?",
-   "explain": "Restore reverts tracked files to the last commit immediately; no new commit is needed.",
+   "explain": "With --staged and --worktree, restore puts tracked files back to the last commit immediately; no new commit is needed. Plain `git restore .` takes its source from the staging area, so staged changes would survive.",
    "options": [
     {
-     "text": "git restore .",
+     "text": "git restore --staged --worktree .",
      "correct": true
     },
     {
-     "text": "git commit -a",
+     "text": "git commit -a -m wip",
      "misconception": "Committing records the broken state as a new snapshot; it does not revert your working files."
     },
     {
-     "text": "git stash pop",
+     "text": "git stash pop --index stash@{0}",
      "misconception": "Pop re-applies earlier stashed changes on top of your files; it does not discard the agent's edits."
     },
     {
-     "text": "git add -A",
+     "text": "git add -A && git status",
      "misconception": "Staging records the broken state; it does not undo it."
     }
    ]
@@ -45,7 +45,7 @@
   },
   {
    "type": "choice",
-   "prompt": "The agent made a new file `scratch.py` and also edited `analysis.py`. You run `git restore .`. What state are you in?",
+   "prompt": "The agent made a new file `scratch.py` and also edited `analysis.py`. You run `git restore --staged --worktree .`. What state are you in?",
    "explain": "Restore reverts tracked files. New files stay, so check `git status` for leftovers.",
    "options": [
     {

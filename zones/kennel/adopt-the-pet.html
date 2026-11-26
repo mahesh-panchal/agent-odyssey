@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>In a corner of the Kennel a small pet blinks at you. It lives on your own machine, costs nothing to feed and forgets things easily. The keeper says even a small helper needs a lead before it goes near anything that matters. First, bring it home and find out how much it can hold in its head.</p>
+<p>In a corner of the Kennel a small pet blinks at you. It lives on your own machine, costs nothing to feed and forgets things easily, and the kennel master, asked a plain question, admits it is no Beast. Even a small helper needs a lead before it goes near anything that matters. First, bring it home and find out how much it can hold in its head.</p>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -156,6 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A local model runs on your own computer, so prompts stay there and use costs nothing. Use one when your data agreement rules out hosted models, or when you want to try an agent without paying. You need this lesson now because the next lessons assume you can run a model without sending data out. A small local model holds less in mind and makes more mistakes than a hosted one, so check its answers before you rely on them.</p>
 <section id="install-ollama-and-fetch-a-model" class="level2">
 <h2 class="anchored" data-anchor-id="install-ollama-and-fetch-a-model">1. Install Ollama and fetch a model</h2>
+<p>If you already installed Ollama and OpenCode on the OpenCode route, you have done steps 1 to 3. Go to step 4.</p>
 <p>Ollama is a program that downloads and runs models on your own computer.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://ollama.com/install.sh <span class="kw">|</span> <span class="fu">sh</span>     <span class="co"># macOS and Linux</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull qwen3:4b                              <span class="co"># about 2.5 GB</span></span>

@@ -3,7 +3,7 @@
  "questions": [
   {
    "type": "sort",
-   "prompt": "A data analyst plans six report tasks. Sort them by whether real rows from the samples database would leave the machine.",
+   "prompt": "A bioinformatician plans six report tasks. Sort them by whether real rows from the samples database would leave the machine.",
    "bins": [
     "No real rows leave",
     "Real rows would leave"
@@ -44,7 +44,7 @@
   },
   {
    "type": "choice",
-   "prompt": "A data analyst runs an agent in plan mode on a copy of the database. What does the read-only part protect them from?",
+   "prompt": "A bioinformatician runs an agent in plan mode on a copy of the database. What does the read-only part protect them from?",
    "explain": "Plan mode limits what the agent does. Reading still happens, so the contents it reads are sent to the provider.",
    "options": [
     {

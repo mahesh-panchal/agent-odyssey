@@ -109,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>A shallow stream runs past Basecamp. A traveller stands at the edge, sure that crossing means being swept away, and then notices the stepping stones. Each stone is a little further out, and you may stop on any of them. Before you step, you ask what you would carry across with you.</p>
+<p>A shallow stream runs past Basecamp. A traveller stands on the bank, sure that crossing means being swept away, because the kennel master’s patter says you cross at the Beast’s side or you stay put. Then a stone shows above the water, and another beyond it, each a little further out, and you may stop on any of them. Before you step, you ask what you would carry across with you.</p>
 </div>
 <div class="quest-dialog">
 <ul>
@@ -120,8 +120,21 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="the-scene" class="level2">
 <h2 class="anchored" data-anchor-id="the-scene">The scene</h2>
-<p>A manager needs a status report across projects, kept in a spreadsheet. A data analyst needs a count of samples received per project from the project database, using SQL (the language for querying a database). Both hesitate for two reasons: where their data goes, and the belief that using an LLM means letting an agent loose on their computer. So their answer is “never”: no LLM at all.</p>
-<p>Between “never” and handing an agent control of your computer there are several steps, and many useful tasks sit on the lower ones.</p>
+<p>Two people want help from an LLM (a large language model, the kind of tool behind chat assistants). Each has a real task and the same two worries.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Manager</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Bioinformatician</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The task is a status report across projects, kept in a spreadsheet.</p>
+<p>“Can I paste my project list into an LLM to draft this? Where does that data go once I press enter? And a colleague said I would need Claude Code, which means giving it access to all my files. I cannot do that, so I will do the report by hand.”</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The task is a count of samples received per project, from the project database. The query is written in SQL (the language for querying a database).</p>
+<p>“Can I ask an LLM to write this query? Does that mean I have to install Claude Code and let it into my computer and my database? My data agreement may not allow it, so the answer has to be no LLM at all.”</p>
+</div>
+</div>
+</div>
+<p>Both treat the choice as all or nothing: either no LLM, or an agent with the run of the machine. They have not considered that there is a middle. Between those two ends are several steps, each handing over a little more, and many useful tasks sit on the lower ones. This lesson walks up those steps.</p>
 <p>You decide how much to hand over before the first prompt. A wrong choice can send data you meant to keep, or let an agent change files you meant to leave alone.</p>
 </section>
 <section id="two-questions" class="level2">
@@ -151,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
 <tr class="header">
 <th>Step</th>
 <th>Manager (spreadsheet)</th>
-<th>Analyst (database)</th>
+<th>Bioinformatician (database)</th>
 <th>What leaves</th>
 </tr>
 </thead>
@@ -239,15 +252,15 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="what-a-chat-window-keeps">What a chat window keeps</h2>
 <ul>
 <li><strong>Training:</strong> consumer accounts (Free, Pro, Max) have a setting that lets chats improve the models; with it on, data may be kept for up to 5 years. The setting is in your privacy settings.</li>
-<li><strong>Account type:</strong> commercial accounts (such as Claude for Work and the API) are not used for training and delete inputs and outputs within 30 days by default. Check the plan in your account settings, or ask your administrator.</li>
+<li><strong>Account type:</strong> commercial accounts (Team, Enterprise and the API) are not used for training unless the organisation opts in. The API deletes inputs and outputs within 30 days by default. Team and Enterprise keep saved chats until they are deleted, then remove them within 30 days. Ask your administrator which applies.</li>
 <li><strong>Deleted chats:</strong> they leave the provider’s storage within 30 days.</li>
 <li><strong>Incognito chats:</strong> not used for training, and still kept for 30 days by default.</li>
 <li><strong>Screenshots, images and uploads:</strong> treat them as data you share, like pasted text.</li>
 <li><strong>Other providers:</strong> their chat tools have their own terms. Read them.</li>
 </ul>
 </section>
-<section id="hands-on-data-analyst-count-samples-without-handing-over-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="hands-on-data-analyst-count-samples-without-handing-over-the-data">Hands-on (data analyst): count samples without handing over the data</h2>
+<section id="hands-on-bioinformatician-count-samples-without-handing-over-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="hands-on-bioinformatician-count-samples-without-handing-over-the-data">Hands-on (bioinformatician): count samples without handing over the data</h2>
 <p>Save <a href="../../exercises/basecamp/wade-in/make_db.py">make_db.py</a>, <a href="../../exercises/basecamp/wade-in/run_query.py">run_query.py</a>, <a href="../../exercises/basecamp/wade-in/report-query.sql">report-query.sql</a> and <a href="../../exercises/basecamp/wade-in/check-samples.sql">check-samples.sql</a> into an empty folder. Every row is invented, and no LLM is called.</p>
 <ol type="1">
 <li><p>Run <code>python3 make_db.py</code> (or <code>python</code>). It writes <code>mock.db</code> and <code>schema-only.txt</code>. The text file holds table and column names and no rows, which is all that goes into a chat at step 2. This table-and-column outline is the <strong>schema</strong>. Names such as <code>participant_code</code> and <code>notes</code> hint at the real data, so decide whether even the names are fine to send.</p></li>
@@ -336,11 +349,11 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><a href="https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training">Is my data used for model training? (consumer)</a>: Anthropic, docs. Why read: it is the page that says the training setting exists for Free, Pro and Max chats, which decides your first account question.</li>
 <li><a href="https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data">How long do you store my data?</a>: Anthropic, docs. Why read: it gives the 5-year and 30-day figures for consumer chats and what happens after you delete one.</li>
-<li><a href="https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data">How long do you store my organization’s data?</a>: Anthropic, docs. Why read: it is the commercial-account counterpart, with the 30-day default and the cases that keep data longer.</li>
+<li><a href="https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data">How long do you store my organization’s data?</a>: Anthropic, docs. Why read: it is the commercial-account counterpart: the API’s 30-day default, how saved chats are kept and deleted, and the cases that keep data longer.</li>
 <li><a href="https://support.claude.com/en/articles/12260368-use-incognito-chats">Use incognito chats</a>: Anthropic, docs. Why read: it shows what incognito does and does not change, so you do not over-trust the name.</li>
 <li><a href="https://code.claude.com/docs/en/data-usage">Data usage (Claude Code)</a>: Anthropic, docs. Why read: it states that the agent sends prompts and outputs over the network, which is what makes steps 4 and 5 different from running a query yourself.</li>
 <li><a href="https://docs.ollama.com/faq">Ollama FAQ</a>: Ollama, docs. Why read: it says local runs do not send prompts to Ollama and separates its cloud models, which matters if you choose a local model for sensitive data.</li>
-<li><a href="https://aiforscience.eu/short-version/">AI for Science: the short version</a>: AI for Science, article. Why read: a one-page European draft summary of research practices, useful for a conversation with your data steward. It is a draft without endorsements.</li>
+<li><a href="https://aiforscience.eu/short-version/">AI for Science: the short version</a>: AI for Science, article. Why read: a one-page European summary of research practices, useful for a conversation with your data steward. It describes itself as a living record and shows no endorsements.</li>
 </ul>
 </section>
 

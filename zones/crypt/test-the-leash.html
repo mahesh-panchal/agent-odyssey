@@ -144,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>The Beast has fallen in beside you, strong and willing. At the Crypt door the warden hands you a short leash and a feather. “Do not trust a rope you have not pulled,” she says. You ask the Beast for one small poem and watch what it does at the end of its lead. Then she shows you a wall of stone around its paws. Test the leash, then test the wall.</p>
+<p>The Beast has fallen in beside you, strong and willing, and it wants to run ahead. At the Crypt door the warden hands you a short leash and a feather. “Do not trust a rope you have not pulled,” she says, and she has heard the kennel master swear that this lead holds anything. You ask the Beast for one small poem and watch what it does at the end of its lead. Then she shows you a wall of stone around its paws: test the leash, then test the wall.</p>
 </div>
 <div class="quest-dialog">
 <ul>
-<li><strong>Goal:</strong> you will watch an agent ask before it acts, switch it between modes, block one file with a rule, and see an operating-system sandbox refuse a command.</li>
-<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Gear</a>, and <a href="../kennel/recruit-the-beast.html">Recruit the Beast</a>, which installs Claude Code and starts it in a throwaway folder. The <a href="../../prerequisites.html">Prerequisites</a> page lists the tools for the optional steps.</li>
+<li><strong>Goal:</strong> you will watch an agent ask before it acts, switch it between modes, block one file with a rule, and see an operating-system boundary refuse a command.</li>
+<li><strong>Before you start:</strong> <a href="../basecamp/know-your-gear.html">Know Your Gear</a>, and <a href="../kennel/recruit-the-beast.html">Recruit the Beast</a>, which installs an agent (Claude Code, or OpenCode with Ollama) and starts it in a throwaway folder. Each step has a tab for each route. The <a href="../../prerequisites.html">Prerequisites</a> page lists the tools for the optional steps.</li>
 <li><strong>Time:</strong> about 30 minutes. Everything happens in a scratch folder with invented content.</li>
 </ul>
 </div>
@@ -173,15 +173,41 @@ The permission prompt
 The question to you sits between the model’s request and the write.
 </figcaption>
 </figure>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Start Claude Code in its default mode and give it a small job:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>Write a four-line poem about a thermocycler to a file called poem.txt.</code></pre>
 <p>Claude shows a prompt before it creates the file. Read it: it names the tool, the file path and the contents. The choices include yes once, yes for the rest of the session, and no. Choose yes once, then check the result in a second terminal or after you exit:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> poem.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Run a prompt for a different file name and answer no. Claude reports the refusal and no file appears. It may offer another way to do the job; decline that too.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>OpenCode’s default policy allows edits without asking, so first add a rule that makes it ask. In <code>~/odyssey-scratch/leash</code>, create a project config file named <code>opencode.json</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"$schema"</span><span class="fu">:</span> <span class="st">"https://opencode.ai/config.json"</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"permissions"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">"action"</span><span class="fu">:</span> <span class="st">"edit"</span><span class="fu">,</span> <span class="dt">"resource"</span><span class="fu">:</span> <span class="st">"*"</span><span class="fu">,</span> <span class="dt">"effect"</span><span class="fu">:</span> <span class="st">"ask"</span> <span class="fu">}</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each rule has an <code>action</code> (what the agent wants to do), a <code>resource</code> (what it is done to; <code>*</code> matches anything) and an <code>effect</code> (<code>allow</code>, <code>ask</code> or <code>deny</code>). Send a small job from the shell:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">-m</span> ollama/qwen3:4b <span class="st">"Write a four-line poem about a thermocycler to a file called poem.txt."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>opencode run</code> cannot ask you anything, so it rejects the request. The output says <code>This non-interactive run cannot ask the user for permission, so the request was rejected</code>, and no <code>poem.txt</code> appears.</p>
+<p>For the interactive question, start <code>opencode</code> in the folder, type <code>/models</code> to pick your Ollama model, and send the same prompt. The prompt offers <strong>Allow once</strong>, <strong>Allow always</strong> and <strong>Reject</strong>. Choose Allow once, then check the result in a second terminal or after you exit:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> poem.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Run a prompt for a different file name and choose Reject. Nothing is written.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="modes-how-much-it-asks" class="level2">
 <h2 class="anchored" data-anchor-id="modes-how-much-it-asks">2. Modes: how much it asks</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>A <strong>permission mode</strong> sets what the harness asks about. <code>Shift+Tab</code> cycles the common modes inside a session, and the status bar shows the current one.</p>
 <table class="caption-top table">
 <colgroup>
@@ -214,26 +240,61 @@ The question to you sits between the model’s request and the write.
 </tbody>
 </table>
 <p>Try plan mode. Exit with <code>/exit</code>, then:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--permission-mode</span> plan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--permission-mode</span> plan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>Write a four-line poem about a gel box to a file called poem2.txt.</code></pre>
 <p>Claude proposes a plan and waits. Reject the plan, exit with <code>/exit</code>, then run <code>ls</code>: <code>poem2.txt</code> does not exist. Plan mode answers “what would you do?” without doing it.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>OpenCode has <strong>agents</strong> (preset bundles of instructions and permissions) in place of a mode table. The <strong>build</strong> agent is the default. The <strong>plan</strong> agent explores and plans and does not edit your project files. In the interface, <code>Shift+Tab</code> cycles between agents.</p>
+<p>Try the plan agent from the shell:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">--agent</span> plan <span class="at">-m</span> ollama/qwen3:4b <span class="st">"Write a four-line poem about a gel box to a file called poem2.txt."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The plan agent declines to write the file. Run <code>ls</code>: <code>poem2.txt</code> does not exist. The plan agent stops file edits only. Its shell commands still follow the rules in your config, and the default policy allows them.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="a-rule-that-always-applies" class="level2">
 <h2 class="anchored" data-anchor-id="a-rule-that-always-applies">3. A rule that always applies</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p>A <strong>permission rule</strong> is a line in a settings file that allows, asks about or denies one action. Rules are checked deny first, then ask, then allow, and the first match decides. Create an invented secret (a <code>.env</code> file is where programs often keep passwords and keys) and a rule that blocks reading it. Exit the previous session first:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/odyssey-scratch/leash</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"FAKE_API_KEY=not-a-real-key"</span> <span class="op">&gt;</span> .env</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .claude</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> .claude/settings.local.json <span class="op">&lt;&lt;'JSON'</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">  "permissions": {</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="st">    "deny": ["Read(./.env)"]</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="op">JSON</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/odyssey-scratch/leash</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"FAKE_API_KEY=not-a-real-key"</span> <span class="op">&gt;</span> .env</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .claude</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> .claude/settings.local.json <span class="op">&lt;&lt;'JSON'</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="st">  "permissions": {</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="st">    "deny": ["Read(./.env)"]</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="op">JSON</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>Show me what is in .env.</code></pre>
 <p>Claude cannot read the file with its file tools. Claude Code also applies the rule to shell commands it recognises as file readers, such as <code>cat .env</code>. It cannot apply the rule to a program that opens the file itself, such as <code>python3 -c "print(open('.env').read())"</code>. The sandbox in the next section limits what such a program can write and send over the network. By default it can still read <code>.env</code>, so keep real secrets out of the folder.</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>A <strong>permission rule</strong> is one entry in the <code>permissions</code> list of a config file. OpenCode checks the rules in order, and <strong>the last matching rule wins</strong>. Create an invented secret (a <code>.env</code> file is where programs often keep passwords and keys) and a rule that blocks reading it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/odyssey-scratch/leash</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"FAKE_API_KEY=not-a-real-key"</span> <span class="op">&gt;</span> .env</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> opencode.json <span class="op">&lt;&lt;'JSON'</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="st">  "$schema": "https://opencode.ai/config.json",</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="st">  "permissions": [</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">    { "action": "read", "resource": "*.env", "effect": "deny" }</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="st">  ]</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="op">JSON</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ask for the file twice, once for the read tool and once for a shell command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">-m</span> ollama/qwen3:4b <span class="st">"Use your read tool to show me what is in the file .env."</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">-m</span> ollama/qwen3:4b <span class="st">"Run the shell command: cat .env  and show me the exact output."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The first run fails with <code>Permission denied: read</code>. The second prints <code>FAKE_API_KEY=not-a-real-key</code>. The rule covers the <code>read</code> action only, and <code>cat</code> is a shell command. Add a second rule for the shell and run the second command again:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">"action"</span><span class="fu">:</span> <span class="st">"shell"</span><span class="fu">,</span> <span class="dt">"resource"</span><span class="fu">:</span> <span class="st">"cat *"</span><span class="fu">,</span> <span class="dt">"effect"</span><span class="fu">:</span> <span class="st">"deny"</span> <span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now it fails with <code>Permission denied: shell</code>. A rule blocks the commands it names. A program that opens the file itself, such as <code>python3 -c "print(open('.env').read())"</code>, still reads it, so keep real secrets out of the folder.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="the-sandbox-the-operating-system-says-no" class="level2">
 <h2 class="anchored" data-anchor-id="the-sandbox-the-operating-system-says-no">4. The sandbox: the operating system says no</h2>
@@ -248,6 +309,10 @@ Permissions and the sandbox
 Permissions decide whether the command starts. The sandbox limits what it can touch once it runs.
 </figcaption>
 </figure>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>The <strong>sandbox</strong> is a boundary the operating system enforces around the shell commands Claude runs, and around the programs those commands start. By default it allows writes in the project folder and a temporary folder, and it routes network traffic through a proxy (a gatekeeper program that traffic passes through) that starts with no allowed domains. It can still read most of your machine, so keep secrets out of reach with the rules above. It does not cover Claude’s own Read, Edit and Write tools or MCP servers (programs that offer Claude extra tools); those stay under permission rules.</p>
 <p>Set-up differs by system:</p>
 <ul>
@@ -270,25 +335,32 @@ Permissions decide whether the command starts. The sandbox limits what it can to
 </ul>
 <p>Both commands failed because the operating system refused, and no instruction to the model can override that. If Claude offers to run a blocked command outside the sandbox, answer no. If the <code>touch</code> succeeded, the sandbox is off. Run <code>rm ~/sandbox-probe</code>, switch <code>/sandbox</code> on, and do not continue until the <code>touch</code> fails. Run the probes through Claude and not with the <code>!</code> prefix, which runs a shell command directly, outside the sandbox.</p>
 <p>To open one path or domain for a task, add it under <code>sandbox</code> in <code>settings.json</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"sandbox"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"enabled"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"filesystem"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"allowWrite"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"~/odyssey-scratch/build"</span><span class="ot">]</span> <span class="fu">},</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"network"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"allowedDomains"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"github.com"</span><span class="ot">]</span> <span class="fu">}</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"sandbox"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"enabled"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"filesystem"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"allowWrite"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"~/odyssey-scratch/build"</span><span class="ot">]</span> <span class="fu">},</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"network"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"allowedDomains"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"github.com"</span><span class="ot">]</span> <span class="fu">}</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>OpenCode’s documentation describes permission rules but no operating-system sandbox. Its shell commands run with your user’s authority: your files, your processes and your network. A rule list is advice that the agent’s program follows. A boundary has to come from outside the agent, and a container is the simplest one to test.</p>
+<p>A <strong>container</strong> is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. This command (Docker is a common tool for this) mounts the scratch folder and cuts the network:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">--rm</span> <span class="at">--network</span> none <span class="at">-v</span> ~/odyssey-scratch/leash:/project <span class="at">-w</span> /project python:3.11 bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Inside, run <code>ls /</code> (a different filesystem from yours), <code>curl https://example.com</code> (fails, no network) and <code>touch /project/inside.txt</code>. The file appears in your scratch folder because it is the mounted project folder, the only part of your machine the container can change. Type <code>exit</code> to leave. This tests the boundary itself. Running an agent inside one takes more set-up than this lesson covers.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="optional-a-container" class="level2">
 <h2 class="anchored" data-anchor-id="optional-a-container">5. Optional: a container</h2>
-<p>A <strong>container</strong> is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. Docker is the common tool for this. This command mounts the scratch folder and cuts the network:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">--rm</span> <span class="at">--network</span> none <span class="at">-v</span> ~/odyssey-scratch/leash:/project <span class="at">-w</span> /project python:3.11 bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Inside, run <code>ls /</code> (a different filesystem from yours), <code>curl https://example.com</code> (fails, no network) and <code>touch /project/inside.txt</code>. The file appears in your scratch folder because it is the mounted project folder, the only part of your machine the container can change.</p>
+<p>On the Claude Code route you do not need a container for this lesson, because <code>/sandbox</code> already gives you a boundary to test. On the OpenCode route, step 4 used one.</p>
 <p>For an agent inside a container, Anthropic’s reference setup is a <strong>dev container</strong> (a container definition your editor starts for you). Anthropic’s docs allow the flag <code>--dangerously-skip-permissions</code> (the same as <code>bypassPermissions</code> mode) only there, because the container is the boundary. Two limits remain: the agent can still change the mounted project folder, and a malicious project can reach anything inside the container, including Claude’s login in <code>~/.claude</code>. Mount no host secrets such as <code>~/.ssh</code>, and restrict the network.</p>
 </section>
 <section id="clean-up" class="level2">
 <h2 class="anchored" data-anchor-id="clean-up">Clean up</h2>
-<p>Exit Claude and switch <code>/sandbox</code> off if you do not want it on. Then delete the probe file and the scratch folder, nothing else:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~ <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-f</span> ~/sandbox-probe <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-rf</span> ~/odyssey-scratch/leash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Exit the agent. On the Claude Code route, switch <code>/sandbox</code> off if you do not want it on. Then delete the probe file and the scratch folder, nothing else:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~ <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-f</span> ~/sandbox-probe <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-rf</span> ~/odyssey-scratch/leash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="battle" class="level2">
 <h2 class="anchored" data-anchor-id="battle">Battle</h2>

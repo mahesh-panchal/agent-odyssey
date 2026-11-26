@@ -144,27 +144,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="ao-story">
-<p>A great armoured beast sleeps in the Kennel, strong and unthinking. It follows only someone who can wake it and keep it on a short lead. You lay a hand on its flank, and it opens one eye. Wake it, then keep it close.</p>
+<p>A great armoured beast sleeps in the Kennel, strong and unthinking. The kennel master sells it with a flourish and says it needs no teaching and no lead. You lay a hand on its flank, and it opens one eye. Wake it, then keep it close.</p>
 </div>
 <div class="quest-dialog">
 <ul>
-<li><strong>Goal:</strong> you will install Claude Code, confirm it works, and start it in a throwaway folder in plan mode.</li>
-<li><strong>Before you start:</strong> <a href="../crypt/shield-of-undo.html">Save Point</a>; a terminal (macOS, Linux, or WSL 2, the Windows Subsystem for Linux, on Windows); internet; and a Claude Team plan login or an Anthropic API key. An API key gives programmatic access to the models, billed per token; a plan is a subscription with usage limits.</li>
+<li><strong>Goal:</strong> you will install a coding agent, confirm it works, and start it in a throwaway folder with edits switched off. You choose one of two routes: Claude Code with a Claude plan or API key, or OpenCode with a model that runs on your own computer through Ollama.</li>
+<li><strong>Before you start:</strong> <a href="../crypt/shield-of-undo.html">Save Point</a>; a terminal (macOS, Linux, or on Windows either PowerShell or WSL 2, the Windows Subsystem for Linux). For Claude Code: internet, and a Claude Team plan login or an Anthropic API key (programmatic access to the models, billed per token; a plan is a subscription with usage limits). For OpenCode and Ollama: about 16 GB of memory and 5 GB of free disk, and no account.</li>
 <li><strong>Time:</strong> about 15 minutes. Nothing here edits your files.</li>
 </ul>
 </div>
-<p>Claude Code can read your files and run commands, so the first session is in a throwaway folder and in plan mode, where it changes nothing.</p>
+<p>An agent can read your files and run commands, so the first session is in a throwaway folder with edits switched off. Pick a route in each tab below. The tab you pick stays selected on the other lessons, so you can follow the same route through the course. Both routes teach the same habits.</p>
 <section id="install" class="level2">
 <h2 class="anchored" data-anchor-id="install">1. Install</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>On macOS, Linux, or inside a WSL 2 terminal, run the native installer:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://claude.ai/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>On Windows, install inside WSL 2 and use the Linux command there. Check the result:</p>
+<p>On Windows, either run the PowerShell installer from Anthropic’s setup page, or install inside WSL 2 and use the Linux command there. WSL 2 supports sandboxed command execution; native Windows does not. Check the result:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--version</span>     <span class="co"># prints a version number</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> doctor        <span class="co"># read-only diagnostics; changes nothing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If the shell says <code>command not found</code>, the launcher lives in <code>~/.local/bin/claude</code> and that folder is not on your <code>PATH</code>.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>This route has two programs. <strong>Ollama</strong> downloads and runs models on your own computer, so prompts stay there. <strong>OpenCode</strong> is the open-source coding agent that talks to the model. Install Ollama first.</p>
+<ul>
+<li><strong>macOS:</strong> download Ollama from <code>ollama.com/download</code>, open the <code>.dmg</code> file and drag Ollama into Applications.</li>
+<li><strong>Linux, or WSL 2 on Windows:</strong> <code>curl -fsSL https://ollama.com/install.sh | sh</code></li>
+<li><strong>Windows without WSL:</strong> run the <code>OllamaSetup.exe</code> installer from the same page.</li>
+</ul>
+<p>Check it, then fetch a small model (about 2.5 GB). <code>qwen3:4b</code> is one example that Ollama lists with tool support (the model can ask the agent to run actions such as reading a file). Model names change quickly, so check the “tools” badge on the model’s page at <code>ollama.com/library</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> <span class="at">--version</span>     <span class="co"># prints a version number</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull qwen3:4b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now install OpenCode. On macOS, Linux or WSL 2:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://opencode.ai/v2/install <span class="kw">|</span> <span class="fu">bash</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> <span class="at">--version</span>   <span class="co"># prints a version number</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On Windows without WSL, OpenCode’s docs offer a standalone <code>.zip</code> download. If <code>opencode</code> is not found, open a new terminal and try again.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="log-in" class="level2">
-<h2 class="anchored" data-anchor-id="log-in">2. Log in</h2>
+<section id="log-in-or-connect-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="log-in-or-connect-the-model">2. Log in or connect the model</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>Run <code>claude</code> and a browser opens. With a Team plan, log in with the account your admin invited you to. With an API key, <code>export ANTHROPIC_API_KEY=...</code> instead.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -179,16 +205,45 @@ Note
 <p>If you have both a subscription login and <code>ANTHROPIC_API_KEY</code> set, the key is used once you approve it, so usage goes to the API account. Run <code>/status</code> (a <code>/command</code> is typed inside the running tool) to see which login is active. Run <code>unset ANTHROPIC_API_KEY</code> if you did not mean to use the key.</p>
 </div>
 </div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>OpenCode needs no login. It looks for Ollama at <code>http://127.0.0.1:11434</code> and lists the models it finds. Check that yours appears:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> models     <span class="co"># includes a line such as ollama/qwen3:4b</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Agents need a long <strong>context length</strong> (how much text the model can see at once, counted in tokens, which are chunks of text). Ollama’s default can be as low as 4k tokens, and agents need at least 64k. In the Ollama app, open its settings and set the context length slider to 64k. If you run the server yourself, start it like this and leave that terminal open:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">OLLAMA_CONTEXT_LENGTH</span><span class="op">=</span>64000 <span class="ex">ollama</span> serve</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A bigger context needs more memory. Run <code>ollama ps</code> while a model is loaded to see its size and whether it fits.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="start-in-plan-mode" class="level2">
-<h2 class="anchored" data-anchor-id="start-in-plan-mode">3. Start in plan mode</h2>
-<p>Make a throwaway folder and start in <strong>plan mode</strong>. It reads files, runs read-only commands and leaves your source untouched:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/odyssey-scratch <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/odyssey-scratch</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--permission-mode</span> plan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>A <strong>permission mode</strong> sets what the agent asks about before it acts. In plan mode it asks before anything beyond reading; the status bar shows the current mode.</p>
+<section id="start-with-edits-off" class="level2">
+<h2 class="anchored" data-anchor-id="start-with-edits-off">3. Start with edits off</h2>
+<p>Make a throwaway folder first:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/odyssey-scratch <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/odyssey-scratch</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Start in <strong>plan mode</strong>. It reads files, runs read-only commands and leaves your source untouched:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--permission-mode</span> plan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A <strong>permission mode</strong> sets what the agent asks about before it acts. In plan mode it reads files and writes a plan but does not edit your source until you approve; it may ask before running commands that are not read-only; the status bar shows the current mode.</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>OpenCode’s version of this is the <strong>plan agent</strong> (an agent is a preset bundle of instructions and permissions). It explores and plans without editing your project files. Send it one message:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">--agent</span> plan <span class="at">-m</span> ollama/qwen3:4b <span class="st">"List the files in this folder and say what you would do next. Change nothing."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>opencode run</code> sends one message, prints the reply and exits. If you ask the plan agent to create a file, it declines.</p>
+<p>The plan agent stops file edits only. Its shell commands are still controlled by OpenCode’s permission policy, and the default policy allows them. In this first session, ask for reading and planning only.</p>
+<p>To use the full interface afterwards, run <code>opencode</code> in the folder and type <code>/models</code> to pick your Ollama model.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="check-the-setup" class="level2">
 <h2 class="anchored" data-anchor-id="check-the-setup">4. Check the setup</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>Two commands share the name <em>doctor</em>.</p>
 <ul>
 <li><strong><code>claude doctor</code></strong> runs in the shell. It prints read-only diagnostics of your installation and settings without starting a session, so use it when <code>claude</code> will not start.</li>
@@ -258,11 +313,47 @@ Note
 </tr>
 </tbody>
 </table>
-<p>OpenCode has <code>opencode debug paths</code>, which prints where its files live.</p>
 </section>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>Four commands cover most first problems:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>opencode --version</code></td>
+<td>the installed OpenCode version</td>
+</tr>
+<tr class="even">
+<td><code>opencode models</code></td>
+<td>the models OpenCode can use, including your Ollama models</td>
+</tr>
+<tr class="odd">
+<td><code>opencode debug paths</code></td>
+<td>where OpenCode keeps its config, data, logs and database</td>
+</tr>
+<tr class="even">
+<td><code>ollama ps</code></td>
+<td>the models Ollama has loaded, their size, and whether they run on the GPU or the CPU</td>
+</tr>
+</tbody>
+</table>
+<p>If a model does not appear in <code>opencode models</code>, check that Ollama is running with <code>ollama ps</code> and that you pulled the model with <code>ollama pull</code>.</p>
+</div>
+</div>
+</div>
 <section id="before-you-ask-for-help" class="level3">
 <h3 class="anchored" data-anchor-id="before-you-ask-for-help">Before you ask for help</h3>
-<p>A bug report includes your OS, the install command and the full error output. <code>/feedback</code> sends feedback from inside a session. If you are unsure which problem applies, run <code>/doctor</code> or <code>claude doctor</code> to narrow it down. Read any output before you paste it into a bug report or chat, because it can contain paths and account details.</p>
+<p>A bug report includes your OS, the install command and the full error output. Read any output before you paste it into a bug report or chat, because it can contain paths and account details. With Claude Code, <code>/feedback</code> sends feedback from inside a session, and <code>/doctor</code> or <code>claude doctor</code> narrows down a problem.</p>
 </section>
 </section>
 <section id="battle-first-run" class="level2">
@@ -288,6 +379,8 @@ Note
 <li><a href="https://code.claude.com/docs/en/authentication">Authentication</a>: Anthropic, docs. Why read: it explains login methods and which credential wins when a subscription and an API key are both present.</li>
 <li><a href="https://code.claude.com/docs/en/troubleshooting">Troubleshooting</a>: Anthropic, docs. Why read: it maps symptoms to the right fix page and says when to use <code>/doctor</code> or <code>claude doctor</code>.</li>
 <li><a href="https://code.claude.com/docs/en/data-usage">Data usage</a>: Anthropic, docs. Why read: it states what <code>/feedback</code> sends and how long it is kept, which matters before you paste a bug report.</li>
+<li><a href="https://opencode.ai/docs/">OpenCode docs</a>: OpenCode, docs. Why read: it lists the install methods, the plan and build agents, and how OpenCode finds Ollama models.</li>
+<li><a href="https://docs.ollama.com/quickstart">Ollama quickstart</a>: Ollama, docs. Why read: it covers installing Ollama and running a first model, and links to the context-length page that agents need.</li>
 </ul>
 </section>
 

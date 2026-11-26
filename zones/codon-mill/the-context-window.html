@@ -109,12 +109,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="ao-story">
-<p>A great hopper above the mill holds everything the machine can see at once. Fill it with grain you need and it works well. Pour in too much and the oldest grain spills out unseen. Learn what goes into the hopper and how to keep it clean. Beyond this stop, the road turns toward the Crypt, where you set up ways to undo mistakes.</p>
+<p>A great hopper above the mill holds everything the machine can see at once. You watch your companion work, quick and willing, while the grain piles up around it. Pour in too much and the oldest grain spills out unseen, and the companion never knows what it lost. Learn what goes into the hopper and how to keep it clean. Beyond this stop the road turns toward the Maze, where you learn to check what the machine tells you.</p>
 </div>
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will say what fills the context window, what happens when it is full, and three habits that keep it useful.</li>
-<li><strong>Before you start:</strong> <a href="tokens-not-letters.html">Tokens, Not Letters</a>. A token is a chunk of text the model reads.</li>
+<li><strong>Before you start:</strong> <a href="tokens-not-letters.html">Tokens, Not Letters</a>, and an installed agent from <a href="../kennel/recruit-the-beast.html">Recruit the Beast</a>. A token is a chunk of text the model reads.</li>
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
@@ -170,6 +170,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="hands-on-how-big-is-a-fresh-session" class="level2">
 <h2 class="anchored" data-anchor-id="hands-on-how-big-is-a-fresh-session">Hands-on: how big is a fresh session?</h2>
 <p>A fresh session is not empty: the items above load first, so every session has a starting size. Measure yours:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <ol type="1">
 <li>Start a new session (<code>claude</code>) and run <code>/context</code> before you type anything else.</li>
 <li>Read the table by category. The starting load is the system prompt, system tools, MCP server instructions, memory files and skills. <strong>Messages</strong> is the conversation, and it should be close to zero.</li>
@@ -177,6 +181,17 @@ ul.task-list li input[type="checkbox"] {
 <li>Note the largest starting item and whether you chose it. Fewer MCP servers, plugins and skills, or a shorter instructions file, lower it.</li>
 <li>Open a long session you already have and run <code>/context</code> there. The difference is the part a fresh start removes.</li>
 </ol>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<ol type="1">
+<li>Send one short message: <code>opencode run -m ollama/qwen3:4b "Say hello in one sentence."</code></li>
+<li>While the model is loaded (Ollama keeps it for a few minutes), run <code>ollama ps</code> in a second terminal.</li>
+<li>Read two columns. <strong>CONTEXT</strong> is the window the server set aside, in tokens. <strong>SIZE</strong> is the memory the loaded model uses, and it includes the working memory for that window.</li>
+<li>A larger CONTEXT needs a larger SIZE. If your model spills onto the CPU, the PROCESSOR column says so.</li>
+</ol>
+</div>
+</div>
+</div>
 <p>An agent a session starts for you can start large. A subagent started from a brief begins with that brief. A forked agent (an option in some tools) inherits the whole conversation, so it starts as large as the session that spawned it. A new session or agent that opens with a high count is worth checking with <code>/context</code> before you work in it.</p>
 </section>
 <section id="three-habits" class="level2">

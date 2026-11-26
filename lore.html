@@ -196,7 +196,7 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 <li><p><a href="https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training">Is my data used for model training? (consumer)</a>: Anthropic, docs. Why read: it is the page that says the training setting exists for Free, Pro and Max chats, which decides your first account question. Cited in: <a href="./zones/basecamp/wade-in.html">Wade In</a>.</p></li>
 <li><p><a href="https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data">How long do you store my data?</a>: Anthropic, docs. Why read: it gives the 5-year and 30-day figures for consumer chats and what happens after you delete one. Cited in: <a href="./zones/basecamp/wade-in.html">Wade In</a>.</p></li>
-<li><p><a href="https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data">How long do you store my organization’s data?</a>: Anthropic, docs. Why read: it is the commercial-account counterpart, with the 30-day default and the cases that keep data longer. Cited in: <a href="./zones/basecamp/wade-in.html">Wade In</a>.</p></li>
+<li><p><a href="https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data">How long do you store my organization’s data?</a>: Anthropic, docs. Why read: it is the commercial-account counterpart: the API’s 30-day default, how saved chats are kept and deleted, and the cases that keep data longer. Cited in: <a href="./zones/basecamp/wade-in.html">Wade In</a>.</p></li>
 <li><p><a href="https://support.claude.com/en/articles/12260368-use-incognito-chats">Use incognito chats</a>: Anthropic, docs. Why read: it shows what incognito does and does not change, so you do not over-trust the name. Cited in: <a href="./zones/basecamp/wade-in.html">Wade In</a>.</p></li>
 <li><p><a href="https://code.claude.com/docs/en/data-usage">Data usage (Claude Code)</a>: Anthropic, docs. Cited by 4 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
@@ -207,7 +207,115 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: it says what is sent to the provider, how training and retention differ by plan, and what telemetry can be turned off. It does not replace your own data agreement.</li>
 </ul></li>
 <li><p><a href="https://docs.ollama.com/faq">Ollama FAQ</a>: Ollama, docs. Why read: it says local runs do not send prompts to Ollama and separates its cloud models, which matters if you choose a local model for sensitive data. Cited in: <a href="./zones/basecamp/wade-in.html">Wade In</a>.</p></li>
-<li><p><a href="https://aiforscience.eu/short-version/">AI for Science: the short version</a>: AI for Science, article. Why read: a one-page European draft summary of research practices, useful for a conversation with your data steward. It is a draft without endorsements. Cited in: <a href="./zones/basecamp/wade-in.html">Wade In</a>.</p></li>
+<li><p><a href="https://aiforscience.eu/short-version/">AI for Science: the short version</a>: AI for Science, article. Why read: a one-page European summary of research practices, useful for a conversation with your data steward. It describes itself as a living record and shows no endorsements. Cited in: <a href="./zones/basecamp/wade-in.html">Wade In</a>.</p></li>
+</ul>
+</section>
+<section id="the-kennel" class="level2">
+<h2 class="anchored" data-anchor-id="the-kennel">The Kennel</h2>
+<ul>
+<li><p><a href="https://code.claude.com/docs/en/setup">Advanced setup</a>: Anthropic, docs. Why read: it holds the install commands for every platform, WSL notes and how updates work. Cited in: <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
+<li><p><a href="https://code.claude.com/docs/en/authentication">Authentication</a>: Anthropic, docs. Why read: it explains login methods and which credential wins when a subscription and an API key are both present. Cited in: <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
+<li><p><a href="https://code.claude.com/docs/en/troubleshooting">Troubleshooting</a>: Anthropic, docs. Why read: it maps symptoms to the right fix page and says when to use <code>/doctor</code> or <code>claude doctor</code>. Cited in: <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
+<li><p><a href="https://opencode.ai/docs/">OpenCode docs</a>: OpenCode, docs. Why read: it lists the install methods, the plan and build agents, and how OpenCode finds Ollama models. Cited in: <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
+<li><p><a href="https://docs.ollama.com/quickstart">Ollama quickstart</a>: Ollama, docs. Why read: it covers installing Ollama and running a first model, and links to the context-length page that agents need. Cited in: <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
+<li><p><a href="https://ollama.com/library/ministral-3">ministral-3</a>: Ollama library, docs. Why read: it lists the sizes, context length, tool support and licence of a small Mistral model you can pull instead of a Qwen one. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
+<li><p><a href="https://docs.ollama.com/integrations/opencode">OpenCode</a>: Ollama, docs. Why read: it is the vendor guide to running OpenCode against a local Ollama model, including the context length it needs. It still shows older OpenCode install commands, so check the OpenCode docs too. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
+<li><p><a href="https://opencode.ai/docs/providers/">Providers</a>: OpenCode, docs. Cited by 2 quests; each quest says what to read it for.</p>
+<p>Cited in:</p>
+<ul>
+<li><a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>: it shows how to connect Ollama or an OpenAI-compatible gateway in the current config format.</li>
+<li><a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>: it shows how to connect an OpenAI-compatible gateway to a coding agent.</li>
+</ul></li>
+<li><p><a href="https://opencode.ai/docs/config/">Config</a>: OpenCode, docs. Why read: it lists where <code>opencode.json</code> lives and how global and project files override each other. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
+<li><p><a href="https://opencode.ai/docs/permissions/">Permissions</a>: OpenCode, docs. Why read: it explains how to control what the agent may do, which matters more with a small local model. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
+<li><p><a href="https://developer.apple.com/documentation/updates/foundationmodels">Foundation Models updates</a>: Apple, docs. Why read: it lists the changes to Apple’s on-device model by date, including which OS versions change the model. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
+<li><p><a href="https://github.com/anomalyco/opencode">anomalyco/opencode</a>: GitHub, repo. Why read: it is the source and release list, useful when the docs and your installed version disagree. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
+<li><p><a href="https://github.com/12britz/awesome-free-models">awesome-free-models</a>: GitHub, repo. Why read: a large, regularly corrected list of free models, tiers and tools; check its banner for what changed lately. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://openrouter.ai/docs/faq">OpenRouter FAQ</a>: OpenRouter, docs. Why read: it explains free model variants, daily allowances and how prompt logging and provider retention differ. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://aistudio.google.com/docs/terms">Google AI Studio terms</a>: Google, docs. Why read: it spells out how unpaid and paid services treat your prompts differently. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://console.groq.com/docs/your-data">Groq: your data</a>: Groq, docs. Why read: it states the default retention and log period for inference requests. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://opencode.ai/docs/zen/">OpenCode Zen</a>: OpenCode, docs. Why read: it lists free models together with their data-retention line, model by model. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://developers.cloudflare.com/workers-ai/platform/pricing/">Cloudflare Workers AI pricing</a>: Cloudflare, docs. Why read: it shows a daily free allowance and what happens when you pass it. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://help.mistral.ai/en/articles/347617-do-you-use-my-user-data-to-train-your-models">Do you use my user data to train your models?</a>: Mistral, docs. Why read: it lists, plan by plan, which Mistral products train on your data by default and where the opt-out lives. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
+<li><p><a href="https://docs.mistral.ai/vibe/code/safety-approvals-permissions">Safety, approvals and permissions</a>: Mistral, docs. Why read: it describes Vibe’s four approval modes, trusted folders and per-tool rules, for comparison with other harnesses. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
+<li><p><a href="https://docs.mistral.ai/getting-started/models/models_overview/">Models overview</a>: Mistral, docs. Why read: it lists which Mistral models are open-weight, which carry a deprecation date and what licence each shows. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
+<li><p><a href="https://platform.claude.com/docs/en/about-claude/models/choosing-a-model">Choosing the right model</a>: Anthropic, docs. Why read: it gives the official way to pick a starting model and to test the choice on your own evaluations. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
+<li><p><a href="https://platform.claude.com/docs/en/build-with-claude/effort">Effort</a>: Anthropic, docs. Why read: it defines each effort level and gives per-model starting advice, with the advice to test on your own tasks; its API defaults can differ from the Claude Code defaults on the model-configuration page. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
+<li><p><a href="https://code.claude.com/docs/en/sub-agents">Sub-agents</a>: Anthropic, docs. Cited by 3 quests; each quest says what to read it for.</p>
+<p>Cited in:</p>
+<ul>
+<li><a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>: it gives the exact frontmatter fields for a subagent (<code>model</code>, <code>effort</code>, <code>tools</code>), the order in which a subagent’s model is chosen, and how the built-in Explore and Plan helpers behave.</li>
+<li><a href="./zones/codon-mill/the-stream-of-ideas.html">The Stream of Ideas</a>: it shows how a subagent keeps noisy work in its own context and returns only a summary.</li>
+<li><a href="./zones/reef/teach-and-share-the-load.html">Teach and Share the Load</a>: it shows how side tasks run in their own context, a way to share work between agents whose output you still review.</li>
+</ul></li>
+<li><p><a href="https://code.claude.com/docs/en/costs">Manage costs effectively</a>: Anthropic, docs. Cited by 3 quests; each quest says what to read it for.</p>
+<p>Cited in:</p>
+<ul>
+<li><a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>: it shows how <code>/usage</code> is computed and where model choice, effort and subagents change the bill.</li>
+<li><a href="./zones/codon-mill/memory-sessions-and-usage.html">Memory, Sessions and Usage</a>: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.</li>
+<li><a href="./zones/codon-mill/when-to-start-fresh.html">When to Start Fresh</a>: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.</li>
+</ul></li>
+<li><p><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide">Fine-tuning LLMs Guide</a>: Unsloth, docs. Why read: a beginner-friendly walk through LoRA, QLoRA, dataset shape and training settings; it is a vendor guide for its own tool, so treat its speed and hardware claims as the vendor’s. Cited in: <a href="./zones/kennel/should-you-fine-tune.html">Should You Fine-Tune?</a>.</p></li>
+<li><p><a href="https://huggingface.co/docs/peft/main/en/conceptual_guides/lora">LoRA</a>: Hugging Face, docs. Why read: the PEFT library’s explanation of how LoRA works, what rank and alpha control, and how to merge an adapter back into the base model. Cited in: <a href="./zones/kennel/should-you-fine-tune.html">Should You Fine-Tune?</a>.</p></li>
+<li><p><a href="https://code.claude.com/docs/en/claude-code-on-the-web">Use Claude Code in the cloud</a>: Anthropic, docs. Why read: it is the main page on cloud sessions, including what gets uploaded when a repository has no GitHub remote. Cited in: <a href="./zones/kennel/claude-in-the-cloud.html">Claude in the Cloud</a>.</p></li>
+<li><p><a href="https://code.claude.com/docs/en/cloud-environments">Configure cloud environments</a>: Anthropic, docs. Why read: it covers network access levels, environment variables and setup scripts for a session. Cited in: <a href="./zones/kennel/claude-in-the-cloud.html">Claude in the Cloud</a>.</p></li>
+<li><p><a href="https://claude.dev/blog/claude-code-in-the-cloud/">Claude Code in the cloud article</a>: claude.dev blog, article. Why read: a community field guide to cloud sessions; use it for ideas and rely on the official pages above for facts. Cited in: <a href="./zones/kennel/claude-in-the-cloud.html">Claude in the Cloud</a>.</p></li>
+</ul>
+</section>
+<section id="ancient-dna-crypt" class="level2">
+<h2 class="anchored" data-anchor-id="ancient-dna-crypt">Ancient DNA Crypt</h2>
+<ul>
+<li><p><a href="https://code.claude.com/docs/en/checkpointing">Checkpointing</a>: Anthropic, docs. Cited by 2 quests; each quest says what to read it for.</p>
+<p>Cited in:</p>
+<ul>
+<li><a href="./zones/crypt/shield-of-undo.html">Save Point</a>: it explains <code>/rewind</code> and its limits, including that Bash-made changes need version control, so you see why git is the real save point.</li>
+<li><a href="./zones/murk/clear-the-murk.html">Boss: Clear the Murk</a>: it says Bash-made changes need version control, which is why the <code>rm -rf</code> in the summary had no way back.</li>
+</ul></li>
+<li><p><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: Anthropic, docs. Cited by 5 quests; each quest says what to read it for.</p>
+<p>Cited in:</p>
+<ul>
+<li><a href="./zones/crypt/shield-of-undo.html">Save Point</a>: it lists the commands for naming, resuming and clearing sessions, including <code>claude --resume</code>, a companion when work is interrupted.</li>
+<li><a href="./zones/codon-mill/memory-sessions-and-usage.html">Memory, Sessions and Usage</a>: it covers naming and resuming sessions, which is what makes a session’s context something you carry forward on purpose.</li>
+<li><a href="./zones/codon-mill/when-to-start-fresh.html">When to Start Fresh</a>: it lists the exact commands to name, resume, branch and clear sessions.</li>
+<li><a href="./zones/codon-mill/the-stream-of-ideas.html">The Stream of Ideas</a>: it shows how to branch a session, the command to reach for when a side thought deserves its own line of work.</li>
+<li><a href="./zones/codon-mill/handoff-notes.html">Handoff Notes</a>: it lists the exact commands to name, resume, branch and clear sessions.</li>
+</ul></li>
+<li><p><a href="https://code.claude.com/docs/en/sandboxing">Sandboxing</a>: Anthropic, docs. Cited by 5 quests; each quest says what to read it for.</p>
+<p>Cited in:</p>
+<ul>
+<li><a href="./zones/crypt/test-the-leash.html">Test the Leash</a>: it lists what the sandbox covers, the settings keys and the two probe commands used here.</li>
+<li><a href="./zones/crypt/rules-of-the-carapace.html">Grow the Carapace</a>: it states what the sandbox covers and what it does not, so you do not over-trust it.</li>
+<li><a href="./zones/gatehouse/plug-in-a-server.html">Plug In a Server</a>: it states what the sandbox limits and where that limit ends, so you can judge it as one layer.</li>
+<li><a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: it shows an operating-system limit on shell commands and where that limit ends.</li>
+<li><a href="./zones/citadel/keys-on-shared-ground.html">Keys on Shared Ground</a>: it states the sandbox reads most of the machine, including ~/.ssh, unless you deny it, and it fails open by default.</li>
+</ul></li>
+<li><p><a href="https://code.claude.com/docs/en/permission-modes">Choose a permission mode</a>: Anthropic, docs. Cited by 2 quests; each quest says what to read it for.</p>
+<p>Cited in:</p>
+<ul>
+<li><a href="./zones/crypt/test-the-leash.html">Test the Leash</a>: it defines each mode and how to switch between them.</li>
+<li><a href="./zones/forest/plan-before-you-edit.html">Plan Before You Edit</a>: it is the source for how plan mode is entered, approved and (not always) enforced.</li>
+</ul></li>
+<li><p><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Cited by 10 quests; each quest says what to read it for.</p>
+<p>Cited in:</p>
+<ul>
+<li><a href="./zones/crypt/test-the-leash.html">Test the Leash</a>: it gives the rule syntax and the deny, ask, allow order.</li>
+<li><a href="./zones/crypt/rules-of-the-carapace.html">Grow the Carapace</a>: it documents allow, ask and deny rules and how settings files combine, which is the core of this quest.</li>
+<li><a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: it shows the deny rules that keep the agent’s file tools away from files such as <code>.env</code>.</li>
+<li><a href="./zones/gatehouse/plug-in-a-server.html">Plug In a Server</a>: it shows how to allow or deny a server’s tools by name, the way to grant read-only access.</li>
+<li><a href="./zones/gatehouse/guard-the-door.html">Guard the Door</a>: it covers deny and ask rules, which still apply when a hook says allow.</li>
+<li><a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: it explains deny, ask and allow rules and permission modes, the built-in enforcement layer.</li>
+<li><a href="./zones/citadel/login-node-manners.html">Login Node Manners</a>: it shows allow, ask and deny rules by command pattern, the way to make heavy or sprawling commands ask first, and warns Bash rules are not a security boundary.</li>
+<li><a href="./zones/citadel/jobs-not-jam.html">Jobs, Not Jam</a>: it shows how to make sbatch ask while read-only checks such as squeue are allowed, with the warning that Bash rules are not a security boundary.</li>
+<li><a href="./zones/citadel/keys-on-shared-ground.html">Keys on Shared Ground</a>: it explains how settings files apply and combine by scope, so you can see which level should hold deny rules for your keys; it warns Bash rules are not a security boundary.</li>
+<li><a href="./zones/murk/clear-the-murk.html">Boss: Clear the Murk</a>: it shows deny rules that hold where a line in NOTES.md only asks.</li>
+</ul></li>
+<li><p><a href="https://code.claude.com/docs/en/devcontainer">Development containers</a>: Anthropic, docs. Why read: it sets out when running without permission prompts is acceptable and what a dev container does not protect. Cited in: <a href="./zones/crypt/test-the-leash.html">Test the Leash</a>.</p></li>
+<li><p><a href="https://coderefinery.github.io/coding-with-ai/scenario-agentic/">Scenario III: full agentic code development</a>: CodeRefinery, docs. Why read: a course lesson with a Docker demo and exercises on supervising an agent. Cited in: <a href="./zones/crypt/test-the-leash.html">Test the Leash</a>.</p></li>
+<li><p><a href="https://aiforscience.eu/best-practices/11-decide-where-research-data-may-go/">AI for Science, practice 11: decide where research data may go</a>: AI for Science (European draft best practices), docs. Why read: it ties the choice of service to the contract and legal basis for your data, and limits agent sends through the environment. A draft with no endorsements yet; it is not legal advice. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
+<li><p><a href="https://code.claude.com/docs/en/claude-directory">The .claude directory</a>: Anthropic, docs. Why read: it says what is written to transcripts on disk, how long it stays, and how <code>claude purge</code> clears it. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
+<li><p><a href="https://code.claude.com/docs/en/settings">Settings</a>: Anthropic, docs. Why read: it explains where “don’t ask again” approvals are saved and how <code>settings.local.json</code> is kept out of git. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
+<li><p><a href="https://cursor.com/blog/security-incident-update">An update on our recent security incident</a>: Cursor, article. Why read: a first-hand account of agent traces with unredacted credentials. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
+<li><p><a href="https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation">Authenticating as a GitHub App installation</a>: GitHub, docs. Why read: it shows the one-hour token that keeps a leak small. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
 </ul>
 </section>
 <section id="the-codon-mill" class="level2">
@@ -271,22 +379,6 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./zones/reef/teach-and-share-the-load.html">Teach and Share the Load</a>: it covers CLAUDE.md files a team can share, and notes they advise rather than enforce, which matters when teaching a lab shared rules.</li>
 </ul></li>
 <li><p><a href="https://huggingface.co/blog/not-lain/kv-caching">KV Caching Explained</a>: Hafedh Hichri (Hugging Face), article. Why read: a step-by-step picture of what the model stores and reuses for each token. It shows one attention head and does not cover the prompt cache. Cited in: <a href="./zones/codon-mill/the-context-window.html">The Context Window</a>.</p></li>
-<li><p><a href="https://code.claude.com/docs/en/costs">Manage costs effectively</a>: Anthropic, docs. Cited by 3 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/codon-mill/memory-sessions-and-usage.html">Memory, Sessions and Usage</a>: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.</li>
-<li><a href="./zones/codon-mill/when-to-start-fresh.html">When to Start Fresh</a>: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.</li>
-<li><a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>: it shows how <code>/usage</code> is computed and where model choice, effort and subagents change the bill.</li>
-</ul></li>
-<li><p><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: Anthropic, docs. Cited by 5 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/codon-mill/memory-sessions-and-usage.html">Memory, Sessions and Usage</a>: it covers naming and resuming sessions, which is what makes a session’s context something you carry forward on purpose.</li>
-<li><a href="./zones/codon-mill/when-to-start-fresh.html">When to Start Fresh</a>: it lists the exact commands to name, resume, branch and clear sessions.</li>
-<li><a href="./zones/codon-mill/the-stream-of-ideas.html">The Stream of Ideas</a>: it shows how to branch a session, the command to reach for when a side thought deserves its own line of work.</li>
-<li><a href="./zones/codon-mill/handoff-notes.html">Handoff Notes</a>: it lists the exact commands to name, resume, branch and clear sessions.</li>
-<li><a href="./zones/crypt/shield-of-undo.html">Save Point</a>: it lists the commands for naming, resuming and clearing sessions, including <code>claude --resume</code>, a companion when work is interrupted.</li>
-</ul></li>
 <li><p><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Cited by 12 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
@@ -305,13 +397,6 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 <li><p><a href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts Fail</a>: Drew Breunig, blog, article. Why read: it names context poisoning and distraction, the failure modes behind starting fresh; a personal blog, not vendor documentation. Cited in: <a href="./zones/codon-mill/when-to-start-fresh.html">When to Start Fresh</a>.</p></li>
 <li><p><a href="https://github.com/inevolin/claude-code-usage-analysis">claude-code-usage-analysis</a>: inevolin, repo. Why read: a community write-up of live runs that put numbers on cache expiry, compaction timing and tool changes; small samples, so read it for the shape of the effect and check its own list of limits. Cited in: <a href="./zones/codon-mill/when-to-start-fresh.html">When to Start Fresh</a>.</p></li>
-<li><p><a href="https://code.claude.com/docs/en/sub-agents">Create custom subagents</a>: Anthropic, docs. Cited by 3 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/codon-mill/the-stream-of-ideas.html">The Stream of Ideas</a>: it shows how a subagent keeps noisy work in its own context and returns only a summary.</li>
-<li><a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>: it gives the exact frontmatter fields for a subagent (<code>model</code>, <code>effort</code>, <code>tools</code>), the order in which a subagent’s model is chosen, and how the built-in Explore and Plan helpers behave.</li>
-<li><a href="./zones/reef/teach-and-share-the-load.html">Teach and Share the Load</a>: it shows how side tasks run in their own context, a way to share work between agents whose output you still review.</li>
-</ul></li>
 <li><p><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Cited by 5 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
@@ -344,89 +429,6 @@ ul.task-list li input[type="checkbox"] {
 <li><p><a href="https://arxiv.org/abs/2506.05690">When to use Graphs in RAG</a>: Xiang and colleagues, paper. Why read: it studies which kinds of questions benefit from graphs, with token costs per method. Cited in: <a href="./zones/codon-mill/grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>.</p></li>
 <li><p><a href="https://github.com/NirDiamant/rag_techniques">Advanced RAG Techniques</a>: Nir Diamant and contributors, repo. Why read: its notebook list includes graph RAG with a local Ollama model and LightRAG, plus chunking and evaluation, though we did not open the notebooks and the repo carries sponsor and book promotions. Cited in: <a href="./zones/codon-mill/grow-a-graph-with-ollama.html">Grow a Graph with Ollama</a>.</p></li>
 <li><p><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">LLM Wiki</a>: Andrej Karpathy, GitHub gist, article. Why read: it is the original idea file, short enough to read in ten minutes, with the three layers, the three jobs and the Obsidian tips in the author’s own words. Cited in: <a href="./zones/codon-mill/llm-wiki.html">Keep a Living Wiki</a>.</p></li>
-</ul>
-</section>
-<section id="the-kennel" class="level2">
-<h2 class="anchored" data-anchor-id="the-kennel">The Kennel</h2>
-<ul>
-<li><p><a href="https://code.claude.com/docs/en/setup">Advanced setup</a>: Anthropic, docs. Why read: it holds the install commands for every platform, WSL notes and how updates work. Cited in: <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
-<li><p><a href="https://code.claude.com/docs/en/authentication">Authentication</a>: Anthropic, docs. Why read: it explains login methods and which credential wins when a subscription and an API key are both present. Cited in: <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
-<li><p><a href="https://code.claude.com/docs/en/troubleshooting">Troubleshooting</a>: Anthropic, docs. Why read: it maps symptoms to the right fix page and says when to use <code>/doctor</code> or <code>claude doctor</code>. Cited in: <a href="./zones/kennel/recruit-the-beast.html">Recruit the Beast</a>.</p></li>
-<li><p><a href="https://ollama.com/library/ministral-3">ministral-3</a>: Ollama library, docs. Why read: it lists the sizes, context length, tool support and licence of a small Mistral model you can pull instead of a Qwen one. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
-<li><p><a href="https://docs.ollama.com/integrations/opencode">OpenCode</a>: Ollama, docs. Why read: it is the vendor guide to running OpenCode against a local Ollama model, including the context length it needs. It still shows older OpenCode install commands, so check the OpenCode docs too. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
-<li><p><a href="https://opencode.ai/docs/providers/">Providers</a>: OpenCode, docs. Cited by 2 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>: it shows how to connect Ollama or an OpenAI-compatible gateway in the current config format.</li>
-<li><a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>: it shows how to connect an OpenAI-compatible gateway to a coding agent.</li>
-</ul></li>
-<li><p><a href="https://opencode.ai/docs/config/">Config</a>: OpenCode, docs. Why read: it lists where <code>opencode.json</code> lives and how global and project files override each other. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
-<li><p><a href="https://opencode.ai/docs/permissions/">Permissions</a>: OpenCode, docs. Why read: it explains how to control what the agent may do, which matters more with a small local model. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
-<li><p><a href="https://developer.apple.com/documentation/updates/foundationmodels">Foundation Models updates</a>: Apple, docs. Why read: it lists the changes to Apple’s on-device model by date, including which OS versions change the model. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
-<li><p><a href="https://github.com/anomalyco/opencode">anomalyco/opencode</a>: GitHub, repo. Why read: it is the source and release list, useful when the docs and your installed version disagree. Cited in: <a href="./zones/kennel/adopt-the-pet.html">Adopt the Pet</a>.</p></li>
-<li><p><a href="https://github.com/12britz/awesome-free-models">awesome-free-models</a>: GitHub, repo. Why read: a large, regularly corrected list of free models, tiers and tools; check its banner for what changed lately. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
-<li><p><a href="https://openrouter.ai/docs/faq">OpenRouter FAQ</a>: OpenRouter, docs. Why read: it explains free model variants, daily allowances and how prompt logging and provider retention differ. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
-<li><p><a href="https://aistudio.google.com/docs/terms">Google AI Studio terms</a>: Google, docs. Why read: it spells out how unpaid and paid services treat your prompts differently. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
-<li><p><a href="https://console.groq.com/docs/your-data">Groq: your data</a>: Groq, docs. Why read: it states the default retention and log period for inference requests. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
-<li><p><a href="https://opencode.ai/docs/zen/">OpenCode Zen</a>: OpenCode, docs. Why read: it lists free models together with their data-retention line, model by model. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
-<li><p><a href="https://developers.cloudflare.com/workers-ai/platform/pricing/">Cloudflare Workers AI pricing</a>: Cloudflare, docs. Why read: it shows a daily free allowance and what happens when you pass it. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
-<li><p><a href="https://help.mistral.ai/en/articles/347617-do-you-use-my-user-data-to-train-your-models">Do you use my user data to train your models?</a>: Mistral, docs. Why read: it lists, plan by plan, which Mistral products train on your data by default and where the opt-out lives. Cited in: <a href="./zones/kennel/free-is-not-free.html">Free Is Not Free</a>.</p></li>
-<li><p><a href="https://docs.mistral.ai/vibe/code/safety-approvals-permissions">Safety, approvals and permissions</a>: Mistral, docs. Why read: it describes Vibe’s four approval modes, trusted folders and per-tool rules, for comparison with other harnesses. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
-<li><p><a href="https://docs.mistral.ai/getting-started/models/models_overview/">Models overview</a>: Mistral, docs. Why read: it lists which Mistral models are open-weight, which carry a deprecation date and what licence each shows. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
-<li><p><a href="https://platform.claude.com/docs/en/about-claude/models/choosing-a-model">Choosing the right model</a>: Anthropic, docs. Why read: it gives the official way to pick a starting model and to test the choice on your own evaluations. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
-<li><p><a href="https://platform.claude.com/docs/en/build-with-claude/effort">Effort</a>: Anthropic, docs. Why read: it defines each effort level and gives per-model starting advice, with the advice to test on your own tasks; its API defaults can differ from the Claude Code defaults on the model-configuration page. Cited in: <a href="./zones/kennel/pick-your-companion.html">Pick Your Companion</a>.</p></li>
-<li><p><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide">Fine-tuning LLMs Guide</a>: Unsloth, docs. Why read: a beginner-friendly walk through LoRA, QLoRA, dataset shape and training settings; it is a vendor guide for its own tool, so treat its speed and hardware claims as the vendor’s. Cited in: <a href="./zones/kennel/should-you-fine-tune.html">Should You Fine-Tune?</a>.</p></li>
-<li><p><a href="https://huggingface.co/docs/peft/main/en/conceptual_guides/lora">LoRA</a>: Hugging Face, docs. Why read: the PEFT library’s explanation of how LoRA works, what rank and alpha control, and how to merge an adapter back into the base model. Cited in: <a href="./zones/kennel/should-you-fine-tune.html">Should You Fine-Tune?</a>.</p></li>
-<li><p><a href="https://code.claude.com/docs/en/claude-code-on-the-web">Use Claude Code in the cloud</a>: Anthropic, docs. Why read: it is the main page on cloud sessions, including what gets uploaded when a repository has no GitHub remote. Cited in: <a href="./zones/kennel/claude-in-the-cloud.html">Claude in the Cloud</a>.</p></li>
-<li><p><a href="https://code.claude.com/docs/en/cloud-environments">Configure cloud environments</a>: Anthropic, docs. Why read: it covers network access levels, environment variables and setup scripts for a session. Cited in: <a href="./zones/kennel/claude-in-the-cloud.html">Claude in the Cloud</a>.</p></li>
-<li><p><a href="https://claude.dev/blog/claude-code-in-the-cloud/">Claude Code in the cloud article</a>: claude.dev blog, article. Why read: a community field guide to cloud sessions; use it for ideas and rely on the official pages above for facts. Cited in: <a href="./zones/kennel/claude-in-the-cloud.html">Claude in the Cloud</a>.</p></li>
-</ul>
-</section>
-<section id="ancient-dna-crypt" class="level2">
-<h2 class="anchored" data-anchor-id="ancient-dna-crypt">Ancient DNA Crypt</h2>
-<ul>
-<li><p><a href="https://code.claude.com/docs/en/checkpointing">Checkpointing</a>: Anthropic, docs. Cited by 2 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/crypt/shield-of-undo.html">Save Point</a>: it explains <code>/rewind</code> and its limits, including that Bash-made changes need version control, so you see why git is the real save point.</li>
-<li><a href="./zones/murk/clear-the-murk.html">Boss: Clear the Murk</a>: it says Bash-made changes need version control, which is why the <code>rm -rf</code> in the summary had no way back.</li>
-</ul></li>
-<li><p><a href="https://code.claude.com/docs/en/sandboxing">Sandboxing</a>: Anthropic, docs. Cited by 5 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/crypt/test-the-leash.html">Test the Leash</a>: it lists what the sandbox covers, the settings keys and the two probe commands used here.</li>
-<li><a href="./zones/crypt/rules-of-the-carapace.html">Grow the Carapace</a>: it states what the sandbox covers and what it does not, so you do not over-trust it.</li>
-<li><a href="./zones/gatehouse/plug-in-a-server.html">Plug In a Server</a>: it states what the sandbox limits and where that limit ends, so you can judge it as one layer.</li>
-<li><a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: it shows an operating-system limit on shell commands and where that limit ends.</li>
-<li><a href="./zones/citadel/keys-on-shared-ground.html">Keys on Shared Ground</a>: it states the sandbox reads most of the machine, including ~/.ssh, unless you deny it, and it fails open by default.</li>
-</ul></li>
-<li><p><a href="https://code.claude.com/docs/en/permission-modes">Choose a permission mode</a>: Anthropic, docs. Cited by 2 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/crypt/test-the-leash.html">Test the Leash</a>: it defines each mode and how to switch between them.</li>
-<li><a href="./zones/forest/plan-before-you-edit.html">Plan Before You Edit</a>: it is the source for how plan mode is entered, approved and (not always) enforced.</li>
-</ul></li>
-<li><p><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Cited by 10 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/crypt/test-the-leash.html">Test the Leash</a>: it gives the rule syntax and the deny, ask, allow order.</li>
-<li><a href="./zones/crypt/rules-of-the-carapace.html">Grow the Carapace</a>: it documents allow, ask and deny rules and how settings files combine, which is the core of this quest.</li>
-<li><a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>: it shows the deny rules that keep the agent’s file tools away from files such as <code>.env</code>.</li>
-<li><a href="./zones/gatehouse/plug-in-a-server.html">Plug In a Server</a>: it shows how to allow or deny a server’s tools by name, the way to grant read-only access.</li>
-<li><a href="./zones/gatehouse/guard-the-door.html">Guard the Door</a>: it covers deny and ask rules, which still apply when a hook says allow.</li>
-<li><a href="./zones/gatehouse/advice-or-enforcement.html">Advice or Enforcement</a>: it explains deny, ask and allow rules and permission modes, the built-in enforcement layer.</li>
-<li><a href="./zones/citadel/login-node-manners.html">Login Node Manners</a>: it shows allow, ask and deny rules by command pattern, the way to make heavy or sprawling commands ask first, and warns Bash rules are not a security boundary.</li>
-<li><a href="./zones/citadel/jobs-not-jam.html">Jobs, Not Jam</a>: it shows how to make sbatch ask while read-only checks such as squeue are allowed, with the warning that Bash rules are not a security boundary.</li>
-<li><a href="./zones/citadel/keys-on-shared-ground.html">Keys on Shared Ground</a>: it explains how settings files apply and combine by scope, so you can see which level should hold deny rules for your keys; it warns Bash rules are not a security boundary.</li>
-<li><a href="./zones/murk/clear-the-murk.html">Boss: Clear the Murk</a>: it shows deny rules that hold where a line in NOTES.md only asks.</li>
-</ul></li>
-<li><p><a href="https://code.claude.com/docs/en/devcontainer">Development containers</a>: Anthropic, docs. Why read: it sets out when running without permission prompts is acceptable and what a dev container does not protect. Cited in: <a href="./zones/crypt/test-the-leash.html">Test the Leash</a>.</p></li>
-<li><p><a href="https://coderefinery.github.io/coding-with-ai/scenario-agentic/">Scenario III: full agentic code development</a>: CodeRefinery, docs. Why read: a course lesson with a Docker demo and exercises on supervising an agent. Cited in: <a href="./zones/crypt/test-the-leash.html">Test the Leash</a>.</p></li>
-<li><p><a href="https://aiforscience.eu/best-practices/11-decide-where-research-data-may-go/">AI for Science, practice 11: decide where research data may go</a>: AI for Science (European draft best practices), docs. Why read: it ties the choice of service to the contract and legal basis for your data, and limits agent sends through the environment. A draft with no endorsements yet; it is not legal advice. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
-<li><p><a href="https://code.claude.com/docs/en/claude-directory">The .claude directory</a>: Anthropic, docs. Why read: it says what is written to transcripts on disk, how long it stays, and how <code>claude purge</code> clears it. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
-<li><p><a href="https://code.claude.com/docs/en/settings">Settings</a>: Anthropic, docs. Why read: it explains where “don’t ask again” approvals are saved and how <code>settings.local.json</code> is kept out of git. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
-<li><p><a href="https://cursor.com/blog/security-incident-update">An update on our recent security incident</a>: Cursor, article. Why read: a first-hand account of agent traces with unredacted credentials. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
-<li><p><a href="https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation">Authenticating as a GitHub App installation</a>: GitHub, docs. Why read: it shows the one-hour token that keeps a leak small. Cited in: <a href="./zones/crypt/secrets-and-sensitive-ground.html">The Locked Cabinet</a>.</p></li>
 </ul>
 </section>
 <section id="sequence-maze" class="level2">

@@ -132,6 +132,44 @@
    ]
   },
   {
+   "type": "choice",
+   "prompt": "In OpenCode you set a `read` deny rule for `*.env`. The agent then runs `cat .env` as a shell command. What happens?",
+   "explain": "A rule blocks the action it names. `read` covers the read tool, and `cat` runs under the `shell` action, so it needs its own rule. Even then, a program that opens the file itself gets through.",
+   "options": [
+    {
+     "text": "The file prints, because the rule covers the read tool and not shell commands",
+     "correct": true
+    },
+    {
+     "text": "The command is blocked, because a read rule covers every way of reading the file",
+     "misconception": "The read action covers the read tool. A shell command is a different action."
+    },
+    {
+     "text": "OpenCode asks you first, because denied paths always prompt before anything runs",
+     "misconception": "A deny rule refuses. It does not prompt. Here no rule matches the shell command, and the default policy allows it."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "You set an `edit` rule to `ask`, then run `opencode run` with a prompt that writes a file. What do you see?",
+   "explain": "A non-interactive run cannot ask, so OpenCode rejects the request. Start the interactive interface to see the prompt itself.",
+   "options": [
+    {
+     "text": "The request is rejected and no file is written, because the run cannot ask you",
+     "correct": true
+    },
+    {
+     "text": "The file is written anyway, because the default policy allows every edit without asking",
+     "misconception": "Your rule overrides the default for edits, and the rule says ask."
+    },
+    {
+     "text": "A prompt appears in the terminal and the run waits there for your answer",
+     "misconception": "opencode run is non-interactive. The prompt appears only in the interactive interface."
+    }
+   ]
+  },
+  {
    "type": "match",
    "prompt": "Match each permission mode to what it does.",
    "explain": "Modes trade convenience for control. Plan mode is the safest for first contact.",
