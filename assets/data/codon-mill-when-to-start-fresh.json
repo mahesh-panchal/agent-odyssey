@@ -57,7 +57,7 @@
     },
     {
      "text": "Keep typing, since a crowded window is harmless while the agent is on track",
-     "misconception": "The whole conversation is re-sent every request, so usage climbs, and the docs say accuracy and recall degrade as context grows (context rot)."
+     "misconception": "The whole conversation is re-sent every request, so usage climbs, and the docs warn that instructions from early in the conversation can get lost."
     },
     {
      "text": "Run /resume to reload the same conversation with more room",

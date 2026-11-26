@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="the-rule-for-this-page" class="level2">
 <h2 class="anchored" data-anchor-id="the-rule-for-this-page">The rule for this page</h2>
-<p>You may be offered a way to run an agent on someone else’s computer. Decide what may go there before you start one, because what you send is stored away from your machine.</p>
+<p>You may be offered a way to run an agent on someone else’s computer. You need this lesson before you start one, because what you send is stored away from your machine. Decide what may go there first.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -154,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Your repository contents</strong> are cloned onto Anthropic’s VM. Anthropic reads only the repository you start the session in.</li>
 <li><strong>Your prompts and everything the agent reads and writes</strong> go to the model.</li>
 <li><strong>The session transcript</strong> (the saved record of the whole conversation, including tool output) is stored by Anthropic so you can return to it later.</li>
-<li><strong>Retention</strong> (how long Anthropic keeps stored data) follows your account type. Consumer plans keep it 5 years if you allow training and 30 days if you do not. Commercial plans (Team, Enterprise, API) keep it 30 days as standard. Check your own plan for its current terms. Deleting a cloud session permanently removes its event data.</li>
+<li><strong>Retention</strong> (how long Anthropic keeps stored data) depends on your account type: from 30 days up to 5 years. Check your plan’s current terms on the Data usage page in Lore. Deleting a cloud session permanently removes its event data.</li>
 <li><strong>Network level None may still let data exit.</strong> A <strong>network access level</strong> is the setting that says which internet hosts the VM may reach (None, Limited or Full; see section 5). The Anthropic API stays reachable even at None, which may allow data to exit the VM.</li>
 <li><strong>Environment variables</strong> (named settings handed to programs, often used for keys) set in a cloud environment can be read by any command Claude runs, and anyone who uses that environment can read the values.</li>
 </ul>
@@ -201,7 +201,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>A cloud machine has no GPU and no access to your institution’s network. Work that needs a GPU, a VPN or local databases stays on your side.</p>
+<p>A cloud machine has no GPU and no access to your institution’s network. Work that needs a GPU, a VPN (a private network link into your institution) or local databases stays on your side.</p>
 </section>
 <section id="how-to-start" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-start">4. How to start</h2>
@@ -217,11 +217,11 @@ ul.task-list li input[type="checkbox"] {
 Expected: exit status 1 and a message naming the duplicated ID.
 Check: pytest tests/test_validate_samplesheet.py (mock rows only).
 Add a test for the duplicate case. Only change files under scripts/ and tests/.</code></pre>
-<p>A repository with no <code>data/</code> or <code>results/</code> folders is the safe one. A prompt line such as “do not read data/” is a request to the model and gives no protection. If the folder is in the repository, the cloud session can read it.</p>
+<p>A repository with no real data anywhere in it is the safe one. Removing the <code>data/</code> and <code>results/</code> folders is not enough if real files sit elsewhere. A prompt line such as “do not read data/” is a request to the model and gives no protection. If the folder is in the repository, the cloud session can read it.</p>
 <ul>
-<li><strong>If there is no remote.</strong> When the repository has no GitHub remote, Claude Code <strong>bundles</strong> it and uploads the full history of all branches plus uncommitted changes to tracked files. <strong>Keep data out of this route entirely.</strong> Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your <code>.gitignore</code> covers first.</li>
+<li><strong>If there is no remote.</strong> When the repository has no git remote, or a GitHub repository does not have the Claude GitHub App (an app you install on a repository to let Claude clone it) installed, Claude Code <strong>bundles</strong> it and uploads the full history of all branches plus uncommitted changes to tracked files. <strong>Keep data out of this route entirely.</strong> Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your <code>.gitignore</code> covers first.</li>
 <li><strong>Getting the session back.</strong> <code>claude --teleport</code> pulls a cloud session into your local terminal. It needs a clean git state, the same repository, the branch pushed and the same claude.ai account.</li>
-<li><strong>GitHub access.</strong> Cloud sessions reach your repositories through the Claude GitHub App or a token that <code>/web-setup</code> sends to Anthropic. The proxy that holds your credential does not limit which branches a push can update. Use GitHub <strong>branch protection or rulesets</strong> (rules on which branches may be changed and by whom) for that.</li>
+<li><strong>GitHub access.</strong> Cloud sessions reach your repositories through the Claude GitHub App or a token that <code>/web-setup</code> (a command you run in the terminal) sends to Anthropic; it sends your local <code>gh</code> (GitHub command-line tool) token. The proxy that holds your credential does not limit which branches a push can update. Use GitHub <strong>branch protection or rulesets</strong> (rules on which branches may be changed and by whom) for that.</li>
 </ul>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
@@ -265,7 +265,7 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.<
 <ul>
 <li><strong>Setup scripts:</strong> a <strong>setup script</strong> is a Bash script that runs once before Claude starts, to install what the task needs. Installs need network access, so None blocks them.</li>
 <li><strong>Environment variables versus network secrets:</strong> environment variables are readable by any command Claude runs. <strong>Network secrets</strong> are the safer option where possible: the key stays outside the VM, and a proxy adds it to requests to hosts you list.</li>
-<li><strong>Preinstalled tools:</strong> common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to run <code>check-tools</code> to see what is there.</li>
+<li><strong>Preinstalled tools:</strong> common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to run <code>check-tools</code> (a shell command on the cloud machine that reports tool versions; you ask Claude to run it, you do not type it with <code>/</code>) to see what is there.</li>
 </ul>
 </section>
 <section id="permission-modes-in-the-cloud" class="level2">
@@ -276,7 +276,7 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.<
 <section id="limits-and-failure-modes" class="level2">
 <h2 class="anchored" data-anchor-id="limits-and-failure-modes">7. Limits and failure modes</h2>
 <ul>
-<li><strong>A fresh machine every time.</strong> An idle VM pauses and may later be taken back by the system. Commit and push work you want to keep.</li>
+<li><strong>A fresh machine every time.</strong> An idle session stops and its VM is taken back. Commit and push work you want to keep.</li>
 <li><strong>Size.</strong> A cloud machine has limited CPU, memory and disk. Heavy jobs may be stopped.</li>
 <li><strong>Shared usage.</strong> Cloud work counts against the same plan limits as all your other Claude Code use.</li>
 <li><strong>GitHub comments under your name.</strong> Claude can reply on pull requests under your GitHub name, marked as from Claude Code.</li>
@@ -295,7 +295,7 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.<
 </section>
 <section id="exercise-the-safe-to-send-checklist" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-the-safe-to-send-checklist">Exercise: the safe-to-send checklist</h2>
-<p>No cloud account and no model needed. Open <a href="../../exercises/kennel/cloud-safe/tree.txt">tree.txt</a>, a <strong>mock</strong> repository tree (every name is invented).</p>
+<p>No cloud account, GitHub account or model needed, and no repository to clone. The tree is a text file in this course’s exercises folder. Open <a href="../../exercises/kennel/cloud-safe/tree.txt">tree.txt</a>, a <strong>mock</strong> repository tree (every name is invented).</p>
 <ol type="1">
 <li><strong>Mark each path</strong> that must not reach anything a cloud session can see. Say whether it needs removing from history (it is already committed) or only ignoring, and write one reason each.</li>
 <li><strong>Write the <code>.gitignore</code> lines</strong> that would have stopped it.</li>
@@ -306,7 +306,7 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.<
 Answer key (some entries depend on your data agreement)
 </summary>
 <ul>
-<li><strong>Every listed path below is in the tree as committed, so each one needs removing from history before you push anything a cloud session can see.</strong> The ignore lines further down only prevent a repeat.</li>
+<li><strong>Every path under “Paths to remove” is committed, so remove each one from history before you push anything a cloud session can see.</strong> The ignore lines further down only prevent a repeat.</li>
 </ul>
 <p><strong>Paths to remove:</strong></p>
 <ul>

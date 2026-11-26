@@ -156,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-problem-understanding-that-does-not-accumulate" class="level2">
 <h2 class="anchored" data-anchor-id="the-problem-understanding-that-does-not-accumulate">The problem: understanding that does not accumulate</h2>
 <p>Think about the last time you read ten papers on a method, or went through six months of meeting notes. You understood it all at the time. A month later, the understanding lives in your head and in a pile of files, and the next question sends you back to the pile.</p>
-<p>RAG (retrieval-augmented generation) answers that with a lookup: each question searches the pile again, pastes a few passages into the prompt, and starts from scratch. Nothing builds up between questions. If an answer needs five documents stitched together, the stitching is redone every time.</p>
+<p>You need this lesson now to judge whether a wiki suits your material before you build one. RAG (retrieval-augmented generation) answers that with a lookup: each question searches the pile again, pastes a few passages into the prompt, and starts from scratch. Nothing builds up between questions. If an answer needs five documents stitched together, the stitching is redone every time.</p>
 <p>This quest follows Andrej Karpathy’s “LLM Wiki” gist (a short shared text page), which proposes another arrangement. An agent keeps a <strong>wiki</strong>: a folder of interlinked Markdown pages (plain text files with simple formatting) that it writes and updates as new sources arrive, so the stitching is done once and stays. The gist calls it a “persistent, compounding artifact”. People drop their notes because the bookkeeping is tedious (updating links, rewriting summaries, spotting that two pages now disagree), and an agent does that bookkeeping without getting bored. You keep the parts that need a person: choosing sources, asking questions, and deciding what the findings mean.</p>
 <p>The gist is an “idea file”, meant to be handed to your agent so the two of you work out the details together. It describes a pattern and includes no program.</p>
 </section>
@@ -165,14 +165,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Raw sources:</strong> you add files and nobody edits them afterwards. Papers, clipped web pages, meeting transcripts, run logs, data files. The agent reads them and never changes them, so they stay the source of truth.</li>
 <li><strong>The wiki:</strong> the agent writes it and you read it. Markdown pages: a summary per source, a page per entity (a tool, a dataset, a person, a gene) or concept, comparisons, an overview. The agent owns this folder.</li>
-<li><strong>The schema:</strong> you and the agent write it over time. One instruction file (<code>CLAUDE.md</code> in Claude Code, <code>AGENTS.md</code> in OpenCode) that the agent reads at the start of every session. It describes how the wiki is organised and what to do on each job, and it is the key configuration file.</li>
+<li><strong>The schema:</strong> here, “schema” means the rules for the wiki, written as plain instructions (it is not a database schema). You and the agent write it over time. It is one instruction file (<code>CLAUDE.md</code> in Claude Code, <code>AGENTS.md</code> in OpenCode) that the agent reads at the start of every session. It describes how the wiki is organised and what to do on each job, and it is the key configuration file.</li>
 </ul>
 <p>The split builds trust. When an answer looks odd, you walk from the wiki page back to the raw source it cites, and the raw source is untouched.</p>
 </section>
 <section id="three-jobs" class="level2">
 <h2 class="anchored" data-anchor-id="three-jobs">Three jobs</h2>
 <ul>
-<li><strong>Ingest:</strong> you drop one source into the raw folder and ask the agent to process it. The agent reads the source, tells you the main takeaways, writes a summary page, updates the pages for the entities and concepts it mentions, adds it to the index, and appends a line to the log. One source may touch 10 to 15 pages. Ingest one source at a time and stay involved. Batching with less supervision is possible.</li>
+<li><strong>Ingest</strong> (take a new source into the wiki): copy one source into <code>raw/</code>, then ask the agent, for example, “Ingest <code>raw/paper-1.md</code> following the rules in <code>CLAUDE.md</code>.” The agent reads the source, tells you the main takeaways, writes a summary page, updates the pages for the entities and concepts it mentions, adds it to the index, and appends a line to the log. One source may touch 10 to 15 pages. Ingest one source at a time and stay involved. Batching with less supervision is possible.</li>
 <li><strong>Query:</strong> you ask a question. The agent finds the relevant wiki pages, reads them and answers with citations. A good answer (a comparison table, a timeline, a short report) is filed back as a new page, so your explorations add to the wiki and do not vanish into chat history.</li>
 <li><strong>Lint:</strong> from time to time you ask for a health check. It looks for pages that contradict each other, claims that a newer source has overtaken, pages that nothing links to, concepts that are mentioned but have no page, missing cross-references, and gaps that a web search might fill.</li>
 </ul>
@@ -181,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong><code>index.md</code>:</strong> a catalogue with each page, a link and a one-line summary, grouped by category and updated on every ingest. To answer a question, the agent reads the index first and then opens the pages that look relevant. The gist says this avoids building an embedding index at moderate scale (the author’s experience). As the wiki grows, add a search tool.</li>
 <li><strong><code>log.md</code>:</strong> an append-only diary of ingests, queries and lint passes. Give every entry the same prefix so a simple <code>grep</code> can list the recent ones.</li>
 </ul>
-<p>An example schema you can paste into the instruction file and then edit with your agent:</p>
+<p>An example schema. Paste it into the instruction file (<code>CLAUDE.md</code> or <code>AGENTS.md</code>) in the wiki folder’s top level, then edit it with your agent:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Wiki rules</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`raw/`</span> holds sources. Never edit or delete anything in <span class="in">`raw/`</span>.</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`wiki/`</span> holds pages you write. One page per entity or concept; one summary page per source in <span class="in">`wiki/sources/`</span>.</span>
@@ -257,7 +257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="where-obsidian-fits" class="level2">
 <h2 class="anchored" data-anchor-id="where-obsidian-fits">Where Obsidian fits</h2>
-<p>An Obsidian vault is a folder of Markdown files, so an agent can read and write it like any other folder, and Obsidian shows whatever is there. Work with the agent on one side and Obsidian open on the other: “Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase.” You read, and the agent edits.</p>
+<p>Obsidian is a free note-taking app that opens a folder of Markdown files as a <strong>vault</strong>. A vault is an ordinary folder, so an agent can read and write it like any other folder, and Obsidian shows whatever is there. Work with the agent on one side and Obsidian open on the other: “Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase.” You read, and the agent edits.</p>
 <p>A layout that follows the three layers:</p>
 <pre class="text"><code>my-vault/
   raw/            sources you add (clippings, PDFs, transcripts); the agent never edits these
@@ -271,8 +271,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Web Clipper:</strong> a browser extension that turns a web article into a Markdown file, so a source can land in <code>raw/</code> in one click.</li>
 <li><strong>Graph view:</strong> shows the shape of the wiki, with hubs and orphan pages that nothing links to. It doubles as a quick visual check.</li>
-<li><strong>Dataview:</strong> a plugin that queries the properties at the top of each page. If your schema asks the agent to add them (a source type, a date, a version), you get live tables, such as every page whose status is <code>unsourced</code>.</li>
-<li><strong>Marp:</strong> a Markdown slide format with an Obsidian plugin, for turning an answer into slides.</li>
+<li><strong>Dataview:</strong> a plugin (an add-on) that queries the properties (named fields in a block at the top of a page). If your schema asks the agent to add them (a source type, a date, a version), you get live tables, such as every page whose status is <code>unsourced</code>.</li>
+<li><strong>Marp:</strong> a Markdown slide format with an Obsidian plugin, for turning an answer into slides. Skip it unless you need slides.</li>
 <li><strong>Images:</strong> fix the attachment folder (for example <code>raw/assets/</code>) and bind a hotkey that downloads a clipped page’s images locally. An agent cannot read a Markdown file with inline images in a single pass, so have it read the text first and look at the images afterwards.</li>
 </ul>
 <p>Habits that help:</p>

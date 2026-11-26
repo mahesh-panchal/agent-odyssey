@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -118,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>Typing the same background every session is wasteful. A <strong>project instructions file</strong> (a text file the agent reads at the start of each session) already holds the project’s conventions. Write one early, before the agent works on real files.</p>
+<p>Typing the same background every session is wasteful. A <strong>project instructions file</strong> (a text file the agent reads at the start of each session) already holds the project’s conventions. Write one early, before the agent works on real files; this lesson gives you the file you will keep for the rest of the course.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -129,16 +164,31 @@ ul.task-list li input[type="checkbox"] {
 <li><code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code>: the project, shared if committed.</li>
 <li><code>./CLAUDE.local.md</code>: yours, not committed.</li>
 </ul>
-<p>Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. <code>/init</code> drafts one from your project and <code>/memory</code> lists and edits them. <code>@path</code> imports another file, and the imported text still uses context.</p>
+<p>Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. <code>/init</code> (a command typed inside the session) drafts one from your project. <code>/memory</code> lists the instruction files that loaded and opens them for editing. <code>@path</code> inside the file imports another file (for example <code>@docs/conventions.md</code>), and the imported text still uses context. If a project has only an <code>AGENTS.md</code>, Claude Code reads that instead. If both files exist, only <code>CLAUDE.md</code> loads, so import the other with <code>@AGENTS.md</code>.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>The file is <code>AGENTS.md</code> in the project root (or <code>~/.config/opencode/AGENTS.md</code> for all projects). <code>/init</code> creates or updates it. The <code>instructions</code> array in <code>opencode.json</code> adds more files. OpenCode also falls back to <code>CLAUDE.md</code> if there is no <code>AGENTS.md</code>.</p>
+<p>The file is <code>AGENTS.md</code> in the project root (or <code>~/.config/opencode/AGENTS.md</code> for all projects). <code>/init</code> (a command typed inside the session) creates or updates it. The <code>instructions</code> array in <code>opencode.json</code> adds more files. OpenCode also falls back to <code>CLAUDE.md</code> if there is no <code>AGENTS.md</code>.</p>
 </div>
 </div>
 </div>
 <section id="what-goes-in" class="level2">
 <h2 class="anchored" data-anchor-id="what-goes-in">What goes in</h2>
-<p>Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, “never edit <code>raw/</code>”. Keep it short (aim for under 200 lines per file) because very long instructions are followed less well.</p>
+<p>Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, “never edit <code>raw/</code>”. Keep each file short, about 200 lines or fewer, because very long instructions are followed less well.</p>
+<p>Here is a short example <code>CLAUDE.md</code> for a mock RNA-seq project, saved in the project root. All names are invented:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># RNA-seq project</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Commands</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run the tests: <span class="in">`pytest tests/`</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Run the pipeline on the mock data: <span class="in">`nextflow run main.nf -profile test`</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Real data lives outside this repository, under the path in <span class="in">`$DATA_DIR`</span>.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use only <span class="in">`data/mock/`</span> when you need a sample input.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rules</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Never edit anything under <span class="in">`raw/`</span>.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sample IDs are strings like <span class="in">`S01`</span>. Keep them as text, never as numbers.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ask before adding a dependency.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Write the file yourself first and read what <code>/init</code> produces critically. A generated file can contain wrong guesses about your project.</p>
 </section>
 <section id="where-instructions-end" class="level2">
@@ -148,7 +198,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="keep-the-file-current" class="level2">
 <h2 class="anchored" data-anchor-id="keep-the-file-current">Keep the file current</h2>
 <p>Instruction files go stale: a rule written for an older model, a path that no longer exists, two files that disagree. When instructions contradict each other, Claude may pick one arbitrarily.</p>
-<p>In Claude Code (v2.1.283 or later), <code>/doctor prompt-audit</code> checks your instruction files for outdated or conflicting content and writes a report with proposed edits. (<code>/doctor</code> is a <strong>bundled skill</strong>, a ready-made skill that ships inside Claude Code.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.</p>
+<p>In Claude Code, <code>/doctor prompt-audit</code> checks your instruction files (and the rules, skills and agents under <code>.claude/</code>) for outdated or conflicting content and writes a report with proposed edits. (<code>/doctor</code> is a <strong>bundled skill</strong>, a ready-made skill that ships inside Claude Code.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.</p>
+<p>Later: <code>/doctor prompt-audit</code> needs Claude Code v2.1.283 or later, and reading a lone <code>AGENTS.md</code> needs v2.1.277 or later.</p>
 </section>
 <section id="write-docs-for-the-agent-too" class="level2">
 <h2 class="anchored" data-anchor-id="write-docs-for-the-agent-too">Write docs for the agent too</h2>

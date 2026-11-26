@@ -155,8 +155,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="hidden-state" class="level2">
 <h2 class="anchored" data-anchor-id="hidden-state">Hidden state</h2>
-<p>A notebook kernel (the background process that runs the cells’ code) keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran, and the variables stay. The page then shows a result that the file, read from the top, does not produce. This is <strong>hidden state</strong>: the notebook’s memory holds something the file does not. It appears with or without an agent.</p>
-<p><code>cells.py</code> is a mock notebook with four cells. Each header, such as <code># %% [1] load</code>, carries a cell number. <code>run_cells.py</code> runs cells in the order you give, sharing one namespace like a kernel. It uses <code>exec</code>, so run it only on files you wrote. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.</p>
+<p>You need this check before you trust or share any notebook, whether you or an agent edited it. A notebook kernel (the background process that runs the cells’ code) keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran, and the variables stay. The page then shows a result that the file, read from the top, does not produce. This is <strong>hidden state</strong>: the notebook’s memory holds something the file does not. It appears with or without an agent.</p>
+<p><code>cells.py</code> is a mock notebook with four cells. Cell 1 loads a list of reads, cell 2 sets <code>threshold = 30</code>, cell 3 keeps the reads at or above the threshold and prints how many, and cell 4 sets <code>threshold = 40</code>. Each header, such as <code># %% [1] load</code>, carries a cell number. <code>run_cells.py</code> runs cells in the order you give, sharing one namespace like a kernel. It uses <code>exec</code>, so run it only on files you trust, such as these two. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> run_cells.py cells.py 1 2 3 4 3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>[cell 1]
 [cell 2]
@@ -176,12 +176,11 @@ reads kept: 3
 </section>
 <section id="the-habit" class="level2">
 <h2 class="anchored" data-anchor-id="the-habit">The habit</h2>
-<p>Before you trust or share a notebook, restart the kernel and run all cells from the top (“Restart Kernel and Run All” in Jupyter). If the result changes, the stored output did not come from the file as written. Then fix the order so that cells only depend on cells above them. A fresh run rules out hidden state. A separate check, such as computing one or two values another way, shows whether the analysis is right.</p>
-<p>Related options:</p>
+<p>Before you trust or share a notebook, restart the kernel and run all cells from the top (“Restart Kernel and Run All Cells” in JupyterLab). If the result changes, the stored output did not come from the file as written. Then fix the order so that cells only depend on cells above them. A fresh run rules out hidden state. A separate check, such as computing one or two values another way, shows whether the analysis is right.</p>
+<p>Two further options:</p>
 <ul>
-<li><strong>Run it headless</strong> (non-interactive, no one at the screen). On a cluster, run notebooks as a batch job and keep interactive Jupyter sessions off the login node.</li>
-<li><strong>marimo:</strong> a reactive notebook. Deleting a cell scrubs its variables from memory, which removes hidden state, and a notebook runs as a script with <code>python your_notebook.py</code>. Check the marimo docs for how file and network side effects behave.</li>
-<li><strong>Pin the environment</strong> with a container or lockfile, so a fresh run uses the same packages. Do not let an agent run <code>pip install</code> into a shared environment.</li>
+<li><strong>marimo:</strong> a notebook tool that re-runs dependent cells when one changes, and removes a cell’s variables when you delete the cell. A marimo notebook also runs as a script with <code>python your_notebook.py</code>.</li>
+<li><strong>Pin the environment</strong> with a container or a lockfile (a file that records the exact package versions), so a fresh run uses the same packages. Do not let an agent run <code>pip install</code> into a shared environment.</li>
 </ul>
 </section>
 <section id="reviewing-a-notebook-an-agent-edited" class="level2">
@@ -208,7 +207,7 @@ reads kept: 3
 <section id="bonus" class="level2">
 <h2 class="anchored" data-anchor-id="bonus">Bonus</h2>
 <div data-ao-honour="scriptorium-fresh-run" data-xp="20">
-Take one of your own notebooks and run Restart and Run All. Note whether any output changed, and why.
+Take one of your own notebooks and use “Restart Kernel and Run All Cells”. Note whether any output changed, and why.
 </div>
 </section>
 <section id="related-lessons" class="level2 ao-related">

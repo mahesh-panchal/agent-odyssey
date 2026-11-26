@@ -153,10 +153,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
-<p>A Skill that never fires does nothing, and an eval case is how you find out. Running an eval costs money. Every eval run and every judge-model grader is a real model call on your account. Reading this page and writing the files costs nothing. Running the eval is optional here and gives bonus XP only. Check what your institution allows before you spend.</p>
+<p>You have a Skill and need to know that the agent actually uses it. A Skill that never fires does nothing, and an eval case is how you find out. Running an eval costs money. Every eval run and every judge-model grader is a real model call on your account. Reading this page and writing the files costs nothing. Running the eval is optional here and gives bonus XP only. Check what your institution allows before you spend.</p>
 <section id="set-up-the-plugin-folder" class="level2">
 <h2 class="anchored" data-anchor-id="set-up-the-plugin-folder">Set up the plugin folder</h2>
-<p><code>claude plugin eval</code> needs Claude Code <strong>v2.1.269 or later</strong>. It evaluates a <strong>plugin directory</strong>: a folder with <code>.claude-plugin/plugin.json</code>. To evaluate your own Skill, put it in a folder of this shape. The example <code>exercises/forge/fasta-tools</code> in this repository already has it:</p>
+<p><code>claude plugin eval</code> is the Claude Code command that runs eval cases against a plugin. It needs Claude Code <strong>v2.1.269 or later</strong>. It evaluates a <strong>plugin directory</strong>: a folder with <code>.claude-plugin/plugin.json</code>. To evaluate your own Skill, put it in a folder of this shape. The example <code>exercises/forge/fasta-tools</code> already has it. It is a folder in the course repository (clone or download the repository to get it):</p>
 <pre class="text"><code>fasta-tools/
 ├── .claude-plugin/plugin.json
 ├── skills/check-fasta/SKILL.md
@@ -179,11 +179,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">input_match:</span><span class="co"> '"skill"\s*:\s*"(?:[\w-]+:)?check-fasta"'</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>The check-fasta skill should be used when the user asks to check a new FASTA file, without naming the skill.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Run it cheaply while you iterate, one case, one run, no baseline arm:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin eval . <span class="at">--case</span> skill-triggers <span class="at">--runs</span> 1 <span class="at">--ablation</span> none</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The full comparison runs each case three times by default, with the plugin (<strong>WITH</strong>) and without it (<strong>W/OUT</strong>), and reports the difference (<strong>Δ</strong>):</p>
+<p>Run it cheaply while you iterate: one case, one run, and <code>--ablation none</code>, which skips the without-plugin run (an <strong>ablation</strong> removes a part to see what it adds):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin eval . <span class="at">--case</span> skill-triggers <span class="at">--runs</span> 1 <span class="at">--ablation</span> none <span class="at">--max-cost-usd</span> 1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The full comparison runs each case three times by default, with the plugin (<strong>WITH</strong>) and without it (<strong>W/OUT</strong>), and reports the difference (<strong>Δ</strong>). The cost ceiling is <code>--max-cost-usd</code>, in US dollars:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin eval . <span class="at">--max-cost-usd</span> 2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>--max-cost-usd</code> stops the run at a ceiling. Results land in <code>evals/results/&lt;timestamp&gt;/</code> with a <code>report.html</code>.</p>
+<p>The run stops at the ceiling. Results land in <code>evals/results/&lt;timestamp&gt;/</code> with a <code>report.html</code>. When you are signed in with a claude.ai subscription, Claude Code also uploads the report as a private artifact and prints <code>Published: &lt;url&gt;</code>. The report holds your prompts and outputs, so add <code>--no-publish</code> for data that must stay local.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Run <code>opencode --help</code> and read the OpenCode docs for your version to see whether it has an eval command. You can do the same comparison by hand: run one prompt several times with the Skill folder present, several times with it moved away, and compare using a script that checks the output. A small local model is cheap to run this way, but it follows Skills less reliably, so expect noisier results.</p>
@@ -193,14 +193,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="reading-the-result" class="level2">
 <h2 class="anchored" data-anchor-id="reading-the-result">Reading the result</h2>
+<p>Open <code>report.html</code> and look at three things:</p>
 <ul>
-<li><strong>Grader types:</strong> six exist. Four are free and computed from the transcript or files (<code>regex</code>, <code>tool_used</code>, <code>tool_order</code>, <code>file_exists</code>). Two use a judge model and cost tokens (<code>llm</code>, <code>baseline</code>; the <code>baseline</code> grader type is a different thing from the baseline run).</li>
-<li><strong>Two arms:</strong> in a two-arm run, <code>tool_used: Skill</code> is shown as an indicator and counts towards the score only when you set <code>arm: both</code>.</li>
-<li><strong>Δ near zero with the Skill not firing:</strong> usually a real finding, because the description does not trigger on that phrasing. Change the <code>description</code>, not the grader.</li>
-<li><strong>Pair graders:</strong> use one <strong>result</strong> grader and one <strong>process</strong> grader. Use <code>llm</code> graders only for short output, with a concrete PASS/FAIL rubric.</li>
-<li><strong>Isolation:</strong> each run happens in an isolated child session (a separate session started just for that run) with only the plugin loaded, so personal settings, the instructions file and other plugins are absent. Behaviour in your own setup may differ from a pass there.</li>
-<li><strong>Validate:</strong> <code>claude plugin validate &lt;folder&gt;</code> checks that the plugin’s files are well formed. Behaviour needs an eval.</li>
+<li><strong>Δ</strong> (two-arm runs only; with <code>--ablation none</code> there is no Δ, so check that the grader passed). If WITH and W/OUT are about the same and the Skill did not fire, the <code>description</code> does not trigger on that phrasing. Change the <code>description</code>, not the grader.</li>
+<li><strong>The failed grader.</strong> The report expands it with an explanation.</li>
+<li><strong>Isolation.</strong> Each run happens in a <strong>child session</strong> (a separate Claude Code session started just for that run) with only the plugin loaded, so your own settings and other plugins are absent.</li>
 </ul>
+<p>Graders that suit a first case: one on the result and one on the process (such as <code>tool_used</code>). In a two-arm run, <code>tool_used: Skill</code> is shown only as an <strong>indicator</strong> (a pass or fail chip that does not count towards the score), because it can never pass without the plugin. Set <code>arm: both</code> on the grader to score it in both arms. <code>claude plugin validate &lt;folder&gt;</code> checks that the plugin’s files are well formed. Four grader types are free (<code>regex</code>, <code>tool_used</code>, <code>tool_order</code>, <code>file_exists</code>) and two call a judge model (<code>llm</code>, <code>baseline</code>).</p>
 <p>Running an eval is the same trust decision as loading the plugin yourself (<code>--plugin-dir</code> loads a local plugin folder for one session): hooks you did not write still run code. Review the plugin for safety, since a passing eval does not cover that.</p>
 </section>
 <section id="who-checks-the-work" class="level2">

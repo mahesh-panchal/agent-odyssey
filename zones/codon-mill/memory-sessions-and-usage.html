@@ -118,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>People say “it remembers”, “the session got long” and “I hit my usage” as if these were one thing. They are different things, each stored in a different place and reset in a different way. Knowing which is which tells you what to clear when a wrong claim has got in, and why a long session costs more.</p>
+<p>This lesson matters now because the next lessons on sessions and cost depend on these terms. People say “it remembers”, “the session got long” and “I hit my usage” as if these were one thing. They are different things, each stored in a different place and reset in a different way. Knowing which is which tells you what to clear when a wrong claim has got in, and why a long session costs more.</p>
 <section id="the-glossary" class="level2">
 <h2 class="anchored" data-anchor-id="the-glossary">The glossary</h2>
 <ul>
@@ -136,16 +136,16 @@ ul.task-list li input[type="checkbox"] {
 <li><strong><code>CLAUDE.md</code>:</strong> instructions <strong>you</strong> write (the file can be set at project, user or organisation scope: who or where it applies).</li>
 <li><strong>Auto memory:</strong> notes the <strong>harness</strong> (the program around the model) writes itself from your corrections and preferences. It is per git repository and machine-local, kept in <code>~/.claude/projects/&lt;project&gt;/memory/</code> as plain markdown with a <code>MEMORY.md</code> index. Only the first 200 lines or 25KB of <code>MEMORY.md</code> load at start; topic files are read on demand.</li>
 </ul>
-<p>Memory is advisory context, and it takes room in the window every session. Run <code>/clear</code> and the conversation goes while memory stays. Compaction (replacing old conversation with a summary) shrinks a session and leaves memory as it was.</p>
+<p>Memory is advisory context, and it takes room in the window every session. <code>/clear</code> (a command that starts a new, empty conversation) drops the conversation and leaves memory in place. Compaction (replacing old conversation with a summary) shrinks a session and leaves memory as it was.</p>
 </section>
 <section id="session-usage-in-claude-code" class="level3">
 <h3 class="anchored" data-anchor-id="session-usage-in-claude-code">Session usage in Claude Code</h3>
 <ul>
 <li><code>/usage</code> shows an estimated session cost (worked out locally from token counts at list price, the published per-token price), plan usage limits and activity stats. <code>/cost</code> and <code>/stats</code> are aliases.</li>
-<li>The displayed session total resets on <code>/clear</code>. Check your plan’s documentation for when spent allowance resets.</li>
-<li>With a subscription, the plan bars are what matter and the dollar figure is an estimate. Plans have usage limit windows; your plan’s documentation gives the exact ones.</li>
+<li>The displayed session total resets on <code>/clear</code>. The allowance itself resets on your plan’s schedule: look for a reset time in the <code>/usage</code> screen. If your plan shows none, <code>/usage</code> is not reporting it.</li>
+<li>With a subscription, the plan bars on the <code>/usage</code> screen are what matter and the dollar figure is an estimate. If the screen shows no bars, your plan reports no limits there.</li>
 <li>With the API, usage is billed per token, and thinking tokens (the tokens the model spends reasoning before it answers) count as output tokens.</li>
-<li>For allowance sizes, check the vendor’s pricing page.</li>
+<li>Allowance sizes are on the vendor’s pricing page.</li>
 </ul>
 </section>
 </section>
@@ -208,7 +208,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Large tool outputs stay in the conversation. Reading a 10,000-line log is one example.</li>
 <li>Subagents (helper agents with their own context window) each have their own context, and their requests still count.</li>
 <li><code>/compact</code> itself reads the whole conversation.</li>
-<li>Cached text has a lifetime, and a long break can outlast it, which makes the next message much more expensive.</li>
+<li>Cached text expires after a set time. If you leave the session idle for longer than that, the next message re-sends everything at full price.</li>
 </ul>
 <p>Remedies:</p>
 <ul>
@@ -217,11 +217,11 @@ ul.task-list li input[type="checkbox"] {
 <li><code>/context</code> to see what fills the window.</li>
 <li>Keep <code>CLAUDE.md</code> under 200 lines.</li>
 </ul>
-<p>If <code>/usage</code> shows “rate limited until …”, Claude Code could not fetch your plan limits.</p>
+<p>If <code>/usage</code> shows “rate limited until …”, Claude Code could not fetch your plan limits. The message does not mean you are blocked.</p>
 </section>
 <section id="when-a-wrong-claim-gets-in" class="level2">
 <h2 class="anchored" data-anchor-id="when-a-wrong-claim-gets-in">When a wrong claim gets in</h2>
-<p>If you have corrected the same thing twice and it is still wrong, run <code>/clear</code> and write one new prompt that folds in what you learned. A third correction mostly adds to a conversation that already holds two failed attempts for the model to re-read. <code>/rewind</code> can roll back to before the bad turn.</p>
+<p>If you have corrected the same thing twice and it is still wrong, run <code>/clear</code> and write one new prompt that folds in what you learned. A third correction mostly adds to a conversation that already holds two failed attempts for the model to re-read. <code>/rewind</code> (a command that rolls the conversation back to an earlier turn) can return to before the bad turn.</p>
 <p>Memory persists, so a wrong line costs the most there. Check a claim against the source, such as the data, the program’s own <code>--help</code> or the paper, before it goes into <code>CLAUDE.md</code> or auto memory. If a bad line is already there, open <code>/memory</code>, read what has been written about your project, and delete it.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>

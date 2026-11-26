@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 30 minutes, most of it waiting for the model. Everything stays on your machine, and the notes are mock data.</li>
 </ul>
 </div>
-<p>This exercise tests whether a graph answers a question that plain lookup misses, using notes small enough to check by hand. Three terms first:</p>
+<p>You need this exercise before you pay for a graph tool: it tests whether a graph answers a question that plain lookup misses, using notes small enough to check by hand. It runs on Ollama (a program that runs language models on your own machine). Three terms first:</p>
 <ul>
 <li><strong>Simple RAG:</strong> embed every note, embed the question, keep the <em>k</em> closest notes, and ask the model to answer from them.</li>
 <li><strong>Knowledge graph:</strong> facts stored as <code>(subject, relation, object)</code> triples. Things are nodes and the links between them are edges.</li>
@@ -161,12 +161,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="set-up" class="level2">
 <h2 class="anchored" data-anchor-id="set-up">Set up</h2>
-<p><a href="https://github.com/mahesh-panchal/agent-odyssey/tree/main/exercises/codon-mill/mini-rag"><code>mini-rag</code></a> holds <code>ollama_min.py</code> (two helpers), <code>rag.py</code> (simple RAG), <code>graph.py</code> (a hand-made graph RAG) and <code>notes/</code> (twelve short mock notes, 233 words in all). Save the folder anywhere. If the link is not available, ask your agent to recreate it from the descriptions below.</p>
-<p>Pull an embedding model and pick a chat model you already have.</p>
+<p><a href="https://github.com/mahesh-panchal/agent-odyssey/tree/main/exercises/codon-mill/mini-rag"><code>mini-rag</code></a> holds <code>ollama_min.py</code> (two helpers), <code>rag.py</code> (simple RAG), <code>graph.py</code> (a hand-made graph RAG) and <code>notes/</code> (twelve short mock notes, 233 words in all). Save the folder anywhere. It sits at <code>exercises/codon-mill/mini-rag</code> in the course repository, so a clone of the course already has it. If neither works, ask your agent to recreate it from the descriptions below.</p>
+<p>Pull an embedding model (it turns text into vectors for search) and pick a chat model. <code>ollama pull &lt;name&gt;</code> downloads a model; wait for it to finish. The run below used the tag <code>gemma4:12b-mlx</code>. Any chat model on your machine works: run <code>ollama list</code> to see what you have, or pull another and use its name.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull nomic-embed-text</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CHAT_MODEL</span><span class="op">=</span>gemma4:12b-mlx      <span class="co"># or any chat model you have pulled</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CHAT_MODEL</span><span class="op">=</span>gemma4:12b-mlx      <span class="co"># or any chat model from `ollama list`</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> mini-rag</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The scripts read three environment variables: <code>CHAT_MODEL</code>, <code>EMBED_MODEL</code> (default <code>nomic-embed-text</code>) and <code>OLLAMA_URL</code> (default <code>http://127.0.0.1:11434</code>). Ollama’s default context is small, so the scripts send each request with <code>num_ctx</code> set to 8192 and you do not have to restart the server.</p>
+<p>The scripts read three environment variables: <code>CHAT_MODEL</code>, <code>EMBED_MODEL</code> (default <code>nomic-embed-text</code>) and <code>OLLAMA_URL</code> (default <code>http://127.0.0.1:11434</code>). Ollama’s default context window is small, so the scripts send each request with <code>num_ctx</code> (the context window size in tokens) set to 8192. You do not have to restart the server.</p>
 <p>Open <code>notes/</code> and read a few. They are fictional: two sequencers (Orion and Vega), two projects (Heron and Kelp), two pipeline releases, and some distractors such as the lunch rota. One question needs a chain of four hops: Project Heron studies samples S31 to S36, run R7 loaded those samples, run R7 used pipeline release 2.3, and release 2.3 has a known bug.</p>
 </section>
 <section id="step-1-simple-rag" class="level2">
@@ -194,7 +194,7 @@ Yes, project Heron needs to re-analyse its data because the primary analysis of 
 </section>
 <section id="step-2-build-the-graph" class="level2">
 <h2 class="anchored" data-anchor-id="step-2-build-the-graph">Step 2: build the graph</h2>
-<p><code>graph.py build</code> sends each note to the chat model and asks for <code>(subject, relation, object)</code> facts. It uses Ollama’s structured outputs: the request carries a JSON schema in the <code>format</code> field, so the reply is JSON in the shape the script expects. Temperature 0 gives more deterministic output, and the helper sets it.</p>
+<p><code>graph.py build</code> sends each note to the chat model and asks for <code>(subject, relation, object)</code> facts. It uses Ollama’s structured outputs: the request carries a JSON schema (a description of the JSON shape wanted: JSON is a text format of keys and values) in the <code>format</code> field, so the reply has the shape the script expects. The helper also sets temperature to 0 (the model picks its most likely word each time, so output varies little).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> graph.py build</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> graph.py show</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The run printed <code>saved 67 facts</code>, and the build took 1 minute 20 seconds for twelve notes. A sample of what <code>show</code> printed:</p>
@@ -229,7 +229,7 @@ Notes used:
 <li><strong>Simple RAG missed at k=3 and succeeded at k=5.</strong> The run log was not among the top three notes. Raising <em>k</em> fixed it, at the price of more text in the prompt.</li>
 <li><strong>Putting everything in the prompt also worked,</strong> because the collection is tiny.</li>
 <li><strong>The graph walk reached the run log without a bigger <em>k</em>,</strong> because the link from Heron’s samples to run R7 is an edge. It also pulled in 40 of the 67 facts and 8 of the 12 notes. A bigger collection needs a smaller hop count or a ranking step.</li>
-<li><strong>The graph took a minute and twenty seconds to build</strong> for 233 words and needs a model good enough to extract facts. Embedding twelve notes for simple RAG takes seconds. Build cost grows with the size of the collection, and indexing a corpus of about a million tokens took hours in Microsoft’s Graph RAG paper.</li>
+<li><strong>The graph took a minute and twenty seconds to build</strong> for 233 words and needs a model good enough to extract facts. Embedding twelve notes for simple RAG takes seconds. Build cost grows with the size of the collection, and Microsoft’s Graph RAG paper describes indexing a large corpus as slow.</li>
 <li><strong>A whole-collection question failed in all three setups.</strong> “Who works in this group, and what does each person do?” got “the notes do not contain the answer” from simple RAG, <code>--all</code> and the graph walk. No note lists a roster. Microsoft’s Graph RAG builds community summaries for such questions; this toy graph builds none.</li>
 </ul>
 <p>One question, one model, one run: this shows the mechanics and does not rank the methods or the models.</p>
@@ -281,11 +281,11 @@ Notes used:
 </table>
 <p>In the <code>--all</code> run, <code>ministral-3:8b</code> listed R7 using 2.3, which has the bug, then answered No because “no re-analysis was done”. In the <code>-k 5</code> run it misread the release: the note says 2.3.</p>
 <p>The graph build with <code>ministral-3:8b</code> took about a minute, saved 80 facts and returned valid JSON for all twelve notes. <code>show</code> printed a few odd entries: <code>Pipeline 2.3 --has issue fix--&gt; Dana Okafor</code>, a node called <code>Pipeline 2.3 issue</code>, and a <code>User</code> node taken from the safety note. Read <code>show</code> against the notes yourself.</p>
-<p>With this model, the right passages reached the prompt in three setups and the final answer was still wrong. Retrieval is one half of the job and the reader model is the other half. Read the notes the answer names and see whether they say what the answer says. Test a model on a few questions whose answers you know before you trust it on new ones. <code>mistral-small</code> (24B, 14 GB) is also on Ollama if you want a larger one to try.</p>
+<p>With this model, the right passages reached the prompt in three setups and the final answer was still wrong. Retrieval is one half of the job and the reader model is the other half. Read the notes the answer names and see whether they say what the answer says. Test a model on a few questions whose answers you know before you trust it on new ones.</p>
 </section>
 <section id="a-note-on-model-size" class="level2">
 <h2 class="anchored" data-anchor-id="a-note-on-model-size">A note on model size</h2>
-<p>We did not run LightRAG or Microsoft GraphRAG here; this section summarises what their documentation asks of an Ollama setup. Extraction asks a model to produce well-formed JSON for every chunk. With Ollama, Microsoft GraphRAG users “frequently see issues with malformed responses (especially JSON)”. The LightRAG README calls a 30B-parameter model “a reasonable minimum” for local use, and its programming guide says at least 32B. The 12B model here produced valid JSON for all twelve notes, and <code>show</code> lets you judge the facts. If you try a model under about 7B, read the triples before you trust the answers.</p>
+<p>We did not run LightRAG or Microsoft GraphRAG here; this section summarises what their documentation asks of an Ollama setup. Extraction asks a model to produce well-formed JSON for every chunk. With Ollama, Microsoft GraphRAG users “frequently see issues with malformed responses (especially JSON)”. The LightRAG README calls Qwen3-30B-A3B-Instruct (a 30B-parameter model) “a reasonable minimum” for local use, and its programming guide says at least 32B. The 12B model here produced valid JSON for all twelve notes, and <code>show</code> lets you judge the facts. If you try a model under about 7B, read the triples before you trust the answers.</p>
 </section>
 <section id="using-a-real-tool-with-ollama" class="level2">
 <h2 class="anchored" data-anchor-id="using-a-real-tool-with-ollama">Using a real tool with Ollama</h2>

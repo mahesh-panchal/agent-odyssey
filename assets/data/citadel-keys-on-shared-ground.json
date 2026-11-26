@@ -124,7 +124,7 @@
     {
      "left": "Managed settings",
      "right": "Organisation rules that user files cannot override",
-     "misconception": "Managed settings sit at the top of the precedence order."
+     "misconception": "Managed settings override both your user and project files."
     },
     {
      "left": "sandbox.filesystem.denyRead",

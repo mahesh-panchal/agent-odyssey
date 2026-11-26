@@ -153,12 +153,12 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td>Permission prompt or <code>ask</code> rule</td>
 <td>Asks</td>
-<td>You must read each prompt. A project <code>.mcp.json</code> server has its own approval prompt, and <code>-p</code> runs cannot show it.</td>
+<td>You must read each prompt. A server listed in a project’s <code>.mcp.json</code> file (the shared MCP server list) has its own approval prompt, and <code>-p</code> runs (non-interactive, one prompt) cannot show it.</td>
 </tr>
 <tr class="odd">
 <td><code>deny</code> rule</td>
 <td>Enforces</td>
-<td>Argument matching is fragile.</td>
+<td>Matches command text, so a reworded command can slip past.</td>
 </tr>
 <tr class="even">
 <td><code>PreToolUse</code> hook, exit 2</td>
@@ -177,7 +177,8 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>A hook that <strong>exits 0 with no JSON decision adds no control</strong>: it expresses no decision and the normal permission flow runs. (A hook can also exit 0 and print a JSON <code>deny</code> decision, which does block.) Deny and ask rules are still evaluated when a hook returns allow. The sandbox’s restrictions still apply if a prompt injection bypasses the model’s decision.</p>
+<p>A hook that <strong>exits 0 with no JSON decision adds no control</strong>. It expresses no decision, and the normal permission flow runs. A hook can also exit 0 and print a JSON <code>deny</code> decision, which does block.</p>
+<p>Deny and ask rules are still evaluated when a hook returns allow. The sandbox’s restrictions still apply if a prompt injection bypasses the model’s decision.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <table class="caption-top table">
@@ -285,7 +286,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="limits-for-research-groups">Limits for research groups</h2>
 <p>The same split works for a group that runs agents:</p>
 <ul>
-<li><strong>Put limits in the system that runs the agent:</strong> permission scopes, and spend caps in the metering system (the system that counts usage and cost). A budget the agent can exceed is not a limit.</li>
+<li><strong>Put limits in the system that runs the agent:</strong> permission scopes, and spend caps in the metering system (the service that counts each user’s usage and cost). A budget the agent can exceed is not a limit.</li>
 <li><strong>Name a human owner</strong> for each agent duty.</li>
 <li><strong>Log what an agent did</strong> under an identity you can trace.</li>
 <li><strong>Keep a list of the agents in use,</strong> including personal ones connected to mail or files. Institutions can keep one, and a group can keep its own.</li>

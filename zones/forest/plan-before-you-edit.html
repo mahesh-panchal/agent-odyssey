@@ -121,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="why-plan-first" class="level2">
 <h2 class="anchored" data-anchor-id="why-plan-first">Why plan first</h2>
 <p>A wrong plan costs you a paragraph to read and reject. A wrong 400-line <strong>diff</strong> (the list of lines a change added and removed) costs you the time to review it, and the longer it is, the more likely you approve something you did not understand. A plan is the cheapest piece to ask for first. You do this before the agent changes anything that matters. Ask for small pieces, and accept only as much output as you can honestly review.</p>
-<p>Use plan mode for changes you want to review before they touch disk.</p>
+<p>Use <strong>plan mode</strong> (a setting in which the agent writes a plan and edits nothing until you approve it) for changes you want to review before they touch disk. Before your first real edit, you need to know how to enter it and how to read what it proposes.</p>
 </section>
 <section id="how-plan-mode" class="level2">
 <h2 class="anchored" data-anchor-id="how-plan-mode">How: plan mode</h2>
@@ -141,20 +141,19 @@ ul.task-list li input[type="checkbox"] {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>In Claude Code, plan mode is a <strong>permission mode</strong>: a setting for what the agent may do without asking you. In plan mode the agent reads files, may run shell commands to explore, and writes a plan. It is meant to leave your source files unedited until you <strong>approve</strong> the plan (tell it to go ahead).</p>
+<p>In Claude Code, plan mode is one <strong>permission mode</strong>: a setting for what the agent may do without asking you. In plan mode the agent reads files, may run shell commands to explore, and writes a plan. It is meant to leave your source files unedited until you <strong>approve</strong> the plan (tell it to go ahead).</p>
 <p>Three ways in:</p>
 <ul>
-<li><code>Shift+Tab</code> during a session, until the status bar shows <code>⏸ plan mode on</code>.</li>
+<li><code>Shift+Tab</code> during a session (it cycles through the permission modes) until the status bar (the line of text at the bottom of the terminal) shows <code>⏸ plan mode on</code>.</li>
 <li><code>/plan</code> followed by your request, for example <code>/plan add a strandedness column to the samplesheet parser</code>.</li>
 <li><code>claude --permission-mode plan</code> when you start it.</li>
 </ul>
-<p>When the plan is ready, the agent presents it and asks how to proceed. The options, with their exact labels:</p>
+<p>When the plan is ready, the agent presents it and asks how to proceed. On your first run, pick <code>Yes, manually approve edits</code>, which keeps approval on. The options, with their exact labels:</p>
 <ul>
 <li><code>Yes, and use auto mode</code>: auto mode decides what runs without a prompt. If auto mode is unavailable, this reads <code>Yes, auto-accept edits</code>. If your session started with bypass, it reads <code>Yes, and switch to BYPASS PERMISSIONS (no further prompts) for this session</code>. Bypass skips most prompts.</li>
 <li><code>Yes, manually approve edits</code>: each edit still asks you.</li>
 <li><code>No, keep planning</code>: you say what to change.</li>
 </ul>
-<p>The setting <code>showClearContextOnPlanAccept</code> adds a first option that approves and also clears the planning context. Look at your approval prompt to see whether it is on.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -165,7 +164,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>At the approval prompt, <code>Shift+Tab</code> <strong>approves</strong> the plan. If you want to think, change something or back out, press <code>Esc</code> first. To leave plan mode when no prompt is open, press <code>Shift+Tab</code>.</p>
+<p>At the approval prompt, <code>Shift+Tab</code> <strong>approves</strong> the plan, so press it only when you mean to approve. If you want to think, change something or back out, press <code>Esc</code> instead. To leave plan mode when no prompt is open, press <code>Shift+Tab</code>.</p>
 </div>
 </div>
 <p>Two more details:</p>
@@ -176,7 +175,7 @@ Note
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>OpenCode has a built-in <code>plan</code> agent. It explores and plans without editing normal project files, and it can edit only under its plan directory, <code>~/.opencode/plan</code>. That edit restriction is a deny rule, and saved approvals do not override a deny. Its shell commands follow the normal permission rules.</p>
-<p>The base policy for every agent allows everything except asking before reading <code>.env</code> files, so shell commands can run without a prompt. Check the permission rules in your version before you rely on the <code>plan</code> agent.</p>
+<p>The base policy for every agent allows everything except asking before reading <code>.env</code> files. So the <code>plan</code> agent cannot edit project files, but its shell commands can still change files without a prompt. Check the permission rules in your version before you rely on the <code>plan</code> agent.</p>
 <p>You can turn the <code>plan</code> agent off with <code>{"agents": {"plan": {"disabled": true}}}</code>.</p>
 <p>To find out how to switch to the <code>plan</code> agent and whether it has an approval step, read the OpenCode agents page for your version.</p>
 </div>

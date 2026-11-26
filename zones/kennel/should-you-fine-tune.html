@@ -118,15 +118,15 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes. It is reading and a paper exercise; no model is trained.</li>
 </ul>
 </div>
-<p>A model out of the box is general. Fine-tuning trains it further on your own examples so that it handles one kind of task better. It is a heavy step with its own upkeep. Check whether you need it before you collect training data. Using it is optional.</p>
+<p>A model out of the box is general. Fine-tuning trains it further on your own examples so that it handles one kind of task better. It is a heavy step with its own upkeep. You will meet the idea when someone offers it as the fix for a model that does a job badly. Check whether you need it before you collect training data. Using it is optional.</p>
 <section id="what-fine-tuning-and-lora-are" class="level2">
 <h2 class="anchored" data-anchor-id="what-fine-tuning-and-lora-are">1. What fine-tuning and LoRA are</h2>
 <p>To <strong>fine-tune</strong> a model is to continue training it on examples from your task. Its <strong>weights</strong> (the numbers it learned) change, so the result is a model of its own.</p>
+<p><strong>LoRA</strong> (low-rank adaptation) is one way to fine-tune. The <strong>base model</strong> is the model you start from. LoRA works in three steps:</p>
 <ul>
-<li><p><strong>LoRA</strong> (low-rank adaptation) is one way to fine-tune. It works in three steps:</p></li>
-<li><p><strong>Freeze:</strong> the model’s original weights stay as they are.</p></li>
-<li><p><strong>Train a small adapter:</strong> you train a small set of extra number tables (matrices, called the “adapter”) on your examples.</p></li>
-<li><p><strong>Merge later:</strong> the adapter can be merged into the base model afterwards.</p></li>
+<li><strong>Freeze:</strong> the base model’s original weights stay as they are.</li>
+<li><strong>Train a small adapter:</strong> you train a small set of extra number tables (matrices, called the “adapter”) on your examples.</li>
+<li><strong>Merge later:</strong> the adapter can be merged into the base model afterwards.</li>
 </ul>
 <p>Training only the adapter needs far less memory than retraining everything.</p>
 </section>
@@ -136,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li><strong>You have the model weights.</strong> An open-weight model (its weights can be downloaded) qualifies; a hosted model reached through an API usually does not.</li>
 <li><strong>The task is narrow and repeatable.</strong> The same kind of input and output every time, such as tagging text with a fixed label set.</li>
-<li><strong>You have examples with known answers.</strong> You need enough to train on, and some held back for testing.</li>
+<li><strong>You have examples with known answers.</strong> You need enough to train on (hundreds to thousands for a narrow task, as in the worked decision below), and some held back for testing.</li>
 <li><strong>You have an eval</strong> (a repeatable test with a score). It shows that the tuned model beats the untuned one on that task.</li>
 </ol>
 <p>If one condition fails, try something else first.</p>
@@ -150,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>The training data:</strong> which examples went in, and which were held back.</li>
 <li><strong>The adapter version:</strong> each training run gives a new one.</li>
-<li><strong>The base model:</strong> the model you started from. An adapter belongs to the base model it was trained on.</li>
+<li><strong>The base model:</strong> the model you started from (defined above). An adapter belongs to the base model it was trained on.</li>
 </ul>
 <p>The result is a trained model that does one task, so you check it the way you check any trained model: against held-back examples on that task.</p>
 </section>

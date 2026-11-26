@@ -67,6 +67,7 @@ img.ao-boss-img { display: block; margin: 1rem auto; width: 192px; max-width: 10
 .ao-prog { font: 14px ui-monospace, monospace; border: 1px solid var(--accent); padding: 0 .4rem; border-radius: 3px; }
 .ao-nextsteps { border: 2px solid var(--accent); background: var(--panel); padding: .6rem 1rem; margin: 2rem 0 1rem; font-size: 16px; }
 .ao-nextsteps h2 { font-size: 1.1rem; margin: 0 0 .3rem; border: 0; }
+.ao-nextsteps .ao-uncleared { margin: .2rem 0 .6rem; }
 .ao-nextsteps h3 { font-size: 1rem; margin: .6rem 0 .1rem; color: var(--fg); }
 .ao-nextsteps ul { margin: 0; padding-left: 1.2rem; }
 .ao-nextsteps .ao-soft, .ao-start-list .ao-soft { opacity: .8; font-size: .9em; }

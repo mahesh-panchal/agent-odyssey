@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 20 minutes.</li>
 </ul>
 </div>
-<p>A single Skill in your folder helps you. A <strong>plugin</strong> is a folder that bundles Skills, and optionally agents, hooks and MCP servers, so a whole group can install the same set and get updates.</p>
+<p>A single Skill in your folder helps you. You need a plugin when a group should install the same set and get updates. A <strong>plugin</strong> is a folder that bundles Skills and, optionally, <strong>agents</strong> (helper assistants with their own instructions), <strong>hooks</strong> (scripts the harness runs at set points) and MCP servers.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -171,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The plugin <code>name</code> becomes a namespace (a prefix that keeps names from clashing), so the Skill is invoked as <code>/fasta-tools:check-fasta</code>.</li>
 <li>Put your evals in <code>evals/&lt;case&gt;/</code> so they travel with the plugin.</li>
 </ul>
-<p>Try it without installing anything:</p>
+<p>Try it without installing anything. If you do not have <code>./fasta-tools</code>, clone or download the course repository and copy <code>exercises/forge/fasta-tools</code> into your folder, or use your own plugin folder:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--plugin-dir</span> ./fasta-tools      <span class="co"># load for this session only</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin validate ./fasta-tools   <span class="co"># checks files are well formed</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin validate ./fasta-tools <span class="at">--strict</span>   <span class="co"># also fails on warnings</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -186,21 +186,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="installing-one-is-a-trust-decision" class="level2">
 <h2 class="anchored" data-anchor-id="installing-one-is-a-trust-decision">Installing one is a trust decision</h2>
-<p>A plugin you install can run arbitrary code on your machine with your user privileges. Hooks, monitors, local MCP and language servers, and anything in <code>bin/</code> run <strong>outside</strong> the sandbox and the permission rules. Skills and agents enter the context as instructions, and instructions can steer the agent too.</p>
+<p>A plugin you install can run arbitrary code on your machine with your user privileges. Hooks, monitors (background watchers that feed output to the agent), and local MCP and language servers (programs that give editor-style code checks) run <strong>outside</strong> the sandbox and the permission rules. A plugin’s <code>bin/</code> folder holds executables that go on Claude’s shell <code>PATH</code> (the list of places commands are found), so Claude can run them, and each call follows your permission rules. Skills and agents enter the context as instructions, and instructions can steer the agent too.</p>
 <p>Before installing or updating a plugin:</p>
 <ol type="1">
 <li>Check where it comes from. A marketplace name says who publishes it. Reading the plugin shows what it does.</li>
 <li>Read <code>hooks/hooks.json</code>, <code>.mcp.json</code>, and anything in <code>bin/</code>. These are where code lives.</li>
-<li>In a session, <code>/plugin</code> shows what will be installed. <code>claude --plugin-dir &lt;dir&gt; plugin details &lt;name&gt;</code> lists a component inventory without a session.</li>
-<li>Remember that auto-update can change files you reviewed. Pin a <code>version</code> for plugins you publish.</li>
+<li>In a session, <code>/plugin</code> shows what will be installed. <code>claude --plugin-dir &lt;dir&gt; plugin details &lt;name&gt;</code> prints a list of the plugin’s components without starting a session.</li>
+<li>Remember that auto-update can change files you reviewed, so re-read a plugin after each update. Pin a <code>version</code> for plugins you publish.</li>
 </ol>
 </section>
 <section id="when-a-team-shares-skills" class="level2">
 <h2 class="anchored" data-anchor-id="when-a-team-shares-skills">When a team shares Skills</h2>
 <ul>
-<li><strong>Keep project names and conventions in one file.</strong> The reference genome build, the sample-ID pattern and the results folder names belong in a single <strong>project-facts file</strong> (a plain file that lists them) which every Skill reads, so no <code>SKILL.md</code> repeats them. Then another lab can reuse your Skills with its own file and no rewriting, and a rename touches one place.</li>
-<li><strong>Keep discovered details apart from team standards.</strong> A pattern the agent finds in your code is an observation. Store it separately, and have a person confirm it before it becomes a standard.</li>
-<li><strong>If you generate copies, check for drift.</strong> Say you keep one source <code>SKILL.md</code> and generate copies for other tools. Run a check in CI (automated checks that run on every change) that fails when a copy no longer matches its source.</li>
+<li><strong>Keep project names and conventions in one file.</strong> Put the reference genome build, the sample-ID pattern and the results folder names in a <strong>project-facts file</strong> (a plain file that lists them) that every Skill reads. Another lab can then reuse your Skills with its own file.</li>
+<li><strong>Keep discovered details apart from team standards.</strong> A pattern the agent finds in your code is an observation. A person confirms it before it becomes a standard.</li>
+<li><strong>Check generated copies.</strong> If you generate copies of a <code>SKILL.md</code>, run a check in CI (automated checks that run on every change) that fails when a copy differs from its source.</li>
 <li><strong>Merge blocking is a repository setting.</strong> Whether a bad change is stopped depends on repository rules and required checks. A review step written in a Skill is advice unless a required check backs it.</li>
 </ul>
 <div data-ao-honour="bundle-plugin" data-xp="30">

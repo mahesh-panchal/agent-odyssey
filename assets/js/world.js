@@ -60,7 +60,7 @@
       if (!g) { cap.textContent = "Walk with the arrow keys or WASD. Your first quest is at the gold gate: " + firstOpen().name + "."; return; }
       cap.textContent = g.name + " (" + g.track + ") — " +
         (gst(g) === "open" ? (cleared(g) ? "cleared. Press Enter to revisit." : "the Murk lingers. Press Enter to enter.")
-                           : "thick Murk. Not open yet. " + (finaleId && gst(g) === "locked" && g.quests[0].id === finaleId ? sealed() + " " : "") + "Press Enter to look.") +
+                           : "thick Murk. Not open yet: pass the Battle of each earlier quest to open it. " + (finaleId && gst(g) === "locked" && g.quests[0].id === finaleId ? sealed() + " " : "") + "Press Enter to look.") +
         (Object.keys(AO.state.passed).length ? "" : " Your first quest is at the gold gate: " + firstOpen().name + ".");
     }
     function move(dx, dy, dir) {

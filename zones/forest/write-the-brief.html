@@ -118,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>The <strong>brief</strong> is what you tell the agent. A vague brief invites a plausible guess. A good brief names the file and the symptom, says what “done” looks like, and gives the agent a <strong>check it can run</strong>.</p>
+<p>The <strong>brief</strong> is what you tell the agent. A vague brief invites a plausible guess. A good brief names the file and the symptom (what you see going wrong), says what “done” looks like, and gives the agent a <strong>check it can run</strong>.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -137,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td>“Make it faster.”</td>
-<td>“Profile <code>align.py</code> on <code>small.fa</code>, name the slowest function, and propose a change. Do not edit anything yet.”</td>
+<td>“Profile (measure where the time goes in) <code>align.py</code> on <code>small.fa</code>, name the slowest function, and propose a change. Do not edit anything yet.”</td>
 </tr>
 </tbody>
 </table>
@@ -148,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <section id="put-effort-into-the-brief-not-a-role-line" class="level2">
 <h2 class="anchored" data-anchor-id="put-effort-into-the-brief-not-a-role-line">Put effort into the brief, not a role line</h2>
-<p>A common habit is to open with “You are a world-class bioinformatician.” Expert personas help with tone, format, safety and preference tasks. They can hurt tasks that rely on what the model already knows: in one preprint on small models, tested on a knowledge benchmark (MMLU), accuracy fell from 71.6% with no persona to 68.0% with the shortest persona. Shorter personas reduce the damage but do not remove it.</p>
+<p>A common habit is to open with “You are a world-class bioinformatician.” Expert personas help with tone, format, safety and preference tasks. They can hurt tasks that rely on what the model already knows, such as factual questions. A role line is not a substitute for a brief.</p>
 <p>So:</p>
 <ul>
 <li><strong>Brief first:</strong> put your effort into the file, the symptom, what “done” looks like, and a check. Those are testable. A role line is not.</li>
@@ -173,6 +173,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="battle-write-the-brief" class="level2">
 <h2 class="anchored" data-anchor-id="battle-write-the-brief">Battle: write the brief</h2>
+<p>The Battle is the short test at the end of each quest.</p>
 <div data-ao-test="forest-write-the-brief" data-xp="60">
 
 </div>

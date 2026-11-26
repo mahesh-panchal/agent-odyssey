@@ -113,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="quest-dialog">
 <ul>
-<li><strong>Goal:</strong> you will check pipeline code an agent wrote cheaply, before it touches real data or a cluster queue.</li>
+<li><strong>Goal:</strong> you will check pipeline code an agent wrote cheaply, before it touches real data or a cluster queue (the <strong>scheduler</strong> on a shared computing cluster, which decides when each job runs).</li>
 <li><strong>Before you start:</strong> <a href="../maze/ground-truth.html">Ground Truth</a>. A <em>dry run</em> asks a workflow manager what it would run; a <em>stub run</em> runs placeholder steps.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
@@ -124,17 +124,17 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Read the diff.</strong> Ask for small changes so it stays readable.</li>
 <li><strong>Dry run:</strong> ask the workflow manager what it would run. It shows the plan, meaning which files feed which steps. Nothing runs, so it cannot show that the commands are correct.</li>
 <li><strong>Stub run</strong> (Nextflow) or a <strong>tiny real input:</strong> run the whole graph in seconds on a few records.</li>
-<li><strong>Compare with ground truth</strong> on that tiny input: compute the expected answer by another route and compare.</li>
+<li><strong>Compare with ground truth</strong> (an answer you know is right) on that tiny input: compute the expected answer by another route and compare.</li>
 <li>Only then real data, through the scheduler if you are on a cluster.</li>
 </ol>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="engine">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Snakemake</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Nextflow</a></li></ul>
 <div class="tab-content" data-group="engine">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p><code>snakemake -n</code> (dry run) prints the jobs it would run, without running them. Use a small input file and compare the plan with what you expect.</p>
+<p><code>snakemake -n</code> (dry run) prints the jobs it would run, without running them. Use a small input file, such as a handful of records (say 5 to 10), and compare the plan with what you expect. You should see one line per job and a count of jobs to run.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p><code>nextflow run main.nf -stub-run</code> runs each process’s <code>stub:</code> block instead of the real script, so the wiring is exercised quickly. <code>-resume</code> reuses cached results for tasks whose inputs and script are unchanged. A process <strong>without</strong> a <code>stub:</code> block runs its real script even under <code>-stub-run</code>, so check that every process has a stub before you rely on it being fast and harmless. Stub-run results are cached separately from real runs, so a real <code>-resume</code> starts fresh.</p>
+<p><code>nextflow run main.nf -stub-run</code> runs each process’s <code>stub:</code> block instead of the real script, so the wiring is exercised quickly. <code>-resume</code> reuses cached results for tasks whose inputs and script are unchanged. A process <strong>without</strong> a <code>stub:</code> block runs its real script even under <code>-stub-run</code>, so run <code>-stub-run</code> only on the tiny input, and check every process before you rely on it being fast and harmless: search the pipeline for <code>stub:</code> blocks, then run <code>-stub-run</code> on the small input and look for any process that takes real time or fails. Stub-run results are cached separately from real runs, so a real <code>-resume</code> starts fresh.</p>
 </div>
 </div>
 </div>
@@ -148,12 +148,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>What each layer tells you:</p>
-<ul>
-<li><strong>Dry run passes:</strong> a plan could be built.</li>
-<li><strong>Stub run passes:</strong> the declared steps and outputs line up. Look at each connection to confirm it is the one you meant.</li>
-<li><strong>Tiny real input plus ground truth:</strong> the tool commands are right and the results are correct.</li>
-</ul>
+<p>A passing stub run shows that the declared steps and outputs line up. Look at each connection to confirm it is the one you meant. Only the tiny real input with ground truth shows that the commands and results are correct.</p>
 </div>
 </div>
 <section id="battle-layers-of-checking" class="level2">

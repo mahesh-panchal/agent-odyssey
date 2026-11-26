@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 20 minutes. The hands-on step uses a dummy prompt and no sensitive data.</li>
 </ul>
 </div>
-<p>A model you run on your own computer is free because you supply the hardware. Many other “free” offers run on someone else’s machine, so someone is paying. Before you send a prompt to one, you need to know what it costs you. Sometimes it is the provider, who gains your attention or your data. Sometimes it is you, in limits and in time. Using any of them is optional.</p>
+<p>A model you run on your own computer is free because you supply the hardware. Many other “free” offers run on someone else’s machine, so someone is paying. Before you send a prompt to one, you need to know what it costs you, and this lesson gives you the checklist. Sometimes it is the provider, who gains your attention or your data. Sometimes it is you, in limits and in time. Using any of them is optional.</p>
 <p>Free tiers change often: providers have ended them, shrunk them or turned them into short trials. Read the provider’s own page before you rely on one, and treat every number on it as a snapshot.</p>
 <section id="four-kinds-of-free" class="level2">
 <h2 class="anchored" data-anchor-id="four-kinds-of-free">1. Four kinds of free</h2>
@@ -182,8 +182,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rate limits (caps on requests per minute or day); sometimes your prompts</td>
 </tr>
 <tr class="odd">
-<td><strong>Router or gateway</strong></td>
-<td>A middleman forwarding to other providers</td>
+<td><strong>Router or gateway</strong> (a service that forwards your request to other providers)</td>
+<td>A middleman</td>
 <td>A second party in the path; a free list that churns</td>
 </tr>
 <tr class="even">
@@ -201,10 +201,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Free tier or trial?</strong> A trial ends, and a free tier may too. Several of OpenCode Zen’s free models are free for a limited time.</li>
 <li><strong>What are the limits?</strong> Look for requests per day and per minute, and what happens past them. On Cloudflare Workers AI, past the daily allowance further operations fail with an error.</li>
 <li><strong>Is a card or other detail needed?</strong> Some free tiers need a payment method, a phone number or a data opt-in.</li>
-<li><strong>Does the free tier train on your prompts?</strong> This matters most.
+<li><strong>Does the free tier train on your prompts?</strong> This matters most. A provider that keeps nothing is still not approved for sensitive data; the rule below applies to every free tier.
 <ul>
 <li>Google AI Studio: on unpaid services Google uses submitted content to improve its products, and human reviewers may read it. Paid services differ.</li>
-<li>Groq: it does not retain inference data (your prompts and the replies) by default, and may keep logs for up to 30 days.</li>
+<li>Groq: it does not retain inference data (it does not store your prompts and the replies) by default, and may keep logs for up to 30 days.</li>
 <li>OpenRouter: it does not log prompts by default, and retention varies with the provider behind the model.</li>
 </ul></li>
 <li><strong>Who else is in the path?</strong> A router adds a party. Read its terms and the terms of the provider it picks. One router can send you to providers with different rules.</li>
@@ -212,25 +212,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The terms can differ <strong>per model</strong> inside one service. OpenCode Zen lists some free models with zero retention and others that may use your data for training. Read the line for the model you picked.</p>
 <p>Sensitive or unpublished data does not go to a hosted free tier. Use a model on your own computer, or an approved service.</p>
 </section>
-<section id="a-worked-comparison-mistrals-terms" class="level2">
-<h2 class="anchored" data-anchor-id="a-worked-comparison-mistrals-terms">3. A worked comparison: Mistral’s terms</h2>
-<p>Mistral’s terms show how much one provider’s rules can vary. Read each point as a question to ask of any provider.</p>
+<section id="a-worked-example-mistral" class="level2">
+<h2 class="anchored" data-anchor-id="a-worked-example-mistral">3. A worked example: Mistral</h2>
+<p>Providers differ, and one provider’s rules can differ by product and plan. Mistral is one example. For any provider, check three things:</p>
 <ul>
-<li><strong>Training use depends on product and plan.</strong> Mistral Vibe (its terminal coding agent) Free, Pro, Teams and Student have training on, with an opt-out. Vibe Enterprise is opted out by default. Mistral Studio’s free mode may use data for training.</li>
-<li><strong>Opt-outs are per product.</strong> For Studio and the API, the opt-out is in the Admin Panel under Privacy, and opting out of one product does not opt you out of another. For Labs and Public Preview models, the opt-out does not apply.</li>
-<li><strong>Retention has its own options.</strong> Zero data retention exists for some API requests on pay-as-you-go, and each request is reviewed. Agents, Conversations, Files, Chat and Vibe are excluded. You do not need zero retention to opt out of model training. For retention periods, check Mistral’s current terms.</li>
-<li><strong>Where inference runs can be chosen.</strong> The global API endpoint does not commit to an inference location. The EU endpoint (<code>api.eu.mistral.ai</code>) runs in EU and EFTA data centers, so choose it on purpose if you need a European location. If location matters for Le Chat or Vibe, ask the vendor.</li>
-<li><strong>A local open-weight model keeps prompts on your machine.</strong> Open-weight Mistral models (for example <code>ministral-3:8b</code>, under the Apache 2.0 open-source licence) can run locally through Ollama (a program that runs models on your computer). Tool or web calls may still send data out.</li>
+<li><strong>Training:</strong> is training on your prompts on by default for your plan, and where is the opt-out?</li>
+<li><strong>Retention:</strong> how long does the provider keep your prompts (retention)?</li>
+<li><strong>Location:</strong> where are your prompts processed?</li>
 </ul>
-<p>The sensitive-data rule holds for every plan above: unpublished or sensitive data stays on your own computer or an approved service.</p>
+<p>Find the answers on the provider’s data or privacy page, not in a blog post. Mistral’s page is in the Lore below. An open-weight model such as <code>ministral-3:8b</code> (Apache 2.0 licence) runs locally through Ollama and keeps prompts on your machine, though tool or web calls may still send data out.</p>
+<p>The sensitive-data rule holds for every provider: unpublished or sensitive data stays on your own computer or an approved service.</p>
 </section>
 <section id="pairing-a-free-model-with-an-agent" class="level2">
 <h2 class="anchored" data-anchor-id="pairing-a-free-model-with-an-agent">4. Pairing a free model with an agent</h2>
-<p>Free endpoints often speak an <strong>OpenAI-compatible</strong> protocol (a common way of sending chat requests). OpenCode can connect to an OpenAI-compatible gateway; its Providers page in the Lore below shows how. Free models differ in how well they follow tool instructions, so test one on a small task before you trust it.</p>
+<p>Free endpoints often speak an <strong>OpenAI-compatible</strong> protocol (the request format OpenAI’s chat API uses, which many providers copy). OpenCode can connect to an OpenAI-compatible gateway; its Providers page in the Lore below shows how. Free models differ in how well they follow tool instructions, so test one on a small task before you trust it.</p>
 </section>
 <section id="try-one-safely" class="level2">
 <h2 class="anchored" data-anchor-id="try-one-safely">5. Try one, safely</h2>
-<p>Pick one free tier from a provider you have read about. Create the key in the provider’s console and keep it out of chat and out of files in your project. Then make one call with a harmless prompt. The shape below is the common OpenAI-compatible one; take the real base URL and model name from the provider’s page.</p>
+<p>Pick one free tier from a provider you have read about. Create the key in the provider’s console and keep it out of chat and out of files in your project. Then make one call with a harmless prompt. The shape below is the common OpenAI-compatible one. Set <code>BASE_URL</code> to the API address (base URL) and <code>MODEL_NAME</code> to a model name, both from the provider’s API documentation, for example <code>export BASE_URL="https://api.example.com/v1"</code> (an invented address). A reply with a short greeting inside the JSON means it worked. An error message about the key or the model name means one of those values is wrong.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">FREE_API_KEY</span><span class="op">=</span><span class="st">"..."</span>          <span class="co"># set it in your shell, not in a file you commit</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sS</span> <span class="st">"</span><span class="va">$BASE_URL</span><span class="st">/chat/completions"</span> <span class="dt">\</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">"Authorization: Bearer </span><span class="va">$FREE_API_KEY</span><span class="st">"</span> <span class="dt">\</span></span>

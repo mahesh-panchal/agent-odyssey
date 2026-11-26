@@ -1,4 +1,5 @@
 ---
+name: check-fasta
 description: Count the records in a FASTA file and find duplicate IDs. Use before running any analysis on a new FASTA file.
 ---
 

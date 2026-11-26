@@ -117,7 +117,7 @@
     },
     {
      "text": "Disable servers that have not been used this month",
-     "why": "Unused definitions only cost room."
+     "why": "With tool search the cost is small, but unused servers still add names and risk."
     }
    ]
   }

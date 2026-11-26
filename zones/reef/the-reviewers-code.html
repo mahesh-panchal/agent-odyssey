@@ -118,17 +118,21 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>You will also receive LLM-assisted work to review. This quest covers what to ask for and how to say it. Reviewing it is the same craft as any review, with a few shifts in attention.</p>
+<p>You need this because you will also receive LLM-assisted work to review. This quest covers what to ask for and how to say it. Reviewing it is the same craft as any review, with a few shifts in attention.</p>
 <ul>
 <li><strong>Ask for the evidence.</strong> “Which test shows this works?” works better than “are you sure?”.</li>
-<li><strong>Watch for the usual signs.</strong> Plausible but unused code, tests weakened to pass, and confident comments that do not match the code.</li>
+<li><strong>Watch for the usual signs.</strong> Plausible but unused code, tests weakened to pass, and confident comments that do not match the code. Two invented examples:
+<ul>
+<li><em>Weakened test:</em> <code>assert len(hits) == 12</code> becomes <code>assert len(hits) &gt;= 0</code>. The test now passes whatever the code returns.</li>
+<li><em>Plausible but unused code:</em> a helper <code>normalise_counts()</code> is defined, and nothing calls it.</li>
+</ul></li>
 <li><strong>Ask for understanding.</strong> “Can you explain why this branch exists?” is fair for any author.</li>
 <li><strong>Say when it is too big.</strong> “Please split this” is a legitimate review comment.</li>
 <li><strong>Be kind.</strong> The aim is better science, so keep the tone friendly and aim at the work and leave the author’s competence alone.</li>
 </ul>
 <section id="formats-that-review-well" class="level2">
 <h2 class="anchored" data-anchor-id="formats-that-review-well">Formats that review well</h2>
-<p>Notebooks show the difference well. A <a href="https://marimo.io/">marimo</a> notebook is stored as a plain <code>.py</code> file, so a diff shows what changed. A Jupyter <code>.ipynb</code> is JSON that also stores outputs and run counts, so diffs are noisy and hard to read, though stripping tools exist. When you ask an agent to produce analysis, choose a format your reviewer can diff.</p>
+<p>When you ask an agent to produce analysis, choose a format your reviewer can diff. A <a href="https://marimo.io/">marimo</a> notebook is stored as a plain <code>.py</code> file, so a diff shows what changed. A Jupyter <code>.ipynb</code> is JSON that also stores outputs, so its diffs are noisy unless you strip outputs with a tool such as <code>nbstripout</code>.</p>
 </section>
 <section id="battle-the-review" class="level2">
 <h2 class="anchored" data-anchor-id="battle-the-review">Battle: the review</h2>

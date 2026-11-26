@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 <p>Real work does not arrive in a straight line. You start fixing a samplesheet parser and think: “should I switch the aligner? What if I tried a stricter QC threshold? I also want to explore that other idea.” Typed into one conversation, each of those fills the context with side tracks.</p>
-<p>Accuracy and recall degrade as context grows, and the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step. A session with three unrelated tasks re-reads all of them on every turn of the fourth. Ideas are welcome. The fix is to <strong>triage</strong> each one.</p>
+<p>Instructions from early in a long conversation can get lost, and the whole conversation is re-sent on every request, so a cluttered session tends to cost more per step. A session with three unrelated tasks re-reads all of them on every turn of the fourth. Ideas are welcome. You need a way to handle them without losing the main task: <strong>triage</strong> (sort) each one.</p>
 <section id="terms-used-here" class="level2">
 <h2 class="anchored" data-anchor-id="terms-used-here">Terms used here</h2>
 <ul>
@@ -164,6 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Subagent:</strong> a helper the main agent starts. It works in its own separate, clean context (it knows what you tell it) and sends back a summary, so its reading stays out of your conversation.</li>
 <li><strong>Conversation branch (<code>/branch</code>, which is separate from a git branch):</strong> a copy of the conversation from this point, so you can try something in the copy while the original stays as it was. <code>/fork</code> is a different command: it copies the conversation into a separate background session.</li>
 <li><strong>Git worktree:</strong> a second checkout of the same repository in another folder, so two sessions can edit files without overwriting each other.</li>
+<li><strong><code>/btw</code>:</strong> a side question. It sees the conversation so far, has no tools and leaves no trace in the history.</li>
 <li><strong>Checkpoint:</strong> a snapshot Claude Code takes at each prompt you send, so you can roll back with <code>/rewind</code>.</li>
 </ul>
 </section>
@@ -172,7 +173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For each new thought, ask in this order. The key question is step 2: <strong>do you want the answer or the work during this session?</strong> If not, park it. If you do, steps 3 to 6 are the ways to get it.</p>
 <ol type="1">
 <li><strong>Does it block the current task?</strong> Do it now, in this session.</li>
-<li><strong>Do you not want the answer or the work this session?</strong> Park it: write one line in a file and carry on. Parked ideas leave through the “later session” exit: once the current task is done, pick from the file.</li>
+<li><strong>Do you want the answer or the work in this session? If not,</strong> park it: write one line in a file and carry on. Parked ideas leave through the “later session” exit: once the current task is done, pick from the file.</li>
 <li><strong>You want it now: is it a quick question you do not need on record?</strong> Use <code>/btw &lt;question&gt;</code>. It sees the conversation so far, has no tool access (it cannot read files, run commands or look at <code>--help</code>) and adds nothing to the history. So it suits questions about this conversation. An answer about a tool’s flags or defaults comes from the model’s memory: verify it against <code>--help</code> or the docs.</li>
 <li><strong>You want it now: is it exploration where you only need a summary?</strong> Ask for a subagent (the built-in Explore helper is a fast read-only searcher), or use <code>/subtask &lt;task&gt;</code>, which starts a background helper that inherits the whole conversation and returns its result here.</li>
 <li><strong>You want it now: is it a competing approach you want to try for real?</strong> Use <code>/branch [name]</code> to copy the conversation (the original stays reachable via <code>/resume</code>), or start a second session in its own worktree with <code>claude --worktree &lt;name&gt;</code>.</li>
@@ -215,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>“Try the other aligner and compare”</td>
 <td><code>/branch</code> or <code>claude --worktree &lt;name&gt;</code></td>
-<td>A real attempt that can fail without spoiling the main path</td>
+<td>A real attempt that can fail. <code>/branch</code> keeps the history apart, and only a worktree keeps the files apart, so commit first</td>
 </tr>
 <tr class="even">
 <td>“Redo the plots for the other project” (you want to start it now)</td>
@@ -227,11 +228,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="what-a-worktree-shares" class="level2">
 <h2 class="anchored" data-anchor-id="what-a-worktree-shares">What a worktree shares</h2>
-<p>A worktree session isolates file edits only.</p>
+<p>You need to know this before you start a test in a second worktree. A worktree session isolates file edits only.</p>
 <ul>
 <li><code>claude --worktree &lt;name&gt;</code> creates <code>.claude/worktrees/&lt;name&gt;/</code> on a branch called <code>worktree-&lt;name&gt;</code>.</li>
 <li>Worktrees share the repository’s <code>.git</code>, and auto memory is per repository, so all worktrees share it.</li>
-<li>A fresh checkout does not contain gitignored files such as <code>.env</code> unless you list them in <code>.worktreeinclude</code>. Large data folders need <code>worktree.symlinkDirectories</code> or a setup step. Plan for that before you start a pipeline test in one.</li>
+<li>A fresh checkout does not contain gitignored files (files git skips, such as <code>.env</code> or large data folders). Claude Code copies the ones you list in a <code>.worktreeinclude</code> file (a list of file patterns at the repository root). Large data folders are not copied: link them with the <code>worktree.symlinkDirectories</code> setting (a list of folders to symlink instead of duplicate), or add a setup step of your own. Without either, a pipeline test in the worktree cannot find its data.</li>
 </ul>
 <p><code>/branch</code> copies the conversation. Any background helpers still running keep reporting into the branch.</p>
 </section>

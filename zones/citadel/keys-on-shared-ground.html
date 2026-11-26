@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -118,30 +153,44 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>Keys and agent settings live in ordinary files, and on a shared cluster other people may be able to read them. This quest covers keeping them private and keeping data within its agreement. Ask your cluster staff before sending any cluster data to an external model API, and follow your institution’s data agreement. This quest is read-only, so read it on your laptop.</p>
+<p>You need this before you run an agent under your cluster account: keys and agent settings live in ordinary files, and on a shared cluster other people may be able to read them. It covers Claude Code only, and keeping them private and keeping data within its agreement. Ask your cluster staff before sending any cluster data to an external model API, and follow your institution’s data agreement. Step 1 below checks your cluster home, so run it on the cluster. Steps 2 and 3 are safe to practise on your laptop.</p>
 <section id="what-lives-where" class="level2">
 <h2 class="anchored" data-anchor-id="what-lives-where">What lives where</h2>
-<p>Claude Code keeps sessions, settings and plugins in <code>~/.claude</code>, and writes <code>~/.claude.json</code> (account details, MCP configuration, trust decisions). <code>CLAUDE_CONFIG_DIR</code> relocates the first of these.</p>
-<p>If your home directory is shared across nodes, session history sits on shared storage and can contain pasted data or paths. Check who can read it (for example <code>chmod 700 ~/.claude</code>) and whether home is backed up or group-readable.</p>
-<p>Settings files: user <code>~/.claude/settings.json</code>, project <code>.claude/settings.json</code> (commit it), local <code>.claude/settings.local.json</code>, and managed settings. Precedence is managed, then command line, then local, then shared project, then user. Permission lists merge across files. An organisation can enforce managed settings (settings it sets for everyone) that your own files cannot override, so your site may already have decided some of this.</p>
+<p>Claude Code keeps sessions, settings and plugins in the folder <code>~/.claude</code>. It also writes the file <code>~/.claude.json</code>, which holds account details, MCP configuration (the list of external tool servers you connected) and trust decisions. The environment variable <code>CLAUDE_CONFIG_DIR</code> moves the <code>~/.claude</code> folder elsewhere.</p>
+<p>If your home directory is shared across nodes, session history sits on shared storage and can contain pasted data or paths. Three commands check and fix this.</p>
+<ol type="1">
+<li><p>Check who can read the folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-ld</span> ~/.claude</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Safe looks like <code>drwx------</code>: only you can read, write or enter the folder. Any <code>r</code> or <code>x</code> in the last six characters lets a group or other users in. Fix it with <code>chmod 700 ~/.claude</code>.</p></li>
+<li><p>Practise the key-file mode on a throwaway file. In a scratch folder, make a stand-in file and lock it to you:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/odyssey-scratch/keys-demo <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/odyssey-scratch/keys-demo <span class="kw">&amp;&amp;</span> <span class="fu">touch</span> demo_key <span class="kw">&amp;&amp;</span> <span class="fu">chmod</span> 600 demo_key <span class="kw">&amp;&amp;</span> <span class="fu">ls</span> <span class="at">-l</span> demo_key</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>ls -l</code> shows <code>-rw-------</code> at the start of the line: you can read and write the file and nobody else can.</p></li>
+<li><p>Block the agent’s file-read tool from your SSH keys. Add this to <code>~/.claude/settings.json</code> (merge it with any <code>permissions</code> block you already have):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"permissions"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"deny"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"Read(~/.ssh/**)"</span><span class="ot">]</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>Read(...)</code> is the rule for the file-read tool. <code>~/</code> anchors the path at your home directory, and <code>**</code> matches everything below <code>.ssh</code>.</p></li>
+</ol>
+<p>Two settings files are yours to control: user <code>~/.claude/settings.json</code> (all your projects) and project <code>.claude/settings.json</code> (commit it for the team). Managed settings (settings an organisation sets for everyone) override both, so your site may already have decided some of this.</p>
 </section>
 <section id="keys" class="level2">
 <h2 class="anchored" data-anchor-id="keys">Keys</h2>
 <ul>
-<li><code>ANTHROPIC_API_KEY</code>, when set, overrides a subscription login. In <code>-p</code> (non-interactive) mode it is always used, and interactive mode asks you once to approve it. If a key is exported in a shared profile, the key in use may not be the one you expect.</li>
-<li>Never put a key in a script or in a committed <code>.claude/settings.json</code>. On a shared account, use a per-user key kept in a file readable only by you (mode 600), and keep a lab-wide key out of shared directories.</li>
-<li>The sandbox’s default reads cover most of the machine, including credential files such as <code>~/.ssh</code> and <code>~/.aws/credentials</code>. Use <code>Read(...)</code> deny rules or <code>sandbox.filesystem.denyRead</code> for key files. Remember that the sandbox covers shell commands only.</li>
+<li><code>ANTHROPIC_API_KEY</code>, when set, overrides a subscription login. In <code>-p</code> mode (one prompt, no interactive session) it is always used, and interactive mode asks you once to approve it. If a key is exported in a shared profile, the key in use may not be the one you expect.</li>
+<li>Never put a key in a script or in a committed <code>.claude/settings.json</code>. On a shared account, use a per-user key kept in a file readable only by you (mode 600, as in step 2), and keep a lab-wide key out of shared directories.</li>
+<li>The sandbox’s default reads cover most of the machine, including credential files such as <code>~/.ssh</code> and <code>~/.aws/credentials</code>. The sandbox is the restricted environment Claude Code runs shell commands in. To block key files, add the <code>Read(...)</code> deny rule from step 3 and the <code>sandbox.filesystem.denyRead</code> setting (a list of paths the sandbox hides from shell commands). The sandbox covers shell commands only, so you need both.</li>
 </ul>
-<p>Look up where OpenCode stores keys, and what the <code>apiKeyHelper</code> setting does, in the docs for your version before you rely on either.</p>
+<p><code>apiKeyHelper</code> is a Claude Code setting that runs a shell script you provide and uses the key it returns, so the key need not sit in a file. For OpenCode, read your version’s docs on where it stores keys before you use it on a shared account.</p>
 </section>
 <section id="data-and-egress" class="level2">
 <h2 class="anchored" data-anchor-id="data-and-egress">Data and egress</h2>
 <ul>
 <li>Before any cluster data, paths, logs or code go to an external model API, check your institution’s policy. Human genomic, clinical or controlled-access data often has agreements that forbid third-party processing.</li>
-<li>Reading files inside the working directory is approved without asking, so the agent can read a project folder that holds controlled data unless a <code>Read(...)</code> deny rule or <code>sandbox.filesystem.denyRead</code> covers it. Keep controlled data outside the agent’s working directory and give the agent synthetic or de-identified test data.</li>
+<li>Reading files inside the working directory is approved without asking, so the agent can read a project folder that holds controlled data unless a <code>Read(...)</code> deny rule or <code>sandbox.filesystem.denyRead</code> covers it. Keep controlled data off every path the agent can reach: outside its working directory, or under a <code>Read</code> deny rule and <code>sandbox.filesystem.denyRead</code>. Give the agent synthetic or de-identified test data.</li>
 <li>Some sites restrict internet access from compute nodes, so an agent there may not reach a model API. Ask staff what outbound access your jobs have. A common pattern is the agent on your laptop writing scripts, with jobs running offline.</li>
-<li>A plain <code>ssh</code> from inside the Claude Code sandbox cannot reach another host.</li>
-<li>The sandbox’s <code>network.allowedDomains</code> starts empty, so unlisted hosts prompt (in the default modes).</li>
+<li>The sandbox’s <code>network.allowedDomains</code> starts empty, so a shell command that reaches an unlisted host prompts you. The sandbox does not cover file tools, MCP servers or hooks.</li>
 </ul>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
@@ -150,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
 <p>If your project has an instruction file (<code>AGENTS.md</code> or <code>CLAUDE.md</code>) stricter than these notes, the stricter one wins, and your cluster’s policy outranks both. Ask staff these before use: is an external model API allowed for my data, which tools are allowed on login nodes, what outbound access exists, and where are my home and scratch backed up and who can read them? For restricted networks, <code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1</code> turns off auto-updates, telemetry, error reporting and feedback traffic.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>The same questions apply. Ask staff whether a local model through Ollama changes what your data agreement requires, and whether running one on a login node is allowed, since models are heavy. Find where OpenCode keeps its keys in your version’s docs.</p>
+<p>The same questions apply. Ask staff whether a local model through Ollama changes what your data agreement requires, and whether running one on a login node is allowed, since models are heavy.</p>
 </div>
 </div>
 </div>

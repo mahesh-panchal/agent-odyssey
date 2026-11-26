@@ -153,11 +153,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 15 minutes. The exercise is a worksheet and needs no model.</li>
 </ul>
 </div>
-<p>Every session starts with a model and an effort level, and the defaults do not suit every job. A model that is too small skips checks and loses the thread. One that is too large costs more and runs slower, and you may not notice because the answer looks fine. This page covers how to choose both and how to check the choice. Model names, aliases and defaults change often, so check your own tool for the current ones.</p>
+<p>Every session starts with a model and an effort level, and the defaults do not suit every job. A model that is too small skips checks and loses the thread. One that is too large costs more and runs slower, and you may not notice because the answer looks fine. This page covers how to choose both, so you can run later quests without overspending or under-powering them and how to check the choice. Model names, aliases and defaults change often, so check your own tool for the current ones.</p>
 <section id="words-to-know" class="level2">
 <h2 class="anchored" data-anchor-id="words-to-know">Words to know</h2>
 <ul>
-<li><strong>Model tier:</strong> a size class of model. A smaller one is faster and cheaper; a larger one is more capable and costs more.</li>
+<li><strong>Model tier:</strong> a size class of model. A smaller one is faster and cheaper; a larger one is more capable and costs more. Anthropic names its tiers Haiku, Sonnet, Opus and Fable, from smallest and fastest (Haiku) to largest and slowest (Fable).</li>
 <li><strong>Alias:</strong> a short nickname (such as <code>sonnet</code>) that the tool maps to a concrete model version.</li>
 <li><strong>Effort:</strong> how much the model thinks before each step.</li>
 <li><strong>Subagent:</strong> a helper the main agent starts with its own fresh context. It does a side task and returns only a summary. To <strong>delegate</strong> is to hand it a task.</li>
@@ -183,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <ul>
-<li><strong>Model.</strong> The aliases are <code>default</code> (clears an override and names no model), <code>best</code> (same as <code>opus</code>), <code>fable</code>, <code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>sonnet[1m]</code>, <code>opus[1m]</code> (the <code>[1m]</code> forms ask for a longer context window), and <code>opusplan</code> (opus in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API, <code>opus</code>, <code>sonnet</code> and <code>haiku</code> map to the current 5.5 versions; other providers can resolve the same alias to older versions.</li>
+<li><strong>Model.</strong> You choose a model by alias, and you pin a full name when results must be reproducible (shown below the table). The aliases are <code>default</code> (clears an override and names no model), <code>best</code> (same as <code>opus</code>), <code>fable</code>, <code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>sonnet[1m]</code>, <code>opus[1m]</code> (the <code>[1m]</code> forms ask for a longer context window), and <code>opusplan</code> (opus in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API, <code>opus</code>, <code>sonnet</code> and <code>haiku</code> map to the current 5.5 versions; other providers can resolve the same alias to older versions.</li>
 </ul>
 <table class="caption-top table">
 <colgroup>
@@ -223,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>For results that must be reproducible (a lab pipeline, course material), <strong>pin a full model name</strong> such as <code>claude-opus-5-5</code>, because an alias moves when a new version ships. The variables <code>ANTHROPIC_DEFAULT_OPUS_MODEL</code>, <code>ANTHROPIC_DEFAULT_SONNET_MODEL</code>, <code>ANTHROPIC_DEFAULT_HAIKU_MODEL</code> and <code>ANTHROPIC_DEFAULT_FABLE_MODEL</code> pin what each alias means.</p>
 <ul>
-<li><p><strong>Effort.</strong> Set it with <code>/effort</code>, <code>claude --effort</code>, the environment variable <code>CLAUDE_CODE_EFFORT_LEVEL</code>, or the <code>effortLevel</code> setting. The levels are <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code> and <code>max</code>, and which ones exist depends on the model. The default differs by model and by surface: for Sonnet 5.5 it is <code>medium</code> in Claude Code and <code>high</code> on the API. Run <code>/effort</code> in your own tool to read yours.</p></li>
+<li><p><strong>Effort.</strong> Set it with <code>/effort</code>, <code>claude --effort</code>, the environment variable <code>CLAUDE_CODE_EFFORT_LEVEL</code>, or the <code>effortLevel</code> setting. The levels are <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code> (between <code>high</code> and <code>max</code>) and <code>max</code>, and which ones exist depends on the model. The default differs by model and by surface: for Sonnet 5.5 it is <code>medium</code> in Claude Code and <code>high</code> on the API. Run <code>/effort</code> in your own tool to read yours.</p></li>
 <li><p><strong>Per skill and per subagent.</strong> Skill files and subagent files both take <code>model</code> and <code>effort</code> in their frontmatter.</p></li>
 <li><p><strong>Skill:</strong> <code>model</code> takes the same values as <code>/model</code>, or <code>inherit</code>. A skill’s <code>model</code> and <code>effort</code> apply for the rest of that one turn and are not saved. Its <code>effort</code> overrides the session level but not <code>CLAUDE_CODE_EFFORT_LEVEL</code>.</p></li>
 <li><p><strong>Subagent:</strong> <code>model</code> takes <code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>fable</code>, a full model ID, or <code>inherit</code>. <code>effort</code> takes <code>low</code> to <code>max</code>. If the subagent’s model differs from the main one and you give no <code>effort</code>, the session level does not apply to it, so set it.</p></li>
@@ -280,9 +280,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>Most everyday work, no better information</td>
-<td>Opus</td>
+<td>Sonnet or Opus</td>
 <td>the tool’s default</td>
-<td>most workloads start here</td>
+<td>both suit everyday work; compare them on one of your own jobs</td>
 </tr>
 <tr class="even">
 <td>Bulk reading, classifying or extracting with output you can check</td>
@@ -337,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Spot-check summaries.</strong> A subagent returns only a summary, and summaries omit and distort. Ask for exact quotes or file paths and open two yourself. Many subagents returning long answers can also fill the main context again.</li>
 <li><strong>State your rules in the delegation prompt.</strong> The built-in Explore subagent (a read-only search helper) and Plan subagent (a read-only research helper used in plan mode) skip <code>CLAUDE.md</code>, the instructions file the tool loads at session start. A rule like “never touch <code>raw/</code>” must be written into the task you hand them. Custom subagents load <code>CLAUDE.md</code> unless set to skip it.</li>
 <li><strong>Switch models at a quiet moment.</strong> Switching model mid-conversation can change prompt-cache behaviour, and the tool may ask you to confirm.</li>
-<li><strong>Change effort between sessions when you are comparing.</strong> Changing top-level effort mid-session also invalidates the cache.</li>
+<li><strong>Change effort only between sessions when you compare,</strong> so one session never mixes two settings. On older models, and on Bedrock, Vertex and Foundry, changing effort mid-session invalidates the cache. On Fable 5.1 and later, Opus 5.5, Sonnet 5.5 and Haiku 5.5 with an API key or subscription, it keeps the cache.</li>
 </ul>
 </section>
 <section id="measure-on-your-own-task" class="level2">
@@ -346,7 +346,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Choose two settings to compare, for example the same model at <code>medium</code> and <code>high</code>. Change only one thing.</li>
 <li>For each, start a fresh session, run the task <strong>three times</strong>, and record pass or fail from the outcome check.</li>
-<li>After each run, open <code>/usage</code> and note the “Usage by model” block. The dollar figure is an estimate computed locally at list price, and on a subscription you may see plan usage bars instead. <code>/usage</code> resets on <code>/clear</code>.</li>
+<li>After each run, open <code>/usage</code> (shows what the session cost) and note the “Usage by model” block. The dollar figure is an estimate computed locally at list price, and on a subscription you may see plan usage bars instead. <code>/usage</code> resets on <code>/clear</code>.</li>
 <li>Compare cost per <em>passing</em> run. Three runs is a small sample: it can expose a big difference, and a small one needs more runs.</li>
 </ol>
 </section>
@@ -355,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The ideas above carry over to other families; the names do not. Mistral is one example:</p>
 <ul>
 <li><strong>Models:</strong> Ministral 3 comes in 3B, 8B and 14B, and Mistral Small 4 is also open-weight; both are Apache 2.0. Check Mistral’s models page for current names and deprecation dates.</li>
-<li><strong>Harness:</strong> Mistral Vibe is an open-source terminal coding agent (Apache 2.0) with four approval modes. Its config file is <code>~/.vibe/config.toml</code>.
+<li><strong>Harness:</strong> Mistral Vibe is an open-source terminal coding agent (Apache 2.0) with four modes that set how much it asks first. Its config file is <code>~/.vibe/config.toml</code>.
 <ul>
 <li><code>ask</code>: asks before any tool.</li>
 <li><code>accept-edits</code>: the default; applies file edits without asking, and still asks before shell commands.</li>

@@ -153,15 +153,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>You stop work on Friday with a half-finished refactor. On Monday you open a new <strong>session</strong> (one conversation with the agent, which has its own <strong>context</strong>: the text it can see right now). Each session begins with a fresh context window and no memory of what came before, so the new session does not know your goal, what you tried, or what you checked.</p>
-<p>Anything it should know has to cross the gap in writing.</p>
+<p>You stop work on Friday with a half-finished refactor. On Monday you open a new <strong>session</strong> (one conversation with the agent, which has its own <strong>context</strong>: the text it can see right now). Each session begins with a fresh context window and no conversation history from before, so the new session does not know your goal, what you tried, or what you checked.</p>
+<p>You need this lesson now because a fresh session is where the earlier lessons’ habits pay off: whatever it should know has to cross the gap in writing.</p>
 <section id="five-things-that-cross-the-gap" class="level2">
 <h2 class="anchored" data-anchor-id="five-things-that-cross-the-gap">Five things that cross the gap</h2>
 <ol type="1">
 <li><strong>The instructions file</strong> (<code>CLAUDE.md</code> in Claude Code). A file <strong>you</strong> write that is loaded at the start of every session. Good for stable facts and conventions: how to run the tests, which folders are off limits.</li>
 <li><strong>Auto memory.</strong> Notes the <strong>harness</strong> (the program around the model) writes itself, from your corrections and preferences. In Claude Code, <code>/memory</code> lists and opens them.</li>
 <li><strong>Files in the repository</strong> (the project folder under version control): code, tests, a README, and, if you keep one, a progress or handoff file.</li>
-<li><strong>Git history.</strong> A <strong>commit</strong> is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when. It is durable unless rewritten (rebase, amend, force-push), and unpushed commits are local only.</li>
+<li><strong>Git history.</strong> A <strong>commit</strong> is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when. It is durable unless someone rewrites it (with git commands that replace past commits, such as <code>git rebase</code>, <code>git commit --amend</code> or <code>git push --force</code>), and unpushed commits are local only.</li>
 <li><strong>Your handoff note.</strong> A short file about the state of one task, written for the next session.</li>
 </ol>
 <table class="caption-top table">
@@ -279,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>A file in the repo, such as <code>HANDOFF.md</code>, if the team should see it.</li>
 <li>A gitignored ordinary file you point to, if it is personal. This is the simpler choice.</li>
 </ul>
-<p><code>CLAUDE.local.md</code> at the project root (add it to <code>.gitignore</code>) holds private per-project preferences and loads after <code>CLAUDE.md</code>. It exists only in the worktree where you created it.</p>
+<p>A <code>CLAUDE.local.md</code> file in the project’s top-level folder (add it to <code>.gitignore</code>) holds private per-project preferences and loads after <code>CLAUDE.md</code>. It exists only in the worktree (separate checkout folder) where you created it.</p>
 <p>Anything loaded every session takes room in the window, so keep a handoff note out of <code>CLAUDE.md</code> and remove it once its task is done.</p>
 <p>Write the note <strong>before</strong> you run <code>/clear</code> (which starts a new empty conversation), because <code>/clear</code> drops the conversation. Pairing the note with a commit leaves a matching record in git.</p>
 <p>Then start the new session with a prompt like this:</p>

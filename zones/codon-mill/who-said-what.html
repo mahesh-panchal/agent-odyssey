@@ -118,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>When an agent follows a rule, it is fair to ask where that rule came from, because the answer tells you who can change it. The <strong>harness</strong> is the program around the model that runs tools and sends your text. It works with three common sources of rules, and they differ in who writes them, how long they last and whether anything enforces them.</p>
+<p>When an agent follows a rule, you need to know where that rule came from, because the answer tells you who can change it and whether it can be trusted to hold. The <strong>harness</strong> is the program around the model that runs tools and sends your text. It works with three common sources of rules, and they differ in who writes them, how long they last and whether anything enforces them.</p>
 <section id="the-three-voices" class="level2">
 <h2 class="anchored" data-anchor-id="the-three-voices">The three voices</h2>
 <table class="caption-top table">
@@ -157,12 +157,12 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>In Claude Code, the system prompt is the set of instructions sent ahead of your conversation on every request: how to use tools, behave safely and format answers. Add to it with <code>--append-system-prompt</code> or replace it with <code>--system-prompt</code>.</p>
-<p><code>CLAUDE.md</code> is loaded at the start of every session <strong>as a user message after the system prompt</strong> (text the model receives in the user’s role). It sits outside the system prompt. Output-style instructions (a setting that changes how the model words its replies) are delivered the same way. Both arrive in the conversation as <strong>system reminders</strong> (notes the harness slips into the conversation).</p>
+<p>In Claude Code, the system prompt is the set of instructions sent ahead of your conversation on every request: how to use tools, behave safely and format answers. You add to it by starting <code>claude</code> with the flag <code>--append-system-prompt "&lt;text&gt;"</code>, or replace it with <code>--system-prompt "&lt;text&gt;"</code> (a flag is an option typed after the command). Replacing the prompt removes that built-in guidance, so prefer appending.</p>
+<p><code>CLAUDE.md</code> is loaded at the start of every session <strong>as a user message after the system prompt</strong> (text the model receives in the user’s role). It sits outside the system prompt. Output-style instructions (a setting that changes how the model words its replies) also sit outside it. Both arrive in the conversation as <strong>system reminders</strong> (extra notes the harness inserts into the conversation, which you do not type).</p>
 </section>
 <section id="rules-you-did-not-write" class="level2">
 <h2 class="anchored" data-anchor-id="rules-you-did-not-write">Rules you did not write</h2>
-<p>System reminders also carry the skills list, hook <code>additionalContext</code> (text a hook hands back for the harness to add to the conversation), notes about changed files and commit or pull-request attribution lines. A <strong>hook</strong> is a script the harness runs at set moments, such as just before a tool runs.</p>
+<p>System reminders also carry the skills list, text that a hook returns for the harness to add to the conversation (the field is called <code>additionalContext</code>), notes about changed files and commit or pull-request attribution lines. A <strong>hook</strong> is a script the harness runs at set moments, such as just before a tool runs.</p>
 <p>If the agent follows a rule you never wrote, for example adding a co-author line to commits, look at what the harness adds on its own first.</p>
 </section>
 <section id="advice-or-enforcement" class="level2">
@@ -173,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Reads <code>CLAUDE.md</code>. If a project has only an <code>AGENTS.md</code> (and no <code>CLAUDE.md</code> in or above the working directory), it is read instead, from v2.1.277. To share one file, import it from <code>CLAUDE.md</code> with <code>@AGENTS.md</code>.</p>
+<p>Reads <code>CLAUDE.md</code>. If a project has only an <code>AGENTS.md</code> (and no <code>CLAUDE.md</code>, <code>.claude/CLAUDE.md</code> or <code>CLAUDE.local.md</code> in or above the working directory), it is read instead, from v2.1.277. To share one file, import it from <code>CLAUDE.md</code> with <code>@AGENTS.md</code>.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Check OpenCode’s documentation for which instruction file names it loads, and in what order.</p>

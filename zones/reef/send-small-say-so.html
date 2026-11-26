@@ -121,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Checking an agent’s output takes time. When the output reaches the next person without a word, that cost moves to them. You are about to hand work to a collaborator, so four habits keep the cost with the sender.</p>
 <ol type="1">
 <li><strong>Review it yourself first.</strong> Read your own diff as if a stranger wrote it. If you cannot explain a line, it is not ready to send.</li>
-<li><strong>Say so.</strong> Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Follow your team’s norm for how.</li>
+<li><strong>Say so.</strong> Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Follow your team’s norm for how. For example: “The agent drafted <code>plot_coverage.py</code>. I wrote the tests.”</li>
 <li><strong>Send small.</strong> One idea per change, small enough to review in one sitting.</li>
 <li><strong>Bring evidence.</strong> Include the test, the command, or the check that shows it works.</li>
 </ol>
@@ -131,10 +131,8 @@ ul.task-list li input[type="checkbox"] {
 <p>A common worry is that people will think you are lazy or unoriginal for using an agent. Make the facts easy to see.</p>
 <ul>
 <li><strong>Say plainly what the agent did and what you checked.</strong> “The agent drafted the plotting code. I read it and compared the output with a hand calculation.”</li>
-<li><strong>Follow your team’s norm.</strong> Some groups want a note in the commit message, some in the methods. Use what yours agrees on.</li>
+<li><strong>Follow the local norm.</strong> Some groups want a note in the commit message, some in the methods. A journal or conference may have a disclosure policy, so read its own page before you submit. A lead or an editor can tell you what they expect.</li>
 <li><strong>Let the evidence speak.</strong> Tests, checks and your ability to explain every line show the work is yours.</li>
-<li><strong>Ask.</strong> A lead or a journal editor can tell you what they expect.</li>
-<li><strong>Check the venue.</strong> A journal or conference may have a disclosure policy. Read its own page before you submit.</li>
 </ul>
 </section>
 <section id="battle-the-hand-off" class="level2">

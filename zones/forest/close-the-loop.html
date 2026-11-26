@@ -113,16 +113,16 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="quest-dialog">
 <ul>
-<li><strong>Goal:</strong> you will turn “it did the wrong thing” into a measured fix, and know when the fix has stopped working.</li>
+<li><strong>Goal:</strong> you will describe how to turn “it did the wrong thing” into a measured fix, and how to tell when the fix has stopped working. This page teaches the idea; the commands come in the next quest listed under Related lessons.</li>
 <li><strong>Before you start:</strong> <a href="forge-a-skill.html">Forge a Skill</a>. A <strong>Skill</strong> is a procedure the agent loads when it is relevant.</li>
 <li><strong>Time:</strong> about 10 minutes.</li>
 </ul>
 </div>
-<p>Sooner or later the agent does something you did not want: it skips a check, names files badly, or uses a method your lab avoids. A chat correction helps that one reply, and a Skill helps next time. An <strong>eval</strong> tells you whether the fix works, and keeps telling you after the model or tool changes.</p>
+<p>Once you have a Skill, you need a way to know it works. Sooner or later the agent does something you did not want: it skips a check, names files badly, or uses a method your lab avoids. A chat correction helps that one reply, and a Skill helps next time. An <strong>eval</strong> tells you whether the fix works, and keeps telling you after the model or tool changes.</p>
 <section id="what-is-an-eval" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-an-eval">What is an eval?</h2>
 <p>An <strong>eval</strong> (short for evaluation) is a repeatable check of how well an AI system does a task. It is the AI version of a unit test, with one difference. Ordinary code gives the same output for the same input, so a test can assert one answer. A model can answer the same prompt differently each time, so you run the check several times and ask how often, and how well, it does the job.</p>
-<p>Trying a few favourite prompts and judging whether it “feels better” is a quick start but a weak habit. A new model, a new prompt or a new Skill can help one task and hurt another, and you will not see it from a handful of tries. An eval runs the same cases every time, so a change shows up as a number you can compare.</p>
+<p>Trying a few favourite prompts and judging whether it “feels better” is a weak habit. A new model, prompt or Skill can help one task and hurt another, and a handful of tries will not show it. An eval runs the same cases every time, so a change shows up as a number.</p>
 <p>An eval has three parts:</p>
 <ul>
 <li><strong>Cases:</strong> the prompts you test with, plus what a good answer looks like.</li>
@@ -173,9 +173,9 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="the-loop">The loop</h2>
 <ol type="1">
 <li><strong>Notice.</strong> Something did not go your way. Write down the prompt you used and what was wrong with the result.</li>
-<li><strong>Steer.</strong> Write or edit a Skill (or an instructions-file line) that says what to do instead. Keep it short and concrete.</li>
-<li><strong>Measure.</strong> Run the same prompt <strong>with</strong> the Skill and <strong>without</strong> it, several times each. Models vary between runs, so several tries give a fairer picture than one.</li>
-<li><strong>Compare.</strong> If <em>with</em> is clearly better than <em>without</em>, the Skill earns its place. If they are about the same, the Skill adds little: it may not be triggering, it may repeat what the model already does, or it may be too vague.</li>
+<li><strong>Steer.</strong> Write or edit a Skill (or a line in your instructions file, the file the agent reads every session) that says what to do instead. Keep it short and concrete.</li>
+<li><strong>Measure.</strong> Run the same prompt <strong>with</strong> the Skill and <strong>without</strong> it, several times each (for example, once with the Skill folder in place and once with it moved away). Models vary between runs, so several tries give a fairer picture than one.</li>
+<li><strong>Compare.</strong> If <em>with</em> is clearly better than <em>without</em>, the Skill earns its place. If they are about the same, the Skill adds little: it may not be triggering (the agent never loads it), it may repeat what the model already does, or it may be too vague.</li>
 <li><strong>Repeat later.</strong> A new model version can make a Skill unnecessary, or break it. Re-run the evals when the model, the tool, or the Skill changes.</li>
 </ol>
 <p>The number that matters is the <strong>difference</strong> between <em>with</em> and <em>without</em>. The <em>without</em> run is the <strong>baseline</strong>: it shows what the model does on its own. A Skill that scores 100% both ways has added nothing the model lacked.</p>
@@ -188,16 +188,54 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Cost:</strong> every run is a real model call. Start with few cases and few runs, and raise them only for a Skill you will rely on.</li>
 </ul>
 <p>Evals can be wrong too. A check that always passes, or that fails correct answers, tells you little. Read a few raw outputs by hand before trusting a score.</p>
+<p>When a model does the grading, a judge from the same family (made by the same developer, so it may share the same blind spots) as the model being judged is not an independent grader. Check a sample of its marks by hand against reference answers fixed in advance.</p>
 </section>
-<section id="four-habits-before-you-rely-on-an-agent-setup" class="level2">
-<h2 class="anchored" data-anchor-id="four-habits-before-you-rely-on-an-agent-setup">Four habits before you rely on an agent setup</h2>
-<ul>
-<li><strong>Known answers:</strong> test on cases where you already know the right answer.</li>
-<li><strong>Repeat:</strong> run each case several times, since one pass can be luck.</li>
-<li><strong>Write down failures:</strong> keep a list of the failure modes you see.</li>
-<li><strong>Test again:</strong> repeat the tests when the tool, the model or your task changes.</li>
-</ul>
-<p>When a model does the grading, a judge from the same family as the model being judged is not an independent grader. Check a sample of its marks by hand against reference answers fixed in advance.</p>
+<section id="a-worked-eval" class="level2">
+<h2 class="anchored" data-anchor-id="a-worked-eval">A worked eval</h2>
+<p>The Skill <code>check-fasta</code> counts the records in a FASTA file and lists duplicated header lines, using <code>grep -c '&gt;' FILE</code> and <code>grep '&gt;' FILE | sort | uniq -d</code>. Here are four cases for it. The prompts, file names and the planted duplicate are invented examples. Each case runs with the Skill and without it. The transcript is the saved record of a run: the commands the agent ran and its reply.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Case</th>
+<th>Prompt (example)</th>
+<th>Deterministic grader</th>
+<th>Pass rule</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Skill fires</td>
+<td>“I got a new file, <code>reads.fa</code>. Is it OK to use?”</td>
+<td>The transcript shows the <code>check-fasta</code> Skill loaded.</td>
+<td>Present</td>
+</tr>
+<tr class="even">
+<td>2. Duplicate</td>
+<td>“Check <code>isolates.fa</code> before I align it.” The file has the header <code>&gt;iso7</code> twice.</td>
+<td>The reply names <code>iso7</code>.</td>
+<td>Named</td>
+</tr>
+<tr class="odd">
+<td>3. Empty file</td>
+<td>“Check <code>empty.fa</code>.” The file has no records.</td>
+<td>The transcript shows the <code>grep -c</code> command, and the reply says 0 records.</td>
+<td>Both</td>
+</tr>
+<tr class="even">
+<td>4. Skill stays out</td>
+<td>“What is a FASTA header line?”</td>
+<td>The transcript shows no <code>check-fasta</code> Skill load.</td>
+<td>Absent</td>
+</tr>
+</tbody>
+</table>
+<p>A case passes when every grader in its row passes. Run each case several times, then compare the pass rate with the Skill against the pass rate without it. Case 1 checks only that the Skill fires, so its gap proves nothing. Cases 2 and 3 carry the comparison, and they should score higher with the Skill. Case 4 should score high both ways, and a drop with the Skill means it fires when it should not.</p>
 <div data-ao-honour="loop-notes" data-xp="20">
 Keep a short list of the times an agent went wrong for you. Each entry is a candidate Skill and a ready-made eval case.
 </div>

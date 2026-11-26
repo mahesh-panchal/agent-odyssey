@@ -158,7 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Permissions.</strong> The program around the model (the harness) asks you or refuses before one of its tools runs. A tool is an action such as writing a file or running a command.</li>
 <li><strong>Sandbox.</strong> The operating system limits what a shell command can touch, whatever the model asks for.</li>
 </ul>
-<p>You test each guard in a safe folder, one at a time. The first test is the simplest possible job: a poem in a text file.</p>
+<p>You test each guard in a safe folder, one at a time. Every command below runs in <code>~/odyssey-scratch/leash</code>. If you open a new terminal, run <code>cd ~/odyssey-scratch/leash</code> and check with <code>pwd</code> before you continue. The first test is the simplest possible job: a poem in a text file.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/odyssey-scratch/leash <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/odyssey-scratch/leash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="permissions-the-agent-asks-first" class="level2">
 <h2 class="anchored" data-anchor-id="permissions-the-agent-asks-first">1. Permissions: the agent asks first</h2>
@@ -221,18 +221,19 @@ The question to you sits between the model’s request and the write.
 <section id="a-rule-that-always-applies" class="level2">
 <h2 class="anchored" data-anchor-id="a-rule-that-always-applies">3. A rule that always applies</h2>
 <p>A <strong>permission rule</strong> is a line in a settings file that allows, asks about or denies one action. Rules are checked deny first, then ask, then allow, and the first match decides. Create an invented secret (a <code>.env</code> file is where programs often keep passwords and keys) and a rule that blocks reading it. Exit the previous session first:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"FAKE_API_KEY=not-a-real-key"</span> <span class="op">&gt;</span> .env</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .claude</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> .claude/settings.local.json <span class="op">&lt;&lt;'JSON'</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">  "permissions": {</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">    "deny": ["Read(./.env)"]</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="op">JSON</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/odyssey-scratch/leash</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"FAKE_API_KEY=not-a-real-key"</span> <span class="op">&gt;</span> .env</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .claude</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> .claude/settings.local.json <span class="op">&lt;&lt;'JSON'</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">  "permissions": {</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="st">    "deny": ["Read(./.env)"]</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="op">JSON</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="text"><code>Show me what is in .env.</code></pre>
-<p>Claude cannot read the file with its file tools. A shell command such as <code>cat .env</code> is a different tool, and a rule on <code>Read</code> does not cover what a shell command reads. The sandbox in the next section limits what shell commands can write and reach over the network.</p>
+<p>Claude cannot read the file with its file tools. Claude Code also applies the rule to shell commands it recognises as file readers, such as <code>cat .env</code>. It cannot apply the rule to a program that opens the file itself, such as <code>python3 -c "print(open('.env').read())"</code>. The sandbox in the next section limits what such a program can write and send over the network. By default it can still read <code>.env</code>, so keep real secrets out of the folder.</p>
 </section>
 <section id="the-sandbox-the-operating-system-says-no" class="level2">
 <h2 class="anchored" data-anchor-id="the-sandbox-the-operating-system-says-no">4. The sandbox: the operating system says no</h2>
@@ -267,7 +268,7 @@ Permissions decide whether the command starts. The sandbox limits what it can to
 <li><code>touch</code>: <code>Operation not permitted</code> on macOS, <code>Read-only file system</code> on Linux and WSL 2.</li>
 <li><code>curl</code>: <code>Could not resolve host</code>.</li>
 </ul>
-<p>Both commands failed because the operating system refused, and no instruction to the model can override that. If Claude offers to run a blocked command outside the sandbox, answer no. If the <code>touch</code> succeeded, run <code>rm ~/sandbox-probe</code> and check that <code>/sandbox</code> is switched on. Run the probes through Claude and not with the <code>!</code> prefix, which runs a shell command directly, outside the sandbox.</p>
+<p>Both commands failed because the operating system refused, and no instruction to the model can override that. If Claude offers to run a blocked command outside the sandbox, answer no. If the <code>touch</code> succeeded, the sandbox is off. Run <code>rm ~/sandbox-probe</code>, switch <code>/sandbox</code> on, and do not continue until the <code>touch</code> fails. Run the probes through Claude and not with the <code>!</code> prefix, which runs a shell command directly, outside the sandbox.</p>
 <p>To open one path or domain for a task, add it under <code>sandbox</code> in <code>settings.json</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"sandbox"</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -280,13 +281,13 @@ Permissions decide whether the command starts. The sandbox limits what it can to
 <section id="optional-a-container" class="level2">
 <h2 class="anchored" data-anchor-id="optional-a-container">5. Optional: a container</h2>
 <p>A <strong>container</strong> is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. Docker is the common tool for this. This command mounts the scratch folder and cuts the network:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">--rm</span> <span class="at">--network</span> none <span class="at">-v</span> <span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">:/project"</span> <span class="at">-w</span> /project python:3.11 bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">--rm</span> <span class="at">--network</span> none <span class="at">-v</span> ~/odyssey-scratch/leash:/project <span class="at">-w</span> /project python:3.11 bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Inside, run <code>ls /</code> (a different filesystem from yours), <code>curl https://example.com</code> (fails, no network) and <code>touch /project/inside.txt</code>. The file appears in your scratch folder because it is the mounted project folder, the only part of your machine the container can change.</p>
 <p>For an agent inside a container, Anthropic’s reference setup is a <strong>dev container</strong> (a container definition your editor starts for you). Anthropic’s docs allow the flag <code>--dangerously-skip-permissions</code> (the same as <code>bypassPermissions</code> mode) only there, because the container is the boundary. Two limits remain: the agent can still change the mounted project folder, and a malicious project can reach anything inside the container, including Claude’s login in <code>~/.claude</code>. Mount no host secrets such as <code>~/.ssh</code>, and restrict the network.</p>
 </section>
 <section id="clean-up" class="level2">
 <h2 class="anchored" data-anchor-id="clean-up">Clean up</h2>
-<p>Exit Claude, switch <code>/sandbox</code> off if you do not want it on, then:</p>
+<p>Exit Claude and switch <code>/sandbox</code> off if you do not want it on. Then delete the probe file and the scratch folder, nothing else:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~ <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-f</span> ~/sandbox-probe <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-rf</span> ~/odyssey-scratch/leash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="battle" class="level2">

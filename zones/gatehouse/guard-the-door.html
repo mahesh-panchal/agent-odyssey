@@ -153,24 +153,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>Advice can be ignored, and a hook cannot. A <strong>hook</strong> is a user-defined handler that the harness runs automatically at a set point, such as just before a tool runs. In Claude Code it can be a shell command, an HTTP endpoint and other kinds, and it receives JSON about the event. An instructions file asks the model to behave. A command hook is ordinary code that the harness runs, so what it decides does not depend on what the model wants.</p>
+<p>Advice can be ignored, and a hook cannot. You need one when a rule must hold whatever the model decides. A <strong>hook</strong> is a user-defined handler that the harness (the program around the model that runs its tools) runs automatically at a set point, such as just before a tool runs. In Claude Code it can be a shell command, an HTTP endpoint and other kinds, and it receives JSON about the event. An instructions file asks the model to behave. A command hook is ordinary code that the harness runs, so what it decides does not depend on what the model wants.</p>
 <section id="a-hook-that-refuses" class="level2">
 <h2 class="anchored" data-anchor-id="a-hook-that-refuses">A hook that refuses</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Hooks go in a <code>hooks</code> block in a settings file:</p>
-<ul>
-<li><code>.claude/settings.json</code>: committable and shared.</li>
-<li><code>.claude/settings.local.json</code>: yours alone.</li>
-<li><code>~/.claude/settings.json</code>: all projects.</li>
-</ul>
+<p>Hooks go in a <code>hooks</code> block in a settings file. For this exercise use <code>.claude/settings.local.json</code> in your scratch folder (yours alone). <code>.claude/settings.json</code> is the committable, shared file, and <code>~/.claude/settings.json</code> covers all projects.</p>
+<ol type="1">
+<li>Save the script below as <code>.claude/hooks/block-drop-table.sh</code> in the project folder and make it executable.</li>
+<li>Add the <code>hooks</code> block below to <code>.claude/settings.local.json</code>. <code>$CLAUDE_PROJECT_DIR</code> in it is the environment variable holding the project’s root folder.</li>
+</ol>
 <p>A <code>PreToolUse</code> hook fires before a tool runs, and the matcher (the pattern that selects which tool the hook fires for) <code>Bash</code> selects the shell tool:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">"hooks"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"PreToolUse"</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">"matcher"</span><span class="fu">:</span> <span class="st">"Bash"</span><span class="fu">,</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"hooks"</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"command"</span><span class="fu">,</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"</span><span class="ch">\"</span><span class="st">$CLAUDE_PROJECT_DIR</span><span class="ch">\"</span><span class="st">/.claude/hooks/block-drop-table.sh"</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span> <span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The script, from the Claude Code hooks guide. It needs <code>jq</code> installed to read the JSON, and it must be executable (<code>chmod +x</code> is the usual way):</p>
+<p>The script, from the Claude Code hooks guide. It needs <code>jq</code> (a command-line JSON reader) installed, and it must be executable (<code>chmod +x .claude/hooks/block-drop-table.sh</code>):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">INPUT</span><span class="op">=</span><span class="va">$(</span><span class="fu">cat</span><span class="va">)</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">COMMAND</span><span class="op">=</span><span class="va">$(</span><span class="bu">echo</span> <span class="st">"</span><span class="va">$INPUT</span><span class="st">"</span> <span class="kw">|</span> <span class="ex">jq</span> <span class="at">-r</span> <span class="st">'.tool_input.command'</span><span class="va">)</span></span>
@@ -179,10 +178,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">exit</span> 2                                               <span class="co"># exit 2 = block the action</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span> 0  <span class="co"># exit 0 = no decision; the normal permission flow applies</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The hook gets the event as JSON on stdin (its standard input), including <code>tool_name</code> and, for Bash, <code>tool_input.command</code>. Exit code 2 on <code>PreToolUse</code> blocks the call, and Claude sees the stderr text (the program’s error output) as the reason. Exit 0 expresses no decision: the call goes through the normal permission flow.</p>
+<p>The hook gets the event as JSON on stdin (the input stream a program reads, here fed by Claude Code), including <code>tool_name</code> and, for Bash, <code>tool_input.command</code>. Exit code 2 on <code>PreToolUse</code> blocks the call, and Claude sees the stderr text (the program’s error output) as the reason. Exit 0 expresses no decision: the call goes through the normal permission flow.</p>
 <p>Two behaviours matter for trust:</p>
 <ul>
-<li><strong>A broken guard fails open.</strong> If the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. To block on failure, configure the hook for it (the hooks guide names <code>onFailure: "block"</code>; check the hooks reference for where it goes).</li>
+<li><strong>A broken guard fails open.</strong> If the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. To block on failure, add <code>"onFailure": "block"</code> beside <code>"type"</code> and <code>"command"</code> in the hook’s handler (needs Claude Code v2.1.295 or later).</li>
 <li><strong>Exit 2 blocks on some events only.</strong> On <code>PostToolUse</code> the tool already ran and exit 2 shows stderr to Claude. On <code>Notification</code> the exit code is ignored.</li>
 </ul>
 </div>
@@ -197,8 +196,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="what-a-hook-covers">What a hook covers</h2>
 <ul>
 <li><strong>A string match is easy to dodge.</strong> The example matches the literal string “drop table” in one command. A matcher selects by tool name, not by content. If the model runs a script that contains the dangerous command, or spells it differently, a grep on the command text never sees it.</li>
-<li><strong>Hooks fire only on tool calls.</strong> <code>PreToolUse</code> fires when Claude calls a tool. A file added with an <code>@</code> reference in your prompt is read without a tool call, so no hook fires.</li>
-<li><strong>Hooks cannot override your deny and ask rules.</strong> A hook returning allow skips the prompt, and deny and ask rules are still evaluated.</li>
+<li><strong>Hooks fire only on tool calls.</strong> <code>PreToolUse</code> fires when Claude calls a tool. A file added with an <code>@</code> reference in your prompt is added to the conversation directly. A hook does not see it, and a <code>Read</code> deny rule may not stop it. Keep secrets out of the folder.</li>
+<li><strong>Hooks cannot override your deny and ask rules.</strong> A hook’s allow never overrides a deny or ask rule: those are still evaluated.</li>
 <li><strong>Hooks run with your full permissions.</strong> Command hooks “execute shell commands with your full user permissions”, so review and test them before adding them.</li>
 </ul>
 </section>
@@ -211,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If a repository commits hooks in <code>.claude/settings.json</code>, they are code from its authors, running as you. Interactive Claude Code holds hooks back until you accept the workspace trust dialog.</p>
 <p>In <code>-p</code> and SDK runs (headless: non-interactive, no one to answer a dialog) there is no dialog, and hooks committed in a repository’s <code>.claude/settings.json</code> run in a folder you have never trusted. Read <code>.claude/</code> before running headless in a clone. <code>--bare</code> and <code>disableAllHooks</code> switch hooks off.</p>
 <div data-ao-honour="gatehouse-hook-in-a-scratch-folder" data-xp="20">
-In a throwaway folder with mock files, add the Bash-blocking hook above and ask for a harmless command that contains “drop table” in an <code>echo</code>. Note the stderr message the agent reports. Then change the script to exit 1 and see what happens.
+In a throwaway folder with mock files, add the Bash-blocking hook above and ask for a harmless command that contains “drop table” in an <code>echo</code>. Expect the agent to report that the command was blocked, with your stderr text as the reason. Then change the script to exit 1 and see what happens.
 </div>
 </section>
 <section id="battle-hooks-that-refuse" class="level2">

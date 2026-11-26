@@ -118,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>You have a conversation open with an agent. It has read files, tried things and been corrected. Do you keep typing into it, or start over? Each answer fits some situations, and a wrong choice costs something either way.</p>
+<p>You will meet this choice in every long working session, and it decides what the session costs and how well the agent answers. You have a conversation open with an agent. It has read files, tried things and been corrected. Do you keep typing into it, or start over? Each answer fits some situations, and a wrong choice costs something either way.</p>
 <section id="words-first" class="level2">
 <h2 class="anchored" data-anchor-id="words-first">Words first</h2>
 <ul>
@@ -131,10 +131,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="signals-to-start-fresh" class="level2">
 <h2 class="anchored" data-anchor-id="signals-to-start-fresh">Signals to start fresh</h2>
 <ol type="1">
-<li><strong>A new, unrelated task.</strong> Run <code>/clear</code> between unrelated tasks. It costs nothing, and the next task stops paying for the previous one’s history. A session holding three unrelated tasks re-reads all three on every turn of the fourth. A name, as in <code>/clear oauth-migration</code>, labels the conversation you leave so you can find it again.</li>
+<li><strong>A new, unrelated task.</strong> Run <code>/clear</code> between unrelated tasks. It costs no usage, but it drops the chat, so write down anything you need first. The next task then stops paying for the previous one’s history. A session holding three unrelated tasks re-reads all three on every turn of the fourth. A name, as in <code>/clear oauth-migration</code>, labels the conversation you leave so you can find it again.</li>
 <li><strong>The agent repeats a wrong claim after two corrections.</strong> Clear, and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts.</li>
 <li><strong>You notice it forgetting early instructions or contradicting itself.</strong> A crowded or degraded context is the usual cause. Start fresh, and move the instruction into the instructions file (<code>CLAUDE.md</code>). Detailed early instructions can also be lost when a conversation is compacted.</li>
-<li><strong>You have been away for a while and the next task is new.</strong> Claude Code keeps a <strong>cache</strong>, a short-term store that makes re-reading the conversation cheaper. It lasts about an hour on a subscription and five minutes with an API key. A very long session (past about 200 thousand tokens) that sits idle may be compacted shortly before the cache expires, so you return to a summary. If you do not need the history, a fresh session costs less.</li>
+<li><strong>You have been away for a while and the next task is new.</strong> Claude Code keeps a <strong>cache</strong>, a short-term store that makes re-reading the conversation cheaper. The cache lasts about an hour on a subscription (while you are within your plan limits) and five minutes with an API key by default. After it expires, the next message pays full price to re-send the history. If you do not need the history, a fresh session costs less.</li>
 <li><strong>The context is crowded.</strong> Run <code>/context</code>: it shows what fills the window. A fresh session still starts with its fixed load (instructions, tools, skills), so a fresh start saves only the conversation part. A crowded window with a task you still need is a reason to compact (below). A crowded window full of dead ends is a reason to clear.</li>
 <li><strong>A task is finished and a verified result is committed.</strong> The result lives in your files and in git, so the conversation has done its job. The same move works after a spec (a written description of what to build): write it down, then start a fresh session to build from it.</li>
 </ol>
@@ -144,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>Same task, early decisions still matter:</strong> the next step needs the same files, the decisions you made and what was already tried.</li>
 <li><strong>The agent is on track:</strong> nothing is repeated or contradicted. Clearing a working session throws away good context.</li>
-<li><strong>You are returning to a named session:</strong> <code>/resume</code> (or <code>claude --resume &lt;name&gt;</code>) reopens a session you chose, and <code>claude --continue</code> reopens the most recent one in this directory. Resume restores the messages, model and permission mode (what the agent may do without asking). Pass startup flags such as <code>--mcp-config</code> again. A compacted session continues from its last summary.</li>
+<li><strong>You are returning to a named session:</strong> <code>/resume</code> (or <code>claude --resume &lt;name&gt;</code>) reopens a session you chose, and <code>claude --continue</code> reopens the most recent one in this directory. Resume restores the messages, model and permission mode (what the agent may do without asking). Pass startup flags again, such as <code>--mcp-config</code> (it loads a file that lists your tool servers). A compacted session continues from its last summary.</li>
 <li><strong>Claude Code offers to resume after a long break:</strong> on some plans a dialog estimates how much of your usage limit the saved conversation would use. Choose by whether your next task still needs it.</li>
 </ul>
 </section>
@@ -226,14 +226,13 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="the-cache-and-the-coffee-break">The cache and the coffee break</h2>
 <p>While the cache is warm, the long history you already sent is re-read cheaply. When it has expired, the next request pays to send the whole history again at full price. A long break in a long session can therefore cost more than you expect.</p>
 <ol type="1">
-<li>Run <code>/usage</code> and read what your plan reports about your limits, and about the prompt cache if it reports anything on it.</li>
+<li>Run <code>/usage</code> to see your plan limits. It may show nothing about the cache. Treat the cache times above as the guide.</li>
 <li>Before a long break in a long session, run <code>/compact</code> with a focus note, or write a short handoff note (goal, what is done, what is next) and plan to <code>/clear</code>.</li>
-<li>After a break, when the next task is new, start fresh.</li>
-<li>After a break, when you still need the thread, start a new session from your short note. It lets you drop dead ends too.</li>
+<li>After a break, choose one. If the next task is new, start fresh. If you still need the thread, start a new session from your short note, which also lets you drop dead ends.</li>
 <li>Decide your tool set at the start of a task. Changing the built-in tool set in the middle of a task discards the cache.</li>
 <li>Trim output before it lands in the conversation. Ask the agent to show only the last lines of a log or a pass/fail summary.</li>
 </ol>
-<p>Short pauses are fine. A few minutes away costs little, so there is no need to rush back.</p>
+<p>Short pauses are fine. A pause shorter than the cache lifetime costs little, so there is no need to rush back.</p>
 </section>
 <section id="the-cost-of-both-mistakes" class="level2">
 <h2 class="anchored" data-anchor-id="the-cost-of-both-mistakes">The cost of both mistakes</h2>

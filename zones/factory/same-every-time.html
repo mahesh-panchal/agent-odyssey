@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -118,15 +153,33 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>A pipeline earns trust by giving the same answer from the same input. An LLM call can return different text from run to run, so an LLM inside a step changes the pipeline’s behaviour.</p>
-<p>Keep the LLM out of the run when you can. Use it to write a script, then test the script and run the script. The script behaves the same every time and you can review it.</p>
-<p>If an LLM call really must be a step (tidying messy free-text labels, say), contain it:</p>
+<p>You need this before you put a model inside a pipeline. A pipeline earns trust by giving the same answer from the same input. An LLM call can return different text from run to run, so an LLM inside a step changes the pipeline’s behaviour.</p>
+<p>Keep the LLM out of the run when you can. Use it to write a script, then test the script and run the script. Ask the LLM for the script, read it, run it on a small input where you know the answer, and fix it until the output matches. The script behaves the same every time and you can review it.</p>
+<p>If an LLM call really must be a step, contain it. Take an example: assigning a sample-type label to free-text metadata such as “liver carcinoma biopsy”. The function wraps the call, and <code>call_model</code> is a stub for the model call.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hashlib, json, logging, pathlib</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>MODEL, PROMPT_VERSION <span class="op">=</span> <span class="st">"model-x-2026-01"</span>, <span class="st">"v3"</span>   <span class="co"># example values</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>LABELS <span class="op">=</span> {<span class="st">"tumour"</span>, <span class="st">"normal"</span>, <span class="st">"cell line"</span>, <span class="st">"unknown"</span>}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>CACHE <span class="op">=</span> pathlib.Path(<span class="st">"cache"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> label_sample(text):</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    key <span class="op">=</span> hashlib.sha256(<span class="ss">f"</span><span class="sc">{</span>MODEL<span class="sc">}</span><span class="ss">|</span><span class="sc">{</span>PROMPT_VERSION<span class="sc">}</span><span class="ss">|</span><span class="sc">{</span>text<span class="sc">}</span><span class="ss">"</span>.encode()).hexdigest()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    path <span class="op">=</span> CACHE <span class="op">/</span> <span class="ss">f"</span><span class="sc">{</span>key<span class="sc">}</span><span class="ss">.json"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> path.exists():                                  <span class="co"># 1. cache</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> json.loads(path.read_text())[<span class="st">"label"</span>]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    label <span class="op">=</span> call_model(text).strip().lower()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> label <span class="kw">not</span> <span class="kw">in</span> LABELS:                            <span class="co"># 2. validate</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"bad label </span><span class="sc">{</span>label<span class="sc">!r}</span><span class="ss"> for </span><span class="sc">{</span>text<span class="sc">!r}</span><span class="ss">"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    logging.warning(<span class="st">"model=</span><span class="sc">%s</span><span class="st"> prompt=</span><span class="sc">%s</span><span class="st"> input=</span><span class="sc">%s</span><span class="st"> label=</span><span class="sc">%s</span><span class="st">"</span>, MODEL, PROMPT_VERSION, key[:<span class="dv">12</span>], label)  <span class="co"># 3. log</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    CACHE.mkdir(exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    path.write_text(json.dumps({<span class="st">"label"</span>: label}))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> label</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li><strong>Record</strong> the model name and version, and the exact prompt, with the outputs. A pinned model may still return different text, so recording is a start.</li>
-<li><strong>Cache</strong> results keyed by input (save each output under its input), so a re-run does not change them silently.</li>
-<li><strong>Validate</strong> each output against a fixed set (a species list, a schema) and fail loudly when it does not match.</li>
-<li><strong>Keep a human-check sample</strong>: look at a random handful every time.</li>
-<li><strong>Keep restricted data away from external models.</strong> Data you may not share must not reach an outside API.</li>
+<li><strong>Cache:</strong> the file name is a hash of the model name, the prompt version and the input, so a re-run reads the saved label, and a new model or prompt version asks again.</li>
+<li><strong>Validate:</strong> the reply must be one of a fixed set of labels, and anything else stops the run.</li>
+<li><strong>Log:</strong> each fresh call records the model name, the prompt version and a short fingerprint of the input. Pin the model (one fixed version, not “latest”), though a pinned model may still return different text.</li>
+<li><strong>Keep a human-check sample:</strong> look at a random handful on every run.</li>
+<li><strong>Keep restricted data away from external models.</strong> Data you may not share must not reach an outside API (a service your code calls over the network).</li>
 </ul>
 <section id="battle-reproducible-runs" class="level2">
 <h2 class="anchored" data-anchor-id="battle-reproducible-runs">Battle: reproducible runs</h2>
