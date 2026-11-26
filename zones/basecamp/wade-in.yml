@@ -1,7 +1,7 @@
 pass: 0.8
 questions:
   - type: sort
-    prompt: "A data analyst plans six report tasks. Sort them by whether real rows from the samples database would leave the machine."
+    prompt: "A bioinformatician plans six report tasks. Sort them by whether real rows from the samples database would leave the machine."
     bins: ["No real rows leave", "Real rows would leave"]
     explain: "Text you type, schemas and invented rows keep real data home. Pasting, uploading or letting an agent read data sends it, even when the tool is read-only."
     items:
@@ -12,7 +12,7 @@ questions:
       - { text: "Paste ten rows with participant codes to get counts by month", bin: "Real rows would leave", misconception: "Pasted rows are sent, and codes that replace names are still personal data." }
       - { text: "Let a read-only agent open the data folder and summarise it", bin: "Real rows would leave", misconception: "Read-only limits what the agent changes. It still sends what it reads." }
   - type: choice
-    prompt: "A data analyst runs an agent in plan mode on a copy of the database. What does the read-only part protect them from?"
+    prompt: "A bioinformatician runs an agent in plan mode on a copy of the database. What does the read-only part protect them from?"
     explain: "Plan mode limits what the agent does. Reading still happens, so the contents it reads are sent to the provider."
     options:
       - { text: "Edits to your files, while what the agent reads is still sent", correct: true }

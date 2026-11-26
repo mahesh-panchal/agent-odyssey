@@ -14,9 +14,25 @@ A shallow stream runs past Basecamp. A traveller stands at the edge, sure that c
 
 ## The scene
 
-A manager needs a status report across projects, kept in a spreadsheet. A data analyst needs a count of samples received per project from the project database, using SQL (the language for querying a database). Both hesitate for two reasons: where their data goes, and the belief that using an LLM means letting an agent loose on their computer. So their answer is "never": no LLM at all.
+Two people want help from an LLM (a large language model, the kind of tool behind chat assistants). Each has a real task and the same two worries.
 
-Between "never" and handing an agent control of your computer there are several steps, and many useful tasks sit on the lower ones.
+::: {.panel-tabset}
+
+## Manager
+
+The task is a status report across projects, kept in a spreadsheet.
+
+"Can I paste my project list into an LLM to draft this? Where does that data go once I press enter? And a colleague said I would need Claude Code, which means giving it access to all my files. I cannot do that, so I will do the report by hand."
+
+## Bioinformatician
+
+The task is a count of samples received per project, from the project database. The query is written in SQL (the language for querying a database).
+
+"Can I ask an LLM to write this query? Does that mean I have to install Claude Code and let it into my computer and my database? My data agreement may not allow it, so the answer has to be no LLM at all."
+
+:::
+
+Both treat the choice as all or nothing: either no LLM, or an agent with the run of the machine. They have not considered that there is a middle. Between those two ends are several steps, each handing over a little more, and many useful tasks sit on the lower ones. This lesson walks up those steps.
 
 You decide how much to hand over before the first prompt. A wrong choice can send data you meant to keep, or let an agent change files you meant to leave alone.
 
@@ -36,7 +52,7 @@ The more data leaves, the higher the first answer. The more the agent may change
 
 A ladder is six ordered steps of how much you hand over. Each step up raises one or both answers. Terms used in the table: a **schema** is the list of table and column names with no rows; an **extract** is a small slice of the data; an **agent** is a model that reads files and runs commands for you; a **copy** is a duplicate of the data, so the original cannot be edited.
 
-| Step | Manager (spreadsheet) | Analyst (database) | What leaves |
+| Step | Manager (spreadsheet) | Bioinformatician (database) | What leaves |
 |---|---|---|---|
 | 0 | Build the table by hand | Write the query yourself | nothing |
 | 1 | Ask for an outline, no data | Ask how to explain a fall in samples | your words |
@@ -71,7 +87,7 @@ Under GDPR (the EU data-protection law), pseudonymised codes still count as pers
 - **Screenshots, images and uploads:** treat them as data you share, like pasted text.
 - **Other providers:** their chat tools have their own terms. Read them.
 
-## Hands-on (data analyst): count samples without handing over the data
+## Hands-on (bioinformatician): count samples without handing over the data
 
 Save [make_db.py](../../exercises/basecamp/wade-in/make_db.py), [run_query.py](../../exercises/basecamp/wade-in/run_query.py), [report-query.sql](../../exercises/basecamp/wade-in/report-query.sql) and [check-samples.sql](../../exercises/basecamp/wade-in/check-samples.sql) into an empty folder. Every row is invented, and no LLM is called.
 
