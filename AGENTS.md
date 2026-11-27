@@ -21,7 +21,8 @@ Agent Odyssey is a static Quarto role-playing course that teaches bioinformatici
 6. **Scope to the page.** A quest is about 15 to 30 minutes. It is a tutorial with explanation, not a reference manual. A paragraph that reads "the complete set of X" becomes one example and a link.
 7. **Define at first use.** Every term, command and acronym a beginner could trip over is defined in a short parenthetical on first use on that page, or is already defined on a page the header list names under Before you start. Give each metaphor a literal meaning before using it (a "dial" is a question, "never" means not using an LLM at all).
 8. **Say why now.** The opening of each lesson says what the reader will be able to do and why they need it at this point in the course.
-9. **Stay on LLM use.** The course teaches using LLMs and coding agents, controlling them and evaluating their output. A general tool or domain skill is taught only where it is the control or the check. Other tools get a line in Lore. A quiz question tests only what the page teaches.
+9. **Keep the story continuous.** After any change to a story block, the guide cast, a zone or the quest order, run `pixi run story` and re-read the chain it prints. Each quest's story sits in the place its zone names, a named guide from `zones.yml` supplies the knowledge there, and a story that moves the party says so. Check by eye what the tool cannot: the order of places, what each character could know at that point, and where the Summoning Scroll is.
+10. **Stay on LLM use.** The course teaches using LLMs and coding agents, controlling them and evaluating their output. A general tool or domain skill is taught only where it is the control or the check. Other tools get a line in Lore. A quiz question tests only what the page teaches.
 
 ## Review checklist
 
@@ -47,4 +48,4 @@ Run structural checks before line edits.
 
 - A beginner-lens pass (checks 1, 3, 7, 10, 11) and an expert-lens pass (check 14), by separate readers.
 - Then a scope pass for checks 1, 4, 5 and 12.
-- Run `pixi run learner --warn`, `pixi run banks`, `pixi run lore --require`, and `pixi run e2e` before committing.
+- Run `pixi run learner --warn`, `pixi run banks`, `pixi run lore --require`, `pixi run story` and `pixi run e2e` before committing.

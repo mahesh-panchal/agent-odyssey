@@ -38,6 +38,10 @@ description = "Lint the Lore blocks: every quest needs 2-8 sourced items"
 cmd = "python tools/lint_learner.py"
 description = "Lint lesson prose: no maintainer labels, caveat boxes or mid-text quest references"
 
+[tasks.story]
+cmd = "python tools/lint_story.py --warn --chain"
+description = "Story continuity: guide named, travel marked, cast consistent, sentence count (run after any story change)"
+
 [tasks.e2e]
 cmd = "python tools/e2e.py"
 depends-on = ["lore", "render"]

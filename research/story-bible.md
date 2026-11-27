@@ -31,13 +31,13 @@ The Blight is not a monster from outside. It is what happens when a pact-bearer 
 
 ## Places
 
-- **Gaia's Rest** (zone slug `basecamp`): the tavern where the adventure starts. Boasters tell tales of extraordinary pacts. A few patrons whisper, quietly, of the devastation they caused. **Wanderer Quill**, an old wanderer, hands each traveller the **Summoning Scroll**, which is the Prerequisites page (story word only; the page keeps its plain title).
+- **Gaia's Rest** (zone slug `basecamp`): the tavern where the adventure starts. Boasters tell tales of extraordinary pacts. A few patrons sit sullen in a corner, drowning their sorrows in drink or staring at cold food. **Wanderer Quill**, an old wanderer, greets the party, recounts the four patrons' tales (Name the Fears) and hands each traveller the **Summoning Scroll**, which is the Prerequisites page (story word only; the page keeps its plain title).
 - **The Collegium** (zone slug `kennel`): an academy of three colleges, used as story labels only, where academics mill about and respect one another because each knows the strengths and weaknesses of the Shokanju (summoned beasts, never hired). The **tinkers' college** builds Automata (it leads on to the Pipeline Factory and has no quest of its own). The **beastmasters' college** trains Familiars (Should You Fine-Tune?). The **sages' college** interprets scrolls and makes pacts with Astrals. **Sage Maelis** of the sages' college is the party's teacher for the trunk quests set here: Script, Model, or LLM (among all three colleges), Know Your Tools (she explains the pieces of the pact from the Summoning Scroll), Choose What to Hand Over (she warns that without disciplined use Astrals spread the Blight across the land, and shows how to limit what an Astral sees, because these persistent creatures draw in whatever they can reach in pursuit of their goal) and Set Up Your Agent (she reads the scroll and makes the pact with the party). The branch quests Pick Your Model, Free Is Not Free and Claude in the Cloud are hers too. The Sages warn about limits; the learner may ignore them, as the tavern patrons did.
 - Other zones keep their names (Ancient DNA Crypt, Codon Mill, Sequence Maze, Phylogenetic Forest, Gatehouse, Biodiversity Reef, Pipeline Factory, Scriptorium, Cluster Citadel, The Murk's Heart). Their guides are in the next section. The Crypt track label is "Wards".
 
 ## The four cautionary patrons (in Gaia's Rest, not the party)
 
-Each made a pact, was given the Sages' instructions, and ignored them out of hubris. They whisper their tales in a corner. They are not the personas.
+Each made a pact, was given the Sages' instructions, and ignored them out of hubris. They sit sullen in a corner until Wanderer Quill recounts their tales to the party. They are not the personas.
 
 1. **Brannoch the tinker** lost his workshop. He skipped a save point ("I never lose files").
 2. **Sefa the scholar** published an evolutionary tree built on phantom citations. She skipped checking against ground truth ("it sounded right").
@@ -61,6 +61,7 @@ Shown as tabs (`group="persona"`) on the front page, with a portrait, role, a sh
 
 ## Rules for writers
 
+- After any story change run `pixi run story` and re-read the chain it prints (place, guide, travel, what each character knows, where the Summoning Scroll is).
 - Story blocks stay 3 to 5 sentences, first on the page, ending in one sentence that leads into the lesson. The lesson body, tables and diagrams use plain words only.
 - Lesson titles are plain and searchable. Slugs never change. Only Adopt the Pet is removed (it redirects to Set Up Your Agent).
 - No real company or product is a villain. Anthropic's Claude is "the Claude Astral" (a creature bound by a tool), never an antagonist.

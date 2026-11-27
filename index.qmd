@@ -5,7 +5,7 @@ title: "Agent Odyssey"
 <p class="ao-start-here">This is the start. Meet the party, then walk the map. <a href="background.html">Background</a> explains the story names, what each area covers and how the course is laid out.</p>
 
 ::: {.ao-story}
-Gaia's Rest stands at the root of the great tree, and tonight it is loud. Boasters at the bar swear they raised whole pipelines overnight, finished analyses before the ink dried, and did it all by making a pact with an Astral, a spirit that speaks every tongue (here, a language model). In a dark corner a few patrons say nothing of the kind, and when they speak at all they whisper of what the Blight did to them. An old wanderer slides a Summoning Scroll across the table, and four travellers lean in to read it.
+Gaia's Rest stands at the root of the great tree, and tonight the bar is loud with boasters who swear they raised whole pipelines overnight and finished analyses before the ink dried, all by making a pact with an Astral, a spirit that speaks every tongue (here, a language model). In the far corner a few patrons sit silent over cold food and empty cups, and none of them will meet your eye. Four travellers take the long table, and Wanderer Quill, an old hand of the tavern, watches them from the hearth. When the boasters have gone to bed, ask Quill about the corner.
 :::
 
 ## Meet the party
