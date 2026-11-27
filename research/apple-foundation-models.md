@@ -4,7 +4,7 @@ Checked 2026-11-20. Official Apple docs only. The HTML pages are JS shells, so t
 Pages:
 - https://developer.apple.com/documentation/foundationmodels/generating-content-and-performing-tasks-with-foundation-models#Understand-model-capabilities
 - https://developer.apple.com/documentation/updates/foundationmodels
-Decision fed: a capabilities-of-a-bare-model reminder in Three Kinds of Machine; a short "built-in Pet" note in Adopt the Pet.
+Decision fed: a capabilities-of-a-bare-model reminder in Script, Model, or LLM; a short "built-in Pet" note in Adopt the Pet.
 
 ## CONFIRMED (capabilities page)
 - Intro: "it helps to know what the on-device language model can do."

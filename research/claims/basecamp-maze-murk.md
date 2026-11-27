@@ -6,7 +6,7 @@
 - Changed: "It could delete my work or leak my data" split into delete/overwrite and leak data/secrets | label: structure | action: two worries, two habits; "Where you learn it" now links to the quest
 - Changed: unpublished-results worry reworded as being scooped; extra habit detail (reviewed agreement, local model, date-stamp) moved to the sentence after the table | action: moved
 
-## Three Kinds of Machine
+## Script, Model, or LLM
 - Removed: badge "General practice, not a vendor claim" | label: General practice | action: dropped
 - Removed: "AI for Science best practices (a European draft, not yet endorsed by any body) ... Not checked first-hand: practice page read 2026-11-20 through a fetch summary" | label: Not checked | action: kept the advice (script or smaller model first; cost and reproducibility) as plain statement; source stays in Lore
 - Removed: "IBM's explainer puts it this way", predictive/generative definitions with "usually trained on a smaller dataset ... easier to explain" and "much harder to explain" | label: attribution, vendor explainer | action: folded into the kind-2 / kind-3 items; the "easier/harder to explain" claims dropped

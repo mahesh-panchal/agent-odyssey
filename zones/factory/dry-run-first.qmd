@@ -3,7 +3,7 @@ title: "Dry Run First"
 ---
 
 ::: {.ao-story}
-Conveyor belts hum across the factory floor, where automata carry cargo along lines that an Astral wired overnight, proud and tired. One belt leads nowhere, and you cannot tell which by looking. A cheap test run shows where each belt leads before any real cargo moves. Learn the cheap runs first.
+Conveyor belts hum across the factory floor, where Automata carry cargo along lines that an Astral wired overnight, proud and tired. One belt leads nowhere, and you cannot tell which by looking. A cheap test run shows where each belt leads before any real cargo moves. Learn the cheap runs first.
 
 ::: {.panel-tabset group="persona"}
 

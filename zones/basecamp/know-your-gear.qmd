@@ -8,7 +8,7 @@ An old wanderer spreads the tools of the trade across the long table: the Astral
 
 ::: {.quest-dialog}
 - **Goal:** you will use the words this site relies on (model, harness, skill, MCP, hook, plugin, effort, eval and the context terms below) and say how they fit together.
-- **Before you start:** [Three Kinds of Machine](three-kinds-of-machine.html).
+- **Before you start:** [Script, Model, or LLM](three-kinds-of-machine.html).
 - **Time:** about 15 minutes.
 :::
 

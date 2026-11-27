@@ -1,6 +1,6 @@
 # Should You Fine-Tune? (kennel side quest)
 
-- Moved 2026-11-23 from the trunk lesson Three Kinds of Machine ("Should you fine-tune? A note on LoRA") into the optional Kennel quest `kennel-should-you-fine-tune` (companions branch, after Pick Your Companion). Trunk lesson keeps one sentence pointing to it.
+- Moved 2026-11-23 from the trunk lesson Script, Model, or LLM ("Should you fine-tune? A note on LoRA") into the optional Kennel quest `kennel-should-you-fine-tune` (companions branch, after Pick Your Companion). Trunk lesson keeps one sentence pointing to it.
 - URLs used (all already in research/lore-extra.md, no new sources):
   - https://unsloth.ai/docs/get-started/fine-tuning-llms-guide
   - https://huggingface.co/docs/peft/main/en/conceptual_guides/lora

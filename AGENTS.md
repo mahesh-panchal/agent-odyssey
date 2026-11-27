@@ -8,7 +8,7 @@ Agent Odyssey is a static Quarto role-playing course that teaches bioinformatici
 
 ## Two layers on every page
 
-1. **Story** (`::: {.ao-story}`, 3 to 5 sentences, first on the page; cast, creature kinds and vocabulary are in [research/story-bible.md](research/story-bible.md)). Odyssey imagery lives here: the pact, Astrals, familiars and automata, the Collegium, Gaia's Rest, the Blight. It ends with one sentence that leads into the lesson and may foreshadow what comes next.
+1. **Story** (`::: {.ao-story}`, 3 to 5 sentences, first on the page; cast, creature kinds and vocabulary are in [research/story-bible.md](research/story-bible.md)). Odyssey imagery lives here: the pact, Astrals, Familiars and Automata, the Collegium, Gaia's Rest, the Blight. It ends with one sentence that leads into the lesson and may foreshadow what comes next.
 2. **Lesson.** Plain technical words only. No pact, creature, Astral, ward or Blight imagery in text, tables or diagrams. `pixi run learner --warn` flags it.
 
 ## Standing rules

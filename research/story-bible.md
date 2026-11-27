@@ -8,7 +8,7 @@ A Blight spreads across the realm: plausible but false knowledge, grown wherever
 
 The Blight is not a monster from outside. It is what happens when a pact-bearer accepts gifts unexamined.
 
-## Creatures (all are **shokanju**, the umbrella word for summoned creatures, same form for one or many; they are summoned, never hired)
+## Creatures (all are **Shokanju**, the umbrella word for summoned creatures, same form for one or many; they are summoned, never hired)
 
 | Kind | Real thing | Nature |
 |---|---|---|
@@ -32,7 +32,7 @@ The Blight is not a monster from outside. It is what happens when a pact-bearer 
 ## Places
 
 - **Gaia's Rest** (zone slug `basecamp`): the tavern where the adventure starts. Boasters tell tales of extraordinary pacts. A few patrons whisper, quietly, of the devastation they caused. An old wanderer hands each traveller the **Summoning Scroll**, which is the Prerequisites page (story word only; the page keeps its plain title).
-- **The Collegium** (zone slug `kennel`): an academy of three colleges, used as story labels only, where academics mill about and respect one another because each knows the strengths and weaknesses of the shokanju (summoned beasts, never hired). The **tinkers' college** builds automata (it leads on to the Pipeline Factory and has no quest of its own). The **beastmasters' college** trains familiars (Should You Fine-Tune?). The **sages' college** interprets scrolls and makes pacts with Astrals (Set Up Your Agent, Pick Your Model, Free Is Not Free, Claude in the Cloud). Three Kinds of Machine is set in the Collegium among all three colleges, and Set Up Your Agent returns to the sages' college. The academics warn about limits; the learner may ignore them, as the tavern patrons did.
+- **The Collegium** (zone slug `kennel`): an academy of three colleges, used as story labels only, where academics mill about and respect one another because each knows the strengths and weaknesses of the Shokanju (summoned beasts, never hired). The **tinkers' college** builds Automata (it leads on to the Pipeline Factory and has no quest of its own). The **beastmasters' college** trains Familiars (Should You Fine-Tune?). The **sages' college** interprets scrolls and makes pacts with Astrals (Set Up Your Agent, Pick Your Model, Free Is Not Free, Claude in the Cloud). Script, Model, or LLM is set in the Collegium among all three colleges, and Set Up Your Agent returns to the sages' college. The academics warn about limits; the learner may ignore them, as the tavern patrons did.
 - Other zones keep their names (Ancient DNA Crypt, Codon Mill, Sequence Maze, Phylogenetic Forest, Gatehouse, Biodiversity Reef, Pipeline Factory, Scriptorium, Cluster Citadel, The Murk's Heart) and their local characters (warden, miller, smith, surveyor, queue master, watchman). The Crypt track label is "Wards".
 
 ## The four cautionary patrons (in Gaia's Rest, not the party)
@@ -56,7 +56,7 @@ Shown as tabs (`group="persona"`) on the front page, with a portrait, role, a sh
 |---|---|---|---|---|---|---|
 | **Guildmaster Aris** | research or project manager | ledgers, milestone beacons, ration tokens (budget) | instant roadmaps, status summaries, fast prototypes | the illusion of done: a plausible demo taken for a validated result | rationing and sign-off: review gates and budgets | Gatehouse, Scriptorium, Citadel |
 | **Diviner Ilsa** | bioinformatics analyst | trained hounds (statistics, ML) and ground-truth lenses (references, controls) | literature synthesis, expression scripts, exploratory plots | confirmation mirage: fluent explanations and phantom citations that flatter a hypothesis | provenance and ground truth: primary identifiers, negative controls, independent checks (and no phantom reagents or invented protocol steps) | Crypt, Sequence Maze, Phylogenetic Forest |
-| **Artificer Bob** | bioinformatics engineer | automata: CLI tools, scripts, pipelines, containers | workflows, refactors, test suites in seconds | spaghetti golems: merging code you have not read and cannot debug | small diffs, tests, containers; ship nothing you cannot explain | Codon Mill, Sequence Maze, Pipeline Factory |
+| **Artificer Bob** | bioinformatics engineer | Automata: CLI tools, scripts, pipelines, containers | workflows, refactors, test suites in seconds | spaghetti golems: merging code you have not read and cannot debug | small diffs, tests, containers; ship nothing you cannot explain | Codon Mill, Sequence Maze, Pipeline Factory |
 | **Archivist Elowen** | data steward | sealed vaults, checksums, ontologies, metadata ledgers | sample-sheet cleanup, schema mapping, format conversion | silent corruption: values invented or altered while "harmonising" | immutable raw data, schema validation, audit trails, privacy wards | Gatehouse, Biodiversity Reef, Scriptorium |
 
 ## Rules for writers

@@ -34,7 +34,7 @@ Four travellers share the long table. Choose the one closest to your own work: t
 
 ![](assets/img/persona-artificer.png){.ao-persona-img fig-alt="Pixel-art portrait of Artificer Bob: a figure in a leather apron with goggles on their brow, beside a brass gear."}
 
-**Bioinformatics engineer.** Artificer Bob builds with automata: scripts, pipelines and containers that do exactly what they were built to do. A pact could draft a workflow and its tests before the kettle boils. Artificer Bob has inherited a pile of code that nobody could explain, and will not add to it.
+**Bioinformatics engineer.** Artificer Bob builds with Automata: scripts, pipelines and containers that do exactly what they were built to do. A pact could draft a workflow and its tests before the kettle boils. Artificer Bob has inherited a pile of code that nobody could explain, and will not add to it.
 
 *Where your discipline matters most:* the Codon Mill, the Sequence Maze and the Pipeline Factory.
 
