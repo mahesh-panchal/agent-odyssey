@@ -37,16 +37,12 @@ questions:
       - { text: "It is locked, so further edits need a new notebook", misconception: "Cells can be replaced, inserted or deleted one at a time. Nothing is locked." }
   - type: order
     prompt: "Put the steps for reviewing an agent-edited notebook in order."
-    explain: "Read the code change, rerun from clean, then check numbers independently of the agent and compare, then share."
+    explain: "Rerun from clean, then compute values independently of the agent, then compare."
     items:
-      - "Read the diff of the source cells before running anything"
       - "Restart the kernel and run all cells top to bottom"
       - "After the fresh run, compute one or two values with an independent method"
       - "Compare your values with the fresh notebook's numbers"
-      - "Share or commit the notebook once they agree"
     why:
-      "Read the diff of the source cells before running anything": "Read the code change first so you know what to expect from the run."
       "Restart the kernel and run all cells top to bottom": "You need a clean run before the numbers mean anything."
       "After the fresh run, compute one or two values with an independent method": "Get your own answer from something the agent did not write, once the fresh run has given you the notebook's numbers."
       "Compare your values with the fresh notebook's numbers": "Compare once you have both answers."
-      "Share or commit the notebook once they agree": "Share last, once the fresh run and the check agree."
