@@ -19,7 +19,7 @@
       if (nq) gates.forEach(function (g) { (g.quests || []).forEach(function (q) { if (q.id === nq.id) cur = { g: g, q: q }; }); });
       cur = onPage || cur;
       var html = "<h2>Chronicle</h2>";
-      html += cur ? "<div class='ao-now'><strong>Now:</strong> " + esc(cur.g.name) + " — " + link(cur.q) + "<p>" + esc(cur.q.story || "") + "</p></div>"
+      html += cur ? "<div class='ao-now'><strong>Now:</strong> " + esc(cur.g.name) + " — " + link(cur.q) + "</div>"
                   : "<div class='ao-now'><strong>Now:</strong> every open quest is cleared. More zones open in later versions.</div>";
       gates.forEach(function (g) {
         var qs = g.quests || [], open = cur && cur.g === g;
