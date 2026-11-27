@@ -58,7 +58,7 @@
       if (g && g.id === world.gates[world.start].id && gst(g) !== "open") { cap.textContent = "You are at " + g.name + ", where the journey starts."; return; }
       if (g && !revealed(g)) { cap.textContent = "An unexplored place, still under the veil. Follow the gold marker, or choose “Show the whole map”."; return; }
       if (!g) { cap.textContent = "Walk with the arrow keys or WASD. Your first quest is at the gold gate: " + firstOpen().name + "."; return; }
-      cap.textContent = g.name + " (" + g.track + ") — " +
+      cap.textContent = g.name + " (" + g.track + ") — " + (g.theme ? g.theme + ". " : "") +
         (gst(g) === "open" ? (cleared(g) ? "cleared. Press Enter to revisit." : "the Murk lingers. Press Enter to enter.")
                            : "thick Murk. Not open yet: pass the Battle of each earlier quest to open it. " + (finaleId && gst(g) === "locked" && g.quests[0].id === finaleId ? sealed() + " " : "") + "Press Enter to look.") +
         (Object.keys(AO.state.passed).length ? "" : " Your first quest is at the gold gate: " + firstOpen().name + ".");

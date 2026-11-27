@@ -14,13 +14,13 @@
       gates.forEach(function (g) { (g.quests || []).forEach(function (q) {
         if (done[q.id]) chron.push(q.done); else { if (!cur) cur = { g: g, q: q }; if (location.pathname.endsWith(q.page)) onPage = { g: g, q: q }; }
       }); });
-      // Off a quest page, "Now" follows the path's next quest; on a quest page it shows that page's quest.
+      // On an uncleared quest page the block says "Now" and shows that quest; anywhere else it says "Next" and follows the path.
       var nq = !onPage && AO.path && AO.path.nextQuest && AO.path.nextQuest();
       if (nq) gates.forEach(function (g) { (g.quests || []).forEach(function (q) { if (q.id === nq.id) cur = { g: g, q: q }; }); });
       cur = onPage || cur;
       var html = "<h2>Chronicle</h2>";
-      html += cur ? "<div class='ao-now'><strong>Now:</strong> " + esc(cur.g.name) + " — " + link(cur.q) + "<p>" + esc(cur.q.story || "") + "</p></div>"
-                  : "<div class='ao-now'><strong>Now:</strong> every open quest is cleared. More zones open in later versions.</div>";
+      html += cur ? "<div class='ao-now'><strong>" + (onPage ? "Now" : "Next") + ":</strong> " + esc(cur.g.name) + " — " + link(cur.q) + "</div>"
+                  : "<div class='ao-now'><strong>Next:</strong> every open quest is cleared. More zones open in later versions.</div>";
       gates.forEach(function (g) {
         var qs = g.quests || [], open = cur && cur.g === g;
         html += "<details" + (open ? " open" : "") + "><summary>" + esc(g.name) + (g.status !== "open" && !(g.id === "murk" && AO.path && AO.path.finaleUnlocked && AO.path.finaleUnlocked()) ? " 🔒" : (function () { var req = qs.filter(function (q) { var n = AO.path && AO.path.quest(q.id); return !(n && n.optional); }); return req.length && req.every(function (q) { return done[q.id]; }); })() ? " ✔" : (function () { var n = qs.filter(function (q) { return done[q.id]; }).length; return n ? " (" + n + "/" + qs.length + " cleared)" : ""; })()) + "</summary>";

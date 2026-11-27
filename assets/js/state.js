@@ -39,8 +39,8 @@
       var B = window.AO_BASE || "./";
       h.innerHTML =
         "<nav class='ao-hud-nav' aria-label='Course navigation'>" +
-          "<a class='ao-mapbtn' href='" + B + "index.html'>◀ Map</a>" +
-          "<a href='" + B + "start-here.html'>Start Here</a>" +
+          "<a class='ao-mapbtn' href='" + B + "index.html'>◀ Start Here</a>" +
+          "<a href='" + B + "background.html'>Background</a>" +
           "<button id='ao-logbtn' aria-expanded='false' aria-controls='ao-log'>Quest Log ▾</button>" +
           "<a href='" + B + "lore.html'>Lore</a>" +
         "</nav>" +
