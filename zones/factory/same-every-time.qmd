@@ -54,7 +54,7 @@ def label_sample(text):
 
 - [Where Machines Fail](../codon-mill/where-machines-fail.html): why an LLM's output can change or be wrong.
 - [Keep Secrets Out of Reach](../crypt/secrets-and-sensitive-ground.html): what data may leave your machine.
-- [Boss: Review Large Output](../maze/wall-of-output.html): pinning tool versions and other pipeline checks.
+- [Dry Run First](dry-run-first.html): pinning tool versions and other pipeline checks.
 :::
 
 ::: {.ao-lore}

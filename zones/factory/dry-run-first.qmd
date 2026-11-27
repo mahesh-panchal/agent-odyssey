@@ -1,5 +1,7 @@
 ---
 title: "Dry Run First"
+aliases:
+  - read-the-rails.html
 ---
 
 ::: {.ao-story}
@@ -58,6 +60,25 @@ Check in layers, cheapest first:
 A passing stub run shows that the declared steps and outputs line up. Look at each connection to confirm it is the one you meant. Only the tiny real input with ground truth shows that the commands and results are correct.
 :::
 
+## Read the rule before you run it
+
+Step 1 needs something to look for. A **rule** is one step of a Snakemake pipeline: it names the inputs, outputs and command. The mistakes below apply to Nextflow too. This rule has the first two:
+
+```python
+rule count_lines:
+    input: "/home/alice/data/sample1.fastq"
+    shell: "wc -l {input} > counts.txt"
+```
+
+Four mistakes turn up most in agent-written pipelines:
+
+- **Hard-coded path:** a path to someone's home directory or to one sample, as in the rule above.
+- **Undeclared output:** the rule has no `output:` line, so the workflow manager cannot track `counts.txt` or build the next step from it.
+- **Unpinned tool version** (no fixed version stated): results change when the environment does.
+- **Overwritten input:** a step changes its input in place, so there is no way back.
+
+A rule can run and still give the wrong result, so you catch these by reading.
+
 ## Battle: layers of checking
 
 <div data-ao-test="factory-dry-run-first" data-xp="60"></div>
@@ -66,7 +87,6 @@ A passing stub run shows that the declared steps and outputs line up. Look at ea
 ## Related lessons
 
 - [Ground Truth](../maze/ground-truth.html): how to compute a check value the agent did not produce.
-- [Boss: Review Large Output](../maze/wall-of-output.html): four common mistakes to spot when you read agent-written pipeline rules.
 - [Jobs, Not Jam](../citadel/jobs-not-jam.html): sending checked work through a cluster scheduler.
 :::
 

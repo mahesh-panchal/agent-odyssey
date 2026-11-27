@@ -1,7 +1,5 @@
 ---
 title: "Boss: Review Large Output"
-aliases:
-  - ../factory/read-the-rails.html
 ---
 
 ::: {.ao-story}
@@ -31,9 +29,9 @@ Archivist Elowen checks the wall's totals against the ledger.
 :::
 
 ::: {.quest-dialog}
-- **Goal:** you will review a very large amount of agent output without reading all of it and without trusting all of it, and you will spot four common mistakes in agent-written pipeline rules.
+- **Goal:** you will review a very large amount of agent output without reading all of it and without trusting all of it.
 - **Before you start:** [Ground Truth](ground-truth.html). This is the boss at the end of the trunk.
-- **Time:** about 15 minutes. Each right answer on the first try damages the boss.
+- **Time:** about 10 minutes. Each right answer on the first try damages the boss.
 :::
 
 ## Too much output to review
@@ -53,25 +51,6 @@ A human check can fail in two ways. *Automation bias* is trusting the machine's 
 - offers approve, edit, veto and stop;
 - keeps a real decision point wherever results or other people are affected;
 - records the human step as part of the work's provenance (the record of where a result came from).
-
-## Read each piece for known flaws
-
-Small pieces help only if you know what to look for. Pipeline code is a common case. A **rule** is one step of a Snakemake pipeline: it names the inputs, outputs and command. This rule has the first two mistakes below:
-
-```python
-rule count_lines:
-    input: "/home/alice/data/sample1.fastq"
-    shell: "wc -l {input} > counts.txt"
-```
-
-Four mistakes turn up most in agent-written pipelines:
-
-- **Hard-coded path:** a path to someone's home directory or to one sample, as in the rule above.
-- **Undeclared output:** the rule has no `output:` line, so the workflow manager (the tool that runs the steps, such as Snakemake or Nextflow) cannot track `counts.txt` or build the next step from it.
-- **Unpinned tool version** (no fixed version stated): results change when the environment does.
-- **Overwritten input:** a step changes its input in place, so there is no way back.
-
-A rule can run and still give the wrong result, so you catch these by reading.
 
 ## Battle: large output
 
