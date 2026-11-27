@@ -44,7 +44,9 @@ seq2	6 GC of 10 total
 seq3	2 GC of 8 total
 ```
 
-Work out the percentages and compare them row by row with the script. One row differs: seq2. The seq3 row matches because both methods count the Ns in the total; whether they should is a decision for you to make. Then take the battle.
+Work out the percentages and compare them row by row with the script. One row differs: seq2. Its first six bases are lowercase (soft-masked, a way genome assemblies mark repeats), and the script counts only uppercase G and C, so it scores seq2 too low. seq1 is all uppercase with no N, which is why the agent's own test passed. The seq3 row matches because both methods count the Ns in the total; whether they should is a decision for you to make.
+
+Once a check shows a mismatch, investigate it and fix it. Then keep the failing input (here, a soft-masked sequence) as a permanent test, so the bug stays caught. Then take the battle.
 
 ## Say what the agent did
 

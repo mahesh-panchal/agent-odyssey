@@ -41,9 +41,10 @@ An agent can produce thousands of lines of diff (the list of lines a change adde
 Instead, accept only what you can check:
 
 - Keep a **review budget**: ask for no more than you can honestly review today. Bulk low-quality output is called *slop*.
-- Ask for smaller pieces.
+- Ask for smaller pieces, and ask for a plan before any code, so you can redirect it while that costs little.
 - Ground each piece in a check.
-- Pass on only work you have read yourself.
+- Pass on only work you have read yourself and can explain in your own words.
+- Check what happened to the tests. An agent can make "all tests pass" true by weakening or deleting failing tests.
 
 A human check can fail in two ways. *Automation bias* is trusting the machine's output too readily. *Rubber-stamping* is approving without reading. An "approve each item" step at hundreds of items an hour turns into clicking through. A check that works:
 
