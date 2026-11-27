@@ -2,7 +2,7 @@
 title: "Agent Odyssey"
 ---
 
-<p class="ao-start-here"><a class="ao-start-btn" href="start-here.html">New here? Start Here ▶</a><br>A short guide to the path, with a map of every quest and your next step.</p>
+<p class="ao-start-here">This is the start. Meet the party, then walk the map. <a href="background.html">Background</a> explains the story names, what each area covers and how the course is laid out.</p>
 
 ::: {.ao-story}
 Gaia's Rest stands at the root of the great tree, and tonight it is loud. Boasters at the bar swear they raised whole pipelines overnight, finished analyses before the ink dried, and did it all by making a pact with an Astral, a spirit that speaks every tongue (here, a language model). In a dark corner a few patrons say nothing of the kind, and when they speak at all they whisper of what the Blight did to them. An old wanderer slides a Summoning Scroll across the table, and four travellers lean in to read it.
@@ -48,7 +48,7 @@ Four travellers share the long table. Choose the one closest to your own work: t
 
 :::
 
-Open [Start Here](start-here.qmd) for the path. There is nothing to install yet: each lesson says when it needs a tool. Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold **▶ NEXT** marker is the suggested next stop. The map shows only the places on your path. More appear as you clear quests, or choose "Show the whole map" to see everything.
+Read [Background](background.qmd) for how the course is laid out and what each area covers. There is nothing to install yet: each lesson says when it needs a tool. Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold **▶ NEXT** marker is the suggested next stop. The map shows only the places on your path. More appear as you clear quests, or choose "Show the whole map" to see everything.
 
 <p id="ao-next" class="ao-next" aria-live="polite"></p>
 
@@ -58,9 +58,9 @@ Open [Start Here](start-here.qmd) for the path. There is nothing to install yet:
 
 <details class="ao-textlist"><summary>Text-only list of zones</summary>
 
-- [Start Here (the path and your next step)](start-here.qmd)
+- [Background (the story names, the areas and your path)](background.qmd)
 - [Gaia's Rest](zones/basecamp/name-the-fears.qmd)
-- [The Kennel](zones/kennel/recruit-the-beast.qmd)
+- [The Collegium](zones/kennel/recruit-the-beast.qmd)
 - [Ancient DNA Crypt](zones/crypt/shield-of-undo.qmd)
 - [The Codon Mill](zones/codon-mill/tokens-not-letters.qmd)
 - [Sequence Maze](zones/maze/spot-the-mirage.qmd)

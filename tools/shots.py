@@ -72,13 +72,13 @@ def with_state(B, url, ids):
     B.go(base + "index.html"); B.js("localStorage.setItem('agent-odyssey:v1:state', %s)" % json.dumps(json.dumps(st))); B.go(base + url)
 _B3 = [b["id"] for b in _G["branches"]][:3]
 SHOTS += [
-    page("path-start-here-wide", "start-here.html", 1400, 1800),
-    page("path-start-here-narrow", "start-here.html", 600, 2400),
-    ("path-start-here-midgame-wide", (1400, 1800), lambda B: with_state(B, "start-here.html", _ids(True, _B3[:1]))),
-    ("path-start-here-unlocked-wide", (1400, 1800), lambda B: with_state(B, "start-here.html", _ids(True, _B3))),
+    page("path-start-here-wide", "background.html", 1400, 1800),
+    page("path-start-here-narrow", "background.html", 600, 2400),
+    ("path-start-here-midgame-wide", (1400, 1800), lambda B: with_state(B, "background.html", _ids(True, _B3[:1]))),
+    ("path-start-here-unlocked-wide", (1400, 1800), lambda B: with_state(B, "background.html", _ids(True, _B3))),
     ("path-map-unlocked-wide", (1400, 900), lambda B: with_state(B, "index.html", _ids(True, _B3))),
-    ("path-start-path-wide", (1400, 1200), lambda B: with_state(B, "start-here.html", _ids(True, _B3[:1]))),
-    ("path-start-path-narrow", (500, 1600), lambda B: fresh(B, "start-here.html")),
+    ("path-start-path-wide", (1400, 1200), lambda B: with_state(B, "background.html", _ids(True, _B3[:1]))),
+    ("path-start-path-narrow", (500, 1600), lambda B: fresh(B, "background.html")),
     page("path-finale-sealed-wide", "zones/murk/clear-the-murk.html", 1400, 1800),
     page("path-finale-sealed-narrow", "zones/murk/clear-the-murk.html", 600, 2400),
     ("path-finale-unlocked-wide", (1400, 1800), lambda B: with_state(B, "zones/murk/clear-the-murk.html", _ids(True, _B3))),

@@ -1,8 +1,10 @@
 ---
-title: "Start Here"
+title: "Background"
+aliases:
+  - start-here.html
 ---
 
-Agent Odyssey is a short role-playing course on using coding agents (LLM tools that read and run code for you) safely in bioinformatics work. You need no LLM experience, and nothing here asks you to use these tools. It shows how to use them with care if you choose to.
+This page explains how Agent Odyssey is laid out. Agent Odyssey is a short role-playing course on using coding agents (LLM tools that read and run code for you) safely in bioinformatics work. You need no LLM experience, and nothing here asks you to use these tools. It shows how to use them with care if you choose to.
 
 ## Before you begin
 
@@ -29,6 +31,27 @@ The story uses a few names. The lessons themselves use plain technical words.
 - **The Blight:** plausible but false output that spreads when nobody checks it.
 :::
 
+## What each area covers
+
+::: {.ao-key}
+Each area of the map has one theme and one or more guides who teach it.
+
+| Area | Theme | Guide |
+|---|---|---|
+| Gaia's Rest | The tavern where you start: fears, and the tales of people the Blight caught | Wanderer Quill |
+| The Collegium | Understanding the creatures and the pact: the three kinds, the parts of a pact, what to hand over, installing your agent, choosing models | Sage Maelis; Tinker Pell; Beastmaster Wyn |
+| Ancient DNA Crypt | Wards: undo, permissions, the sandbox and secrets | Warden Hesper |
+| The Codon Mill | How an Astral reads: tokens, failures, the context window and memory | Miller Garrick; Scribe Linnea |
+| Sequence Maze | Trust: spotting false output, checking it and keeping a record | Cartographer Vesna |
+| Phylogenetic Forest | Instructing and packaging: briefs, plans, instruction files, skills, plugins and tests | Surveyor Rowan; Smith Dunmore; Hunter Cass |
+| The Gatehouse | Guards: connecting tools safely and enforcing rules in code | Watchman Corin |
+| Biodiversity Reef | People: the Blight festers here, and you help clean it up by handing over, reviewing and teaching | Tidewarden Nerys; Diver Kai; Net-mender Joss |
+| Pipeline Factory | Craft: agents on pipelines, and reproducibility | Tinker Pell |
+| The Scriptorium | Notebooks: reviewing and re-running them | Record Keeper Ansel |
+| The Cluster Citadel | Shared ground: clusters, keys and other people's queues | Gatekeeper Brisa; Queue Master Fenn |
+| The Murk's Heart | The final boss: review one messy session | Sage Maelis |
+:::
+
 ## How it works
 
 - **Walk the trunk.** It is <span data-ao-n="trunk">16</span> quests in order, from fears and kinds of machine to your first agent and trust in output. The boss, Review Large Output, ends it.
@@ -52,4 +75,4 @@ This course covers a small part of what these tools can do. The [Claude Code doc
 
 For research-specific guidance, [AI for Science](https://aiforscience.eu/) collects draft best practices for agentic AI in science from European task forces and institutions, and has a one-page [short version](https://aiforscience.eu/short-version/). The practices are drafts with no endorsements yet, and several are written for institutions and funders. Nine quests draw on one practice each: Script, Model, or LLM, Advice or Enforcement, Keep Secrets Out of Reach, Turn Mistakes into Tests, Ground Truth, Connect an MCP Server, Block Actions with a Hook, Boss: Review Large Output and Write an Instructions File.
 
-Back to [the overworld map](index.qmd).
+Back to [Start Here, the map](index.qmd).

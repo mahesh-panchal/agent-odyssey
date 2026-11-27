@@ -16,7 +16,7 @@ Using an agent is always your choice. The course shows how to do it with care, a
 
 ## How to walk it
 
-Open **Start Here** on the site. The path is a trunk, then branches, then a final boss:
+Open the site's landing page, **Start Here**, and walk the map. **Background** explains the story names, the areas and the path. The path is a trunk, then branches, then a final boss:
 
 - **Trunk (16 quests):** worries and habits, kinds of machine, how much to hand over (a step-by-step way in that needs no agent), an undo point, your first agent, a test of its permissions, rules for them, secrets, tokens and failure modes, the context window, and trust in output (including keeping a paper trail). It ends with the mid-boss, the Wall of Output.
 - **Eight branches, by interest:** memory and sessions, skills and plugins, guards (MCP and hooks), pipelines, notebooks, shared clusters, working with people, and models and cloud.

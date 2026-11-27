@@ -69,7 +69,9 @@ gates:
        quests: [
          { id: basecamp-name-the-fears, after: [], suggested: [], branch: trunk, trunk: true, optional: false, title: "Name the Fears", page: zones/basecamp/name-the-fears.html,
            story: "The boasters have gone to bed, and the corner by the hearth has grown loud.",
-           done: "Each fear has a name and a counter-habit. You travel knowing what you are guarding against." },
+           done: "Each fear has a name and a counter-habit. You travel knowing what you are guarding against." } ] }
+  K: { id: kennel,   name: "The Collegium",         track: "Pacts", status: open,
+       quests: [
          { id: basecamp-three-kinds-of-machine, after: [basecamp-name-the-fears], suggested: [], branch: trunk, trunk: true, optional: false, title: "Script, Model, or LLM", page: zones/basecamp/three-kinds-of-machine.html,
            story: "The Collegium rings with work from dawn. In one college tinkers hammer Automata together out of brass and patience, in another beastmasters drill Familiars to hunt a single quarry, and in the sages' college robed figures bargain pacts with Astrals.",
            done: "You can choose the right machine, and sometimes the right machine is a plain script." },
@@ -78,9 +80,7 @@ gates:
            done: "You can tell model from harness, and name what each fitting does and does not guarantee." },
          { id: basecamp-wade-in, after: [basecamp-know-your-gear], suggested: [], branch: trunk, trunk: true, optional: false, title: "Choose What to Hand Over", page: zones/basecamp/wade-in.html,
            story: "In a corner of Gaia's Rest, four travellers each picture what a pact with an Astral could do for them, and then the doubts arrive. The boasters at the bar say you cross the stream at the Astral's side or you stay on the bank.",
-           done: "You can name the step you are on, what leaves your machine at it, and why you may stop there." } ] }
-  K: { id: kennel,   name: "The Collegium",         track: "Pacts", status: open,
-       quests: [
+           done: "You can name the step you are on, what leaves your machine at it, and why you may stop there." },
          { id: kennel-recruit-the-beast, after: [crypt-shield-of-undo], suggested: [], branch: trunk, trunk: true, optional: false, title: "Set Up Your Agent", page: zones/kennel/recruit-the-beast.html,
            story: "You return to the Collegium, where the sages' college smells of ink and hot brass. An academic unrolls the Summoning Scroll you were given at Gaia's Rest and reads it aloud, turning each rune into a step: this is how a pact is made.",
            done: "The pact is made. Your Astral stirs and falls in beside you, powerful, and it will do exactly what its permissions allow." },

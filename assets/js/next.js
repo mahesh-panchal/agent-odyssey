@@ -68,7 +68,7 @@
       } else {
         h += "<p>The Murk is cleared. Every quest stays open to revisit.</p>";
       }
-      h += "<p class='ao-soft'><a href='" + base + "start-here.html'>Your path</a> · <a href='" + base + "index.html'>Map</a></p>";
+      h += "<p class='ao-soft'><a href='" + base + "background.html'>Your path</a> · <a href='" + base + "index.html'>Start Here (map)</a></p>";
       block.innerHTML = h;
       var mm = block.querySelector(".ao-minimap");
       if (mm && AO.minimap) AO.minimap.render(mm.getAttribute("data-gate"), mm, { current: mm.getAttribute("data-current") });
@@ -79,7 +79,7 @@
       if (P.finaleUnlocked() || passed(FINALE)) { notice.hidden = true; notice.innerHTML = ""; return; }
       var r = P.remainingForFinale(), h = "<p><strong>The Murk's Heart is still sealed.</strong> The path suggests finishing these first. You can read on if you like.</p><ul>";
       r.trunk.forEach(function (q) { h += "<li>Trunk: <a href='" + base + q.page + "'>" + esc(q.title) + "</a></li>"; });
-      if (r.branchesNeeded) h += "<li>Finish " + r.branchesNeeded + " more branch" + (r.branchesNeeded === 1 ? "" : "es") + ". See <a href='" + base + "start-here.html'>Start Here</a>.</li>";
+      if (r.branchesNeeded) h += "<li>Finish " + r.branchesNeeded + " more branch" + (r.branchesNeeded === 1 ? "" : "es") + ". See <a href='" + base + "background.html'>Background</a>.</li>";
       notice.innerHTML = h + "</ul>"; notice.hidden = false;
     }
 
@@ -94,7 +94,7 @@
       var done = P.branches().filter(function (b) { return b.complete; }).map(function (b) { return esc(b.name); });
       var extra = document.createElement("div"); extra.className = "ao-ending-extra";
       extra.innerHTML = "<p>You cleared " + cleared + " of " + ids.length + " quests" + (done.length ? " and finished " + (done.length === 1 ? "the branch " : "the branches ") + done.join(", ") : "") + ".</p>" +
-        "<p><a href='" + base + "start-here.html'>Back to Start Here</a></p>";
+        "<p><a href='" + base + "background.html'>Back to Background</a></p>";
       ending.appendChild(extra);
     }
 

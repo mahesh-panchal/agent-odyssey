@@ -66,7 +66,7 @@ try:
     check("clean run passes and awards XP", B.js("AO.state.xp") == 50 and B.js("!!AO.state.passed['crypt-shield-of-undo']"), B.js("JSON.stringify(AO.state)"))
     B.go(base + "zones/crypt/shield-of-undo.html"); B.press("m", 1.0)
     check("M key returns to the map from a quest page", B.js("location.pathname").endswith("index.html") or B.js("location.pathname") == "/", B.js("location.pathname"))
-    check("Map button is the first HUD item", B.js("document.querySelector('#ao-hud').firstElementChild.textContent.includes('Map')"))
+    check("Map button is the first HUD item", B.js("document.querySelector('#ao-hud').firstElementChild.textContent.includes('Start Here')"))
     # --- every quest page in the story data loads a test bank ---
     quests = json.loads(B.js("fetch('/assets/data/world.json').then(r=>r.json()).then(w=>JSON.stringify(Object.values(w.gates).flatMap(g=>g.quests||[])))"))
     for q in quests:

@@ -1,4 +1,4 @@
-/* Start Here: a short path (where you are, the next few steps), the branches, and the whole course as a vertical list.
+/* Background: a short path (where you are, the next few steps), the branches, and the whole course as a vertical list.
    Everything is built from the path graph in world.json, so it works without any picture. */
 (function () {
   var host = document.getElementById("ao-start-path");

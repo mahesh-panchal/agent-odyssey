@@ -1,4 +1,4 @@
-"""Lint learner-facing prose in zones/**/*.qmd (and start-here.qmd).
+"""Lint learner-facing prose in zones/**/*.qmd (and background.qmd).
 
 Errors (exit 1): maintainer labels and caveat boxes in lesson text, mid-text references to other quests.
 Warnings (with --warn): attribution, X-not-Y contrast phrasing and bold run-in paragraphs.
@@ -60,7 +60,7 @@ def body_of(text):
 
 def main():
     errs = warns = 0
-    files = sorted((ROOT / "zones").rglob("*.qmd")) + [ROOT / "start-here.qmd"]
+    files = sorted((ROOT / "zones").rglob("*.qmd")) + [ROOT / "background.qmd"]
     strict = "--warn" in sys.argv
     for f in files:
         rel = str(f.relative_to(ROOT))
@@ -71,7 +71,7 @@ def main():
                 if re.search(pat, line):
                     print(f"ERROR {rel}: {why}: {line.strip()[:110]}"); errs += 1
             for t in TITLES:
-                if f.name != "start-here.qmd" and quests.get(rel) != t and re.search(r"(\*|\[|“|\")" + re.escape(t) + r"(\*|\]|”|\")", line):
+                if f.name != "background.qmd" and quests.get(rel) != t and re.search(r"(\*|\[|“|\")" + re.escape(t) + r"(\*|\]|”|\")", line):
                     print(f"ERROR {rel}: mid-text reference to '{t}': {line.strip()[:90]}"); errs += 1
             if strict:
                 for pat, why in WARN:
