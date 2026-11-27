@@ -12,9 +12,9 @@ You walk back to the mill, where Miller Garrick keeps a ledger of what each visi
 - **Time:** about 20 minutes.
 :::
 
-A plan gives you a fixed allowance, and a long session can spend a day's worth before lunch. You will be able to see where the allowance goes and cut the biggest items. You need this now because every later quest runs in a session that these habits keep small.
+A subscription plan gives you an allowance of usage that resets over time, and a long session can spend a large share of it before lunch. You will be able to see where the allowance goes and cut the biggest items. You need this now because every later quest runs in a session that these habits keep small.
 
-Session usage (how much of your allowance a session consumes) counts against plan limits with a subscription. With an API key it is billed per token, and a thinking token, which the model spends reasoning before it answers, counts as an output token.
+**Session usage** is how much of your allowance a session consumes. With a subscription it counts against your plan limits. With an API key (a credential that bills you per token) you pay for every token. Input tokens are the text the model reads and output tokens are the text it writes. A thinking token, which the model spends reasoning before it answers, counts as an output token. If you are unsure which you use, `/usage` shows plan bars with a subscription.
 
 ## Why usage climbs
 
@@ -24,11 +24,11 @@ Claude Code (a coding agent that runs in your terminal) sends the whole conversa
 - **Large tool output:** a 10,000-line log read into the conversation stays there, and is re-read on every later request.
 - **Subagents:** a subagent (a helper agent with its own context window) sends its own requests on top of yours.
 - **Compaction:** `/compact` (replace the history with a summary) reads the whole conversation to write the summary, so compacting a large context is itself a large request.
-- **A cold cache:** the first message after a long break re-processes the full context (next section).
+- **An expired cache:** the first message after a long break re-processes the full context (explained in the next section).
 
 ## The cache and the break
 
-The **prompt cache** is a short-term store on the server. Each request starts with the same text as the one before it, so the server re-reads that start at a cheaper rate and fully processes only what is new. Cache entries expire after a period of inactivity.
+The **prompt cache** is a short-term store on the model provider's servers. Each request starts with the same text as the one before it, so the provider reuses its saved work on that start at a cheaper rate and fully processes only what is new. A cache that still holds your history is **warm**, and one that has expired is **cold**. Cache entries expire after a period of inactivity.
 
 | Where the request is billed | Main-conversation cache lifetime |
 |---|---|
@@ -41,7 +41,7 @@ Some actions also empty the cache, because each model has its own cache and the 
 
 - Switching model with `/model` (the next request reads the whole history with no cache hits).
 - Changing effort level, on models where each level has its own cache.
-- Connecting or removing an MCP server, enabling or disabling a plugin, or compacting.
+- Compacting, and connecting or removing an MCP server when tool search (loading a tool's definition only when needed) is off.
 
 Pick your model and effort at the start of a session, and save `/compact` for a natural break between tasks. While the cache is warm, a `/compact` costs a fraction of what the context size suggests. After a break longer than the cache lifetime, it costs the most.
 
@@ -49,10 +49,10 @@ Pick your model and effort at the start of a session, and save `/compact` for a 
 
 1. **Clear between unrelated tasks.** `/clear` starts a new conversation and costs nothing. A session that holds three unrelated tasks re-reads all three on every turn of the fourth. Run `/rename` first if you want to find the old session again.
 2. **Write specific prompts.** "Add input validation to the `load_samples` function in `qc.py`" lets the agent read one file. "Improve this code" sends it scanning.
-3. **Keep outputs small.** Ask for the last 20 lines of a log, a count, or a pass or fail summary, so the full text never enters the conversation.
+3. **Keep outputs small.** Ask the agent for the last 20 lines of a log, a count, or a pass or fail summary, or run `tail -n 20 build.log` yourself, so the full text never enters the conversation.
 4. **Compact on purpose.** `/compact` with a focus note, as in `/compact keep the failing sample IDs and the fix we chose`, tells the summary what to keep. Do it at a break between tasks.
-5. **Trim what loads.** Run `/context` to see what fills the window. Disable tool servers you are not using (`/mcp` lists them), and keep `CLAUDE.md` (the instructions file) under about 200 lines.
-6. **Delegate bulk reading.** Ask for a subagent to read a large log or document and return a summary. The verbose text stays in its context. Its requests still count toward your usage, and a smaller model for a simple subagent lowers that cost.
+5. **Trim what loads.** The **starting load** is what is already in the window before you type. Run `/context` to see it. Each connected tool server (an MCP server) adds its tool names and instructions to it, so disable servers you are not using (`/mcp` lists them). Keep `CLAUDE.md` (the instructions file the agent loads every session) under about 200 lines.
+6. **Delegate bulk reading.** Ask in plain words, such as "use a subagent to read build.log and summarise the errors". The subagent reads the large log or document and returns a summary. The verbose text stays in its context. Its requests still count toward your usage, and a smaller model for a simple subagent lowers that cost.
 7. **Match model and effort to the job.** A smaller model, or a lower effort level (how long the model reasons), costs less for simple tasks.
 
 ## Measure it
@@ -62,21 +62,21 @@ Pick your model and effort at the start of a session, and save `/compact` for a 
 ## Claude Code
 
 1. Run `/usage`. Under **Session** it shows tokens and an estimated cost, worked out locally at list price. That total resets on `/clear`.
-2. With a subscription, read the plan usage bars and the breakdown below them. The breakdown recommends a change for any behaviour behind 10% or more of your recent usage. If your plan shows no bars, your plan reports no limits there.
-3. Newer versions add a **Prompt cache** line to the Session block. It shows the share of input read from cache and whether the cache is warm or cold. If it is missing, your version is older.
+2. With a subscription, read the plan usage bars and the breakdown below them. The breakdown recommends a change for any behaviour behind 10% or more of your recent usage.
+3. Version 2.1.251 and later add a **Prompt cache (main)** line to the Session block. It shows the share of input read from cache and whether the cache is warm or cold for the main conversation. If it is missing, your version is older.
 4. Run `/context` for what fills the window right now.
 
-If `/usage` says "rate limited until ...", Claude Code could not fetch your plan limits. Your work is not limited.
+If `/usage` says "rate limited until ...", Claude Code could not fetch your plan limits. The message says only that the limits could not be fetched.
 
 ## OpenCode + Ollama
 
-A local Ollama model has no per-token bill, and its window is still finite. Run `ollama ps` while the model is loaded: **CONTEXT** is the window the server set aside, and **SIZE** is the memory it uses. Habits 1 to 3 and 6 apply to any tool. OpenCode sets automatic compaction under `compaction` in `opencode.jsonc` (`auto`, `keep.tokens` and `buffer`). Run `/help` in OpenCode to see your version's commands for starting a new session and compacting.
+(Skip this tab if you use Claude Code.) A local Ollama model has no per-token bill, and its window is still finite. Run `ollama ps` while the model is loaded: **CONTEXT** is the window the server set aside, and **SIZE** is the memory it uses. Habits 1 to 3 and 6 apply to any tool. OpenCode sets automatic compaction under `compaction` in `opencode.jsonc` (`auto`, `keep.tokens` and `buffer`). Check OpenCode's documentation for your version's commands for starting a new session and compacting.
 
 :::
 
 ## Hands-on: one habit, measured
 
-1. In a session you already have, run `/usage` and `/context`. Write down the biggest item in each.
+1. In a session you already have, type `/usage` and `/context` into the agent. Write down the largest token figure in `/usage` and the largest item in `/context`.
 2. Pick one habit above that targets it. Examples: disable an unused tool server, shorten `CLAUDE.md`, or `/clear` before an unrelated task.
 3. Do your next task with that habit. Then run `/context` in the fresh or trimmed session and compare the starting load.
 

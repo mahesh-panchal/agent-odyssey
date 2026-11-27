@@ -219,11 +219,53 @@ def boss_murk_cleared():
     sparkle(d, 9, 14); sparkle(d, 40, 11)
     return im
 
+def boss_unbound():
+    """The Unbound Astral: a sea-serpent Astral rising from dark water, its binding ring broken, unverified 'facts' floating around it."""
+    import math
+    im = Image.new("RGBA", (B, B), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    ink, body, belly, eye = P["ink"], "#2f6f6a", "#6fb3a6", BP["fog"][4]
+    pts = []
+    for i in range(40):
+        t = i / 39.0
+        pts.append((5 + t * 31, 33 + 7 * math.sin(t * 2 * math.pi * 1.2 + .6), 3.2 + 3.2 * t))
+    for x, y, r in pts: d.ellipse([x - r - 1, y - r - 1, x + r + 1, y + r + 1], fill=ink)
+    for x, y, r in pts: d.ellipse([x - r, y - r, x + r, y + r], fill=body)
+    for x, y, r in pts[::2]: d.ellipse([x - r * .5, y + r * .2, x + r * .5, y + r * .8], fill=belly)
+    # head, jaw open, teeth
+    d.ellipse([30, 14, 46, 30], fill=ink); d.ellipse([31, 15, 45, 29], fill=body)
+    d.polygon([(33, 25), (46, 27), (45, 31), (34, 31)], fill=ink)
+    for x in (36, 39, 42): d.polygon([(x, 26), (x + 1, 26), (x, 29)], fill="#ffffff")
+    d.rectangle([35, 18, 37, 20], fill=eye); d.rectangle([41, 18, 43, 20], fill=eye)
+    d.line([34, 15, 31, 11], fill=body, width=2); d.line([44, 15, 46, 11], fill=body, width=2)
+    # broken binding ring behind the head
+    d.arc([26, 8, 47, 29], 200, 330, fill=P["glow"], width=1); d.arc([26, 8, 47, 29], 350, 60, fill=P["glow"], width=1)
+    # dark water
+    for y in range(37, B):
+        for x in range(B):
+            if (y + (x // 3) % 2) % 5 == 0 or y > 43: d.point((x, y), fill=P["water"][2] if y > 43 else P["water"][0])
+    d.rectangle([0, 44, B, B], fill=P["water"][2]); d.line([0, 43, B, 43], fill="#8fb8ea")
+    speech_bubble(d, 2, 5); speech_bubble(d, 14, 14); speech_bubble(d, 3, 22)
+    sparkle(d, 24, 6); sparkle(d, 20, 38)
+    return im
+
+def boss_unbound_cleared():
+    """The Astral bound again: a small calm wisp inside a chalk ring on still water."""
+    im = Image.new("RGBA", (B, B), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rectangle([0, 36, B, B], fill=P["water"][0]); d.line([0, 36, B, 36], fill="#8fb8ea")
+    for x in range(2, B, 7): d.line([x, 41, x + 3, 41], fill="#8fb8ea")
+    d.ellipse([10, 28, 38, 42], outline="#f0ead6", width=1)                           # chalk ring
+    d.ellipse([19, 14, 29, 28], fill=P["glow"], outline=P["ink"])                       # small calm Astral
+    d.rectangle([22, 19, 23, 20], fill=P["ink"]); d.rectangle([26, 19, 27, 20], fill=P["ink"]); d.line([23, 24, 26, 24], fill=P["ink"])
+    d.polygon([(24, 28), (21, 33), (27, 33)], fill=P["glow"])
+    for x, y in ((24, 8), (24, 9), (14, 14), (34, 14), (12, 24), (36, 24)): d.point((x, y), fill=BP["glow2"])
+    sparkle(d, 9, 12); sparkle(d, 40, 10)
+    return im
+
 save(boss_wall(0), OUT / "boss-wall.png")
 save(boss_wall(1), OUT / "boss-wall-cracked.png")
 save(boss_wall(2), OUT / "boss-wall-broken.png")
-save(boss_murk(), OUT / "boss-murk.png")
-save(boss_murk_cleared(), OUT / "boss-murk-cleared.png")
+save(boss_unbound(), OUT / "boss-unbound.png")
+save(boss_unbound_cleared(), OUT / "boss-unbound-cleared.png")
 
 # ---- Party portraits and creature kinds (96x96: twice the boss size, same palette, still pixel art) ----
 Q = 96

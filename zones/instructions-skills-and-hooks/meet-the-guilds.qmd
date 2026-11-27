@@ -32,11 +32,11 @@ Archivist Elowen counts which of the three can reach the raw data.
 - **Time:** about 15 minutes.
 :::
 
-Three kinds of extension come up again and again when you work with an agent: a Skill, an MCP server and a hook. Each does a different job, and picking the wrong one gives you a rule that sounds firm and does not hold. You need the overview before the next lessons teach each one in detail.
+Three kinds of extension come up again and again when you work with an agent: a Skill, an MCP server and a hook. Each does a different job. After this lesson you can say which one to reach for, and which one makes a rule hold.
 
 ## 1. A Skill carries a procedure
 
-A **Skill** is a folder with a `SKILL.md` file that holds a step-by-step procedure. At the start of a session the agent sees only the Skill's name and a short description. It reads the rest when the task matches, so a long procedure does not fill the **context** (the text the model can see at once) until it is needed.
+A **Skill** is a folder with a `SKILL.md` file that holds a step-by-step procedure. You keep it in your project or in your home folder, and it works with any agent that reads that format. At the start of a session the agent sees only the Skill's name and a short description. It reads the rest when the task matches, so a long procedure does not fill the **context** (the text the model can see at once) until it is needed.
 
 - **Example.** A Skill called `check-fasta` that says: count the records, list any duplicate sequence IDs, report what you ran, change nothing. You would use it before every analysis of a new FASTA file (a plain-text format for DNA or protein sequences).
 - **What it guarantees.** Nothing. A Skill is text, and text advises. The agent can skip the Skill or follow it loosely.
@@ -44,10 +44,10 @@ A **Skill** is a folder with a `SKILL.md` file that holds a step-by-step procedu
 
 ## 2. An MCP server connects the agent to another system
 
-The Model Context Protocol (**MCP**) is an open standard for connecting an agent to outside tools and data. An **MCP server** is a program that offers those tools to the harness.
+The Model Context Protocol (**MCP**) is an open standard for connecting an agent to outside tools and data. An **MCP server** is a program, running on your machine or elsewhere, that offers **tools** (functions the agent can call, such as a search) to the harness.
 
 - **Example.** A server that searches a literature database, or one that queries your lab's sample-tracking database. The agent can then call "search papers" or "look up sample" as tools.
-- **What it guarantees.** Capability, and no safety. A server runs as software you installed, with the access you gave it. Text it fetches, such as a web page, can contain instructions that the model then follows (**prompt injection**).
+- **What it guarantees.** Capability, and no safety. A server runs as software you installed, with the access you gave it. Text it fetches, such as a web page, can contain hidden instructions that the model may follow (**prompt injection**).
 - **Its job.** Reaching data and services the agent cannot reach on its own.
 
 ## 3. A hook makes a rule hold
@@ -55,22 +55,23 @@ The Model Context Protocol (**MCP**) is an open standard for connecting an agent
 A **hook** is a command you write that the harness runs automatically at a set point, such as just before the agent runs a tool. The hook's **exit code** (the number a script returns when it finishes) decides what happens next: code 2 before a tool call blocks the call, whatever the model wants.
 
 - **Example.** A hook that refuses any shell command that touches the `data/raw/` folder.
-- **What it guarantees.** Enforcement, within its limits. A hook covers only the events and tools it is attached to. A hook that fails with an exit code other than 2 does not block anything.
+- **What it guarantees.** Enforcement, within its limits. A hook covers only the points (events) and tools you attach it to. A hook that fails with any exit code other than 2 reports an error and does not block the call.
 - **Its job.** Making a rule hold when advice is not enough.
 
 ## Side by side
 
 | Extension | Job | Example | Advises or enforces |
 |---|---|---|---|
+| Instructions file | Standing rules for a project | "Never edit `data/raw/`" | Advises |
 | Skill | Carry a repeatable procedure | `check-fasta` before an analysis | Advises |
 | MCP server | Reach another system | Literature or sample-database search | Adds capability, and needs your trust |
 | Hook | Make a rule hold | Refuse commands that touch `data/raw/` | Enforces |
 
-An instructions file (the text file the harness loads at session start) advises too, like a Skill. When a rule must never be broken, use a hook. When a procedure repeats, use a Skill. When the agent needs a system it cannot reach, connect a server, and treat the server as software you are installing.
+An instructions file is a text file the harness loads at the start of every session, so it advises too. When a rule must never be broken, use a hook. When a procedure repeats, use a Skill. When the agent needs a system it cannot reach, connect a server, and treat the server as software you are installing.
 
 ## Do it: see what your own setup has
 
-Open your agent in a scratch folder (never a real project). Each command below only lists what is set up. An empty list is a normal result on a fresh install.
+This needs an agent installed as in Set Up Your Agent. Open it in a throwaway folder (never a real project). Each command below only lists what is set up. An empty list is a normal result on a fresh install.
 
 ::: {.panel-tabset group="companion"}
 
@@ -88,11 +89,11 @@ Outside a session, `claude mcp list` prints the servers with a health status.
 
 OpenCode reads Skills from the same `SKILL.md` folders. Start `opencode` and ask the agent which Skills it can see. A Skill is loaded through the agent's `skill` tool, so the agent can list them.
 
-For MCP servers, run `opencode mcp list` in the project folder, or `/mcps` inside OpenCode. OpenCode adds hooks through plugins: look in `.opencode/plugins` in the project and in `~/.config/opencode/plugins`. Check OpenCode's plugin docs for what a plugin can block before you rely on one.
+For MCP servers, run `opencode mcp list` in the project folder, or `/mcps` inside OpenCode. OpenCode adds hooks through plugins (add-on code loaded from set folders): look in `.opencode/plugins` in the project and in `~/.config/opencode/plugins`. Check OpenCode's plugin docs for what a plugin can block before you rely on one.
 
 :::
 
-<div data-ao-honour="extension-inventory" data-xp="20">Write one line for each of the three kinds: how many you found, and what each one does. For one item, say whether it advises, adds capability or enforces.</div>
+<div data-ao-honour="extension-inventory" data-xp="20">Write one line for each of the three kinds: how many you found, and what each one does. If a list is empty, write 0 and one job you would give that kind. For one item, or your imagined one, say whether it advises, adds capability or enforces.</div>
 
 ## Battle: three extensions
 

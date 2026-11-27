@@ -1,7 +1,7 @@
 # Privacy and unpublished work
 
 Date checked 2026-11-17. Official docs only, via a summarising fetch tool (quotes as returned).
-Question: what do the docs say about retention and training use, so the Crypt quest can advise on unpublished ideas and results. Feeds: zones/safe-editing/keep-secrets-out-of-reach.qmd; zones/collaboration/send-small-changes.qmd (disclosure section).
+Question: what do the docs say about retention and training use, so the Keep Secrets Out of Reach quest can advise on unpublished ideas and results. Feeds: zones/safe-editing/keep-secrets-out-of-reach.qmd; zones/collaboration/send-small-changes.qmd (disclosure section).
 
 ## Claude Code data usage (https://code.claude.com/docs/en/data-usage, read 2026-11-17)
 - CONFIRMED training, consumer (Free, Pro, Max, Ultra): "We give you the choice to allow your data to be used to improve future Claude models." Anthropic trains new models on data from these accounts "when this setting is on (including when you use Claude Code from these accounts)".

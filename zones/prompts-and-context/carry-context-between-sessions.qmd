@@ -21,9 +21,9 @@ You will meet this gap in every long task. If you write down what matters, a fre
 Only some things reach a fresh session without you typing them.
 
 1. **The instructions file** (`CLAUDE.md` in Claude Code). A file **you** write, loaded at the start of every session. Good for stable facts and conventions: how to run the tests, which folders are off limits.
-2. **Auto memory.** Notes the **harness** (the program around the model) writes itself, from your corrections and preferences. In Claude Code, `/memory` lists and opens them.
+2. **Auto memory.** Notes the **harness** (the agent program around the model, such as Claude Code) writes itself, from your corrections and preferences. In Claude Code, `/memory` lists and opens them.
 3. **Files in the repository** (the project folder under version control): code, tests, a README and, if you keep one, a progress or handoff file.
-4. **Git history.** A **commit** is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when. It is durable unless someone rewrites it (with commands that replace past commits, such as `git rebase`, `git commit --amend` or `git push --force`), and unpushed commits are local only.
+4. **Git history.** A **commit** is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when, and it lasts.
 5. **Your handoff note.** A short file about the state of one task, written for the next session.
 
 | What | Goes where | Lifetime | Who writes it | Trust |
@@ -32,7 +32,7 @@ Only some things reach a fresh session without you typing them.
 | Preferences the harness picked up | Auto memory | Until deleted | The harness | Medium: it can be wrong |
 | What the files say now | Files in the repository | Until edited or deleted | You or the agent | Medium: files can be stale |
 | State of one task | Handoff note | Until the task is done | You, or the agent drafts and you review | Only as good as your review |
-| What changed, and why | Commit messages in git history | Durable unless rewritten; local until pushed | You or the agent | Reliable for what changed; the why is only as good as the message |
+| What changed, and why | Commit messages in git history | Durable | You or the agent | Reliable for what changed; the why is only as good as the message |
 
 Anything only said in chat is gone. That covers the decisions, what failed and why, and which sample misbehaved.
 
@@ -42,7 +42,7 @@ Starting fresh opens a new, empty conversation. Your files stay as they are. Nei
 
 **Start fresh when:**
 
-1. **The task is new and unrelated.** Run `/clear` between unrelated tasks. It drops the chat, so write down anything you need first. A name, as in `/clear oauth-migration`, labels the conversation you leave so you can find it again.
+1. **The task is new and unrelated.** Run `/clear` between unrelated tasks. It starts a clean conversation, and only what you wrote down travels with you, so write down anything you need first. A name, as in `/clear oauth-migration`, labels the conversation you leave so you can reopen it with `/resume` later.
 2. **The agent repeats a wrong claim after two corrections.** Clear, and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts.
 3. **The agent forgets early instructions or contradicts itself.** Start fresh, and move the instruction into the instructions file.
 4. **A task is finished and a verified result is committed.** The result lives in your files and in git, so the conversation has done its job.
@@ -52,7 +52,7 @@ Starting fresh opens a new, empty conversation. Your files stay as they are. Nei
 
 - **It is the same task and early decisions still matter.** The next step needs the same files, the decisions you made and what was already tried.
 - **The agent is on track.** Nothing is repeated or contradicted, and clearing a working session throws away good context.
-- **You are returning to a named session.** `/resume` (or `claude --resume <name>`) reopens a session you chose, and `claude --continue` reopens the most recent one in this directory. Resume restores the messages, the model and the permission mode (what the agent may do without asking). Pass startup flags such as `--mcp-config` again.
+- **You are returning to a named session.** `/resume` (or `claude --resume <name>`) reopens a session you chose, and `claude --continue` reopens the most recent one in this directory. Resuming with `claude --resume` or `claude --continue` restores the messages, the model and the permission mode (what the agent may do without asking).
 
 `/compact` replaces a long history with a summary and stays in the same conversation. It is a middle path for a crowded window on a task you still need.
 
@@ -60,7 +60,7 @@ Starting fresh opens a new, empty conversation. Your files stay as they are. Nei
 |---|---|
 | New task, unrelated to this conversation | `/clear` |
 | Same task, agent on track, plenty of room | Carry on |
-| Same task, crowded, early decisions matter | `/compact` with a focus note |
+| Same task, crowded, early decisions matter | `/compact`, naming what to keep |
 | Wrong claim repeated after two corrections | `/clear`, then one new prompt |
 | Back after a break, still need the conversation | `/resume` or `claude --continue` |
 | Back after a break, next task is new | Fresh session |
@@ -70,7 +70,7 @@ Starting fresh opens a new, empty conversation. Your files stay as they are. Nei
 
 Write down what only exists in the chat, and commit the result so the state is recoverable. Your files and memory remain, and the instructions file and auto memory load again in the new session. If you clear by mistake, `/resume` can reopen the old conversation.
 
-Write the note **before** you run `/clear`, because `/clear` drops the conversation. Pairing the note with a commit leaves a matching record in git.
+Write the note **before** you run `/clear`. You can write it yourself or ask the agent to draft it (the last section of this page covers drafts). If the note belongs to a repository, commit it with the result, so git holds a matching record.
 
 ## What a good handoff note contains
 
@@ -127,11 +127,9 @@ Replace the per-read loop in qc_filter.py with a vectorised version, same output
 Put the note in a file the next session can find. Two options:
 
 - A file in the repo, such as `HANDOFF.md`, if the team should see it.
-- A gitignored ordinary file you point to, if it is personal. This is the simpler choice.
+- A personal file that git ignores, such as `HANDOFF.local.md`, with its name added to `.gitignore` (the file that lists what git leaves out). This is the simpler choice. You point the next session at it by name.
 
-A `CLAUDE.local.md` file in the project's top-level folder (add it to `.gitignore`) holds private per-project preferences and loads after `CLAUDE.md`. It exists only in the worktree (separate checkout folder) where you created it.
-
-Anything loaded every session takes room in the window, so keep a handoff note out of `CLAUDE.md` and remove it once its task is done.
+Anything in `CLAUDE.md` loads every session and takes room in the window, so keep a handoff note out of it and let the next session read the note only when you ask.
 
 Then start the new session with a prompt like this:
 
@@ -141,11 +139,11 @@ The agent restates the goal and state in its own words, and you compare that wit
 
 You can ask the agent to draft the note at the end of a session. Review it yourself, since a draft can overstate what was verified ("all tests pass" when none were run in that session).
 
-Two more habits help a long task: make git commits with descriptive messages so bad changes can be reverted, and begin each session by reading the progress file and the recent git log, then run a basic check before new work.
+Two more habits help a long task: make git commits with descriptive messages so bad changes can be reverted, and begin each session by reading the progress file and the recent git log, then run the project's tests as a quick check before new work.
 
 ## When a wrong claim gets in
 
-Memory the harness wrote can be wrong, and a wrong line is loaded again every session. This is **context poisoning**: a wrong or injected statement enters the context and later answers build on it. The term is community vocabulary.
+Memory the harness wrote can be wrong, and a wrong line is loaded again every session. This is **context poisoning**: a wrong statement, perhaps planted in a web page the agent read, enters the context and later answers build on it.
 
 | Where the wrong claim sits | What clears it |
 |---|---|
@@ -172,7 +170,7 @@ Commands:
 
 ## OpenCode + Ollama
 
-Commands: `/new` (alias `/clear`), `/sessions` (aliases `/resume` and `/continue`), `/compact` (alias `/summarize`) and `/export`. The handoff note itself is just a file, so the practice carries over. Check OpenCode's documentation for how it loads project instructions and memory. A local model with a small window means starting fresh sooner, so keep the note short.
+Commands: `/new` starts a new session and `/sessions` lists earlier ones. Check OpenCode's documentation for compacting and export. The handoff note itself is just a file, so the practice carries over. Check OpenCode's documentation for how it loads project instructions and memory. A local model with a small window means starting fresh sooner, so keep the note short.
 
 :::
 

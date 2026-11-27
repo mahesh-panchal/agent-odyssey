@@ -3,17 +3,17 @@ questions:
     prompt: "Match each job to the extension that does it."
     explain: "A Skill carries a procedure, an MCP server reaches another system, and a hook makes a rule hold."
     pairs:
-      - { left: "Run the same record-count and duplicate-ID check before every analysis", right: "A Skill", misconception: "A repeating procedure is what a Skill packages. A hook would only block or allow single actions." }
+      - { left: "Run the same record-count and duplicate-ID check before every analysis", right: "A Skill", misconception: "A repeating procedure is what a Skill packages. A hook blocks an action and does not carry a procedure." }
       - { left: "Let the agent search a literature database it cannot reach by itself", right: "An MCP server", misconception: "Reaching an outside system needs a server that offers the tools. A Skill is text and adds no connection." }
       - { left: "Refuse every command that touches the raw data folder", right: "A hook", misconception: "A refusal that must hold needs code outside the model. A Skill or a line in a prompt can be ignored." }
   - type: sort
     prompt: "Sort each item by what it can guarantee."
-    bins: ["Advises", "Adds a connection", "Enforces"]
-    explain: "Text advises. A server adds a connection and runs as software you trust. A hook enforces within the events it is attached to."
+    bins: ["Advises", "Adds capability", "Enforces"]
+    explain: "Text advises. A server adds capability and runs as software you trust. A hook enforces at the points you attach it to."
     items:
       - { text: "The text of a SKILL.md file", bin: "Advises", misconception: "A Skill is read as text. The agent can skip it or follow it loosely." }
       - { text: "An instructions file loaded at session start", bin: "Advises", misconception: "An instructions file is text in the context, like a Skill. It cannot refuse a tool call." }
-      - { text: "A server that queries a sample-tracking database", bin: "Adds a connection", misconception: "A server adds a tool the agent can call. It enforces nothing and needs your trust." }
+      - { text: "A server that queries a sample-tracking database", bin: "Adds capability", misconception: "A server adds a tool the agent can call. It enforces nothing and needs your trust." }
       - { text: "A hook that exits with code 2 before a shell command", bin: "Enforces", misconception: "Exit code 2 before a tool call blocks the call, whatever the model wants." }
   - type: choice
     prompt: "A rule must hold whatever the model decides: never write to the raw data folder. Which extension fits?"
@@ -25,12 +25,12 @@ questions:
       - { text: "A sentence at the top of every prompt", misconception: "A sentence in a prompt is advice and can fall out of the context." }
   - type: choice
     prompt: "Which statement about an MCP server is true?"
-    explain: "A server runs as software you installed, with the access you gave it. Check it as you would check any program, and treat what it fetches with care."
+    explain: "A server runs as software you installed, with the access you gave it. Check it as you would check any program, and treat the text it fetches with care."
     options:
       - { text: "It runs as software you installed, with the access you gave it", correct: true }
       - { text: "It is safe because it only gives the agent tools to call", misconception: "A tool is code that acts on your behalf, and what it fetches can carry instructions." }
-      - { text: "It enforces your rules about what the agent may touch", misconception: "A server adds capability. Rules are enforced by permissions, hooks or a sandbox." }
-      - { text: "It loads into the context only when a task matches its description", misconception: "That describes a Skill. A server's tools are offered to the harness from the start." }
+      - { text: "It enforces your rules about what the agent may touch", misconception: "A server adds capability. A hook enforces a rule." }
+      - { text: "It loads into the context only when a task matches its description", misconception: "That describes a Skill. A server is a separate program that offers tools." }
   - type: faulty-line
     prompt: "A summary of the three extensions has one wrong line. Which?"
     explain: "A Skill loads in steps. Only its name and short description are visible at the start, and the body loads when the task matches."
@@ -38,7 +38,7 @@ questions:
       - { text: "A Skill's full text sits in the context from the start of the session", faulty: true }
       - { text: "A hook that exits with code 2 before a tool call blocks that call", why: "Exit code 2 is how a hook says block." }
       - { text: "An MCP server is software to install, so check it before you connect it", why: "A server acts with the access you gave it." }
-      - { text: "A hook protects only the events and tools it is attached to", why: "A call outside the hook's matcher is not checked by it." }
+      - { text: "A hook protects only the points and tools you attach it to", why: "A call outside those is not checked by it." }
   - type: choice
     prompt: "Your group runs the same quality checklist on every new FASTA file. Which extension carries that procedure?"
     explain: "A repeating procedure belongs in a Skill. The agent loads it when a task matches, and you write it once."

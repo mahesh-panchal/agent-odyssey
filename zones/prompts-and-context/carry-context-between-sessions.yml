@@ -5,7 +5,7 @@ questions:
     explain: "The instructions file holds stable rules you write. Auto memory holds notes the tool wrote itself. A handoff note holds the state of one task (what failed, what is next). Git history holds the commits and their messages."
     items:
       - { text: "Never edit files under raw_data/", bin: "Instructions file", misconception: "A standing rule that applies to every session belongs in the instructions file, which loads every session; a handoff note covers one task." }
-      - { text: "Prefers sample_id over id as the column name: a line you never typed, found listed by /memory after two corrections", bin: "Auto memory", misconception: "You did not write it and the harness decided to keep it, which is what makes it auto memory." }
+      - { text: "Prefers sample_id over id as the column name: a line you never typed, found listed by /memory", bin: "Auto memory", misconception: "You did not write it and the harness decided to keep it, which is what makes it auto memory." }
       - { text: "Tried a trim at Q15, it dropped 40% of reads, do not retry", bin: "Handoff note", misconception: "This is the state of one task and tells the next session what not to repeat. A standing rule would apply to all work." }
       - { text: "a1b2c3d qc: vectorise the mean-quality calculation", bin: "Git history", misconception: "A commit message is stored with the commit, in the repository history, so it does not belong in a notes file." }
       - { text: "Next step: rerun the filter on batch 2 with the new threshold", bin: "Handoff note", misconception: "A next step is only true until it is done. A stable instructions file would soon be wrong if it held it." }
@@ -57,5 +57,5 @@ questions:
     explain: "Each habit answers one risk: check what a draft claims, verify what the tool wrote itself, and compare a restatement with the real state before any edit."
     pairs:
       - { left: "The agent's draft note says 'all tests pass' but you never saw them run", right: "Run them yourself, or edit the line to say what was actually run", misconception: "Keeping the line because the agent wrote it passes an unchecked claim to the next session." }
-      - { left: "Auto memory holds a wrong column name that loads every session", right: "Read it with /memory and verify it before trusting it", misconception: "Memory is loaded as written; nothing checks it for you." }
+      - { left: "Auto memory holds a wrong column name that loads every session", right: "Check it against the data in /memory and delete the line if it is wrong", misconception: "Memory is loaded as written; nothing checks it for you." }
       - { left: "A fresh session may have misread the handoff note", right: "Ask for its restatement before any edits and compare it with the real state", misconception: "Letting it start work at once hides a misreading inside new edits." }

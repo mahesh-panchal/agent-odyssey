@@ -9,8 +9,8 @@ gitignored and rebuilt at pre-render.
 | `assets/img/boss-wall.png` | Maze boss, The Wall of Output (full health) | 48x48 | `make_art.py` | CC BY 4.0 |
 | `assets/img/boss-wall-cracked.png` | The Wall, damaged frame | 48x48 | `make_art.py` | CC BY 4.0 |
 | `assets/img/boss-wall-broken.png` | The Wall, broken frame | 48x48 | `make_art.py` | CC BY 4.0 |
-| `assets/img/boss-murk.png` | final boss, The Murk | 48x48 | `make_art.py` | CC BY 4.0 |
-| `assets/img/boss-murk-cleared.png` | The Murk cleared (ending screen) | 48x48 | `make_art.py` | CC BY 4.0 |
+| `assets/img/boss-unbound.png` | final boss, The Unbound Astral | 48x48 | `make_art.py` | CC BY 4.0 |
+| `assets/img/boss-unbound-cleared.png` | The Unbound Astral bound again (ending screen) | 48x48 | `make_art.py` | CC BY 4.0 |
 | `assets/img/persona-quartermaster.png` | Quartermaster Aris portrait (project or research manager), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
 | `assets/img/persona-diviner.png` | Diviner Ilsa portrait (bioinformatics analyst), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
 | `assets/img/persona-artificer.png` | Artificer Bob portrait (bioinformatics engineer), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
