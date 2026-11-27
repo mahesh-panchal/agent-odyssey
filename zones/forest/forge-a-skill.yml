@@ -39,12 +39,11 @@ questions:
       - { text: "Check how popular it is and read the reviews before installing", misconception: "Popularity is no substitute for review. A widely shared Skill can still contain harmful instructions or scripts." }
   - type: choice
     prompt: "A skill sits in your listing, but Claude never uses it. Which command shows whether it has ever been invoked, and what it costs in context?"
-    explain: "/skill-doctor reports per-skill context cost and usage and flags never-invoked skills. /skills lists them, and /permissions shows tool rules."
+    explain: "/skill-doctor reports per-skill context cost and usage and flags never-invoked skills. /skills lists them and sorts by token count. /reload-skills re-reads the folders."
     options:
       - { text: "/skill-doctor", correct: true }
-      - { text: "/permissions", misconception: "/permissions shows allow, ask and deny rules. It leaves out how often a skill is used." }
+      - { text: "/reload-skills", misconception: "It re-reads the skill folders. It reports no usage." }
       - { text: "/skills, which lists every skill with its call count", misconception: "/skills lists skills and can sort by token count. It leaves out how often each was invoked." }
-      - { text: "/hooks, which lists the skills hooked to each event", misconception: "/hooks shows configured hooks grouped by event, which is a different list from skills." }
   - type: choice
     prompt: "You want a Skill that checks FASTA files, and later another that trims adapters. How do you scope them?"
     explain: "A Skill with one job, a stated input and a stated output is easier to trigger, review and change. Mixed jobs blur the description."

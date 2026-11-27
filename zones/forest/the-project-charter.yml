@@ -10,10 +10,9 @@ questions:
   - type: sort
     prompt: "Which belong in a project instructions file?"
     bins: ["Belongs", "Leave out"]
-    explain: "Keep what the agent cannot guess and what stays true. Leave out secrets and long prose."
+    explain: "Keep what the agent cannot guess and what stays true. Leave out long prose."
     items:
       - { text: "The command that runs the test suite", bin: "Belongs", misconception: "A command the agent cannot guess is ideal content." }
-      - { text: "Your API key", bin: "Leave out", misconception: "Secrets stay out of a file that is read and often committed." }
       - { text: "'raw/ is read-only data. Never edit it.'", bin: "Belongs", misconception: "A boundary the agent should know, though enforce it with a deny rule too." }
       - { text: "A 40-page methods description", bin: "Leave out", misconception: "Long instructions are followed less well and fill the context." }
   - type: match

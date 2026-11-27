@@ -16,7 +16,7 @@ You have a Skill and need to know that the agent actually uses it. A Skill that 
 
 ## Set up the plugin folder
 
-`claude plugin eval` is the Claude Code command that runs eval cases against a plugin. It needs Claude Code **v2.1.269 or later**. It evaluates a **plugin directory**: a folder with `.claude-plugin/plugin.json`. To evaluate your own Skill, put it in a folder of this shape. The example `exercises/forge/fasta-tools` already has it. It is a folder in the course repository (clone or download the repository to get it):
+`claude plugin eval` is the Claude Code command that runs eval cases against a plugin. It needs a recent Claude Code (check your version against the docs in Lore). It evaluates a **plugin directory**: a folder with `.claude-plugin/plugin.json`. To evaluate your own Skill, put it in a folder of this shape. The example `exercises/forge/fasta-tools` already has it. It is a folder in the course repository (clone or download the repository to get it):
 
 ```text
 fasta-tools/
@@ -109,7 +109,7 @@ Running an eval is the same trust decision as loading the plugin yourself (`--pl
 
 *Further reading. Optional.*
 
-- [Test plugins with evals](https://code.claude.com/docs/en/plugin-evals): Anthropic, docs. Why read: the reference for case files, grader types, cost limits and the with-and-without delta.
+- [Test plugins with evals](https://code.claude.com/docs/en/plugin-evals): Anthropic, docs. Why read: the course tested v2.1.269 or later; it is the reference for case files, grader types, cost limits and the with-and-without delta.
 - [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: how to write criteria and graders that discriminate.
 - [Build once, run on any agent: a practical guide to agent skills](https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/): Andrea Griffiths, GitHub Blog, article. Why read: a vendor article with points on a separate verifier, checking a Skill in each client and "instructions guide, tests verify".
 :::

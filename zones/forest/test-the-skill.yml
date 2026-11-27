@@ -23,7 +23,7 @@ questions:
       - { text: "Evals cannot measure Skills", misconception: "They can, and this pattern is one of the things they are good at showing." }
   - type: faulty-line
     prompt: "Which line makes this cheap first run costly?"
-    explain: "Raising runs and cases multiplies paid calls. For first iterations use one case, one run and no baseline arm."
+    explain: "Every run is a paid model call, so 20 runs cost far more than one. For first iterations use one case, one run and no baseline arm."
     lines:
       - { text: "claude plugin eval . --case skill-triggers --runs 1 --ablation none", why: "One case, one run, no baseline arm: the cheap form." }
       - { text: "claude plugin eval . --runs 20", faulty: true }

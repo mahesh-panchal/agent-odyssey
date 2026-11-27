@@ -28,14 +28,13 @@ questions:
     options:
       - { text: "Read its hooks, .mcp.json and bin/ folder, then decide", correct: true }
       - { text: "Install it, since it came from a colleague", misconception: "A colleague may not have read it either. Hooks run with your privileges." }
-      - { text: "Run the eval suite shipped with it as proof it is safe", misconception: "Running an eval is itself a trust decision, and safety needs a separate review." }
       - { text: "Install it and ask the agent whether it looks risky", misconception: "The agent reading it is influenced by its text. A person should read it." }
   - type: choice
     prompt: "Your group uses Claude Code and OpenCode. Which Skill location do both tools read?"
     explain: "OpenCode documents .claude/skills as a compatible location, so the same SKILL.md can serve both."
     options:
       - { text: ".claude/skills/<name>/SKILL.md", correct: true }
-      - { text: ".claude-plugin/skills/<name>/SKILL.md", misconception: "Components inside .claude-plugin/ do not load, and OpenCode does not document this path." }
+      - { text: ".claude-plugin/skills/<name>/SKILL.md", misconception: "Components inside .claude-plugin/ do not load." }
       - { text: "hooks/hooks.json", misconception: "That is a Claude Code plugin hooks file, which sits apart from Skill locations." }
   - type: choice
     prompt: "Several team Skills all need the same project and database names. Where should those live?"
