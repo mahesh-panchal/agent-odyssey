@@ -56,56 +56,6 @@
    ]
   },
   {
-   "type": "match",
-   "prompt": "Match each tool to what it does for notebook review.",
-   "explain": "Each tool moves the noise somewhere else: out of git, into a second file, into a viewer, or out of the format.",
-   "pairs": [
-    {
-     "left": "nbstripout",
-     "right": "Strips outputs before git stores the notebook",
-     "misconception": "nbstripout cleans what git sees; it does not pair files or render diffs."
-    },
-    {
-     "left": "jupytext",
-     "right": "Pairs the notebook with a plain .py file",
-     "misconception": "jupytext gives you a text version of the notebook to diff, with outputs staying in the .ipynb."
-    },
-    {
-     "left": "nbdime",
-     "right": "Shows a notebook-aware diff and merge",
-     "misconception": "nbdime reads the notebook structure when diffing; it does not change what is stored."
-    },
-    {
-     "left": "marimo",
-     "right": "A notebook tool that saves pure Python",
-     "misconception": "marimo stores notebooks as .py itself, so there is no JSON to strip."
-    }
-   ]
-  },
-  {
-   "type": "choice",
-   "prompt": "A team adopts nbstripout. A new collaborator clones the repository and starts committing notebooks. What is true?",
-   "explain": "Git cannot install filters on clone, so every collaborator has to set nbstripout up. Otherwise their commits may still contain outputs.",
-   "options": [
-    {
-     "text": "They must run the setup themselves; git does not install filters on clone",
-     "correct": true
-    },
-    {
-     "text": "The filter arrives with the repository, so their commits are stripped automatically",
-     "misconception": "Filters are configured in each local clone. Committing a setup does not turn it on for others."
-    },
-    {
-     "text": "Their commits are stripped as long as they open notebooks in Jupyter, which runs the filter",
-     "misconception": "The filter is a git feature that runs when git stores the file. Jupyter does not run it, and outputs remain in the working file you edit."
-    },
-    {
-     "text": "They must wait for a maintainer to enable their clone before committing notebooks",
-     "misconception": "No approval step is involved. Anyone can commit; the issue is whether their own clone has the filter set up."
-    }
-   ]
-  },
-  {
    "type": "order",
    "prompt": "Put a sensible review of a notebook change in order.",
    "explain": "Check the size of the change first, then read the source diff, then regenerate the outputs and use those over the stored ones.",

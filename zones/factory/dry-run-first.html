@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -168,6 +203,21 @@ Note
 <p>A passing stub run shows that the declared steps and outputs line up. Look at each connection to confirm it is the one you meant. Only the tiny real input with ground truth shows that the commands and results are correct.</p>
 </div>
 </div>
+<section id="read-the-rule-before-you-run-it" class="level2">
+<h2 class="anchored" data-anchor-id="read-the-rule-before-you-run-it">Read the rule before you run it</h2>
+<p>Step 1 needs something to look for. A <strong>rule</strong> is one step of a Snakemake pipeline: it names the inputs, outputs and command. The mistakes below apply to Nextflow too. This rule has the first two:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rule count_lines:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span>: <span class="st">"/home/alice/data/sample1.fastq"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    shell: <span class="st">"wc -l </span><span class="sc">{input}</span><span class="st"> &gt; counts.txt"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Four mistakes turn up most in agent-written pipelines:</p>
+<ul>
+<li><strong>Hard-coded path:</strong> a path to someone’s home directory or to one sample, as in the rule above.</li>
+<li><strong>Undeclared output:</strong> the rule has no <code>output:</code> line, so the workflow manager cannot track <code>counts.txt</code> or build the next step from it.</li>
+<li><strong>Unpinned tool version</strong> (no fixed version stated): results change when the environment does.</li>
+<li><strong>Overwritten input:</strong> a step changes its input in place, so there is no way back.</li>
+</ul>
+<p>A rule can run and still give the wrong result, so you catch these by reading.</p>
+</section>
 <section id="battle-layers-of-checking" class="level2">
 <h2 class="anchored" data-anchor-id="battle-layers-of-checking">Battle: layers of checking</h2>
 <div data-ao-test="factory-dry-run-first" data-xp="60">
@@ -178,7 +228,6 @@ Note
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
 <ul>
 <li><a href="../maze/ground-truth.html">Ground Truth</a>: how to compute a check value the agent did not produce.</li>
-<li><a href="read-the-rails.html">Read Agent-Written Pipelines</a>: common mistakes to spot when you read agent-written pipeline rules.</li>
 <li><a href="../citadel/jobs-not-jam.html">Jobs, Not Jam</a>: sending checked work through a cluster scheduler.</li>
 </ul>
 </section>

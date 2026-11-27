@@ -499,23 +499,13 @@ ul.task-list li input[type="checkbox"] {
 <section id="pipeline-factory" class="level2">
 <h2 class="anchored" data-anchor-id="pipeline-factory">Pipeline Factory</h2>
 <ul>
-<li><p><a href="https://snakemake.readthedocs.io/en/stable/executing/cli.html">Command line interface</a>: Snakemake, docs. Why read: it documents –dry-run and –lint, and what they print rather than execute. Cited in: <a href="./zones/factory/dry-run-first.html">Dry Run First</a>.</p></li>
-<li><p><a href="https://docs.seqera.io/nextflow/process">Processes</a>: Seqera (Nextflow), docs. Why read: it defines the stub block used by -stub-run and notes that a process without one runs its real script. Cited in: <a href="./zones/factory/dry-run-first.html">Dry Run First</a>.</p></li>
-<li><p><a href="https://docs.seqera.io/nextflow/cache-and-resume">Caching and resuming</a>: Seqera (Nextflow), docs. Why read: it lists what goes into a task hash, including the stub-run flag, and why a process that edits its inputs cannot resume. Cited in: <a href="./zones/factory/dry-run-first.html">Dry Run First</a>, <a href="./zones/factory/read-the-rails.html">Read Agent-Written Pipelines</a>.</p></li>
-<li><p><a href="https://snakemake.readthedocs.io/en/stable/tutorial/basics.html">Basics: An example workflow</a>: Snakemake, docs. Why read: it walks a small workflow, including the dry run and a local run with –cores. Cited in: <a href="./zones/factory/dry-run-first.html">Dry Run First</a>.</p></li>
-<li><p><a href="https://docs.seqera.io/nextflow/container">Containers</a>: Seqera (Nextflow docs), docs. Cited by 2 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/factory/same-every-time.html">Same Every Time</a>: it says containerizing a pipeline makes it self-contained and reproducible, and shows setting the container per process.</li>
-<li><a href="./zones/factory/read-the-rails.html">Read Agent-Written Pipelines</a>: it shows setting a container per process; it gives no rule on tags or digests, so pin by your own policy.</li>
-</ul></li>
-<li><p><a href="https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html">Distribution and Reproducibility</a>: Snakemake, docs. Why read: it covers per-rule conda environments, containers and pinning, the answer to unpinned tools. Cited in: <a href="./zones/factory/same-every-time.html">Same Every Time</a>, <a href="./zones/factory/read-the-rails.html">Read Agent-Written Pipelines</a>.</p></li>
-<li><p><a href="https://docs.seqera.io/nextflow/conda">Conda environments</a>: Seqera (Nextflow docs), docs. Cited by 2 quests; each quest says what to read it for.</p>
-<p>Cited in:</p>
-<ul>
-<li><a href="./zones/factory/same-every-time.html">Same Every Time</a>: it shows pinning tool versions by name in the spec and using lock files for more reproducible environments.</li>
-<li><a href="./zones/factory/read-the-rails.html">Read Agent-Written Pipelines</a>: it shows pinning by version and lock files that record every package.</li>
-</ul></li>
+<li><a href="https://snakemake.readthedocs.io/en/stable/executing/cli.html">Command line interface</a>: Snakemake, docs. Why read: it documents –dry-run and –lint, and what they print rather than execute. Cited in: <a href="./zones/factory/dry-run-first.html">Dry Run First</a>.</li>
+<li><a href="https://docs.seqera.io/nextflow/process">Processes</a>: Seqera (Nextflow), docs. Why read: it defines the stub block used by -stub-run and notes that a process without one runs its real script. Cited in: <a href="./zones/factory/dry-run-first.html">Dry Run First</a>.</li>
+<li><a href="https://docs.seqera.io/nextflow/cache-and-resume">Caching and resuming</a>: Seqera (Nextflow), docs. Why read: it lists what goes into a task hash, including the stub-run flag, and why a process that edits its inputs cannot resume. Cited in: <a href="./zones/factory/dry-run-first.html">Dry Run First</a>.</li>
+<li><a href="https://snakemake.readthedocs.io/en/stable/tutorial/basics.html">Basics: An example workflow</a>: Snakemake, docs. Why read: it walks a small workflow, including the dry run and a local run with –cores. Cited in: <a href="./zones/factory/dry-run-first.html">Dry Run First</a>.</li>
+<li><a href="https://docs.seqera.io/nextflow/container">Containers</a>: Seqera (Nextflow docs), docs. Why read: it says containerizing a pipeline makes it self-contained and reproducible, and shows setting the container per process. Cited in: <a href="./zones/factory/same-every-time.html">Same Every Time</a>.</li>
+<li><a href="https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html">Distribution and Reproducibility</a>: Snakemake, docs. Why read: it covers per-rule conda environments, containers and pinning, the answer to unpinned tools. Cited in: <a href="./zones/factory/same-every-time.html">Same Every Time</a>.</li>
+<li><a href="https://docs.seqera.io/nextflow/conda">Conda environments</a>: Seqera (Nextflow docs), docs. Why read: it shows pinning tool versions by name in the spec and using lock files for more reproducible environments. Cited in: <a href="./zones/factory/same-every-time.html">Same Every Time</a>.</li>
 </ul>
 </section>
 <section id="the-scriptorium" class="level2">
@@ -531,7 +521,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p><a href="https://docs.marimo.io/">marimo documentation</a>: marimo, docs. Cited by 2 quests; each quest says what to read it for.</p>
 <p>Cited in:</p>
 <ul>
-<li><a href="./zones/scriptorium/why-notebooks-diff-badly.html">Why Notebooks Diff Badly</a>: it describes a notebook stored as plain Python, so Git diffs show code only; this is the format option the quest compares.</li>
+<li><a href="./zones/scriptorium/why-notebooks-diff-badly.html">Why Notebooks Diff Badly</a>: it describes a notebook stored as plain Python, so Git diffs show code only.</li>
 <li><a href="./zones/scriptorium/run-it-top-to-bottom.html">Run It Top to Bottom</a>: it describes reactive cells that re-run in dependency order, a notebook design where hidden run-order state is harder to create.</li>
 </ul></li>
 </ul>

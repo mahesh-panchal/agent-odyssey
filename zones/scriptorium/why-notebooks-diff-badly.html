@@ -165,14 +165,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="quest-dialog">
 <ul>
-<li><strong>Goal:</strong> you will explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable.</li>
-<li><strong>Before you start:</strong> <a href="../crypt/shield-of-undo.html">Save Point</a> (for <code>git diff</code>), and two tiny mock notebooks, <a href="../../exercises/scriptorium/before.ipynb">before.ipynb</a> and <a href="../../exercises/scriptorium/after.ipynb">after.ipynb</a> (about 2.5 KB each). They are mock files that omit cell ids (the unique id that newer notebook files give each cell), so they are not strictly valid notebooks. Save both into an empty folder.</li>
+<li><strong>Goal:</strong> you will explain why a one-line change to a notebook produces a noisy diff, and review only the code cells.</li>
+<li><strong>Before you start:</strong> <a href="../crypt/shield-of-undo.html">Save Point</a> (for <code>git diff</code>), and two tiny mock notebooks, <a href="../../exercises/scriptorium/before.ipynb">before.ipynb</a> and <a href="../../exercises/scriptorium/after.ipynb">after.ipynb</a> (about 2.5 KB each, mock files). Save both into an empty folder.</li>
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
 <section id="a-notebook-is-a-json-file" class="level2">
 <h2 class="anchored" data-anchor-id="a-notebook-is-a-json-file">A notebook is a JSON file</h2>
-<p>You need this before an agent edits a notebook for you: if you cannot see what changed, you cannot review it. A <code>.ipynb</code> file is a JSON document with <code>metadata</code>, <code>nbformat</code>, <code>nbformat_minor</code> (the notebook file-format version numbers) and a list of <code>cells</code>. A code cell stores its source, and also an <code>execution_count</code> and its outputs. A plot is stored inside the file as a base64 string (the image bytes written out as plain text). Source and outputs share one file, so any run rewrites lines next to the code.</p>
+<p>You need this before an agent edits a notebook for you: if you cannot see what changed, you cannot review it. A <code>.ipynb</code> file is a JSON document. A code cell stores its source, an <code>execution_count</code> (the run counter) and its outputs, and a plot is stored in the file as a base64 string (the image bytes written out as text). Source and outputs share one file, so any run rewrites lines next to the code.</p>
 <p>This is what git sees, with or without an agent. The two mock notebooks differ by one real change: the cutoff <code>30</code> became <code>40</code>. Compare them:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span> before.ipynb after.ipynb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>5c5
@@ -191,26 +191,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 &lt;       "image/png": "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGx...
 ---
 &gt;       "image/png": "AAMGCQwPEhUYGx4hJCcqLTAzNjk8P0JFSEtOUV...</code></pre>
-<p>Four spots changed, and one of them is the code. The rest is the run counter, the printed result and an image blob. A real notebook has more cells and bigger images, so the code change is harder still to find; <code>git diff --stat</code> shows how large a notebook diff is.</p>
+<p>Four spots changed, and one of them is the code. The rest is the run counter, the printed result and an image blob. A real notebook has more cells and bigger images, so the code change is harder to find.</p>
 <p>The risk is the same with a coding agent as with a human: a reviewer who cannot find the code change may approve without reading it.</p>
-</section>
-<section id="four-ways-to-make-changes-reviewable" class="level2">
-<h2 class="anchored" data-anchor-id="four-ways-to-make-changes-reviewable">Four ways to make changes reviewable</h2>
-<p>Each option moves the noise somewhere else. Pick by what your team can adopt.</p>
-<ul>
-<li><strong>nbstripout:</strong> strips outputs and some metadata when git stores the notebook. Outputs stay in your working file. A filter is a program git runs on a file as it stores it. Cost: each collaborator runs <code>nbstripout --install</code> themselves, because git does not copy filter settings when someone clones the repository.</li>
-<li><strong>jupytext:</strong> pairs the <code>.ipynb</code> with a <code>.py</code> (the <code>py:percent</code> format suits code). You review the <code>.py</code> and outputs stay in the <code>.ipynb</code>. Cost: two files to keep in sync.</li>
-<li><strong>nbdime:</strong> a notebook-aware diff, with <code>nbdiff</code> in the terminal, <code>nbdiff-web</code> in the browser, git integration and a merge driver. Cost: everyone reviewing needs it installed.</li>
-<li><strong>marimo:</strong> stores notebooks as pure Python, so ordinary git diffs work. Cost: a different notebook tool from Jupyter. <code>marimo convert your_notebook.ipynb &gt; your_notebook.py</code> converts an existing notebook.</li>
-</ul>
 </section>
 <section id="review-the-code-cells" class="level2">
 <h2 class="anchored" data-anchor-id="review-the-code-cells">Review the code cells</h2>
-<p>Whatever you choose, the review habit is the same:</p>
+<p>Tools that keep outputs out of git are optional (nbstripout, jupytext, nbdime and marimo are linked under Lore). The review habit works without them:</p>
 <ul>
-<li>Look at the source cells. Treat outputs as something to regenerate.</li>
 <li>Run <code>git diff --stat</code> before committing and look for a notebook that grew by megabytes.</li>
-<li>An output in a diff shows that something ran once; a re-run shows whether the code produces it.</li>
+<li>Read the source cells, and regenerate outputs instead of reviewing them. An output in a diff shows that something ran once; a re-run shows whether the code produces it.</li>
 </ul>
 </section>
 <section id="with-an-agent" class="level2">
@@ -219,8 +208,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>Claude Code reads a <code>.ipynb</code> with all its cells and outputs, and an output-heavy notebook fills the context window (the text the agent can hold at once). When an agent edits a code cell, expect that cell’s saved outputs and execution count to be cleared, so the diff shows lost outputs as well as new source.</p>
-<p><code>nbstripout</code> is a git filter, so outputs stay in the working file and the agent still reads them. To keep the agent on the code, strip outputs from the working copy (nbstripout’s pre-commit mode does this) or point the agent at the paired <code>.py</code>. Check the docs for your version.</p>
+<p>Claude Code reads a <code>.ipynb</code> with all its cells and outputs, so an output-heavy notebook fills the context window (the text the agent can hold at once). When an agent edits a code cell, that cell’s saved outputs and execution count are cleared, so the diff shows lost outputs as well as new source.</p>
+<p>To keep the agent on the code, clear the outputs from the working copy before you start.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>The idea is the same: review the source cells. Check OpenCode’s docs for how it handles notebook files.</p>
@@ -239,9 +228,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div data-ao-honour="scriptorium-diff-stat" data-xp="20">
 Run <code>git diff –stat</code> in one of your own repositories that contains a notebook, and note how much of the change is outputs.
 </div>
-<div data-ao-honour="scriptorium-pick-option" data-xp="20">
-Write one sentence naming which of the four options your team could adopt this week, and what each collaborator would have to do.
-</div>
 </section>
 <section id="related-lessons" class="level2 ao-related">
 <h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
@@ -258,7 +244,7 @@ Write one sentence naming which of the four options your team could adopt this w
 <li><a href="https://github.com/kynan/nbstripout">nbstripout</a>: nbstripout project (GitHub), repo. Why read: it strips outputs from a notebook with a Git filter set up by <code>nbstripout --install</code>, so Git never sees them.</li>
 <li><a href="https://github.com/jupytext/jupytext">Jupytext</a>: jupytext project (GitHub), repo. Why read: it pairs an .ipynb with a plain .py so reviewers diff the code only.</li>
 <li><a href="https://nbdime.readthedocs.io/en/latest/">nbdime</a>: nbdime project, docs. Why read: it gives notebook-aware diff and merge tools if you must keep .ipynb in Git.</li>
-<li><a href="https://docs.marimo.io/">marimo documentation</a>: marimo, docs. Why read: it describes a notebook stored as plain Python, so Git diffs show code only; this is the format option the quest compares.</li>
+<li><a href="https://docs.marimo.io/">marimo documentation</a>: marimo, docs. Why read: it describes a notebook stored as plain Python, so Git diffs show code only.</li>
 </ul>
 </section>
 
