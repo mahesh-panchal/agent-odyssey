@@ -76,23 +76,19 @@ Ideas only: own words, credited, never copied.
 - Exercise data must be run, not assumed: the Maze's planted bug and the awk cross-check were executed and their real
   output is what the page shows.
 
+- Review process (2026-11-17): review order is facts, jargon, then visual; added Lore, third-party and cloud checks; label rules restated.
+
 ## Changelog
 - v1 (slice): tiers 1-3 added; e2e covers map, gates, quest scoring, 5 question types, quest log, save/load.
 - v2: shots cover states and widths; e2e smoke-checks every quest page; Kennel and Crypt quests carry fact badges;
   cleared/open/locked map states reviewed.
 - v3: second reviewer round fixed START/NEXT/CLEARED map labels, removed the key-hint toast, made the quest-log 'Now' follow
-  the page, and styled feedback and form controls. Not yet done: per-answer `explain` text in the banks, a closer-to-content
-  header at wide widths, shots for faulty-line and match questions.
+  the page, and styled feedback and form controls.
 - v4: review items closed (explain text, HUD alignment, per-type shots). Sequence Maze added with a boss; e2e checks boss HUD
   and that exercise files are published. Next review round should look at the Maze pages and the boss in shots.
 - v5: Basecamp, Forest, Reef, Crypt secrets quest, honour items, character sheet. Two independent reviewers (visual from
   screenshots; content from files). Fixed: stale-looking midgame shot state, honour label, secrets-page overclaims (env vars,
   local models), Claude Code-only claims scoped, distractor strawmen reduced in several banks, SVG label legibility.
   Still open: correct options tend to be longest/hedged across older banks; OpenCode docs describe V2 and the installed version
-  was not checked; HUD companion/language selectors rely on Quarto tab sync only; Pipeline Factory and MCP/hooks are v2.
-
-## Parked for later (user)
-- Names: done in v7 (Save Point, Grow the Carapace, The Locked Cabinet). Other titles kept on purpose; ids and URLs unchanged.
-- Small nits to batch: (none recorded yet beyond the two fixed in v6).
+  was not checked; HUD companion/language selectors rely on Quarto tab sync only.
 - v6: Map button first in the HUD, M/Esc returns to the map, correct answers now show why the others are wrong.
-- Review process (2026-11-17): review order is facts, jargon, then visual; added Lore, third-party and cloud checks; label rules restated.

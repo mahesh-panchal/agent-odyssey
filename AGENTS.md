@@ -21,6 +21,7 @@ Agent Odyssey is a static Quarto role-playing course that teaches bioinformatici
 6. **Scope to the page.** A quest is about 15 to 30 minutes. It is a tutorial with explanation, not a reference manual. A paragraph that reads "the complete set of X" becomes one example and a link.
 7. **Define at first use.** Every term, command and acronym a beginner could trip over is defined in a short parenthetical on first use on that page, or is already defined on a page the header list names under Before you start. Give each metaphor a literal meaning before using it (a "dial" is a question, "never" means not using an LLM at all).
 8. **Say why now.** The opening of each lesson says what the reader will be able to do and why they need it at this point in the course.
+9. **Stay on LLM use.** The course teaches using LLMs and coding agents, controlling them and evaluating their output. A general tool or domain skill is taught only where it is the control or the check. Other tools get a line in Lore. A quiz question tests only what the page teaches.
 
 ## Review checklist
 
