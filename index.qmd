@@ -14,35 +14,35 @@ Four travellers share the long table. Choose the one closest to your own work: t
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-![](assets/img/persona-guildmaster.png){.ao-persona-img fig-alt="Pixel-art portrait of the Guildmaster: a figure in a green robe with a gold chain of office, holding a ledger and a glowing milestone beacon."}
+![](assets/img/persona-guildmaster.png){.ao-persona-img fig-alt="Pixel-art portrait of Guildmaster Aris: a figure in a green robe with a gold chain of office, holding a ledger and a glowing milestone beacon."}
 
-**Research or project manager.** The Guildmaster keeps the ledgers, lights the milestone beacons and rations the budget. Their guild runs on deadlines, and a pact promises roadmaps and status reports without waiting on anyone. They have watched a flawless-looking demo turn out to be nothing of the kind, so they know the difference between "it ran" and "it is done".
+**Research or project manager.** Guildmaster Aris keeps the ledgers, lights the milestone beacons and rations the budget. Their guild runs on deadlines, and a pact promises roadmaps and status reports without waiting on anyone. They have watched a flawless-looking demo turn out to be nothing of the kind, so they know the difference between "it ran" and "it is done".
 
 *Where your discipline matters most:* the Gatehouse, the Scriptorium and the Cluster Citadel.
 
-## Diviner
+## Diviner Ilsa
 
-![](assets/img/persona-diviner.png){.ao-persona-img fig-alt="Pixel-art portrait of the Diviner: a hooded figure in an indigo cloak holding a glowing glass lens."}
+![](assets/img/persona-diviner.png){.ao-persona-img fig-alt="Pixel-art portrait of Diviner Ilsa: a hooded figure in an indigo cloak holding a glowing glass lens."}
 
-**Bioinformatics analyst.** The Diviner reads the signal in noisy data with trained hounds and a lens for ground truth: reference databases and controls. A pact offers literature summaries and analysis scripts in minutes. The Diviner knows how a fluent, flattering explanation can lead a tired mind to a conclusion that the primary sources never supported.
+**Bioinformatics analyst.** Diviner Ilsa reads the signal in noisy data with trained hounds and a lens for ground truth: reference databases and controls. A pact offers literature summaries and analysis scripts in minutes. Diviner Ilsa knows how a fluent, flattering explanation can lead a tired mind to a conclusion that the primary sources never supported.
 
 *Where your discipline matters most:* the Ancient DNA Crypt, the Sequence Maze and the Phylogenetic Forest.
 
-## Artificer
+## Artificer Bob
 
-![](assets/img/persona-artificer.png){.ao-persona-img fig-alt="Pixel-art portrait of the Artificer: a figure in a leather apron with goggles on their brow, beside a brass gear."}
+![](assets/img/persona-artificer.png){.ao-persona-img fig-alt="Pixel-art portrait of Artificer Bob: a figure in a leather apron with goggles on their brow, beside a brass gear."}
 
-**Bioinformatics engineer.** The Artificer builds with automata: scripts, pipelines and containers that do exactly what they were built to do. A pact could draft a workflow and its tests before the kettle boils. The Artificer has inherited a pile of code that nobody could explain, and will not add to it.
+**Bioinformatics engineer.** Artificer Bob builds with automata: scripts, pipelines and containers that do exactly what they were built to do. A pact could draft a workflow and its tests before the kettle boils. Artificer Bob has inherited a pile of code that nobody could explain, and will not add to it.
 
 *Where your discipline matters most:* the Codon Mill, the Sequence Maze and the Pipeline Factory.
 
-## Archivist
+## Archivist Elowen
 
-![](assets/img/persona-archivist.png){.ao-persona-img fig-alt="Pixel-art portrait of the Archivist: a long-haired figure in spectacles with a ring of keys and a sealed scroll."}
+![](assets/img/persona-archivist.png){.ao-persona-img fig-alt="Pixel-art portrait of Archivist Elowen: a long-haired figure in spectacles with a ring of keys and a sealed scroll."}
 
-**Data steward.** The Archivist guards the vaults: raw data, checksums, ontologies and the metadata that makes a dataset findable. A pact can tidy a messy sample sheet in a moment. The Archivist knows the danger of a tidy table whose missing values were quietly invented, and keeps a ledger of every change.
+**Data steward.** Archivist Elowen guards the vaults: raw data, checksums, ontologies and the metadata that makes a dataset findable. A pact can tidy a messy sample sheet in a moment. Archivist Elowen knows the danger of a tidy table whose missing values were quietly invented, and keeps a ledger of every change.
 
 *Where your discipline matters most:* the Gatehouse, the Biodiversity Reef and the Scriptorium.
 

@@ -7,21 +7,21 @@ Conveyor belts hum across the factory floor, where automata carry cargo along li
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster is glad a cheap run costs nothing from the budget.
+Guildmaster Aris is glad a cheap run costs nothing from the budget.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner dry-runs on three samples before she trusts the whole cohort.
+Diviner Ilsa dry-runs on three samples before she trusts the whole cohort.
 
-## Artificer
+## Artificer Bob
 
-The Artificer lives for the stub run.
+Artificer Bob lives for the stub run.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist checks that the dry run touches no raw data.
+Archivist Elowen checks that the dry run touches no raw data.
 
 :::
 :::

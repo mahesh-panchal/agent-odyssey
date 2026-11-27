@@ -7,21 +7,21 @@ The Citadel gate is shared by hundreds of travellers, and the gatekeeper has see
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster counts what one careless sweep costs the whole guild.
+Guildmaster Aris counts what one careless sweep costs the whole guild.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner submits her jobs and leaves the login node alone.
+Diviner Ilsa submits her jobs and leaves the login node alone.
 
-## Artificer
+## Artificer Bob
 
-The Artificer sets limits before the Astral runs anything.
+Artificer Bob sets limits before the Astral runs anything.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist asks who can read the files left on shared ground.
+Archivist Elowen asks who can read the files left on shared ground.
 
 :::
 :::

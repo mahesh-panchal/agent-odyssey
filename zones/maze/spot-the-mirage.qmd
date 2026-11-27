@@ -7,21 +7,21 @@ The maze walls shimmer. Some corridors are real, and some are mirages: passages 
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster has seen a flawless demo vanish when asked for its sources.
+Guildmaster Aris has seen a flawless demo vanish when asked for its sources.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner knows the mirage best: the citation that flatters the hypothesis.
+Diviner Ilsa knows the mirage best: the citation that flatters the hypothesis.
 
-## Artificer
+## Artificer Bob
 
-The Artificer meets mirages as functions that were never in the library.
+Artificer Bob meets mirages as functions that were never in the library.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist meets them as field values nobody ever recorded.
+Archivist Elowen meets them as field values nobody ever recorded.
 
 :::
 :::

@@ -48,14 +48,16 @@ The boasters outside tell the tales of extraordinary pacts.
 
 ## The party (four personas)
 
+Each persona is always written as job class and name together: Guildmaster Aris, Diviner Ilsa, Artificer Bob, Archivist Elowen. Never the class or the name alone, so readers carry no mapping in their heads. The tab headings, story blocks and alt text all follow this.
+
 Shown as tabs (`group="persona"`) on the front page, with a portrait, role, a short backstory (about 80 words) and a "where your discipline matters most" line. Some story blocks carry a short persona tab (the first quest of each zone, Wade In and the two bosses). Dreams and fears live in Choose What to Hand Over, not on the front page. The choice is remembered by Quarto's tab group persistence. Lessons are identical for everyone.
 
-| Persona | Role | Existing gear | Gift of the pact | Temptation | Discipline | Lead zones |
+| Persona (class and name) | Role | Existing gear | Gift of the pact | Temptation | Discipline | Lead zones |
 |---|---|---|---|---|---|---|
-| **Guildmaster** | research or project manager | ledgers, milestone beacons, ration tokens (budget) | instant roadmaps, status summaries, fast prototypes | the illusion of done: a plausible demo taken for a validated result | rationing and sign-off: review gates and budgets | Gatehouse, Scriptorium, Citadel |
-| **Diviner** | bioinformatics analyst | trained hounds (statistics, ML) and ground-truth lenses (references, controls) | literature synthesis, expression scripts, exploratory plots | confirmation mirage: fluent explanations and phantom citations that flatter a hypothesis | provenance and ground truth: primary identifiers, negative controls, independent checks (and no phantom reagents or invented protocol steps) | Crypt, Sequence Maze, Phylogenetic Forest |
-| **Artificer** | bioinformatics engineer | automata: CLI tools, scripts, pipelines, containers | workflows, refactors, test suites in seconds | spaghetti golems: merging code you have not read and cannot debug | small diffs, tests, containers; ship nothing you cannot explain | Codon Mill, Sequence Maze, Pipeline Factory |
-| **Archivist** | data steward | sealed vaults, checksums, ontologies, metadata ledgers | sample-sheet cleanup, schema mapping, format conversion | silent corruption: values invented or altered while "harmonising" | immutable raw data, schema validation, audit trails, privacy wards | Gatehouse, Biodiversity Reef, Scriptorium |
+| **Guildmaster Aris** | research or project manager | ledgers, milestone beacons, ration tokens (budget) | instant roadmaps, status summaries, fast prototypes | the illusion of done: a plausible demo taken for a validated result | rationing and sign-off: review gates and budgets | Gatehouse, Scriptorium, Citadel |
+| **Diviner Ilsa** | bioinformatics analyst | trained hounds (statistics, ML) and ground-truth lenses (references, controls) | literature synthesis, expression scripts, exploratory plots | confirmation mirage: fluent explanations and phantom citations that flatter a hypothesis | provenance and ground truth: primary identifiers, negative controls, independent checks (and no phantom reagents or invented protocol steps) | Crypt, Sequence Maze, Phylogenetic Forest |
+| **Artificer Bob** | bioinformatics engineer | automata: CLI tools, scripts, pipelines, containers | workflows, refactors, test suites in seconds | spaghetti golems: merging code you have not read and cannot debug | small diffs, tests, containers; ship nothing you cannot explain | Codon Mill, Sequence Maze, Pipeline Factory |
+| **Archivist Elowen** | data steward | sealed vaults, checksums, ontologies, metadata ledgers | sample-sheet cleanup, schema mapping, format conversion | silent corruption: values invented or altered while "harmonising" | immutable raw data, schema validation, audit trails, privacy wards | Gatehouse, Biodiversity Reef, Scriptorium |
 
 ## Rules for writers
 

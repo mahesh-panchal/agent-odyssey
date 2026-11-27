@@ -7,21 +7,21 @@ A heavy door in the Gatehouse opens onto the outside world, and whatever walks t
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster asks who approved this door, and who holds the key.
+Guildmaster Aris asks who approved this door, and who holds the key.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner asks what the outside service will send back, and whether to trust it.
+Diviner Ilsa asks what the outside service will send back, and whether to trust it.
 
-## Artificer
+## Artificer Bob
 
-The Artificer reads the server's code before connecting anything.
+Artificer Bob reads the server's code before connecting anything.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist asks which records could pass through that door.
+Archivist Elowen asks which records could pass through that door.
 
 :::
 :::

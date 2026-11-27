@@ -7,21 +7,21 @@ The first ward in the Crypt is a mark on the floor that you can step back to. So
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster adds a line to the ledger: no change without a way back.
+Guildmaster Aris adds a line to the ledger: no change without a way back.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner copies the raw results into a sealed folder before touching anything.
+Diviner Ilsa copies the raw results into a sealed folder before touching anything.
 
-## Artificer
+## Artificer Bob
 
-The Artificer commits, and commits again.
+Artificer Bob commits, and commits again.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist already keeps every version, and nods approvingly.
+Archivist Elowen already keeps every version, and nods approvingly.
 
 :::
 :::

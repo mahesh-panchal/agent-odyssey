@@ -7,21 +7,21 @@ The first branch of the great tree is bare. You told your Astral "tidy this up" 
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster's brief names the deadline, the budget and the proof of done.
+Guildmaster Aris's brief names the deadline, the budget and the proof of done.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner's brief names the controls and the reference to check against.
+Diviner Ilsa's brief names the controls and the reference to check against.
 
-## Artificer
+## Artificer Bob
 
-The Artificer's brief names the test that must pass.
+Artificer Bob's brief names the test that must pass.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist's brief names the fields that must never change.
+Archivist Elowen's brief names the fields that must never change.
 
 :::
 :::

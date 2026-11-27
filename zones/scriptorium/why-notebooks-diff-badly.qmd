@@ -7,21 +7,21 @@ Scribes in the Scriptorium keep notebooks, and every page is stuffed with output
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster cannot review a notebook, and asks for a clean summary.
+Guildmaster Aris cannot review a notebook, and asks for a clean summary.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner's notebooks are her lab books, and she guards them.
+Diviner Ilsa's notebooks are her lab books, and she guards them.
 
-## Artificer
+## Artificer Bob
 
-The Artificer strips the outputs before committing.
+Artificer Bob strips the outputs before committing.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist keeps the outputs as a record, and the code apart.
+Archivist Elowen keeps the outputs as a record, and the code apart.
 
 :::
 :::

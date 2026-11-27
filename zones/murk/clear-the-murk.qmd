@@ -7,21 +7,21 @@ At the centre of the land the Murk has gathered into one dark knot: every unchec
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster stands ready to sign off, or to refuse.
+Guildmaster Aris stands ready to sign off, or to refuse.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner reaches for her lens.
+Diviner Ilsa reaches for her lens.
 
-## Artificer
+## Artificer Bob
 
-The Artificer opens the diff.
+Artificer Bob opens the diff.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist opens the ledger.
+Archivist Elowen opens the ledger.
 
 :::
 

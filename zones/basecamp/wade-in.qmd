@@ -18,25 +18,25 @@ Four people want help from an LLM (a large language model, the kind of tool behi
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
 "I keep twelve projects in one spreadsheet. If an LLM could read it, I would have a status report and a risk list for the board by lunch."
 
 "But where does my data go once I paste it? And a colleague said I would need Claude Code (a coding agent that can read and change files on my computer), which means giving it access to all my files. I cannot allow that, so I will keep writing the report by hand."
 
-## Diviner
+## Diviner Ilsa
 
 "The sample counts fell in two cohorts. If an LLM could write the query and the first summary, I would have an explanation before the meeting."
 
 "But the samples database holds participant codes, and my data agreement is strict. Does using an LLM mean installing an agent that can reach the database? Then the answer has to be no LLM at all."
 
-## Artificer
+## Artificer Bob
 
 "Our pipeline has a script nobody has tested. If an LLM could draft the tests and tidy the module, I would clear this week's backlog by Friday."
 
 "But an agent that edits files and runs commands in my repository could overwrite something, or run something I never reviewed. It is all or nothing, and nothing feels safer."
 
-## Archivist
+## Archivist Elowen
 
 "A collaborator sent a sample sheet with mixed columns and units. If an LLM could clean it and map it to our schema, a week of tidying would take an afternoon."
 
@@ -105,7 +105,7 @@ For each task, decide three things before you open the answer: the lowest step t
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
 Task: a one-page status summary and risk list for twelve projects, from a spreadsheet of project names, milestone dates, owner names and status. The data is internal, and owner names are personal data.
 
@@ -117,7 +117,7 @@ To check: count the open milestones of one project by hand and compare.
 
 </details>
 
-## Diviner
+## Diviner Ilsa
 
 Task: explain why the sample count per project fell between two cohorts, from a samples database that holds participant codes under a strict agreement. Pseudonymised codes still count as personal data.
 
@@ -129,7 +129,7 @@ To check: write a second, simpler count query yourself and compare the two numbe
 
 </details>
 
-## Artificer
+## Artificer Bob
 
 Task: write tests for a script that reads sample sheets in your pipeline repository. The code is internal and holds no personal data.
 
@@ -141,7 +141,7 @@ To check: break the function on purpose and confirm that a test fails.
 
 </details>
 
-## Archivist
+## Archivist Elowen
 
 Task: clean and map a sample sheet with controlled health metadata to your schema, under an agreement that forbids sharing the values.
 

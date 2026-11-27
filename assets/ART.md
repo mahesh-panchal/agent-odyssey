@@ -11,10 +11,10 @@ gitignored and rebuilt at pre-render.
 | `assets/img/boss-wall-broken.png` | The Wall, broken frame | 48x48 | `make_art.py` | CC BY 4.0 |
 | `assets/img/boss-murk.png` | final boss, The Murk | 48x48 | `make_art.py` | CC BY 4.0 |
 | `assets/img/boss-murk-cleared.png` | The Murk cleared (ending screen) | 48x48 | `make_art.py` | CC BY 4.0 |
-| `assets/img/persona-guildmaster.png` | Guildmaster portrait (project or research manager), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
-| `assets/img/persona-diviner.png` | Diviner portrait (bioinformatics analyst), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
-| `assets/img/persona-artificer.png` | Artificer portrait (bioinformatics engineer), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
-| `assets/img/persona-archivist.png` | Archivist portrait (data steward), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
+| `assets/img/persona-guildmaster.png` | Guildmaster Aris portrait (project or research manager), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
+| `assets/img/persona-diviner.png` | Diviner Ilsa portrait (bioinformatics analyst), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
+| `assets/img/persona-artificer.png` | Artificer Bob portrait (bioinformatics engineer), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
+| `assets/img/persona-archivist.png` | Archivist Elowen portrait (data steward), front page party | 96x96 | `make_art.py` | CC BY 4.0 |
 | `assets/img/kind-automaton.png` | Automaton: clockwork creature for scripts and pipelines | 96x96 | `make_art.py` | CC BY 4.0 |
 | `assets/img/kind-familiar.png` | Familiar: trained creature for ML models | 96x96 | `make_art.py` | CC BY 4.0 |
 | `assets/img/kind-astral.png` | Astral: dragon spirit for LLMs | 96x96 | `make_art.py` | CC BY 4.0 |

@@ -7,21 +7,21 @@ At the maze's heart rises a wall of text, thousands of lines high, and your Astr
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster sets a review budget before the wall rises.
+Guildmaster Aris sets a review budget before the wall rises.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner samples the wall and checks each sample against ground truth.
+Diviner Ilsa samples the wall and checks each sample against ground truth.
 
-## Artificer
+## Artificer Bob
 
-The Artificer asks for smaller pieces.
+Artificer Bob asks for smaller pieces.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist checks the wall's totals against the ledger.
+Archivist Elowen checks the wall's totals against the ledger.
 
 :::
 

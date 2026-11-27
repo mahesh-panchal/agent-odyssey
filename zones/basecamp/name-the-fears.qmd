@@ -7,21 +7,21 @@ The boasters have gone to bed, and the corner by the hearth has grown loud. Bran
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster hears Oleander's tale and checks that nothing leaves the guild unreviewed.
+Guildmaster Aris hears Oleander's tale and checks that nothing leaves the guild unreviewed.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner winces at Sefa's story, having once trusted a citation that did not exist.
+Diviner Ilsa winces at Sefa's story, having once trusted a citation that did not exist.
 
-## Artificer
+## Artificer Bob
 
-The Artificer thinks of Brannoch's workshop and counts the backups at home.
+Artificer Bob thinks of Brannoch's workshop and counts the backups at home.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist watches Tam and tightens a grip on the key ring.
+Archivist Elowen watches Tam and tightens a grip on the key ring.
 
 :::
 :::

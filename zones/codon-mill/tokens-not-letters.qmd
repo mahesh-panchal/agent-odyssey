@@ -7,21 +7,21 @@ The miller's wheel turns before an Astral reads a single word, and everything yo
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster notes that the bill is counted in tokens, and starts a budget line.
+Guildmaster Aris notes that the bill is counted in tokens, and starts a budget line.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner thinks of the sequences she must count and reaches for a script.
+Diviner Ilsa thinks of the sequences she must count and reaches for a script.
 
-## Artificer
+## Artificer Bob
 
-The Artificer tests how many tokens his longest function costs.
+Artificer Bob tests how many tokens his longest function costs.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist wonders how many tokens one metadata record takes.
+Archivist Elowen wonders how many tokens one metadata record takes.
 
 :::
 :::

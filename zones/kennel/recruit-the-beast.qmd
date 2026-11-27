@@ -9,21 +9,21 @@ You return to the Collegium, where the sages' college smells of ink and hot bras
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster asks what the pact will cost each month, and who signs it off.
+Guildmaster Aris asks what the pact will cost each month, and who signs it off.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner asks which Astral can cite its sources, and writes down how to check them.
+Diviner Ilsa asks which Astral can cite its sources, and writes down how to check them.
 
-## Artificer
+## Artificer Bob
 
-The Artificer reads every command on the scroll before running one.
+Artificer Bob reads every command on the scroll before running one.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist asks where the Astral keeps its memory, and for how long.
+Archivist Elowen asks where the Astral keeps its memory, and for how long.
 
 :::
 :::

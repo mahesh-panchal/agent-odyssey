@@ -7,21 +7,21 @@ A reef thrives on many hands, and a Review-leech clings to it, feeding on work p
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster
+## Guildmaster Aris
 
-The Guildmaster wants small, reviewable pieces and a named reviewer.
+Guildmaster Aris wants small, reviewable pieces and a named reviewer.
 
-## Diviner
+## Diviner Ilsa
 
-The Diviner attaches the check to every change.
+Diviner Ilsa attaches the check to every change.
 
-## Artificer
+## Artificer Bob
 
-The Artificer's changes fit on one screen.
+Artificer Bob's changes fit on one screen.
 
-## Archivist
+## Archivist Elowen
 
-The Archivist's changes arrive with an audit note.
+Archivist Elowen's changes arrive with an audit note.
 
 :::
 :::
