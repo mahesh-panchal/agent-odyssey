@@ -13,7 +13,7 @@ This page lists what to install for the hands-on exercises. Reading is separate:
 | Tool | Check it works | Needed for |
 |---|---|---|
 | A terminal | open it and type `echo hello` | every exercise |
-| Python 3 | `python3 --version` | the database exercise and the analysis exercises |
+| Python 3 | `python3 --version` | the exercises that run a small Python script, such as Ground Truth |
 | git | `git --version` | the undo and change-history exercises |
 
 - **Terminal.** macOS: Terminal. Linux: any terminal. Windows: a WSL 2 (Windows Subsystem for Linux) terminal, because the exercises assume a Linux-style shell and the sandbox needs it. Follow Microsoft's WSL install page, then open the Ubuntu terminal.
