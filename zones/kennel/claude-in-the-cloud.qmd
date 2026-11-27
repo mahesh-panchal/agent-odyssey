@@ -3,7 +3,7 @@ title: "Claude in the Cloud"
 ---
 
 ::: {.ao-story}
-A tower stands far above the Collegium, where the Claude Astral can work on a borrowed machine that vanishes when the job is done. It is a fine place to sketch and write, and the boasters make it sound fit for any task. Asked plainly, an academic lowers their voice: nothing precious should be carried to the tower. Learn what the tower is good for, and what you must leave at home.
+You walk to the Collegium and climb its tower, where the Claude Astral can work on a borrowed machine that vanishes when the job is done. Sage Maelis climbs with you. She says it is a fine place to sketch and write, and that the boasters make it sound fit for any task. Asked plainly, she lowers her voice: nothing precious should be carried to the tower. Learn what the tower is good for, and what you must leave at home.
 :::
 
 ::: {.quest-dialog}

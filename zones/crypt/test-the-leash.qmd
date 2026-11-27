@@ -3,7 +3,7 @@ title: "Test Permissions and the Sandbox"
 ---
 
 ::: {.ao-story}
-The Astral has agreed to the pact and wants to run ahead. At the Crypt door the warden gives you a chalk circle and a feather. "Do not trust a ward you have not tested," she says, remembering a boaster who swore his held against anything. You ask the Astral for one small poem and watch what it does at the edge of the circle. Then she shows you a wall of stone around it: test the circle, then test the wall.
+The party returns from the Collegium, where Sage Maelis made the pact, and the Astral has agreed and wants to run ahead. At the Crypt door Warden Hesper gives you a chalk circle and a feather. "Do not trust a ward you have not tested," she says, remembering a boaster who swore his held against anything. You ask the Astral for one small poem and watch what it does at the edge of the circle. Then she shows you a wall of stone around it: test the circle, then test the wall.
 :::
 
 ::: {.quest-dialog}

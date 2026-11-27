@@ -3,7 +3,7 @@ title: "Should You Fine-Tune?"
 ---
 
 ::: {.ao-story}
-In the beastmasters' college a trainer offers to raise a Familiar for one trick. It takes many examples, a record of the lessons and a test of the result, and every trick costs a season. You ask whether a better command would do the same job. Weigh the offer before you pay for it.
+In the beastmasters' college Beastmaster Wyn offers to raise a Familiar for one trick. Wyn says it takes many examples, a record of the lessons and a test of the result, and every trick costs a season. You ask whether a better command would do the same job. Weigh the offer before you pay for it.
 :::
 
 ::: {.quest-dialog}

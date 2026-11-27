@@ -3,7 +3,7 @@ title: "Boss: Review a Messy Session"
 ---
 
 ::: {.ao-story}
-At the centre of the land the Murk has gathered into one dark knot: every unchecked answer you met on the way, pressed together, and the Astral at your side has begun to half believe it. The Blight hides in small things here, and each habit you learned has its use. Read one messy session closely and name what it gets wrong.
+You walk to the centre of the land from the map, with the whole trunk and three branches behind you. There the Murk has gathered into one dark knot: every unchecked answer you met on the way, pressed together, and the Astral at your side has begun to half believe it. Sage Maelis returns, and this is the Blight she warned of. It hides in small things here, and each habit you learned has its use. Read one messy session closely and name what it gets wrong.
 
 ::: {.panel-tabset group="persona"}
 
@@ -30,7 +30,7 @@ Archivist Elowen opens the ledger.
 
 ::: {.quest-dialog}
 - **Goal:** you will read one messy agent session end to end and catch every habit it breaks.
-- **Before you start:** the whole trunk and any three branches (Start Here lists them). Everything here is mock: no model is called and no real data is used.
+- **Before you start:** the whole trunk and any three branches (Background lists them). Everything here is mock: no model is called and no real data is used.
 - **Time:** about 15 to 20 minutes. Each right answer on the first try damages the boss.
 :::
 
@@ -91,7 +91,7 @@ You cleared the exercise by looking at the claim, the command, the rule, the key
 
 From here you decide how much of this to use and when. Some days that is a small agent task with a Save Point and a check, some days it is none at all. Both are fine.
 
-Branches you skipped stay open. Start Here lists them, and the Lore library gathers the further reading from every quest you have passed.
+Branches you skipped stay open. Background lists them, and the Lore library gathers the further reading from every quest you have passed.
 
 The [Claude Code docs](https://code.claude.com/docs/en/overview) go well beyond this course. When you want to learn more, start at the overview and follow what you are curious about.
 :::

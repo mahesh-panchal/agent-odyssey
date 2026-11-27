@@ -3,7 +3,7 @@ title: "Login Node Manners"
 ---
 
 ::: {.ao-story}
-The Citadel gate is shared by hundreds of travellers, and the gatekeeper has seen what one careless sweep of the whole library does to everyone's queue. You arrive with an Astral that means well and has never heard of manners. Before it takes one step inside, teach it where it may work and how widely it may search.
+You walk to the Citadel from the map, and Gatekeeper Brisa meets you at the gate shared by hundreds of travellers. Brisa has seen what one careless sweep of the whole library does to everyone's queue. You arrive with an Astral that means well and has never heard of manners. Before it takes one step inside, teach it where it may work and how widely it may search.
 
 ::: {.panel-tabset group="persona"}
 

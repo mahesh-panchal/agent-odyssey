@@ -31,9 +31,9 @@ The Blight is not a monster from outside. It is what happens when a pact-bearer 
 
 ## Places
 
-- **Gaia's Rest** (zone slug `basecamp`): the tavern where the adventure starts. Boasters tell tales of extraordinary pacts. A few patrons whisper, quietly, of the devastation they caused. An old wanderer hands each traveller the **Summoning Scroll**, which is the Prerequisites page (story word only; the page keeps its plain title).
-- **The Collegium** (zone slug `kennel`): an academy of three colleges, used as story labels only, where academics mill about and respect one another because each knows the strengths and weaknesses of the Shokanju (summoned beasts, never hired). The **tinkers' college** builds Automata (it leads on to the Pipeline Factory and has no quest of its own). The **beastmasters' college** trains Familiars (Should You Fine-Tune?). The **sages' college** interprets scrolls and explains the parts of a pact and makes pacts with Astrals (Know Your Tools, Set Up Your Agent, Pick Your Model, Free Is Not Free, Claude in the Cloud). Script, Model, or LLM is set in the Collegium among all three colleges. Know Your Tools is set in the sages' college, where a Sage explains the Summoning Scroll's pieces, and Set Up Your Agent returns there. The academics warn about limits; the learner may ignore them, as the tavern patrons did.
-- Other zones keep their names (Ancient DNA Crypt, Codon Mill, Sequence Maze, Phylogenetic Forest, Gatehouse, Biodiversity Reef, Pipeline Factory, Scriptorium, Cluster Citadel, The Murk's Heart) and their local characters (warden, miller, smith, surveyor, queue master, watchman). The Crypt track label is "Wards".
+- **Gaia's Rest** (zone slug `basecamp`): the tavern where the adventure starts. Boasters tell tales of extraordinary pacts. A few patrons whisper, quietly, of the devastation they caused. **Wanderer Quill**, an old wanderer, hands each traveller the **Summoning Scroll**, which is the Prerequisites page (story word only; the page keeps its plain title).
+- **The Collegium** (zone slug `kennel`): an academy of three colleges, used as story labels only, where academics mill about and respect one another because each knows the strengths and weaknesses of the Shokanju (summoned beasts, never hired). The **tinkers' college** builds Automata (it leads on to the Pipeline Factory and has no quest of its own). The **beastmasters' college** trains Familiars (Should You Fine-Tune?). The **sages' college** interprets scrolls and makes pacts with Astrals. **Sage Maelis** of the sages' college is the party's teacher for the trunk quests set here: Script, Model, or LLM (among all three colleges), Know Your Tools (she explains the pieces of the pact from the Summoning Scroll), Choose What to Hand Over (she warns that without disciplined use Astrals spread the Blight across the land, and shows how to limit what an Astral sees, because these persistent creatures draw in whatever they can reach in pursuit of their goal) and Set Up Your Agent (she reads the scroll and makes the pact with the party). The branch quests Pick Your Model, Free Is Not Free and Claude in the Cloud are hers too. The academics warn about limits; the learner may ignore them, as the tavern patrons did.
+- Other zones keep their names (Ancient DNA Crypt, Codon Mill, Sequence Maze, Phylogenetic Forest, Gatehouse, Biodiversity Reef, Pipeline Factory, Scriptorium, Cluster Citadel, The Murk's Heart). Their guides are in the next section. The Crypt track label is "Wards".
 
 ## The four cautionary patrons (in Gaia's Rest, not the party)
 
@@ -65,3 +65,26 @@ Shown as tabs (`group="persona"`) on the front page, with a portrait, role, a sh
 - Lesson titles are plain and searchable. Slugs never change. Only Adopt the Pet is removed (it redirects to Set Up Your Agent).
 - No real company or product is a villain. Anthropic's Claude is "the Claude Astral" (a creature bound by a tool), never an antagonist.
 - Art: procedural pixel art from `tools/make_art.py`, 48x48 portraits, no imitation of any existing game's characters.
+
+## Guides, travel and themes
+
+Every zone has at least one **named guide** who supplies the knowledge there. Write a guide as class and name together ("Warden Hesper"), like the party. Zone slugs and quest slugs never change, so Script, Model, or LLM, Know Your Tools and Choose What to Hand Over keep their `zones/basecamp/` paths while the map files them under the Collegium.
+
+| Zone (slug) | Theme in one line | Guide(s) |
+|---|---|---|
+| Gaia's Rest (`basecamp`) | The tavern: the fears and the tales of people the Blight caught | Wanderer Quill gives the scroll; the four patrons tell their tales |
+| The Collegium (`kennel`) | Understanding the creatures and the pact: three kinds, the parts, what to hand over, installing the agent, choosing models | Sage Maelis (all her quests); Tinker Pell (tinkers' college); Beastmaster Wyn (Should You Fine-Tune?) |
+| Ancient DNA Crypt (`crypt`) | Wards: undo, permissions, the sandbox, secrets | Warden Hesper (she) |
+| The Codon Mill (`codon-mill`) | How an Astral reads: tokens, failures, the context window, memory | Miller Garrick; Scribe Linnea (Keep an LLM Wiki) |
+| Sequence Maze (`maze`) | Trust: spotting false output, checking it, keeping a record | Cartographer Vesna navigates the maze and keeps notes on every turn |
+| Phylogenetic Forest (`forest`) | Instructing and packaging: briefs, plans, instruction files, skills, plugins, tests | Surveyor Rowan (she) for briefs, plans and the instructions stone; Smith Dunmore for skills, tests and plugins; Hunter Cass keeps the log of mistakes |
+| The Gatehouse (`gatehouse`) | Guards: connecting tools safely and enforcing rules in code | Watchman Corin |
+| Biodiversity Reef (`reef`) | People: the Blight festers here, in work passed along unchecked, and you are sent to help clean it up | Several guides: Tidewarden Nerys, Diver Kai and Net-mender Joss |
+| Pipeline Factory (`factory`) | Craft: agents on pipelines and reproducibility | Tinker Pell, who leads you here from the tinkers' college |
+| The Scriptorium (`scriptorium`) | Notebooks: reviewing and re-running them | Record Keeper Ansel |
+| The Cluster Citadel (`citadel`) | Shared ground: clusters, keys, other people's queues | Gatekeeper Brisa; Queue Master Fenn |
+| The Murk's Heart (`murk`) | The final boss: review one messy session | Sage Maelis returns, and the party meets the Blight she warned of |
+
+**Travel.** The first quest of each zone opens with one sentence that moves the party from the previous place, naming the road or the guide who sends them. The trunk route is Gaia's Rest, the Collegium (three quests), the Crypt (Save Point), back to the Collegium (Set Up Your Agent), the Crypt (three quests), the Codon Mill, the Sequence Maze. Where a trunk quest returns to an earlier place, the story says "return". Branch zones open from the map: the party walks there.
+
+**The Reef.** The Reef is the only zone where the Blight is already present. The guides send the party there to clean it up, which fits the People branch: handing work over, reviewing it and teaching.

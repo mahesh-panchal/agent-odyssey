@@ -59,17 +59,17 @@ Read [Background](background.qmd) for how the course is laid out and what each a
 <details class="ao-textlist"><summary>Text-only list of zones</summary>
 
 - [Background (the story names, the areas and your path)](background.qmd)
-- [Gaia's Rest](zones/basecamp/name-the-fears.qmd)
-- [The Collegium](zones/kennel/recruit-the-beast.qmd)
-- [Ancient DNA Crypt](zones/crypt/shield-of-undo.qmd)
-- [The Codon Mill](zones/codon-mill/tokens-not-letters.qmd)
-- [Sequence Maze](zones/maze/spot-the-mirage.qmd)
-- [Phylogenetic Forest](zones/forest/write-the-brief.qmd)
-- [The Gatehouse](zones/gatehouse/plug-in-a-server.qmd)
-- [Biodiversity Reef](zones/reef/send-small-say-so.qmd)
-- [Pipeline Factory](zones/factory/dry-run-first.qmd)
-- [The Scriptorium (side quest)](zones/scriptorium/why-notebooks-diff-badly.qmd)
-- [The Cluster Citadel](zones/citadel/login-node-manners.qmd)
+- [Gaia's Rest](zones/basecamp/name-the-fears.qmd): the tavern where you start: fears, and the tales of people the Blight caught
+- [The Collegium](zones/kennel/recruit-the-beast.qmd): understanding the creatures and the pact: the three kinds, the parts of a pact, what to hand over, installing your agent and choosing models
+- [Ancient DNA Crypt](zones/crypt/shield-of-undo.qmd): wards: undo, permissions, the sandbox and secrets
+- [The Codon Mill](zones/codon-mill/tokens-not-letters.qmd): how an Astral reads: tokens, failures, the context window and memory
+- [Sequence Maze](zones/maze/spot-the-mirage.qmd): trust: spotting false output, checking it and keeping a record
+- [Phylogenetic Forest](zones/forest/write-the-brief.qmd): instructing and packaging: briefs, plans, instruction files, skills, plugins and tests
+- [The Gatehouse](zones/gatehouse/plug-in-a-server.qmd): guards: connecting tools safely and enforcing rules in code
+- [Biodiversity Reef](zones/reef/send-small-say-so.qmd): people: the Blight festers here, and you help clean it up by handing over, reviewing and teaching
+- [Pipeline Factory](zones/factory/dry-run-first.qmd): craft: agents on pipelines, and reproducibility
+- [The Scriptorium (side quest)](zones/scriptorium/why-notebooks-diff-badly.qmd): notebooks: reviewing and re-running them
+- [The Cluster Citadel](zones/citadel/login-node-manners.qmd): shared ground: clusters, keys and other people's queues
 - [Character sheet](character.qmd)
 - [Lore library](lore.qmd)
 - [Claude Code docs overview](https://code.claude.com/docs/en/overview) (external: explore more than this course covers)

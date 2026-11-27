@@ -5,7 +5,7 @@ aliases:
 ---
 
 ::: {.ao-story}
-Conveyor belts hum across the factory floor, where Automata carry cargo along lines that an Astral wired overnight, proud and tired. One belt leads nowhere, and you cannot tell which by looking. A cheap test run shows where each belt leads before any real cargo moves. Learn the cheap runs first.
+Tinker Pell leads the party out of the tinkers' college in the Collegium and down the road to the Pipeline Factory. Conveyor belts hum across the floor, where Automata carry cargo along lines that an Astral wired overnight, proud and tired. One belt leads nowhere, and Pell says you cannot tell which by looking. Pell shows you the cheap test runs that reveal where each belt leads before any real cargo moves.
 
 ::: {.panel-tabset group="persona"}
 

@@ -3,7 +3,7 @@ title: "Connect an MCP Server"
 ---
 
 ::: {.ao-story}
-A heavy door in the Gatehouse opens onto the outside world, and whatever walks through acts with your keys. Someone has pinned a note to the door, and your Astral reads it aloud as if it were an order. Before you open the door, learn what stands on the other side.
+The party walks from the map to the Gatehouse, where Watchman Corin stands at a heavy door that opens onto the outside world. Whatever walks through acts with your keys, and someone has pinned a note to the door that your Astral reads aloud as if it were an order. Corin tells you what stands on the other side and how to check a visitor before you let it in. Learn that before you open the door.
 
 ::: {.panel-tabset group="persona"}
 

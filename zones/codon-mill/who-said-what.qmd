@@ -3,7 +3,7 @@ title: "Which Instructions Apply"
 ---
 
 ::: {.ao-story}
-Three voices speak in the mill, and your Astral obeys all of them: the one that built it, the one you wrote down, and yours. Last week it followed a rule that nobody in the mill remembered giving. Only one of the three voices is you. Learn to tell them apart, and you will know whose rule you are following and who can change it.
+You walk back to the mill, where three voices speak and your Astral obeys all of them: the one that built it, the one you wrote down, and yours. Last week it followed a rule that nobody in the mill remembered giving. Only one of the three voices is you. Miller Garrick teaches you to tell them apart, so you know whose rule you are following and who can change it.
 :::
 
 ::: {.quest-dialog}

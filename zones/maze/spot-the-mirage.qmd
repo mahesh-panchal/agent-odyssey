@@ -3,7 +3,7 @@ title: "Spot Hallucinations"
 ---
 
 ::: {.ao-story}
-The maze walls shimmer. Some corridors are real, and some are mirages: passages that look exactly right and lead nowhere, and an Astral strides toward the nearest one without a doubt. A guide cannot tell them apart by their look, only by walking them. Learn what a false corridor looks like, and how to test one.
+The road from the Codon Mill turns into the Sequence Maze, and at its mouth Cartographer Vesna unrolls a map crossed with struck-out corridors. The maze walls shimmer. Some corridors are real, and some are mirages: passages that look exactly right and lead nowhere, and an Astral strides toward the nearest one without a doubt. Vesna tells them apart by walking them, and marks each one in the notes. Learn what a false corridor looks like, and how to test one.
 
 ::: {.panel-tabset group="persona"}
 

@@ -3,7 +3,7 @@ title: "Write Permission Rules"
 ---
 
 ::: {.ao-story}
-Deeper in the Crypt a chalk circle is not enough, and an Astral does not stop at a door it was never told about. The warden shows you how to write wards: rules about what it may touch and what it must ask about. She says a ward is only as good as its edges, and she has watched an Astral stroll through a gap a hand's width wide. Learn where your wards end.
+Deeper in the Crypt a chalk circle is not enough, and an Astral does not stop at a door it was never told about. Warden Hesper shows you how to write wards: rules about what it may touch and what it must ask about. She says a ward is only as good as its edges, and she has watched an Astral stroll through a gap a hand's width wide. Learn where your wards end.
 :::
 
 ::: {.quest-dialog}

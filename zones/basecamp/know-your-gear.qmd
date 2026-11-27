@@ -3,7 +3,7 @@ title: "Know Your Tools"
 ---
 
 ::: {.ao-story}
-You carry the Summoning Scroll from Gaia's Rest to the sages' college, where a Sage spreads its pieces across the long table: the Astral you will summon, the binding circle that holds it, and a pile of fittings nobody has labelled. The boasters swore a good pact needs nothing more than a name, and the Sage smiles at that. One at a time, the Sage picks each piece up and says what it is for. Start with the Astral alone, then watch the circle go down around it.
+Sage Maelis leads you from the long table to a desk where the Summoning Scroll lies open. She names each piece of the pact in turn: the Astral you will summon, the binding circle that holds it, and a pile of fittings nobody has labelled. She has heard the boasters swear a good pact needs nothing more than a name. Start with the Astral alone, then watch the circle go down around it.
 :::
 
 ::: {.quest-dialog}

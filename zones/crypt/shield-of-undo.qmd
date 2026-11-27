@@ -3,7 +3,7 @@ title: "Save Point"
 ---
 
 ::: {.ao-story}
-The first ward in the Crypt is a mark on the floor that you can step back to. Soon you will summon an Astral, and it will rewrite half the corridor in a few heartbeats. The warden says every traveller who walked on without a mark walked back along that corridor with nothing to show, and Brannoch the tinker is one of them. Make your mark before you touch anything.
+The party leaves Sage Maelis's lesson in the Collegium and reaches the Crypt, where Warden Hesper waits at the first ward: a mark on the floor that you can step back to. Soon you will summon an Astral, and it will rewrite half the corridor in a few heartbeats. Hesper says every traveller who walked on without a mark walked back along that corridor with nothing to show, and Brannoch the tinker is one of them. She shows you how to make your mark before you touch anything.
 
 ::: {.panel-tabset group="persona"}
 

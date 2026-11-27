@@ -3,7 +3,7 @@ title: "Block Actions with a Hook"
 ---
 
 ::: {.ao-story}
-A watchman stands at the heavy door and checks every visitor against a list. The list is code, so no one can talk their way past, and your Astral tries every honeyed word it knows. Learn to write one line of that list.
+Watchman Corin stands at the heavy door and checks every visitor against a list. The list is code, so no one can talk their way past, and your Astral tries every honeyed word it knows. Corin hands you the pen and shows you how to write one line of that list. Write it, then test it.
 :::
 
 ::: {.quest-dialog}

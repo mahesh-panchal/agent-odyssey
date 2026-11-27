@@ -3,7 +3,7 @@ title: "Name the Fears"
 ---
 
 ::: {.ao-story}
-The boasters have gone to bed, and the corner by the hearth has grown loud. Brannoch the tinker lost his workshop, Sefa the scholar published a tree built on phantom citations, Tam the steward pasted restricted records into a chat, and Oleander the clerk shipped a demo that "ran fine". Each was warned by the academics, and each was sure it would not happen to them. Every worry in the room has a habit that answers it. Name yours here, then go and meet the creatures.
+The boasters have gone to bed, and the corner by the hearth has grown loud. Brannoch the tinker lost his workshop, Sefa the scholar published a tree built on phantom citations, Tam the steward pasted restricted records into a chat, and Oleander the clerk shipped a demo that "ran fine". Each was warned by the academics, and each was sure it would not happen to them. Wanderer Quill hands you a scroll that pairs every worry in the room with a habit that answers it. Name yours, then follow Quill's pointing finger to the Collegium, where the academics keep the creatures.
 
 ::: {.panel-tabset group="persona"}
 

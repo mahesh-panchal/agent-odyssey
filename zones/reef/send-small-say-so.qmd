@@ -3,7 +3,7 @@ title: "Send Small Changes, Say What You Checked"
 ---
 
 ::: {.ao-story}
-A reef thrives on many hands, and a Review-leech clings to it, feeding on work passed along unchecked. An Astral's vast haul of changes lands on one reviewer's desk, and the leech grows fat. Four small habits starve it, and you can practise them on your next hand-off.
+The party arrives at the Reef and finds the Blight already here, a Review-leech clinging to the coral and feeding on work passed along unchecked. Tidewarden Nerys asks for your help and points to the desk where an Astral's vast haul of changes has landed on one reviewer. Nerys shows you four small habits that starve the leech. Practise them on your next hand-off.
 
 ::: {.panel-tabset group="persona"}
 
