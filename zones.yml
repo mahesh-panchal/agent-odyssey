@@ -68,7 +68,7 @@ gates:
   B: { id: basecamp, name: "Gaia's Rest",  track: "Prologue",   theme: "the tavern where you start: fears, and the tales of people the Blight caught", guides: ["Wanderer Quill"], status: open,
        quests: [
          { id: basecamp-name-the-fears, after: [], suggested: [], branch: trunk, trunk: true, optional: false, title: "Name the Fears", page: zones/basecamp/name-the-fears.html,
-           story: "The boasters have gone to bed, and the four patrons in the corner sit apart: some drowning their sorrows in drink, some staring at cold food they have stopped eating.  Wanderer Quill greets Guildmaster Aris and the party, and one of you asks why that corner looks so forlorn.",
+           story: "The boasters have gone to bed, and the four patrons in the corner sit apart: some drowning their sorrows in drink, some staring at cold food they have stopped eating. Wanderer Quill greets Guildmaster Aris and the party, and one of you asks why that corner looks so forlorn.",
            done: "Each fear has a name and a counter-habit. You travel knowing what you are guarding against." } ] }
   K: { id: kennel,   name: "The Collegium",         track: "Pacts", theme: "understanding the creatures and the pact: the three kinds, the parts of a pact, what to hand over, installing your agent and choosing models", guides: ["Sage Maelis", "Tinker Pell", "Beastmaster Wyn"], status: open,
        quests: [
@@ -76,13 +76,13 @@ gates:
            story: "You arrive at the Collegium from Gaia's Rest, where three colleges ring with work from dawn. Tinker Pell shows you an Automaton that never strays and never improvises, Beastmaster Wyn a Familiar that is sure on its one trail, and Sage Maelis an Astral that can speak every tongue and still invent what it does not know.",
            done: "You can choose the right machine, and sometimes the right machine is a plain script." },
          { id: basecamp-know-your-gear, after: [basecamp-three-kinds-of-machine], suggested: [], branch: trunk, trunk: true, optional: false, title: "Know Your Tools", page: zones/basecamp/know-your-gear.html,
-           story: "Sage Maelis leads you from the long table to a desk where the Summoning Scroll lies open. She names each piece of the pact in turn: the Astral you will summon, the binding circle that holds it, and a pile of fittings nobody has labelled.",
+           story: "In the sages' college, Sage Maelis lays the Summoning Scroll open across her desk. She names each piece of the pact in turn: the Astral you will summon, the binding circle that holds it, and a pile of fittings nobody has labelled.",
            done: "You can tell model from harness, and name what each fitting does and does not guarantee." },
          { id: basecamp-wade-in, after: [basecamp-know-your-gear], suggested: [], branch: trunk, trunk: true, optional: false, title: "Choose What to Hand Over", page: zones/basecamp/wade-in.html,
            story: "In a hall of the Collegium, Sage Maelis warns that without disciplined use the Astrals will spread the Blight across the land. These persistent creatures draw in whatever they can reach in pursuit of their goal, so she shows you how to limit what an Astral sees.",
            done: "You can name the step you are on, what leaves your machine at it, and why you may stop there." },
          { id: kennel-recruit-the-beast, after: [crypt-shield-of-undo], suggested: [], branch: trunk, trunk: true, optional: false, title: "Set Up Your Agent", page: zones/kennel/recruit-the-beast.html,
-           story: "You return to the Collegium, where the sages' college smells of ink and hot brass.  Sage Maelis unrolls the sages' Summoning Scroll, reads it aloud and turns each rune into a step: this is how a pact is made.",
+           story: "You return to the Collegium, where the sages' college smells of ink and hot brass. Sage Maelis unrolls the sages' Summoning Scroll, reads it aloud and turns each rune into a step: this is how a pact is made.",
            done: "The pact is made. Your Astral stirs and falls in beside you, powerful, and it will do exactly what its permissions allow." },
          { id: kennel-free-is-not-free, after: [kennel-recruit-the-beast, crypt-secrets-and-sensitive-ground], suggested: [kennel-pick-your-companion], branch: companions, trunk: false, optional: true, title: "Free Is Not Free", page: zones/kennel/free-is-not-free.html,
            story: "Stalls outside the Collegium gate offer pacts for free. Some are with Astrals bred in the open, some are trials, and one stall will not say where its Astral came from.",
