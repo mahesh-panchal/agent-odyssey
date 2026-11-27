@@ -43,7 +43,7 @@ Read this part twice. When you start a cloud session:
 - **Your repository contents** are cloned onto Anthropic's VM. Anthropic reads only the repository you start the session in.
 - **Your prompts and everything the agent reads and writes** go to the model.
 - **The session transcript** (the saved record of the whole conversation, including tool output) is stored by Anthropic so you can return to it later.
-- **Retention** (how long Anthropic keeps stored data) depends on your account type: from 30 days up to 5 years. Check your plan's current terms on the Data usage page in Lore. Deleting a cloud session permanently removes its event data.
+- **Retention** (how long Anthropic keeps stored data) depends on your account type. Check your plan's current terms on the Data usage page in Lore. Deleting a cloud session permanently removes its event data.
 - **Network level None may still let data exit.** A **network access level** is the setting that says which internet hosts the VM may reach (None, Limited or Full; see section 5). The Anthropic API stays reachable even at None, which may allow data to exit the VM.
 - **Environment variables** (named settings handed to programs, often used for keys) set in a cloud environment can be read by any command Claude runs, and anyone who uses that environment can read the values.
 
@@ -70,7 +70,7 @@ A cloud machine has no GPU and no access to your institution's network. Work tha
 
 ## Claude Code
 
-- **Push first.** `claude --cloud "your task"` starts a cloud session from your terminal. It clones the GitHub remote at your current branch, and your local folder is not used. **Commit and push** (save snapshots, then upload them to the remote) before you start, so the session sees your latest work. If the branch is not on GitHub the CLI prints `Branch <name> is not on GitHub`, and the session starts from a pushed commit or the default branch. One repository per session. You can also start from claude.ai/code in the browser.
+- **Push first.** `claude --cloud "your task"` starts a cloud session from your terminal. It clones the GitHub remote at your current branch, and your local folder is not used. **Commit and push** (save snapshots, then upload them to the remote) before you start, so the session sees your latest work. If the branch is not on GitHub, the session starts from a pushed commit or the default branch. One repository per session. You can also start from claude.ai/code in the browser.
 - **Write a ticket-style prompt.** That is a self-contained note like a work ticket: the problem, the expected result, and a command that proves it (in the example, `pytest`, a Python test runner). Be specific, name files and paste errors. Example, with no data in it:
 
 ```text
@@ -90,13 +90,13 @@ A repository with no real data anywhere in it is the safe one. Removing the `dat
 
 To run an agent away from your laptop with OpenCode, run it yourself in your own container or virtual machine. That is your own infrastructure and your own responsibility.
 
-A local Ollama model keeps prompts on your machine, though web or tool calls the agent makes may leave it. If your data agreement rules out third-party processing, ask whether this local route is allowed.
+A local Ollama model keeps prompts on your machine, though web or tool calls the agent makes may leave it, so check your data agreement before you rely on it.
 
 :::::
 
 ## 5. Environments
 
-An **environment** is a saved configuration for cloud sessions: network access, environment variables, a setup script and network secrets. A first-time setup creates one called `Default`, with Limited access.
+An **environment** is a saved configuration for cloud sessions: network access, environment variables, a setup script and network secrets.
 
 **Network access levels:**
 
@@ -110,7 +110,7 @@ Pick the narrowest level that lets the task finish.
 
 - **Setup scripts:** a **setup script** is a Bash script that runs once before Claude starts, to install what the task needs. Installs need network access, so None blocks them.
 - **Environment variables versus network secrets:** environment variables are readable by any command Claude runs. **Network secrets** are the safer option where possible: the key stays outside the VM, and a proxy adds it to requests to hosts you list.
-- **Preinstalled tools:** common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to run `check-tools` (a shell command on the cloud machine that reports tool versions; you ask Claude to run it) to see what is there.
+- **Preinstalled tools:** common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to list the tools installed on the cloud machine before you rely on one.
 
 ## 6. Permission modes in the cloud
 
@@ -221,7 +221,7 @@ A prompt line is a request to the model. The safe version of this repository has
 
 - [Use Claude Code in the cloud](https://code.claude.com/docs/en/claude-code-on-the-web): Anthropic, docs. Why read: it is the main page on cloud sessions, including what gets uploaded when a repository has no GitHub remote.
 - [Configure cloud environments](https://code.claude.com/docs/en/cloud-environments): Anthropic, docs. Why read: it covers network access levels, environment variables and setup scripts for a session.
-- [Data usage](https://code.claude.com/docs/en/data-usage): Anthropic, docs. Why read: it states what Anthropic stores from a cloud session and how retention differs by plan.
+- [Data usage](https://code.claude.com/docs/en/data-usage): Anthropic, docs. Why read: it states what Anthropic stores from a cloud session and how retention differs by plan (from 30 days up to 5 years at the time of writing).
 - [Security](https://code.claude.com/docs/en/security): Anthropic, docs. Why read: its cloud execution section lists the isolation, credential and audit controls.
 - [Claude Code in the cloud article](https://claude.dev/blog/claude-code-in-the-cloud/): claude.dev blog, article. Why read: a community field guide to cloud sessions; use it for ideas and rely on the official pages above for facts.
 :::

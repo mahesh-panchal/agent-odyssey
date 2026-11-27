@@ -34,7 +34,7 @@ If a site offers one of the most capable closed models with no card and no limit
 3. **Is a card or other detail needed?** Some free tiers need a payment method, a phone number or a data opt-in.
 4. **Does the free tier train on your prompts?** This matters most. A provider that keeps nothing is still not approved for sensitive data; the rule below applies to every free tier.
     - Google AI Studio: on unpaid services Google uses submitted content to improve its products, and human reviewers may read it. Paid services differ.
-    - Groq: it does not retain inference data (it does not store your prompts and the replies) by default, and may keep logs for up to 30 days.
+    - Groq: it does not retain inference data (it does not store your prompts and the replies) by default, and may keep logs for a limited period.
     - OpenRouter: it does not log prompts by default, and retention varies with the provider behind the model.
 5. **Who else is in the path?** A router adds a party. Read its terms and the terms of the provider it picks. One router can send you to providers with different rules.
 
@@ -50,7 +50,7 @@ Providers differ, and one provider's rules can differ by product and plan. Mistr
 - **Retention:** how long does the provider keep your prompts (retention)?
 - **Location:** where are your prompts processed?
 
-Find the answers on the provider's data or privacy page. Mistral's page is in the Lore below. An open-weight model such as `ministral-3:8b` (Apache 2.0 licence) runs locally through Ollama and keeps prompts on your machine, though tool or web calls may still send data out.
+Find the answers on the provider's data or privacy page. Mistral's page is in the Lore below. An open-weight model such as `ministral-3:8b` runs locally through Ollama and keeps prompts on your machine, though tool or web calls may still send data out.
 
 The sensitive-data rule holds for every provider: unpublished or sensitive data stays on your own computer or an approved service.
 
@@ -97,7 +97,7 @@ If you cannot fill a cell from the provider's own page, write "not stated". That
 - [awesome-free-models](https://github.com/12britz/awesome-free-models): GitHub, repo. Why read: a large, regularly corrected list of free models, tiers and tools; check its banner for what changed lately.
 - [OpenRouter FAQ](https://openrouter.ai/docs/faq): OpenRouter, docs. Why read: it explains free model variants, daily allowances and how prompt logging and provider retention differ.
 - [Google AI Studio terms](https://aistudio.google.com/docs/terms): Google, docs. Why read: it spells out how unpaid and paid services treat your prompts differently.
-- [Groq: your data](https://console.groq.com/docs/your-data): Groq, docs. Why read: it states the default retention and log period for inference requests.
+- [Groq: your data](https://console.groq.com/docs/your-data): Groq, docs. Why read: it states the default retention and log period for inference requests (30 days at the time of writing).
 - [OpenCode Zen](https://opencode.ai/docs/zen/): OpenCode, docs. Why read: it lists free models together with their data-retention line, model by model.
 - [Cloudflare Workers AI pricing](https://developers.cloudflare.com/workers-ai/platform/pricing/): Cloudflare, docs. Why read: it shows a daily free allowance and what happens when you pass it.
 - [Do you use my user data to train your models?](https://help.mistral.ai/en/articles/347617-do-you-use-my-user-data-to-train-your-models): Mistral, docs. Why read: it lists, plan by plan, which Mistral products train on your data by default and where the opt-out lives.

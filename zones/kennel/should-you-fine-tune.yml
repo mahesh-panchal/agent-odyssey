@@ -31,7 +31,7 @@ questions:
     explain: "The base weights are frozen, the adapter is trained, the merge folds the adapter in, and the eval checks the result."
     pairs:
       - { left: "Base model weights", right: "Frozen: they stay as they are", misconception: "LoRA leaves the original weights unchanged and trains something small beside them." }
-      - { left: "Adapter matrices", right: "Small extra parts that are trained", misconception: "The adapter is the new, trained piece. The base is the frozen one." }
+      - { left: "Adapter", right: "Small extra parts that are trained", misconception: "The adapter is the new, trained piece. The base is the frozen one." }
       - { left: "Merging", right: "Folds the adapter into the base model afterwards", misconception: "Merging happens after training and combines the pieces. It is not the training step." }
       - { left: "Held-back examples", right: "Used to test the tuned model", misconception: "Training examples teach the model. Held-back ones check it." }
   - type: faulty-line

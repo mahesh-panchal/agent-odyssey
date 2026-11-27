@@ -57,7 +57,7 @@ claude --version     # prints a version number
 claude doctor        # read-only diagnostics; changes nothing
 ```
 
-If the shell says `command not found`, the launcher lives in `~/.local/bin/claude` and that folder is not on your `PATH`.
+If the shell says `command not found`, the launcher lives in `~/.local/bin/claude` and that folder is not on your `PATH` (the list of folders the shell searches for programs).
 
 ## OpenCode + Ollama
 

@@ -18,13 +18,7 @@ A model out of the box is general. Fine-tuning trains it further on your own exa
 
 To **fine-tune** a model is to continue training it on examples from your task. Its **weights** (the numbers it learned) change, so the result is a model of its own.
 
-**LoRA** (low-rank adaptation) is one way to fine-tune. The **base model** is the model you start from. LoRA works in three steps:
-
-- **Freeze:** the base model's original weights stay as they are.
-- **Train a small adapter:** you train a small set of extra number tables (matrices, called the "adapter") on your examples.
-- **Merge later:** the adapter can be merged into the base model afterwards.
-
-Training only the adapter needs far less memory than retraining everything.
+One way to fine-tune is **LoRA** (low-rank adaptation). The **base model** is the model you start from. LoRA freezes the base weights, trains a small extra set of number tables on your examples (the **adapter**), and can merge the adapter into the base model afterwards. Training only the adapter needs far less memory than retraining everything.
 
 ## 2. Four conditions
 
