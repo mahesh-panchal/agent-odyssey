@@ -74,7 +74,7 @@ gates:
            story: "The Collegium rings with work from dawn. In one college tinkers hammer Automata together out of brass and patience, in another beastmasters drill Familiars to hunt a single quarry, and in the sages' college robed figures bargain pacts with Astrals.",
            done: "You can choose the right machine, and sometimes the right machine is a plain script." },
          { id: basecamp-know-your-gear, after: [basecamp-three-kinds-of-machine], suggested: [], branch: trunk, trunk: true, optional: false, title: "Know Your Tools", page: zones/basecamp/know-your-gear.html,
-           story: "An old wanderer spreads the tools of the trade across the long table: the Astral you will summon, the binding circle that holds it, and a pile of fittings nobody has labelled. The boasters swear a good pact needs nothing more than a name.",
+           story: "You carry the Summoning Scroll from Gaia's Rest to the sages' college, where a Sage spreads its pieces across the long table: the Astral you will summon, the binding circle that holds it, and a pile of fittings nobody has labelled. The boasters swore a good pact needs nothing more than a name, and the Sage smiles at that.",
            done: "You can tell model from harness, and name what each fitting does and does not guarantee." },
          { id: basecamp-wade-in, after: [basecamp-know-your-gear], suggested: [], branch: trunk, trunk: true, optional: false, title: "Choose What to Hand Over", page: zones/basecamp/wade-in.html,
            story: "In a corner of Gaia's Rest, four travellers each picture what a pact with an Astral could do for them, and then the doubts arrive. The boasters at the bar say you cross the stream at the Astral's side or you stay on the bank.",
