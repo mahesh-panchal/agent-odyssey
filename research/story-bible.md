@@ -31,7 +31,7 @@ The Blight is not a monster from outside. It is what happens when a pact-bearer 
 
 ## Places
 
-- **Gaia's Rest** (zone slug `basecamp`): the tavern where the adventure starts. Boasters tell tales of extraordinary pacts. A few patrons sit sullen in a corner, drowning their sorrows in drink or staring at cold food. **Wanderer Quill**, an old wanderer, greets the party, recounts the four patrons' tales (Name the Fears) and hands each traveller the **Summoning Scroll**, which is the Prerequisites page (story word only; the page keeps its plain title).
+- **Gaia's Rest** (zone slug `basecamp`): the tavern where the adventure starts. Boasters tell tales of extraordinary pacts. A few patrons sit sullen in a corner, drowning their sorrows in drink or staring at cold food. **Wanderer Quill**, an old wanderer, greets the party, recounts the four patrons' tales (Name the Fears) and sends them to the Sages at the Collegium with the other worries patrons have carried through the door. The **Summoning Scroll** is the Prerequisites page (story word only; the page keeps its plain title). The sages' college keeps it: Sage Maelis shows it in Know Your Tools and reads it aloud in Set Up Your Agent.
 - **The Collegium** (zone slug `kennel`): an academy of three colleges, used as story labels only, where academics mill about and respect one another because each knows the strengths and weaknesses of the Shokanju (summoned beasts, never hired). The **tinkers' college** builds Automata (it leads on to the Pipeline Factory and has no quest of its own). The **beastmasters' college** trains Familiars (Should You Fine-Tune?). The **sages' college** interprets scrolls and makes pacts with Astrals. **Sage Maelis** of the sages' college is the party's teacher for the trunk quests set here: Script, Model, or LLM (among all three colleges), Know Your Tools (she explains the pieces of the pact from the Summoning Scroll), Choose What to Hand Over (she warns that without disciplined use Astrals spread the Blight across the land, and shows how to limit what an Astral sees, because these persistent creatures draw in whatever they can reach in pursuit of their goal) and Set Up Your Agent (she reads the scroll and makes the pact with the party). The branch quests Pick Your Model, Free Is Not Free and Claude in the Cloud are hers too. The Sages warn about limits; the learner may ignore them, as the tavern patrons did.
 - Other zones keep their names (Ancient DNA Crypt, Codon Mill, Sequence Maze, Phylogenetic Forest, Gatehouse, Biodiversity Reef, Pipeline Factory, Scriptorium, Cluster Citadel, The Murk's Heart). Their guides are in the next section. The Crypt track label is "Wards".
 
@@ -42,7 +42,7 @@ Each made a pact, was given the Sages' instructions, and ignored them out of hub
 1. **Brannoch the tinker** lost his workshop. He skipped a save point ("I never lose files").
 2. **Sefa the scholar** published an evolutionary tree built on phantom citations. She skipped checking against ground truth ("it sounded right").
 3. **Tam the steward** pasted restricted records into a chat. He ignored the secrets warnings ("it's only a chat").
-4. **Oleander the clerk** shipped a demo that "ran fine". She skipped review.
+4. **Oleander the clerk** merged forty changed files on an Astral's own summary and never noticed it had deleted the failing tests. She skipped review.
 
 The boasters outside tell the tales of extraordinary pacts.
 

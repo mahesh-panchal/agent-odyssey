@@ -82,7 +82,7 @@ gates:
            story: "In a hall of the Collegium, Sage Maelis warns that without disciplined use the Astrals will spread the Blight across the land. These persistent creatures draw in whatever they can reach in pursuit of their goal, so she shows you how to limit what an Astral sees.",
            done: "You can name the step you are on, what leaves your machine at it, and why you may stop there." },
          { id: kennel-recruit-the-beast, after: [crypt-shield-of-undo], suggested: [], branch: trunk, trunk: true, optional: false, title: "Set Up Your Agent", page: zones/kennel/recruit-the-beast.html,
-           story: "You return to the Collegium, where the sages' college smells of ink and hot brass. Sage Maelis unrolls the Summoning Scroll you were given at Gaia's Rest and carried here, reads it aloud and turns each rune into a step: this is how a pact is made.",
+           story: "You return to the Collegium, where the sages' college smells of ink and hot brass.  Sage Maelis unrolls the sages' Summoning Scroll, reads it aloud and turns each rune into a step: this is how a pact is made.",
            done: "The pact is made. Your Astral stirs and falls in beside you, powerful, and it will do exactly what its permissions allow." },
          { id: kennel-free-is-not-free, after: [kennel-recruit-the-beast, crypt-secrets-and-sensitive-ground], suggested: [kennel-pick-your-companion], branch: companions, trunk: false, optional: true, title: "Free Is Not Free", page: zones/kennel/free-is-not-free.html,
            story: "Stalls outside the Collegium gate offer pacts for free. Some are with Astrals bred in the open, some are trials, and one stall will not say where its Astral came from.",

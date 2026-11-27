@@ -5,7 +5,7 @@ aliases:
 ---
 
 ::: {.ao-story}
-You return to the Collegium, where the sages' college smells of ink and hot brass. Sage Maelis unrolls the Summoning Scroll you were given at Gaia's Rest and carried here, reads it aloud and turns each rune into a step: this is how a pact is made. Making it is the easy part, she says, and then lists the ways it goes wrong, which the boasters at the tavern left out. Follow the scroll in order, and keep the Astral on a short lead.
+You return to the Collegium, where the sages' college smells of ink and hot brass. Sage Maelis unrolls the sages' Summoning Scroll, reads it aloud and turns each rune into a step: this is how a pact is made. Making it is the easy part, she says, and then lists the ways it goes wrong, which the boasters at the tavern left out. Follow the scroll in order, and keep the Astral on a short lead.
 
 ::: {.panel-tabset group="persona"}
 
