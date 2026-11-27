@@ -191,7 +191,7 @@ gates:
          { id: instructions-skills-and-hooks-bundle-a-plugin, after: [instructions-skills-and-hooks-test-the-skill], suggested: [], branch: guilds, trunk: false, optional: true, title: "Bundle a Plugin", page: zones/instructions-skills-and-hooks/bundle-a-plugin.html,
            story: "At the door of the smithy Smith Dunmore holds out a satchel to be packed with the finest skills and their tests. Whatever you unpack from another traveller's satchel runs with your own authority.",
            done: "The satchel is packed and sealed, and you know that opening someone else's satchel means trusting what runs inside." },
-         { id: instructions-skills-and-hooks-connect-an-mcp-server, after: [safe-editing-write-permission-rules, instructions-skills-and-hooks-meet-the-guilds], suggested: [], branch: guilds, trunk: false, optional: false, title: "Connect an MCP Server", page: zones/instructions-skills-and-hooks/connect-an-mcp-server.html,
+         { id: instructions-skills-and-hooks-connect-an-mcp-server, after: [instructions-skills-and-hooks-advice-or-enforcement, safe-editing-write-permission-rules], suggested: [], branch: guilds, trunk: false, optional: false, title: "Connect an MCP Server", page: zones/instructions-skills-and-hooks/connect-an-mcp-server.html,
            story: "The party walks the length of the Row to the gate where Watchman Corin stands at a heavy door that opens onto the outside world. Whatever walks through acts with your keys, and someone has pinned a note to the door that your Astral reads aloud as if it were an order.",
            done: "You treat an MCP server as software you install, and scope it, limit it and read what it sends back." },
          { id: instructions-skills-and-hooks-block-actions-with-a-hook, after: [safe-editing-write-permission-rules, instructions-skills-and-hooks-test-the-skill], suggested: [], branch: trunk, trunk: true, optional: false, title: "Block Actions with a Hook", page: zones/instructions-skills-and-hooks/block-actions-with-a-hook.html,
@@ -213,15 +213,15 @@ gates:
            done: "You teach the checks, guard your own learning, and keep your workload reviewable." } ] }
   P: { id: pipelines, name: "The Automata Factory", track: "Craft", theme: "craft: agents on pipelines, and reproducibility", guides: ["Tinker Pell"], status: open,
        quests: [
-         { id: pipelines-dry-run-first, after: [checking-output-ground-truth], suggested: [], branch: craft, trunk: false, optional: false, title: "Dry Run First", page: zones/pipelines/dry-run-first.html,
+         { id: pipelines-dry-run-first, after: [checking-output-boss-review-large-output], suggested: [], branch: craft, trunk: false, optional: false, title: "Dry Run First", page: zones/pipelines/dry-run-first.html,
            story: "Tinker Pell leads the party out of the tinkers' college and down the road to the Automata Factory. Conveyor belts hum across the floor, along lines that an Astral wired overnight, and one belt leads nowhere.",
            done: "You check the wiring cheaply, layer by layer, before the real cargo rolls." },
-         { id: pipelines-same-every-time, after: [agents-and-models-script-model-or-llm], suggested: [prompts-and-context-where-machines-fail], branch: craft, trunk: false, optional: false, title: "Same Every Time", page: zones/pipelines/same-every-time.html,
+         { id: pipelines-same-every-time, after: [pipelines-dry-run-first], suggested: [prompts-and-context-where-machines-fail], branch: craft, trunk: false, optional: false, title: "Same Every Time", page: zones/pipelines/same-every-time.html,
            story: "You walk to the Automata Factory, where a talkative creature sits in the middle of the line and Tinker Pell frowns at it. Sometimes it says one thing and sometimes another, and the customers need the same answer every time.",
            done: "You keep the talker out of the run, or fence it in with records, caches and checks." } ] }
   H: { id: shared-clusters, name: "Haven Quay", track: "Shared Ground", theme: "shared ground: clusters, keys and other people's queues", guides: ["Gatekeeper Brisa", "Queue Master Fenn"], status: open,
        quests: [
-         { id: shared-clusters-login-node-manners, after: [safe-editing-write-permission-rules], suggested: [], branch: citadel, trunk: false, optional: false, title: "Login Node Manners", page: zones/shared-clusters/login-node-manners.html,
+         { id: shared-clusters-login-node-manners, after: [collaboration-review-agent-written-work, safe-editing-write-permission-rules], suggested: [], branch: citadel, trunk: false, optional: false, title: "Login Node Manners", page: zones/shared-clusters/login-node-manners.html,
            story: "You walk to Haven Quay along the coast road, and Gatekeeper Brisa meets you at the harbour gate shared by hundreds of travellers from all over. Brisa has seen what one careless sweep of the whole warehouse does to everyone's berth.",
            done: "You keep heavy work off the login node and off shared storage, and you know what to hand to the scheduler." },
          { id: shared-clusters-jobs-not-jam, after: [shared-clusters-login-node-manners], suggested: [], branch: citadel, trunk: false, optional: false, title: "Jobs, Not Jam", page: zones/shared-clusters/jobs-not-jam.html,

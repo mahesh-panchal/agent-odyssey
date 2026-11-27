@@ -7,7 +7,7 @@
   function ico(q) { return q && q.trunk ? "<span class='ao-ico' title='Trunk quest' aria-label='Trunk quest'>◆</span> " : "<span class='ao-ico ao-ico-side' title='Side quest' aria-label='Side quest'>◇</span> "; }
   function walk(G, ids) {   // walk order: trunk quests in trunk order, each side quest just after the trunk quest it hangs off
     var T = G.trunk_order || [];
-    function at(k, n) { var q = G.quests[k]; if (!q) return T.length; var i = T.indexOf(k); if (i >= 0) return i; return n > 8 || !q.after.length ? T.length : at(q.after[0], n + 1) + 0.5; }
+    function at(k, n) { var q = G.quests[k]; if (!q) return T.length; var i = T.indexOf(k); if (i >= 0) return i; return n > 8 || !q.after.length ? T.length : Math.max.apply(null, q.after.map(function (a) { return at(a, n + 1); })) + 0.5; }
     return ids.slice().sort(function (a, b) { return at(a, 0) - at(b, 0) || ids.indexOf(a) - ids.indexOf(b); });
   }
   function link(q) {
