@@ -31,7 +31,7 @@ Archivist Elowen checks the wall's totals against the ledger.
 ::: {.quest-dialog}
 - **Goal:** you will review a very large amount of agent output without reading all of it and without trusting all of it.
 - **Before you start:** [Ground Truth](ground-truth.html). This is the boss at the end of the trunk.
-- **Time:** about 10 minutes. Each right answer on the first try damages the boss.
+- **Time:** about 10 minutes. Each right answer on the first try damages the boss, and a partly right one damages it in part.
 :::
 
 ## Too much output to review

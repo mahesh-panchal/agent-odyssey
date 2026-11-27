@@ -154,6 +154,7 @@ try:
     if B.js("[...document.querySelectorAll('ol li')].map(l=>l.firstChild.textContent.trim()).join(',')") == "one,two,three":
         B.js("document.querySelectorAll('ol li')[0].querySelectorAll('button')[1].click()")   # shuffle happened to be correct: break it
     B.click_text("Check order"); check("order: wrong order explains", "doesn’t" in B.js("document.querySelector('.ao-fb').textContent") or "not right" in B.js("document.querySelector('.ao-fb').textContent") or "goes second" in B.js("document.querySelector('.ao-fb').textContent"), B.js("document.querySelector('.ao-fb').textContent"))
+    check("order: a wrong first check gives partial credit when some items sit in place", B.js("(()=>{const cur=[...document.querySelectorAll('ol li')].map(l=>l.firstChild.textContent.trim());const n=cur.filter((t,i)=>t===['one','two','three'][i]).length;const fb=document.querySelector('.ao-fb').textContent;return n>0?fb.includes('Partly right'):!fb.includes('Partly right')})()"))
     # DOM reorder does not change the engine's array; drive the real buttons instead:
     for _ in range(10):
         txt = B.js("[...document.querySelectorAll('ol li')].map(l=>l.firstChild.textContent.trim()).join(',')")
@@ -163,9 +164,10 @@ try:
         B.js(f"document.querySelectorAll('ol li')[{j}].querySelectorAll('button')[0].click()")
     B.click_text("Check order"); ok = B.click_text("Next")
     check("order: correct order accepted (not first try)", ok)
-    B.js("[...document.querySelectorAll('select')].forEach(s=>{s.value=s.getAttribute('aria-label').includes('rm')?'allow':'deny'; })")
+    B.js("[...document.querySelectorAll('select')].forEach(s=>{s.value='deny'; })")   # rm is in the right bin, ls is not
     B.click_text("Check sorting")
-    check("sort: wrong bins show misconceptions", "deletes everything" in B.js("document.querySelector('.ao-fb').textContent") and "ls only reads" in B.js("document.querySelector('.ao-fb').textContent"))
+    check("sort: wrong bins show misconceptions", "ls only reads" in B.js("document.querySelector('.ao-fb').textContent"))
+    check("sort: one of two bins right gives partial credit", "Partly right: 50%" in B.js("document.querySelector('.ao-fb').textContent"), B.js("document.querySelector('.ao-fb').textContent"))
     B.js("[...document.querySelectorAll('select')].forEach(s=>{s.value=s.getAttribute('aria-label').includes('rm')?'deny':'allow'; })")
     B.click_text("Check sorting"); B.click_text("Next")
     B.click_text("1"); check("faulty-line: fine line explained", "fine" in B.js("document.querySelector('.ao-fb').textContent"))

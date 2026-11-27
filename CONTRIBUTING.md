@@ -27,7 +27,7 @@ presses (needs `quarto install chrome-headless-shell` once). `pixi run shots` wr
 - **Exercises** run on a laptop with tiny mock data. No real or sensitive data, ever.
 - **Tests:** discriminating, one defensible right answer, every wrong answer carries a `misconception`, every question has
   `explain`. Do not make the correct option the longest or the only hedged one. Types: choice, order, sort, faulty-line, match.
-- **Bonus items** (`data-ao-honour`, shown to the learner as "Bonus question" with its XP) give bonus XP only and never gate progress. A test pays XP per question answered right first time and the rest when the quest is cleared, once.
+- **Bonus items** (`data-ao-honour`, shown to the learner as "Bonus question" with its XP) give bonus XP only and never gate progress. A test pays XP per question answered right first time and the rest when the quest is cleared, once. Order, sort and match questions pay in proportion to the parts right at the first check, and the pass mark counts that partial credit.
 - **Accessibility:** all text is real HTML; colour is never the only signal; everything works with the keyboard.
 
 ### Lore

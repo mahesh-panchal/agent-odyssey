@@ -31,7 +31,7 @@ Archivist Elowen opens the ledger.
 ::: {.quest-dialog}
 - **Goal:** you will read one messy agent session end to end and catch every habit it breaks.
 - **Before you start:** the whole trunk and any three branches (Background lists them). Everything here is mock: no model is called and no real data is used.
-- **Time:** about 15 to 20 minutes. Each right answer on the first try damages the boss.
+- **Time:** about 15 to 20 minutes. Each right answer on the first try damages the boss, and a partly right one damages it in part.
 :::
 
 ## What to look for

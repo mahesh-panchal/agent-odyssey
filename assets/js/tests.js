@@ -1,5 +1,6 @@
 /* Test engine: choice, order, sort, faulty-line, match. Keyboard operable; wrong answers explain the misconception.
-   A question counts only if right on the FIRST check; you may keep trying to see the explanation and move on. */
+   Credit is judged on the FIRST check; you may keep trying to see the explanation and move on. Order, sort and match
+   questions give partial credit: the fraction of parts right at the first check. Choice and faulty-line questions are all or nothing. */
 (function () {
   function h(tag, attrs, kids) {
     var e = document.createElement(tag);
@@ -24,7 +25,9 @@
     return d;
   }
 
-  /* Each renderer: (q, box, report) where report(ok, message) is called on every check. */
+  function fmt(x) { return String(Math.round(x * 10) / 10); }
+
+  /* Each renderer: (q, box, report) where report(ok, message, fraction) is called on every check. The fraction (0 to 1) is the share of parts right. */
   var R = {};
   R.choice = function (q, box, report) {
     shuffle(q.options).forEach(function (o, i) {
@@ -48,7 +51,8 @@
     var go = h("button", { text: "Check order" });
     go.onclick = function () {
       var bad = items.findIndex(function (t, i) { return t !== q.items[i]; });
-      report(bad < 0, bad < 0 ? "" : ((q.why && q.why[items[bad]]) || ("Position " + (bad + 1) + " is not right: “" + items[bad] + "” does not belong there.")));
+      var good = items.filter(function (t, i) { return t === q.items[i]; }).length;
+      report(bad < 0, bad < 0 ? "" : ((q.why && q.why[items[bad]]) || ("Position " + (bad + 1) + " is not right: “" + items[bad] + "” does not belong there.")), good / items.length);
     };
     box.appendChild(go);
   };
@@ -62,7 +66,7 @@
     go.onclick = function () {
       var wrong = rows.filter(function (r) { return r.sel.value !== r.it.bin; });
       rows.forEach(function (r) { r.sel.style.outline = r.sel.value === r.it.bin ? "2px solid #7bd88f" : "2px solid #ff7a7a"; });
-      report(!wrong.length, wrong.map(function (r) { return "✖ " + r.it.text + ": " + r.it.misconception; }).join("\n"));
+      report(!wrong.length, wrong.map(function (r) { return "✖ " + r.it.text + ": " + r.it.misconception; }).join("\n"), (rows.length - wrong.length) / rows.length);
     };
     box.appendChild(go);
   };
@@ -85,7 +89,7 @@
     go.onclick = function () {
       var wrong = rows.filter(function (r) { return r.sel.value !== r.p.right; });
       rows.forEach(function (r) { r.sel.style.outline = r.sel.value === r.p.right ? "2px solid #7bd88f" : "2px solid #ff7a7a"; });
-      report(!wrong.length, wrong.map(function (r) { return "✖ " + r.p.left + ": " + (r.p.misconception || "that is not the match."); }).join("\n"));
+      report(!wrong.length, wrong.map(function (r) { return "✖ " + r.p.left + ": " + (r.p.misconception || "that is not the match."); }).join("\n"), (rows.length - wrong.length) / rows.length);
     };
     box.appendChild(go);
   };
@@ -104,9 +108,9 @@
           img.setAttribute("src", img.getAttribute("src").replace(/[^\/]+$/, names[k] + ".png"));
         }
         function finish() {
-          var ok = score / qs.length >= pass, fresh = !AO.state.passed[id];
+          var ok = score / qs.length >= pass - 1e-9, fresh = !AO.state.passed[id];
           el.innerHTML = "";
-          el.appendChild(h("p", { role: "status", text: (ok ? "✔ Victory! The Blight recedes. " : "✖ The Blight holds. ") + score + "/" + qs.length + " right first time." + (ok ? (fresh ? " Quest XP: " + xp + "." : " Already cleared, so no new XP.") : " Need " + Math.ceil(pass * qs.length) + ".") }));
+          el.appendChild(h("p", { role: "status", text: (ok ? "✔ Victory! The Blight recedes. " : "✖ The Blight holds. ") + fmt(score) + "/" + qs.length + " right first time (partial credit counts)." + (ok ? (fresh ? " Quest XP: " + xp + "." : " Already cleared, so no new XP.") : " Need " + fmt(pass * qs.length) + ".") }));
           if (ok) { portrait(0, true); var rest = xp - AO.awarded(id); AO.pass(id, Math.max(0, rest)); } else { var b = h("button", { text: "Fight again" }); b.onclick = run; el.appendChild(b); }
         }
         function show() {
@@ -115,17 +119,33 @@
           el.innerHTML = "";
           if (bank.boss) {
             var hp = Math.max(0, qs.length - score); portrait(hp); var bar = h("progress", { max: qs.length, value: hp, "aria-label": "Boss HP" });
-            el.appendChild(h("p", { class: "ao-boss" }, [h("strong", { text: "⚔ " + bank.boss.name + "  " }), bar, h("span", { text: "  HP " + hp + "/" + qs.length })]));
+            el.appendChild(h("p", { class: "ao-boss" }, [h("strong", { text: "⚔ " + bank.boss.name + "  " }), bar, h("span", { text: "  HP " + fmt(hp) + "/" + qs.length })]));
           }
           el.appendChild(h("p", { text: "Round " + (i + 1) + " of " + qs.length, class: "ao-round" }));
           el.appendChild(h("p", {}, [h("strong", { text: q.prompt })]));
           var box = h("div", {}), fb = h("p", { "aria-live": "polite", class: "ao-fb" }), next = h("button", { text: "Next ▶", class: "ao-next-btn" });
           next.hidden = true; next.onclick = function () { i++; show(); };
-          R[q.type](q, box, function (ok, msg) {
+          function syncBoss() {
+            var pr = el.querySelector(".ao-boss progress"); if (!pr) return;
+            var hp = Math.max(0, qs.length - score); pr.value = hp; pr.nextSibling.textContent = "  HP " + fmt(hp) + "/" + qs.length; portrait(hp);
+          }
+          R[q.type](q, box, function (ok, msg, frac) {
             if (solved) return;
             tries++;
-            if (ok) { solved = true; var gain = 0; if (tries === 1) { score++; if (!AO.state.passed[id]) gain = AO.award(id + "#" + i, Math.floor(xp / qs.length)); } var pr = el.querySelector(".ao-boss progress"); if (pr) { pr.value = qs.length - score; pr.nextSibling.textContent = "  HP " + (qs.length - score) + "/" + qs.length; portrait(qs.length - score); } fb.className = "ao-fb ok"; fb.textContent = (tries === 1 ? "✔ Correct." + (gain ? " +" + gain + " XP." : "") : "✔ Correct (not first try).") + (q.explain ? " " + q.explain : ""); var w = why(q); if (w) fb.parentNode.insertBefore(w, next); next.hidden = false; next.focus(); }
-            else { fb.className = "ao-fb bad"; fb.textContent = "✖ Not quite. " + msg; }
+            var part = ok ? 1 : Math.max(0, Math.min(1, frac || 0)), gain = 0;
+            if (tries === 1) {
+              score += part;
+              if (part && !AO.state.passed[id]) gain = AO.award(id + "#" + i, Math.floor(xp * part / qs.length));
+              syncBoss();
+            }
+            if (ok) {
+              solved = true; fb.className = "ao-fb ok";
+              fb.textContent = (tries === 1 ? "✔ Correct." + (gain ? " +" + gain + " XP." : "") : "✔ Correct (not first try).") + (q.explain ? " " + q.explain : "");
+              var w = why(q); if (w) fb.parentNode.insertBefore(w, next); next.hidden = false; next.focus();
+            } else {
+              fb.className = "ao-fb bad";
+              fb.textContent = (tries === 1 && part ? "◐ Partly right: " + Math.round(part * 100) + "% of the parts." + (gain ? " +" + gain + " XP so far." : "") + " " : "✖ Not quite. ") + msg;
+            }
           });
           el.appendChild(box); el.appendChild(fb); el.appendChild(next);
         }
