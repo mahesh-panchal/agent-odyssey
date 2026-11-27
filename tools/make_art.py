@@ -455,11 +455,16 @@ def kind_astral():
         out.append(c[-1]); return np.array(out)
     path = spline(ctrl); n = len(path); rad = 4 + 9 * (np.linspace(0, 1, n) ** .8)
     im = Image.new("RGBA", (Q, Q), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-    for sgn in (-1, 1):                                                                              # translucent wings behind the body
-        bx, by = path[int(n * .62)]
-        pts = [(bx, by), (bx + sgn * 8, by - 34), (bx + sgn * 30, by - 46), (bx + sgn * 40, by - 24), (bx + sgn * 22, by - 6)]
-        d.polygon(pts, fill=(185, 205, 255, 175)); d.polygon([pts[0], pts[1], pts[2]], fill=(205, 220, 255, 190))
-        for q in (pts[2], pts[3], pts[4]): d.line([pts[0], q], fill=(245, 250, 255, 230))
+    bx, by = path[int(n * .30)]                                                                      # wings rise from the back into the empty upper left, clear of the head
+    for ox, oy, sc, mem, rib in ((-3, 4, .75, (226, 150, 110, 235), (160, 88, 70, 255)), (3, 2, .95, (255, 214, 140, 245), (200, 120, 70, 255))):
+        x0, y0 = bx + ox, by + oy - 4
+        P = lambda dx, dy: (x0 + dx * sc, y0 + dy * sc)
+        tips = [P(-26, -50), P(-9, -52), P(5, -38)]
+        notch = [P(-22, -30), P(-3, -33)]
+        edge = [P(0, 0), P(-30, -22), tips[0], notch[0], tips[1], notch[1], tips[2]]
+        d.polygon(edge, fill=mem)
+        for t in tips + [P(-30, -22)]: d.line([P(0, 0), t], fill=rib, width=2)
+        d.line([P(0, 0), P(-30, -22), tips[0], notch[0], tips[1], notch[1], tips[2], P(0, 0)], fill=INK, width=1)
     px = im.load(); ramp = ["#141844", "#1d2260", "#2a3290", "#3b46b8", "#5a6fe0", "#8aa0ff", "#c4d4ff"]
     ys, xs = np.mgrid[0:Q, 0:Q]
     dist = np.full((Q, Q), 1e9); idx = np.zeros((Q, Q), int)

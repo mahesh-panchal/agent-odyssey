@@ -10,7 +10,7 @@ The Collegium rings with work from dawn. In one college tinkers hammer Automata 
 
 ![](../../assets/img/kind-familiar.png){.ao-kind-img fig-alt="Pixel-art Familiar: a trained hound with a collar and a small glowing rune tag."}
 
-![](../../assets/img/kind-astral.png){.ao-kind-img fig-alt="Pixel-art Astral: a starry dragon-serpent of light with horns and a gold eye."}
+![](../../assets/img/kind-astral.png){.ao-kind-img fig-alt="Pixel-art Astral: a starry dragon-serpent of light with a lavender head, horns and a gold eye, and amber wings raised behind its back."}
 :::
 
 From left to right: an Automaton, a Familiar and an Astral.
