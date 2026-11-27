@@ -50,5 +50,5 @@ questions:
     explain: "Know each tool's default, then add the rule that makes sbatch ask. Rules are a prompt, and a hook is what enforces."
     pairs:
       - { left: "Claude Code: make sbatch prompt every time", right: "Put Bash(sbatch *) in ask", misconception: "Ask rules force a prompt, even when a narrower allow rule exists." }
-      - { left: "OpenCode V2: sbatch runs without a prompt", right: "The base policy begins with an allow-all rule, so add an ask rule", misconception: "An unmatched action asks, but per the docs the base policy starts with allow-all, so an explicit ask rule for sbatch is likely needed." }
+      - { left: "OpenCode: sbatch runs without a prompt", right: "The base policy begins with an allow-all rule, so add an ask rule", misconception: "An unmatched action asks, but the base policy starts with allow-all, so an explicit ask rule for sbatch is likely needed." }
       - { left: "Enforcing a rule beyond Bash matching", right: "A PreToolUse hook", misconception: "Bash rules are not a security boundary, so enforcement needs a hook. The sandbox limits files and network, not Slurm commands." }

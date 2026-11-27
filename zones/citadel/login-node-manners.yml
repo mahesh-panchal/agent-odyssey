@@ -53,7 +53,7 @@ questions:
       - { text: "Run it with --dry-run --itemize-changes and read the list", correct: true }
       - { text: "Run it once for real and delete the copy if it looks wrong", misconception: "A real copy may already have sent secrets or overwritten files, and it cannot be undone." }
       - { text: "Use cp instead, because it has a dry run of its own", misconception: "cp, scp and rm have no dry run. List the exact paths yourself." }
-      - { text: "Run it on the login node with no checks, since copying is light", misconception: "Large transfers are heavy I/O. Send them through the scheduler or a data-transfer node." }
+      - { text: "Run it for real with no checks, since copying is light", misconception: "A copy that surprises you cannot be undone. The dry run shows it first." }
   - type: faulty-line
     prompt: "This is an instruction block for an agent on a shared cluster. Which line is the faulty one?"
     explain: "A recursive grep from the home directory sweeps shared storage. Searches should be scoped to one subdirectory."

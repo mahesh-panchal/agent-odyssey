@@ -12,7 +12,7 @@ Your home directory lies on ground that hundreds of others can reach. Keys, toke
 - **Time:** about 15 minutes.
 :::
 
-You need this before you run an agent under your cluster account: keys and agent settings live in ordinary files, and on a shared cluster other people may be able to read them. It covers Claude Code only, and keeping them private and keeping data within its agreement. Ask your cluster staff before sending any cluster data to an external model API, and follow your institution's data agreement. Step 1 below checks your cluster home, so run it on the cluster. Steps 2 and 3 are safe to practise on your laptop.
+You need this before you run an agent under your cluster account: keys and agent settings live in ordinary files, and on a shared cluster other people may be able to read them. The file and settings steps cover Claude Code; the OpenCode tab gives the questions to ask your staff. Both routes cover keeping keys private and data within its agreement. Ask your cluster staff before sending any cluster data to an external model API, and follow your institution's data agreement. Step 1 below checks your cluster home, so run it on the cluster. Steps 2 and 3 are safe to practise on your laptop.
 
 ## What lives where
 

@@ -83,26 +83,7 @@ Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by de
 
 ## Size the request
 
-A job can use more of the cluster than you meant to ask for, and no error tells you. Slurm counts what you allocate, whatever you use, and that count feeds your *fair-share priority* (how soon your later jobs start). A *partition* is a group of nodes with its own limits. Many partitions limit memory per CPU (`MaxMemPerCPU`), so a large memory request on one CPU can make Slurm add CPUs to fit it, or reject the job. Other limit settings can leave an over-limit job pending instead, so read what your site does.
-
-Before a large or repeated job, read the partition's limits (`scontrol show partition <name>`). Afterwards compare what you asked for with what the job used. This command prints one row per job and step:
-
-```bash
-sacct --jobs=<id> --format=JobID,State,ReqMem,MaxRSS,Elapsed,Timelimit
-```
-
-`ReqMem` is the memory requested, `MaxRSS` the most memory one task used, `Elapsed` the run time and `Timelimit` the time requested. `MaxRSS` is filled on the step rows such as `.batch`. Here is a finished alignment job. The numbers are invented:
-
-| JobID | State | ReqMem | MaxRSS | Elapsed | Timelimit |
-|---|---|---|---|---|---|
-| 123456 | COMPLETED | 32G | | 00:41:10 | 04:00:00 |
-| 123456.batch | COMPLETED | 32G | 9.8G | 00:41:10 | |
-
-The job used 9.8 GB of the 32 GB requested and ran 41 minutes of the 4 hours allowed. For the next run, ask for `--mem=14G` (about 1.4 times `MaxRSS`) and `--time=01:15:00` (about 1.8 times `Elapsed`). In this invented case the extra is headroom for a larger sample. Choose your own margin.
-
-- A job killed for memory can show `OUT_OF_MEMORY` in `State`. `MaxRSS` then understates the need, so raise the request above the failed one.
-- If `sacct` prints nothing, accounting may be off. Ask your staff.
-- If the memory need and the CPU count conflict, ask staff for a partition with a better memory-to-CPU ratio and check with them before using it.
+Slurm counts what you allocate, whatever you use, so a generous request costs you queue priority. After a job, compare what you asked for with what it used: `sacct --jobs=<id> --format=JobID,State,ReqMem,MaxRSS,Elapsed,Timelimit` (`ReqMem` is the memory requested and `MaxRSS` the most memory one task used).
 
 ## Battle: queue manners
 
