@@ -488,23 +488,21 @@ def kind_astral():
         h = 4 + rad[i] * .6
         d.polygon([(x + ux * rad[i] - nx / L * 2, y + uy * rad[i] - ny / L * 2), (x + ux * (rad[i] + h), y + uy * (rad[i] + h)),
                    (x + ux * rad[i] + nx / L * 2, y + uy * rad[i] + ny / L * 2)], fill="#7fe0f5")
-    hx_, hy_ = path[-1]                                                                              # head
-    d.polygon([(hx_ - 12, hy_ - 4), (hx_ - 24, hy_ - 14), (hx_ - 18, hy_ + 6)], fill="#ff9ad8")      # mane
-    d.polygon([(hx_ - 6, hy_ - 12), (hx_ - 16, hy_ - 26), (hx_ - 2, hy_ - 16)], fill="#7fe0f5")
-    d.polygon([(hx_ - 12, hy_ + 6), (hx_ - 26, hy_ + 10), (hx_ - 12, hy_ + 14)], fill="#7fe0f5")
-    d.ellipse([hx_ - 16, hy_ - 15, hx_ + 16, hy_ + 15], fill="#b9a8ff")
-    d.ellipse([hx_ - 14, hy_ - 15, hx_ + 6, hy_ - 3], fill="#d9ceff")
-    d.arc([hx_ - 16, hy_ - 15, hx_ + 16, hy_ + 15], 20, 140, fill="#8a78e0", width=3)
-    d.polygon([(hx_ + 8, hy_ - 6), (hx_ + 30, hy_ + 1), (hx_ + 30, hy_ + 9), (hx_ + 8, hy_ + 12)], fill="#d9ceff")   # snout
-    d.line([hx_ + 10, hy_ + 8, hx_ + 30, hy_ + 6], fill=INK)
-    for k in range(4): d.polygon([(hx_ + 12 + k * 5, hy_ + 8), (hx_ + 14 + k * 5, hy_ + 12), (hx_ + 16 + k * 5, hy_ + 7)], fill="#ffffff")   # teeth
-    d.point((hx_ + 25, hy_ - 1), fill=INK); d.point((hx_ + 27, hy_), fill=INK)
-    d.polygon([(hx_ - 4, hy_ - 10), (hx_ - 12, hy_ - 28), (hx_ + 2, hy_ - 12)], fill="#e4ecff")      # horns
-    d.polygon([(hx_ + 4, hy_ - 10), (hx_ + 8, hy_ - 26), (hx_ + 12, hy_ - 8)], fill="#e4ecff")
-    d.ellipse([hx_ - 2, hy_ - 7, hx_ + 8, hy_ + 1], fill=INK); d.ellipse([hx_, hy_ - 6, hx_ + 7, hy_], fill=GOLD)
-    d.line([hx_ + 3, hy_ - 6, hx_ + 3, hy_], fill=INK); d.point((hx_ + 1, hy_ - 5), fill=GOLD2)
-    d.line([hx_ + 20, hy_ + 2, hx_ + 34, hy_ + 14, hx_ + 40, hy_ + 10], fill="#7fe0f5")              # whiskers
-    d.line([hx_ + 20, hy_ + 6, hx_ + 32, hy_ + 22, hx_ + 38, hy_ + 22], fill="#7fe0f5")
+    hx_, hy_ = path[-1]                                                                              # head, drawn back to front with ink edges
+    d.polygon([(hx_ - 12, hy_ - 4), (hx_ - 24, hy_ - 14), (hx_ - 18, hy_ + 6)], fill="#ff9ad8", outline=INK)   # mane
+    d.polygon([(hx_ - 12, hy_ + 6), (hx_ - 26, hy_ + 10), (hx_ - 12, hy_ + 14)], fill="#7fe0f5", outline=INK)  # cheek frill
+    d.polygon([(hx_ - 4, hy_ - 10), (hx_ - 12, hy_ - 28), (hx_ + 2, hy_ - 12)], fill="#e4ecff", outline=INK)   # horns
+    d.polygon([(hx_ + 4, hy_ - 10), (hx_ + 8, hy_ - 26), (hx_ + 12, hy_ - 8)], fill="#e4ecff", outline=INK)
+    d.ellipse([hx_ - 16, hy_ - 15, hx_ + 14, hy_ + 15], fill="#b9a8ff", outline=INK)                  # skull
+    d.ellipse([hx_ - 13, hy_ - 13, hx_ + 4, hy_ - 4], fill="#d9ceff")                                 # skull highlight
+    d.polygon([(hx_ + 4, hy_ + 5), (hx_ + 27, hy_ + 5), (hx_ + 22, hy_ + 14), (hx_ + 6, hy_ + 15)], fill="#9a88f0", outline=INK)   # lower jaw
+    d.polygon([(hx_ + 4, hy_ - 9), (hx_ + 27, hy_ - 5), (hx_ + 31, hy_ + 1), (hx_ + 28, hy_ + 5), (hx_ + 4, hy_ + 5)], fill="#d9ceff", outline=INK)  # upper snout
+    d.line([hx_ + 5, hy_ + 5, hx_ + 28, hy_ + 5], fill=INK, width=1)                                  # mouth line
+    for fx in (hx_ + 12, hx_ + 21): d.polygon([(fx, hy_ + 5), (fx + 4, hy_ + 5), (fx + 1.5, hy_ + 11)], fill="#ffffff", outline=INK)  # two fangs
+    d.point((hx_ + 26, hy_ - 2), fill=INK); d.point((hx_ + 27, hy_ - 2), fill=INK)                    # nostril
+    d.line([hx_ - 6, hy_ - 9, hx_ + 8, hy_ - 7], fill=INK, width=2)                                   # brow ridge
+    d.ellipse([hx_ - 2, hy_ - 6, hx_ + 8, hy_ + 2], fill=INK); d.ellipse([hx_, hy_ - 5, hx_ + 7, hy_ + 1], fill=GOLD)
+    d.line([hx_ + 3, hy_ - 5, hx_ + 3, hy_ + 1], fill=INK); d.point((hx_ + 1, hy_ - 4), fill=GOLD2)   # eye with slit pupil
     for _ in range(70):                                                                              # stars in the body
         x, y = r.randrange(2, Q - 2), r.randrange(2, Q - 2)
         if im.getpixel((x, y))[3] == 255 and dist[y, x] <= rad[idx[y, x]] - 1: d.point((x, y), fill=r.choice(["#ffffff", "#ffffff", GOLD, "#c4d4ff"]))
