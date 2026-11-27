@@ -17,14 +17,6 @@ questions:
       - { text: "+ \"execution_count\": 7,", bin: "Regenerate, do not review", misconception: "A run counter says nothing about whether the code is right." }
       - { text: "+ \"image/png\": \"AAMGCQwPEhUYGx4hJCcqLTAz...\"", bin: "Regenerate, do not review", misconception: "An encoded image is output. Check the code that makes it, not the bytes." }
       - { text: "+ threshold = 40", bin: "Review this", misconception: "A changed parameter changes the result, so it needs a reviewer." }
-  - type: match
-    prompt: "Match each tool to what it does for notebook review."
-    explain: "Each tool moves the noise somewhere else: out of git, into a second file, into a viewer, or out of the format."
-    pairs:
-      - { left: "nbstripout", right: "Strips outputs before git stores the notebook", misconception: "nbstripout cleans what git sees; it does not pair files or render diffs." }
-      - { left: "jupytext", right: "Pairs the notebook with a plain .py file", misconception: "jupytext gives you a text version of the notebook to diff, with outputs staying in the .ipynb." }
-      - { left: "nbdime", right: "Shows a notebook-aware diff and merge", misconception: "nbdime reads the notebook structure when diffing; it does not change what is stored." }
-      - { left: "marimo", right: "A notebook tool that saves pure Python", misconception: "marimo stores notebooks as .py itself, so there is no JSON to strip." }
   - type: choice
     prompt: "A team adopts nbstripout. A new collaborator clones the repository and starts committing notebooks. What is true?"
     explain: "Git cannot install filters on clone, so every collaborator has to set nbstripout up. Otherwise their commits may still contain outputs."

@@ -27,7 +27,7 @@ Archivist Elowen keeps the outputs as a record, and the code apart.
 :::
 
 ::: {.quest-dialog}
-- **Goal:** you will explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable.
+- **Goal:** you will explain why a one-line change to a notebook produces a noisy diff, and keep outputs out of the diff with one tool.
 - **Before you start:** [Save Point](../crypt/shield-of-undo.html) (for `git diff`), and two tiny mock notebooks, [before.ipynb](../../exercises/scriptorium/before.ipynb) and [after.ipynb](../../exercises/scriptorium/after.ipynb) (about 2.5 KB each, mock files). Save both into an empty folder.
 - **Time:** about 15 minutes.
 :::
@@ -65,18 +65,15 @@ Four spots changed, and one of them is the code. The rest is the run counter, th
 
 The risk is the same with a coding agent as with a human: a reviewer who cannot find the code change may approve without reading it.
 
-## Four ways to make changes reviewable
+## Keep outputs out of the diff
 
-Each option moves the noise somewhere else.
+The tool **nbstripout** strips outputs when git stores the notebook, so outputs stay in your working file only. Install it in a repository with `nbstripout --install`. Each collaborator runs that command themselves, because git does not copy filter settings (a filter is a program git runs on a file as it stores it) when someone clones the repository.
 
-- **nbstripout:** strips outputs when git stores the notebook, so outputs stay in your working file only. Cost: each collaborator runs `nbstripout --install` themselves, because git does not copy filter settings (a filter is a program git runs on a file as it stores it) when someone clones the repository.
-- **jupytext:** pairs the `.ipynb` with a `.py` file. You review the `.py`, and outputs stay in the `.ipynb`.
-- **nbdime:** a notebook-aware diff and merge tool. Everyone reviewing needs it installed.
-- **marimo:** a notebook tool that stores notebooks as pure Python, so ordinary git diffs work.
+Other tools solve the same problem in other ways: jupytext, nbdime and marimo are linked under Lore.
 
 ## Review the code cells
 
-Whatever you choose:
+In any case:
 
 - Run `git diff --stat` before committing and look for a notebook that grew by megabytes.
 - Read the source cells, and regenerate outputs instead of reviewing them. An output in a diff shows that something ran once; a re-run shows whether the code produces it.
@@ -121,5 +118,5 @@ The idea is the same: review the source cells. Check OpenCode's docs for how it 
 - [nbstripout](https://github.com/kynan/nbstripout): nbstripout project (GitHub), repo. Why read: it strips outputs from a notebook with a Git filter set up by `nbstripout --install`, so Git never sees them.
 - [Jupytext](https://github.com/jupytext/jupytext): jupytext project (GitHub), repo. Why read: it pairs an .ipynb with a plain .py so reviewers diff the code only.
 - [nbdime](https://nbdime.readthedocs.io/en/latest/): nbdime project, docs. Why read: it gives notebook-aware diff and merge tools if you must keep .ipynb in Git.
-- [marimo documentation](https://docs.marimo.io/): marimo, docs. Why read: it describes a notebook stored as plain Python, so Git diffs show code only; this is the format option the quest compares.
+- [marimo documentation](https://docs.marimo.io/): marimo, docs. Why read: it describes a notebook stored as plain Python, so Git diffs show code only.
 :::
