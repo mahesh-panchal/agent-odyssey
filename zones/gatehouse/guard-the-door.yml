@@ -28,7 +28,7 @@ questions:
     explain: "Any exit code other than 2, with no valid JSON, is a non-blocking error on most events, so the action proceeds. The guard fails open unless configured to block on failure."
     options:
       - { text: "The hook does not block it", correct: true }
-      - { text: "It is blocked, because a failing guard stops everything", misconception: "Exit 2 (or a JSON deny decision) blocks, and a crash leaves the action to proceed." }
+      - { text: "It is blocked, because a failing guard stops everything", misconception: "Exit 2 blocks, and a crash leaves the action to proceed." }
       - { text: "It is held until you answer a prompt about the crash", misconception: "The action proceeds on most events, and no prompt about the crash appears." }
       - { text: "It runs in the sandbox instead of normally", misconception: "The docs describe no sandbox fallback for hooks. They say the action proceeds." }
   - type: faulty-line
