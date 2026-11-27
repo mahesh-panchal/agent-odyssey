@@ -32,7 +32,7 @@ People mix these words up, and the mix-ups cause real mistakes, such as blaming 
 <figcaption>The model reads text and writes text. Effort is a setting on it.</figcaption>
 </figure>
 
-- **Model.** The large language model (LLM) that reads and writes text (for example Claude Sonnet 5.5, a Mistral model, or a local model through Ollama, a program that runs models on your own computer). Aliases such as `sonnet` move to newer versions over time, so use the full model name when a result must be reproducible.
+- **Model.** The large language model (LLM) that reads and writes text (for example a Claude model, a Mistral model, or a local model through Ollama, a program that runs models on your own computer). Aliases such as `sonnet` move to newer versions over time, so use the full model name when a result must be reproducible.
 - **Effort.** A setting for how much the model reasons before it answers, from `low` to `max` in Claude Code (`/effort`, `--effort`; a `/command` is typed inside the running tool, a `--flag` when you start it). Low is faster and cheaper; high thinks longer and checks more. It steers how much the model reasons per step. `max` can show diminishing returns and overthink, so raise it only where you measure a gain.
 
 ## 2. The harness
