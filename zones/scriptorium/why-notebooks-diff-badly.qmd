@@ -28,13 +28,13 @@ Archivist Elowen keeps the outputs as a record, and the code apart.
 
 ::: {.quest-dialog}
 - **Goal:** you will explain why a one-line change to a notebook produces a noisy diff, and name four ways to make the change reviewable.
-- **Before you start:** [Save Point](../crypt/shield-of-undo.html) (for `git diff`), and two tiny mock notebooks, [before.ipynb](../../exercises/scriptorium/before.ipynb) and [after.ipynb](../../exercises/scriptorium/after.ipynb) (about 2.5 KB each). They are mock files that omit cell ids (the unique id that newer notebook files give each cell), so they are not strictly valid notebooks. Save both into an empty folder.
+- **Before you start:** [Save Point](../crypt/shield-of-undo.html) (for `git diff`), and two tiny mock notebooks, [before.ipynb](../../exercises/scriptorium/before.ipynb) and [after.ipynb](../../exercises/scriptorium/after.ipynb) (about 2.5 KB each, mock files). Save both into an empty folder.
 - **Time:** about 15 minutes.
 :::
 
 ## A notebook is a JSON file
 
-You need this before an agent edits a notebook for you: if you cannot see what changed, you cannot review it. A `.ipynb` file is a JSON document with `metadata`, `nbformat`, `nbformat_minor` (the notebook file-format version numbers) and a list of `cells`. A code cell stores its source, and also an `execution_count` and its outputs. A plot is stored inside the file as a base64 string (the image bytes written out as plain text). Source and outputs share one file, so any run rewrites lines next to the code.
+You need this before an agent edits a notebook for you: if you cannot see what changed, you cannot review it. A `.ipynb` file is a JSON document. A code cell stores its source, an `execution_count` (the run counter) and its outputs, and a plot is stored in the file as a base64 string (the image bytes written out as text). Source and outputs share one file, so any run rewrites lines next to the code.
 
 This is what git sees, with or without an agent. The two mock notebooks differ by one real change: the cutoff `30` became `40`. Compare them:
 
@@ -61,26 +61,25 @@ diff before.ipynb after.ipynb
 >       "image/png": "AAMGCQwPEhUYGx4hJCcqLTAzNjk8P0JFSEtOUV...
 ```
 
-Four spots changed, and one of them is the code. The rest is the run counter, the printed result and an image blob. A real notebook has more cells and bigger images, so the code change is harder still to find; `git diff --stat` shows how large a notebook diff is.
+Four spots changed, and one of them is the code. The rest is the run counter, the printed result and an image blob. A real notebook has more cells and bigger images, so the code change is harder to find.
 
 The risk is the same with a coding agent as with a human: a reviewer who cannot find the code change may approve without reading it.
 
 ## Four ways to make changes reviewable
 
-Each option moves the noise somewhere else. Pick by what your team can adopt.
+Each option moves the noise somewhere else.
 
-- **nbstripout:** strips outputs and some metadata when git stores the notebook. Outputs stay in your working file. A filter is a program git runs on a file as it stores it. Cost: each collaborator runs `nbstripout --install` themselves, because git does not copy filter settings when someone clones the repository.
-- **jupytext:** pairs the `.ipynb` with a `.py` (the `py:percent` format suits code). You review the `.py` and outputs stay in the `.ipynb`. Cost: two files to keep in sync.
-- **nbdime:** a notebook-aware diff, with `nbdiff` in the terminal, `nbdiff-web` in the browser, git integration and a merge driver. Cost: everyone reviewing needs it installed.
-- **marimo:** stores notebooks as pure Python, so ordinary git diffs work. Cost: a different notebook tool from Jupyter. `marimo convert your_notebook.ipynb > your_notebook.py` converts an existing notebook.
+- **nbstripout:** strips outputs when git stores the notebook, so outputs stay in your working file only. Cost: each collaborator runs `nbstripout --install` themselves, because git does not copy filter settings (a filter is a program git runs on a file as it stores it) when someone clones the repository.
+- **jupytext:** pairs the `.ipynb` with a `.py` file. You review the `.py`, and outputs stay in the `.ipynb`.
+- **nbdime:** a notebook-aware diff and merge tool. Everyone reviewing needs it installed.
+- **marimo:** a notebook tool that stores notebooks as pure Python, so ordinary git diffs work.
 
 ## Review the code cells
 
-Whatever you choose, the review habit is the same:
+Whatever you choose:
 
-- Look at the source cells. Treat outputs as something to regenerate.
 - Run `git diff --stat` before committing and look for a notebook that grew by megabytes.
-- An output in a diff shows that something ran once; a re-run shows whether the code produces it.
+- Read the source cells, and regenerate outputs instead of reviewing them. An output in a diff shows that something ran once; a re-run shows whether the code produces it.
 
 ## With an agent
 
@@ -88,9 +87,9 @@ Whatever you choose, the review habit is the same:
 
 ## Claude Code
 
-Claude Code reads a `.ipynb` with all its cells and outputs, and an output-heavy notebook fills the context window (the text the agent can hold at once). When an agent edits a code cell, expect that cell's saved outputs and execution count to be cleared, so the diff shows lost outputs as well as new source.
+Claude Code reads a `.ipynb` with all its cells and outputs, so an output-heavy notebook fills the context window (the text the agent can hold at once). When an agent edits a code cell, that cell's saved outputs and execution count are cleared, so the diff shows lost outputs as well as new source.
 
-`nbstripout` is a git filter, so outputs stay in the working file and the agent still reads them. To keep the agent on the code, strip outputs from the working copy (nbstripout's pre-commit mode does this) or point the agent at the paired `.py`. Check the docs for your version.
+`nbstripout` leaves outputs in the working file, so the agent still reads them. To keep the agent on the code, strip outputs from the working copy (nbstripout's pre-commit mode does this) or point the agent at the paired `.py`.
 
 ## OpenCode + Ollama
 
@@ -105,8 +104,6 @@ The idea is the same: review the source cells. Check OpenCode's docs for how it 
 ## Bonus
 
 <div data-ao-honour="scriptorium-diff-stat" data-xp="20">Run <code>git diff --stat</code> in one of your own repositories that contains a notebook, and note how much of the change is outputs.</div>
-
-<div data-ao-honour="scriptorium-pick-option" data-xp="20">Write one sentence naming which of the four options your team could adopt this week, and what each collaborator would have to do.</div>
 
 ::: {.ao-related}
 ## Related lessons

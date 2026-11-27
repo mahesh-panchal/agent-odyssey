@@ -14,7 +14,7 @@ A notebook can hold a result nobody can reproduce, and in the Scriptorium the or
 
 ## Hidden state
 
-You need this check before you trust or share any notebook, whether you or an agent edited it. A notebook kernel (the background process that runs the cells' code) keeps variables in memory. You can run cells in any order, run one twice, or delete one after it ran, and the variables stay. The page then shows a result that the file, read from the top, does not produce. This is **hidden state**: the notebook's memory holds something the file does not. It appears with or without an agent.
+You need this check before you trust or share any notebook. A notebook kernel (the background process that runs the cells' code) keeps variables in memory, even after you reorder or delete the cells that made them. The page can then show a result that the file, read from the top, does not produce. This is **hidden state**.
 
 `cells.py` is a mock notebook with four cells. Cell 1 loads a list of reads, cell 2 sets `threshold = 30`, cell 3 keeps the reads at or above the threshold and prints how many, and cell 4 sets `threshold = 40`. Each header, such as `# %% [1] load`, carries a cell number. `run_cells.py` runs cells in the order you give, sharing one namespace like a kernel. It uses `exec`, so run it only on files you trust, such as these two. First, the session an author might have had: cells 1 to 4, then cell 3 again to see the effect of the stricter cutoff in cell 4.
 
@@ -52,10 +52,7 @@ The file says 3 and the author's screen said 2. Cell 4 changes the cutoff after 
 
 Before you trust or share a notebook, restart the kernel and run all cells from the top ("Restart Kernel and Run All Cells" in JupyterLab). If the result changes, the stored output did not come from the file as written. Then fix the order so that cells only depend on cells above them. A fresh run rules out hidden state. A separate check, such as computing one or two values another way, shows whether the analysis is right.
 
-Two further options:
-
-- **marimo:** a notebook tool that re-runs dependent cells when one changes, and removes a cell's variables when you delete the cell. A marimo notebook also runs as a script with `python your_notebook.py`.
-- **Pin the environment** with a container or a lockfile (a file that records the exact package versions), so a fresh run uses the same packages. Do not let an agent run `pip install` into a shared environment.
+Pin the environment (with a container or a lockfile, a file that records the exact package versions) so a fresh run uses the same packages. Do not let an agent run `pip install` into a shared environment.
 
 ## Reviewing a notebook an agent edited
 
@@ -65,7 +62,7 @@ Two further options:
 
 `NotebookEdit` changes one cell at a time. When it replaces a code cell, that cell's execution count and saved outputs are cleared. To get outputs back, re-run the cell and the cells that depend on it. A notebook an agent touched shows empty outputs, or old outputs from cells it did not touch that no longer match the new code. Re-run top to bottom yourself.
 
-Then check the numbers with something the agent did not write: compute one or two values independently and compare. A fresh run that completes still needs a check that the analysis is right.
+Then compute one or two values independently and compare.
 
 ## OpenCode + Ollama
 
