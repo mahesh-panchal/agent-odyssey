@@ -108,8 +108,8 @@
      "misconception": "Independent comparisons found plain RAG best on single-fact questions and a mixed picture elsewhere."
     },
     {
-     "text": "As meaningless, because every LLM judge prefers longer answers",
-     "misconception": "Judges can be biased in several ways, including answer order, but that does not make every result worthless. It means checking on your own questions."
+     "text": "As meaningless, because an LLM judge can never be trusted for anything",
+     "misconception": "Judges can flip their verdict when answer order is swapped, but that does not make every result worthless. It means checking on your own questions."
     },
     {
      "text": "As a reason to rebuild your index with a graph before measuring anything",

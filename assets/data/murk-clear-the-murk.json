@@ -148,29 +148,6 @@
   },
   {
    "type": "choice",
-   "prompt": "The transcript shows 'while true; do squeue -u $USER; sleep 5; done' and a 16-thread mockalign run in the foreground on the login node. What do you change?",
-   "explain": "Heavy work goes through the scheduler. A wait or a slow poll saves tokens and spares the shared scheduler.",
-   "options": [
-    {
-     "text": "Submit it as a job, then wait or poll once a minute",
-     "correct": true
-    },
-    {
-     "text": "Lower the loop to 1 second so the result appears much sooner",
-     "misconception": "More frequent polling costs more tokens and puts more load on the shared scheduler."
-    },
-    {
-     "text": "Leave both, since the loop is harmless if the alignment is fast",
-     "misconception": "Both land on a shared login node and keep firing while the session sits idle."
-    },
-    {
-     "text": "Run mockalign with fewer threads on the login node",
-     "misconception": "Fewer threads is still heavy work on a shared machine. It belongs on a compute node."
-    }
-   ]
-  },
-  {
-   "type": "choice",
    "prompt": "The summary says 'All 12 samples passed QC', but the transcript shows 11 results files. What is your next move?",
    "explain": "A count stated in prose is a claim. Count with a small script you read yourself and compare.",
    "options": [
@@ -231,29 +208,6 @@
     {
      "text": "I will not say how it was made, in case people think less of the work, or of me as a researcher.",
      "misconception": "Saying so tells the reviewer where to look hardest. Your checks show the work is yours."
-    }
-   ]
-  },
-  {
-   "type": "choice",
-   "prompt": "The lead writes: 'Now that you have an agent, can I have all three cohorts by Friday?' What is a good reply?",
-   "explain": "Drafting is fast and checking takes what it takes. Say so and agree a timeline that includes review.",
-   "options": [
-    {
-     "text": "Say checking takes time and agree dates with review",
-     "correct": true
-    },
-    {
-     "text": "Agree to Friday and skip the counts for the last two cohorts",
-     "misconception": "Pace pressure is how unchecked work goes through. Checks are the first thing cut."
-    },
-    {
-     "text": "Agree to Friday and ask the agent to check all of its own work",
-     "misconception": "Self-review by the same agent is not independent, and the time pressure remains."
-    },
-    {
-     "text": "Say nothing and work late all week to hit the date",
-     "misconception": "Silence resets what everyone expects of you, and the pace keeps rising."
     }
    ]
   },

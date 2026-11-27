@@ -228,13 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="what-a-worktree-shares" class="level2">
 <h2 class="anchored" data-anchor-id="what-a-worktree-shares">What a worktree shares</h2>
-<p>You need to know this before you start a test in a second worktree. A worktree session isolates file edits only.</p>
-<ul>
-<li><code>claude --worktree &lt;name&gt;</code> creates <code>.claude/worktrees/&lt;name&gt;/</code> on a branch called <code>worktree-&lt;name&gt;</code>.</li>
-<li>Worktrees share the repository’s <code>.git</code>, and auto memory is per repository, so all worktrees share it.</li>
-<li>A fresh checkout does not contain gitignored files (files git skips, such as <code>.env</code> or large data folders). Claude Code copies the ones you list in a <code>.worktreeinclude</code> file (a list of file patterns at the repository root). Large data folders are not copied: link them with the <code>worktree.symlinkDirectories</code> setting (a list of folders to symlink instead of duplicate), or add a setup step of your own. Without either, a pipeline test in the worktree cannot find its data.</li>
-</ul>
-<p><code>/branch</code> copies the conversation. Any background helpers still running keep reporting into the branch.</p>
+<p>A worktree session isolates file edits only. Auto memory and the repository’s history are shared, and gitignored files and large data folders are not copied, so a pipeline test in a worktree may not find its data. The Claude Code docs list the settings that copy or link them.</p>
 </section>
 <section id="checkpoints-and-rewind" class="level2">
 <h2 class="anchored" data-anchor-id="checkpoints-and-rewind">Checkpoints and <code>/rewind</code></h2>
@@ -245,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Subagent edits are mostly not restored.</li>
 <li>Edits outside the session are not tracked.</li>
 </ul>
-<p>Checkpoints do not replace version control. A <code>sed -i</code> or a script that rewrites a results table is a Bash change, so commit before you explore.</p>
+<p>Checkpoints do not replace version control. A script that rewrites a results table is a Bash change, so commit before you explore.</p>
 </section>
 <section id="a-parking-lot-file" class="level2">
 <h2 class="anchored" data-anchor-id="a-parking-lot-file">A parking-lot file</h2>
@@ -306,7 +300,7 @@ Look back at your last long session. Pick one side thought you followed and say 
 <p><em>Further reading. Optional.</em></p>
 <ul>
 <li><a href="https://code.claude.com/docs/en/sub-agents">Create custom subagents</a>: Anthropic, docs. Why read: it shows how a subagent keeps noisy work in its own context and returns only a summary.</li>
-<li><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: Anthropic, docs. Why read: it shows how to branch a session, the command to reach for when a side thought deserves its own line of work.</li>
+<li><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: Anthropic, docs. Why read: it shows how to branch a session (worktree copy settings such as <code>.worktreeinclude</code> and <code>worktree.symlinkDirectories</code> are in the Claude Code docs; not re-checked), the command to reach for when a side thought deserves its own line of work.</li>
 <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it covers when to clear after repeated failed corrections, the point where a new idea belongs in a fresh session instead of this one.</li>
 </ul>
 </section>
@@ -320,7 +314,7 @@ Look back at your last long session. Pick one side thought you followed and say 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

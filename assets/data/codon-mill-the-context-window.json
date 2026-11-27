@@ -95,17 +95,6 @@
    ]
   },
   {
-   "type": "order",
-   "prompt": "Put these steps in order for a session that is getting heavy. Each step builds on the one before, and the last applies only once your next task is unrelated.",
-   "explain": "Measuring comes first, since you can only trim what you can see. Trimming the biggest source comes before compacting, so the summary has less to carry. Clearing comes last because it discards everything, which fits once the next task is unrelated.",
-   "items": [
-    "Measure what is using the window",
-    "Remove the biggest avoidable source, such as large printed outputs",
-    "Compact with a note on what to keep",
-    "Clear the session once the next task is unrelated"
-   ]
-  },
-  {
    "type": "faulty-line",
    "prompt": "A request to an agent during a long session. Which line is the problem for the context window?",
    "explain": "Printing a whole large table puts all of it into the window. Ask for a count, the head, or a script output.",

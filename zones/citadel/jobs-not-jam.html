@@ -211,46 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="size-the-request" class="level2">
 <h2 class="anchored" data-anchor-id="size-the-request">Size the request</h2>
-<p>A job can use more of the cluster than you meant to ask for, and no error tells you. Slurm counts what you allocate, whatever you use, and that count feeds your <em>fair-share priority</em> (how soon your later jobs start). A <em>partition</em> is a group of nodes with its own limits. Many partitions limit memory per CPU (<code>MaxMemPerCPU</code>), so a large memory request on one CPU can make Slurm add CPUs to fit it, or reject the job. Other limit settings can leave an over-limit job pending instead, so read what your site does.</p>
-<p>Before a large or repeated job, read the partition’s limits (<code>scontrol show partition &lt;name&gt;</code>). Afterwards compare what you asked for with what the job used. This command prints one row per job and step:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">--jobs</span><span class="op">=&lt;</span>id<span class="op">&gt;</span> --format=JobID,State,ReqMem,MaxRSS,Elapsed,Timelimit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>ReqMem</code> is the memory requested, <code>MaxRSS</code> the most memory one task used, <code>Elapsed</code> the run time and <code>Timelimit</code> the time requested. <code>MaxRSS</code> is filled on the step rows such as <code>.batch</code>. Here is a finished alignment job. The numbers are invented:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>JobID</th>
-<th>State</th>
-<th>ReqMem</th>
-<th>MaxRSS</th>
-<th>Elapsed</th>
-<th>Timelimit</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>123456</td>
-<td>COMPLETED</td>
-<td>32G</td>
-<td></td>
-<td>00:41:10</td>
-<td>04:00:00</td>
-</tr>
-<tr class="even">
-<td>123456.batch</td>
-<td>COMPLETED</td>
-<td>32G</td>
-<td>9.8G</td>
-<td>00:41:10</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>The job used 9.8 GB of the 32 GB requested and ran 41 minutes of the 4 hours allowed. For the next run, ask for <code>--mem=14G</code> (about 1.4 times <code>MaxRSS</code>) and <code>--time=01:15:00</code> (about 1.8 times <code>Elapsed</code>). In this invented case the extra is headroom for a larger sample. Choose your own margin.</p>
-<ul>
-<li>A job killed for memory can show <code>OUT_OF_MEMORY</code> in <code>State</code>. <code>MaxRSS</code> then understates the need, so raise the request above the failed one.</li>
-<li>If <code>sacct</code> prints nothing, accounting may be off. Ask your staff.</li>
-<li>If the memory need and the CPU count conflict, ask staff for a partition with a better memory-to-CPU ratio and check with them before using it.</li>
-</ul>
+<p>Slurm counts what you allocate, whatever you use, so a generous request costs you queue priority. After a job, compare what you asked for with what it used: <code>sacct --jobs=&lt;id&gt; --format=JobID,State,ReqMem,MaxRSS,Elapsed,Timelimit</code> (<code>ReqMem</code> is the memory requested and <code>MaxRSS</code> the most memory one task used).</p>
 </section>
 <section id="battle-queue-manners" class="level2">
 <h2 class="anchored" data-anchor-id="battle-queue-manners">Battle: queue manners</h2>
@@ -292,7 +253,7 @@ Find your cluster’s page on job limits (maximum jobs, array sizes, time limits
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

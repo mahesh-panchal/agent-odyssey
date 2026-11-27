@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Time:</strong> about 15 minutes.</li>
 </ul>
 </div>
-<p>You need this before you run an agent under your cluster account: keys and agent settings live in ordinary files, and on a shared cluster other people may be able to read them. It covers Claude Code only, and keeping them private and keeping data within its agreement. Ask your cluster staff before sending any cluster data to an external model API, and follow your institution’s data agreement. Step 1 below checks your cluster home, so run it on the cluster. Steps 2 and 3 are safe to practise on your laptop.</p>
+<p>You need this before you run an agent under your cluster account: keys and agent settings live in ordinary files, and on a shared cluster other people may be able to read them. The file and settings steps cover Claude Code; the OpenCode tab gives the questions to ask your staff. Both routes cover keeping keys private and data within its agreement. Ask your cluster staff before sending any cluster data to an external model API, and follow your institution’s data agreement. Step 1 below checks your cluster home, so run it on the cluster. Steps 2 and 3 are safe to practise on your laptop.</p>
 <section id="what-lives-where" class="level2">
 <h2 class="anchored" data-anchor-id="what-lives-where">What lives where</h2>
 <p>Claude Code keeps sessions, settings and plugins in the folder <code>~/.claude</code>. It also writes the file <code>~/.claude.json</code>, which holds account details, MCP configuration (the list of external tool servers you connected) and trust decisions. The environment variable <code>CLAUDE_CONFIG_DIR</code> moves the <code>~/.claude</code> folder elsewhere.</p>
@@ -243,7 +243,7 @@ Find your cluster’s AI or acceptable-use policy (or ask the staff whether one 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

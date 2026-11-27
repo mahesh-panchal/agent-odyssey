@@ -156,8 +156,8 @@
      "correct": true
     },
     {
-     "text": "Obsidian rewrote the page when it opened the file",
-     "misconception": "Obsidian displays Markdown files from the folder. The text came from the ingest."
+     "text": "The wiki folder was rewritten when you opened it in an editor",
+     "misconception": "An editor only displays Markdown files from the folder. The text came from the ingest."
     },
     {
      "text": "The index file is out of date and needs rebuilding",

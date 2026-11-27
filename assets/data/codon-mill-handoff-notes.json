@@ -111,7 +111,7 @@
   {
    "type": "match",
    "prompt": "Match each risk to the habit that counters it.",
-   "explain": "Each habit answers one risk: check what a draft claims, verify what the tool wrote itself, treat a message as a summary, and compare a restatement with the real state before any edit.",
+   "explain": "Each habit answers one risk: check what a draft claims, verify what the tool wrote itself, and compare a restatement with the real state before any edit.",
    "pairs": [
     {
      "left": "The agent's draft note says 'all tests pass' but you never saw them run",
@@ -122,11 +122,6 @@
      "left": "Auto memory holds a wrong column name that loads every session",
      "right": "Read it with /memory and verify it before trusting it",
      "misconception": "Memory is loaded as written; nothing checks it for you."
-    },
-    {
-     "left": "A commit message says 'fixed' but only one sample was tried",
-     "right": "Treat the message as a summary and check the diff and the checks run",
-     "misconception": "A message records what the author chose to say, and verification is a separate step."
     },
     {
      "left": "A fresh session may have misread the handoff note",

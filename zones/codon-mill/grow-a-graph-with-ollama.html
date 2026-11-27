@@ -235,79 +235,13 @@ Notes used:
 <p>One question, one model, one run: this shows the mechanics and does not rank the methods or the models.</p>
 <p>Try your own questions and compare.</p>
 </section>
-<section id="a-second-model-mistrals-ministral-3" class="level2">
-<h2 class="anchored" data-anchor-id="a-second-model-mistrals-ministral-3">A second model: Mistral’s Ministral 3</h2>
-<p>Swapping the chat model is a one-line change (<code>export CHAT_MODEL=...</code>). <code>ministral-3:8b</code> from Mistral is 6.0 GB on Ollama, supports tools and has an Apache 2.0 licence. Retrieval is the same, since the embedding model is the same. The graph is rebuilt by the new model, so its walk differs: 25 facts from 7 notes, against 40 facts from 8 notes with <code>gemma4:12b-mlx</code>.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Setup</th>
-<th><code>gemma4:12b-mlx</code></th>
-<th><code>ministral-3:8b</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Simple RAG, <code>-k 3</code></td>
-<td>“The notes do not contain the answer.”</td>
-<td>Not enough information in the notes.</td>
-</tr>
-<tr class="even">
-<td>Simple RAG, <code>-k 5</code></td>
-<td>Yes, re-analysis needed (correct).</td>
-<td><strong>No</strong> (wrong): says R7 used release 2.4.</td>
-</tr>
-<tr class="odd">
-<td><code>--all</code> (every note pasted)</td>
-<td>Correct.</td>
-<td>Lists the right facts, then <strong>No</strong> (wrong).</td>
-</tr>
-<tr class="even">
-<td>Graph walk</td>
-<td>Yes (correct).</td>
-<td>Collects the R7 and 2.3 facts, then <strong>No</strong> (wrong).</td>
-</tr>
-<tr class="odd">
-<td>Whole-collection question</td>
-<td>Not answered.</td>
-<td>Not answered.</td>
-</tr>
-</tbody>
-</table>
-<p>In the <code>--all</code> run, <code>ministral-3:8b</code> listed R7 using 2.3, which has the bug, then answered No because “no re-analysis was done”. In the <code>-k 5</code> run it misread the release: the note says 2.3.</p>
-<p>The graph build with <code>ministral-3:8b</code> took about a minute, saved 80 facts and returned valid JSON for all twelve notes. <code>show</code> printed a few odd entries: <code>Pipeline 2.3 --has issue fix--&gt; Dana Okafor</code>, a node called <code>Pipeline 2.3 issue</code>, and a <code>User</code> node taken from the safety note. Read <code>show</code> against the notes yourself.</p>
-<p>With this model, the right passages reached the prompt in three setups and the final answer was still wrong. Retrieval is one half of the job and the reader model is the other half. Read the notes the answer names and see whether they say what the answer says. Test a model on a few questions whose answers you know before you trust it on new ones.</p>
-</section>
 <section id="a-note-on-model-size" class="level2">
 <h2 class="anchored" data-anchor-id="a-note-on-model-size">A note on model size</h2>
-<p>We did not run LightRAG or Microsoft GraphRAG here; this section summarises what their documentation asks of an Ollama setup. Extraction asks a model to produce well-formed JSON for every chunk. With Ollama, Microsoft GraphRAG users “frequently see issues with malformed responses (especially JSON)”. The LightRAG README calls Qwen3-30B-A3B-Instruct (a 30B-parameter model) “a reasonable minimum” for local use, and its programming guide says at least 32B. The 12B model here produced valid JSON for all twelve notes, and <code>show</code> lets you judge the facts. If you try a model under about 7B, read the triples before you trust the answers.</p>
+<p>We did not run LightRAG or Microsoft GraphRAG here; this section summarises what their documentation asks of an Ollama setup. Extraction asks a model to produce well-formed JSON for every chunk. With Ollama, Microsoft GraphRAG users “frequently see issues with malformed responses (especially JSON)”. The LightRAG README calls Qwen3-30B-A3B-Instruct (a 30B-parameter model) “a reasonable minimum” for local use, and its programming guide says at least 32B. The 12B model here produced valid JSON for all twelve notes, and <code>show</code> lets you judge the facts. If you try a much smaller model, read the triples before you trust the answers.</p>
 </section>
-<section id="using-a-real-tool-with-ollama" class="level2">
-<h2 class="anchored" data-anchor-id="using-a-real-tool-with-ollama">Using a real tool with Ollama</h2>
-<p><code>graph.py</code> is a teaching toy. Two real projects do this at scale. Check their current docs before you rely on the details below.</p>
-<p><strong>LightRAG</strong> (<code>github.com/HKUDS/LightRAG</code>):</p>
-<ul>
-<li>Install <code>pip install "lightrag-hku[api]"</code> (the README also shows <code>uv</code>), copy <code>env.example</code> to <code>.env</code>, and run <code>lightrag-server</code>.</li>
-<li>For Ollama, the project’s guide wires <code>ollama_model_complete</code> for chat and <code>ollama_embed</code> for embeddings.</li>
-<li>LightRAG requires at least 32k context tokens, and Ollama’s default is smaller. Set <code>num_ctx</code> to 32768 in code or in a Modelfile. For the server, set <code>OLLAMA_LLM_NUM_CTX</code> in <code>.env</code>. The default context is 4k on machines under 24 GiB of video memory, so check with <code>ollama ps</code>.</li>
-<li>Use a non-thinking model for extraction. Models slower than about 50 tokens per second may time out on dense chunks.</li>
-<li>Pick your embedding model before indexing and keep it. <code>EMBEDDING_DIM</code> must equal the model’s output size (the guide uses 768 for <code>nomic-embed-text</code>). Changing the model later means re-embedding everything.</li>
-<li>The default storage is in-memory files meant for small tests.</li>
-<li><strong>Server safety:</strong> <code>lightrag-server</code> binds to all network interfaces with authentication off by default. On a laptop or shared machine, set <code>HOST=127.0.0.1</code> before you start it.</li>
-</ul>
-<p><strong>Microsoft GraphRAG</strong> (<code>microsoft.github.io/graphrag</code>):</p>
-<ul>
-<li>The commands are <code>graphrag init</code>, <code>graphrag index</code> and <code>graphrag query "..." --method local</code> (or <code>global</code>). Text files go in <code>input/</code>.</li>
-<li>It can consume a lot of LLM resources. Start with the small tutorial dataset and cheaper models.</li>
-<li>It calls models through LiteLLM and requires structured JSON output. Users put Ollama behind a proxy and report frequent malformed responses. Check the current docs for an Ollama setup.</li>
-<li>Check that the embedding vector size in its settings matches your embedding model’s (<code>nomic-embed-text</code> gives 768).</li>
-</ul>
-<p>If you later build a graph over your own notes, try a tiny folder of mock files first and read the facts it extracted before pointing it at anything real.</p>
+<section id="real-tools" class="level2">
+<h2 class="anchored" data-anchor-id="real-tools">Real tools</h2>
+<p><code>graph.py</code> is a teaching toy. LightRAG and Microsoft GraphRAG do this at scale, and both need a strong model and careful setup. Their install and Ollama settings are in the Lore links. Read those docs before you run either, and start with a tiny folder of mock files.</p>
 </section>
 <section id="verify-the-graph" class="level2">
 <h2 class="anchored" data-anchor-id="verify-the-graph">Verify the graph</h2>
@@ -328,7 +262,7 @@ Notes used:
 <p>Ask Claude Code to read <code>graph.py</code> and explain the walk in <code>ask</code>, then predict what changes if you set <code>hops=1</code> before you run it. Running the scripts needs your approval for each shell command. These notes are mock data, so sending them to a hosted model is fine for this exercise. Check your data agreement before a hosted agent reads your own unpublished notes.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>The scripts talk to Ollama directly, so any agent can run them. If you use OpenCode with the Pet, ask it to explain the code and change <code>hops</code>.</p>
+<p>The scripts talk to Ollama directly, so any agent can run them. If you use OpenCode, ask it to explain the code and change <code>hops</code>.</p>
 </div>
 </div>
 </div>
@@ -361,8 +295,8 @@ Change <code>hops=2</code> to <code>hops=1</code> in <code>graph.py</code>, pred
 <li><a href="https://docs.ollama.com/capabilities/embeddings">Embeddings</a>: Ollama, docs. Why read: it documents the <code>/api/embed</code> call the scripts use and says to embed documents and questions with the same model.</li>
 <li><a href="https://docs.ollama.com/capabilities/structured-outputs">Structured outputs</a>: Ollama, docs. Why read: it explains the <code>format</code> field with a JSON schema that makes fact extraction return usable JSON.</li>
 <li><a href="https://docs.ollama.com/context-length">Context length</a>: Ollama, docs. Why read: it gives the default context by memory size and how to check what loaded with <code>ollama ps</code>.</li>
-<li><a href="https://github.com/HKUDS/LightRAG">LightRAG</a>: HKUDS, repo. Why read: the README and docs give the Ollama wiring, the context and model-size requirements, and the storage defaults.</li>
-<li><a href="https://microsoft.github.io/graphrag/get_started/">Get started with GraphRAG</a>: Microsoft, docs. Why read: it lists the init, index and query commands and the warning about LLM cost.</li>
+<li><a href="https://github.com/HKUDS/LightRAG">LightRAG</a>: HKUDS, repo. Why read: the README and docs give the install, the Ollama wiring, the context and model-size requirements, the storage defaults and a server-safety warning (<code>lightrag-server</code> binds to all network interfaces with authentication off by default; set <code>HOST=127.0.0.1</code>).</li>
+<li><a href="https://microsoft.github.io/graphrag/get_started/">Get started with GraphRAG</a>: Microsoft, docs. Why read: it lists the init, index and query commands (<code>graphrag init</code>, <code>graphrag index</code>, <code>graphrag query</code>) and the warning about LLM cost.</li>
 <li><a href="https://microsoft.github.io/graphrag/config/models/">Language model selection</a>: Microsoft, docs. Why read: it is where the docs describe the JSON requirement and the problems seen with Ollama.</li>
 <li><a href="https://arxiv.org/abs/2506.05690">When to use Graphs in RAG</a>: Xiang and colleagues, paper. Why read: it studies which kinds of questions benefit from graphs, with token costs per method.</li>
 <li><a href="https://github.com/NirDiamant/rag_techniques">Advanced RAG Techniques</a>: Nir Diamant and contributors, repo. Why read: its notebook list includes graph RAG with a local Ollama model and LightRAG, plus chunking and evaluation, though we did not open the notebooks and the repo carries sponsor and book promotions.</li>
@@ -378,7 +312,7 @@ Change <code>hops=2</code> to <code>hops=1</code> in <code>graph.py</code>, pred
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

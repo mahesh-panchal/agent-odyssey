@@ -58,11 +58,6 @@
      "misconception": "The command never runs, so its behaviour is untested."
     },
     {
-     "text": "A process declares an output that its stub never creates",
-     "bin": "Can catch",
-     "misconception": "A stub run can expose a declared output that is not produced. A wrong but compatible connection can still pass, so read the plan too."
-    },
-    {
      "text": "Filtering that drops half the reads for the wrong reason",
      "bin": "Cannot catch",
      "misconception": "That needs a real run on a tiny input and a check on the result."
@@ -83,10 +78,6 @@
      "misconception": "Tests the agent wrote may only check what it already believes, and its report is still its own claim."
     },
     {
-     "text": "Ask a second agent to review the pipeline and say if it looks correct",
-     "misconception": "A second opinion from a similar system is another claim, not an observation of a run."
-    },
-    {
      "text": "Look for a test file in the diff and treat it as proof of testing",
      "misconception": "A test file existing does not show it was run, or that it checks anything meaningful."
     }
@@ -95,7 +86,7 @@
   {
    "type": "faulty-line",
    "prompt": "A Snakemake rule an agent wrote. Which line will cause the quiet failure?",
-   "explain": "The input is a hard-coded path, so every sample is silently computed from sample1.fa on a machine that has it, and the rule fails on machines without that path.",
+   "explain": "The input is a hard-coded path to someone's home directory, so the rule fails on any machine without that path.",
    "lines": [
     {
      "text": "rule count_gc:",
@@ -106,11 +97,11 @@
      "faulty": true
     },
     {
-     "text": "    output: \"results/{sample}.gc.txt\"",
-     "why": "The output uses the sample wildcard."
+     "text": "    output: \"counts.txt\"",
+     "why": "The output is declared."
     },
     {
-     "text": "    shell: \"python gc.py {input} > {output}\"",
+     "text": "    shell: \"wc -l {input} > {output}\"",
      "why": "The command uses the declared input and output."
     }
    ]
@@ -118,7 +109,7 @@
   {
    "type": "faulty-line",
    "prompt": "A shell step in a pipeline. Which line is the most dangerous?",
-   "explain": "The shell empties the file before sort reads it, so the data is lost. Write to a new output path.",
+   "explain": "The step overwrites its own input, so there is no way back. Write to a new output path.",
    "lines": [
     {
      "text": "mkdir -p results",
@@ -151,7 +142,7 @@
     {
      "text": "Tool versions are pinned in the environment file",
      "bin": "Reproducible",
-     "misconception": "A pinned version gives the same tool version. Lock files pin the whole environment, including dependencies."
+     "misconception": "A pinned version gives the same tool version every time."
     },
     {
      "text": "The step reads a file from the author's home directory",

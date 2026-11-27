@@ -7,8 +7,8 @@
    "explain": "A re-read by the same model that wrote the code can share its mistake. An independent check compares against something the agent did not write.",
    "lines": [
     {
-     "text": "In another plan, step 1: Run the existing tests first and record which pass, as a baseline.",
-     "why": "A baseline from existing tests is independent of the new code."
+     "text": "In another plan, step 1: Record the row count of samplesheet.csv with wc -l before any change.",
+     "why": "wc counts rows without using the parser."
     },
     {
      "text": "In another plan, step 4: Verify by reading the new parser code again and confirming it looks correct.",

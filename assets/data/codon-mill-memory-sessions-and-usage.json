@@ -66,7 +66,7 @@
   },
   {
    "type": "choice",
-   "prompt": "You have corrected the agent twice and it still repeats a wrong claim about your sample sheet. What does the official guidance suggest?",
+   "prompt": "You have corrected the agent twice and it still repeats a wrong claim about your input file. What does the official guidance suggest?",
    "explain": "A third correction adds to a conversation that already holds two failed attempts. The docs suggest /clear and one new prompt that includes what you learned.",
    "options": [
     {
@@ -93,11 +93,11 @@
      "why": "A checkable working rule that makes no claim about the data."
     },
     {
-     "text": "All libraries are reverse-stranded (the agent's guess in the first session, not looked up)",
+     "text": "The input files are sorted by date (the agent's guess in the first session, not looked up)",
      "faulty": true
     },
     {
-     "text": "Reference is GRCh38; confirmed against the assembly report",
+     "text": "The report is in CSV format; confirmed by opening the file",
      "why": "It records where the claim was checked."
     },
     {

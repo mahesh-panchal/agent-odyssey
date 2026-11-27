@@ -139,18 +139,17 @@ ul.task-list li input[type="checkbox"] {
 <p>Each type below answers one question: what goes wrong with simple RAG, and what did someone add to fix it?</p>
 <ul>
 <li><strong>Simple RAG:</strong> chunk, embed, top-k, answer. It suits a pile of prose where one or two passages answer each question, and it is cheap to build and update. It struggles with questions that need several passages or the whole collection, since only the top k chunks arrive.</li>
-<li><strong>Improved RAG:</strong> add-ons around the same pipeline. Keyword search (BM25, a classic word-matching score) runs next to embeddings. A reranker (a second model that re-sorts the retrieved chunks) follows. A short context line is added to each chunk before embedding. The question is rewritten, or a made-up answer is drafted first (HyDE) to search with. Anthropic reports that combining these add-ons gives fewer retrieval failures than plain embeddings. Each add-on is another part to tune, and HyDE’s drafted answer may contain false details.</li>
+<li><strong>Improved RAG:</strong> add-ons around the same pipeline. Keyword search (BM25, a classic word-matching score) runs next to embeddings, and a reranker (a second model that re-sorts the retrieved chunks) follows. Anthropic reports that combining these add-ons gives fewer retrieval failures than plain embeddings. Each add-on is another part to tune.</li>
 <li><strong>Graph RAG (Microsoft):</strong> before any question, an LLM reads every chunk and extracts entities and relationships into a knowledge graph (things as nodes, links between them as edges). It groups the graph into communities and writes a summary of each. It suits questions about the whole collection, such as “what are the main themes?”. Indexing is slow and costly, and the docs warn it can consume a lot of LLM resources.</li>
-<li><strong>LightRAG:</strong> also builds an entity graph with an LLM, but skips the communities. A query is turned into keywords, matched against entities and relations, and the neighbours are added. New documents merge into the graph without a rebuild. Modes run from plain chunks (<code>naive</code>) to graph-based (<code>local</code>, <code>global</code>, <code>hybrid</code>, <code>mix</code>). It needs a stronger model than plain RAG: its README calls a 30B-parameter model “a reasonable minimum” for local use.</li>
-<li><strong>Tree RAG (RAPTOR):</strong> clusters chunks and summarises them in layers, so a question can match a detail or a summary. It suits long documents where the answer may be a broad theme, and it adds another LLM build step.</li>
-<li><strong>Loop-style RAG (for example Self-RAG, Corrective RAG and agentic RAG):</strong> the model decides when to retrieve, grades what came back, and tries again or searches the web if the results look poor. It suits questions where one lookup is rarely enough, at the price of more model calls per question. Self-RAG needs a model trained for it.</li>
+<li><strong>Loop-style RAG (for example Self-RAG and Corrective RAG):</strong> the model decides when to retrieve, grades what came back, and tries again if the results look poor. It suits questions where one lookup is rarely enough, at the price of more model calls per question.</li>
 </ul>
+<p>Other variants exist, such as LightRAG (a lighter graph method) and tree-based RAG. The Lore links lead to them.</p>
 </section>
 <section id="does-the-graph-pay-off" class="level2">
 <h2 class="anchored" data-anchor-id="does-the-graph-pay-off">Does the graph pay off?</h2>
-<p>The papers that introduced Graph RAG and LightRAG report wins over plain RAG, mostly on whole-collection questions, as judged by an LLM. Check any such result on your own questions. Independent studies give a mixed picture:</p>
+<p>The paper that introduced Graph RAG reports wins over plain RAG, mostly on whole-collection questions, as judged by an LLM. Check any such result on your own questions. Independent studies give a mixed picture:</p>
 <ul>
-<li><strong>No consistent winner.</strong> A 2026 comparison found complementary behaviours. Plain RAG did best on single-fact questions. On multi-hop questions (an answer that needs facts from two or more passages) a graph method led.</li>
+<li><strong>No consistent winner.</strong> A 2025 comparison found complementary behaviours. Plain RAG did best on single-fact questions. On multi-hop questions (an answer that needs facts from two or more passages) a graph method led.</li>
 <li><strong>Graphs cost more to build.</strong> Building the graph took far longer than building a plain index, and the graphs missed many of the entities that the answers needed.</li>
 <li><strong>LLM judges are order-sensitive.</strong> A judge can flip its verdict when you swap the order of the two answers, so win-rate numbers are weak evidence.</li>
 <li><strong>Task decides.</strong> Graphs help when a task connects ideas across documents, and can add noise on simple lookups.</li>
@@ -287,7 +286,7 @@ Estimate whether your own collection of notes would fit in a 200,000-token windo
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

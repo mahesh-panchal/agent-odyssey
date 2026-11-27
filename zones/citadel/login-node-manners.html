@@ -228,17 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="look-before-you-copy-or-delete" class="level2">
 <h2 class="anchored" data-anchor-id="look-before-you-copy-or-delete">Look before you copy or delete</h2>
-<p>Find out what a copy or a delete will touch before it touches anything.</p>
-<ul>
-<li>Run <code>rsync --dry-run --itemize-changes</code> first, with the same arguments, and read the list. A dry run lists what would change and changes nothing.</li>
-<li>Check that the list matches your request. Look for keys, <code>.env</code> files and personal data. Look for a <code>*deleting</code> line that removes something you wanted to keep.</li>
-<li>Run a new dry run after any change to the options. Run it where the real run will run, because it reads the whole tree. On a big tree, run the dry run inside a job.</li>
-<li><code>cp</code>, <code>scp</code> and <code>rm</code> have no dry run. List the exact path or glob and delete only those names.</li>
-<li><code>--exclude</code> skips files without a word. <code>rsync --delete</code> and <code>rm --recursive</code> also remove what is inside a directory, so list and dry-run those too.</li>
-<li>Do not copy from or delete a directory that a running job writes to.</li>
-<li>Before you delete a source you copied, repeat the copy as a dry run with <code>--checksum</code> and delete only if the list is empty.</li>
-<li>Send large transfers through the scheduler or the site’s data-transfer node (a machine set aside for moving files).</li>
-</ul>
+<p>Before the agent runs a copy or a delete, have it run the same <code>rsync --dry-run --itemize-changes</code> (a dry run lists what would change and changes nothing) and read the list for keys, <code>.env</code> files and a <code>*deleting</code> line that removes something you want. <code>cp</code>, <code>scp</code> and <code>rm</code> have no dry run, so list the exact paths first.</p>
 </section>
 <section id="what-the-agents-sandbox-covers" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-agents-sandbox-covers">What the agent’s sandbox covers</h2>
@@ -305,7 +295,7 @@ Find your cluster’s user guide page on login-node rules (or ask the staff). Wr
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

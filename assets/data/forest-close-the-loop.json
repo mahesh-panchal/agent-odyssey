@@ -137,7 +137,7 @@
     },
     {
      "text": "Accept the scores, since the judge understands that style of output",
-     "misconception": "Models tend to favour output like their own, so agreement can reflect similarity, so a high score may not mean correctness."
+     "misconception": "A same-family judge may share the model's blind spots, so a high score may not mean correctness."
     },
     {
      "text": "Use a larger model of the same family and skip hand checks",

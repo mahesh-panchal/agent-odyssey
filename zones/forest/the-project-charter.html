@@ -199,7 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="keep-the-file-current">Keep the file current</h2>
 <p>Instruction files go stale: a rule written for an older model, a path that no longer exists, two files that disagree. When instructions contradict each other, Claude may pick one arbitrarily.</p>
 <p>In Claude Code, <code>/doctor prompt-audit</code> checks your instruction files (and the rules, skills and agents under <code>.claude/</code>) for outdated or conflicting content and writes a report with proposed edits. (<code>/doctor</code> is a <strong>bundled skill</strong>, a ready-made skill that ships inside Claude Code.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.</p>
-<p>Later: <code>/doctor prompt-audit</code> needs Claude Code v2.1.283 or later, and reading a lone <code>AGENTS.md</code> needs v2.1.277 or later.</p>
+<p>Both <code>/doctor prompt-audit</code> and reading a lone <code>AGENTS.md</code> need a recent Claude Code, so check your version.</p>
 </section>
 <section id="write-docs-for-the-agent-too" class="level2">
 <h2 class="anchored" data-anchor-id="write-docs-for-the-agent-too">Write docs for the agent too</h2>
@@ -233,7 +233,7 @@ Write a short instructions file (about ten lines) for one of your real projects:
 <p><em>Further reading. Optional.</em></p>
 <ul>
 <li><a href="https://aiforscience.eu/best-practices/05-documentation-and-data-for-agents/">AI for Science, practice 5: documentation and data for agents</a>: AI for Science (European draft best practices), docs. Why read: it argues that precise, current docstrings, units and metadata are what agents work from. A draft with no endorsements yet; it also mentions llms.txt, which it calls a proposal that no body has ratified.</li>
-<li><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a>: Anthropic, docs. Why read: it covers CLAUDE.md placement, AGENTS.md and auto memory, and describes these as context that guides the agent.</li>
+<li><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a>: Anthropic, docs. Why read: the course saw <code>/doctor prompt-audit</code> need v2.1.283 or later and a lone <code>AGENTS.md</code> need v2.1.277 or later (unverified here); it covers CLAUDE.md placement, AGENTS.md and auto memory, and describes these as context that guides the agent.</li>
 <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it shows what belongs in an instructions file and what to enforce another way.</li>
 <li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Why read: hooks are the way to enforce a rule that an instructions file can only request.</li>
 <li><a href="https://opencode.ai/docs/rules/">Rules</a>: OpenCode, docs. Why read: it explains AGENTS.md and the instructions setting for the OpenCode side.</li>
@@ -249,7 +249,7 @@ Write a short instructions file (about ten lines) for one of your real projects:
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

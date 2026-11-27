@@ -181,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The hook gets the event as JSON on stdin (the input stream a program reads, here fed by Claude Code), including <code>tool_name</code> and, for Bash, <code>tool_input.command</code>. Exit code 2 on <code>PreToolUse</code> blocks the call, and Claude sees the stderr text (the program’s error output) as the reason. Exit 0 expresses no decision: the call goes through the normal permission flow.</p>
 <p>Two behaviours matter for trust:</p>
 <ul>
-<li><strong>A broken guard fails open.</strong> If the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. To block on failure, add <code>"onFailure": "block"</code> beside <code>"type"</code> and <code>"command"</code> in the hook’s handler (needs Claude Code v2.1.295 or later).</li>
+<li><strong>A broken guard fails open.</strong> If the script crashes or exits with some other code and prints no valid JSON, the action proceeds on most events. To block on failure, add <code>"onFailure": "block"</code> beside <code>"type"</code> and <code>"command"</code> in the hook’s handler (check that your Claude Code version supports it).</li>
 <li><strong>Exit 2 blocks on some events only.</strong> On <code>PostToolUse</code> the tool already ran and exit 2 shows stderr to Claude. On <code>Notification</code> the exit code is ignored.</li>
 </ul>
 </div>
@@ -233,7 +233,7 @@ In a throwaway folder with mock files, add the Bash-blocking hook above and ask 
 <p><em>Further reading. Optional.</em></p>
 <ul>
 <li><a href="https://aiforscience.eu/best-practices/10-screen-dual-use-high-consequence/">AI for Science, practice 10: screen for dual-use and high-consequence risk</a>: AI for Science (European draft best practices), docs. Why read: it describes one screening checkpoint for high-consequence actions and tested refusals. A draft with no endorsements yet; it is aimed mostly at providers and institutions.</li>
-<li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Why read: it lists the hook events, handler types and the exit-code rules, including exit 2 to block.</li>
+<li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Why read: it lists the hook events, handler types and the exit-code rules, including exit 2 to block. It also says which Claude Code version adds <code>onFailure</code> (the page was written against v2.1.295; unverified).</li>
 <li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Why read: it covers deny and ask rules, which still apply when a hook says allow.</li>
 <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it says when to reach for a PreToolUse hook instead of an instruction.</li>
 </ul>
@@ -248,7 +248,7 @@ In a throwaway folder with mock files, add the Bash-blocking hook above and ask 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

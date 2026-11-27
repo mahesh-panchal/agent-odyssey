@@ -281,7 +281,7 @@ Say which tests you added or ran, or say that you added none.</code></pre>
 Status: accepted
 Context: we filter reads by GC content once per project. The pipeline
   has no other Python step. Two people maintain it, both new to Nextflow.
-Decision: we will keep filter_gc.py as a plain script and call it from
+Decision: we will keep gc_filter.py as a plain script and call it from
   the run script. We will not add a workflow step.
 Alternatives considered: a workflow process (reproducible, but new machinery for
   two maintainers); a one-off notebook (no record of parameters).
@@ -360,7 +360,7 @@ Run your project’s README commands in an empty folder, exactly as written. Fix
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

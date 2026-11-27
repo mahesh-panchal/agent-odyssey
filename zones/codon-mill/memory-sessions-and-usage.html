@@ -134,14 +134,14 @@ ul.task-list li input[type="checkbox"] {
 <p>Both kinds are loaded at session start:</p>
 <ul>
 <li><strong><code>CLAUDE.md</code>:</strong> instructions <strong>you</strong> write (the file can be set at project, user or organisation scope: who or where it applies).</li>
-<li><strong>Auto memory:</strong> notes the <strong>harness</strong> (the program around the model) writes itself from your corrections and preferences. It is per git repository and machine-local, kept in <code>~/.claude/projects/&lt;project&gt;/memory/</code> as plain markdown with a <code>MEMORY.md</code> index. Only the first 200 lines or 25KB of <code>MEMORY.md</code> load at start; topic files are read on demand.</li>
+<li><strong>Auto memory:</strong> notes the <strong>harness</strong> (the program around the model) writes itself from your corrections and preferences. It is per git repository and machine-local, kept in <code>~/.claude/projects/&lt;project&gt;/memory/</code> as plain markdown with a <code>MEMORY.md</code> index. Only the start of <code>MEMORY.md</code> loads at session start (the docs give the limit); topic files are read on demand.</li>
 </ul>
 <p>Memory is advisory context, and it takes room in the window every session. <code>/clear</code> (a command that starts a new, empty conversation) drops the conversation and leaves memory in place. Compaction (replacing old conversation with a summary) shrinks a session and leaves memory as it was.</p>
 </section>
 <section id="session-usage-in-claude-code" class="level3">
 <h3 class="anchored" data-anchor-id="session-usage-in-claude-code">Session usage in Claude Code</h3>
 <ul>
-<li><code>/usage</code> shows an estimated session cost (worked out locally from token counts at list price, the published per-token price), plan usage limits and activity stats. <code>/cost</code> and <code>/stats</code> are aliases.</li>
+<li><code>/usage</code> shows an estimated session cost (worked out locally from token counts at list price, the published per-token price), plan usage limits and activity stats.</li>
 <li>The displayed session total resets on <code>/clear</code>. The allowance itself resets on your plan’s schedule: look for a reset time in the <code>/usage</code> screen. If your plan shows none, <code>/usage</code> is not reporting it.</li>
 <li>With a subscription, the plan bars on the <code>/usage</code> screen are what matter and the dollar figure is an estimate. If the screen shows no bars, your plan reports no limits there.</li>
 <li>With the API, usage is billed per token, and thinking tokens (the tokens the model spends reasoning before it answers) count as output tokens.</li>
@@ -236,7 +236,7 @@ ul.task-list li input[type="checkbox"] {
 <li><code>claude --continue</code>: the most recent session in this directory.</li>
 <li><code>/usage</code> and <code>/context</code>: usage and window contents.</li>
 </ul>
-<p>Resume restores messages, model and permission mode (what the agent may do without asking). Startup flags such as <code>--mcp-config</code> need to be passed again. Transcripts are deleted after 30 days by default.</p>
+<p>Resume restores messages, model and permission mode (what the agent may do without asking). Startup flags such as <code>--mcp-config</code> need to be passed again. Old transcripts are deleted after a set time by default (check your settings).</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Check OpenCode’s documentation for its memory files, session commands and usage reporting. With a local Ollama model the window is still finite, so the ideas about session context and poisoned claims carry over. Check whether any vendor bills you per token.</p>
@@ -272,9 +272,9 @@ In a session you already have, run <code>/usage</code> and note what dominates: 
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
-<li><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a>: Anthropic, docs. Why read: it defines CLAUDE.md and auto memory, the “memory” term this quest sets beside session context.</li>
+<li><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a>: Anthropic, docs. Why read: it gives the load limit for <code>MEMORY.md</code> (200 lines or 25KB when checked) and defines CLAUDE.md and auto memory, the “memory” term this quest sets beside session context.</li>
 <li><a href="https://code.claude.com/docs/en/costs">Manage costs effectively</a>: Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.</li>
-<li><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: Anthropic, docs. Why read: it covers naming and resuming sessions, which is what makes a session’s context something you carry forward on purpose.</li>
+<li><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: Anthropic, docs. Why read: it gives the default transcript retention period (30 days when checked) and covers naming and resuming sessions, which is what makes a session’s context something you carry forward on purpose.</li>
 </ul>
 </section>
 
@@ -287,7 +287,7 @@ In a session you already have, run <code>/usage</code> and note what dominates: 
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

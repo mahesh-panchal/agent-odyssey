@@ -204,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Does the free tier train on your prompts?</strong> This matters most. A provider that keeps nothing is still not approved for sensitive data; the rule below applies to every free tier.
 <ul>
 <li>Google AI Studio: on unpaid services Google uses submitted content to improve its products, and human reviewers may read it. Paid services differ.</li>
-<li>Groq: it does not retain inference data (it does not store your prompts and the replies) by default, and may keep logs for up to 30 days.</li>
+<li>Groq: it does not retain inference data (it does not store your prompts and the replies) by default, and may keep logs for a limited period.</li>
 <li>OpenRouter: it does not log prompts by default, and retention varies with the provider behind the model.</li>
 </ul></li>
 <li><strong>Who else is in the path?</strong> A router adds a party. Read its terms and the terms of the provider it picks. One router can send you to providers with different rules.</li>
@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Retention:</strong> how long does the provider keep your prompts (retention)?</li>
 <li><strong>Location:</strong> where are your prompts processed?</li>
 </ul>
-<p>Find the answers on the provider’s data or privacy page. Mistral’s page is in the Lore below. An open-weight model such as <code>ministral-3:8b</code> (Apache 2.0 licence) runs locally through Ollama and keeps prompts on your machine, though tool or web calls may still send data out.</p>
+<p>Find the answers on the provider’s data or privacy page. Mistral’s page is in the Lore below. An open-weight model such as <code>ministral-3:8b</code> runs locally through Ollama and keeps prompts on your machine, though tool or web calls may still send data out.</p>
 <p>The sensitive-data rule holds for every provider: unpublished or sensitive data stays on your own computer or an approved service.</p>
 </section>
 <section id="pairing-a-free-model-with-an-agent" class="level2">
@@ -283,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://github.com/12britz/awesome-free-models">awesome-free-models</a>: GitHub, repo. Why read: a large, regularly corrected list of free models, tiers and tools; check its banner for what changed lately.</li>
 <li><a href="https://openrouter.ai/docs/faq">OpenRouter FAQ</a>: OpenRouter, docs. Why read: it explains free model variants, daily allowances and how prompt logging and provider retention differ.</li>
 <li><a href="https://aistudio.google.com/docs/terms">Google AI Studio terms</a>: Google, docs. Why read: it spells out how unpaid and paid services treat your prompts differently.</li>
-<li><a href="https://console.groq.com/docs/your-data">Groq: your data</a>: Groq, docs. Why read: it states the default retention and log period for inference requests.</li>
+<li><a href="https://console.groq.com/docs/your-data">Groq: your data</a>: Groq, docs. Why read: it states the default retention and log period for inference requests (30 days at the time of writing).</li>
 <li><a href="https://opencode.ai/docs/zen/">OpenCode Zen</a>: OpenCode, docs. Why read: it lists free models together with their data-retention line, model by model.</li>
 <li><a href="https://developers.cloudflare.com/workers-ai/platform/pricing/">Cloudflare Workers AI pricing</a>: Cloudflare, docs. Why read: it shows a daily free allowance and what happens when you pass it.</li>
 <li><a href="https://help.mistral.ai/en/articles/347617-do-you-use-my-user-data-to-train-your-models">Do you use my user data to train your models?</a>: Mistral, docs. Why read: it lists, plan by plan, which Mistral products train on your data by default and where the opt-out lives.</li>
@@ -300,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

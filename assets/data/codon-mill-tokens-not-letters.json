@@ -35,9 +35,9 @@
      "misconception": "Counting letters is exact work. A script counts reliably."
     },
     {
-     "text": "Explain what a FASTQ quality line means",
+     "text": "Explain a confusing error message",
      "bin": "Model by reading",
-     "misconception": "Explaining a format is language work. You can check it against the spec."
+     "misconception": "Explaining is language work. You can test the explanation."
     },
     {
      "text": "Produce the reverse complement of a 2 kb sequence",
@@ -81,7 +81,7 @@
    "explain": "Reading a long sequence and stating its length from memory is guesswork over tokens. A command counts exactly.",
    "lines": [
     {
-     "text": "Run seqkit stats on the file, or a short awk length count",
+     "text": "Run a counting command on the file and paste its output",
      "why": "A tool counts exactly and the output can be pasted."
     },
     {
@@ -89,7 +89,7 @@
      "faulty": true
     },
     {
-     "text": "Compare the printed count with a second independent tool",
+     "text": "Compare the printed count with a hand count on a tiny test file",
      "why": "An independent check on the result is good practice."
     },
     {

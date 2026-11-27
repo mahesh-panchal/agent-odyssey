@@ -101,7 +101,7 @@
   {
    "type": "faulty-line",
    "prompt": "A teammate's plan for a tool setup. Which line goes against the advice on this page?",
-   "explain": "Installing every server up front adds tool names (and full definitions on setups without tool search), and is unneeded attack surface. Add what the work needs and remove the rest.",
+   "explain": "Installing every server up front adds tool names (and full definitions on setups without tool search) to the window. Add what the work needs and remove the rest.",
    "lines": [
     {
      "text": "Keep the few tools used every day, with clear names",
@@ -117,7 +117,7 @@
     },
     {
      "text": "Disable servers that have not been used this month",
-     "why": "With tool search the cost is small, but unused servers still add names and risk."
+     "why": "With tool search the cost is small, but unused servers still add their names to the window."
     }
    ]
   }

@@ -128,13 +128,11 @@ ul.task-list li input[type="checkbox"] {
 <li>the names of MCP tools (tools added from outside servers) and skill descriptions (short summaries of saved instruction sets)</li>
 </ul>
 <p>Every file it reads and every tool output then adds more. With the API (programmatic access to the model) the same idea holds: the system prompt (the harness’s own instructions, sent with every request), every message, tool results, tool definitions and the output all count.</p>
-<p>Sizes depend on the model, up to 1 million tokens for some and 200 thousand for others. A big window gives room for more text; quality depends on what fills it.</p>
+<p>Sizes depend on the model. A big window gives room for more text; quality depends on what fills it.</p>
 </section>
 <section id="what-the-model-stores-while-it-writes" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-model-stores-while-it-writes">What the model stores while it writes</h2>
-<p>To write each new token, the model looks back at every earlier token in the window. Redoing that work for the whole window at every step would be slow, so the model keeps the results. For each earlier token it stores numbers computed from that token (called its <strong>keys</strong> and <strong>values</strong>) in a store named the <strong>KV cache</strong> (key-value cache). Each new token adds one entry, and the model reuses the rest.</p>
-<p>The KV cache sits in the memory of the machine that runs the model. It grows with every token in the window, so a longer window needs more memory.</p>
-<p>The KV cache is separate from the <strong>prompt cache</strong>, a provider feature that makes a repeated start of your prompt cheaper to process. The KV cache belongs to the model. The prompt cache belongs to the bill.</p>
+<p>To write each new token, the model looks back at every earlier token in the window. It keeps numbers computed from those tokens (the <strong>KV cache</strong>, key-value cache) so it does not redo that work at every step. The KV cache sits in the memory of the machine that runs the model and grows with the window. The <strong>prompt cache</strong> is a separate provider feature that makes a repeated start of your prompt cheaper to process. The KV cache belongs to the model, and the prompt cache belongs to the bill.</p>
 </section>
 <section id="bigger-is-not-better" class="level2">
 <h2 class="anchored" data-anchor-id="bigger-is-not-better">Bigger is not better</h2>
@@ -150,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Afterwards, Claude Code re-supplies:</p>
 <ul>
 <li>the system prompt, the project-root <code>CLAUDE.md</code>, auto memory and skill descriptions</li>
-<li>up to five recently read or edited files (a file over 5,000 tokens comes back as a path only)</li>
+<li>a few recently read or edited files (a very large file comes back as a path only)</li>
 </ul>
 <p>Nested instruction files are summarised away and reload on demand.</p>
 <p>Useful controls:</p>
@@ -247,7 +245,7 @@ Find one instruction you keep retyping in chat and move it into your instruction
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="use-cases-you-may-recognise" class="level2">
 <h2 class="anchored" data-anchor-id="use-cases-you-may-recognise">Use cases you may recognise</h2>
-<p>The gist lists personal, research, reading a book, team, competitive analysis, due diligence, trip planning, course notes and hobby deep-dives. Here are some closer to a bioinformatics desk.</p>
+<p>Two examples close to a bioinformatics desk. The gist lists many more.</p>
 <ul>
 <li><strong>Literature on one method</strong> (say, long-read assemblers or variant callers)
 <ul>
@@ -212,38 +212,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>The lab’s pipeline handbook</strong>
 <ul>
-<li>Raw sources: release notes, run logs, meeting minutes, Slack exports.</li>
+<li>Raw sources: release notes, run logs, meeting minutes.</li>
 <li>Pages: one per pipeline release, one per known issue, a decision log.</li>
 <li>A question: “Which runs used release 2.3, and what was wrong with it?”</li>
 <li>Watch out: private or unpublished material. Exact counts belong to a query tool.</li>
-</ul></li>
-<li><strong>A thesis or long project</strong>
-<ul>
-<li>Raw sources: papers you read, notes on experiments, supervisor meeting notes.</li>
-<li>Pages: a running thesis page, an open-questions page, one page per experiment.</li>
-<li>A question: “What did I conclude about batch effects in March, and what has changed since?”</li>
-<li>Watch out: a wiki that you never open. You will not remember what you did not read.</li>
-</ul></li>
-<li><strong>A course, a workshop or onboarding</strong>
-<ul>
-<li>Raw sources: slides, lecture notes, tutorials, tool docs.</li>
-<li>Pages: glossary, one page per concept, a “things that confused me” page.</li>
-<li>A question: “Explain the difference between X and Y using only what the course covered.”</li>
-<li>Watch out: material for fast-moving tools goes stale. Date every source.</li>
-</ul></li>
-<li><strong>Reference notes for the tools you use</strong>
-<ul>
-<li>Raw sources: docs pages, GitHub issues, your own gotchas.</li>
-<li>Pages: one per tool with versions, quirks and a link to the source.</li>
-<li>A question: “What did we learn the last time this tool ran out of memory?”</li>
-<li>Watch out: version drift. Record the version on each page and re-check on upgrade.</li>
-</ul></li>
-<li><strong>A book or a long series</strong>
-<ul>
-<li>Raw sources: chapters, episode notes.</li>
-<li>Pages: characters, themes, a timeline, built up as you read.</li>
-<li>A question: “Where did this thread first appear?”</li>
-<li>Watch out: spoilers for yourself. Ingest as you read.</li>
 </ul></li>
 </ul>
 <p>To size your own idea, answer four questions in a sentence each:</p>
@@ -255,32 +227,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>If the sources fit in one prompt, try that first. If the question is an exact filter or count, ask a query tool. If the sources are sensitive and you would send them to a hosted model, settle your data rules before you begin. If the material is something you want to return to and the answers need several sources joined, the wiki is a good candidate.</p>
 </section>
-<section id="where-obsidian-fits" class="level2">
-<h2 class="anchored" data-anchor-id="where-obsidian-fits">Where Obsidian fits</h2>
-<p>Obsidian is a free note-taking app that opens a folder of Markdown files as a <strong>vault</strong>. A vault is an ordinary folder, so an agent can read and write it like any other folder, and Obsidian shows whatever is there. Work with the agent on one side and Obsidian open on the other: “Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase.” You read, and the agent edits.</p>
-<p>A layout that follows the three layers:</p>
-<pre class="text"><code>my-vault/
-  raw/            sources you add (clippings, PDFs, transcripts); the agent never edits these
-    assets/       downloaded images
-  wiki/           pages the agent writes
-    index.md
-    log.md
-    sources/  entities/  concepts/
-  CLAUDE.md       the schema (or AGENTS.md)</code></pre>
-<p>Obsidian tools that help:</p>
-<ul>
-<li><strong>Web Clipper:</strong> a browser extension that turns a web article into a Markdown file, so a source can land in <code>raw/</code> in one click.</li>
-<li><strong>Graph view:</strong> shows the shape of the wiki, with hubs and orphan pages that nothing links to. It doubles as a quick visual check.</li>
-<li><strong>Dataview:</strong> a plugin (an add-on) that queries the properties (named fields in a block at the top of a page). If your schema asks the agent to add them (a source type, a date, a version), you get live tables, such as every page whose status is <code>unsourced</code>.</li>
-<li><strong>Marp:</strong> a Markdown slide format with an Obsidian plugin, for turning an answer into slides. Skip it unless you need slides.</li>
-<li><strong>Images:</strong> fix the attachment folder (for example <code>raw/assets/</code>) and bind a hotkey that downloads a clipped page’s images locally. An agent cannot read a Markdown file with inline images in a single pass, so have it read the text first and look at the images afterwards.</li>
-</ul>
+<section id="reading-and-guarding-the-wiki" class="level2">
+<h2 class="anchored" data-anchor-id="reading-and-guarding-the-wiki">Reading and guarding the wiki</h2>
+<p>Obsidian (a free note-taking app that opens a folder of Markdown files) is a convenient way to read the wiki while the agent edits it. The gist’s Obsidian tips are linked in Lore. Any editor that opens a folder works.</p>
 <p>Habits that help:</p>
 <ul>
 <li><strong>Separate folders:</strong> keep the agent’s folder apart from the notes you write by hand. Your own words stay yours, and you can tell at a glance what the agent produced.</li>
-<li><strong>Git:</strong> put the vault under git and commit before each ingest. A commit per ingest gives you a readable diff of what the agent changed and an undo.</li>
+<li><strong>Git:</strong> put the wiki folder under git and commit before each ingest. A commit per ingest gives you a readable diff of what the agent changed and an undo.</li>
 <li><strong>Read-only sources:</strong> make <code>raw/</code> read-only if your tools allow it. The instruction file is advice the agent can ignore, while file permissions are enforced by the system.</li>
-<li><strong>Any editor:</strong> if you do not use Obsidian, any editor that opens a folder of Markdown files works.</li>
 </ul>
 </section>
 <section id="what-can-go-wrong" class="level2">
@@ -337,7 +291,7 @@ Draft a schema (instruction file) of five lines or fewer for that collection: wh
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
-<li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">LLM Wiki</a>: Andrej Karpathy, GitHub gist, article. Why read: it is the original idea file, short enough to read in ten minutes, with the three layers, the three jobs and the Obsidian tips in the author’s own words.</li>
+<li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">LLM Wiki</a>: Andrej Karpathy, GitHub gist, article. Why read: it is the original idea file, short enough to read in ten minutes, with the three layers, the three jobs and the Obsidian tips (Web Clipper, Dataview, Marp, image handling) in the author’s own words.</li>
 <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a>: Anthropic Engineering, article. Why read: it describes the opposite habit of loading information just in time with search tools, which helps you decide when a pre-built wiki is worth the upkeep.</li>
 </ul>
 </section>
@@ -351,7 +305,7 @@ Draft a schema (instruction file) of five lines or fewer for that collection: wh
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

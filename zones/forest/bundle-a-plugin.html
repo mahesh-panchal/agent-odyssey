@@ -175,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--plugin-dir</span> ./fasta-tools      <span class="co"># load for this session only</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin validate ./fasta-tools   <span class="co"># checks files are well formed</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin validate ./fasta-tools <span class="at">--strict</span>   <span class="co"># also fails on warnings</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>After editing, run <code>/reload-plugins</code> in the session. On the example <code>exercises/forge/fasta-tools</code> (Claude Code 2.1.325), <code>validate</code> exited 0, with only an icon warning that matters for marketplace submission. Validation checks syntax and schema, and evals check behaviour.</p>
+<p>After editing, run <code>/reload-plugins</code> in the session. On the example <code>exercises/forge/fasta-tools</code>, <code>validate</code> exited 0, with only an icon warning that matters for marketplace submission. Validation checks syntax and schema, and evals check behaviour.</p>
 <p>To share, a <strong>marketplace</strong> is a repository with <code>.claude-plugin/marketplace.json</code> listing plugins and where to fetch them. People add it once and install by name.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
@@ -226,7 +226,7 @@ Turn the Skill you wrote into a plugin folder with a <code>plugin.json</code>, t
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
-<li><a href="https://code.claude.com/docs/en/plugins">Plugins overview</a>: Anthropic, docs. Why read: it says what a plugin holds, its install scopes and the cost of an enabled plugin.</li>
+<li><a href="https://code.claude.com/docs/en/plugins">Plugins overview</a>: Anthropic, docs. Why read: the course checked <code>validate</code> on the example with Claude Code 2.1.325 (check your version); it says what a plugin holds, its install scopes and the cost of an enabled plugin.</li>
 <li><a href="https://code.claude.com/docs/en/plugins/manifest-reference">Plugin manifest reference</a>: Anthropic, docs. Why read: every plugin.json field and what claude plugin validate checks.</li>
 <li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Why read: hooks are the plugin part that runs code, so read this before trusting one.</li>
 <li><a href="https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/">Build once, run on any agent: a practical guide to agent skills</a>: Andrea Griffiths, GitHub Blog, article. Why read: a vendor article with advice on one file of project facts, keeping observed patterns apart from team standards, and checking generated copies for drift.</li>
@@ -242,7 +242,7 @@ Turn the Skill you wrote into a plugin folder with a <code>plugin.json</code>, t
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

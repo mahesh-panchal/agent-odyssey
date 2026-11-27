@@ -166,7 +166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quest-dialog">
 <ul>
 <li><strong>Goal:</strong> you will install a coding agent, confirm it works, and start it in a throwaway folder with edits switched off. You choose one of two routes: Claude Code with a Claude plan or API key, or OpenCode with a model that runs on your own computer through Ollama.</li>
-<li><strong>Before you start:</strong> <a href="../crypt/shield-of-undo.html">Save Point</a>; the <a href="../../prerequisites.html">Prerequisites</a> check and, if you want background first, <a href="../../read-first.html">Read First</a>; a terminal (macOS, Linux, or on Windows either PowerShell or WSL 2, the Windows Subsystem for Linux). For Claude Code: internet, and a Claude Team plan login or an Anthropic API key (programmatic access to the models, billed per token; a plan is a subscription with usage limits). For OpenCode and Ollama: about 16 GB of memory and 5 GB of free disk, and no account.</li>
+<li><strong>Before you start:</strong> <a href="../crypt/shield-of-undo.html">Save Point</a>; the <a href="../../prerequisites.html">Prerequisites</a> check and, if you want background first, <a href="../../read-first.html">Read First</a>; a terminal (macOS, Linux, or on Windows either PowerShell or WSL 2, the Windows Subsystem for Linux). For Claude Code: internet, and a paid Claude plan login or an Anthropic API key (programmatic access to the models, billed per token; a plan is a subscription with usage limits). For OpenCode and Ollama: about 16 GB of memory and 5 GB of free disk, and no account.</li>
 <li><strong>Time:</strong> about 15 minutes. Nothing here edits your files.</li>
 </ul>
 </div>
@@ -183,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>On Windows, either run the PowerShell installer from Anthropic’s setup page, or install inside WSL 2 and use the Linux command there. WSL 2 supports sandboxed command execution; native Windows does not. Check the result:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--version</span>     <span class="co"># prints a version number</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> doctor        <span class="co"># read-only diagnostics; changes nothing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If the shell says <code>command not found</code>, the launcher lives in <code>~/.local/bin/claude</code> and that folder is not on your <code>PATH</code>.</p>
+<p>If the shell says <code>command not found</code>, the launcher lives in <code>~/.local/bin/claude</code> and that folder is not on your <code>PATH</code> (the list of folders the shell searches for programs).</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>This route has two programs. <strong>Ollama</strong> downloads and runs models on your own computer, so prompts stay there. <strong>OpenCode</strong> is the open-source coding agent that talks to the model. Install Ollama first.</p>
@@ -209,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<p>Run <code>claude</code> and a browser opens. When login finishes, the terminal shows Claude’s prompt box. Type <code>/exit</code> to leave, then continue with step 3. With a Team plan, log in with the account your admin invited you to. With an API key, <code>export ANTHROPIC_API_KEY=...</code> instead. Treat the key like a password: do not paste it into a file in a project, and note that a key typed into the shell can stay in your shell history.</p>
+<p>Run <code>claude</code> and a browser opens. When login finishes, the terminal shows Claude’s prompt box. Type <code>/exit</code> to leave, then continue with step 3. With a Team or Enterprise plan, log in with the account your admin invited you to. With an API key, <code>export ANTHROPIC_API_KEY=...</code> instead. Treat the key like a password: do not paste it into a file in a project, and note that a key typed into the shell can stay in your shell history.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -438,7 +438,7 @@ Note
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -132,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <section id="formats-that-review-well" class="level2">
 <h2 class="anchored" data-anchor-id="formats-that-review-well">Formats that review well</h2>
-<p>When you ask an agent to produce analysis, choose a format your reviewer can diff. A <a href="https://marimo.io/">marimo</a> notebook is stored as a plain <code>.py</code> file, so a diff shows what changed. A Jupyter <code>.ipynb</code> is JSON that also stores outputs, so its diffs are noisy unless you strip outputs with a tool such as <code>nbstripout</code>.</p>
+<p>Choose a format your reviewer can diff (compare line by line). The notebook lesson linked below shows how.</p>
 </section>
 <section id="battle-the-review" class="level2">
 <h2 class="anchored" data-anchor-id="battle-the-review">Battle: the review</h2>
@@ -165,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

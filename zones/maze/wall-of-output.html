@@ -142,9 +142,10 @@ ul.task-list li input[type="checkbox"] {
 <p>Instead, accept only what you can check:</p>
 <ul>
 <li>Keep a <strong>review budget</strong>: ask for no more than you can honestly review today. Bulk low-quality output is called <em>slop</em>.</li>
-<li>Ask for smaller pieces.</li>
+<li>Ask for smaller pieces, and ask for a plan before any code, so you can redirect it while that costs little.</li>
 <li>Ground each piece in a check.</li>
-<li>Pass on only work you have read yourself.</li>
+<li>Pass on only work you have read yourself and can explain in your own words.</li>
+<li>Check what happened to the tests. An agent can make “all tests pass” true by weakening or deleting failing tests.</li>
 </ul>
 <p>A human check can fail in two ways. <em>Automation bias</em> is trusting the machine’s output too readily. <em>Rubber-stamping</em> is approving without reading. An “approve each item” step at hundreds of items an hour turns into clicking through. A check that works:</p>
 <ul>
@@ -189,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

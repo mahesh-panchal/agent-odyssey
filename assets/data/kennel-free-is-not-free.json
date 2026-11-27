@@ -15,7 +15,7 @@
     {
      "text": "ministral-3:8b pulled through Ollama onto your laptop",
      "bin": "Run by you",
-     "misconception": "The weights run on your own machine, so nobody else sees the prompt. That is the Pet, not a hosted service."
+     "misconception": "The weights run on your own machine, so nobody else sees the prompt."
     },
     {
      "text": "A model's maker offering a rate-limited free API key",

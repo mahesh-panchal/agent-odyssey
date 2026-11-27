@@ -173,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Reads <code>CLAUDE.md</code>. If a project has only an <code>AGENTS.md</code> (and no <code>CLAUDE.md</code>, <code>.claude/CLAUDE.md</code> or <code>CLAUDE.local.md</code> in or above the working directory), it is read instead, from v2.1.277. To share one file, import it from <code>CLAUDE.md</code> with <code>@AGENTS.md</code>.</p>
+<p>Reads <code>CLAUDE.md</code>. If a project has only an <code>AGENTS.md</code> (and no <code>CLAUDE.md</code>, <code>.claude/CLAUDE.md</code> or <code>CLAUDE.local.md</code> in or above the working directory) it is read instead in recent versions (check your version). To share one file, import it from <code>CLAUDE.md</code> with <code>@AGENTS.md</code>.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Check OpenCode’s documentation for which instruction file names it loads, and in what order.</p>
@@ -210,7 +210,7 @@ Check your instructions file’s length. If it is long, cut one line that is vag
 <p><em>Further reading. Optional.</em></p>
 <ul>
 <li><a href="https://code.claude.com/docs/en/how-claude-code-works">How Claude Code works</a>: Anthropic, docs. Why read: it describes what the harness adds to the conversation, useful for tracing where a behaviour came from.</li>
-<li><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a>: Anthropic, docs. Why read: it says CLAUDE.md is context that advises, which is why the instructions file sits at the “advises” end of this quest.</li>
+<li><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project</a>: Anthropic, docs. Why read: it gives the Claude Code version that added the <code>AGENTS.md</code> fallback (v2.1.277 when checked) and says CLAUDE.md is context that advises, which is why the instructions file sits at the “advises” end of this quest.</li>
 <li><a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>: Anthropic, docs. Why read: it is the reference for the one control here that enforces, while the others ask; skim it to see what hooks can act on.</li>
 </ul>
 </section>
@@ -224,7 +224,7 @@ Check your instructions file’s length. If it is long, cut one line that is vag
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

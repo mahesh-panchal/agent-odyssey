@@ -13,10 +13,6 @@
     {
      "text": "Send it as one change with a short summary and ask them to flag problems",
      "misconception": "That moves your review work onto them."
-    },
-    {
-     "text": "Have a fresh agent session review the change thoroughly, then send it on",
-     "misconception": "Another agent's review does not replace your own reading, and 1,500 lines is still too much to hand a reviewer."
     }
    ]
   },
@@ -43,11 +39,6 @@
      "text": "Including the test you ran and its output",
      "bin": "Eases the review",
      "misconception": "Evidence lets the reviewer verify instead of guess."
-    },
-    {
-     "text": "Generated comments that restate every line",
-     "bin": "Adds burden",
-     "misconception": "Noise makes the real issues harder to find."
     }
    ]
   },
@@ -85,7 +76,7 @@
     },
     {
      "text": "Send it and ask the reviewer to say whether it looks right to them",
-     "misconception": "This hands the reviewer the understanding work you skipped (the Review-leech pattern)."
+     "misconception": "This hands the reviewer the understanding work you skipped."
     }
    ]
   },

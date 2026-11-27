@@ -131,9 +131,9 @@
      "misconception": "Running without error says nothing about correctness."
     },
     {
-     "text": "The agent has opinions and will refuse to follow your instructions out of spite",
+     "text": "The agent refuses to follow your instructions out of spite",
      "bin": "Myth",
-     "misconception": "The risk is drift (slowly wandering from your instructions) and misunderstanding."
+     "misconception": "The real risks are misunderstanding your instructions and plausible-but-false output."
     },
     {
      "text": "A large change that nobody can realistically review",
@@ -144,25 +144,6 @@
      "text": "A wrong answer can only come from a badly written prompt",
      "bin": "Myth",
      "misconception": "Wrong output happens even with good prompts, so checking is always needed."
-    }
-   ]
-  },
-  {
-   "type": "choice",
-   "prompt": "Which statement about this odyssey is true?",
-   "explain": "The site never calls an LLM and every exercise runs locally on mock data.",
-   "options": [
-    {
-     "text": "Everything runs locally on mock data, and the site never calls an LLM",
-     "correct": true
-    },
-    {
-     "text": "You must send some of your own data to an LLM service for the quests",
-     "misconception": "No exercise needs real or sensitive data."
-    },
-    {
-     "text": "You must finish every quest before using any tool safely at work",
-     "misconception": "Gating is soft. Take the quests that match your worry first."
     }
    ]
   }

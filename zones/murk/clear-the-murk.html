@@ -178,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-scenario" class="level2">
 <h2 class="anchored" data-anchor-id="the-scenario">The scenario</h2>
-<p>A colleague, Dana, asked an agent to tidy <code>call_variants.sh</code>, a variant-calling script on the lab’s shared cluster. Dana’s lead then asked for three cohorts by Friday. The agent has finished. You are the one who must decide whether to pass its work on.</p>
+<p>A colleague, Dana, asked an agent to tidy <code>call_variants.sh</code>, a variant-calling script. The agent has finished. You are the one who must decide whether to pass its work on.</p>
 <p>All names, tools, paths and numbers are invented: the tools <code>varcall</code> and <code>mockalign</code>, the files and the people. The <code>results/</code> folder holds the pipeline’s outputs and is not tracked by git.</p>
 <section id="the-agents-summary" class="level3">
 <h3 class="anchored" data-anchor-id="the-agents-summary">The agent’s summary</h3>
@@ -187,13 +187,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 - Cleaned old output: rm -rf results/ &amp;&amp; mkdir results
 - Per NOTES.md I never touch raw/, so the reads are safe.
 - Re-ran the pipeline. All 12 samples passed QC.
-- Waiting for the job with a loop until it ends.
 Ready to merge. Dana can send this to the lead today.</code></pre>
 </section>
 <section id="a-piece-of-the-transcript" class="level3">
 <h3 class="anchored" data-anchor-id="a-piece-of-the-transcript">A piece of the transcript</h3>
 <pre class="text"><code>$ mockalign --threads 16 raw/S01_R1.fq raw/S01_R2.fq &gt; S01.bam
-$ while true; do squeue -u $USER; sleep 5; done
 $ ls results/*.vcf | wc -l
 11</code></pre>
 </section>
@@ -217,7 +215,7 @@ $ ls results/*.vcf | wc -l
 </div>
 <div class="{data-ao-ending}">
 <p><img src="../../assets/img/boss-murk-cleared.png" class="ao-boss-img img-fluid" alt="Pixel-art portrait of the cleared Murk: the fog has lifted, leaving a small green sprout with a glowing light on a mossy mound."></p>
-<p>You cleared the exercise by looking at the claim, the command, the rule, the key, the loop, the count, the hand-off, the deadline and the line you could not explain.</p>
+<p>You cleared the exercise by looking at the claim, the command, the rule, the key, the count, the hand-off and the line you could not explain.</p>
 <p>From here you decide how much of this to use and when. Some days that is a small agent task with a Save Point and a check, some days it is none at all. Both are fine.</p>
 <p>Branches you skipped stay open. Start Here lists them, and the Lore library gathers the further reading from every quest you have passed.</p>
 <p>The <a href="https://code.claude.com/docs/en/overview">Claude Code docs</a> go well beyond this course. When you want to learn more, start at the overview and follow what you are curious about.</p>
@@ -241,7 +239,6 @@ $ ls results/*.vcf | wc -l
 <li><a href="https://code.claude.com/docs/en/checkpointing">Checkpointing</a>: Anthropic, docs. Why read: it says Bash-made changes need version control, which is why the <code>rm -rf</code> in the summary had no way back.</li>
 <li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Why read: it shows deny rules that hold where a line in NOTES.md only asks.</li>
 <li><a href="https://code.claude.com/docs/en/security">Security</a>: Anthropic, docs. Why read: it says you review the commands and changes an agent proposes, which is the job in this fight.</li>
-<li><a href="https://slurm.schedmd.com/sbatch.html">sbatch</a>: SchedMD (Slurm), docs. Why read: it is the manual for submitting a job, so you can wait on one instead of looping on <code>squeue</code>.</li>
 </ul>
 </section>
 
@@ -254,7 +251,7 @@ $ ls results/*.vcf | wc -l
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -137,18 +137,6 @@
      "why": "The docs say /clear leaves the old conversation resumable."
     }
    ]
-  },
-  {
-   "type": "order",
-   "prompt": "A task is done and you plan to clear. The note must name the commit, and the conversation must not be cleared before the note exists. Put the steps in order.",
-   "explain": "Check the result first, because you only commit what you have verified. Commit so the state is recoverable. Write the note naming that commit while the conversation still holds the details. Only then clear, since /clear drops the conversation. The new session's first prompt points to the note.",
-   "items": [
-    "Check the result against the source or a test",
-    "Commit the verified result",
-    "Write a note that names the commit and what remains",
-    "Run /clear",
-    "Start the new session by pointing it to the note"
-   ]
   }
  ]
 }

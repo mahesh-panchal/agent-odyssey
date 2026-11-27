@@ -145,9 +145,9 @@ The path needs JavaScript. Use <a href="index.html">the zone list</a>.
 <section id="how-it-works" class="level2">
 <h2 class="anchored" data-anchor-id="how-it-works">How it works</h2>
 <ul>
-<li><strong>Walk the trunk.</strong> It is <span data-ao-n="trunk">16</span> quests in order, from fears and kinds of machine to your first agent and trust in output. The Wall of Output ends it.</li>
+<li><strong>Walk the trunk.</strong> It is <span data-ao-n="trunk">16</span> quests in order, from fears and kinds of machine to your first agent and trust in output. The boss, Review Large Output, ends it.</li>
 <li><strong>Pick branches.</strong> Each branch is a topic you can take when it matches your work. Quests marked side quest are optional.</li>
-<li><strong>Clear the Murk.</strong> The final boss opens after the whole trunk and any <span data-ao-n="any">3</span> of the <span data-ao-n="branches">8</span> branches.</li>
+<li><strong>Review a Messy Session.</strong> The final boss opens after the whole trunk and any <span data-ao-n="any">3</span> of the <span data-ao-n="branches">8</span> branches.</li>
 <li><strong>Save your progress.</strong> It lives in this browser. <strong>Save code</strong> in the top bar copies a code, and <strong>Load code</strong> restores it elsewhere.</li>
 </ul>
 <p>The trunk takes about three hours and each branch one to two more. The order is advice, and every quest stays open.</p>
@@ -170,7 +170,7 @@ The list needs JavaScript. Use <a href="index.html">the zone list</a>.
 <section id="keep-exploring" class="level2">
 <h2 class="anchored" data-anchor-id="keep-exploring">Keep exploring</h2>
 <p>This course covers a small part of what these tools can do. The <a href="https://code.claude.com/docs/en/overview">Claude Code docs</a> are the best place to learn more, and each quest’s Lore section links the pages that matter for it. Browse the overview whenever you are curious.</p>
-<p>For research-specific guidance, <a href="https://aiforscience.eu/">AI for Science</a> collects draft best practices for agentic AI in science from European task forces and institutions, and has a one-page <a href="https://aiforscience.eu/short-version/">short version</a>. The practices are drafts with no endorsements yet, and several are written for institutions and funders. Nine quests draw on one practice each: Script, Model, or LLM, Advice or Enforcement, Secrets and Sensitive Ground, Turn Mistakes into Tests, Ground Truth, Connect an MCP Server, Block Actions with a Hook, the Wall of Output and Write an Instructions File.</p>
+<p>For research-specific guidance, <a href="https://aiforscience.eu/">AI for Science</a> collects draft best practices for agentic AI in science from European task forces and institutions, and has a one-page <a href="https://aiforscience.eu/short-version/">short version</a>. The practices are drafts with no endorsements yet, and several are written for institutions and funders. Nine quests draw on one practice each: Script, Model, or LLM, Advice or Enforcement, Keep Secrets Out of Reach, Turn Mistakes into Tests, Ground Truth, Connect an MCP Server, Block Actions with a Hook, Boss: Review Large Output and Write an Instructions File.</p>
 <p>Back to <a href="./index.html">the overworld map</a>.</p>
 
 
@@ -183,7 +183,7 @@ The list needs JavaScript. Use <a href="index.html">the zone list</a>.
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

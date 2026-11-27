@@ -20,120 +20,93 @@
   },
   {
    "type": "choice",
-   "prompt": "After installing Claude Code, your shell says `claude: command not found`. What is the most likely cause?",
-   "explain": "The launcher is in ~/.local/bin, so add that folder to PATH.",
+   "prompt": "After installing your agent, the shell says `command not found` when you type its name. What is the most likely cause?",
+   "explain": "The shell searches only the folders on its PATH, and an open terminal may predate the install. Add the folder to PATH or open a new terminal.",
    "options": [
     {
-     "text": "~/.local/bin, where the launcher lives, is not on your PATH",
+     "text": "The shell cannot see the folder that holds the program, so it is not on PATH yet or the terminal is older than the install",
      "correct": true
     },
     {
-     "text": "Your Team plan login expired, so the shell blocks the program",
+     "text": "Your login or API key has expired, so the shell blocks the program",
      "misconception": "Login happens after the program starts. A 'command not found' means the shell cannot find the program at all."
     },
     {
-     "text": "The installer needs sudo, so it quietly installed nothing",
-     "misconception": "The launcher is installed under your own home folder and does not need root. The shell just cannot see that folder."
+     "text": "The agent needs a model pulled or a plan chosen before the command exists",
+     "misconception": "The model or plan is needed after the program starts, not for the shell to find it."
     },
     {
-     "text": "The ~/.claude folder is missing, so the command cannot be found",
-     "misconception": "~/.claude holds settings and credentials. The launcher is in ~/.local/bin, which the shell must be able to find."
+     "text": "The scratch folder is missing, so the command cannot be found",
+     "misconception": "The program lives where the installer put it. The current folder does not decide whether the shell finds it."
     }
    ]
   },
   {
    "type": "choice",
-   "prompt": "You have a Team subscription login AND `ANTHROPIC_API_KEY` exported. What is the problem?",
-   "explain": "Run /status to see which credential is active.",
+   "prompt": "Why does the first session run in a throwaway folder with edits switched off?",
+   "explain": "An agent can read your files and run commands. A scratch folder and a mode that plans without editing keep the first session harmless while you learn what it does.",
    "options": [
     {
-     "text": "The key wins once approved, so usage bills to your API account rather than your plan",
+     "text": "The agent can read files and run commands, so the first session should be unable to change anything that matters",
      "correct": true
     },
     {
-     "text": "None: the subscription always takes priority, so the key is simply ignored",
-     "misconception": "The key wins once approved. Check /status and unset the variable if you did not mean to use it."
+     "text": "Edit mode does not work until you have run a first session",
+     "misconception": "Edits are available at once. You switch them off on purpose."
     },
     {
-     "text": "Claude Code refuses to start until you unset one of the two credentials",
-     "misconception": "It starts fine, which is why the mix-up is easy to miss."
+     "text": "A throwaway folder makes the model more accurate",
+     "misconception": "The folder changes what the agent can touch and has no effect on accuracy."
     },
     {
-     "text": "It asks you to pick a credential each session and bills whichever you choose",
-     "misconception": "It asks once to approve the key. After that the key is used, so check /status."
+     "text": "Plan mode stops the agent from sending anything to the provider",
+     "misconception": "A hosted model still receives what it reads. Plan mode limits edits and does not change where prompts go."
     }
    ]
   },
   {
    "type": "choice",
-   "prompt": "What does `claude doctor` do?",
-   "explain": "doctor reports; you decide what to fix.",
+   "prompt": "Your first session answered a question about your folder. What should you do with the answer?",
+   "explain": "A hosted model and a small local model can both be wrong with confidence. Check what an agent hands back, and test a local model on questions whose answers you know.",
    "options": [
     {
-     "text": "Prints read-only diagnostics about your installation",
+     "text": "Check it against the files, because either kind of model can be wrong",
      "correct": true
     },
     {
-     "text": "Repairs a broken install and reinstalls the launcher",
-     "misconception": "doctor reports and leaves repairs to you. Read what it prints and fix the cause yourself."
+     "text": "Trust it, because the agent read the files itself",
+     "misconception": "Reading files does not make a summary of them correct."
     },
     {
-     "text": "Sends your session history to Anthropic for review",
-     "misconception": "The shell command prints diagnostics without starting a session, so there is no session history to review."
+     "text": "Trust it if the model runs locally, because local models do not make mistakes",
+     "misconception": "A local model usually makes more mistakes than a hosted one."
     },
     {
-     "text": "Scans your project files for secrets before each session",
-     "misconception": "doctor reports on the installation only. It does not scan project files for secrets."
+     "text": "Trust it if it sounds confident",
+     "misconception": "Confidence is the problem. A wrong answer sounds as sure as a right one."
     }
    ]
   },
   {
-   "type": "choice",
-   "prompt": "In OpenCode you run `opencode run --agent plan ...`. What does the plan agent give you?",
-   "explain": "The plan agent stops edits to project files. Shell commands still follow the permission policy, which allows them by default, so you keep the first session to reading and planning.",
-   "options": [
+   "type": "faulty-line",
+   "prompt": "Notes for a first session with a new agent. Which line is risky?",
+   "explain": "The first session belongs in a throwaway folder with no real or sensitive data, with edits switched off.",
+   "lines": [
     {
-     "text": "No file edits, but shell commands still follow the allow-by-default policy",
-     "correct": true
+     "text": "1. Run the installer, then confirm the version number prints.",
+     "why": "Checking the version proves the install worked."
     },
     {
-     "text": "A complete sandbox: no file can change and no command can run",
-     "misconception": "The plan agent stops file edits. Shell commands are still controlled only by the permission policy, and the default policy allows them."
+     "text": "2. Make an empty scratch folder and move into it.",
+     "why": "A throwaway folder limits what the agent can reach."
     },
     {
-     "text": "Nothing different from the build agent, since both can edit files",
-     "misconception": "The plan agent explores and plans without editing normal project files. That is the difference."
+     "text": "3. Start the agent inside my real project folder to see what it does with my data.",
+     "faulty": true
     },
     {
-     "text": "A hosted model that sends your folder to OpenCode's servers",
-     "misconception": "The model here runs through Ollama on your own computer. The agent choice does not change where the model runs."
-    }
-   ]
-  },
-  {
-   "type": "match",
-   "prompt": "Match each question to the command that answers it.",
-   "explain": "Each command shows one slice of the setup. Pick by the question you have.",
-   "pairs": [
-    {
-     "left": "Which MCP servers are connected?",
-     "right": "/mcp",
-     "misconception": "/mcp lists MCP servers and their connection status."
-    },
-    {
-     "left": "What is filling my context window?",
-     "right": "/context",
-     "misconception": "/context breaks context use down by category."
-    },
-    {
-     "left": "Which installed skills never get used?",
-     "right": "/skill-doctor",
-     "misconception": "/skill-doctor reports per-skill cost and usage and flags skills that were never invoked."
-    },
-    {
-     "left": "claude will not even start. What do I run in the shell?",
-     "right": "claude doctor",
-     "misconception": "claude doctor runs without starting a session, so it still works when a session cannot start."
+     "text": "4. Ask it to list the files and say what it would do next, changing nothing.",
+     "why": "A read-only request is the right first test."
     }
    ]
   }

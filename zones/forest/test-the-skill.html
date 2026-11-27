@@ -156,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You have a Skill and need to know that the agent actually uses it. A Skill that never fires does nothing, and an eval case is how you find out. Running an eval costs money. Every eval run and every judge-model grader is a real model call on your account. Reading this page and writing the files costs nothing. Running the eval is optional here and gives bonus XP only. Check what your institution allows before you spend.</p>
 <section id="set-up-the-plugin-folder" class="level2">
 <h2 class="anchored" data-anchor-id="set-up-the-plugin-folder">Set up the plugin folder</h2>
-<p><code>claude plugin eval</code> is the Claude Code command that runs eval cases against a plugin. It needs Claude Code <strong>v2.1.269 or later</strong>. It evaluates a <strong>plugin directory</strong>: a folder with <code>.claude-plugin/plugin.json</code>. To evaluate your own Skill, put it in a folder of this shape. The example <code>exercises/forge/fasta-tools</code> already has it. It is a folder in the course repository (clone or download the repository to get it):</p>
+<p><code>claude plugin eval</code> is the Claude Code command that runs eval cases against a plugin. It needs a recent Claude Code (check your version against the docs in Lore). It evaluates a <strong>plugin directory</strong>: a folder with <code>.claude-plugin/plugin.json</code>. To evaluate your own Skill, put it in a folder of this shape. The example <code>exercises/forge/fasta-tools</code> already has it. It is a folder in the course repository (clone or download the repository to get it):</p>
 <pre class="text"><code>fasta-tools/
 ├── .claude-plugin/plugin.json
 ├── skills/check-fasta/SKILL.md
@@ -234,7 +234,7 @@ Write an eval case for a Skill of your own: a prompt that leaves it unnamed, and
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
-<li><a href="https://code.claude.com/docs/en/plugin-evals">Test plugins with evals</a>: Anthropic, docs. Why read: the reference for case files, grader types, cost limits and the with-and-without delta.</li>
+<li><a href="https://code.claude.com/docs/en/plugin-evals">Test plugins with evals</a>: Anthropic, docs. Why read: the course tested v2.1.269 or later; it is the reference for case files, grader types, cost limits and the with-and-without delta.</li>
 <li><a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Define success criteria and build evaluations</a>: Anthropic, docs. Why read: how to write criteria and graders that discriminate.</li>
 <li><a href="https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/">Build once, run on any agent: a practical guide to agent skills</a>: Andrea Griffiths, GitHub Blog, article. Why read: a vendor article with points on a separate verifier, checking a Skill in each client and “instructions guide, tests verify”.</li>
 </ul>
@@ -249,7 +249,7 @@ Write an eval case for a Skill of your own: a prompt that leaves it unnamed, and
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

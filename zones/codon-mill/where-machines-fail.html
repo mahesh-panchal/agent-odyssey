@@ -250,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="stale-knowledge" class="level3">
 <h3 class="anchored" data-anchor-id="stale-knowledge">Stale knowledge</h3>
-<p>Newer tool versions or database releases postdate the model’s training. Check <code>--version</code> and the current docs. Current Claude models list a June 2026 training cutoff.</p>
+<p>Newer tool versions or database releases postdate the model’s training. Check <code>--version</code> and the current docs, and look up the model’s training cutoff date in its documentation.</p>
 </section>
 </section>
 <section id="the-decision-rule" class="level2">
@@ -302,7 +302,7 @@ Have a model summarise a methods paragraph you wrote. Check every number, name a
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

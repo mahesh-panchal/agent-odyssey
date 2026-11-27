@@ -57,9 +57,7 @@
    "items": [
     "State the symptom and what done looks like",
     "Ask for a plan, with no edits yet",
-    "Read and correct the plan",
-    "Let it implement in small steps",
-    "Run the check yourself"
+    "Read and correct the plan"
    ],
    "why": {
     "Ask for a plan, with no edits yet": "A plan has to exist before you can review it, and edits follow approval."

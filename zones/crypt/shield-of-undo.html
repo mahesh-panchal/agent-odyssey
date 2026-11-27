@@ -167,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
 <p><em>Further reading. Optional.</em></p>
 <ul>
 <li><a href="https://code.claude.com/docs/en/checkpointing">Checkpointing</a>: Anthropic, docs. Why read: it explains <code>/rewind</code> and its limits, including that Bash-made changes need version control, so you see why git is the real save point.</li>
-<li><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: Anthropic, docs. Why read: it lists the commands for naming, resuming and clearing sessions, including <code>claude --resume</code>, a companion when work is interrupted.</li>
+<li><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: Anthropic, docs. Why read: it lists the commands for naming, resuming and clearing sessions, including <code>claude --resume</code>, which picks up interrupted work.</li>
 </ul>
 </section>
 
@@ -180,7 +180,7 @@ ul.task-list li input[type="checkbox"] {
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

@@ -121,8 +121,8 @@ ul.task-list li input[type="checkbox"] {
 <p>You need this lesson now because every server you connect adds to the window. An agent (a model that runs tools in a loop) has a <strong>tool</strong> for each action it can take, such as reading a file or searching the web. Each tool has a <strong>definition</strong>: a name and a description of how to use it. The model needs those definitions in its context window (the text it can see at once) to choose a tool. Too many tools make the agent slower, costlier and less accurate, so the first half of this quest is about keeping the set small. The second half asks whether you need an agent at all.</p>
 <section id="tools-cost-context" class="level2">
 <h2 class="anchored" data-anchor-id="tools-cost-context">Tools cost context</h2>
-<p>Loading every tool definition up front bloats the context. Anthropic reports that a typical five-server setup (an MCP server is a program that offers tools to the agent) can use about 55 thousand tokens in definitions before any work starts, and that choosing the right tool gets worse beyond roughly 30 to 50 available tools.</p>
-<p><strong>Tool search</strong> (loading a tool’s definition only when the agent needs it) keeps most definitions out of the window and loads a few on demand. Anthropic reports that it typically cuts that overhead by over 85 percent (its own measurement). Treat both figures as rough guides. It pays off from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.</p>
+<p>Loading every tool definition up front bloats the context. Anthropic reports that a typical five-server setup (an MCP server is a program that offers tools to the agent) can use tens of thousands of tokens in definitions before any work starts, and that choosing the right tool gets worse as the number of tools grows.</p>
+<p><strong>Tool search</strong> (loading a tool’s definition only when the agent needs it) keeps most definitions out of the window and loads a few on demand. Anthropic reports that it cuts that overhead by most of its size (its own measurement, so treat it as a rough guide). It pays off from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
 <div class="tab-content" data-group="companion">
@@ -182,7 +182,7 @@ Take one task you gave an agent that had a known rule. Write down the script tha
 <h2 class="anchored" data-anchor-id="lore">Lore</h2>
 <p><em>Further reading. Optional.</em></p>
 <ul>
-<li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool">Tool search tool</a>: Anthropic, docs. Why read: it is where Anthropic states a roughly 55k-token example for tool definitions and says tool selection degrades past 30 to 50 tools; it gives no method for either figure, so read them as Anthropic’s own claims about the API, with no independent measurement.</li>
+<li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool">Tool search tool</a>: Anthropic, docs. Why read: it is where Anthropic states a roughly 55k-token example for tool definitions, a reduction of over 85 percent from tool search, and says tool selection degrades past 30 to 50 tools; it gives no method for these figures, so read them as Anthropic’s own claims about the API, with no independent measurement.</li>
 <li><a href="https://code.claude.com/docs/en/mcp">Connect Claude Code to tools via MCP</a>: Anthropic, docs. Why read: it explains how MCP tools load and how to scale or limit them in Claude Code.</li>
 <li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">Introduction to the Model Context Protocol</a>: Model Context Protocol, docs. Why read: it explains what MCP is before you decide which servers to connect.</li>
 <li><a href="https://arxiv.org/abs/2512.08296">Towards a Science of Scaling Agent Systems</a>: Kim et al., arXiv (2025), paper. Why read: it measures when extra agents help and when they hurt; a preprint, and its figures changed between versions.</li>
@@ -199,7 +199,7 @@ Take one task you gave an agent that had a known rule. Write down the script tha
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

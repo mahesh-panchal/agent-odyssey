@@ -183,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <ul>
-<li><strong>Model.</strong> You choose a model by alias, and you pin a full name when results must be reproducible (shown below the table). The aliases are <code>default</code> (clears an override and names no model), <code>best</code> (same as <code>opus</code>), <code>fable</code>, <code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>sonnet[1m]</code>, <code>opus[1m]</code> (the <code>[1m]</code> forms ask for a longer context window), and <code>opusplan</code> (opus in plan mode, then sonnet for the execution). Plan mode is a mode in which the agent proposes a plan and edits nothing until you approve it. On the Anthropic API, <code>opus</code>, <code>sonnet</code> and <code>haiku</code> map to the current 5.5 versions; other providers can resolve the same alias to older versions.</li>
+<li><strong>Model.</strong> You choose a model by alias, and you pin a full name when results must be reproducible (shown below the table). The main aliases are <code>fable</code>, <code>sonnet</code>, <code>opus</code> and <code>haiku</code>. Run <code>/model</code> in your tool to see the current list. An alias can map to different versions on different providers.</li>
 </ul>
 <table class="caption-top table">
 <colgroup>
@@ -221,13 +221,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>For results that must be reproducible (a lab pipeline, course material), <strong>pin a full model name</strong> such as <code>claude-opus-5-5</code>, because an alias moves when a new version ships. The variables <code>ANTHROPIC_DEFAULT_OPUS_MODEL</code>, <code>ANTHROPIC_DEFAULT_SONNET_MODEL</code>, <code>ANTHROPIC_DEFAULT_HAIKU_MODEL</code> and <code>ANTHROPIC_DEFAULT_FABLE_MODEL</code> pin what each alias means.</p>
+<p>For results that must be reproducible (a lab pipeline, course material), <strong>pin a full model name</strong> (the exact version string your tool lists), because an alias moves when a new version ships.</p>
 <ul>
-<li><p><strong>Effort.</strong> Set it with <code>/effort</code>, <code>claude --effort</code>, the environment variable <code>CLAUDE_CODE_EFFORT_LEVEL</code>, or the <code>effortLevel</code> setting. The levels are <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code> (between <code>high</code> and <code>max</code>) and <code>max</code>, and which ones exist depends on the model. The default differs by model and by surface: for Sonnet 5.5 it is <code>medium</code> in Claude Code and <code>high</code> on the API. Run <code>/effort</code> in your own tool to read yours.</p></li>
-<li><p><strong>Per skill and per subagent.</strong> Skill files and subagent files both take <code>model</code> and <code>effort</code> in their frontmatter.</p></li>
-<li><p><strong>Skill:</strong> <code>model</code> takes the same values as <code>/model</code>, or <code>inherit</code>. A skill’s <code>model</code> and <code>effort</code> apply for the rest of that one turn and are not saved. Its <code>effort</code> overrides the session level but not <code>CLAUDE_CODE_EFFORT_LEVEL</code>.</p></li>
-<li><p><strong>Subagent:</strong> <code>model</code> takes <code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>fable</code>, a full model ID, or <code>inherit</code>. <code>effort</code> takes <code>low</code> to <code>max</code>. If the subagent’s model differs from the main one and you give no <code>effort</code>, the session level does not apply to it, so set it.</p></li>
-<li><p><strong>Which model a subagent gets, first match wins:</strong> the per-call <code>model</code> parameter, then the definition’s <code>model</code>, then the environment variable <code>CLAUDE_CODE_SUBAGENT_MODEL</code>, then the main conversation’s model.</p></li>
+<li><p><strong>Effort.</strong> Set it with <code>/effort</code>, <code>claude --effort</code> or the <code>effortLevel</code> setting. The levels run from <code>low</code> through <code>medium</code> and <code>high</code> up to <code>max</code>, and which ones exist depends on the model. The default differs by model and by tool. Run <code>/effort</code> in your own tool to read yours.</p></li>
+<li><p><strong>Per subagent.</strong> A subagent’s <code>model</code> and <code>effort</code> go in its frontmatter. If its model differs from the main one and you give no <code>effort</code>, the session level does not apply to it, so set it.</p></li>
 </ul>
 <p>A subagent is a Markdown file with frontmatter in <code>.claude/agents/</code> (project) or <code>~/.claude/agents/</code> (yours):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
@@ -238,15 +235,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Read the logs you are given. Return: task name, exit status, the first error line.</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Quote lines exactly. If something is unclear, say so.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>A <code>tools</code> field can also limit what the helper may use. The sub-agents page in Lore has the exact syntax.</p>
-<p>This sketch uses <code>medium</code> because Haiku 5.5 at <code>low</code> is more likely to skip a search, stop early or skip a check. For reading logs, catching every failure is the point.</p>
+<p>The sub-agents page in Lore has the other fields.</p>
+<p>This sketch uses <code>medium</code> because a small model at <code>low</code> is more likely to skip a search, stop early or skip a check. For reading logs, catching every failure is the point.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <ul>
 <li><code>/models</code> picks a model for the current session only; the config file is unchanged.</li>
 <li><code>opencode run --model provider/model-id</code> sets it for one run. The format is <code>provider/model-id</code>, with an optional <code>#variant</code> such as <code>#high</code>. IDs are case-sensitive.</li>
 <li>The <code>model</code> key in <code>opencode.json</code> (or <code>opencode.jsonc</code>) sets your default.</li>
-<li>An agent can have its own <code>model</code> key. A subagent with no <code>model</code> inherits the parent session’s model. The frontmatter example is <code>mode: subagent</code> plus <code>model: anthropic/claude-sonnet-5-5#high</code>.</li>
+<li>An agent can have its own <code>model</code> key. A subagent with no <code>model</code> inherits the parent session’s model.</li>
 <li>A local Ollama model is selectable like any other, for example <code>ollama/gemma3:4b</code>.</li>
 </ul>
 </div>
@@ -337,7 +334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Spot-check summaries.</strong> A subagent returns only a summary, and summaries omit and distort. Ask for exact quotes or file paths and open two yourself. Many subagents returning long answers can also fill the main context again.</li>
 <li><strong>State your rules in the delegation prompt.</strong> The built-in Explore subagent (a read-only search helper) and Plan subagent (a read-only research helper used in plan mode) skip <code>CLAUDE.md</code>, the instructions file the tool loads at session start. A rule like “never touch <code>raw/</code>” must be written into the task you hand them. Custom subagents load <code>CLAUDE.md</code> unless set to skip it.</li>
 <li><strong>Switch models at a quiet moment.</strong> Switching model mid-conversation can change prompt-cache behaviour, and the tool may ask you to confirm.</li>
-<li><strong>Change effort only between sessions when you compare,</strong> so one session never mixes two settings. On older models, and on Bedrock, Vertex and Foundry, changing effort mid-session invalidates the cache. On Fable 5.1 and later, Opus 5.5, Sonnet 5.5 and Haiku 5.5 with an API key or subscription, it keeps the cache.</li>
+<li><strong>Change effort only between sessions when you compare,</strong> so one session never mixes two settings. On some models and providers, changing effort mid-session invalidates the cache. The Model configuration page in Lore says which.</li>
 </ul>
 </section>
 <section id="measure-on-your-own-task" class="level2">
@@ -352,20 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="other-model-families" class="level2">
 <h2 class="anchored" data-anchor-id="other-model-families">7. Other model families</h2>
-<p>The ideas above carry over to other families; the names do not. Mistral is one example:</p>
-<ul>
-<li><strong>Models:</strong> Ministral 3 comes in 3B, 8B and 14B, and Mistral Small 4 is also open-weight; both are Apache 2.0. Check Mistral’s models page for current names and deprecation dates.</li>
-<li><strong>Harness:</strong> Mistral Vibe is an open-source terminal coding agent (Apache 2.0) with four modes that set how much it asks first. Its config file is <code>~/.vibe/config.toml</code>.
-<ul>
-<li><code>ask</code>: asks before any tool.</li>
-<li><code>accept-edits</code>: the default; applies file edits without asking, and still asks before shell commands.</li>
-<li><code>smart-approve</code>: see the Vibe docs for how it decides.</li>
-<li><code>auto-approve</code>: for trusted, sandboxed environments only.</li>
-</ul></li>
-<li><strong>Trusted folders:</strong> Vibe loads project config only from folders you have trusted. Start in <code>ask</code> until you trust the project.</li>
-<li><strong>Local models:</strong> Vibe works with any model served behind an OpenAI-compatible API, such as vLLM, llama.cpp, LM Studio or Ollama. Check the Vibe docs for the Ollama setup.</li>
-</ul>
-<p>When you switch families, redo the worksheet below. A tier ladder built on one vendor’s models does not carry over name for name.</p>
+<p>The ideas above carry over to other model families, such as Mistral’s, and the model names differ. When you switch families, redo the worksheet below. A tier ladder built on one vendor’s models does not carry over name for name.</p>
 </section>
 <section id="exercise-assign-six-jobs" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-assign-six-jobs">Exercise: assign six jobs</h2>
@@ -421,7 +405,7 @@ Run the same small task at two settings and compare the result and <code>/usage<
 <ul>
 <li><a href="https://docs.mistral.ai/vibe/code/safety-approvals-permissions">Safety, approvals and permissions</a>: Mistral, docs. Why read: it describes Vibe’s four approval modes, trusted folders and per-tool rules, for comparison with other harnesses.</li>
 <li><a href="https://docs.mistral.ai/getting-started/models/models_overview/">Models overview</a>: Mistral, docs. Why read: it lists which Mistral models are open-weight, which carry a deprecation date and what licence each shows.</li>
-<li><a href="https://code.claude.com/docs/en/model-config">Model configuration</a>: Anthropic, docs. Why read: it covers model aliases, the effort setting and how to pin a model in Claude Code.</li>
+<li><a href="https://code.claude.com/docs/en/model-config">Model configuration</a>: Anthropic, docs. Why read: it covers model aliases and their current targets, effort defaults by model and how to pin a model in Claude Code.</li>
 <li><a href="https://platform.claude.com/docs/en/about-claude/models/choosing-a-model">Choosing the right model</a>: Anthropic, docs. Why read: it gives the official way to pick a starting model and to test the choice on your own evaluations.</li>
 <li><a href="https://platform.claude.com/docs/en/build-with-claude/effort">Effort</a>: Anthropic, docs. Why read: it defines each effort level and gives per-model starting advice, with the advice to test on your own tasks; its API defaults can differ from the Claude Code defaults on the model-configuration page.</li>
 <li><a href="https://code.claude.com/docs/en/sub-agents">Sub-agents</a>: Anthropic, docs. Why read: it gives the exact frontmatter fields for a subagent (<code>model</code>, <code>effort</code>, <code>tools</code>), the order in which a subagent’s model is chosen, and how the built-in Explore and Plan helpers behave.</li>
@@ -438,7 +422,7 @@ Run the same small task at two settings and compare the result and <code>/usage<
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

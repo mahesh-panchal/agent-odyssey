@@ -57,7 +57,7 @@
     },
     {
      "text": "Calling a server tool that deletes records",
-     "misconception": "Server tools can be refused by name with a deny rule. Text asks, and a deny rule enforces."
+     "misconception": "A tool call that deletes records needs a deny rule or a hook. Text only asks."
     }
    ]
   },

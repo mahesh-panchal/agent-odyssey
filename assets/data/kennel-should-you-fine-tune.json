@@ -82,7 +82,7 @@
      "misconception": "LoRA leaves the original weights unchanged and trains something small beside them."
     },
     {
-     "left": "Adapter matrices",
+     "left": "Adapter",
      "right": "Small extra parts that are trained",
      "misconception": "The adapter is the new, trained piece. The base is the frozen one."
     },

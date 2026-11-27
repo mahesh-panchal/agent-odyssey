@@ -54,7 +54,7 @@
     },
     {
      "text": "It is blocked, because a failing guard stops everything",
-     "misconception": "Exit 2 (or a JSON deny decision) blocks, and a crash leaves the action to proceed."
+     "misconception": "Exit 2 blocks, and a crash leaves the action to proceed."
     },
     {
      "text": "It is held until you answer a prompt about the crash",

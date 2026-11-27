@@ -134,7 +134,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>A new, unrelated task.</strong> Run <code>/clear</code> between unrelated tasks. It costs no usage, but it drops the chat, so write down anything you need first. The next task then stops paying for the previous one’s history. A session holding three unrelated tasks re-reads all three on every turn of the fourth. A name, as in <code>/clear oauth-migration</code>, labels the conversation you leave so you can find it again.</li>
 <li><strong>The agent repeats a wrong claim after two corrections.</strong> Clear, and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts.</li>
 <li><strong>You notice it forgetting early instructions or contradicting itself.</strong> A crowded or degraded context is the usual cause. Start fresh, and move the instruction into the instructions file (<code>CLAUDE.md</code>). Detailed early instructions can also be lost when a conversation is compacted.</li>
-<li><strong>You have been away for a while and the next task is new.</strong> Claude Code keeps a <strong>cache</strong>, a short-term store that makes re-reading the conversation cheaper. The cache lasts about an hour on a subscription (while you are within your plan limits) and five minutes with an API key by default. After it expires, the next message pays full price to re-send the history. If you do not need the history, a fresh session costs less.</li>
+<li><strong>You have been away for a while and the next task is new.</strong> Claude Code keeps a <strong>cache</strong>, a short-term store that makes re-reading the conversation cheaper. With an API key the cache lasts five minutes by default, and a subscription may keep it longer (check your tool’s documentation for current times). After it expires, the next message pays full price to re-send the history. If you do not need the history, a fresh session costs less.</li>
 <li><strong>The context is crowded.</strong> Run <code>/context</code>: it shows what fills the window. A fresh session still starts with its fixed load (instructions, tools, skills), so a fresh start saves only the conversation part. A crowded window with a task you still need is a reason to compact (below). A crowded window full of dead ends is a reason to clear.</li>
 <li><strong>A task is finished and a verified result is committed.</strong> The result lives in your files and in git, so the conversation has done its job. The same move works after a spec (a written description of what to build): write it down, then start a fresh session to build from it.</li>
 </ol>
@@ -154,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>Kept:</strong> your requests and key code snippets.</li>
 <li><strong>May be lost:</strong> detailed instructions from early in the conversation. Restate any that matter.</li>
-<li><strong>Re-supplied afterwards:</strong> the system prompt, the project-root <code>CLAUDE.md</code>, auto memory and skill descriptions. Up to five recently used files are re-read.</li>
+<li><strong>Re-supplied afterwards:</strong> the system prompt, the project-root <code>CLAUDE.md</code>, auto memory and skill descriptions. A few recently used files are re-read.</li>
 <li><strong>Automatic:</strong> Claude Code also compacts as you approach the limit. A manual <code>/compact</code> lets you choose the moment and the emphasis.</li>
 <li><strong>Cost:</strong> compacting reads the whole conversation once, so it uses some of your usage.</li>
 </ul>
@@ -229,7 +229,6 @@ ul.task-list li input[type="checkbox"] {
 <li>Run <code>/usage</code> to see your plan limits. It may show nothing about the cache. Treat the cache times above as the guide.</li>
 <li>Before a long break in a long session, run <code>/compact</code> with a focus note, or write a short handoff note (goal, what is done, what is next) and plan to <code>/clear</code>.</li>
 <li>After a break, choose one. If the next task is new, start fresh. If you still need the thread, start a new session from your short note, which also lets you drop dead ends.</li>
-<li>Decide your tool set at the start of a task. Changing the built-in tool set in the middle of a task discards the cache.</li>
 <li>Trim output before it lands in the conversation. Ask the agent to show only the last lines of a log or a pass/fail summary.</li>
 </ol>
 <p>Short pauses are fine. A pause shorter than the cache lifetime costs little, so there is no need to rush back.</p>
@@ -281,7 +280,7 @@ At the end of your next working session, write one line saying which signal (new
 <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a>: Anthropic, docs. Why read: it gives the check-to-run habit and the rule to clear after repeated failed corrections, the trigger for starting fresh.</li>
 <li><a href="https://code.claude.com/docs/en/sessions">Manage sessions</a>: Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.</li>
 <li><a href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts Fail</a>: Drew Breunig, blog, article. Why read: it names context poisoning and distraction, the failure modes behind starting fresh; a personal blog, not vendor documentation.</li>
-<li><a href="https://code.claude.com/docs/en/costs">Manage costs effectively</a>: Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.</li>
+<li><a href="https://code.claude.com/docs/en/costs">Manage costs effectively</a>: Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage; it also gives cache lifetimes (about an hour on a subscription and five minutes with an API key when checked).</li>
 <li><a href="https://github.com/inevolin/claude-code-usage-analysis">claude-code-usage-analysis</a>: inevolin, repo. Why read: a community write-up of live runs that put numbers on cache expiry, compaction timing and tool changes; small samples, so read it for the shape of the effect and check its own list of limits.</li>
 </ul>
 </section>
@@ -295,7 +294,7 @@ At the end of your next working session, write one line saying which signal (new
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

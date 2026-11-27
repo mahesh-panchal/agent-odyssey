@@ -153,9 +153,9 @@
      "misconception": "Ask rules force a prompt, even when a narrower allow rule exists."
     },
     {
-     "left": "OpenCode V2: sbatch runs without a prompt",
+     "left": "OpenCode: sbatch runs without a prompt",
      "right": "The base policy begins with an allow-all rule, so add an ask rule",
-     "misconception": "An unmatched action asks, but per the docs the base policy starts with allow-all, so an explicit ask rule for sbatch is likely needed."
+     "misconception": "An unmatched action asks, but the base policy starts with allow-all, so an explicit ask rule for sbatch is likely needed."
     },
     {
      "left": "Enforcing a rule beyond Bash matching",

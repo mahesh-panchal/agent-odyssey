@@ -154,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Your repository contents</strong> are cloned onto Anthropic’s VM. Anthropic reads only the repository you start the session in.</li>
 <li><strong>Your prompts and everything the agent reads and writes</strong> go to the model.</li>
 <li><strong>The session transcript</strong> (the saved record of the whole conversation, including tool output) is stored by Anthropic so you can return to it later.</li>
-<li><strong>Retention</strong> (how long Anthropic keeps stored data) depends on your account type: from 30 days up to 5 years. Check your plan’s current terms on the Data usage page in Lore. Deleting a cloud session permanently removes its event data.</li>
+<li><strong>Retention</strong> (how long Anthropic keeps stored data) depends on your account type. Check your plan’s current terms on the Data usage page in Lore. Deleting a cloud session permanently removes its event data.</li>
 <li><strong>Network level None may still let data exit.</strong> A <strong>network access level</strong> is the setting that says which internet hosts the VM may reach (None, Limited or Full; see section 5). The Anthropic API stays reachable even at None, which may allow data to exit the VM.</li>
 <li><strong>Environment variables</strong> (named settings handed to programs, often used for keys) set in a cloud environment can be read by any command Claude runs, and anyone who uses that environment can read the values.</li>
 </ul>
@@ -210,7 +210,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="tab-content" data-group="companion">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <ul>
-<li><strong>Push first.</strong> <code>claude --cloud "your task"</code> starts a cloud session from your terminal. It clones the GitHub remote at your current branch, and your local folder is not used. <strong>Commit and push</strong> (save snapshots, then upload them to the remote) before you start, so the session sees your latest work. If the branch is not on GitHub the CLI prints <code>Branch &lt;name&gt; is not on GitHub</code>, and the session starts from a pushed commit or the default branch. One repository per session. You can also start from claude.ai/code in the browser.</li>
+<li><strong>Push first.</strong> <code>claude --cloud "your task"</code> starts a cloud session from your terminal. It clones the GitHub remote at your current branch, and your local folder is not used. <strong>Commit and push</strong> (save snapshots, then upload them to the remote) before you start, so the session sees your latest work. If the branch is not on GitHub, the session starts from a pushed commit or the default branch. One repository per session. You can also start from claude.ai/code in the browser.</li>
 <li><strong>Write a ticket-style prompt.</strong> That is a self-contained note like a work ticket: the problem, the expected result, and a command that proves it (in the example, <code>pytest</code>, a Python test runner). Be specific, name files and paste errors. Example, with no data in it:</li>
 </ul>
 <pre class="text"><code>Problem: scripts/validate_samplesheet.py accepts duplicate sample IDs.
@@ -226,14 +226,14 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.<
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>To run an agent away from your laptop with OpenCode, run it yourself in your own container or virtual machine. That is your own infrastructure and your own responsibility.</p>
-<p>A local Ollama model keeps prompts on your machine, though web or tool calls the agent makes may leave it. If your data agreement rules out third-party processing, ask whether this local route is allowed.</p>
+<p>A local Ollama model keeps prompts on your machine, though web or tool calls the agent makes may leave it, so check your data agreement before you rely on it.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="environments" class="level2">
 <h2 class="anchored" data-anchor-id="environments">5. Environments</h2>
-<p>An <strong>environment</strong> is a saved configuration for cloud sessions: network access, environment variables, a setup script and network secrets. A first-time setup creates one called <code>Default</code>, with Limited access.</p>
+<p>An <strong>environment</strong> is a saved configuration for cloud sessions: network access, environment variables, a setup script and network secrets.</p>
 <p><strong>Network access levels:</strong></p>
 <table class="caption-top table">
 <colgroup>
@@ -265,7 +265,7 @@ Add a test for the duplicate case. Only change files under scripts/ and tests/.<
 <ul>
 <li><strong>Setup scripts:</strong> a <strong>setup script</strong> is a Bash script that runs once before Claude starts, to install what the task needs. Installs need network access, so None blocks them.</li>
 <li><strong>Environment variables versus network secrets:</strong> environment variables are readable by any command Claude runs. <strong>Network secrets</strong> are the safer option where possible: the key stays outside the VM, and a proxy adds it to requests to hosts you list.</li>
-<li><strong>Preinstalled tools:</strong> common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to run <code>check-tools</code> (a shell command on the cloud machine that reports tool versions; you ask Claude to run it) to see what is there.</li>
+<li><strong>Preinstalled tools:</strong> common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to list the tools installed on the cloud machine before you rely on one.</li>
 </ul>
 </section>
 <section id="permission-modes-in-the-cloud" class="level2">
@@ -375,7 +375,7 @@ Check whether your organisation’s plan allows cloud sessions at all.
 <ul>
 <li><a href="https://code.claude.com/docs/en/claude-code-on-the-web">Use Claude Code in the cloud</a>: Anthropic, docs. Why read: it is the main page on cloud sessions, including what gets uploaded when a repository has no GitHub remote.</li>
 <li><a href="https://code.claude.com/docs/en/cloud-environments">Configure cloud environments</a>: Anthropic, docs. Why read: it covers network access levels, environment variables and setup scripts for a session.</li>
-<li><a href="https://code.claude.com/docs/en/data-usage">Data usage</a>: Anthropic, docs. Why read: it states what Anthropic stores from a cloud session and how retention differs by plan.</li>
+<li><a href="https://code.claude.com/docs/en/data-usage">Data usage</a>: Anthropic, docs. Why read: it states what Anthropic stores from a cloud session and how retention differs by plan (from 30 days up to 5 years at the time of writing).</li>
 <li><a href="https://code.claude.com/docs/en/security">Security</a>: Anthropic, docs. Why read: its cloud execution section lists the isolation, credential and audit controls.</li>
 <li><a href="https://claude.dev/blog/claude-code-in-the-cloud/">Claude Code in the cloud article</a>: claude.dev blog, article. Why read: a community field guide to cloud sessions; use it for ideas and rely on the official pages above for facts.</li>
 </ul>
@@ -390,7 +390,7 @@ Check whether your organisation’s plan allows cloud sessions at all.
   var l = document.querySelector('link[href$="assets/css/rpg.css"]');
   var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
   window.AO_BASE = base;
-  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey"].reduce(function (p, n) {
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
     return p.then(function () {
       return new Promise(function (res) {
         var s = document.createElement("script");

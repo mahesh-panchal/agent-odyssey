@@ -18,7 +18,7 @@
     {
      "text": "This looks AI-generated, rejected.",
      "bin": "Unhelpful",
-     "misconception": "Judge the change, not the tool. Say what is wrong with it."
+     "misconception": "Aim the comment at the work. Say what is wrong with it."
     },
     {
      "text": "This is too large to review properly. Could you split it by feature?",
@@ -38,7 +38,7 @@
    "explain": "A test edited to match new output may mean the test was weakened to pass. Ask why the expected value changed.",
    "options": [
     {
-     "text": "Ask why the value changed and what independent source says 20 is right",
+     "text": "Ask why the value changed and what shows 20 is correct",
      "correct": true
     },
     {
@@ -48,25 +48,6 @@
     {
      "text": "Ask them to put the value back to 60, since tests must never be edited",
      "misconception": "Tests can legitimately change when the expected behaviour changes. What matters is an independent reason for the new value."
-    }
-   ]
-  },
-  {
-   "type": "choice",
-   "prompt": "Which notebook format is easier for a reviewer to diff?",
-   "explain": "A notebook stored as plain Python text shows the changed lines. A JSON notebook with outputs produces noisy diffs.",
-   "options": [
-    {
-     "text": "A plain .py notebook such as marimo",
-     "correct": true
-    },
-    {
-     "text": "A .ipynb with all outputs saved",
-     "misconception": "It is JSON with outputs and run counts, so diffs are noisy."
-    },
-    {
-     "text": "They are identical to review",
-     "misconception": "The storage format decides how readable a diff is."
     }
    ]
   },
@@ -84,8 +65,8 @@
      "misconception": "Explaining the reason for a line is an ordinary expectation of any author."
     },
     {
-     "text": "Paste in the agent's explanation of the branch without checking it",
-     "misconception": "A justification written after the fact may not reflect why the code exists, and you still have not checked it."
+     "text": "It can stay, because the tests pass",
+     "misconception": "Passing tests do not explain why the code exists. Explaining the reason is an ordinary expectation of any author."
     }
    ]
   }

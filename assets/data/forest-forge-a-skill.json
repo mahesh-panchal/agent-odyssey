@@ -110,23 +110,19 @@
   {
    "type": "choice",
    "prompt": "A skill sits in your listing, but Claude never uses it. Which command shows whether it has ever been invoked, and what it costs in context?",
-   "explain": "/skill-doctor reports per-skill context cost and usage and flags never-invoked skills. /skills lists them, and /permissions shows tool rules.",
+   "explain": "/skill-doctor reports per-skill context cost and usage and flags never-invoked skills. /skills lists them and sorts by token count. /reload-skills re-reads the folders.",
    "options": [
     {
      "text": "/skill-doctor",
      "correct": true
     },
     {
-     "text": "/permissions",
-     "misconception": "/permissions shows allow, ask and deny rules. It leaves out how often a skill is used."
+     "text": "/reload-skills",
+     "misconception": "It re-reads the skill folders. It reports no usage."
     },
     {
      "text": "/skills, which lists every skill with its call count",
      "misconception": "/skills lists skills and can sort by token count. It leaves out how often each was invoked."
-    },
-    {
-     "text": "/hooks, which lists the skills hooked to each event",
-     "misconception": "/hooks shows configured hooks grouped by event, which is a different list from skills."
     }
    ]
   },
