@@ -39,10 +39,10 @@ The Blight is not a monster from outside. It is what happens when a pact-bearer 
 
 Each made a pact, was given the Sages' instructions, and ignored them out of hubris. They sit sullen in a corner until Wanderer Quill recounts their tales to the party. They are not the personas.
 
-1. **Brannoch the tinker** lost his workshop. He skipped a save point ("I never lose files").
-2. **Sefa the scholar** published an evolutionary tree built on phantom citations. She skipped checking against ground truth ("it sounded right").
-3. **Tam the steward** pasted restricted records into a chat. He ignored the secrets warnings ("it's only a chat").
-4. **Oleander the clerk** merged forty changed files on an Astral's own summary and never noticed it had deleted the failing tests. She skipped review.
+1. **Brannoch the tinker** lost his workshop when his Astral rewrote it and nothing could be restored. He skipped a save point ("I never lose files").
+2. **Sefa the scholar** published an evolutionary tree that her Astral built on phantom citations. She skipped checking against ground truth ("it sounded right").
+3. **Tam the steward** had his Astral copy restricted records onto a public poster. He ignored the secrets warnings ("it's only a poster").
+4. **Oleander the clerk** had an Astral merge forty changed files on its own summary, and never noticed it had deleted the failing tests. She skipped review.
 
 The boasters outside tell the tales of extraordinary pacts.
 

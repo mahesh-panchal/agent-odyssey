@@ -68,7 +68,7 @@ gates:
   B: { id: basecamp, name: "Gaia's Rest",  track: "Prologue",   theme: "the tavern where you start: fears, and the tales of people the Blight caught", guides: ["Wanderer Quill"], status: open,
        quests: [
          { id: basecamp-name-the-fears, after: [], suggested: [], branch: trunk, trunk: true, optional: false, title: "Name the Fears", page: zones/basecamp/name-the-fears.html,
-           story: "The boasters have gone to bed, and the four patrons in the corner sit apart: some drowning their sorrows in drink, some staring at cold food they have stopped eating. Wanderer Quill greets Guildmaster Aris and the party, and one of you asks why that corner looks so forlorn.",
+           story: "The boasters have gone to bed, and four patrons in the corner sit apart: some drowning their sorrows in drink, some staring at cold food they have stopped eating. Wanderer Quill greets Guildmaster Aris and the party, and one of you asks why that corner looks so forlorn.",
            done: "Each fear has a name and a counter-habit. You travel knowing what you are guarding against." } ] }
   K: { id: kennel,   name: "The Collegium",         track: "Pacts", theme: "understanding the creatures and the pact: the three kinds, the parts of a pact, what to hand over, installing your agent and choosing models", guides: ["Sage Maelis", "Tinker Pell", "Beastmaster Wyn"], status: open,
        quests: [
