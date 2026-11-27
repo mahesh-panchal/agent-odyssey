@@ -214,10 +214,7 @@ gates:
            done: "You check the wiring cheaply, layer by layer, before the real cargo rolls." },
          { id: factory-same-every-time, after: [basecamp-three-kinds-of-machine], suggested: [codon-mill-where-machines-fail], branch: craft, trunk: false, optional: false, title: "Same Every Time", page: zones/factory/same-every-time.html,
            story: "A talkative creature sits in the middle of the line. Sometimes it says one thing and sometimes another, and the factory's customers need the same answer every time, as the Automata give.",
-           done: "You keep the talker out of the run, or fence it in with records, caches and checks." },
-         { id: factory-read-the-rails, after: [factory-dry-run-first], suggested: [], branch: craft, trunk: false, optional: false, title: "Read Agent-Written Pipelines", page: zones/factory/read-the-rails.html,
-           story: "The rails an Astral laid look sound from a distance, but one points at a private road and another melts the cargo it carries. Nothing it said gave warning.",
-           done: "You read the rails for hidden paths, undeclared outputs and overwritten inputs." } ] }
+           done: "You keep the talker out of the run, or fence it in with records, caches and checks." } ] }
   N: { id: scriptorium, name: "The Scriptorium", track: "Side Quest", status: open,
        quests: [
          { id: scriptorium-why-notebooks-diff-badly, after: [crypt-shield-of-undo], suggested: [], branch: notebooks, trunk: false, optional: false, title: "Why Notebooks Diff Badly", page: zones/scriptorium/why-notebooks-diff-badly.html,

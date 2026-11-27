@@ -66,7 +66,7 @@ A passing stub run shows that the declared steps and outputs line up. Look at ea
 ## Related lessons
 
 - [Ground Truth](../maze/ground-truth.html): how to compute a check value the agent did not produce.
-- [Read Agent-Written Pipelines](read-the-rails.html): common mistakes to spot when you read agent-written pipeline rules.
+- [Boss: Review Large Output](../maze/wall-of-output.html): four common mistakes to spot when you read agent-written pipeline rules.
 - [Jobs, Not Jam](../citadel/jobs-not-jam.html): sending checked work through a cluster scheduler.
 :::
 

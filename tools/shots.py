@@ -95,7 +95,7 @@ SHOTS += [
 for z, slugs in {"citadel": ["jobs-not-jam", "keys-on-shared-ground", "login-node-manners"],
                  "gatehouse": ["plug-in-a-server", "guard-the-door", "advice-or-enforcement"],
                  "codon-mill": ["the-context-window", "tokens-not-letters", "memory-sessions-and-usage", "the-stream-of-ideas", "too-many-tools-too-many-agents", "when-to-start-fresh", "where-machines-fail", "who-said-what", "handoff-notes", "rag-and-its-cousins", "grow-a-graph-with-ollama", "llm-wiki"],
-                 "factory": ["dry-run-first", "read-the-rails", "same-every-time"],
+                 "factory": ["dry-run-first", "same-every-time"],
                  "scriptorium": ["run-it-top-to-bottom", "why-notebooks-diff-badly"],
                  "maze": ["spot-the-mirage"], "reef": ["send-small-say-so", "teach-and-share-the-load"],
                  "forest": ["bundle-a-plugin", "close-the-loop", "plan-before-you-edit", "test-the-skill", "write-the-brief"],
