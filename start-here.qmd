@@ -33,7 +33,7 @@ The story uses a few names. The lessons themselves use plain technical words.
 
 - **Walk the trunk.** It is <span data-ao-n="trunk">16</span> quests in order, from fears and kinds of machine to your first agent and trust in output. The boss, Review Large Output, ends it.
 - **Pick branches.** Each branch is a topic you can take when it matches your work. Quests marked side quest are optional.
-- **Clear the Murk.** The final boss opens after the whole trunk and any <span data-ao-n="any">3</span> of the <span data-ao-n="branches">8</span> branches.
+- **Review a Messy Session.** The final boss opens after the whole trunk and any <span data-ao-n="any">3</span> of the <span data-ao-n="branches">8</span> branches.
 - **Save your progress.** It lives in this browser. **Save code** in the top bar copies a code, and **Load code** restores it elsewhere.
 
 The trunk takes about three hours and each branch one to two more. The order is advice, and every quest stays open.

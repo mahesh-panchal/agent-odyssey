@@ -51,6 +51,6 @@
 - Removed: badge "Practice guidance, not a vendor claim" | label: General practice | action: dropped
 - Removed: "AI for Science best practices (practice 9) back this ... Not checked first-hand ..." | label: attribution, Not checked | action: automation bias, rubber-stamping and the working-check list kept as plain statements; source stays in Lore
 
-## Boss: Clear the Murk
+## Boss: Review a Messy Session
 - Removed: badge "General practice, not a vendor claim. The tools, paths and numbers in the scenario are invented" | label: General practice | action: "invented" moved into the scenario sentence and the header
 - Removed: "(see Know Your Gear for any term you want again)" | label: mid-text quest reference | action: moved to Related lessons

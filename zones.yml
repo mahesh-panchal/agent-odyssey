@@ -55,7 +55,7 @@ branches:
 finale:
   id: murk-clear-the-murk
   gate: X
-  title: "Clear the Murk"
+  title: "Boss: Review a Messy Session"
   requires:
     trunk: all
     branches: { any: 3, of: [memory, skills, guards, craft, notebooks, citadel, reef, companions] }
