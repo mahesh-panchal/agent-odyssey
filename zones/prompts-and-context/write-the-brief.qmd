@@ -65,7 +65,7 @@ Everything in the conversation takes up room in the context window, and the room
 
 ## OpenCode + Ollama
 
-`/compact` (alias `/summarize`, meaning another name for the same command) summarises the session and `/new` (alias `/clear`) starts a new one. In the TUI (the text user interface, OpenCode's terminal screen), run `/help` to see whether your version has a command that shows what fills the window.
+`/new` starts a new session in OpenCode's TUI (the text user interface, its terminal screen). Check OpenCode's documentation for how your version summarises a session and whether a command shows what fills the window.
 
 :::
 

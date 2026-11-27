@@ -75,15 +75,15 @@
       Object.keys(pos).forEach(function (id) {
         var q = GQ[id], p = pos[id], st = stOf(id), x = X(p), y = Y(p), r = p.kind === "boss" ? 22 : p.kind === "trunk" ? 13 : p.kind === "opt" ? 8 : 11;
         var left = p.sd === "L", words = st === "cleared" ? "cleared" : st === "ready" ? "ready" : "locked";
-        var shape = p.kind === "opt"
+        var shape = (p.kind === "opt" || p.kind === "req")
           ? "<polygon class='shape' points='" + x + "," + (y - r - 2) + " " + (x + r + 2) + "," + y + " " + x + "," + (y + r + 2) + " " + (x - r - 2) + "," + y + "'/>"
           : "<circle class='shape' cx='" + x + "' cy='" + y + "' r='" + r + "'/>";
         var mark = st === "cleared" ? "<path class='ao-tick' d='M" + (x - r / 2) + " " + y + " l" + (r / 3) + " " + (r / 3) + " l" + (r * 0.7) + " " + (-r * 0.7) + "' fill='none'/>"
           : st === "locked" ? "<text class='ao-lock' x='" + x + "' y='" + (y + 5) + "' text-anchor='middle'>" + (p.kind === "boss" ? "🔒" : "") + "</text>" : "";
         var ring = st === "ready" ? "<circle class='ao-pulse' cx='" + x + "' cy='" + y + "' r='" + (r + 5) + "'/>" : "";
-        nodes += "<a class='ao-node st-" + st + " k-" + p.kind + "' href='" + base + q.page + "' aria-label='" + esc(q.title) + (q.optional ? " (side quest)" : "") + ", " + words + "'><g class='" + (st === "cleared" ? "on" : "") + "'>" +
-          "<title>" + esc(q.title) + (q.optional ? " (side quest)" : "") + ", " + words + "</title>" + ring + shape + mark +
-          "<text class='lbl' x='" + (left || p.kind === "trunk" && false ? x - r - 8 : x + r + 8) + "' y='" + (y + 4) + "' text-anchor='" + (left ? "end" : "start") + "'>" + esc(q.title) + "</text></g></a>";
+        nodes += "<a class='ao-node st-" + st + " k-" + p.kind + "' href='" + base + q.page + "' aria-label='" + esc(q.title) + (p.kind === "trunk" || p.kind === "boss" ? " (trunk quest)" : " (side quest)") + ", " + words + "'><g class='" + (st === "cleared" ? "on" : "") + "'>" +
+          "<title>" + esc(q.title) + (p.kind === "trunk" || p.kind === "boss" ? " (trunk quest)" : " (side quest)") + ", " + words + "</title>" + ring + shape + mark +
+          "<text class='lbl' x='" + (left || p.kind === "trunk" && false ? x - r - 8 : x + r + 8) + "' y='" + (y + 4) + "' text-anchor='" + (left ? "end" : "start") + "'>" + (p.kind === "trunk" || p.kind === "boss" ? "◆ " : "◇ ") + esc(q.title) + "</text></g></a>";
       });
       var labels = "<text class='ao-branchname' x='" + SIDE + "' y='" + (TOP - 44) + "' text-anchor='middle'>Final boss</text>" +
         "<text class='ao-branchname' x='" + SIDE + "' y='" + (H - 8) + "' text-anchor='middle'>Start</text>";
@@ -91,7 +91,7 @@
         var p = pos[h.at], left = p.sd === "L";
         labels += "<text class='ao-branchname' x='" + (X(p) + (left ? 12 : -12)) + "' y='" + (Y(p) - 18) + "' text-anchor='" + (left ? "end" : "start") + "'>" + esc(h.name) + "</text>";
       });
-      var legend = "<p class='ao-treekey'><span>● cleared (tick)</span> <span>◎ ready (ringed)</span> <span>◌ locked (dashed)</span> <span>◆ side quest</span> Hover or focus a node for its name.</p>";
+      var legend = "<p class='ao-treekey'><span>● cleared (tick)</span> <span>◎ ready (ringed)</span> <span>◌ locked (dashed)</span> <span>◆ trunk quest (circle)</span> <span>◇ side quest (diamond; smaller if optional)</span> Hover or focus a node for its name.</p>";
       html += "<h2>Skill tree</h2>" + legend + "<div class='ao-treewrap'><svg class='ao-tree' viewBox='0 0 " + W + " " + H + "' role='group' aria-label='Skill tree: " + cleared + " of " + total + " quests cleared'>" +
         labels + edges + nodes + "</svg></div>";
       html += "<details class='ao-textlist'><summary>Skill tree as text</summary><ul>" + tracks.map(function (g) {

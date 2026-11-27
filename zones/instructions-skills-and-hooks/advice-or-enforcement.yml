@@ -26,7 +26,7 @@ questions:
       - { text: "Trust it, because the server was approved once", misconception: "Approving a server leaves the content it fetches unverified." }
       - { text: "Rely on the sandbox alone, since it stops every prompt injection", misconception: "The sandbox limits shell commands and is off by default. It is one layer." }
   - type: faulty-line
-    prompt: "A summary of the Gatehouse has one wrong line. Which?"
+    prompt: "A summary of the controls in this lesson has one wrong line. Which?"
     explain: "A hook that exits 0 with no JSON decision gives no decision, so the normal permission flow runs. Exit 2, or exit 0 with a JSON deny decision, blocks."
     lines:
       - { text: "A deny rule is applied by the harness, whatever the model wants", why: "Enforcement does not depend on the model's cooperation." }
