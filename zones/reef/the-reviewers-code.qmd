@@ -24,7 +24,7 @@ You need this because you will also receive LLM-assisted work to review. This qu
 
 ## Formats that review well
 
-When you ask an agent to produce analysis, choose a format your reviewer can diff. A [marimo](https://marimo.io/) notebook is stored as a plain `.py` file, so a diff shows what changed. A Jupyter `.ipynb` is JSON that also stores outputs, so its diffs are noisy unless you strip outputs with a tool such as `nbstripout`.
+Choose a format your reviewer can diff (compare line by line). The notebook lesson linked below shows how.
 
 ## Battle: the review
 

@@ -6,7 +6,6 @@ questions:
     options:
       - { text: "Read it yourself, split it up, say where the LLM helped, and include evidence", correct: true }
       - { text: "Send it as one change with a short summary and ask them to flag problems", misconception: "That moves your review work onto them." }
-      - { text: "Have a fresh agent session review the change thoroughly, then send it on", misconception: "Another agent's review does not replace your own reading, and 1,500 lines is still too much to hand a reviewer." }
   - type: sort
     prompt: "Sort each action by what it does to your reviewer."
     bins: ["Eases the review", "Adds burden"]
@@ -15,7 +14,6 @@ questions:
       - { text: "One idea per pull request", bin: "Eases the review", misconception: "Small focused changes are quick to review properly." }
       - { text: "Leaving out which parts an LLM helped with", bin: "Adds burden", misconception: "Reviewers cannot focus their attention if they do not know where to look." }
       - { text: "Including the test you ran and its output", bin: "Eases the review", misconception: "Evidence lets the reviewer verify instead of guess." }
-      - { text: "Generated comments that restate every line", bin: "Adds burden", misconception: "Noise makes the real issues harder to find." }
   - type: choice
     prompt: "A collaborator does not use LLMs and is uneasy that you do. Which response respects them?"
     explain: "Respecting a collaborator means letting them keep their own tools and making your work easy to check."
@@ -29,7 +27,7 @@ questions:
     options:
       - { text: "Understand it or replace it before sending, since you vouch for it", correct: true }
       - { text: "Send it, with a clear note that the LLM wrote that particular block", misconception: "Disclosure is good but does not remove your responsibility for the content." }
-      - { text: "Send it and ask the reviewer to say whether it looks right to them", misconception: "This hands the reviewer the understanding work you skipped (the Review-leech pattern)." }
+      - { text: "Send it and ask the reviewer to say whether it looks right to them", misconception: "This hands the reviewer the understanding work you skipped." }
   - type: choice
     prompt: "A colleague hints that using an agent makes your work unoriginal. What helps most?"
     explain: "Plain disclosure and visible checks let people judge the work on its evidence."
