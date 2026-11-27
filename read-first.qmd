@@ -6,9 +6,9 @@ title: "Read First"
 A map hangs on the wall at Basecamp, and the old travellers say the road is easier for those who have read it once. You do not need to memorise it. Read for the shape of the country, then set out.
 :::
 
-This page lists background reading for the course. Reading is optional, and about an hour covers all of it. The pages describe Claude Code. If you chose OpenCode, the ideas carry over, and OpenCode's own docs are at opencode.ai/docs. It is separate from [Prerequisites](prerequisites.html), which lists what to install. The three pages in the first list cover the ideas that the first quests build on.
+This page lists background reading for the course. Reading is optional, and about an hour covers all of it. The pages describe Claude Code. If you chose OpenCode, the ideas carry over, and OpenCode's own docs are at opencode.ai/docs. It is separate from [Prerequisites](prerequisites.html), which lists what to install. The three pages in the first list cover the ideas that Set Up Your Agent and the lessons after it build on.
 
-## Read before the first quest
+## Read before you set up an agent
 
 - [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works): Anthropic, docs. Describes the loop of gathering context, acting and checking. Read it for how an agent works step by step.
 - [Data usage (Claude Code)](https://code.claude.com/docs/en/data-usage): Anthropic, docs. States what an agent sends over the network. Read it before you choose what an agent may read.
@@ -24,4 +24,4 @@ This page lists background reading for the course. Reading is optional, and abou
 - What a model, a harness and an agent are, in one sentence each.
 - Why, with a hosted model, an agent that reads a file sends that file's content to the provider.
 
-The first quests teach each of these from the start, so a gap here is fine.
+The lessons teach each of these from the start, so a gap here is fine.

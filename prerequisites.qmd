@@ -3,7 +3,7 @@ title: "Prerequisites"
 ---
 
 ::: {.ao-story}
-Before the road, the quartermaster checks your pack. A traveller without a lantern turns back at the first tunnel. Check each item once, now, then install your agent when you reach the first agent quest.
+Before the road, the quartermaster checks your pack. A traveller without a lantern turns back at the first tunnel. Check each item when a lesson asks for it, and install your agent only when you reach Set Up Your Agent.
 :::
 
 This page lists what to install for the hands-on exercises. Reading is separate: see [Read first](read-first.html). Nothing here needs real data. Exercises use invented files unless the page says otherwise.

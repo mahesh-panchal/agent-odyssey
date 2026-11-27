@@ -6,8 +6,7 @@ Agent Odyssey is a short role-playing course on using coding agents (LLM tools t
 
 ## Before you begin
 
-- [Prerequisites](prerequisites.html): what to install for the exercises.
-- [Read first](read-first.html): background reading.
+There is nothing to do yet. The exercises use a terminal, Python 3 and git, and each lesson says when it first needs one. You install an agent in Set Up Your Agent, a few lessons in, and the [Prerequisites](prerequisites.html) page lists every tool and how to check it.
 
 ## Your path
 

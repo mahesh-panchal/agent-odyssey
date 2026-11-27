@@ -48,7 +48,7 @@ Four travellers share the long table. Choose the one closest to your own work: t
 
 :::
 
-Read [the Summoning Scroll](prerequisites.qmd) (what to install) and then [Start Here](start-here.qmd) for the path. Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold **▶ NEXT** marker is the suggested next stop. The map shows only the places on your path. More appear as you clear quests, or choose "Show the whole map" to see everything.
+Open [Start Here](start-here.qmd) for the path. There is nothing to install yet: each lesson says when it needs a tool. Walk the map with the arrow keys (or WASD) and press Enter on a gate. The gold **▶ NEXT** marker is the suggested next stop. The map shows only the places on your path. More appear as you clear quests, or choose "Show the whole map" to see everything.
 
 <p id="ao-next" class="ao-next" aria-live="polite"></p>
 
