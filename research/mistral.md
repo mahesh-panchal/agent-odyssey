@@ -1,6 +1,6 @@
 # Mistral (hosted, Vibe CLI, open-weight models via Ollama)
 
-Read 2026-11-20 by a research subagent. Method: WebFetch returns a model-extracted view of each page, not raw HTML; items marked (search) are from search-result summaries only and the page itself was not read. Labels: CONFIRMED = read on the page; NOT CONFIRMED = not found or not read. Used by `zones/basecamp/know-your-gear.qmd`, `zones/kennel/adopt-the-pet.qmd`, `zones/kennel/pick-your-companion.qmd`, `zones/crypt/secrets-and-sensitive-ground.qmd`, and the two RAG quests.
+Read 2026-11-20 by a research subagent. Method: WebFetch returns a model-extracted view of each page, not raw HTML; items marked (search) are from search-result summaries only and the page itself was not read. Labels: CONFIRMED = read on the page; NOT CONFIRMED = not found or not read. Used by `zones/agents-and-models/know-your-tools.qmd`, `zones/kennel/adopt-the-pet.qmd`, `zones/agents-and-models/pick-your-model.qmd`, `zones/safe-editing/keep-secrets-out-of-reach.qmd`, and the two RAG quests.
 
 ## 1. Mistral Vibe CLI
 - https://github.com/mistralai/mistral-vibe : "Mistral Vibe is an open-source coding agent for your terminal." Apache 2.0. Install on macOS and Linux: `curl -LsSf https://mistral.ai/vibe/install.sh | bash`, or `uv tool install --python 3.14 mistral-vibe`. Needs Python 3.12 or later. Version and date NOT CONFIRMED on this page.
@@ -33,7 +33,7 @@ Read 2026-11-20 by a research subagent. Method: WebFetch returns a model-extract
 ## Our own runs
 See the end of this file (added after the runs).
 
-### Runs on 2026-11-20 (macOS, Ollama 0.40.16, `ministral-3:8b` 6.0 GB pulled for this, `nomic-embed-text` embeddings, temperature 0, `think` false, one run each, in a scratch copy of `exercises/codon-mill/mini-rag`)
+### Runs on 2026-11-20 (macOS, Ollama 0.40.16, `ministral-3:8b` 6.0 GB pulled for this, `nomic-embed-text` embeddings, temperature 0, `think` false, one run each, in a scratch copy of `exercises/prompts-and-context/mini-rag`)
 - `rag.py` question "Does project Heron need to re-analyse ...": k=3 said not enough information; k=5 answered "does not need to re-analyze" and claimed run R7 used release 2.4 (the note says 2.3); `--all` listed the right facts and answered "No" (reasoning: no re-analysis was done); the whole-collection question was not answered.
 - `graph.py build`: 80 facts, 1 min 5 s, valid JSON for all 12 notes; odd entries noted on the quest page. `graph.py ask` Heron: 25 facts from 7 notes including the R7 and 2.3 facts, answered "No". Whole-collection question: not answered.
 - The `gemma4:12b-mlx` column of the table on the page comes from the earlier runs recorded in `research/rag.md` and the quest page.

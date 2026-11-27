@@ -1,0 +1,46 @@
+---
+title: "Review Agent-Written Work"
+---
+
+::: {.ao-story}
+Sooner or later the work comes back across the Reef to you, and it is your turn to be the reviewer. Diver Kai surfaces from the Blight-clouded water with a handful of changes and shows you where it hides: in work that sounds sure of itself, even when an Astral wrote it. A good reviewer is kind and exact, and neither tires nor hurries. Kai teaches you the code that keeps both the work and the author in good shape.
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will review work that involved an LLM, kindly and effectively, and choose formats that review well.
+- **Before you start:** [Send Small Changes, Say What You Checked](send-small-changes.html).
+- **Time:** about 15 minutes.
+:::
+
+You need this because you will also receive LLM-assisted work to review. This quest covers what to ask for and how to say it. Reviewing it is the same craft as any review, with a few shifts in attention.
+
+- **Ask for the evidence.** "Which test shows this works?" works better than "are you sure?".
+- **Watch for the usual signs.** Plausible but unused code, tests weakened to pass, and confident comments that do not match the code. Two invented examples:
+  - *Weakened test:* `assert len(hits) == 12` becomes `assert len(hits) >= 0`. The test now passes whatever the code returns.
+  - *Plausible but unused code:* a helper `normalise_counts()` is defined, and nothing calls it.
+- **Ask for understanding.** "Can you explain why this branch exists?" is fair for any author.
+- **Say when it is too big.** "Please split this" is a legitimate review comment.
+- **Be kind.** The aim is better science, so keep the tone friendly and aim at the work and leave the author's competence alone.
+
+## Formats that review well
+
+Choose a format your reviewer can diff (compare line by line). The notebook lesson linked below shows how.
+
+## Battle: the review
+
+<div data-ao-test="collaboration-review-agent-written-work" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Boss: Review Large Output](../checking-output/boss-review-large-output.html): why an oversized change defeats review.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Jupytext](https://github.com/jupytext/jupytext): jupytext project (GitHub), repo. Why read: it pairs an .ipynb with a plain .py, which is the format to ask a collaborator for when you will review their notebook.
+- [nbdime](https://nbdime.readthedocs.io/en/latest/): nbdime project, docs. Why read: it gives notebook-aware diff and merge tools if you must keep .ipynb in Git.
+:::

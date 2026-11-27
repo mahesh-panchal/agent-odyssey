@@ -1,0 +1,70 @@
+---
+title: "Send Small Changes, Say What You Checked"
+---
+
+::: {.ao-story}
+The party arrives at the Reef and finds the Blight already here, a Review-leech clinging to the coral and feeding on work passed along unchecked. Tidewarden Nerys asks for your help and points to the desk where an Astral's vast haul of changes has landed on one reviewer. Nerys shows you four small habits that starve the leech. Practise them on your next hand-off.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster Aris
+
+Guildmaster Aris wants small, reviewable pieces and a named reviewer.
+
+## Diviner Ilsa
+
+Diviner Ilsa attaches the check to every change.
+
+## Artificer Bob
+
+Artificer Bob's changes fit on one screen.
+
+## Archivist Elowen
+
+Archivist Elowen's changes arrive with an audit note.
+
+:::
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will hand work to collaborators, whether or not they use LLMs, without passing them your review burden.
+- **Before you start:** [Spot Hallucinations](../checking-output/spot-hallucinations.html).
+- **Time:** about 15 minutes.
+:::
+
+Checking an agent's output takes time. When the output reaches the next person without a word, that cost moves to them. You are about to hand work to a collaborator, so four habits keep the cost with the sender.
+
+1. **Review it yourself first.** Read your own diff as if a stranger wrote it. If you cannot explain a line, it is not ready to send.
+2. **Say so.** Tell reviewers which parts an LLM helped with. It tells them where to look hardest. Follow your team's norm for how. For example: "The agent drafted `plot_coverage.py`. I wrote the tests."
+3. **Send small.** One idea per change, small enough to review in one sitting.
+4. **Bring evidence.** Include the test, the command, or the check that shows it works.
+
+A colleague who does not use LLMs can review work sent this way without learning a tool.
+
+## When you worry about looking lazy
+
+A common worry is that people will think you are lazy or unoriginal for using an agent. Make the facts easy to see.
+
+- **Say plainly what the agent did and what you checked.** "The agent drafted the plotting code. I read it and compared the output with a hand calculation."
+- **Follow the local norm.** Some groups want a note in the commit message, some in the methods. A journal or conference may have a disclosure policy, so read its own page before you submit. A lead or an editor can tell you what they expect.
+- **Let the evidence speak.** Tests, checks and your ability to explain every line show the work is yours.
+
+## Battle: the hand-off
+
+<div data-ao-test="collaboration-send-small-changes" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Boss: Review Large Output](../checking-output/boss-review-large-output.html): why a big change is hard to review, and how to ask for smaller ones.
+- [Review Agent-Written Work](review-agent-written-work.html): the other side of the hand-off, reviewing work that involved an LLM.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Anthropic, docs. Why read: it suggests asking for quotes and allowing "I don't know", habits you can request from a collaborator who sends you LLM-assisted work.
+- [Security](https://code.claude.com/docs/en/security): Anthropic, docs. Why read: it says you are responsible for reviewing proposed commands and changes, a duty you cannot hand to a collaborator unseen.
+:::

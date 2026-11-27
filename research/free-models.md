@@ -1,6 +1,6 @@
 # Free models, free tiers and what free costs
 
-Read 2026-11-20. Pages were read through a summarising fetch tool, so quotes are tool-reported: re-check the wording before relying on it. Nothing here was run. Used by `zones/kennel/free-is-not-free.qmd`.
+Read 2026-11-20. Pages were read through a summarising fetch tool, so quotes are tool-reported: re-check the wording before relying on it. Nothing here was run. Used by `zones/agents-and-models/free-is-not-free.qmd`.
 
 ## 1. The curated list (secondary source)
 - https://github.com/12britz/awesome-free-models : README and file list read with `gh api` on 2026-11-20. Last push 2026-11-14, about 2,660 stars, CC0 licence file (the GitHub API reports `NOASSERTION`). 21 sections, "55 models, 250 tools". (a) Sections include open-weight models, free API providers, routers, local inference tools, coding assistants. (b) The maintainer's own banner lists corrections from one pass on 2026-11-14: ZeroLimitAI free tier is a 3-day trial only; AI21 trial is $10 for 7 days; Cerebras free tier replaced by a $5 30-day trial that needs a payment method; Chutes.ai free tier ended; Nebius free trial suspended 2026-07-13; SambaNova free plan tightened. (c) It says OpenRouter's free lineup "churns constantly". (d) It lists resellers claiming free access to closed frontier models (for example FreeAIapikey). NOT CONFIRMED: who pays for those, where prompts go, and whether the access is authorised by the model's owner. We opened none of them.

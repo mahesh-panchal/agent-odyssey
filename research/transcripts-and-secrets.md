@@ -1,6 +1,6 @@
 # Agent transcripts as a place secrets leak (blog post, checked against primary sources)
 
-Prompted by a pasted vendor blog post ("Agent transcripts are the new .env", Evgeniy Pats, 2026-11-20; it ends with a pitch for the author's own product, which we do not cite or name). Checked 2026-11-23 by two fetch subagents. Fetch tools return model-extracted views, so quotes are short and some are from summaries (marked). Used by `zones/crypt/secrets-and-sensitive-ground.qmd`.
+Prompted by a pasted vendor blog post ("Agent transcripts are the new .env", Evgeniy Pats, 2026-11-20; it ends with a pitch for the author's own product, which we do not cite or name). Checked 2026-11-23 by two fetch subagents. Fetch tools return model-extracted views, so quotes are short and some are from summaries (marked). Used by `zones/safe-editing/keep-secrets-out-of-reach.qmd`.
 
 ## Claude Code docs (CONFIRMED unless marked)
 - https://code.claude.com/docs/en/claude-directory : "If a tool reads a `.env` file or a command prints a credential, that value is written to `projects/<project>/<session>.jsonl`." Also: "Anything that passes through a tool is written to a transcript on disk: file contents, command output, pasted text." `cleanupPeriodDays` default 30, minimum 1. `CLAUDE_CODE_SKIP_PROMPT_HISTORY` skips transcripts and prompt history. `claude purge` deletes the state held for one project.

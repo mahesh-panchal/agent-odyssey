@@ -1,0 +1,78 @@
+---
+title: "Boss: Review Large Output"
+---
+
+::: {.ao-story}
+At the maze's heart rises a wall of text, thousands of lines high, and your Astral is already reading aloud from the bottom. Cartographer Vesna reads no wall whole. Vesna takes it in pieces that the notes can check. Everything you have learned so far is needed to get past it.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster Aris
+
+Guildmaster Aris sets a review budget before the wall rises.
+
+## Diviner Ilsa
+
+Diviner Ilsa samples the wall and checks each sample against ground truth.
+
+## Artificer Bob
+
+Artificer Bob asks for smaller pieces.
+
+## Archivist Elowen
+
+Archivist Elowen checks the wall's totals against the ledger.
+
+:::
+
+![](../../assets/img/boss-wall.png){.ao-boss-img fig-alt="Pixel-art portrait of the Wall of Output: a tall wall of terminal-style bricks filled with green scrolling text, with two glowing amber cursor eyes."}
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will review a very large amount of agent output without reading all of it and without trusting all of it.
+- **Before you start:** [Ground Truth](ground-truth.html). This is the boss at the end of the trunk.
+- **Time:** about 10 minutes. Each right answer on the first try damages the boss, and a partly right one damages it in part.
+:::
+
+## Too much output to review
+
+An agent can produce thousands of lines of diff (the list of lines a change added and removed) faster than anyone can review them. If you merge them unread, unchecked errors enter your work. If you try to read all of them, your attention thins and you approve things you did not understand. Both routes fail.
+
+Instead, accept only what you can check:
+
+- Keep a **review budget**: ask for no more than you can honestly review today. Bulk low-quality output is called *slop*.
+- Ask for smaller pieces, and ask for a plan before any code, so you can redirect it while that costs little.
+- Ground each piece in a check.
+- Pass on only work you have read yourself and can explain in your own words.
+- Check what happened to the tests. An agent can make "all tests pass" true by weakening or deleting failing tests.
+
+A human check can fail in two ways. *Automation bias* is trusting the machine's output too readily. *Rubber-stamping* is approving without reading. An "approve each item" step at hundreds of items an hour turns into clicking through. A check that works:
+
+- shows what changed, at a volume a person can read;
+- offers approve, edit, veto and stop;
+- keeps a real decision point wherever results or other people are affected;
+- records the human step as part of the work's provenance (the record of where a result came from).
+
+## Battle: large output
+
+<div data-ao-test="checking-output-boss-review-large-output" data-xp="120"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Ground Truth](ground-truth.html): the check an agent did not write.
+- [The Context Window](../prompts-and-context/the-context-window.html): why more text in context is not free.
+- [Review Agent-Written Work](../collaboration/review-agent-written-work.html): ask for evidence when work comes to you.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [AI for Science, practice 9: human-in-the-loop](https://aiforscience.eu/best-practices/09-human-in-the-loop/): AI for Science (European draft best practices), docs. Why read: it explains why a stated human check can still fail through rubber-stamping, and how to design one that works. A draft with no endorsements yet; some of its cases are uncited.
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it says to give the agent a check to run, so you can read one pass or fail line instead of the whole wall of output.
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: it explains why more text in context is not free and why stale material hurts.
+- [Lost in the Middle](https://arxiv.org/abs/2307.03172): arXiv, paper. Why read: it measures how accuracy drops when the relevant fact sits in the middle of a long input.
+- [Explore the context window](https://code.claude.com/docs/en/context-window): Anthropic, docs. Why read: it shows what fills a Claude Code session and what survives compaction.
+:::

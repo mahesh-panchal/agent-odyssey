@@ -1,0 +1,66 @@
+---
+title: "Save Point"
+---
+
+::: {.ao-story}
+While Sage Maelis prepares the pacts, the party walks to the Crypt, where Warden Hesper waits at the first ward: a mark on the floor that you can step back to. Soon you will summon an Astral, and it will rewrite half the corridor in a few heartbeats. Hesper says every traveller who walked on without a mark walked back along that corridor with nothing to show, and Brannoch the tinker is one of them. She shows you how to make your mark before you touch anything.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster Aris
+
+Guildmaster Aris adds a line to the ledger: no change without a way back.
+
+## Diviner Ilsa
+
+Diviner Ilsa copies the raw results into a sealed folder before touching anything.
+
+## Artificer Bob
+
+Artificer Bob commits, and commits again.
+
+## Archivist Elowen
+
+Archivist Elowen already keeps every version, and nods approvingly.
+
+:::
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will make any change reversible before an agent touches it.
+- **Before you start:** [Choose What to Hand Over](../agents-and-models/choose-what-to-hand-over.html), a terminal and `git` (the version control tool). A **commit** is a saved snapshot of your project; a **tracked** file is one git already follows.
+- **Time:** about 10 minutes.
+:::
+
+An agent can edit many files in seconds, and you may want them back as they were. Before any agent edits your files, put them under version control (a record of every saved state of a project):
+
+1. In the folder the agent will work in, run `git init` once. Tell git who you are, once: `git config user.name "Your Name"` and `git config user.email "you@example.org"`.
+2. List large data files and secrets in a `.gitignore` file first (for example the lines `*.fastq.gz` and `.env`), or git stores a copy of each. Then run `git add -A && git commit -m "before agent"`.
+3. Check it worked: `git status` says the working tree is clean, and `git log --oneline` shows your commit.
+4. Let the agent work. If it breaks something, run `git restore --staged --worktree .` to return every **tracked** file to that commit. (Plain `git restore .` copies from the staging area, so it keeps anything you or the agent staged with `git add`.)
+
+`git restore --staged --worktree .` has two limits:
+
+- It also throws away **your own** uncommitted edits to tracked files, so commit before you start.
+- It leaves **new, untracked** files the agent created where they are. `git status` shows them, and you delete them yourself.
+
+## Battle: the save point
+
+<div data-ao-test="safe-editing-save-point" data-xp="50"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Capture Ideas Mid-Task](../prompts-and-context/the-stream-of-ideas.html): for more on `/rewind` and its limits, and why git is the real save point.
+- [The Context Window](../prompts-and-context/the-context-window.html): what fills an agent's working memory while it edits.
+- [Write Permission Rules](write-permission-rules.html): permission rules, the next layer of protection.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Checkpointing](https://code.claude.com/docs/en/checkpointing): Anthropic, docs. Why read: it explains `/rewind` and its limits, including that Bash-made changes need version control, so you see why git is the real save point.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the commands for naming, resuming and clearing sessions, including `claude --resume`, which picks up interrupted work.
+:::

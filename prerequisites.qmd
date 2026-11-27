@@ -20,7 +20,7 @@ This page lists what to install for the hands-on exercises. Reading is separate:
 
 ## Pick a route for the agent
 
-An agent is a model with tools that can read your files and run commands. You do not need one yet. [Set Up Your Agent](zones/kennel/recruit-the-beast.html) gives the full install steps and the first session for each route, and the tabs on every lesson follow the route you pick there. The two routes are Claude Code, which uses a hosted model, and OpenCode with Ollama, which runs a model on your own computer.
+An agent is a model with tools that can read your files and run commands. You do not need one yet. [Set Up Your Agent](zones/agents-and-models/set-up-your-agent.html) gives the full install steps and the first session for each route, and the tabs on every lesson follow the route you pick there. The two routes are Claude Code, which uses a hosted model, and OpenCode with Ollama, which runs a model on your own computer.
 
 ::: {.panel-tabset group="companion"}
 

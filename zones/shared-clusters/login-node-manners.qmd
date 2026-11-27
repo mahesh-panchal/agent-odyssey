@@ -1,0 +1,141 @@
+---
+title: "Login Node Manners"
+---
+
+::: {.ao-story}
+You walk to the Citadel from the map, and Gatekeeper Brisa meets you at the gate shared by hundreds of travellers. Brisa has seen what one careless sweep of the whole library does to everyone's queue. You arrive with an Astral that means well and has never heard of manners. Before it takes one step inside, teach it where it may work and how widely it may search.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster Aris
+
+Guildmaster Aris counts what one careless sweep costs the whole guild.
+
+## Diviner Ilsa
+
+Diviner Ilsa submits her jobs and leaves the login node alone.
+
+## Artificer Bob
+
+Artificer Bob sets limits before the Astral runs anything.
+
+## Archivist Elowen
+
+Archivist Elowen asks who can read the files left on shared ground.
+
+:::
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will keep heavy work and sprawling searches off the shared login node and shared storage, and hand heavy work to the scheduler.
+- **Before you start:** [Write Permission Rules](../safe-editing/write-permission-rules.html). A *login node* is the shared machine you log in to. *Compute nodes* run your jobs. The *scheduler* is the program that decides which job runs where; this page uses Slurm, a common one.
+- **Time:** about 15 minutes.
+:::
+
+You need this before an agent touches a cluster: it will run a command that is harmless on your laptop and slow for everyone on a shared machine. This quest sets where an agent may run work and how widely it may search. Ask your cluster staff before running an agent on the login node. Some sites forbid agents on login nodes altogether, so follow your cluster's user guide where it differs from this page. Read this quest on your laptop. On the cluster, run its dry checks on small trees only, or inside a job.
+
+## Login node versus compute node
+
+Everyone who logs in shares the login node. The scheduler places your jobs on compute nodes. Light work (editing text, `git`, listing one directory, checking a log with `head` or `tail`) is normally fine on the login node. Heavy work belongs on compute nodes: aligners, long foreground pipelines, compressing or indexing big files, building large environments, or running a test suite at scale.
+
+An agent does not know which node it is on or what your site tolerates. It will run a long command if you let it, so you set the rule. It also misjudges "this will only take a few seconds", so tell it to ask when a command's cost is unclear.
+
+Some sites allow agents only inside an interactive compute allocation (a job that gives you a shell on a compute node). If a scheduler command is missing, ask staff.
+
+If the agent has a question for you and you are away, a good agent stops and lists its open questions. Ask for that in your instructions: do the steps that need no answer, stop, and list the questions.
+
+## Shared storage prefers scoped searches
+
+Network filesystems can slow down for everyone when something touches huge numbers of files. Agents explore by searching, so a careless `find /` or a recursive `grep -r` from your home or project root is the classic mistake. Ask for searches scoped to one known directory, and keep them away from `/`. The same goes for `du`, `ls --recursive`, `ls --format=long` (it reads the details of every file) and wide globs on big directories, and avoid making many small files in one directory. Keep the agent to your own project paths: other users' or other projects' paths are off limits unless you named them or the site documents them as shared (reference data).
+
+Claude Code's search tools (Glob, Grep) are not a filesystem-load control; scope the search yourself.
+
+## The scheduler's four commands
+
+| Command | What it does |
+|---|---|
+| `sbatch` | submit a job script; returns a job ID |
+| `srun` | run a job or job step in real time |
+| `squeue` | report the state of jobs |
+| `scancel` | cancel a pending or running job |
+
+Slurm's default time limit is the partition's default (a partition is a named group of compute nodes with its own limits), so set limits in the script. This job script aligns one sample. The job and file names are invented:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=align-s1        # name shown in squeue
+#SBATCH --time=02:00:00            # wall-clock limit: 2 hours
+#SBATCH --mem=8G                   # memory for the whole job
+#SBATCH --cpus-per-task=4          # CPUs for the one task
+#SBATCH --output=align-s1-%j.log   # log file; %j becomes the job ID
+
+bwa mem -t 4 ref.fa sample1_R1.fq.gz sample1_R2.fq.gz > sample1.sam
+```
+
+Save it as `script.sh` and run the dry check:
+
+```bash
+sbatch --test-only script.sh
+```
+
+`--test-only` validates the script and estimates a start time. No job is submitted, so the check works as a dry run. Submit with `sbatch script.sh` yourself after you read the script. Use a job array (one script submitted as many numbered tasks, such as `--array=1-100%10`, which runs at most ten tasks at a time) for many similar tasks. Write options in their long form (`--ntasks` for `-n`) so you can read what the agent proposes.
+
+Slurm counts what you allocate, whatever you use. A partition's memory-per-CPU limit (`MaxMemPerCPU`) can make Slurm raise the CPU count to fit a large memory request, or reject the job. For example, `--mem=120G` with `MaxMemPerCPU=4000` (MB) can become about 31 CPUs. Afterwards compare request, allocation and use with `sacct` (the command that reports what finished jobs requested and used).
+
+Scratch space holds throwaway files. Ask your staff where the project's scratch is, tell the agent, and use it instead of `/tmp`, which is shared on a login node and often small. Inside a job, use a temporary directory only if your site documents one. Write throwaway files to scratch, and write final outputs straight to the project directory or copy them there before the job ends. A set `$TMPDIR` (the variable that names the temporary directory) does not prove you are on scratch, because a site can set it to `/tmp`. Scripts, logs and final outputs stay in the project directory.
+
+## Look before you copy or delete
+
+Before the agent runs a copy or a delete, have it run the same `rsync --dry-run --itemize-changes` (a dry run lists what would change and changes nothing) and read the list for keys, `.env` files and a `*deleting` line that removes something you want. `cp`, `scp` and `rm` have no dry run, so list the exact paths first.
+
+## What the agent's sandbox covers
+
+- A sandbox is a restricted environment that limits what the agent's commands can touch. Claude Code's sandbox covers shell commands only. File tools, MCP servers (connections to external tools) and hooks (scripts the harness runs at set points) run outside it.
+- If it cannot start, commands run **without** sandboxing by default. Setting `sandbox.failIfUnavailable` to `true` stops that.
+- On Linux it needs `bubblewrap` and `socat` (two Linux programs it uses to isolate commands). You usually cannot install packages system-wide on a cluster, so ask staff whether they are installed.
+- Check that the sandbox is on before you rely on it.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Tell the agent where it may run what, in your project instructions or the prompt, and back it with a permission rule where you can. Useful instructions:
+
+- "Search only inside `./workflow/`. Never run `find` or `grep -r` from `/` or `$HOME`."
+- "Run nothing in the foreground on the login node. Draft an `sbatch` script and show it to me."
+
+Instructions are guidance, and the agent can still slip. If a project instruction file (`AGENTS.md` or `CLAUDE.md`) is stricter than these lines, the stricter one wins.
+
+Foreground commands time out (default 2 minutes, maximum 10 by default). A heavy command still runs until it is cut off, so a timeout does not limit load.
+
+## OpenCode + Ollama
+
+The same habits apply. OpenCode's permission model uses allow, ask and deny rules, and an unmatched action asks. Its base policy begins with an allow-all rule, so `sbatch` runs without a prompt until you add a rule. Add explicit rules for the cluster commands, and check your installed version's permission docs. A local model through Ollama runs on the node you are on and touches the filesystem the same way.
+
+:::
+
+## Battle: mind your manners
+
+<div data-ao-test="shared-clusters-login-node-manners" data-xp="50"></div>
+
+## Bonus
+
+<div data-ao-honour="read-site-guide" data-xp="20">Find your cluster's user guide page on login-node rules (or ask the staff). Write down in your own notes what it says may and may not run on the login node.</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Jobs, Not Jam](jobs-not-jam.html): permission rules for submitting and cancelling jobs, and the cost of polling.
+- [Keys on Shared Ground](keys-on-shared-ground.html): keeping keys and data private on shared storage, and what to ask your cluster staff.
+- [Dry Run First](../pipelines/dry-run-first.html): the dry-run habit for pipelines.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Quick Start User Guide](https://slurm.schedmd.com/quickstart.html): SchedMD (Slurm), docs. Why read: it explains sbatch, srun, squeue and scancel; it leaves login-node rules to your site, so read your own site's guide too.
+- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it shows allow, ask and deny rules by command pattern, the way to make heavy or sprawling commands ask first, and warns Bash rules are not a security boundary.
+- [sbatch](https://slurm.schedmd.com/sbatch.html): SchedMD (Slurm), docs. Why read: it is the manual for submitting jobs, including --test-only to validate a request without submitting.
+:::

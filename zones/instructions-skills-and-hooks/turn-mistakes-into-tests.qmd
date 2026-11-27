@@ -1,0 +1,98 @@
+---
+title: "Turn Mistakes into Tests"
+---
+
+::: {.ao-story}
+Hunter Cass keeps a log that hangs from a branch of the great tree: every time an Astral went astray, a note of what was asked and what went wrong. Most hunters read it once and forget, and meet the same mistake again at the next bend. Cass turns each entry into a trial, so the same mistake cannot return unnoticed. Cass shows you how.
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will describe how to turn "it did the wrong thing" into a measured fix, and how to tell when the fix has stopped working. This page teaches the idea; the commands come in the next quest listed under Related lessons.
+- **Before you start:** [Write a Skill](write-a-skill.html). A **Skill** is a procedure the agent loads when it is relevant.
+- **Time:** about 10 minutes.
+:::
+
+Once you have a Skill, you need a way to know it works. Sooner or later the agent does something you did not want: it skips a check, names files badly, or uses a method your lab avoids. A chat correction helps that one reply, and a Skill helps next time. An **eval** tells you whether the fix works, and keeps telling you after the model or tool changes.
+
+## What is an eval?
+
+An **eval** (short for evaluation) is a repeatable check of how well an AI system does a task. It is the AI version of a unit test, with one difference. Ordinary code gives the same output for the same input, so a test can assert one answer. A model can answer the same prompt differently each time, so you run the check several times and ask how often, and how well, it does the job.
+
+Trying a few favourite prompts and judging whether it "feels better" is a weak habit. A new model, prompt or Skill can help one task and hurt another, and a handful of tries will not show it. An eval runs the same cases every time, so a change shows up as a number.
+
+An eval has three parts:
+
+- **Cases:** the prompts you test with, plus what a good answer looks like.
+- **Task:** the thing under test, here the agent with or without your Skill.
+- **Graders:** the checks that mark each answer.
+
+Graders come in three kinds:
+
+| Kind | How it marks | Strength | Weakness |
+|---|---|---|---|
+| **Deterministic** | A script checks something exact. | Free, fast, same every time. | Covers only what a rule can state. |
+| **Human** | You read the output and judge it. | Best for quality and style. | Slow, does not scale. |
+| **Judge model** | A second model marks against a rubric. | Handles open-ended output at scale. | Costs a call per mark, can be wrong. |
+
+A deterministic check looks like this: the file exists, the command ran, the output has 3 columns. Use deterministic graders wherever you can, a person where you must, and a judge model for the rest. Because answers vary, the result is usually a **pass rate** (for example 2 of 3 runs, or 80% of graders passed). The useful question is whether a change moved that number up or down.
+
+The cases decide how good the eval is. A set of cases should look like your real work and include awkward ones: an empty file, a misspelt name, a request phrased differently. Ten realistic cases beat a hundred invented ones. Real failures are the best source, which is why the loop below starts with *Notice*.
+
+## The loop
+
+1. **Notice.** Something did not go your way. Write down the prompt you used and what was wrong with the result.
+2. **Steer.** Write or edit a Skill (or a line in your instructions file, the file the agent reads every session) that says what to do instead. Keep it short and concrete.
+3. **Measure.** Run the same prompt **with** the Skill and **without** it, several times each (for example, once with the Skill folder in place and once with it moved away). Models vary between runs, so several tries give a fairer picture than one.
+4. **Compare.** If *with* is clearly better than *without*, the Skill earns its place. If they are about the same, the Skill adds little: it may not be triggering (the agent never loads it), it may repeat what the model already does, or it may be too vague.
+5. **Repeat later.** A new model version can make a Skill unnecessary, or break it. Re-run the evals when the model, the tool, or the Skill changes.
+
+The number that matters is the **difference** between *with* and *without*. The *without* run is the **baseline**: it shows what the model does on its own. A Skill that scores 100% both ways has added nothing the model lacked.
+
+## What to check
+
+- **The result:** does the output have what you asked for (a file exists, a command was run, a number matches)? Prefer checks a script can do.
+- **The process:** was the Skill actually used? A good-looking answer without the Skill loading means the Skill is not the reason.
+- **Cost:** every run is a real model call. Start with few cases and few runs, and raise them only for a Skill you will rely on.
+
+Evals can be wrong too. A check that always passes, or that fails correct answers, tells you little. Read a few raw outputs by hand before trusting a score.
+
+When a model does the grading, a judge from the same family (made by the same developer, so it may share the same blind spots) as the model being judged is not an independent grader. Check a sample of its marks by hand against reference answers fixed in advance.
+
+## A worked eval
+
+The Skill `check-fasta` counts the records in a FASTA file and lists duplicated header lines, using `grep -c '>' FILE` and `grep '>' FILE | sort | uniq -d`. Here are four cases for it. The prompts, file names and the planted duplicate are invented examples. Each case runs with the Skill and without it. The transcript is the saved record of a run: the commands the agent ran and its reply.
+
+| Case | Prompt (example) | Deterministic grader | Pass rule |
+|---|---|---|---|
+| 1. Skill fires | "I got a new file, `reads.fa`. Is it OK to use?" | The transcript shows the `check-fasta` Skill loaded. | Present |
+| 2. Duplicate | "Check `isolates.fa` before I align it." The file has the header `>iso7` twice. | The reply names `iso7`. | Named |
+| 3. Empty file | "Check `empty.fa`." The file has no records. | The transcript shows the `grep -c` command, and the reply says 0 records. | Both |
+| 4. Skill stays out | "What is a FASTA header line?" | The transcript shows no `check-fasta` Skill load. | Absent |
+
+A case passes when every grader in its row passes. Run each case several times, then compare the pass rate with the Skill against the pass rate without it. Case 1 checks only that the Skill fires, so its gap proves nothing. Cases 2 and 3 carry the comparison, and they should score higher with the Skill. Case 4 should score high both ways, and a drop with the Skill means it fires when it should not.
+
+<div data-ao-honour="loop-notes" data-xp="20">Keep a short list of the times an agent went wrong for you. Each entry is a candidate Skill and a ready-made eval case.</div>
+
+## Battle: close the loop
+
+<div data-ao-test="instructions-skills-and-hooks-turn-mistakes-into-tests" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Test the Skill](test-the-skill.html): for more on writing a real eval case and running it with a cost ceiling.
+- [Write a Skill](write-a-skill.html): for more on writing the Skill you will measure.
+- [Write the Brief](../prompts-and-context/write-the-brief.html): for more on prompts that give the agent a check it can run.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests): Anthropic, docs. Why read: general guidance on specific, measurable criteria and on automating the grading.
+- [AI for Science, practice 8: evaluate tools before trust](https://aiforscience.eu/best-practices/08-evaluate-tools-before-trust/): AI for Science (European draft best practices), docs. Why read: it describes task-specific tests, repeated runs and hand-checking a sample of model-judged results. A draft with no endorsements yet.
+- [Test plugins with evals](https://code.claude.com/docs/en/plugin-evals): Anthropic, docs. Why read: it explains the with-and-without comparison and how to gate changes on a score.
+- [Your App Is Only As Good As Its Evals](https://www.aihero.dev/what-are-evals): AI Hero, article. Why read: a short plain introduction (written in 2024) to why evals exist and the three kinds of grader. Written for people building AI apps, so skip the tooling and the production feedback parts.
+- [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices): Anthropic, docs. Why read: its evaluation-first workflow builds the baseline before writing the Skill.
+:::

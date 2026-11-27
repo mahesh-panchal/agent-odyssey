@@ -1,0 +1,96 @@
+---
+title: "Write the Brief"
+---
+
+::: {.ao-story}
+The party leaves the map's road and walks into the Phylogenetic Forest, where Surveyor Rowan waits by the first bare branch. She tells how a traveller once told an Astral "tidy this up" and came back to find it had cut down something loved. Rowan says every good cut starts with a few plain words about where, why and how you will know it worked. She hands you a stub of chalk and asks you to write them before anything is swung.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster Aris
+
+Guildmaster Aris's brief names the deadline, the budget and the proof of done.
+
+## Diviner Ilsa
+
+Diviner Ilsa's brief names the controls and the reference to check against.
+
+## Artificer Bob
+
+Artificer Bob's brief names the test that must pass.
+
+## Archivist Elowen
+
+Archivist Elowen's brief names the fields that must never change.
+
+:::
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will write prompts that make output checkable, and keep the context window in good shape so the agent stays on task. Do this before you ask an agent for any real change, because a vague prompt gets a confident guess.
+- **Before you start:** [Set Up Your Agent](../agents-and-models/set-up-your-agent.html). The **context window** is everything the model can see in a session: your prompts, its replies, and the files it has read.
+- **Time:** about 15 minutes.
+:::
+
+The **brief** is what you tell the agent. A vague brief invites a plausible guess. A good brief names the file and the symptom (what you see going wrong), says what "done" looks like, and gives the agent a **check it can run**.
+
+| Vague | Specific |
+|---|---|
+| "Fix the GC script." | "`gc.py` reports 20.0 for `seq2` in `tiny.fasta` but `awk` (a command-line text tool) gives 60.0. Find why and fix it. Done when both agree." |
+| "Make it faster." | "Profile (measure where the time goes in) `align.py` on `small.fa`, name the slowest function, and propose a change. Do not edit anything yet." |
+
+Two habits make the rest of this safer:
+
+- **Plan first:** ask for a plan before any edit, and read it.
+- **Ask for evidence:** "Show the command and its output" turns a claim into something you can look at.
+
+## Put effort into the brief
+
+A common habit is to open with "You are a world-class bioinformatician." Expert personas help with tone, format, safety and preference tasks. They can hurt tasks that rely on what the model already knows, such as factual questions. A role line is not a substitute for a brief.
+
+So:
+
+- **Brief first:** put your effort into the file, the symptom, what "done" looks like, and a check. Those are testable. A role line is not.
+- **Role for style:** use a role or tone line when you want a style, such as "explain this for a first-year student".
+- **Test a persona:** if you use one on a factual task, compare the result against a version without one.
+
+## The context window has a size limit
+
+Everything in the conversation takes up room in the context window, and the room is limited. Old conversation can crowd out the files you need next.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+`/context` shows what is filling the window. `/compact` summarises the conversation (you can say what to keep). `/clear` starts fresh, which is right when you switch to an unrelated task. Claude Code also compacts automatically near the limit.
+
+## OpenCode + Ollama
+
+`/compact` (alias `/summarize`, meaning another name for the same command) summarises the session and `/new` (alias `/clear`) starts a new one. In the TUI (the text user interface, OpenCode's terminal screen), run `/help` to see whether your version has a command that shows what fills the window.
+
+:::
+
+## Battle: write the brief
+
+The Battle is the short test at the end of each quest.
+
+<div data-ao-test="prompts-and-context-write-the-brief" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Plan Before You Edit](../safe-editing/plan-before-you-edit.html): for more on asking for a plan first, and how to review it.
+- [Turn Mistakes into Tests](../instructions-skills-and-hooks/turn-mistakes-into-tests.html): for more on testing a persona or a prompt change against a version without it.
+- [The Context Window](the-context-window.html): for more on what fills the window and why it matters.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it explains why a brief needs a check the agent can run, and how to keep context and cost down.
+- [Explore the context window](https://code.claude.com/docs/en/context-window): Anthropic, docs. Why read: an interactive timeline of what fills the window and what survives compaction.
+- [Expert Personas Improve LLM Alignment but Damage Accuracy](https://arxiv.org/abs/2603.18507): Hu, Rostami and Thomason, arXiv (2026), paper. Why read: it measures where expert personas help and where they hurt; a preprint on small models, so read it as one data point.
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: background on why more context is not always better and what compaction can lose.
+:::

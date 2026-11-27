@@ -1,0 +1,99 @@
+---
+title: "Tokens, Not Letters"
+---
+
+::: {.ao-story}
+You leave the Crypt and cross the fields to the Codon Mill, where Miller Garrick turns the wheel before an Astral reads a single word, and everything fed to it comes out as small chunks. A boaster from Gaia's Rest swore an Astral reads letter by letter, so you handed it a sequence and asked it to count the Gs. It named a number with great pride, and the number was wrong. You carry sequences where every letter counts, so Garrick shows you what the mill does to them.
+
+::: {.panel-tabset group="persona"}
+
+## Guildmaster Aris
+
+Guildmaster Aris notes that the bill is counted in tokens, and starts a budget line.
+
+## Diviner Ilsa
+
+Diviner Ilsa thinks of the sequences she must count and reaches for a script.
+
+## Artificer Bob
+
+Artificer Bob tests how many tokens his longest function costs.
+
+## Archivist Elowen
+
+Archivist Elowen wonders how many tokens one metadata record takes.
+
+:::
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will explain that a model reads tokens (chunks of text) and decide which sequence jobs belong to a script.
+- **Before you start:** [Set Up Your Agent](../agents-and-models/set-up-your-agent.html), which gives you an agent to try the exercise with.
+- **Time:** about 15 minutes.
+:::
+
+You read a sequencing read as letters: A, C, G, T. A language model reads tokens. Before your text reaches the model, it is cut into **tokens**, and the model works with those. Sequence work needs exact letters, so you need to know when this difference matters.
+
+## What a token is
+
+A token is the smallest unit a model works with. It can be a whole word, part of a word, a single character or a byte. Common strings get larger tokens. Rare or unseen words are broken into smaller pieces so the model can still handle them.
+
+Three consequences:
+
+- **Tokens are not words.** A sentence of ten words rarely comes to ten tokens; the count depends on the model and the language.
+- **The count changes between models.** A newer model generation can use a newer tokenizer (the part that cuts text into tokens), and the same text can then give noticeably more tokens. Count again for each model you use.
+- **Limits and cost are measured in tokens.** The context window (all the text a model can look at when it writes its next piece of output) is counted in tokens, and the same prompt can cost different amounts on different models. The API (programmatic access to the model, billed per token) has a free token-counting endpoint. Its answer is an estimate.
+
+## Why this matters for sequences
+
+The model sees chunks of letters, so jobs that depend on every single letter are risky:
+
+- **Counting letters** ("how many Gs in this read") means counting inside chunks the model cannot see into. Answers are often close and sometimes wrong.
+- **Copying exactly** a long string, such as a barcode or an accession, needs a check against the source.
+- **Positions, reverse complements and checksums** depend on every single letter.
+
+So the rule: if the answer has to be exact and a rule for it exists, have the agent **run a script or a tool** and report what it printed. Check any sequence the model retyped against the source file.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Ask Claude Code to write and run the counting command and show its output. Then read both the command and the output yourself.
+
+## OpenCode + Ollama
+
+Same advice: ask for the command and read its output. Try the exercise below with your own model and compare.
+
+:::
+
+## Optional exercise (laptop, no real data)
+
+Take this mock line: `>read1 ACGTTGCAAGGCTTAGGCCATTAGC`. Count the letters yourself with a command you already have, for example `echo ACGTTGCAAGGCTTAGGCCATTAGC | grep -o G | wc -l`. Then paste the same line and a plain English sentence of similar length into any tokenizer page you trust (a web page that shows how text is cut into tokens), or a token counter you have. Compare the token counts. Keep real or sensitive sequences out of web tools.
+
+## Battle: tokens and scripts
+
+<div data-ao-test="prompts-and-context-tokens-not-letters" data-xp="50"></div>
+
+## Bonus
+
+<div data-ao-honour="compare-tokens" data-xp="20">Compare the token count of a mock FASTA line and an English sentence of the same character length, using a tool you trust and only mock data. Note which one used more tokens.</div>
+<div data-ao-honour="script-count" data-xp="20">Replace one "ask the model to count" habit of yours with a script the model writes and runs, and check its output against a hand count on a tiny file.</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [The Context Window](the-context-window.html): for more on the window whose size is counted in tokens, and what fills it.
+- [Where Machines Fail](where-machines-fail.html): sort jobs into "ask the model" and "run a script", and meet the other ways a model fails.
+- [Memory, Sessions and Usage](memory-sessions-and-usage.html): how usage is counted in tokens across a session.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting): Anthropic, docs. Why read: it documents the free count endpoint and says models from Claude 4.7 onward use a newer tokenizer, so the same text gives roughly 30 percent more tokens than on earlier models (the exact increase depends on the content).
+- [The Strawberry Problem](https://arxiv.org/abs/2505.14172): Cosma et al., EMNLP 2025, paper. Why read: it argues character-level information is weakly available inside tokens, a leading explanation for miscounted letters.
+- [Counting Ability of LLMs and Impact of Tokenization](https://arxiv.org/abs/2410.19730): Zhang et al., arXiv, paper. Why read: it studies how tokenisation affects counting; its abstract says step-by-step reasoning (chain of thought) can help, and its full text still reports failures with it in modern models. A preprint.
+- [CharBench: Evaluating the Role of Tokenization in Character-Level Tasks](https://arxiv.org/abs/2508.02591): arXiv, paper. Why read: a counter-view finding tokenisation only weakly tied to errors, so treat the tokens explanation as likely but disputed. A preprint.
+:::

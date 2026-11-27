@@ -1,7 +1,7 @@
 # Overworld layout. Legend: . grass  = path  # tree  ~ water  o stone.  Gates are letters (see gates).
 map:
   - "####################"
-  - "#..F=======T~~~~...#"
+  - "#..F=======~~~~~...#"
   - "#..=.........~~~.=C#"
   - "#..=...K.....~~~.=.#"
   - "#..=...=......====.#"
@@ -17,41 +17,41 @@ start: B
 # --- Path graph. Per quest: after = hard prerequisites (advice), suggested = soft; branch = trunk or a branch id below.
 # Only the finale gate enforces anything. A branch is complete when all its non-optional quests are cleared.
 trunk_order:
-  - basecamp-name-the-fears
-  - basecamp-three-kinds-of-machine
-  - basecamp-know-your-gear
-  - basecamp-wade-in
-  - crypt-shield-of-undo
-  - kennel-recruit-the-beast
-  - crypt-test-the-leash
-  - crypt-rules-of-the-carapace
-  - crypt-secrets-and-sensitive-ground
-  - codon-mill-tokens-not-letters
-  - codon-mill-where-machines-fail
-  - codon-mill-the-context-window
-  - maze-spot-the-mirage
-  - maze-ground-truth
-  - maze-keep-a-paper-trail
-  - maze-wall-of-output
+  - worries-name-the-fears
+  - agents-and-models-script-model-or-llm
+  - agents-and-models-know-your-tools
+  - agents-and-models-choose-what-to-hand-over
+  - safe-editing-save-point
+  - agents-and-models-set-up-your-agent
+  - safe-editing-test-permissions-and-the-sandbox
+  - safe-editing-write-permission-rules
+  - safe-editing-keep-secrets-out-of-reach
+  - prompts-and-context-tokens-not-letters
+  - prompts-and-context-where-machines-fail
+  - prompts-and-context-the-context-window
+  - checking-output-spot-hallucinations
+  - checking-output-ground-truth
+  - checking-output-keep-a-paper-trail
+  - checking-output-boss-review-large-output
 branches:
   - { id: memory, name: "Memory and sessions", who: "Anyone whose sessions run long or get confused, and who wants to keep work from being lost.",
       blurb: "Keep long sessions clear, and carry work across the gap between them.",
-      entry: [codon-mill-memory-sessions-and-usage, codon-mill-who-said-what] }
+      entry: [prompts-and-context-memory-sessions-and-usage, prompts-and-context-which-instructions-apply] }
   - { id: skills, name: "Skills and plugins", who: "People who repeat the same agent tasks and want to package and test them.",
-      blurb: "Turn repeated work into tested Skills and plugins.", entry: [forest-write-the-brief] }
+      blurb: "Turn repeated work into tested Skills and plugins.", entry: [prompts-and-context-write-the-brief] }
   - { id: guards, name: "Guards", who: "Anyone connecting tools (MCP) or wanting hard rules instead of advice.",
-      blurb: "Connect tools safely and enforce rules in code, not advice.", entry: [gatehouse-plug-in-a-server] }
+      blurb: "Connect tools safely and enforce rules in code, not advice.", entry: [instructions-skills-and-hooks-connect-an-mcp-server] }
   - { id: craft, name: "Craft", who: "Pipeline authors (Nextflow, Snakemake) using an agent on workflow code.",
-      blurb: "Use agents on pipeline code without losing reproducibility.", entry: [factory-dry-run-first, factory-same-every-time] }
+      blurb: "Use agents on pipeline code without losing reproducibility.", entry: [pipelines-dry-run-first, pipelines-same-every-time] }
   - { id: citadel, name: "Shared ground", who: "HPC and cluster users.",
-      blurb: "Work with agents on a shared cluster without harming others or leaking keys.", entry: [citadel-login-node-manners] }
+      blurb: "Work with agents on a shared cluster without harming others or leaking keys.", entry: [shared-clusters-login-node-manners] }
   - { id: reef, name: "People", who: "Anyone collaborating, reviewing others' work or teaching a group.",
-      blurb: "Hand over, review and teach work involving agents, kindly and honestly.", entry: [reef-send-small-say-so] }
+      blurb: "Hand over, review and teach work involving agents, kindly and honestly.", entry: [collaboration-send-small-changes] }
   - { id: companions, name: "Models and cloud", who: "People choosing models and effort, or considering cloud sessions.",
       blurb: "Choose models and effort per job, and decide what may go to the cloud.",
-      entry: [kennel-pick-your-companion, kennel-claude-in-the-cloud] }
+      entry: [agents-and-models-pick-your-model, agents-and-models-claude-in-the-cloud] }
 finale:
-  id: murk-clear-the-murk
+  id: final-review-review-a-messy-session
   gate: X
   title: "Boss: Review a Messy Session"
   requires:
@@ -63,167 +63,165 @@ prologue: >-
   spirits that speak every tongue, and the pact is a gift until it is unchecked. Walk the land, learn the
   disciplines of the pact, and clear the Murk.
 gates:
-  B: { id: basecamp, name: "Gaia's Rest",  track: "Prologue",   theme: "the tavern where you start: fears, and the tales of people the Blight caught", guides: ["Wanderer Quill"], status: open,
+  B: { id: worries, name: "Gaia's Rest", track: "Prologue", theme: "the tavern at the foot of a great tree where you start: fears, and the tales of people the Blight caught", guides: ["Wanderer Quill"], status: open,
        quests: [
-         { id: basecamp-name-the-fears, after: [], suggested: [], branch: trunk, trunk: true, optional: false, title: "Name the Fears", page: zones/basecamp/name-the-fears.html,
+         { id: worries-name-the-fears, after: [], suggested: [], branch: trunk, trunk: true, optional: false, title: "Name the Fears", page: zones/worries/name-the-fears.html,
            story: "The boasters have gone to bed, and four patrons in the corner sit apart: some drowning their sorrows in drink, some staring at cold food they have stopped eating. Wanderer Quill greets Guildmaster Aris and the party, and one of you asks why that corner looks so forlorn.",
            done: "Each fear has a name and a counter-habit. You travel knowing what you are guarding against." } ] }
-  K: { id: kennel,   name: "The Collegium",         track: "Pacts", theme: "understanding the creatures and the pact: the three kinds, the parts of a pact, what to hand over, installing your agent and choosing models", guides: ["Sage Maelis", "Tinker Pell", "Beastmaster Wyn"], status: open,
+  K: { id: agents-and-models, name: "The Collegium", track: "Pacts", theme: "understanding the creatures and the pact: the three kinds, the parts of a pact, what to hand over, installing your agent and choosing models", guides: ["Sage Maelis", "Tinker Pell", "Beastmaster Wyn"], status: open,
        quests: [
-         { id: basecamp-three-kinds-of-machine, after: [basecamp-name-the-fears], suggested: [], branch: trunk, trunk: true, optional: false, title: "Script, Model, or LLM", page: zones/basecamp/three-kinds-of-machine.html,
+         { id: agents-and-models-script-model-or-llm, after: [worries-name-the-fears], suggested: [], branch: trunk, trunk: true, optional: false, title: "Script, Model, or LLM", page: zones/agents-and-models/script-model-or-llm.html,
            story: "You arrive at the Collegium from Gaia's Rest, where three colleges ring with work from dawn. Tinker Pell shows you an Automaton that never strays and never improvises, Beastmaster Wyn a Familiar that is sure on its one trail, and Sage Maelis an Astral that can speak every tongue and still invent what it does not know.",
            done: "You can choose the right machine, and sometimes the right machine is a plain script." },
-         { id: basecamp-know-your-gear, after: [basecamp-three-kinds-of-machine], suggested: [], branch: trunk, trunk: true, optional: false, title: "Know Your Tools", page: zones/basecamp/know-your-gear.html,
+         { id: agents-and-models-know-your-tools, after: [agents-and-models-script-model-or-llm], suggested: [], branch: trunk, trunk: true, optional: false, title: "Know Your Tools", page: zones/agents-and-models/know-your-tools.html,
            story: "In the sages' college, Sage Maelis lays the Summoning Scroll open across her desk. She names each piece of the pact in turn: the Astral you will summon, the binding circle that holds it, and a pile of fittings nobody has labelled.",
            done: "You can tell model from harness, and name what each fitting does and does not guarantee." },
-         { id: basecamp-wade-in, after: [basecamp-know-your-gear], suggested: [], branch: trunk, trunk: true, optional: false, title: "Choose What to Hand Over", page: zones/basecamp/wade-in.html,
+         { id: agents-and-models-choose-what-to-hand-over, after: [agents-and-models-know-your-tools], suggested: [], branch: trunk, trunk: true, optional: false, title: "Choose What to Hand Over", page: zones/agents-and-models/choose-what-to-hand-over.html,
            story: "Sage Maelis gathers you in a hall of the Collegium with a warning: left unchecked, an Astral will pull in everything within reach to finish a task, and spread the Blight across the land in the process. As the four travellers imagine what a pact could unlock for their craft, loud boasters brag of giving their Astral free rein over entire projects, dismissing small, guarded tasks as timid half-measures. Maelis points to a wiser way: think of the work as a deep river, and you need not swim the whole span at once. Limit what the Astral sees, step from stone to stone carrying only what the task demands, and check your footing at each stone before you step to the next. She needs a little time to prepare the pacts, so she asks you to return tomorrow and to visit Warden Hesper at the Crypt until then.",
            done: "You can name the step you are on, what leaves your machine at it, and why you may stop there." },
-         { id: kennel-recruit-the-beast, after: [crypt-shield-of-undo], suggested: [], branch: trunk, trunk: true, optional: false, title: "Set Up Your Agent", page: zones/kennel/recruit-the-beast.html,
+         { id: agents-and-models-set-up-your-agent, after: [safe-editing-save-point], suggested: [], branch: trunk, trunk: true, optional: false, title: "Set Up Your Agent", page: zones/agents-and-models/set-up-your-agent.html,
            story: "You return to the Collegium, where the sages' college smells of ink and hot brass. Sage Maelis unrolls the sages' Summoning Scroll, reads it aloud and turns each rune into a step: this is how a pact is made.",
            done: "The pact is made. Your Astral stirs and falls in beside you, powerful, and it will do exactly what its permissions allow." },
-         { id: kennel-free-is-not-free, after: [kennel-recruit-the-beast, crypt-secrets-and-sensitive-ground], suggested: [kennel-pick-your-companion], branch: companions, trunk: false, optional: true, title: "Free Is Not Free", page: zones/kennel/free-is-not-free.html,
+         { id: agents-and-models-free-is-not-free, after: [agents-and-models-set-up-your-agent, safe-editing-keep-secrets-out-of-reach], suggested: [agents-and-models-pick-your-model], branch: companions, trunk: false, optional: true, title: "Free Is Not Free", page: zones/agents-and-models/free-is-not-free.html,
            story: "Stalls outside the Collegium gate offer pacts for free. Some are with Astrals bred in the open, some are trials, and one stall will not say where its Astral came from.",
            done: "You can name what a free model offer costs, sort it into one of four kinds, and decide which data may go to it." },
-         { id: kennel-pick-your-companion, after: [kennel-recruit-the-beast], suggested: [], branch: companions, trunk: false, optional: false, title: "Pick Your Model", page: zones/kennel/pick-your-companion.html,
+         { id: agents-and-models-pick-your-model, after: [agents-and-models-set-up-your-agent], suggested: [], branch: companions, trunk: false, optional: false, title: "Pick Your Model", page: zones/agents-and-models/pick-your-model.html,
            story: "You walk to the Collegium and Sage Maelis shows you the long shelf in the sages' college, where Astrals of every size wait. A great one speaks well, answers slowly and costs the most to feed, and a small one is quick and cheap and loses the thread.",
            done: "You choose a model and effort for each job, delegate bulk reading to a cheaper helper, and measure before you commit." },
-         { id: kennel-claude-in-the-cloud, after: [kennel-recruit-the-beast, crypt-secrets-and-sensitive-ground], suggested: [], branch: companions, trunk: false, optional: false, title: "Claude in the Cloud", page: zones/kennel/claude-in-the-cloud.html,
+         { id: agents-and-models-claude-in-the-cloud, after: [agents-and-models-set-up-your-agent, safe-editing-keep-secrets-out-of-reach], suggested: [], branch: companions, trunk: false, optional: false, title: "Claude in the Cloud", page: zones/agents-and-models/claude-in-the-cloud.html,
            story: "You walk to the Collegium and climb its tower, where the Claude Astral can work on a borrowed machine that vanishes when the job is done. Sage Maelis climbs with you.",
            done: "You send scripts and documents to the cloud, keep data and analysis at home, and know what leaves your machine when you do." } ] }
-  C: { id: crypt,    name: "Ancient DNA Crypt",     track: "Wards",     theme: "wards: undo, permissions, the sandbox and secrets", guides: ["Warden Hesper"], status: open,
+  C: { id: safe-editing, name: "Adventurers' Training Grounds", track: "Training", theme: "training: undo, permissions, the sandbox, secrets and plans", guides: ["Warden Hesper"], status: open,
        quests: [
-         { id: crypt-shield-of-undo, after: [basecamp-wade-in], suggested: [], branch: trunk, trunk: true, optional: false, title: "Save Point", page: zones/crypt/shield-of-undo.html,
+         { id: safe-editing-save-point, after: [agents-and-models-choose-what-to-hand-over], suggested: [], branch: trunk, trunk: true, optional: false, title: "Save Point", page: zones/safe-editing/save-point.html,
            story: "While Sage Maelis prepares the pacts, the party walks to the Crypt, where Warden Hesper waits at the first ward: a mark on the floor that you can step back to. Soon you will summon an Astral, and it will rewrite half the corridor in a few heartbeats.",
            done: "The first seal cracks. You have a save point: any change can now be reversed." },
-         { id: crypt-test-the-leash, after: [kennel-recruit-the-beast], suggested: [crypt-shield-of-undo], branch: trunk, trunk: true, optional: false, title: "Test Permissions and the Sandbox", page: zones/crypt/test-the-leash.html,
+         { id: safe-editing-test-permissions-and-the-sandbox, after: [agents-and-models-set-up-your-agent], suggested: [safe-editing-save-point], branch: trunk, trunk: true, optional: false, title: "Test Permissions and the Sandbox", page: zones/safe-editing/test-permissions-and-the-sandbox.html,
            story: "The party returns from the Collegium, where Sage Maelis made the pact, and the Astral has agreed and wants to run ahead. At the Crypt door Warden Hesper gives you a chalk circle and a feather.",
            done: "You have seen an agent ask, refuse and be refused by the operating system, and you know which guard did which." },
-         { id: crypt-rules-of-the-carapace, after: [crypt-test-the-leash], suggested: [], branch: trunk, trunk: true, optional: false, title: "Write Permission Rules", page: zones/crypt/rules-of-the-carapace.html,
+         { id: safe-editing-write-permission-rules, after: [safe-editing-test-permissions-and-the-sandbox], suggested: [], branch: trunk, trunk: true, optional: false, title: "Write Permission Rules", page: zones/safe-editing/write-permission-rules.html,
            story: "Deeper in the Crypt a chalk circle is not enough, and an Astral does not stop at a door it was never told about. Warden Hesper shows you how to write wards: rules about what it may touch and what it must ask about.",
            done: "The wards hold. Your Astral can now do only what your rules allow." },
-         { id: crypt-secrets-and-sensitive-ground, after: [crypt-rules-of-the-carapace], suggested: [], branch: trunk, trunk: true, optional: false, title: "Keep Secrets Out of Reach", page: zones/crypt/secrets-and-sensitive-ground.html,
+         { id: safe-editing-keep-secrets-out-of-reach, after: [safe-editing-write-permission-rules], suggested: [], branch: trunk, trunk: true, optional: false, title: "Keep Secrets Out of Reach", page: zones/safe-editing/keep-secrets-out-of-reach.html,
            story: "In the deepest chamber of the Crypt lie sealed relics: keys, tokens and samples bound by special agreements. The Astral drifts in behind you, curious, and its attention is already on the nearest seal.",
-           done: "Your visor closes. Keys and sensitive ground stay out of reach, and you know where the agreement lives." } ] }
-  L: { id: codon-mill, name: "The Codon Mill", track: "Foundations", theme: "how an Astral reads: tokens, failures, the context window and memory", guides: ["Miller Garrick", "Scribe Linnea"], status: open,
+           done: "Your visor closes. Keys and sensitive ground stay out of reach, and you know where the agreement lives." },
+         { id: safe-editing-plan-before-you-edit, after: [prompts-and-context-write-the-brief], suggested: [], branch: skills, trunk: false, optional: false, title: "Plan Before You Edit", page: zones/safe-editing/plan-before-you-edit.html,
+           story: "Surveyor Rowan walks the branch before the axe swings, and she has watched an Astral hew the wrong limb in a single stroke. She shows you how a wrong cut on paper costs a line, and a wrong cut on the tree costs the branch.",
+           done: "You ask for a plan, read it like a reviewer, and know what a plan does and does not guarantee." } ] }
+  L: { id: prompts-and-context, name: "The Quern Mill", track: "Foundations", theme: "how an Astral reads: tokens, failures, the context window, briefs and memory", guides: ["Miller Garrick", "Scribe Linnea"], status: open,
        quests: [
-         { id: codon-mill-tokens-not-letters, after: [crypt-secrets-and-sensitive-ground], suggested: [], branch: trunk, trunk: true, optional: false, title: "Tokens, Not Letters", page: zones/codon-mill/tokens-not-letters.html,
+         { id: prompts-and-context-tokens-not-letters, after: [safe-editing-keep-secrets-out-of-reach], suggested: [], branch: trunk, trunk: true, optional: false, title: "Tokens, Not Letters", page: zones/prompts-and-context/tokens-not-letters.html,
            story: "You leave the Crypt and cross the fields to the Codon Mill, where Miller Garrick turns the wheel before an Astral reads a single word, and everything fed to it comes out as small chunks. A boaster from Gaia's Rest swore an Astral reads letter by letter, so you handed it a sequence and asked it to count the Gs.",
            done: "You know the machine reads chunks, so counting letters and reading sequences exactly are jobs for a script." },
-         { id: codon-mill-where-machines-fail, after: [codon-mill-tokens-not-letters], suggested: [], branch: trunk, trunk: true, optional: false, title: "Where Machines Fail", page: zones/codon-mill/where-machines-fail.html,
+         { id: prompts-and-context-where-machines-fail, after: [prompts-and-context-tokens-not-letters], suggested: [], branch: trunk, trunk: true, optional: false, title: "Where Machines Fail", page: zones/prompts-and-context/where-machines-fail.html,
            story: "A boaster at Gaia's Rest swore his Astral could fly. You led it to the mill roof, and it spread its wings, glided a few fine yards and landed in the mud.",
            done: "You send summaries and drafts to the machine, and counting and calculation to a script, and you spot-check what comes back." },
-         { id: codon-mill-the-context-window, after: [codon-mill-tokens-not-letters], suggested: [], branch: trunk, trunk: true, optional: false, title: "The Context Window", page: zones/codon-mill/the-context-window.html,
+         { id: prompts-and-context-the-context-window, after: [prompts-and-context-tokens-not-letters], suggested: [], branch: trunk, trunk: true, optional: false, title: "The Context Window", page: zones/prompts-and-context/the-context-window.html,
            story: "Miller Garrick shows you the great hopper above the mill, which holds everything an Astral can see at once. You watch yours work, quick and willing, while the grain piles up around it.",
            done: "You know what fills the window, what happens when it is full, and when to start fresh." },
-         { id: codon-mill-memory-sessions-and-usage, after: [codon-mill-the-context-window], suggested: [], branch: memory, trunk: false, optional: false, title: "Memory, Sessions and Usage", page: zones/codon-mill/memory-sessions-and-usage.html,
+         { id: prompts-and-context-memory-sessions-and-usage, after: [prompts-and-context-the-context-window], suggested: [], branch: memory, trunk: false, optional: false, title: "Memory, Sessions and Usage", page: zones/prompts-and-context/memory-sessions-and-usage.html,
            story: "You walk back to the Codon Mill, where Miller Garrick keeps three ledgers: what an Astral remembers between visits, what it holds during one visit, and what the visit costs. The morning before, it greeted you as a stranger, then followed a rule from a stray note you had forgotten writing.",
            done: "You know memory from session context, what burns your usage, and how to clear a context that has gone wrong." },
-         { id: codon-mill-when-to-start-fresh, after: [codon-mill-memory-sessions-and-usage], suggested: [], branch: memory, trunk: false, optional: false, title: "When to Start Fresh", page: zones/codon-mill/when-to-start-fresh.html,
+         { id: prompts-and-context-when-to-start-fresh, after: [prompts-and-context-memory-sessions-and-usage], suggested: [], branch: memory, trunk: false, optional: false, title: "When to Start Fresh", page: zones/prompts-and-context/when-to-start-fresh.html,
            story: "The hopper is filling, and your Astral has begun to stumble. It repeats itself, loses the thread and argues with its own earlier answers.",
            done: "You know the signals for a fresh session, the signals to carry on, and how to compact when you want to keep going." },
-         { id: codon-mill-the-stream-of-ideas, after: [codon-mill-when-to-start-fresh], suggested: [], branch: memory, trunk: false, optional: false, title: "Capture Ideas Mid-Task", page: zones/codon-mill/the-stream-of-ideas.html,
+         { id: prompts-and-context-the-stream-of-ideas, after: [prompts-and-context-when-to-start-fresh], suggested: [], branch: memory, trunk: false, optional: false, title: "Capture Ideas Mid-Task", page: zones/prompts-and-context/the-stream-of-ideas.html,
            story: "Ideas keep arriving mid-task as you work beside your Astral: what about this, could we also try that. Each one you shout across the mill drops into the hopper, and the job you came for sinks under the pile.",
            done: "You park, branch or hand off a side idea so the main task stays clear, and you do not lose the idea." },
-         { id: codon-mill-handoff-notes, after: [codon-mill-the-stream-of-ideas], suggested: [], branch: memory, trunk: false, optional: false, title: "Handoff Notes", page: zones/codon-mill/handoff-notes.html,
+         { id: prompts-and-context-handoff-notes, after: [prompts-and-context-the-stream-of-ideas], suggested: [], branch: memory, trunk: false, optional: false, title: "Handoff Notes", page: zones/prompts-and-context/handoff-notes.html,
            story: "You wake at the mill with a fresh Astral and a half-finished job. It knows nothing of yesterday except what loads by itself or lies written down, and yesterday you wrote nothing.",
            done: "You can write a handoff note a fresh session can act on, and you know which facts belong in memory, in a note, or in git." },
-         { id: codon-mill-who-said-what, after: [codon-mill-the-context-window], suggested: [], branch: memory, trunk: false, optional: true, title: "Which Instructions Apply", page: zones/codon-mill/who-said-what.html,
+         { id: prompts-and-context-which-instructions-apply, after: [prompts-and-context-the-context-window], suggested: [], branch: memory, trunk: false, optional: true, title: "Which Instructions Apply", page: zones/prompts-and-context/which-instructions-apply.html,
            story: "You walk back to the mill, where three voices speak and your Astral obeys all of them: the one that built it, the one you wrote down, and yours. Last week it followed a rule that nobody in the mill remembered giving.",
            done: "You can tell the system prompt, the instructions file and your own message apart, and know which you control." },
-         { id: codon-mill-too-many-tools-too-many-agents, after: [codon-mill-who-said-what], suggested: [gatehouse-plug-in-a-server], branch: memory, trunk: false, optional: true, title: "Too Many Tools, Too Many Agents", page: zones/codon-mill/too-many-tools-too-many-agents.html,
-           story: "The wall of the mill is hung with every tool anyone ever made, and the boasters say a good pact carries them all. You tried it, and the Astral staggered out under so much iron that it could not find the one it needed.",
-           done: "You keep the toolset small and reach for an agent only when a plain script or a single call will not do." },
-         { id: codon-mill-rag-and-its-cousins, after: [codon-mill-the-context-window], suggested: [], branch: memory, trunk: false, optional: true, title: "RAG and Its Cousins", page: zones/codon-mill/rag-and-its-cousins.html,
+         { id: prompts-and-context-rag-and-its-cousins, after: [prompts-and-context-the-context-window], suggested: [], branch: memory, trunk: false, optional: true, title: "RAG and Its Cousins", page: zones/prompts-and-context/rag-and-its-cousins.html,
            story: "Travellers keep asking Miller Garrick about books that will never fit in the hopper. An Astral sent to fetch an answer from the whole library came back with the wrong shelf and total confidence.",
            done: "You can tell the main kinds of RAG apart, and you know when to retrieve, when to paste everything, and when to query or search instead." },
-         { id: codon-mill-grow-a-graph-with-ollama, after: [codon-mill-rag-and-its-cousins, kennel-recruit-the-beast], suggested: [], branch: memory, trunk: false, optional: true, title: "Build a Knowledge Graph with Ollama", page: zones/codon-mill/grow-a-graph-with-ollama.html,
+         { id: prompts-and-context-build-a-knowledge-graph-with-ollama, after: [prompts-and-context-rag-and-its-cousins, agents-and-models-set-up-your-agent], suggested: [], branch: memory, trunk: false, optional: true, title: "Build a Knowledge Graph with Ollama", page: zones/prompts-and-context/build-a-knowledge-graph-with-ollama.html,
            story: "In a back room Miller Garrick strings yarn between pegs: one peg for each name, one thread for each link. It takes a long time, and every knot is worth checking, because an Astral that follows one wrongly tied thread does so with confidence.",
            done: "You have built and read a small knowledge graph with a local model, and you know what LightRAG and GraphRAG ask of one." },
-         { id: codon-mill-llm-wiki, after: [codon-mill-rag-and-its-cousins], suggested: [], branch: memory, trunk: false, optional: true, title: "Keep an LLM Wiki", page: zones/codon-mill/llm-wiki.html,
+         { id: prompts-and-context-keep-an-llm-wiki, after: [prompts-and-context-rag-and-its-cousins], suggested: [], branch: memory, trunk: false, optional: true, title: "Keep an LLM Wiki", page: zones/prompts-and-context/keep-an-llm-wiki.html,
            story: "Scribe Linnea keeps a ledger in the mill that tidies itself. Each new sack of papers is read once, and every page it touches is updated and cross-linked before the scribe sleeps.",
-           done: "You can describe the three layers and three jobs of an agent-kept wiki, you have matched it to a use of your own, and you know where it can mislead you." } ] }
-  M: { id: maze,     name: "Sequence Maze",         track: "Trust",      theme: "trust: spotting false output, checking it and keeping a record", guides: ["Cartographer Vesna"], status: open,
+           done: "You can describe the three layers and three jobs of an agent-kept wiki, you have matched it to a use of your own, and you know where it can mislead you." },
+         { id: prompts-and-context-write-the-brief, after: [agents-and-models-set-up-your-agent], suggested: [prompts-and-context-the-context-window], branch: skills, trunk: false, optional: false, title: "Write the Brief", page: zones/prompts-and-context/write-the-brief.html,
+           story: "The party leaves the map's road and walks into the Phylogenetic Forest, where Surveyor Rowan waits by the first bare branch. She tells how a traveller once told an Astral \"tidy this up\" and came back to find it had cut down something loved.",
+           done: "The first branch buds: briefs with a target, a check, and a plan before the edits." } ] }
+  M: { id: checking-output, name: "The Swamp of Illusions", track: "Trust", theme: "trust: spotting false output, checking it and keeping a record", guides: ["Cartographer Vesna"], status: open,
        quests: [
-         { id: maze-spot-the-mirage, after: [codon-mill-where-machines-fail], suggested: [], branch: trunk, trunk: true, optional: false, title: "Spot Hallucinations", page: zones/maze/spot-the-mirage.html,
+         { id: checking-output-spot-hallucinations, after: [prompts-and-context-where-machines-fail], suggested: [], branch: trunk, trunk: true, optional: false, title: "Spot Hallucinations", page: zones/checking-output/spot-hallucinations.html,
            story: "The road from the Codon Mill turns into the Sequence Maze, and at its mouth Cartographer Vesna unrolls a map crossed with struck-out corridors. The maze walls shimmer.",
            done: "You can name the Mirage's tricks: invented functions, fake citations, confident nonsense." },
-         { id: maze-ground-truth, after: [maze-spot-the-mirage], suggested: [], branch: trunk, trunk: true, optional: false, title: "Ground Truth", page: zones/maze/ground-truth.html,
+         { id: checking-output-ground-truth, after: [checking-output-spot-hallucinations], suggested: [], branch: trunk, trunk: true, optional: false, title: "Ground Truth", page: zones/checking-output/ground-truth.html,
            story: "A script glows in the maze and claims to have been tested, and the Astral that wrote it swears it works. Cartographer Vesna does not take its word.",
            done: "You hold a lantern of ground truth: an independent check that does not trust the agent's word." },
-         { id: maze-keep-a-paper-trail, after: [maze-ground-truth], suggested: [], branch: trunk, trunk: true, optional: false, title: "Keep a Paper Trail", page: zones/maze/keep-a-paper-trail.html,
+         { id: checking-output-keep-a-paper-trail, after: [checking-output-ground-truth], suggested: [], branch: trunk, trunk: true, optional: false, title: "Keep a Paper Trail", page: zones/checking-output/keep-a-paper-trail.html,
           story: "A door in the maze swings shut behind your Astral. Its account of what it did is plausible, and the walls have changed shape anyway.",
           done: "You let the agent draft the paper trail, check it against ground truth and own the why." },
-        { id: maze-wall-of-output, after: [maze-keep-a-paper-trail], suggested: [], branch: trunk, trunk: true, optional: false, title: "Boss: Review Large Output", page: zones/maze/wall-of-output.html,
+        { id: checking-output-boss-review-large-output, after: [checking-output-keep-a-paper-trail], suggested: [], branch: trunk, trunk: true, optional: false, title: "Boss: Review Large Output", page: zones/checking-output/boss-review-large-output.html,
            story: "At the maze's heart rises a wall of text, thousands of lines high, and your Astral is already reading aloud from the bottom. Cartographer Vesna reads no wall whole.",
            done: "The Wall crumbles into small, reviewable stones. You never had to read all of it, only to refuse it whole." } ] }
-  F: { id: forest,   name: "Phylogenetic Forest",   track: "Skills",     theme: "instructing and packaging: briefs, plans, instruction files, skills, plugins and tests", guides: ["Surveyor Rowan", "Smith Dunmore", "Hunter Cass"], status: open,
+  F: { id: instructions-skills-and-hooks, name: "Artisans' Row", track: "Guilds", theme: "guilds: instruction files, skills, MCP servers and hooks", guides: ["Surveyor Rowan", "Smith Dunmore", "Hunter Cass", "Watchman Corin"], status: open,
        quests: [
-         { id: forest-write-the-brief, after: [kennel-recruit-the-beast], suggested: [codon-mill-the-context-window], branch: skills, trunk: false, optional: false, title: "Write the Brief", page: zones/forest/write-the-brief.html,
-           story: "The party leaves the map's road and walks into the Phylogenetic Forest, where Surveyor Rowan waits by the first bare branch. She tells how a traveller once told an Astral \"tidy this up\" and came back to find it had cut down something loved.",
-           done: "The first branch buds: briefs with a target, a check, and a plan before the edits." },
-         { id: forest-plan-before-you-edit, after: [forest-write-the-brief], suggested: [], branch: skills, trunk: false, optional: false, title: "Plan Before You Edit", page: zones/forest/plan-before-you-edit.html,
-           story: "Surveyor Rowan walks the branch before the axe swings, and she has watched an Astral hew the wrong limb in a single stroke. She shows you how a wrong cut on paper costs a line, and a wrong cut on the tree costs the branch.",
-           done: "You ask for a plan, read it like a reviewer, and know what a plan does and does not guarantee." },
-         { id: forest-the-project-charter, after: [forest-write-the-brief], suggested: [codon-mill-who-said-what], branch: skills, trunk: false, optional: false, title: "Write an Instructions File", page: zones/forest/the-project-charter.html,
+         { id: instructions-skills-and-hooks-too-many-tools-too-many-agents, after: [prompts-and-context-which-instructions-apply], suggested: [instructions-skills-and-hooks-connect-an-mcp-server], branch: memory, trunk: false, optional: true, title: "Too Many Tools, Too Many Agents", page: zones/instructions-skills-and-hooks/too-many-tools-too-many-agents.html,
+           story: "The wall of the mill is hung with every tool anyone ever made, and the boasters say a good pact carries them all. You tried it, and the Astral staggered out under so much iron that it could not find the one it needed.",
+           done: "You keep the toolset small and reach for an agent only when a plain script or a single call will not do." },
+         { id: instructions-skills-and-hooks-write-an-instructions-file, after: [prompts-and-context-write-the-brief], suggested: [prompts-and-context-which-instructions-apply], branch: skills, trunk: false, optional: false, title: "Write an Instructions File", page: zones/instructions-skills-and-hooks/write-an-instructions-file.html,
            story: "Surveyor Rowan leads you to a carved stone at the forest's heart, holding the terms of the pact: where the paths run, and which trees are not to be touched. Your Astral reads it every morning, and some mornings it forgets what it read.",
            done: "A second branch: standing instructions that help, and a clear sense of why they do not enforce." },
-         { id: forest-forge-a-skill, after: [forest-the-project-charter], suggested: [forest-plan-before-you-edit], branch: skills, trunk: false, optional: false, title: "Write a Skill", page: zones/forest/forge-a-skill.html,
+         { id: instructions-skills-and-hooks-write-a-skill, after: [instructions-skills-and-hooks-write-an-instructions-file], suggested: [safe-editing-plan-before-you-edit], branch: skills, trunk: false, optional: false, title: "Write a Skill", page: zones/instructions-skills-and-hooks/write-a-skill.html,
            story: "In a hollow of the forest Smith Dunmore keeps procedures in folders, tired of watching Astrals ask the same question twice. A long recipe hung on every branch would crowd the clearing, so Dunmore hangs only a label and fetches the rest on demand.",
            done: "A third branch: a procedure packaged as a Skill, installed and confirmed loaded." },
-         { id: forest-close-the-loop, after: [forest-forge-a-skill], suggested: [], branch: skills, trunk: false, optional: false, title: "Turn Mistakes into Tests", page: zones/forest/close-the-loop.html,
+         { id: instructions-skills-and-hooks-turn-mistakes-into-tests, after: [instructions-skills-and-hooks-write-a-skill], suggested: [], branch: skills, trunk: false, optional: false, title: "Turn Mistakes into Tests", page: zones/instructions-skills-and-hooks/turn-mistakes-into-tests.html,
            story: "Hunter Cass keeps a log that hangs from a branch of the great tree: every time an Astral went astray, a note of what was asked and what went wrong. Most hunters read it once and forget, and meet the same mistake again at the next bend.",
            done: "A fourth branch: each failure becomes a Skill, and each Skill is measured with and without." },
-         { id: forest-test-the-skill, after: [forest-close-the-loop], suggested: [], branch: skills, trunk: false, optional: false, title: "Test the Skill", page: zones/forest/test-the-skill.html,
+         { id: instructions-skills-and-hooks-test-the-skill, after: [instructions-skills-and-hooks-turn-mistakes-into-tests], suggested: [], branch: skills, trunk: false, optional: false, title: "Test the Skill", page: zones/instructions-skills-and-hooks/test-the-skill.html,
            story: "Smith Dunmore holds the skill up against an empty hand and asks the forest one question: does it do anything the bare hand cannot? Only if the two differ does the skill stay, however fine it looks on the wall.",
            done: "A fifth branch: you can read an eval, you know what it costs, and you know what a pass does not prove." },
-         { id: forest-bundle-a-plugin, after: [forest-test-the-skill], suggested: [], branch: skills, trunk: false, optional: true, title: "Bundle a Plugin", page: zones/forest/bundle-a-plugin.html,
+         { id: instructions-skills-and-hooks-bundle-a-plugin, after: [instructions-skills-and-hooks-test-the-skill], suggested: [], branch: skills, trunk: false, optional: true, title: "Bundle a Plugin", page: zones/instructions-skills-and-hooks/bundle-a-plugin.html,
            story: "At the forest's edge Smith Dunmore holds out a satchel to be packed with the finest skills and their tests. Whatever you carry, others will unpack, and whatever you unpack from another traveller's satchel runs with your own authority.",
-           done: "The satchel is packed and sealed, and you know that opening someone else's satchel means trusting what runs inside." } ] }
-  T: { id: gatehouse, name: "The Gatehouse", track: "Guards", theme: "guards: connecting tools safely and enforcing rules in code", guides: ["Watchman Corin"], status: open,
-       quests: [
-         { id: gatehouse-plug-in-a-server, after: [crypt-rules-of-the-carapace], suggested: [], branch: guards, trunk: false, optional: false, title: "Connect an MCP Server", page: zones/gatehouse/plug-in-a-server.html,
+           done: "The satchel is packed and sealed, and you know that opening someone else's satchel means trusting what runs inside." },
+         { id: instructions-skills-and-hooks-connect-an-mcp-server, after: [safe-editing-write-permission-rules], suggested: [], branch: guards, trunk: false, optional: false, title: "Connect an MCP Server", page: zones/instructions-skills-and-hooks/connect-an-mcp-server.html,
            story: "The party walks from the map to the Gatehouse, where Watchman Corin stands at a heavy door that opens onto the outside world. Whatever walks through acts with your keys, and someone has pinned a note to the door that your Astral reads aloud as if it were an order.",
            done: "You treat an MCP server as software you install, and scope it, limit it and read what it sends back." },
-         { id: gatehouse-guard-the-door, after: [gatehouse-plug-in-a-server], suggested: [], branch: guards, trunk: false, optional: false, title: "Block Actions with a Hook", page: zones/gatehouse/guard-the-door.html,
+         { id: instructions-skills-and-hooks-block-actions-with-a-hook, after: [instructions-skills-and-hooks-connect-an-mcp-server], suggested: [], branch: guards, trunk: false, optional: false, title: "Block Actions with a Hook", page: zones/instructions-skills-and-hooks/block-actions-with-a-hook.html,
            story: "Watchman Corin stands at the heavy door and checks every visitor against a list. The list is code, so no one can talk their way past, and your Astral tries every honeyed word it knows.",
            done: "You can write a hook that refuses a command, and you know what it can and cannot stop." },
-         { id: gatehouse-advice-or-enforcement, after: [gatehouse-guard-the-door], suggested: [], branch: guards, trunk: false, optional: false, title: "Advice or Enforcement", page: zones/gatehouse/advice-or-enforcement.html,
+         { id: instructions-skills-and-hooks-advice-or-enforcement, after: [instructions-skills-and-hooks-block-actions-with-a-hook], suggested: [], branch: guards, trunk: false, optional: false, title: "Advice or Enforcement", page: zones/instructions-skills-and-hooks/advice-or-enforcement.html,
            story: "A wall of signs hangs in the Gatehouse, and Watchman Corin walks you along it. Some signs ask politely and some lock the door, and your Astral reads every one of them in the same eager way.",
            done: "You sort every control by whether it advises, asks or enforces, and choose the right one for each risk." } ] }
-  R: { id: reef,     name: "Biodiversity Reef",     track: "Level",      theme: "people: the Blight festers here, and you help clean it up by handing over, reviewing and teaching", guides: ["Tidewarden Nerys", "Diver Kai", "Net-mender Joss"], status: open,
+  R: { id: collaboration, name: "Tidewrack", track: "People", theme: "people: the Blight festers here, and you help clean it up by handing over, reviewing and teaching", guides: ["Tidewarden Nerys", "Diver Kai", "Net-mender Joss"], status: open,
        quests: [
-         { id: reef-send-small-say-so, after: [maze-spot-the-mirage], suggested: [maze-wall-of-output], branch: reef, trunk: false, optional: false, title: "Send Small Changes, Say What You Checked", page: zones/reef/send-small-say-so.html,
+         { id: collaboration-send-small-changes, after: [checking-output-spot-hallucinations], suggested: [checking-output-boss-review-large-output], branch: reef, trunk: false, optional: false, title: "Send Small Changes, Say What You Checked", page: zones/collaboration/send-small-changes.html,
            story: "The party arrives at the Reef and finds the Blight already here, a Review-leech clinging to the coral and feeding on work passed along unchecked. Tidewarden Nerys asks for your help and points to the desk where an Astral's vast haul of changes has landed on one reviewer.",
            done: "You hand over small, honest, evidenced work. The leech goes hungry." },
-         { id: reef-the-reviewers-code, after: [reef-send-small-say-so], suggested: [], branch: reef, trunk: false, optional: false, title: "Review Agent-Written Work", page: zones/reef/the-reviewers-code.html,
+         { id: collaboration-review-agent-written-work, after: [collaboration-send-small-changes], suggested: [], branch: reef, trunk: false, optional: false, title: "Review Agent-Written Work", page: zones/collaboration/review-agent-written-work.html,
            story: "Sooner or later the work comes back across the Reef to you, and it is your turn to be the reviewer. Diver Kai surfaces from the Blight-clouded water with a handful of changes and shows you where it hides: in work that sounds sure of itself, even when an Astral wrote it.",
            done: "You review the work, not the tool, and you ask for what can be checked." },
-         { id: reef-teach-and-share-the-load, after: [reef-the-reviewers-code], suggested: [], branch: reef, trunk: false, optional: false, title: "Teach and Share the Load", page: zones/reef/teach-and-share-the-load.html,
+         { id: collaboration-teach-and-share-the-load, after: [collaboration-review-agent-written-work], suggested: [], branch: reef, trunk: false, optional: false, title: "Teach and Share the Load", page: zones/collaboration/teach-and-share-the-load.html,
            story: "Younger travellers ask what you know, and your Astral could answer faster than you can, so Net-mender Joss asks what you are still learning. Joss mends the nets while talking, and has seen the Blight settle where hands grow idle and the load grows heavy.",
            done: "You teach the checks, guard your own learning, and keep your workload reviewable." } ] }
-  P: { id: factory,  name: "Pipeline Factory",      track: "Craft",      theme: "craft: agents on pipelines, and reproducibility", guides: ["Tinker Pell"], status: open,
+  P: { id: pipelines, name: "The Automata Factory", track: "Craft", theme: "craft: agents on pipelines, and reproducibility", guides: ["Tinker Pell"], status: open,
        quests: [
-         { id: factory-dry-run-first, after: [maze-ground-truth], suggested: [], branch: craft, trunk: false, optional: false, title: "Dry Run First", page: zones/factory/dry-run-first.html,
+         { id: pipelines-dry-run-first, after: [checking-output-ground-truth], suggested: [], branch: craft, trunk: false, optional: false, title: "Dry Run First", page: zones/pipelines/dry-run-first.html,
            story: "Tinker Pell leads the party out of the tinkers' college in the Collegium and down the road to the Pipeline Factory. Conveyor belts hum across the floor, where Automata carry cargo along lines that an Astral wired overnight, proud and tired.",
            done: "You check the wiring cheaply, layer by layer, before the real cargo rolls." },
-         { id: factory-same-every-time, after: [basecamp-three-kinds-of-machine], suggested: [codon-mill-where-machines-fail], branch: craft, trunk: false, optional: false, title: "Same Every Time", page: zones/factory/same-every-time.html,
+         { id: pipelines-same-every-time, after: [agents-and-models-script-model-or-llm], suggested: [prompts-and-context-where-machines-fail], branch: craft, trunk: false, optional: false, title: "Same Every Time", page: zones/pipelines/same-every-time.html,
            story: "You walk to the Pipeline Factory, where a talkative creature sits in the middle of the line and Tinker Pell frowns at it. Sometimes it says one thing and sometimes another, and the factory's customers need the same answer every time, as the Automata give.",
            done: "You keep the talker out of the run, or fence it in with records, caches and checks." } ] }
-  H: { id: citadel, name: "The Cluster Citadel", track: "Shared Ground", theme: "shared ground: clusters, keys and other people's queues", guides: ["Gatekeeper Brisa", "Queue Master Fenn"], status: open,
+  H: { id: shared-clusters, name: "Haven Quay", track: "Shared Ground", theme: "shared ground: clusters, keys and other people's queues", guides: ["Gatekeeper Brisa", "Queue Master Fenn"], status: open,
        quests: [
-         { id: citadel-login-node-manners, after: [crypt-rules-of-the-carapace], suggested: [], branch: citadel, trunk: false, optional: false, title: "Login Node Manners", page: zones/citadel/login-node-manners.html,
+         { id: shared-clusters-login-node-manners, after: [safe-editing-write-permission-rules], suggested: [], branch: citadel, trunk: false, optional: false, title: "Login Node Manners", page: zones/shared-clusters/login-node-manners.html,
            story: "You walk to the Citadel from the map, and Gatekeeper Brisa meets you at the gate shared by hundreds of travellers. Brisa has seen what one careless sweep of the whole library does to everyone's queue.",
            done: "You keep heavy work off the login node and off shared storage, and you know what to hand to the scheduler." },
-         { id: citadel-jobs-not-jam, after: [citadel-login-node-manners], suggested: [], branch: citadel, trunk: false, optional: false, title: "Jobs, Not Jam", page: zones/citadel/jobs-not-jam.html,
+         { id: shared-clusters-jobs-not-jam, after: [shared-clusters-login-node-manners], suggested: [], branch: citadel, trunk: false, optional: false, title: "Jobs, Not Jam", page: zones/shared-clusters/jobs-not-jam.html,
            story: "Inside the Citadel, Queue Master Fenn hands out places in line, one for each job. Your Astral, eager to please, takes a place for every idea it has, until the line is jammed with its errands and the other travellers glare at you.",
            done: "You let the agent draft job scripts, and you keep submitting and cancelling under your own approval." },
-         { id: citadel-keys-on-shared-ground, after: [citadel-login-node-manners, crypt-secrets-and-sensitive-ground], suggested: [], branch: citadel, trunk: false, optional: false, title: "Keys on Shared Ground", page: zones/citadel/keys-on-shared-ground.html,
+         { id: shared-clusters-keys-on-shared-ground, after: [shared-clusters-login-node-manners, safe-editing-keep-secrets-out-of-reach], suggested: [], branch: citadel, trunk: false, optional: false, title: "Keys on Shared Ground", page: zones/shared-clusters/keys-on-shared-ground.html,
            story: "Your home directory lies on ground that hundreds of others can reach, and Gatekeeper Brisa has seen what lies there in plain files: keys, tokens and settings. Your Astral trots through them as if the ground were its own.",
            done: "Keys stay private, data stays within its agreement, and you ask your cluster staff before you use an agent there." } ] }
-  X: { id: murk, name: "The Murk's Heart", track: "Final Boss", theme: "the final boss: review one messy session", guides: ["Sage Maelis"], status: locked,
+  X: { id: final-review, name: "The Cave Beneath the Reef", track: "Final Boss", theme: "the final boss: review one messy session", guides: ["Sage Maelis"], status: locked,
        quests: [
-         { id: murk-clear-the-murk, after: [], suggested: [], branch: finale, trunk: false, optional: false,
-           title: "Boss: Review a Messy Session", page: zones/murk/clear-the-murk.html,
+         { id: final-review-review-a-messy-session, after: [], suggested: [], branch: finale, trunk: false, optional: false,
+           title: "Boss: Review a Messy Session", page: zones/final-review/review-a-messy-session.html,
            story: "You walk to the centre of the land from the map, with the whole trunk and three branches behind you. There the Murk has gathered into one dark knot: every unchecked answer you met on the way, pressed together, and the Astral at your side has begun to half believe it.",
            done: "The Murk thins and lifts. You carry the habits that keep the Blight from spreading: a way back, firm rules, independent checks and honest hand-offs." } ] }

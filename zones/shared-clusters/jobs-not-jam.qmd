@@ -1,0 +1,113 @@
+---
+title: "Jobs, Not Jam"
+---
+
+::: {.ao-story}
+Inside the Citadel, Queue Master Fenn hands out places in line, one for each job. Your Astral, eager to please, takes a place for every idea it has, until the line is jammed with its errands and the other travellers glare at you. Fenn says a creature that submits freely can fill every place, and one that cancels freely can ruin a day's work. Decide which of these tasks it may do alone and which need your nod.
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will let the agent draft job scripts while you keep submitting and cancelling under your own approval, you will know what polling costs, and you will size resource requests against the partition's limits.
+- **Before you start:** [Login Node Manners](login-node-manners.html). A *job script* is a text file of scheduler options and commands. *Polling* means asking the scheduler for status again and again.
+- **Time:** about 20 minutes.
+:::
+
+An agent that can submit jobs can fill the queue, and one that can cancel jobs can destroy work. This quest sets what the agent does alone and what needs your approval. Ask your cluster staff before letting an agent near your cluster account, and follow your cluster's policy and data agreement over this page. This quest is read-only, so read it on your laptop.
+
+## Draft versus submit
+
+A job script is text. Letting an agent *draft* one is low risk, because you read it before anything runs. *Submitting* spends shared resources, and cancelling can destroy work. A sensible split:
+
+- The agent drafts scripts and may check state (`squeue`, `sinfo`, `sacct`). Limit `sacct` with `--jobs=<jobid>` or `--starttime=<date>` so it does not dump the whole accounting history.
+- You approve `sbatch`, `srun`, `salloc` and `scancel`.
+
+Before approving an `sbatch`, read the script and the resource request: `--time`, `--mem`, and the array size if it is an array.
+
+## The permission rules
+
+The agent's harness (the program around the model) enforces permission rules, checking deny first, then ask, then allow.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+A teaching configuration. Put it in `.claude/settings.json` in your project folder (shared with the team) or `.claude/settings.local.json` (only you), or in `~/.claude/settings.json` for all projects:
+
+```json
+{
+  "permissions": {
+    "allow": ["Bash(squeue *)", "Bash(sinfo *)", "Bash(sacct *)"],
+    "ask":   ["Bash(sbatch *)", "Bash(srun *)", "Bash(salloc *)", "Bash(scancel *)"],
+    "deny":  ["Bash(scancel -u *)", "Bash(scancel --user*)", "Bash(scancel --me*)"]
+  }
+}
+```
+
+An `ask` rule prompts even when a narrower `allow` rule matches. Ask and deny rules apply to every part of a compound command (`&&`, `;`, `|`, loops, `$(...)`).
+
+Bash rules are not a security boundary. `Bash(rm *)` does not stop `/bin/rm` or `bash -c 'rm ...'`, and a `scancel` rule can be bypassed the same way. For real enforcement use a PreToolUse hook (a script the harness runs before each tool call; the sandbox limits files and network and leaves Slurm commands alone). Treat the rules above as a prompt that keeps you in the loop.
+
+## OpenCode + Ollama
+
+OpenCode accepts `allow`, `ask` and `deny`, and an unmatched action asks. Its base policy begins with an allow-all rule, so `sbatch` runs without a prompt until you add a rule. `opencode.jsonc` is OpenCode's configuration file. Create or open it in your project folder, check your installed version's permission docs, then add this to its permissions array:
+
+```json
+"permissions": [
+  { "action": "shell", "resource": "sbatch *", "effect": "ask" }
+]
+```
+
+Add similar rules for `srun`, `salloc` and `scancel`, and a `deny` for `scancel -u *` and `scancel --me*`. Rules are ordered, so check where they sit relative to the broad allow. As in Claude Code, a command that no rule matches goes through, and shell rules do not sandbox anything.
+
+:::
+
+## Why `scancel -u` is the dangerous one
+
+`scancel -u <you>` signals **all** your jobs, including ones the agent did not submit. Whole jobs are terminated, and other work of yours dies with them. `scancel --me` does the same. Selectors such as `--name`, `--state` and `--partition` also act on every job they match, and combined filters must all match. Deny rules cannot cover every spelling, so the single `ask` rule on `scancel *` is the net and the deny rules catch the worst two. Approve `scancel <jobid>` only for a job you approved the agent submitting. Slurm can rate-limit a user whose requests arrive at a sustained high rate, so a runaway loop of commands is a problem for the scheduler as well as for you.
+
+## Polling costs money and attention
+
+Claude Code charges by token use (the units of text the model reads and writes). The whole conversation, called the context, is sent with every request, and each tool use sends another request. A `/loop` (a command that re-runs a prompt on a timer) that polls `squeue` keeps firing on its interval, even while the session is idle, and sends your full context each time. Verbose output such as long logs also inflates the context.
+
+The scheduler pays too. The `squeue` and `sacct` manual pages warn against running them from loops, because it can slow `slurmctld` (the scheduler daemon) or `slurmdbd` (the accounting database) for everyone.
+
+Habits that keep polling cheap:
+
+- Poll no more than about once a minute, less often for long jobs. Run one loop at a time and scope it: `squeue --user=$USER` or `--jobs=<id>`.
+- Use `sbatch --parsable --wait` (it prints only the job ID, then waits until the job ends), or the pipeline's own poller, instead of a `sleep` loop. It replaces a `/loop` of `squeue`, so skip the loop.
+- A wait can outlast the tool's timeout. Run it in the background. Never resubmit because the wait timed out. Check `State` with `sacct` first: `--wait` passes the job's exit code through, but a signal-killed job gives 1, so the code alone does not prove success.
+- `--mail-type` sends you an email and does not make the agent wait. If you use `watch`, keep it at `--interval=60` or slower and stop it when done.
+- Submit many similar tasks as one array with a concurrency cap (`--array=1-100%10`) instead of a loop of `sbatch` calls.
+
+Foreground commands in Claude Code time out (default 2 minutes, maximum 10 by default), so an agent waiting on a long foreground command, such as an `srun` that blocks until it finishes, gets cut off. The command still runs until it is cut off, so a timeout does not limit load.
+
+## Size the request
+
+Slurm counts what you allocate, whatever you use, so a generous request costs you queue priority. After a job, compare what you asked for with what it used: `sacct --jobs=<id> --format=JobID,State,ReqMem,MaxRSS,Elapsed,Timelimit` (`ReqMem` is the memory requested and `MaxRSS` the most memory one task used).
+
+## Battle: queue manners
+
+<div data-ao-test="shared-clusters-jobs-not-jam" data-xp="50"></div>
+
+## Bonus
+
+<div data-ao-honour="read-scheduler-rules" data-xp="20">Find your cluster's page on job limits (maximum jobs, array sizes, time limits) and note what would happen if a script submitted a thousand jobs by mistake.</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Login Node Manners](login-node-manners.html): what runs on the login node, scoped searches and the scheduler's commands.
+- [Keys on Shared Ground](keys-on-shared-ground.html): keeping keys and data private on shared storage.
+- [Dry Run First](../pipelines/dry-run-first.html): checking pipeline code cheaply before a real run.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [sbatch](https://slurm.schedmd.com/sbatch.html): SchedMD (Slurm), docs. Why read: it is the manual for submitting jobs, including --test-only to validate a request without submitting.
+- [scancel](https://slurm.schedmd.com/scancel.html): SchedMD (Slurm), docs. Why read: it lists the user, state and name filters and says combined filters must all match, so a broad filter cancels every job it matches, including jobs that are not the agent's.
+- [High Throughput Computing Administration Guide](https://slurm.schedmd.com/high_throughput.html): SchedMD (Slurm), docs. Why read: it is an administrator guide that mentions per-user rate limits on scheduler requests; read it for why floods of commands matter; it is written for administrators.
+- [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it shows how to make sbatch ask while read-only checks such as squeue are allowed, with the warning that Bash rules are not a security boundary.
+:::

@@ -1,0 +1,105 @@
+---
+title: "Write an Instructions File"
+---
+
+::: {.ao-story}
+Surveyor Rowan leads you to a carved stone at the forest's heart, holding the terms of the pact: where the paths run, and which trees are not to be touched. Your Astral reads it every morning, and some mornings it forgets what it read. Rowan says the stone advises and cannot bind. She hands you the chisel and shows you how to write on it, and how to tell what it does from what it cannot do.
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will give the agent standing instructions for a project, and know where instructions end and enforcement begins.
+- **Before you start:** [Write the Brief](../prompts-and-context/write-the-brief.html). [Which Instructions Apply](../prompts-and-context/which-instructions-apply.html) helps.
+- **Time:** about 15 minutes.
+:::
+
+Typing the same background every session is wasteful. A **project instructions file** (a text file the agent reads at the start of each session) already holds the project's conventions. Write one early, before the agent works on real files; this lesson gives you the file you will keep for the rest of the course.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+The file is `CLAUDE.md`. It can live in:
+
+- `~/.claude/CLAUDE.md`: all your projects.
+- `./CLAUDE.md` or `./.claude/CLAUDE.md`: the project, shared if committed.
+- `./CLAUDE.local.md`: yours, not committed.
+
+Files in the working directory and above are loaded at launch, and ones in subdirectories are loaded when needed. `/init` (a command typed inside the session) drafts one from your project. `/memory` lists the instruction files that loaded and opens them for editing. `@path` inside the file imports another file (for example `@docs/conventions.md`), and the imported text still uses context. If a project has only an `AGENTS.md`, Claude Code reads that instead. If both files exist, only `CLAUDE.md` loads, so import the other with `@AGENTS.md`.
+
+## OpenCode + Ollama
+
+The file is `AGENTS.md` in the project root (or `~/.config/opencode/AGENTS.md` for all projects). `/init` (a command typed inside the session) creates or updates it. The `instructions` array in `opencode.json` adds more files. OpenCode also falls back to `CLAUDE.md` if there is no `AGENTS.md`.
+
+:::
+
+## What goes in
+
+Put in facts the agent cannot guess: how to run the tests, where data lives, naming conventions, "never edit `raw/`". Keep each file short, about 200 lines or fewer, because very long instructions are followed less well.
+
+Here is a short example `CLAUDE.md` for a mock RNA-seq project, saved in the project root. All names are invented:
+
+```markdown
+# RNA-seq project
+
+## Commands
+- Run the tests: `pytest tests/`
+- Run the pipeline on the mock data: `nextflow run main.nf -profile test`
+
+## Data
+- Real data lives outside this repository, under the path in `$DATA_DIR`.
+- Use only `data/mock/` when you need a sample input.
+
+## Rules
+- Never edit anything under `raw/`.
+- Sample IDs are strings like `S01`. Keep them as text, never as numbers.
+- Ask before adding a dependency.
+```
+
+Write the file yourself first and read what `/init` produces critically. A generated file can contain wrong guesses about your project.
+
+## Where instructions end
+
+Instructions are advice. The instructions file is loaded as context, and a line saying "never delete files" cannot stop a delete. Enforcement comes from permission rules (rules that allow, ask or deny a tool call), hooks (scripts that run before or after a tool call), and managed settings (organisation-set rules you cannot override).
+
+## Keep the file current
+
+Instruction files go stale: a rule written for an older model, a path that no longer exists, two files that disagree. When instructions contradict each other, Claude may pick one arbitrarily.
+
+In Claude Code, `/doctor prompt-audit` checks your instruction files (and the rules, skills and agents under `.claude/`) for outdated or conflicting content and writes a report with proposed edits. (`/doctor` is a **bundled skill**, a ready-made skill that ships inside Claude Code.) It changes nothing until you ask, and it checks content only, so size and cost are out of scope. The audit is itself a model reading your files, so review its suggestions like any other output. In OpenCode, review the file by hand.
+
+Both `/doctor prompt-audit` and reading a lone `AGENTS.md` need a recent Claude Code, so check your version.
+
+## Write docs for the agent too
+
+An agent works on your code and data from the docstrings (the description at the top of a function) and other descriptions it finds. Write them as if an agent will re-run the work:
+
+- **Units, data versions and assumptions:** put them in the docstring or next to the code.
+- **Renames:** update the docstring when you rename a parameter. An agent that reads an old docstring calls a name that no longer exists.
+- **Stale documentation:** it leads to results that look plausible and are wrong.
+
+<div data-ao-honour="write-charter" data-xp="15">Write a short instructions file (about ten lines) for one of your real projects: how to run its tests, where data lives, and one thing the agent should leave alone.</div>
+
+## Battle: standing instructions
+
+<div data-ao-test="instructions-skills-and-hooks-write-an-instructions-file" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Write a Skill](write-a-skill.html): for more on moving a long procedure out of the instructions file and into a Skill.
+- [Write Permission Rules](../safe-editing/write-permission-rules.html): for more on permission rules that enforce what an instructions file only asks.
+- [Block Actions with a Hook](block-actions-with-a-hook.html): for more on hooks as a way to enforce a rule in code.
+- [Which Instructions Apply](../prompts-and-context/which-instructions-apply.html): for more on what the model treats as an instruction and what it treats as data.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [AI for Science, practice 5: documentation and data for agents](https://aiforscience.eu/best-practices/05-documentation-and-data-for-agents/): AI for Science (European draft best practices), docs. Why read: it argues that precise, current docstrings, units and metadata are what agents work from. A draft with no endorsements yet; it also mentions llms.txt, which it calls a proposal that no body has ratified.
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: the course saw `/doctor prompt-audit` need v2.1.283 or later and a lone `AGENTS.md` need v2.1.277 or later (unverified here); it covers CLAUDE.md placement, AGENTS.md and auto memory, and describes these as context that guides the agent.
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it shows what belongs in an instructions file and what to enforce another way.
+- [Hooks reference](https://code.claude.com/docs/en/hooks): Anthropic, docs. Why read: hooks are the way to enforce a rule that an instructions file can only request.
+- [Rules](https://opencode.ai/docs/rules/): OpenCode, docs. Why read: it explains AGENTS.md and the instructions setting for the OpenCode side.
+:::

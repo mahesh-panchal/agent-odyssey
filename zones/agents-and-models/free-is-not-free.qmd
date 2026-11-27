@@ -1,0 +1,105 @@
+---
+title: "Free Is Not Free"
+---
+
+::: {.ao-story}
+Stalls outside the Collegium gate offer pacts for free. Some are with Astrals bred in the open, some are trials, and one stall will not say where its Astral came from. Sage Maelis stops at each one and reads the label aloud, because a free pact can ask its price in your data. Learn to read the label of a free model offer.
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will name what a "free" model offer costs you, sort offers into four kinds, and decide which data may go to which.
+- **Before you start:** [Set Up Your Agent](set-up-your-agent.html) (including running a model on your own computer, on the OpenCode route) and [Keep Secrets Out of Reach](../safe-editing/keep-secrets-out-of-reach.html).
+- **Time:** about 20 minutes. The hands-on step uses a dummy prompt and no sensitive data.
+:::
+
+A model you run on your own computer is free because you supply the hardware. Many other "free" offers run on someone else's machine, so someone is paying. Before you send a prompt to one, you need to know what it costs you, and this lesson gives you the checklist. Sometimes it is the provider, who gains your attention or your data. Sometimes it is you, in limits and in time. Using any of them is optional.
+
+Free tiers change often: providers have ended them, shrunk them or turned them into short trials. Read the provider's own page before you rely on one, and treat every number on it as a snapshot.
+
+## 1. Four kinds of free
+
+| Kind | Who runs it | What you give up |
+|---|---|---|
+| **Open weights, run by you** (open weights: the numbers the model learned can be downloaded) | Your laptop or cluster | Speed and quality; some memory |
+| **Free tier of a provider** | The model's maker or a hosting company | Rate limits (caps on requests per minute or day); sometimes your prompts |
+| **Router or gateway** (a service that forwards your request to other providers) | A middleman | A second party in the path; a free list that churns |
+| **Reseller of unknown origin** | Unknown | Everything you send |
+
+If a site offers one of the most capable closed models with no card and no limits, ask who pays for it. Send such a site nothing you would not post publicly.
+
+## 2. What to check on any free offer
+
+1. **Free tier or trial?** A trial ends, and a free tier may too. Several of OpenCode Zen's free models are free for a limited time.
+2. **What are the limits?** Look for requests per day and per minute, and what happens past them. On Cloudflare Workers AI, past the daily allowance further operations fail with an error.
+3. **Is a card or other detail needed?** Some free tiers need a payment method, a phone number or a data opt-in.
+4. **Does the free tier train on your prompts?** This matters most. A provider that keeps nothing is still not approved for sensitive data; the rule below applies to every free tier.
+    - Google AI Studio: on unpaid services Google uses submitted content to improve its products, and human reviewers may read it. Paid services differ.
+    - Groq: it does not retain inference data (it does not store your prompts and the replies) by default, and may keep logs for a limited period.
+    - OpenRouter: it does not log prompts by default, and retention varies with the provider behind the model.
+5. **Who else is in the path?** A router adds a party. Read its terms and the terms of the provider it picks. One router can send you to providers with different rules.
+
+The terms can differ **per model** inside one service. OpenCode Zen lists some free models with zero retention and others that may use your data for training. Read the line for the model you picked.
+
+Sensitive or unpublished data does not go to a hosted free tier. Use a model on your own computer, or an approved service.
+
+## 3. A worked example: Mistral
+
+Providers differ, and one provider's rules can differ by product and plan. Mistral is one example. For any provider, check three things:
+
+- **Training:** is training on your prompts on by default for your plan, and where is the opt-out?
+- **Retention:** how long does the provider keep your prompts (retention)?
+- **Location:** where are your prompts processed?
+
+Find the answers on the provider's data or privacy page. Mistral's page is in the Lore below. An open-weight model such as `ministral-3:8b` runs locally through Ollama and keeps prompts on your machine, though tool or web calls may still send data out.
+
+The sensitive-data rule holds for every provider: unpublished or sensitive data stays on your own computer or an approved service.
+
+## 4. Pairing a free model with an agent
+
+Free endpoints often speak an **OpenAI-compatible** protocol (the request format OpenAI's chat API uses, which many providers copy). OpenCode can connect to an OpenAI-compatible gateway; its Providers page in the Lore below shows how. Free models differ in how well they follow tool instructions, so test one on a small task before you trust it.
+
+## 5. Try one, safely
+
+Pick one free tier from a provider you have read about. Create the key in the provider's console and keep it out of chat and out of files in your project. Then make one call with a harmless prompt. The shape below is the common OpenAI-compatible one. Set `BASE_URL` to the API address (base URL) and `MODEL_NAME` to a model name, both from the provider's API documentation, for example `export BASE_URL="https://api.example.com/v1"` (an invented address). A reply with a short greeting inside the JSON means it worked. An error message about the key or the model name means one of those values is wrong.
+
+```bash
+export FREE_API_KEY="..."          # set it in your shell, not in a file you commit
+curl -sS "$BASE_URL/chat/completions" \
+  -H "Authorization: Bearer $FREE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model": "MODEL_NAME", "messages": [{"role": "user", "content": "Say hello in one sentence."}]}'
+```
+
+Then fill in one row:
+
+| Provider | Kind | Limit per day | Card needed? | Trains on prompts? | Who else sees them? | Date checked |
+|---|---|---|---|---|---|---|
+
+If you cannot fill a cell from the provider's own page, write "not stated". That is a finding too.
+
+## Battle: free, at what price
+
+<div data-ao-test="agents-and-models-free-is-not-free" data-xp="60"></div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Keep Secrets Out of Reach](../safe-editing/keep-secrets-out-of-reach.html): for more on keys and on which data may leave your machine.
+- [Set Up Your Agent](set-up-your-agent.html): run a model locally so prompts stay on your machine.
+- [Pick Your Model](pick-your-model.html): choose a model and effort level, and see Mistral's terminal agent.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [awesome-free-models](https://github.com/12britz/awesome-free-models): GitHub, repo. Why read: a large, regularly corrected list of free models, tiers and tools; check its banner for what changed lately.
+- [OpenRouter FAQ](https://openrouter.ai/docs/faq): OpenRouter, docs. Why read: it explains free model variants, daily allowances and how prompt logging and provider retention differ.
+- [Google AI Studio terms](https://aistudio.google.com/docs/terms): Google, docs. Why read: it spells out how unpaid and paid services treat your prompts differently.
+- [Groq: your data](https://console.groq.com/docs/your-data): Groq, docs. Why read: it states the default retention and log period for inference requests (30 days at the time of writing).
+- [OpenCode Zen](https://opencode.ai/docs/zen/): OpenCode, docs. Why read: it lists free models together with their data-retention line, model by model.
+- [Cloudflare Workers AI pricing](https://developers.cloudflare.com/workers-ai/platform/pricing/): Cloudflare, docs. Why read: it shows a daily free allowance and what happens when you pass it.
+- [Do you use my user data to train your models?](https://help.mistral.ai/en/articles/347617-do-you-use-my-user-data-to-train-your-models): Mistral, docs. Why read: it lists, plan by plan, which Mistral products train on your data by default and where the opt-out lives.
+- [Providers](https://opencode.ai/docs/providers/): OpenCode, docs. Why read: it shows how to connect an OpenAI-compatible gateway to a coding agent.
+:::

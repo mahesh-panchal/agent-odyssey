@@ -1,7 +1,7 @@
 # Wade In: chat windows, uploads and how much to hand over
 
 Date read 2026-11-23. Official Anthropic pages only, read by a subagent through a fetch tool that summarises, so quotes are as returned and the wording should be re-checked on the live page before anyone relies on it.
-Question: for a non-agent route (a chat window, with or without uploads), what do the docs say about training use, retention and review, so the quest "Wade In" can say what leaves the machine at each rung. Feeds: zones/basecamp/wade-in.qmd. Complements `research/privacy-and-unpublished-work.md`, which covers Claude Code only.
+Question: for a non-agent route (a chat window, with or without uploads), what do the docs say about training use, retention and review, so the quest "Wade In" can say what leaves the machine at each rung. Feeds: zones/agents-and-models/choose-what-to-hand-over.qmd. Complements `research/privacy-and-unpublished-work.md`, which covers Claude Code only.
 
 Page prefixes: P = https://privacy.claude.com/en/articles/ , S = https://support.claude.com/en/articles/
 

@@ -24,7 +24,7 @@ Living document. Update the tactics and the changelog whenever the build gains s
 
 ## Jargon check
 - Every term of art is glossed at first use in the quest, or points to the Know Your Gear glossary
-  (`zones/basecamp/know-your-gear.qmd`).
+  (`zones/agents-and-models/know-your-tools.qmd`).
 
 ## Lore check
 - Every quest ends with a Lore block (2-8 items; format in `CONTRIBUTING.md`).

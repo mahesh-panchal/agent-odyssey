@@ -1,6 +1,6 @@
 # LLM-maintained wiki (Karpathy "LLM Wiki" gist)
 
-Read 2026-11-20 by a fetch subagent; used by `zones/codon-mill/llm-wiki.qmd`. Labels: (a) the source states it, (c) our inference.
+Read 2026-11-20 by a fetch subagent; used by `zones/prompts-and-context/keep-an-llm-wiki.qmd`. Labels: (a) the source states it, (c) our inference.
 
 ## Source
 - https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f : Andrej Karpathy, gist file `llm-wiki.md`, created 2026-04-04, one revision. The body was read in full from the raw file (about 11,900 characters, not truncated). The comments under the gist (third-party, several promoting their own products) were not evaluated and are not used.

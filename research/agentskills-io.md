@@ -31,4 +31,4 @@ Read by a fetch subagent, returned as markdown (not as summaries), no truncation
 
 ## Differences found against earlier course material
 
-- `exercises/forge/fasta-tools/skills/check-fasta/SKILL.md` had no `name`. Added `name: check-fasta` (commit d455f66) so the file is valid in the open format.
+- `exercises/instructions-skills-and-hooks/fasta-tools/skills/check-fasta/SKILL.md` had no `name`. Added `name: check-fasta` (commit d455f66) so the file is valid in the open format.

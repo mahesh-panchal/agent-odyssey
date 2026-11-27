@@ -1,0 +1,123 @@
+---
+title: "When to Start Fresh"
+---
+
+::: {.ao-story}
+The hopper is filling, and your Astral has begun to stumble. It repeats itself, loses the thread and argues with its own earlier answers. Miller Garrick knows the signs that it is time to tip the hopper out, and the signs that tipping it would waste the day's work. Learn to read them, and what to write on the wall before you tip anything.
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will name the signals that say "start a new session", the signals that say "carry on", and when compacting fits better than either.
+- **Before you start:** [Memory, Sessions and Usage](memory-sessions-and-usage.html)
+- **Time:** about 15 minutes.
+:::
+
+You will meet this choice in every long working session, and it decides what the session costs and how well the agent answers. You have a conversation open with an agent. It has read files, tried things and been corrected. Do you keep typing into it, or start over? Each answer fits some situations, and a wrong choice costs something either way.
+
+## Words first
+
+- **Session:** one saved conversation with the agent.
+- **Context:** the text the model can see right now. It has a fixed size limit.
+- **Compacting:** replacing the long history with a short summary and carrying on in the same conversation.
+- **Starting fresh:** opening a new, empty conversation. Your files stay as they are.
+
+## Signals to start fresh
+
+1. **A new, unrelated task.** Run `/clear` between unrelated tasks. It costs no usage, but it drops the chat, so write down anything you need first. The next task then stops paying for the previous one's history. A session holding three unrelated tasks re-reads all three on every turn of the fourth. A name, as in `/clear oauth-migration`, labels the conversation you leave so you can find it again.
+2. **The agent repeats a wrong claim after two corrections.** Clear, and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts.
+3. **You notice it forgetting early instructions or contradicting itself.** A crowded or degraded context is the usual cause. Start fresh, and move the instruction into the instructions file (`CLAUDE.md`). Detailed early instructions can also be lost when a conversation is compacted.
+4. **You have been away for a while and the next task is new.** Claude Code keeps a **cache**, a short-term store that makes re-reading the conversation cheaper. With an API key the cache lasts five minutes by default, and a subscription may keep it longer (check your tool's documentation for current times). After it expires, the next message pays full price to re-send the history. If you do not need the history, a fresh session costs less.
+5. **The context is crowded.** Run `/context`: it shows what fills the window. A fresh session still starts with its fixed load (instructions, tools, skills), so a fresh start saves only the conversation part. A crowded window with a task you still need is a reason to compact (below). A crowded window full of dead ends is a reason to clear.
+6. **A task is finished and a verified result is committed.** The result lives in your files and in git, so the conversation has done its job. The same move works after a spec (a written description of what to build): write it down, then start a fresh session to build from it.
+
+## Signals to carry on
+
+- **Same task, early decisions still matter:** the next step needs the same files, the decisions you made and what was already tried.
+- **The agent is on track:** nothing is repeated or contradicted. Clearing a working session throws away good context.
+- **You are returning to a named session:** `/resume` (or `claude --resume <name>`) reopens a session you chose, and `claude --continue` reopens the most recent one in this directory. Resume restores the messages, model and permission mode (what the agent may do without asking). Pass startup flags again, such as `--mcp-config` (it loads a file that lists your tool servers). A compacted session continues from its last summary.
+- **Claude Code offers to resume after a long break:** on some plans a dialog estimates how much of your usage limit the saved conversation would use. Choose by whether your next task still needs it.
+
+## The middle path: compact
+
+`/compact` replaces the history with a summary and stays in the same conversation. Give it a focus note, as in `/compact focus on the auth bug fix`, so the summary spends its words on what you still need.
+
+- **Kept:** your requests and key code snippets.
+- **May be lost:** detailed instructions from early in the conversation. Restate any that matter.
+- **Re-supplied afterwards:** the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions. A few recently used files are re-read.
+- **Automatic:** Claude Code also compacts as you approach the limit. A manual `/compact` lets you choose the moment and the emphasis.
+- **Cost:** compacting reads the whole conversation once, so it uses some of your usage.
+
+## The decision ladder
+
+| Situation | Action | Why |
+|---|---|---|
+| New task, unrelated to this conversation | `/clear` | Old history is re-read for nothing |
+| Same task, crowded, early decisions matter | `/compact` with a focus note | Keeps the thread, drops the bulk |
+| Same task, agent on track, plenty of room | Carry on | Nothing to fix |
+| Wrong claim repeated after two corrections | `/clear`, then one new prompt | A third correction sits on two failures |
+| Back after a break, still need the conversation | `/resume` or `claude --continue` | You get the saved messages or last summary |
+| Back after a break, next task is new | Fresh session | A fresh session costs less |
+| Leaving a long session, same task afterwards | `/compact` with a focus note first | Compacting while the cache is warm is cheap |
+| Task done, verified result committed | Write down what matters, then `/clear` | The state is in your files and git |
+
+## Before you clear
+
+Starting fresh drops the conversation. Your files and memory remain, and the instructions file and auto memory load again in the new session. Anything you only said in chat is gone: the decisions, what failed and why, which sample misbehaved. Write that down before you clear, and commit the result so the state is recoverable. If you clear by mistake, `/resume` can reopen the old conversation.
+
+## The cache and the coffee break
+
+While the cache is warm, the long history you already sent is re-read cheaply. When it has expired, the next request pays to send the whole history again at full price. A long break in a long session can therefore cost more than you expect.
+
+1. Run `/usage` to see your plan limits. It may show nothing about the cache. Treat the cache times above as the guide.
+2. Before a long break in a long session, run `/compact` with a focus note, or write a short handoff note (goal, what is done, what is next) and plan to `/clear`.
+3. After a break, choose one. If the next task is new, start fresh. If you still need the thread, start a new session from your short note, which also lets you drop dead ends.
+4. Trim output before it lands in the conversation. Ask the agent to show only the last lines of a log or a pass/fail summary.
+
+Short pauses are fine. A pause shorter than the cache lifetime costs little, so there is no need to rush back.
+
+## The cost of both mistakes
+
+- **Clearing too early** loses useful context. The agent must re-read files and rediscover decisions, which costs time and usage, and you may need to repeat yourself.
+- **Clearing too late** costs too. The whole conversation is sent again on every request, so usage climbs, and a focused context gives better answers than a crowded one, even with a large window.
+
+Both errors are cheap to recover from if you wrote things down. That is the argument for notes.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Commands for this page: `/clear` (alias `/new`), `/compact [instructions]`, `/context`, `/resume [session]`, `claude --continue`, `claude --resume [name]`, `/rename`. Use `/context` to see how full the window is.
+
+## OpenCode + Ollama
+
+OpenCode has `/new` (alias `/clear`), `/sessions` (aliases `/resume`, `/continue`) and `/compact` (alias `/summarize`). The same signals apply to any tool, because every model has a finite window. A local model with a smaller window means starting fresh sooner. Run `/help` in OpenCode to see what else your version offers.
+
+:::
+
+## Battle: start fresh or carry on
+
+<div data-ao-test="prompts-and-context-when-to-start-fresh" data-xp="50"></div>
+
+<div data-ao-honour="paste-twice" data-xp="20">Next time you notice yourself pasting the same background twice, note it: that was the moment to put it in the instructions file.</div>
+<div data-ao-honour="name-signal" data-xp="20">At the end of your next working session, write one line saying which signal (new task, repeated error, forgotten instruction, long break, crowded context, finished and committed) would have told you to start fresh, or that none applied.</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [Memory, Sessions and Usage](memory-sessions-and-usage.html): for more on what memory keeps between sessions and what burns your usage.
+- [The Context Window](the-context-window.html): for more on what the window holds and why it fills.
+- [Handoff Notes](handoff-notes.html): what a note a fresh session can act on contains.
+- [Capture Ideas Mid-Task](the-stream-of-ideas.html): how to park side ideas so the main task stays clear.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it gives the check-to-run habit and the rule to clear after repeated failed corrections, the trigger for starting fresh.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.
+- [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html): Drew Breunig, blog, article. Why read: it names context poisoning and distraction, the failure modes behind starting fresh; a personal blog, not vendor documentation.
+- [Manage costs effectively](https://code.claude.com/docs/en/costs): Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage; it also gives cache lifetimes (about an hour on a subscription and five minutes with an API key when checked).
+- [claude-code-usage-analysis](https://github.com/inevolin/claude-code-usage-analysis): inevolin, repo. Why read: a community write-up of live runs that put numbers on cache expiry, compaction timing and tool changes; small samples, so read it for the shape of the effect and check its own list of limits.
+:::

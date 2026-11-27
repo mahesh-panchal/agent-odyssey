@@ -2,7 +2,7 @@
 
 Sources read 2026-11-20 by three subagents, then checked against our own runs. Reading method: arXiv abstract pages and most web pages were read through a summarising fetch tool, so quotes are tool-reported and should be re-checked before being used verbatim. Four papers (2407.16833, 2307.03172, 2309.15217, 2412.15605) were converted from PDF to text and read in full. GitHub READMEs, docs and release data were read raw with `gh api`. Labels: (a) the source states it, (b) the authors report it about their own method, (c) our inference.
 
-Used by `zones/codon-mill/rag-and-its-cousins.qmd` and `zones/codon-mill/grow-a-graph-with-ollama.qmd`.
+Used by `zones/prompts-and-context/rag-and-its-cousins.qmd` and `zones/prompts-and-context/build-a-knowledge-graph-with-ollama.qmd`.
 
 ## 1. Simple RAG and its improvements
 - https://arxiv.org/abs/2005.11401 : Lewis et al., "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks", NeurIPS 2020 (v1 2020-05-22, v4 2021-04-12). Abstract only. (a) A generator ("parametric memory") paired with a dense vector index of Wikipedia read by a neural retriever ("non-parametric memory"); provenance and updating knowledge are called open problems. The common "chunk, embed, search, paste the top k into the prompt" recipe is a later simplification; no single primary source defines it.
@@ -68,7 +68,7 @@ Used by `zones/codon-mill/rag-and-its-cousins.qmd` and `zones/codon-mill/grow-a-
 - README claim, not checked by us: PDF text extractors can lose table structure before indexing (from the Mistral OCR notebook's description). Used in the quest only as a labelled caution.
 
 ## 7. Our own runs (2026-11-20, macOS, Ollama 0.40.16)
-Chat model `gemma4:12b-mlx`, embedding model `nomic-embed-text`, in `exercises/codon-mill/mini-rag` with twelve short mock notes (233 words). One run each at temperature 0; not repeated.
+Chat model `gemma4:12b-mlx`, embedding model `nomic-embed-text`, in `exercises/prompts-and-context/mini-rag` with twelve short mock notes (233 words). One run each at temperature 0; not repeated.
 - Heron question (multi-hop): simple RAG k=3 retrieved the Pipeline 2.4, Pipeline 2.3 and Project Heron notes, missed the run log, and answered "The notes do not contain the answer." k=5 added the run log and answered correctly. `--all` (every note in the prompt) answered correctly. The graph walk answered correctly.
 - `graph.py build`: 67 facts in 1 minute 20 seconds. Sample flaws kept as teaching material: `You --bring--> own cup` from the lunch note, and a stray leading space in a name (now stripped when loading).
 - The graph walk starting from three entities and two hops collected 40 of the 67 facts, from 8 of 12 notes.
