@@ -33,9 +33,9 @@ questions:
       - { left: "Stopping condition", right: "A limit such as a maximum number of iterations", misconception: "It is a guard that keeps an autonomous loop from running without end." }
   - type: faulty-line
     prompt: "A teammate's plan for a tool setup. Which line goes against the advice on this page?"
-    explain: "Installing every server up front adds tool names (and full definitions on setups without tool search), and is unneeded attack surface. Add what the work needs and remove the rest."
+    explain: "Installing every server up front adds tool names (and full definitions on setups without tool search) to the window. Add what the work needs and remove the rest."
     lines:
       - { text: "Keep the few tools used every day, with clear names", why: "A small, well-named set is the advice." }
       - { text: "Install every MCP server in the catalogue just in case", faulty: true }
       - { text: "Check what is using the window with a usage command", why: "Measuring first shows what actually costs space." }
-      - { text: "Disable servers that have not been used this month", why: "With tool search the cost is small, but unused servers still add names and risk." }
+      - { text: "Disable servers that have not been used this month", why: "With tool search the cost is small, but unused servers still add their names to the window." }

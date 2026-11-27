@@ -42,7 +42,7 @@ To block an action regardless of what the model decides, use enforcement: a **Pr
 
 ## Claude Code
 
-Reads `CLAUDE.md`. If a project has only an `AGENTS.md` (and no `CLAUDE.md`, `.claude/CLAUDE.md` or `CLAUDE.local.md` in or above the working directory), it is read instead, from v2.1.277. To share one file, import it from `CLAUDE.md` with `@AGENTS.md`.
+Reads `CLAUDE.md`. If a project has only an `AGENTS.md` (and no `CLAUDE.md`, `.claude/CLAUDE.md` or `CLAUDE.local.md` in or above the working directory) it is read instead in recent versions (check your version). To share one file, import it from `CLAUDE.md` with `@AGENTS.md`.
 
 ## OpenCode + Ollama
 
@@ -74,6 +74,6 @@ Check OpenCode's documentation for which instruction file names it loads, and in
 *Further reading. Optional.*
 
 - [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works): Anthropic, docs. Why read: it describes what the harness adds to the conversation, useful for tracing where a behaviour came from.
-- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it says CLAUDE.md is context that advises, which is why the instructions file sits at the "advises" end of this quest.
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it gives the Claude Code version that added the `AGENTS.md` fallback (v2.1.277 when checked) and says CLAUDE.md is context that advises, which is why the instructions file sits at the "advises" end of this quest.
 - [Hooks reference](https://code.claude.com/docs/en/hooks): Anthropic, docs. Why read: it is the reference for the one control here that enforces, while the others ask; skim it to see what hooks can act on.
 :::

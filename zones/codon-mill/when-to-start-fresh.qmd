@@ -26,7 +26,7 @@ You will meet this choice in every long working session, and it decides what the
 1. **A new, unrelated task.** Run `/clear` between unrelated tasks. It costs no usage, but it drops the chat, so write down anything you need first. The next task then stops paying for the previous one's history. A session holding three unrelated tasks re-reads all three on every turn of the fourth. A name, as in `/clear oauth-migration`, labels the conversation you leave so you can find it again.
 2. **The agent repeats a wrong claim after two corrections.** Clear, and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts.
 3. **You notice it forgetting early instructions or contradicting itself.** A crowded or degraded context is the usual cause. Start fresh, and move the instruction into the instructions file (`CLAUDE.md`). Detailed early instructions can also be lost when a conversation is compacted.
-4. **You have been away for a while and the next task is new.** Claude Code keeps a **cache**, a short-term store that makes re-reading the conversation cheaper. The cache lasts about an hour on a subscription (while you are within your plan limits) and five minutes with an API key by default. After it expires, the next message pays full price to re-send the history. If you do not need the history, a fresh session costs less.
+4. **You have been away for a while and the next task is new.** Claude Code keeps a **cache**, a short-term store that makes re-reading the conversation cheaper. With an API key the cache lasts five minutes by default, and a subscription may keep it longer (check your tool's documentation for current times). After it expires, the next message pays full price to re-send the history. If you do not need the history, a fresh session costs less.
 5. **The context is crowded.** Run `/context`: it shows what fills the window. A fresh session still starts with its fixed load (instructions, tools, skills), so a fresh start saves only the conversation part. A crowded window with a task you still need is a reason to compact (below). A crowded window full of dead ends is a reason to clear.
 6. **A task is finished and a verified result is committed.** The result lives in your files and in git, so the conversation has done its job. The same move works after a spec (a written description of what to build): write it down, then start a fresh session to build from it.
 
@@ -43,7 +43,7 @@ You will meet this choice in every long working session, and it decides what the
 
 - **Kept:** your requests and key code snippets.
 - **May be lost:** detailed instructions from early in the conversation. Restate any that matter.
-- **Re-supplied afterwards:** the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions. Up to five recently used files are re-read.
+- **Re-supplied afterwards:** the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions. A few recently used files are re-read.
 - **Automatic:** Claude Code also compacts as you approach the limit. A manual `/compact` lets you choose the moment and the emphasis.
 - **Cost:** compacting reads the whole conversation once, so it uses some of your usage.
 
@@ -71,8 +71,7 @@ While the cache is warm, the long history you already sent is re-read cheaply. W
 1. Run `/usage` to see your plan limits. It may show nothing about the cache. Treat the cache times above as the guide.
 2. Before a long break in a long session, run `/compact` with a focus note, or write a short handoff note (goal, what is done, what is next) and plan to `/clear`.
 3. After a break, choose one. If the next task is new, start fresh. If you still need the thread, start a new session from your short note, which also lets you drop dead ends.
-4. Decide your tool set at the start of a task. Changing the built-in tool set in the middle of a task discards the cache.
-5. Trim output before it lands in the conversation. Ask the agent to show only the last lines of a log or a pass/fail summary.
+4. Trim output before it lands in the conversation. Ask the agent to show only the last lines of a log or a pass/fail summary.
 
 Short pauses are fine. A pause shorter than the cache lifetime costs little, so there is no need to rush back.
 
@@ -119,6 +118,6 @@ OpenCode has `/new` (alias `/clear`), `/sessions` (aliases `/resume`, `/continue
 - [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it gives the check-to-run habit and the rule to clear after repeated failed corrections, the trigger for starting fresh.
 - [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions.
 - [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html): Drew Breunig, blog, article. Why read: it names context poisoning and distraction, the failure modes behind starting fresh; a personal blog, not vendor documentation.
-- [Manage costs effectively](https://code.claude.com/docs/en/costs): Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.
+- [Manage costs effectively](https://code.claude.com/docs/en/costs): Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage; it also gives cache lifetimes (about an hour on a subscription and five minutes with an API key when checked).
 - [claude-code-usage-analysis](https://github.com/inevolin/claude-code-usage-analysis): inevolin, repo. Why read: a community write-up of live runs that put numbers on cache expiry, compaction timing and tool changes; small samples, so read it for the shape of the effect and check its own list of limits.
 :::

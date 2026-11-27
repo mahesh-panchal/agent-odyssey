@@ -56,6 +56,6 @@ questions:
     explain: "A clipped page can contain text aimed at the agent, and the agent writes files after reading it. Review the diff, remove the text, and keep write access away from sources you do not trust."
     options:
       - { text: "The clipped article held text aimed at the agent", correct: true }
-      - { text: "Obsidian rewrote the page when it opened the file", misconception: "Obsidian displays Markdown files from the folder. The text came from the ingest." }
+      - { text: "The wiki folder was rewritten when you opened it in an editor", misconception: "An editor only displays Markdown files from the folder. The text came from the ingest." }
       - { text: "The index file is out of date and needs rebuilding", misconception: "A stale index would cause missing links. It would not add new sentences with instructions." }
       - { text: "The model is too large and generates extra text on its own", misconception: "Size does not explain a specific instruction. Check the clipped source for text addressed to the agent." }

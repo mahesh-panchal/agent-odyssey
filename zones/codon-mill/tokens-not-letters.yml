@@ -13,7 +13,7 @@ questions:
     explain: "Exact counting and exact copying need every letter. Summarising or explaining text does not."
     items:
       - { text: "Count the Gs in each of 500 reads", bin: "Script or tool", misconception: "Counting letters is exact work. A script counts reliably." }
-      - { text: "Explain what a FASTQ quality line means", bin: "Model by reading", misconception: "Explaining a format is language work. You can check it against the spec." }
+      - { text: "Explain a confusing error message", bin: "Model by reading", misconception: "Explaining is language work. You can test the explanation." }
       - { text: "Produce the reverse complement of a 2 kb sequence", bin: "Script or tool", misconception: "Every letter matters here, and a retyped string can silently change." }
       - { text: "Suggest a clearer name for a pipeline step", bin: "Model by reading", misconception: "A naming suggestion has no single exact answer." }
       - { text: "Compute a checksum of a reference file", bin: "Script or tool", misconception: "A checksum changes completely with one wrong character." }
@@ -28,9 +28,9 @@ questions:
     prompt: "A step in an agent's plan for checking a FASTA file. Which line is the weakest?"
     explain: "Reading a long sequence and stating its length from memory is guesswork over tokens. A command counts exactly."
     lines:
-      - { text: "Run seqkit stats on the file, or a short awk length count", why: "A tool counts exactly and the output can be pasted." }
+      - { text: "Run a counting command on the file and paste its output", why: "A tool counts exactly and the output can be pasted." }
       - { text: "Look at the sequence in the chat and state its length", faulty: true }
-      - { text: "Compare the printed count with a second independent tool", why: "An independent check on the result is good practice." }
+      - { text: "Compare the printed count with a hand count on a tiny test file", why: "An independent check on the result is good practice." }
       - { text: "Keep the command so the count can be re-run", why: "A kept command makes the answer repeatable." }
   - type: match
     prompt: "Match each claim to what is behind it."

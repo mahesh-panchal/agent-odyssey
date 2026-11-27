@@ -24,15 +24,11 @@ In Claude Code (a coding agent that runs in your terminal), the window holds you
 
 Every file it reads and every tool output then adds more. With the API (programmatic access to the model) the same idea holds: the system prompt (the harness's own instructions, sent with every request), every message, tool results, tool definitions and the output all count.
 
-Sizes depend on the model, up to 1 million tokens for some and 200 thousand for others. A big window gives room for more text; quality depends on what fills it.
+Sizes depend on the model. A big window gives room for more text; quality depends on what fills it.
 
 ## What the model stores while it writes
 
-To write each new token, the model looks back at every earlier token in the window. Redoing that work for the whole window at every step would be slow, so the model keeps the results. For each earlier token it stores numbers computed from that token (called its **keys** and **values**) in a store named the **KV cache** (key-value cache). Each new token adds one entry, and the model reuses the rest.
-
-The KV cache sits in the memory of the machine that runs the model. It grows with every token in the window, so a longer window needs more memory.
-
-The KV cache is separate from the **prompt cache**, a provider feature that makes a repeated start of your prompt cheaper to process. The KV cache belongs to the model. The prompt cache belongs to the bill.
+To write each new token, the model looks back at every earlier token in the window. It keeps numbers computed from those tokens (the **KV cache**, key-value cache) so it does not redo that work at every step. The KV cache sits in the memory of the machine that runs the model and grows with the window. The **prompt cache** is a separate provider feature that makes a repeated start of your prompt cheaper to process. The KV cache belongs to the model, and the prompt cache belongs to the bill.
 
 ## Bigger is not better
 
@@ -49,7 +45,7 @@ It **compacts** automatically as the limit nears: the history is replaced by a s
 Afterwards, Claude Code re-supplies:
 
 - the system prompt, the project-root `CLAUDE.md`, auto memory and skill descriptions
-- up to five recently read or edited files (a file over 5,000 tokens comes back as a path only)
+- a few recently read or edited files (a very large file comes back as a path only)
 
 Nested instruction files are summarised away and reload on demand.
 

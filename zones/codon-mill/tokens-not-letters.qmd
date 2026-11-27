@@ -41,7 +41,7 @@ A token is the smallest unit a model works with. It can be a whole word, part of
 Three consequences:
 
 - **Tokens are not words.** A sentence of ten words rarely comes to ten tokens; the count depends on the model and the language.
-- **The count changes between models.** Models from Claude 4.7 onward, including Sonnet 5.5, use a newer tokenizer (the part that cuts text into tokens). It produces about 30 percent more tokens for the same text, and the exact increase depends on the content. Count again for each model generation.
+- **The count changes between models.** A newer model generation can use a newer tokenizer (the part that cuts text into tokens), and the same text can then give noticeably more tokens. Count again for each model you use.
 - **Limits and cost are measured in tokens.** The context window (all the text a model can look at when it writes its next piece of output) is counted in tokens, and the same prompt can cost different amounts on different models. The API (programmatic access to the model, billed per token) has a free token-counting endpoint. Its answer is an estimate.
 
 ## Why this matters for sequences

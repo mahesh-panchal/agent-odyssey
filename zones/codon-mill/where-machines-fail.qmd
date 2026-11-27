@@ -97,7 +97,7 @@ Text from fetched content that the model treats as an instruction, for example a
 
 ### Stale knowledge
 
-Newer tool versions or database releases postdate the model's training. Check `--version` and the current docs. Current Claude models list a June 2026 training cutoff.
+Newer tool versions or database releases postdate the model's training. Check `--version` and the current docs, and look up the model's training cutoff date in its documentation.
 
 ## The decision rule
 

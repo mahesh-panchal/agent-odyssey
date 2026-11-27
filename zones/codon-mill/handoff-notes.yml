@@ -36,9 +36,8 @@ questions:
       - { text: "Summarise what you remember of yesterday's session with me", misconception: "A fresh session has no copy of yesterday's session, so it can only guess." }
   - type: match
     prompt: "Match each risk to the habit that counters it."
-    explain: "Each habit answers one risk: check what a draft claims, verify what the tool wrote itself, treat a message as a summary, and compare a restatement with the real state before any edit."
+    explain: "Each habit answers one risk: check what a draft claims, verify what the tool wrote itself, and compare a restatement with the real state before any edit."
     pairs:
       - { left: "The agent's draft note says 'all tests pass' but you never saw them run", right: "Run them yourself, or edit the line to say what was actually run", misconception: "Keeping the line because the agent wrote it passes an unchecked claim to the next session." }
       - { left: "Auto memory holds a wrong column name that loads every session", right: "Read it with /memory and verify it before trusting it", misconception: "Memory is loaded as written; nothing checks it for you." }
-      - { left: "A commit message says 'fixed' but only one sample was tried", right: "Treat the message as a summary and check the diff and the checks run", misconception: "A message records what the author chose to say, and verification is a separate step." }
       - { left: "A fresh session may have misread the handoff note", right: "Ask for its restatement before any edits and compare it with the real state", misconception: "Letting it start work at once hides a misreading inside new edits." }

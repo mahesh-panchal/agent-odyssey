@@ -14,7 +14,7 @@ questions:
     explain: "Checkpoints track edits made through the tool's own file editing in this session. Changes made only through Bash or outside the session are not tracked (subagent edits are mostly not restored either), so commit first."
     items:
       - { text: "A parser file Claude edited directly in this session", bin: "Restored by rewind", misconception: "Direct file edits in the session are what checkpoints track." }
-      - { text: "A results table rewritten by a sed -i command run through Bash", bin: "Not restored by rewind", misconception: "Bash-only changes are not tracked; a commit is the safety net." }
+      - { text: "A results table rewritten by a script run through Bash", bin: "Not restored by rewind", misconception: "Bash-only changes are not tracked; a commit is the safety net." }
       - { text: "A summary file created by a shell redirect (python summarise.py > summary.tsv) run through Bash", bin: "Not restored by rewind", misconception: "Files changed only through Bash are not tracked, including ones a command writes." }
       - { text: "A file you changed by hand in another editor", bin: "Not restored by rewind", misconception: "Edits outside the session are not tracked." }
   - type: choice

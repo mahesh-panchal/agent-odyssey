@@ -39,7 +39,7 @@ questions:
     options:
       - { text: "As a promising result, to check on your own questions", correct: true }
       - { text: "As proof that graph methods beat plain RAG on all kinds of question", misconception: "Independent comparisons found plain RAG best on single-fact questions and a mixed picture elsewhere." }
-      - { text: "As meaningless, because every LLM judge prefers longer answers", misconception: "Judges can be biased in several ways, including answer order, but that does not make every result worthless. It means checking on your own questions." }
+      - { text: "As meaningless, because an LLM judge can never be trusted for anything", misconception: "Judges can flip their verdict when answer order is swapped, but that does not make every result worthless. It means checking on your own questions." }
       - { text: "As a reason to rebuild your index with a graph before measuring anything", misconception: "Graphs cost much more to build. Measure simple RAG first and add a graph only if its failures are multi-hop or whole-collection ones." }
   - type: faulty-line
     prompt: "A teammate writes a plan to answer questions about a 40-row sample sheet and a folder of run logs. Which line of the plan is the weakest choice?"

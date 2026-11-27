@@ -19,7 +19,7 @@ questions:
       - { text: "The contents of a log file the agent read earlier", bin: "Does not survive", misconception: "Tool output is part of the conversation and goes when it is cleared." }
       - { text: "The running session cost shown by /usage", bin: "Does not survive", misconception: "Session totals reset on /clear." }
   - type: choice
-    prompt: "You have corrected the agent twice and it still repeats a wrong claim about your sample sheet. What does the official guidance suggest?"
+    prompt: "You have corrected the agent twice and it still repeats a wrong claim about your input file. What does the official guidance suggest?"
     explain: "A third correction adds to a conversation that already holds two failed attempts. The docs suggest /clear and one new prompt that includes what you learned."
     options:
       - { text: "Run /clear and write one better prompt", correct: true }
@@ -30,8 +30,8 @@ questions:
     explain: "A line copied from an unchecked chat guess becomes a fact that loads in every session. Unverified claims should be checked before they go into a memory or instructions file."
     lines:
       - { text: "Run the tests with the project's own test command before saying a change is done", why: "A checkable working rule that makes no claim about the data." }
-      - { text: "All libraries are reverse-stranded (the agent's guess in the first session, not looked up)", faulty: true }
-      - { text: "Reference is GRCh38; confirmed against the assembly report", why: "It records where the claim was checked." }
+      - { text: "The input files are sorted by date (the agent's guess in the first session, not looked up)", faulty: true }
+      - { text: "The report is in CSV format; confirmed by opening the file", why: "It records where the claim was checked." }
       - { text: "Never write to the raw_data folder", why: "A rule, which holds no factual claim that could be wrong." }
   - type: order
     prompt: "A wrong claim has entered the session and may have been saved to memory. Put the recovery steps in order, with the memory check after /clear and before the new prompt."

@@ -49,13 +49,7 @@ For each new thought, ask in this order. The key question is step 2: **do you wa
 
 ## What a worktree shares
 
-You need to know this before you start a test in a second worktree. A worktree session isolates file edits only.
-
-- `claude --worktree <name>` creates `.claude/worktrees/<name>/` on a branch called `worktree-<name>`.
-- Worktrees share the repository's `.git`, and auto memory is per repository, so all worktrees share it.
-- A fresh checkout does not contain gitignored files (files git skips, such as `.env` or large data folders). Claude Code copies the ones you list in a `.worktreeinclude` file (a list of file patterns at the repository root). Large data folders are not copied: link them with the `worktree.symlinkDirectories` setting (a list of folders to symlink instead of duplicate), or add a setup step of your own. Without either, a pipeline test in the worktree cannot find its data.
-
-`/branch` copies the conversation. Any background helpers still running keep reporting into the branch.
+A worktree session isolates file edits only. Auto memory and the repository's history are shared, and gitignored files and large data folders are not copied, so a pipeline test in a worktree may not find its data. The Claude Code docs list the settings that copy or link them.
 
 ## Checkpoints and `/rewind`
 
@@ -67,7 +61,7 @@ The limits matter to bioinformatics:
 - Subagent edits are mostly not restored.
 - Edits outside the session are not tracked.
 
-Checkpoints do not replace version control. A `sed -i` or a script that rewrites a results table is a Bash change, so commit before you explore.
+Checkpoints do not replace version control. A script that rewrites a results table is a Bash change, so commit before you explore.
 
 ## A parking-lot file
 
@@ -129,6 +123,6 @@ Check OpenCode's documentation for its side-question, branch and worktree featur
 *Further reading. Optional.*
 
 - [Create custom subagents](https://code.claude.com/docs/en/sub-agents): Anthropic, docs. Why read: it shows how a subagent keeps noisy work in its own context and returns only a summary.
-- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it shows how to branch a session, the command to reach for when a side thought deserves its own line of work.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it shows how to branch a session (worktree copy settings such as `.worktreeinclude` and `worktree.symlinkDirectories` are in the Claude Code docs; not re-checked), the command to reach for when a side thought deserves its own line of work.
 - [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices): Anthropic, docs. Why read: it covers when to clear after repeated failed corrections, the point where a new idea belongs in a fresh session instead of this one.
 :::

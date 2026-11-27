@@ -28,13 +28,13 @@ This lesson matters now because the next lessons on sessions and cost depend on 
 Both kinds are loaded at session start:
 
 - **`CLAUDE.md`:** instructions **you** write (the file can be set at project, user or organisation scope: who or where it applies).
-- **Auto memory:** notes the **harness** (the program around the model) writes itself from your corrections and preferences. It is per git repository and machine-local, kept in `~/.claude/projects/<project>/memory/` as plain markdown with a `MEMORY.md` index. Only the first 200 lines or 25KB of `MEMORY.md` load at start; topic files are read on demand.
+- **Auto memory:** notes the **harness** (the program around the model) writes itself from your corrections and preferences. It is per git repository and machine-local, kept in `~/.claude/projects/<project>/memory/` as plain markdown with a `MEMORY.md` index. Only the start of `MEMORY.md` loads at session start (the docs give the limit); topic files are read on demand.
 
 Memory is advisory context, and it takes room in the window every session. `/clear` (a command that starts a new, empty conversation) drops the conversation and leaves memory in place. Compaction (replacing old conversation with a summary) shrinks a session and leaves memory as it was.
 
 ### Session usage in Claude Code
 
-- `/usage` shows an estimated session cost (worked out locally from token counts at list price, the published per-token price), plan usage limits and activity stats. `/cost` and `/stats` are aliases.
+- `/usage` shows an estimated session cost (worked out locally from token counts at list price, the published per-token price), plan usage limits and activity stats.
 - The displayed session total resets on `/clear`. The allowance itself resets on your plan's schedule: look for a reset time in the `/usage` screen. If your plan shows none, `/usage` is not reporting it.
 - With a subscription, the plan bars on the `/usage` screen are what matter and the dollar figure is an estimate. If the screen shows no bars, your plan reports no limits there.
 - With the API, usage is billed per token, and thinking tokens (the tokens the model spends reasoning before it answers) count as output tokens.
@@ -87,7 +87,7 @@ Commands:
 - `claude --continue`: the most recent session in this directory.
 - `/usage` and `/context`: usage and window contents.
 
-Resume restores messages, model and permission mode (what the agent may do without asking). Startup flags such as `--mcp-config` need to be passed again. Transcripts are deleted after 30 days by default.
+Resume restores messages, model and permission mode (what the agent may do without asking). Startup flags such as `--mcp-config` need to be passed again. Old transcripts are deleted after a set time by default (check your settings).
 
 ## OpenCode + Ollama
 
@@ -118,7 +118,7 @@ Check OpenCode's documentation for its memory files, session commands and usage 
 
 *Further reading. Optional.*
 
-- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it defines CLAUDE.md and auto memory, the "memory" term this quest sets beside session context.
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it gives the load limit for `MEMORY.md` (200 lines or 25KB when checked) and defines CLAUDE.md and auto memory, the "memory" term this quest sets beside session context.
 - [Manage costs effectively](https://code.claude.com/docs/en/costs): Anthropic, docs. Why read: it explains why a long session keeps costing more and which habits (clear, compact, model choice) cut usage.
-- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it covers naming and resuming sessions, which is what makes a session's context something you carry forward on purpose.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it gives the default transcript retention period (30 days when checked) and covers naming and resuming sessions, which is what makes a session's context something you carry forward on purpose.
 :::

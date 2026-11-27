@@ -16,9 +16,9 @@ You need this lesson now because every server you connect adds to the window. An
 
 ## Tools cost context
 
-Loading every tool definition up front bloats the context. Anthropic reports that a typical five-server setup (an MCP server is a program that offers tools to the agent) can use about 55 thousand tokens in definitions before any work starts, and that choosing the right tool gets worse beyond roughly 30 to 50 available tools.
+Loading every tool definition up front bloats the context. Anthropic reports that a typical five-server setup (an MCP server is a program that offers tools to the agent) can use tens of thousands of tokens in definitions before any work starts, and that choosing the right tool gets worse as the number of tools grows.
 
-**Tool search** (loading a tool's definition only when the agent needs it) keeps most definitions out of the window and loads a few on demand. Anthropic reports that it typically cuts that overhead by over 85 percent (its own measurement). Treat both figures as rough guides. It pays off from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.
+**Tool search** (loading a tool's definition only when the agent needs it) keeps most definitions out of the window and loads a few on demand. Anthropic reports that it cuts that overhead by most of its size (its own measurement, so treat it as a rough guide). It pays off from about 10 tools upward, or when definitions are large. Below that, plain tool calling is better.
 
 ::: {.panel-tabset group="companion"}
 
@@ -77,7 +77,7 @@ Start with one agent, measure it, and add agents only for work that splits into 
 
 *Further reading. Optional.*
 
-- [Tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool): Anthropic, docs. Why read: it is where Anthropic states a roughly 55k-token example for tool definitions and says tool selection degrades past 30 to 50 tools; it gives no method for either figure, so read them as Anthropic's own claims about the API, with no independent measurement.
+- [Tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool): Anthropic, docs. Why read: it is where Anthropic states a roughly 55k-token example for tool definitions, a reduction of over 85 percent from tool search, and says tool selection degrades past 30 to 50 tools; it gives no method for these figures, so read them as Anthropic's own claims about the API, with no independent measurement.
 - [Connect Claude Code to tools via MCP](https://code.claude.com/docs/en/mcp): Anthropic, docs. Why read: it explains how MCP tools load and how to scale or limit them in Claude Code.
 - [Introduction to the Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro): Model Context Protocol, docs. Why read: it explains what MCP is before you decide which servers to connect.
 - [Towards a Science of Scaling Agent Systems](https://arxiv.org/abs/2512.08296): Kim et al., arXiv (2025), paper. Why read: it measures when extra agents help and when they hurt; a preprint, and its figures changed between versions.

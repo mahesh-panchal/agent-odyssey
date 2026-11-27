@@ -63,7 +63,7 @@ A wiki and search can sit together: a wiki is a good home for the stable underst
 
 ## Use cases you may recognise
 
-The gist lists personal, research, reading a book, team, competitive analysis, due diligence, trip planning, course notes and hobby deep-dives. Here are some closer to a bioinformatics desk.
+Two examples close to a bioinformatics desk. The gist lists many more.
 
 - **Literature on one method** (say, long-read assemblers or variant callers)
   - Raw sources: papers, preprints, tool docs.
@@ -71,30 +71,10 @@ The gist lists personal, research, reading a book, team, competitive analysis, d
   - A question: "Which papers compare tool A and B on the same data, and do they agree?"
   - Watch out: preprints mixed with peer-reviewed papers. Ask the agent to record the kind of source on every page.
 - **The lab's pipeline handbook**
-  - Raw sources: release notes, run logs, meeting minutes, Slack exports.
+  - Raw sources: release notes, run logs, meeting minutes.
   - Pages: one per pipeline release, one per known issue, a decision log.
   - A question: "Which runs used release 2.3, and what was wrong with it?"
   - Watch out: private or unpublished material. Exact counts belong to a query tool.
-- **A thesis or long project**
-  - Raw sources: papers you read, notes on experiments, supervisor meeting notes.
-  - Pages: a running thesis page, an open-questions page, one page per experiment.
-  - A question: "What did I conclude about batch effects in March, and what has changed since?"
-  - Watch out: a wiki that you never open. You will not remember what you did not read.
-- **A course, a workshop or onboarding**
-  - Raw sources: slides, lecture notes, tutorials, tool docs.
-  - Pages: glossary, one page per concept, a "things that confused me" page.
-  - A question: "Explain the difference between X and Y using only what the course covered."
-  - Watch out: material for fast-moving tools goes stale. Date every source.
-- **Reference notes for the tools you use**
-  - Raw sources: docs pages, GitHub issues, your own gotchas.
-  - Pages: one per tool with versions, quirks and a link to the source.
-  - A question: "What did we learn the last time this tool ran out of memory?"
-  - Watch out: version drift. Record the version on each page and re-check on upgrade.
-- **A book or a long series**
-  - Raw sources: chapters, episode notes.
-  - Pages: characters, themes, a timeline, built up as you read.
-  - A question: "Where did this thread first appear?"
-  - Watch out: spoilers for yourself. Ingest as you read.
 
 To size your own idea, answer four questions in a sentence each:
 
@@ -105,37 +85,15 @@ To size your own idea, answer four questions in a sentence each:
 
 If the sources fit in one prompt, try that first. If the question is an exact filter or count, ask a query tool. If the sources are sensitive and you would send them to a hosted model, settle your data rules before you begin. If the material is something you want to return to and the answers need several sources joined, the wiki is a good candidate.
 
-## Where Obsidian fits
+## Reading and guarding the wiki
 
-Obsidian is a free note-taking app that opens a folder of Markdown files as a **vault**. A vault is an ordinary folder, so an agent can read and write it like any other folder, and Obsidian shows whatever is there. Work with the agent on one side and Obsidian open on the other: "Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase." You read, and the agent edits.
-
-A layout that follows the three layers:
-
-```text
-my-vault/
-  raw/            sources you add (clippings, PDFs, transcripts); the agent never edits these
-    assets/       downloaded images
-  wiki/           pages the agent writes
-    index.md
-    log.md
-    sources/  entities/  concepts/
-  CLAUDE.md       the schema (or AGENTS.md)
-```
-
-Obsidian tools that help:
-
-- **Web Clipper:** a browser extension that turns a web article into a Markdown file, so a source can land in `raw/` in one click.
-- **Graph view:** shows the shape of the wiki, with hubs and orphan pages that nothing links to. It doubles as a quick visual check.
-- **Dataview:** a plugin (an add-on) that queries the properties (named fields in a block at the top of a page). If your schema asks the agent to add them (a source type, a date, a version), you get live tables, such as every page whose status is `unsourced`.
-- **Marp:** a Markdown slide format with an Obsidian plugin, for turning an answer into slides. Skip it unless you need slides.
-- **Images:** fix the attachment folder (for example `raw/assets/`) and bind a hotkey that downloads a clipped page's images locally. An agent cannot read a Markdown file with inline images in a single pass, so have it read the text first and look at the images afterwards.
+Obsidian (a free note-taking app that opens a folder of Markdown files) is a convenient way to read the wiki while the agent edits it. The gist's Obsidian tips are linked in Lore. Any editor that opens a folder works.
 
 Habits that help:
 
 - **Separate folders:** keep the agent's folder apart from the notes you write by hand. Your own words stay yours, and you can tell at a glance what the agent produced.
-- **Git:** put the vault under git and commit before each ingest. A commit per ingest gives you a readable diff of what the agent changed and an undo.
+- **Git:** put the wiki folder under git and commit before each ingest. A commit per ingest gives you a readable diff of what the agent changed and an undo.
 - **Read-only sources:** make `raw/` read-only if your tools allow it. The instruction file is advice the agent can ignore, while file permissions are enforced by the system.
-- **Any editor:** if you do not use Obsidian, any editor that opens a folder of Markdown files works.
 
 ## What can go wrong
 
@@ -186,6 +144,6 @@ Put the schema in `AGENTS.md` at the root of the wiki folder (OpenCode also fall
 
 *Further reading. Optional.*
 
-- [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): Andrej Karpathy, GitHub gist, article. Why read: it is the original idea file, short enough to read in ten minutes, with the three layers, the three jobs and the Obsidian tips in the author's own words.
+- [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): Andrej Karpathy, GitHub gist, article. Why read: it is the original idea file, short enough to read in ten minutes, with the three layers, the three jobs and the Obsidian tips (Web Clipper, Dataview, Marp, image handling) in the author's own words.
 - [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic Engineering, article. Why read: it describes the opposite habit of loading information just in time with search tools, which helps you decide when a pre-built wiki is worth the upkeep.
 :::

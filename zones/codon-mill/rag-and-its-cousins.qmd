@@ -34,15 +34,15 @@ Everything the model says is limited by step 3. If the right passage did not com
 Each type below answers one question: what goes wrong with simple RAG, and what did someone add to fix it?
 
 - **Simple RAG:** chunk, embed, top-k, answer. It suits a pile of prose where one or two passages answer each question, and it is cheap to build and update. It struggles with questions that need several passages or the whole collection, since only the top k chunks arrive.
-- **Improved RAG:** add-ons around the same pipeline. Keyword search (BM25, a classic word-matching score) runs next to embeddings. A reranker (a second model that re-sorts the retrieved chunks) follows. A short context line is added to each chunk before embedding. The question is rewritten, or a made-up answer is drafted first (HyDE) to search with. Anthropic reports that combining these add-ons gives fewer retrieval failures than plain embeddings. Each add-on is another part to tune, and HyDE's drafted answer may contain false details.
+- **Improved RAG:** add-ons around the same pipeline. Keyword search (BM25, a classic word-matching score) runs next to embeddings, and a reranker (a second model that re-sorts the retrieved chunks) follows. Anthropic reports that combining these add-ons gives fewer retrieval failures than plain embeddings. Each add-on is another part to tune.
 - **Graph RAG (Microsoft):** before any question, an LLM reads every chunk and extracts entities and relationships into a knowledge graph (things as nodes, links between them as edges). It groups the graph into communities and writes a summary of each. It suits questions about the whole collection, such as "what are the main themes?". Indexing is slow and costly, and the docs warn it can consume a lot of LLM resources.
-- **LightRAG:** also builds an entity graph with an LLM, but skips the communities. A query is turned into keywords, matched against entities and relations, and the neighbours are added. New documents merge into the graph without a rebuild. Modes run from plain chunks (`naive`) to graph-based (`local`, `global`, `hybrid`, `mix`). It needs a stronger model than plain RAG: its README calls a 30B-parameter model "a reasonable minimum" for local use.
-- **Tree RAG (RAPTOR):** clusters chunks and summarises them in layers, so a question can match a detail or a summary. It suits long documents where the answer may be a broad theme, and it adds another LLM build step.
-- **Loop-style RAG (for example Self-RAG, Corrective RAG and agentic RAG):** the model decides when to retrieve, grades what came back, and tries again or searches the web if the results look poor. It suits questions where one lookup is rarely enough, at the price of more model calls per question. Self-RAG needs a model trained for it.
+- **Loop-style RAG (for example Self-RAG and Corrective RAG):** the model decides when to retrieve, grades what came back, and tries again if the results look poor. It suits questions where one lookup is rarely enough, at the price of more model calls per question.
+
+Other variants exist, such as LightRAG (a lighter graph method) and tree-based RAG. The Lore links lead to them.
 
 ## Does the graph pay off?
 
-The papers that introduced Graph RAG and LightRAG report wins over plain RAG, mostly on whole-collection questions, as judged by an LLM. Check any such result on your own questions. Independent studies give a mixed picture:
+The paper that introduced Graph RAG reports wins over plain RAG, mostly on whole-collection questions, as judged by an LLM. Check any such result on your own questions. Independent studies give a mixed picture:
 
 - **No consistent winner.** A 2025 comparison found complementary behaviours. Plain RAG did best on single-fact questions. On multi-hop questions (an answer that needs facts from two or more passages) a graph method led.
 - **Graphs cost more to build.** Building the graph took far longer than building a plain index, and the graphs missed many of the entities that the answers needed.
