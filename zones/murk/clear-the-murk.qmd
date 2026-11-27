@@ -42,7 +42,7 @@ You can stop here. Using an agent is always your choice. This exercise shows wha
 
 ## The scenario
 
-A colleague, Dana, asked an agent to tidy `call_variants.sh`, a variant-calling script on the lab's shared cluster. Dana's lead then asked for three cohorts by Friday. The agent has finished. You are the one who must decide whether to pass its work on.
+A colleague, Dana, asked an agent to tidy `call_variants.sh`, a variant-calling script. The agent has finished. You are the one who must decide whether to pass its work on.
 
 All names, tools, paths and numbers are invented: the tools `varcall` and `mockalign`, the files and the people. The `results/` folder holds the pipeline's outputs and is not tracked by git.
 
@@ -54,7 +54,6 @@ Tidied call_variants.sh. Changes:
 - Cleaned old output: rm -rf results/ && mkdir results
 - Per NOTES.md I never touch raw/, so the reads are safe.
 - Re-ran the pipeline. All 12 samples passed QC.
-- Waiting for the job with a loop until it ends.
 Ready to merge. Dana can send this to the lead today.
 ```
 
@@ -62,7 +61,6 @@ Ready to merge. Dana can send this to the lead today.
 
 ```text
 $ mockalign --threads 16 raw/S01_R1.fq raw/S01_R2.fq > S01.bam
-$ while true; do squeue -u $USER; sleep 5; done
 $ ls results/*.vcf | wc -l
 11
 ```
@@ -89,7 +87,7 @@ Each question points at one part of the session above. Answer from what you see.
 ::: {data-ao-ending}
 ![](../../assets/img/boss-murk-cleared.png){.ao-boss-img fig-alt="Pixel-art portrait of the cleared Murk: the fog has lifted, leaving a small green sprout with a glowing light on a mossy mound."}
 
-You cleared the exercise by looking at the claim, the command, the rule, the key, the loop, the count, the hand-off, the deadline and the line you could not explain.
+You cleared the exercise by looking at the claim, the command, the rule, the key, the count, the hand-off and the line you could not explain.
 
 From here you decide how much of this to use and when. Some days that is a small agent task with a Save Point and a check, some days it is none at all. Both are fine.
 
@@ -117,5 +115,4 @@ The [Claude Code docs](https://code.claude.com/docs/en/overview) go well beyond 
 - [Checkpointing](https://code.claude.com/docs/en/checkpointing): Anthropic, docs. Why read: it says Bash-made changes need version control, which is why the `rm -rf` in the summary had no way back.
 - [Configure permissions](https://code.claude.com/docs/en/permissions): Anthropic, docs. Why read: it shows deny rules that hold where a line in NOTES.md only asks.
 - [Security](https://code.claude.com/docs/en/security): Anthropic, docs. Why read: it says you review the commands and changes an agent proposes, which is the job in this fight.
-- [sbatch](https://slurm.schedmd.com/sbatch.html): SchedMD (Slurm), docs. Why read: it is the manual for submitting a job, so you can wait on one instead of looping on `squeue`.
 :::
