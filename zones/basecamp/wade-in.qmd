@@ -3,7 +3,7 @@ title: "Choose What to Hand Over"
 ---
 
 ::: {.ao-story}
-In a hall of the Collegium, Sage Maelis warns that without disciplined use the Astrals will spread the Blight across the land. These persistent creatures draw in whatever they can reach in pursuit of their goal, so she shows you how to limit what an Astral sees. Four travellers each picture what a pact could do for them, and the boasters say you cross the stream at the Astral's side or you stay on the bank. Beside the water a stone shows, and another beyond it, each a little further out, and you may stop on any of them. Choose your stone and carry across only what the task needs, then take the road to the Crypt.
+Sage Maelis gathers you in a hall of the Collegium with a warning: left unchecked, an Astral will pull in everything within reach to finish a task, and spread the Blight across the land in the process. As the four travellers imagine what a pact could unlock for their craft, loud boasters brag of giving their Astral free rein over entire projects, dismissing small, guarded tasks as timid half-measures. Maelis points to a wiser way: think of the work as a deep river. You need not swim the whole span at once. Limit what the Astral sees, step from stone to stone carrying only what the task demands, and check your footing at each stone before you step to the next.
 :::
 
 ::: {.quest-dialog}
