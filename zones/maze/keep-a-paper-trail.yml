@@ -51,6 +51,6 @@ questions:
     explain: "The step names a file that only exists on your machine, so a fresh copy has nothing to read. Running the README on a clean copy finds gaps like this."
     lines:
       - { text: "1. Create the environment: pixi install", why: "Runs in any copy of the project." }
-      - { text: "2. Run the filter: python filter_gc.py data/local_reads.fasta", faulty: true }
+      - { text: "2. Run the filter: python gc_filter.py data/local_reads.fasta", faulty: true }
       - { text: "3. Check the output: head filtered.fasta", why: "Reads a file step 2 would have written." }
       - { text: "4. Run the tests: pytest", why: "Uses files that are in the project." }

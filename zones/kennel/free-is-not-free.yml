@@ -5,7 +5,7 @@ questions:
     bins: ["Run by you", "Provider free tier", "Router or gateway", "Reseller of unknown origin"]
     explain: "The kind tells you who sees your prompts and who is paying. Running a model yourself is the only kind where nobody else is in the path."
     items:
-      - { text: "ministral-3:8b pulled through Ollama onto your laptop", bin: "Run by you", misconception: "The weights run on your own machine, so nobody else sees the prompt. That is the Pet, not a hosted service." }
+      - { text: "ministral-3:8b pulled through Ollama onto your laptop", bin: "Run by you", misconception: "The weights run on your own machine, so nobody else sees the prompt." }
       - { text: "A model's maker offering a rate-limited free API key", bin: "Provider free tier", misconception: "The maker runs the model and sets the limits and data terms, so it is a provider free tier, not a middleman." }
       - { text: "A service that forwards your request to whichever company hosts the chosen free model", bin: "Router or gateway", misconception: "A forwarder adds a second party and can send you to providers with different data rules. It is a router, not the model's maker." }
       - { text: "A site offering a closed frontier model with no card and no limits, from an owner you cannot identify", bin: "Reseller of unknown origin", misconception: "If nobody visible is paying, ask who is. Without a named operator and terms you cannot say where the prompt goes." }

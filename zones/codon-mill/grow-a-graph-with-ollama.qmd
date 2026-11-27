@@ -192,7 +192,7 @@ Ask Claude Code to read `graph.py` and explain the walk in `ask`, then predict w
 
 ## OpenCode + Ollama
 
-The scripts talk to Ollama directly, so any agent can run them. If you use OpenCode with the Pet, ask it to explain the code and change `hops`.
+The scripts talk to Ollama directly, so any agent can run them. If you use OpenCode, ask it to explain the code and change `hops`.
 
 :::
 

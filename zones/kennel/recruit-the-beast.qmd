@@ -30,7 +30,7 @@ Archivist Elowen asks where the Astral keeps its memory, and for how long.
 
 ::: {.quest-dialog}
 - **Goal:** you will install a coding agent, confirm it works, and start it in a throwaway folder with edits switched off. You choose one of two routes: Claude Code with a Claude plan or API key, or OpenCode with a model that runs on your own computer through Ollama.
-- **Before you start:** [Save Point](../crypt/shield-of-undo.html); the [Prerequisites](../../prerequisites.html) check and, if you want background first, [Read First](../../read-first.html); a terminal (macOS, Linux, or on Windows either PowerShell or WSL 2, the Windows Subsystem for Linux). For Claude Code: internet, and a Claude Team plan login or an Anthropic API key (programmatic access to the models, billed per token; a plan is a subscription with usage limits). For OpenCode and Ollama: about 16 GB of memory and 5 GB of free disk, and no account.
+- **Before you start:** [Save Point](../crypt/shield-of-undo.html); the [Prerequisites](../../prerequisites.html) check and, if you want background first, [Read First](../../read-first.html); a terminal (macOS, Linux, or on Windows either PowerShell or WSL 2, the Windows Subsystem for Linux). For Claude Code: internet, and a paid Claude plan login or an Anthropic API key (programmatic access to the models, billed per token; a plan is a subscription with usage limits). For OpenCode and Ollama: about 16 GB of memory and 5 GB of free disk, and no account.
 - **Time:** about 15 minutes. Nothing here edits your files.
 :::
 
@@ -91,7 +91,7 @@ On Windows, use WSL 2 and the same commands. If `opencode` is not found, open a 
 
 ## Claude Code
 
-Run `claude` and a browser opens. When login finishes, the terminal shows Claude's prompt box. Type `/exit` to leave, then continue with step 3. With a Team plan, log in with the account your admin invited you to. With an API key, `export ANTHROPIC_API_KEY=...` instead. Treat the key like a password: do not paste it into a file in a project, and note that a key typed into the shell can stay in your shell history.
+Run `claude` and a browser opens. When login finishes, the terminal shows Claude's prompt box. Type `/exit` to leave, then continue with step 3. With a Team or Enterprise plan, log in with the account your admin invited you to. With an API key, `export ANTHROPIC_API_KEY=...` instead. Treat the key like a password: do not paste it into a file in a project, and note that a key typed into the shell can stay in your shell history.
 
 ::: {.callout-note}
 If you have both a subscription login and `ANTHROPIC_API_KEY` set, the key is used once you approve it, so usage goes to the API account. Run `/status` (a `/command` is typed inside the running tool) to see which login is active. Run `unset ANTHROPIC_API_KEY` if you did not mean to use the key.

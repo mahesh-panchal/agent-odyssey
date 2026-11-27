@@ -116,7 +116,7 @@ ADR 3: Keep the FASTA filter as a script
 Status: accepted
 Context: we filter reads by GC content once per project. The pipeline
   has no other Python step. Two people maintain it, both new to Nextflow.
-Decision: we will keep filter_gc.py as a plain script and call it from
+Decision: we will keep gc_filter.py as a plain script and call it from
   the run script. We will not add a workflow step.
 Alternatives considered: a workflow process (reproducible, but new machinery for
   two maintainers); a one-off notebook (no record of parameters).

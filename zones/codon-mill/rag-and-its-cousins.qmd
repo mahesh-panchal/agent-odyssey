@@ -44,7 +44,7 @@ Each type below answers one question: what goes wrong with simple RAG, and what 
 
 The papers that introduced Graph RAG and LightRAG report wins over plain RAG, mostly on whole-collection questions, as judged by an LLM. Check any such result on your own questions. Independent studies give a mixed picture:
 
-- **No consistent winner.** A 2026 comparison found complementary behaviours. Plain RAG did best on single-fact questions. On multi-hop questions (an answer that needs facts from two or more passages) a graph method led.
+- **No consistent winner.** A 2025 comparison found complementary behaviours. Plain RAG did best on single-fact questions. On multi-hop questions (an answer that needs facts from two or more passages) a graph method led.
 - **Graphs cost more to build.** Building the graph took far longer than building a plain index, and the graphs missed many of the entities that the answers needed.
 - **LLM judges are order-sensitive.** A judge can flip its verdict when you swap the order of the two answers, so win-rate numbers are weak evidence.
 - **Task decides.** Graphs help when a task connects ideas across documents, and can add noise on simple lookups.

@@ -1,7 +1,7 @@
 pass: 0.8
 questions:
   - type: sort
-    prompt: "Sort each action into the bin you would set for a companion working in a project folder."
+    prompt: "Sort each action into the bin you would set for an agent working in a project folder."
     explain: "Allow routine or self-checking actions, ask for outward-facing ones, and deny what is destructive or secret."
     bins: ["allow", "ask", "deny"]
     items:
@@ -18,7 +18,7 @@ questions:
       - { text: "Yes, it works like .gitignore and hides the file from the agent", misconception: "The docs state .claudeignore has no effect. Only permission rules restrict reads." }
       - { text: "Yes, but only for shell commands, not for the file read tool", misconception: "There is no such file-based restriction for any tool; permission rules are what count." }
   - type: faulty-line
-    prompt: "This settings file is meant to keep a companion away from destructive commands. Which line undermines it?"
+    prompt: "This settings file is meant to keep an agent away from destructive commands. Which line undermines it?"
     explain: "An allow for rm * defeats the purpose of the file."
     lines:
       - { text: '{', why: "Opens the file." }
