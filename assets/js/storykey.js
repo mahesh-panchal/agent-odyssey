@@ -4,6 +4,6 @@
   if (!s || document.querySelector(".ao-storykey")) return;
   var p = document.createElement("p");
   p.className = "ao-storykey";
-  p.textContent = "In this story an Astral is a language model, an Automaton is a script, a Familiar is a trained model (all three are Shokanju, summoned creatures), and the Blight is false output that nobody checked. The party is a manager (Guildmaster Aris), an analyst (Diviner Ilsa), an engineer (Artificer Bob) and a data steward (Archivist Elowen). Brannoch, Sefa, Tam and Oleander are tavern patrons, not the party. The lessons use plain technical words.";
+  p.textContent = "In this story an Astral is a language model, an Automaton is a script, a Familiar is a trained model (all three are Shokanju, summoned creatures), and the Blight is false output that nobody checked. The party is a manager (Quartermaster Aris), an analyst (Diviner Ilsa), an engineer (Artificer Bob) and a data steward (Archivist Elowen). Brannoch, Sefa, Tam and Oleander are tavern patrons, not the party. The lessons use plain technical words.";
   s.parentNode.insertBefore(p, s.nextSibling);
 })();

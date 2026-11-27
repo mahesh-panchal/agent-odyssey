@@ -3,7 +3,7 @@ title: "Turn Mistakes into Tests"
 ---
 
 ::: {.ao-story}
-Hunter Cass keeps a log that hangs from a branch of the great tree: every time an Astral went astray, a note of what was asked and what went wrong. Most hunters read it once and forget, and meet the same mistake again at the next bend. Cass turns each entry into a trial, so the same mistake cannot return unnoticed. Cass shows you how.
+Hallmaster Cass keeps a log that hangs by the Guild Hall door: every time an Astral went astray, a note of what was asked and what went wrong. Most apprentices read it once and forget, and meet the same mistake again at the next turn. Cass turns each entry into a trial, so the same mistake cannot return unnoticed. Cass shows you how.
 :::
 
 ::: {.quest-dialog}

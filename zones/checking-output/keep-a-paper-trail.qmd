@@ -3,7 +3,7 @@ title: "Keep a Paper Trail"
 ---
 
 ::: {.ao-story}
-A door in the maze swings shut behind your Astral. Its account of what it did is plausible, and the walls have changed shape anyway. Cartographer Vesna notes every turn as the party walks, and those notes are what let you find the way again. Have the Astral draft its own record, then walk it yourself to see whether it holds.
+A plank gives way behind your Astral on the boardwalk. Its account of what it did is plausible, and the marsh has shifted shape anyway. Cartographer Vesna notes every turn as the party walks, and those notes are what let you find the way again. Have the Astral draft its own record, then walk it yourself to see whether it holds.
 :::
 
 ::: {.quest-dialog}

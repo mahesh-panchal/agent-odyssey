@@ -169,7 +169,7 @@ No model needed. For each mock job, write down a model (Haiku, Sonnet, Opus or F
 - [Turn Mistakes into Tests](../instructions-skills-and-hooks/turn-mistakes-into-tests.html): give the agent something to check its work against.
 - [Test the Skill](../instructions-skills-and-hooks/test-the-skill.html): compare behaviour with and without a change.
 - [Ground Truth](../checking-output/ground-truth.html): check an answer against an independent source.
-- [When to Start Fresh](../prompts-and-context/when-to-start-fresh.html): compacting and fresh sessions.
+- [Spend Fewer Tokens](../prompts-and-context/spend-fewer-tokens.html): compacting, the cache and other ways to cut usage.
 - [Know Your Tools](know-your-tools.html): what `CLAUDE.md` is and how the tool loads it.
 :::
 

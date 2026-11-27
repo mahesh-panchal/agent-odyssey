@@ -3,7 +3,7 @@ title: "Review Agent-Written Work"
 ---
 
 ::: {.ao-story}
-Sooner or later the work comes back across the Reef to you, and it is your turn to be the reviewer. Diver Kai surfaces from the Blight-clouded water with a handful of changes and shows you where it hides: in work that sounds sure of itself, even when an Astral wrote it. A good reviewer is kind and exact, and neither tires nor hurries. Kai teaches you the code that keeps both the work and the author in good shape.
+Sooner or later the work comes back across the village to you, and it is your turn to be the reviewer. Diver Kai surfaces from the Blight-clouded water with a handful of changes and shows you where it hides: in work that sounds sure of itself, even when an Astral wrote it. A good reviewer is kind and exact, and neither tires nor hurries. Kai teaches you the code that keeps both the work and the author in good shape.
 :::
 
 ::: {.quest-dialog}

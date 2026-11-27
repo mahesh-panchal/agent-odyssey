@@ -3,13 +3,12 @@ title: "Connect an MCP Server"
 ---
 
 ::: {.ao-story}
-The party walks from the map to the Gatehouse, where Watchman Corin stands at a heavy door that opens onto the outside world. Whatever walks through acts with your keys, and someone has pinned a note to the door that your Astral reads aloud as if it were an order. Corin tells you what stands on the other side and how to check a visitor before you let it in. Learn that before you open the door.
-
+The party walks the length of the Row to the gate where Watchman Corin stands at a heavy door that opens onto the outside world. Whatever walks through acts with your keys, and someone has pinned a note to the door that your Astral reads aloud as if it were an order. Corin tells you what stands on the other side and how to check a visitor before you let it in. Learn that before you open the door.
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster Aris
+## Quartermaster Aris
 
-Guildmaster Aris asks who approved this door, and who holds the key.
+Quartermaster Aris asks who approved this door, and who holds the key.
 
 ## Diviner Ilsa
 

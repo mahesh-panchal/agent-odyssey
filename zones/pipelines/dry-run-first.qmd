@@ -5,13 +5,12 @@ aliases:
 ---
 
 ::: {.ao-story}
-Tinker Pell leads the party out of the tinkers' college in the Collegium and down the road to the Pipeline Factory. Conveyor belts hum across the floor, where Automata carry cargo along lines that an Astral wired overnight, proud and tired. One belt leads nowhere, and Pell says you cannot tell which by looking. Pell shows you the cheap test runs that reveal where each belt leads before any real cargo moves.
-
+Tinker Pell leads the party out of the tinkers' college in the Collegium and down the road to the Automata Factory. Conveyor belts hum across the floor, where Automata carry cargo along lines that an Astral wired overnight, proud and tired. One belt leads nowhere, and Pell says you cannot tell which by looking. Pell shows you the cheap test runs that reveal where each belt leads before any real cargo moves.
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster Aris
+## Quartermaster Aris
 
-Guildmaster Aris is glad a cheap run costs nothing from the budget.
+Quartermaster Aris is glad a cheap run costs nothing from the budget.
 
 ## Diviner Ilsa
 

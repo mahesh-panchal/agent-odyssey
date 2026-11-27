@@ -38,17 +38,16 @@ Each area of the map has one theme and one or more guides who teach it.
 
 | Area | Theme | Guide |
 |---|---|---|
-| Gaia's Rest | The tavern where you start: fears, and the tales of people the Blight caught | Wanderer Quill |
+| Gaia's Rest | The tavern at the foot of a great tree where you start: fears, and the tales of people the Blight caught | Wanderer Quill |
 | The Collegium | Understanding the creatures and the pact: the three kinds, the parts of a pact, what to hand over, installing your agent, choosing models | Sage Maelis; Tinker Pell; Beastmaster Wyn |
-| Ancient DNA Crypt | Wards: undo, permissions, the sandbox and secrets | Warden Hesper |
-| The Codon Mill | How an Astral reads: tokens, failures, the context window and memory | Miller Garrick; Scribe Linnea |
-| Sequence Maze | Trust: spotting false output, checking it and keeping a record | Cartographer Vesna |
-| Phylogenetic Forest | Instructing and packaging: briefs, plans, instruction files, skills, plugins and tests | Surveyor Rowan; Smith Dunmore; Hunter Cass |
-| The Gatehouse | Guards: connecting tools safely and enforcing rules in code | Watchman Corin |
-| Biodiversity Reef | People: the Blight festers here, and you help clean it up by handing over, reviewing and teaching | Tidewarden Nerys; Diver Kai; Net-mender Joss |
-| Pipeline Factory | Craft: agents on pipelines, and reproducibility | Tinker Pell |
-| The Cluster Citadel | Shared ground: clusters, keys and other people's queues | Gatekeeper Brisa; Queue Master Fenn |
-| The Murk's Heart | The final boss: review one messy session | Sage Maelis |
+| Adventurers' Training Grounds | Undo, permissions, the sandbox, secrets and plans | Warden Hesper |
+| The Quern Mill | How an Astral reads: tokens, failures, the context window, briefs and sessions | Miller Garrick; Scribe Linnea |
+| Artisans' Row | The guilds: instruction files, Skills, MCP servers, hooks and evals | Hallmaster Cass; Surveyor Rowan; Smith Dunmore; Watchman Corin |
+| The Swamp of Illusions | Trust: spotting false output, checking it and keeping a record | Cartographer Vesna |
+| Tidewrack | People: the Blight festers here, and you help clean it up by handing over and reviewing | Tidewarden Nerys; Diver Kai; Net-mender Joss |
+| The Automata Factory | Agents on pipelines, and reproducibility | Tinker Pell |
+| Haven Quay | Clusters, keys and other people's queues | Gatekeeper Brisa; Queue Master Fenn |
+| The Cave Beneath the Reef | The finale: review one messy session | Sage Maelis |
 :::
 
 ## How it works

@@ -14,13 +14,13 @@ Four travellers share the long table. Choose the one closest to your own work: t
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster Aris
+## Quartermaster Aris
 
-![](assets/img/persona-guildmaster.png){.ao-persona-img fig-alt="Pixel-art portrait of Guildmaster Aris: a figure in a green robe with a gold chain of office, holding a ledger and a glowing milestone beacon."}
+![](assets/img/persona-quartermaster.png){.ao-persona-img fig-alt="Pixel-art portrait of Quartermaster Aris: a figure in a green robe with a gold chain of office, holding a ledger and a glowing milestone beacon."}
 
-**Research or project manager.** Guildmaster Aris keeps the ledgers, lights the milestone beacons and rations the budget. Their guild runs on deadlines, and a pact promises roadmaps and status reports without waiting on anyone. They have watched a flawless-looking demo turn out to be nothing of the kind, so they know the difference between "it ran" and "it is done".
+**Research or project manager.** Quartermaster Aris keeps the ledgers, lights the milestone beacons and rations the budget. Their stores run on deadlines, and a pact promises roadmaps and status reports without waiting on anyone. They have watched a flawless-looking demo turn out to be nothing of the kind, so they know the difference between "it ran" and "it is done".
 
-*Where your discipline matters most:* the Gatehouse and the Cluster Citadel.
+*Where your discipline matters most:* Artisans' Row and Haven Quay.
 
 ## Diviner Ilsa
 
@@ -28,7 +28,7 @@ Four travellers share the long table. Choose the one closest to your own work: t
 
 **Bioinformatics analyst.** Diviner Ilsa reads the signal in noisy data with trained hounds and a lens for ground truth: reference databases and controls. A pact offers literature summaries and analysis scripts in minutes. Diviner Ilsa knows how a fluent, flattering explanation can lead a tired mind to a conclusion that the primary sources never supported.
 
-*Where your discipline matters most:* the Ancient DNA Crypt, the Sequence Maze and the Phylogenetic Forest.
+*Where your discipline matters most:* the Adventurers' Training Grounds, the Swamp of Illusions and Artisans' Row.
 
 ## Artificer Bob
 
@@ -36,7 +36,7 @@ Four travellers share the long table. Choose the one closest to your own work: t
 
 **Bioinformatics engineer.** Artificer Bob builds with Automata: scripts, pipelines and containers that do exactly what they were built to do. A pact could draft a workflow and its tests before the kettle boils. Artificer Bob has inherited a pile of code that nobody could explain, and will not add to it.
 
-*Where your discipline matters most:* the Codon Mill, the Sequence Maze and the Pipeline Factory.
+*Where your discipline matters most:* the Quern Mill, the Swamp of Illusions and the Automata Factory.
 
 ## Archivist Elowen
 
@@ -44,7 +44,7 @@ Four travellers share the long table. Choose the one closest to your own work: t
 
 **Data steward.** Archivist Elowen guards the vaults: raw data, checksums, ontologies and the metadata that makes a dataset findable. A pact can tidy a messy sample sheet in a moment. Archivist Elowen knows the danger of a tidy table whose missing values were quietly invented, and keeps a ledger of every change.
 
-*Where your discipline matters most:* the Gatehouse and the Biodiversity Reef.
+*Where your discipline matters most:* Artisans' Row and Tidewrack.
 
 :::
 
@@ -59,16 +59,19 @@ Read [Background](background.qmd) for how the course is laid out and what each a
 <details class="ao-textlist"><summary>Text-only list of zones</summary>
 
 - [Background (the story names, the areas and your path)](background.qmd)
-- [Gaia's Rest](zones/worries/name-the-fears.qmd): the tavern where you start: fears, and the tales of people the Blight caught
-- [The Collegium](zones/agents-and-models/set-up-your-agent.qmd): understanding the creatures and the pact: the three kinds, the parts of a pact, what to hand over, installing your agent and choosing models
-- [Ancient DNA Crypt](zones/safe-editing/save-point.qmd): wards: undo, permissions, the sandbox and secrets
-- [The Codon Mill](zones/prompts-and-context/tokens-not-letters.qmd): how an Astral reads: tokens, failures, the context window and memory
-- [Sequence Maze](zones/checking-output/spot-hallucinations.qmd): trust: spotting false output, checking it and keeping a record
-- [Phylogenetic Forest](zones/prompts-and-context/write-the-brief.qmd): instructing and packaging: briefs, plans, instruction files, skills, plugins and tests
-- [The Gatehouse](zones/instructions-skills-and-hooks/connect-an-mcp-server.qmd): guards: connecting tools safely and enforcing rules in code
-- [Biodiversity Reef](zones/collaboration/send-small-changes.qmd): people: the Blight festers here, and you help clean it up by handing over, reviewing and teaching
-- [Pipeline Factory](zones/pipelines/dry-run-first.qmd): craft: agents on pipelines, and reproducibility
-- [The Cluster Citadel](zones/shared-clusters/login-node-manners.qmd): shared ground: clusters, keys and other people's queues
+- [Gaia's Rest](zones/worries/name-the-fears.qmd): the tavern at the foot of the great tree where you start: fears, and the tales of people the Blight caught
+- [The Collegium](zones/agents-and-models/script-model-or-llm.qmd): understanding the creatures and the pact: the three kinds, the parts of a pact and what to hand over
+- [Adventurers' Training Grounds](zones/safe-editing/save-point.qmd): undo, permissions, the sandbox, secrets and plans
+- [The Collegium (continued)](zones/agents-and-models/set-up-your-agent.qmd): installing your agent and choosing models
+- [Adventurers' Training Grounds (continued)](zones/safe-editing/test-permissions-and-the-sandbox.qmd): testing permissions and the sandbox, rules and secrets
+- [The Quern Mill](zones/prompts-and-context/tokens-not-letters.qmd): how an Astral reads: tokens, failures, the context window, briefs and sessions
+- [Artisans' Row: the Guild Hall](zones/instructions-skills-and-hooks/meet-the-guilds.qmd): what the Skills, MCP and hooks guilds do
+- [The Swamp of Illusions](zones/checking-output/spot-hallucinations.qmd): trust: spotting false output, checking it and keeping a record
+- [Artisans' Row: the apprenticeship (continued)](zones/instructions-skills-and-hooks/write-an-instructions-file.qmd): instruction files, Skills, evals and hooks
+- [Tidewrack](zones/collaboration/send-small-changes.qmd): people: the Blight festers here, and you help clean it up by handing over and reviewing
+- [The Automata Factory (side quests)](zones/pipelines/dry-run-first.qmd): agents on pipelines, and reproducibility
+- [Haven Quay (side quests)](zones/shared-clusters/login-node-manners.qmd): shared clusters, keys and other people's queues
+- [The Cave Beneath the Reef (finale)](zones/final-review/review-a-messy-session.qmd): review one messy session
 - [Character sheet](character.qmd)
 - [Lore library](lore.qmd)
 - [Claude Code docs overview](https://code.claude.com/docs/en/overview) (external: explore more than this course covers)

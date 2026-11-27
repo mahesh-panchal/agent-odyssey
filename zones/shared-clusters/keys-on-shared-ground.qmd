@@ -3,7 +3,7 @@ title: "Keys on Shared Ground"
 ---
 
 ::: {.ao-story}
-Your home directory lies on ground that hundreds of others can reach, and Gatekeeper Brisa has seen what lies there in plain files: keys, tokens and settings. Your Astral trots through them as if the ground were its own. Brisa points out how many passers-by there are. Before it works here, find out who can read what it leaves behind.
+Your cargo sits in a warehouse that hundreds of others can reach, and Gatekeeper Brisa has seen what lies there in plain crates: keys, tokens and settings. Your Astral trots through them as if the warehouse were its own. Brisa points out how many passers-by there are. Before it works here, find out who can read what it leaves behind.
 :::
 
 ::: {.quest-dialog}

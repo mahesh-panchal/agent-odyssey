@@ -1,0 +1,56 @@
+questions:
+  - type: choice
+    prompt: "Late in a long session you ask a one-line question, and it still uses a large share of your allowance. Why?"
+    explain: "Claude Code sends the whole conversation with every request. Caching makes the re-read cheaper, and the history still draws on your usage."
+    options:
+      - { text: "The whole conversation is sent again with every request, so the history counts each time", correct: true }
+      - { text: "Short questions are billed at a higher rate than long ones", misconception: "Usage follows the tokens sent, and the history makes up most of them." }
+      - { text: "The model has to retrain on the conversation before it answers", misconception: "Nothing is retrained. The model re-reads the history on each request." }
+  - type: sort
+    prompt: "Sort these by what they do to your usage over a working day."
+    bins: ["Keeps usage down", "Pushes usage up"]
+    explain: "Usage follows what sits in the conversation and in the starting load, because all of it is re-read on every request."
+    items:
+      - { text: "Running /clear between unrelated tasks", bin: "Keeps usage down", misconception: "A new conversation stops the old tasks being re-read on every turn." }
+      - { text: "Asking for only the last 20 lines of a log", bin: "Keeps usage down", misconception: "The full log never enters the conversation, so it is not re-read." }
+      - { text: "Disabling a tool server you are not using", bin: "Keeps usage down", misconception: "Fewer tool names and server instructions load into every session." }
+      - { text: "Reading a 10,000-line log into the main conversation", bin: "Pushes usage up", misconception: "Tool output stays in the conversation and is re-read on every later request." }
+      - { text: "Doing a fourth unrelated task in a session that already holds three", bin: "Pushes usage up", misconception: "All three earlier tasks are re-read on every turn of the fourth." }
+      - { text: "Leaving ten tool servers enabled in case you need them", bin: "Pushes usage up", misconception: "Their names and instructions load into the window whether you use them or not." }
+  - type: choice
+    prompt: "You use an API key. You step away for 20 minutes from a long session, then type your next message. What happens?"
+    explain: "With an API key the main-conversation cache lasts five minutes. After it expires, the next request re-processes the whole history at full price."
+    options:
+      - { text: "The cache has expired, so the whole history is re-processed at full price", correct: true }
+      - { text: "Nothing changes, because the cache never expires", misconception: "Cache entries expire after a period of inactivity. With an API key that is five minutes." }
+      - { text: "The conversation is deleted and you start again with nothing", misconception: "The conversation is still there. Only the cheap re-read has been lost." }
+  - type: choice
+    prompt: "Halfway through a task you switch model with /model. What follows?"
+    explain: "Each model has its own cache, so the next request reads the whole conversation with no cache hits, even though the text is the same."
+    options:
+      - { text: "The next request reads the whole history with no cache hits", correct: true }
+      - { text: "Nothing, because the cache is shared by all models", misconception: "Each model has its own cache." }
+      - { text: "The conversation is compacted automatically", misconception: "Switching model does not summarise anything." }
+  - type: match
+    prompt: "Match each command to what it does."
+    explain: "Four commands cover the habits: start clean, summarise on purpose, see what fills the window, and read your usage."
+    pairs:
+      - { left: "/clear", right: "Starts a new conversation so old history stops being re-sent", misconception: "It starts a new conversation. It does not summarise the old one." }
+      - { left: "/compact with a focus note", right: "Replaces the history with a summary that keeps what you name", misconception: "It keeps the same conversation and shortens it. The note says what the summary should keep." }
+      - { left: "/context", right: "Shows what is filling the window right now", misconception: "It reports the window. The cost and plan limits are on the /usage screen." }
+      - { left: "/usage", right: "Shows session token use and your plan limits", misconception: "It reads your usage. It does not change the window." }
+  - type: choice
+    prompt: "You ask a subagent to read a large log and report back with a summary. What is true?"
+    explain: "The verbose output stays in the subagent's context, so your main conversation stays small. The subagent's own requests still count toward your usage."
+    options:
+      - { text: "Your main conversation stays small, and the subagent's requests still count toward usage", correct: true }
+      - { text: "The work costs nothing, because it happens outside your session", misconception: "A subagent sends its own requests, and they draw on your usage." }
+      - { text: "The full log is added to your main conversation as well", misconception: "Only the summary comes back to the main conversation." }
+  - type: order
+    prompt: "Put these steps in order for trimming what a session starts with."
+    explain: "Measure the starting load, choose one change that targets the biggest item, make it, then measure the new session to see whether it worked."
+    items:
+      - "Run /context in a session and note the biggest starting item"
+      - "Choose one habit that targets that item"
+      - "Make the change, for example disable an unused tool server"
+      - "Run /context in a new session and compare the starting load"

@@ -3,13 +3,12 @@ title: "Spot Hallucinations"
 ---
 
 ::: {.ao-story}
-The road from the Codon Mill turns into the Sequence Maze, and at its mouth Cartographer Vesna unrolls a map crossed with struck-out corridors. The maze walls shimmer. Some corridors are real, and some are mirages: passages that look exactly right and lead nowhere, and an Astral strides toward the nearest one without a doubt. Vesna tells them apart by walking them, and marks each one in the notes. Learn what a false corridor looks like, and how to test one.
-
+Hallmaster Cass sends you from the Guild Hall down the road to the Swamp of Illusions, where Cartographer Vesna unrolls a map crossed with struck-out paths. Marsh gas drifts over the water and casts the light in strange ways. Some paths are real, and some are illusions: they look exactly right and lead nowhere, and an Astral strides toward the nearest one without a doubt. Vesna tells them apart by walking them, and marks each one in her notes. Learn what a false path looks like, and how to test one.
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster Aris
+## Quartermaster Aris
 
-Guildmaster Aris has seen a flawless demo vanish when asked for its sources.
+Quartermaster Aris has seen a flawless demo vanish when asked for its sources.
 
 ## Diviner Ilsa
 

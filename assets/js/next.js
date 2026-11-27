@@ -4,20 +4,27 @@
   var FINALE = null, base = window.AO_BASE || "./";
   function esc(t) { var d = document.createElement("div"); d.textContent = t == null ? "" : t; return d.innerHTML; }
   function passed(id) { return !!(AO.state && AO.state.passed && AO.state.passed[id]); }
+  function ico(q) { return q && q.trunk ? "<span class='ao-ico' title='Trunk quest' aria-label='Trunk quest'>◆</span> " : "<span class='ao-ico ao-ico-side' title='Side quest' aria-label='Side quest'>◇</span> "; }
+  function walk(G, ids) {   // walk order: trunk quests in trunk order, each side quest just after the trunk quest it hangs off
+    var T = G.trunk_order || [];
+    function at(k, n) { var q = G.quests[k]; if (!q) return T.length; var i = T.indexOf(k); if (i >= 0) return i; return n > 8 || !q.after.length ? T.length : at(q.after[0], n + 1) + 0.5; }
+    return ids.slice().sort(function (a, b) { return at(a, 0) - at(b, 0) || ids.indexOf(a) - ids.indexOf(b); });
+  }
   function link(q) {
-    return "<li>" + (passed(q.id) ? "<span class='ao-mark'>✔</span> " : "") + "<a href='" + base + q.page + "'>" + esc(q.title) + "</a></li>";
+    return "<li>" + (passed(q.id) ? "<span class='ao-mark'>✔</span> " : "") + ico(q) + "<a href='" + base + q.page + "'>" + esc(q.title) + "</a></li>";
   }
   function here(G, P, quest) {   // this location's quests: finished ones folded away, the next open one highlighted
     var ids = Object.keys(G.quests).filter(function (k) { return G.quests[k].gate === G.quests[quest.id].gate; });
     if (ids.length < 2) return "";
+    ids = walk(G, ids);
     var done = ids.filter(passed), left = ids.filter(function (k) { return !passed(k); });
     var focus = left.filter(function (k) { return k !== quest.id && P.status(k) === "ready"; })[0];
-    var item = function (k) { var q = P.quest(k) || G.quests[k]; return "<li" + (k === focus ? " class='ao-here-next'" : "") + ">" + (k === focus ? "<strong>➜ " : "") + "<a href='" + base + q.page + "'" + (k === quest.id ? " aria-current='page'" : "") + ">" + esc(q.title) + "</a>" + (k === focus ? "</strong>" : "") + (k === quest.id ? " (this page)" : "") + "</li>"; };
+    var item = function (k) { var q = P.quest(k) || G.quests[k]; return "<li" + (k === focus ? " class='ao-here-next'" : "") + ">" + (k === focus ? "<strong>➜ " : "") + ico(q) + "<a href='" + base + q.page + "'" + (k === quest.id ? " aria-current='page'" : "") + ">" + esc(q.title) + "</a>" + (k === focus ? "</strong>" : "") + (k === quest.id ? " (this page)" : "") + "</li>"; };
     var h = "<h3>In this location (" + done.length + " of " + ids.length + " cleared)</h3>";
     h += "<div class='ao-minimap' data-gate='" + G.quests[quest.id].gate + "' data-current='" + quest.id + "'></div>";
     h += "<details class='ao-here-text'><summary>This location as a list</summary>";
     if (left.length) h += "<ul class='ao-here'>" + left.map(item).join("") + "</ul>";
-    if (done.length) h += "<details class='ao-here-done'><summary>Cleared here (" + done.length + ")</summary><ul>" + done.map(function (k) { var q = P.quest(k) || G.quests[k]; return "<li><span class='ao-mark'>✔</span> <a href='" + base + q.page + "'>" + esc(q.title) + "</a></li>"; }).join("") + "</ul></details>";
+    if (done.length) h += "<details class='ao-here-done'><summary>Cleared here (" + done.length + ")</summary><ul>" + done.map(function (k) { var q = P.quest(k) || G.quests[k]; return "<li><span class='ao-mark'>✔</span> " + ico(q) + "<a href='" + base + q.page + "'>" + esc(q.title) + "</a></li>"; }).join("") + "</ul></details>";
     return h + "</details>";
   }
   function list(title, qs) { return qs.length ? "<h3>" + title + "</h3><ul>" + qs.map(link).join("") + "</ul>" : ""; }
@@ -61,12 +68,12 @@
         if (last) {
           var r = P.remainingForFinale(), n = r.branchesNeeded;
           h += "<p>You have reached the end of the trunk. Pick the branches that match your work. " +
-            (P.finaleUnlocked() ? "The Murk's Heart is open." : n ? "Finish " + n + " more branch" + (n === 1 ? "" : "es") + " to open the Murk's Heart." : "Finish the rest of the trunk to open the Murk's Heart.") + "</p>";
+            (P.finaleUnlocked() ? "The cave beneath the reef is open." : n ? "Finish " + n + " more branch" + (n === 1 ? "" : "es") + " to open the cave beneath the reef." : "Finish the rest of the trunk to open the cave beneath the reef.") + "</p>";
         }
       } else if (!passed(FINALE)) {
         h += "<p>This is the last stop. Everything else stays open to revisit.</p>";
       } else {
-        h += "<p>The Murk is cleared. Every quest stays open to revisit.</p>";
+        h += "<p>The monster beneath the reef is overcome. Every quest stays open to revisit.</p>";
       }
       h += "<p class='ao-soft'><a href='" + base + "background.html'>Your path</a> · <a href='" + base + "index.html'>Start Here (map)</a></p>";
       block.innerHTML = h;
@@ -77,7 +84,7 @@
 
     function paintSeal() {
       if (P.finaleUnlocked() || passed(FINALE)) { notice.hidden = true; notice.innerHTML = ""; return; }
-      var r = P.remainingForFinale(), h = "<p><strong>The Murk's Heart is still sealed.</strong> The path suggests finishing these first. You can read on if you like.</p><ul>";
+      var r = P.remainingForFinale(), h = "<p><strong>The cave beneath the reef is still sealed.</strong> The path suggests finishing these first. You can read on if you like.</p><ul>";
       r.trunk.forEach(function (q) { h += "<li>Trunk: <a href='" + base + q.page + "'>" + esc(q.title) + "</a></li>"; });
       if (r.branchesNeeded) h += "<li>Finish " + r.branchesNeeded + " more branch" + (r.branchesNeeded === 1 ? "" : "es") + ". See <a href='" + base + "background.html'>Background</a>.</li>";
       notice.innerHTML = h + "</ul>"; notice.hidden = false;

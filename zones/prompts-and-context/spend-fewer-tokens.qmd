@@ -1,0 +1,112 @@
+---
+title: "Spend Fewer Tokens"
+---
+
+::: {.ao-story}
+You walk back to the mill, where Miller Garrick keeps a ledger of what each visit costs. The grain your Astral eats grows with every sack in the hopper, and some visits run the larder dry before noon. Garrick keeps a few habits on the wall that feed the Astral less and still bring in the flour. Learn them, and which visits are worth the price.
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will say why usage climbs through a session, apply the habits that keep it down, and read your own usage to check they worked.
+- **Before you start:** [The Context Window](the-context-window.html). A token is a chunk of text the model reads, and the context window is everything the model can see when it writes its next output. Commands here are Claude Code commands.
+- **Time:** about 20 minutes.
+:::
+
+A plan gives you a fixed allowance, and a long session can spend a day's worth before lunch. You will be able to see where the allowance goes and cut the biggest items. You need this now because every later quest runs in a session that these habits keep small.
+
+Session usage (how much of your allowance a session consumes) counts against plan limits with a subscription. With an API key it is billed per token, and a thinking token, which the model spends reasoning before it answers, counts as an output token.
+
+## Why usage climbs
+
+Claude Code (a coding agent that runs in your terminal) sends the whole conversation with every request. Each tool use is another request that carries the same history plus the new tool result. A one-line question late in a long session therefore draws on everything before it.
+
+- **Long history:** every earlier message and tool result is re-read on each request.
+- **Large tool output:** a 10,000-line log read into the conversation stays there, and is re-read on every later request.
+- **Subagents:** a subagent (a helper agent with its own context window) sends its own requests on top of yours.
+- **Compaction:** `/compact` (replace the history with a summary) reads the whole conversation to write the summary, so compacting a large context is itself a large request.
+- **A cold cache:** the first message after a long break re-processes the full context (next section).
+
+## The cache and the break
+
+The **prompt cache** is a short-term store on the server. Each request starts with the same text as the one before it, so the server re-reads that start at a cheaper rate and fully processes only what is new. Cache entries expire after a period of inactivity.
+
+| Where the request is billed | Main-conversation cache lifetime |
+|---|---|
+| Claude subscription, within plan usage | One hour |
+| API key, usage credits or a cloud provider | Five minutes |
+
+After the lifetime passes, your next message re-processes the whole history at full price. A long break in a long session can cost more than the work after it.
+
+Some actions also empty the cache, because each model has its own cache and the match must start at the beginning of the request:
+
+- Switching model with `/model` (the next request reads the whole history with no cache hits).
+- Changing effort level, on models where each level has its own cache.
+- Connecting or removing an MCP server, enabling or disabling a plugin, or compacting.
+
+Pick your model and effort at the start of a session, and save `/compact` for a natural break between tasks. While the cache is warm, a `/compact` costs a fraction of what the context size suggests. After a break longer than the cache lifetime, it costs the most.
+
+## Habits that keep usage down
+
+1. **Clear between unrelated tasks.** `/clear` starts a new conversation and costs nothing. A session that holds three unrelated tasks re-reads all three on every turn of the fourth. Run `/rename` first if you want to find the old session again.
+2. **Write specific prompts.** "Add input validation to the `load_samples` function in `qc.py`" lets the agent read one file. "Improve this code" sends it scanning.
+3. **Keep outputs small.** Ask for the last 20 lines of a log, a count, or a pass or fail summary, so the full text never enters the conversation.
+4. **Compact on purpose.** `/compact` with a focus note, as in `/compact keep the failing sample IDs and the fix we chose`, tells the summary what to keep. Do it at a break between tasks.
+5. **Trim what loads.** Run `/context` to see what fills the window. Disable tool servers you are not using (`/mcp` lists them), and keep `CLAUDE.md` (the instructions file) under about 200 lines.
+6. **Delegate bulk reading.** Ask for a subagent to read a large log or document and return a summary. The verbose text stays in its context. Its requests still count toward your usage, and a smaller model for a simple subagent lowers that cost.
+7. **Match model and effort to the job.** A smaller model, or a lower effort level (how long the model reasons), costs less for simple tasks.
+
+## Measure it
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+1. Run `/usage`. Under **Session** it shows tokens and an estimated cost, worked out locally at list price. That total resets on `/clear`.
+2. With a subscription, read the plan usage bars and the breakdown below them. The breakdown recommends a change for any behaviour behind 10% or more of your recent usage. If your plan shows no bars, your plan reports no limits there.
+3. Newer versions add a **Prompt cache** line to the Session block. It shows the share of input read from cache and whether the cache is warm or cold. If it is missing, your version is older.
+4. Run `/context` for what fills the window right now.
+
+If `/usage` says "rate limited until ...", Claude Code could not fetch your plan limits. Your work is not limited.
+
+## OpenCode + Ollama
+
+A local Ollama model has no per-token bill, and its window is still finite. Run `ollama ps` while the model is loaded: **CONTEXT** is the window the server set aside, and **SIZE** is the memory it uses. Habits 1 to 3 and 6 apply to any tool. OpenCode sets automatic compaction under `compaction` in `opencode.jsonc` (`auto`, `keep.tokens` and `buffer`). Run `/help` in OpenCode to see your version's commands for starting a new session and compacting.
+
+:::
+
+## Hands-on: one habit, measured
+
+1. In a session you already have, run `/usage` and `/context`. Write down the biggest item in each.
+2. Pick one habit above that targets it. Examples: disable an unused tool server, shorten `CLAUDE.md`, or `/clear` before an unrelated task.
+3. Do your next task with that habit. Then run `/context` in the fresh or trimmed session and compare the starting load.
+
+## Battle: spend fewer tokens
+
+<div data-ao-test="prompts-and-context-spend-fewer-tokens" data-xp="50"></div>
+
+## Bonus
+
+<div data-ao-honour="usage-note" data-xp="20">Run <code>/usage</code> at the end of a working session and write one line: which of long history, large outputs or subagents did the most?</div>
+<div data-ao-honour="trim-one" data-xp="20">Remove one thing from your starting load (a tool server, a long block in the instructions file) and check the new size with <code>/context</code>.</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [The Context Window](the-context-window.html): what fills the window and what compaction keeps.
+- [Tokens, Not Letters](tokens-not-letters.html): what a token is and why the count changes between models.
+- [Carry Context Between Sessions](carry-context-between-sessions.html): when to start a new session, and what to write down first.
+- [Park Ideas for Later](park-ideas-for-later.html): keep side ideas out of the conversation.
+- [Pick Your Model](../agents-and-models/pick-your-model.html): choose model and effort on purpose.
+- [Too Many Tools, Too Many Agents](../instructions-skills-and-hooks/too-many-tools-too-many-agents.html): what a long tool list costs in context.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [Manage costs effectively](https://code.claude.com/docs/en/costs): Anthropic, docs. Why read: it explains how `/usage` reads, why usage climbs in a long session and which habits cut it.
+- [How Claude Code uses prompt caching](https://code.claude.com/docs/en/prompt-caching): Anthropic, docs. Why read: it lists the cache lifetimes, the actions that empty the cache and what `/compact` costs warm and cold.
+- [Explore the context window](https://code.claude.com/docs/en/context-window): Anthropic, docs. Why read: a walk through what loads before you type and what survives compaction.
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: it explains why a smaller, curated context gives better answers as well as lower cost.
+:::

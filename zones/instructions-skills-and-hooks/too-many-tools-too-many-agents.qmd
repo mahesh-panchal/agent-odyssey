@@ -3,7 +3,7 @@ title: "Too Many Tools, Too Many Agents"
 ---
 
 ::: {.ao-story}
-The wall of the mill is hung with every tool anyone ever made, and the boasters say a good pact carries them all. You tried it, and the Astral staggered out under so much iron that it could not find the one it needed. Miller Garrick picks three and leaves the rest on their hooks. Garrick also asks a harder question: does this job need a crew of creatures at all? Count what each tool costs before you carry it.
+The wall of the Guild Hall is hung with every tool anyone ever made, and the boasters say a good pact carries them all. You tried it, and the Astral staggered out under so much iron that it could not find the one it needed. Hallmaster Cass picks three and leaves the rest on their hooks. Cass also asks a harder question: does this job need a crew of creatures at all? Count what each tool costs before you carry it.
 :::
 
 ::: {.quest-dialog}
@@ -67,7 +67,7 @@ Start with one agent, measure it, and add agents only for work that splits into 
 ## Related lessons
 
 - [Connect an MCP Server](connect-an-mcp-server.html): for more on connecting an MCP server and choosing which to keep.
-- [When to Start Fresh](../prompts-and-context/when-to-start-fresh.html): how the cache, compacting and clearing affect cost.
+- [Spend Fewer Tokens](../prompts-and-context/spend-fewer-tokens.html): how the cache, compacting and clearing affect cost.
 - [The Context Window](../prompts-and-context/the-context-window.html): what the window holds and how definitions compete for it.
 - [Which Instructions Apply](../prompts-and-context/which-instructions-apply.html): which text in the window comes from you and which from the tool.
 :::

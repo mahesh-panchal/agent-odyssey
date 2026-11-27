@@ -3,7 +3,7 @@ title: "Jobs, Not Jam"
 ---
 
 ::: {.ao-story}
-Inside the Citadel, Queue Master Fenn hands out places in line, one for each job. Your Astral, eager to please, takes a place for every idea it has, until the line is jammed with its errands and the other travellers glare at you. Fenn says a creature that submits freely can fill every place, and one that cancels freely can ruin a day's work. Decide which of these tasks it may do alone and which need your nod.
+On the quay, Queue Master Fenn hands out berths in the line, one for each job. Your Astral, eager to please, takes a berth for every idea it has, until the harbour is jammed with its errands and the other travellers glare at you. Fenn says a creature that submits freely can fill every berth, and one that cancels freely can ruin a day's work. Decide which of these tasks it may do alone and which need your nod.
 :::
 
 ::: {.quest-dialog}

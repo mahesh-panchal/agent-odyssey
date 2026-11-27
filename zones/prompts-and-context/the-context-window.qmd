@@ -3,7 +3,7 @@ title: "The Context Window"
 ---
 
 ::: {.ao-story}
-Miller Garrick shows you the great hopper above the mill, which holds everything an Astral can see at once. You watch yours work, quick and willing, while the grain piles up around it. Pour in too much and the oldest grain spills out unseen, and the Astral never knows what it lost. Learn what goes into the hopper and how to keep it clean. Beyond this stop the road turns toward the Maze, where you learn to check what a creature tells you.
+Miller Garrick shows you the great hopper above the mill, which holds everything an Astral can see at once. You watch yours work, quick and willing, while the grain piles up around it. Pour in too much and the oldest grain spills out unseen, and the Astral never knows what it lost. Learn what goes into the hopper and how to keep it clean.
 :::
 
 ::: {.quest-dialog}
@@ -106,10 +106,10 @@ An agent a session starts for you can start large. A subagent started from a bri
 ::: {.ao-related}
 ## Related lessons
 
-- [Memory, Sessions and Usage](memory-sessions-and-usage.html): for more on what loads into every session, and how usage grows with context.
-- [When to Start Fresh](when-to-start-fresh.html): when to clear and when to continue.
+- [Spend Fewer Tokens](spend-fewer-tokens.html): how usage grows with context, and habits that keep it down.
+- [Carry Context Between Sessions](carry-context-between-sessions.html): what loads into every session, and when to clear and when to continue.
 - [Which Instructions Apply](which-instructions-apply.html): the system prompt, the instructions file and your own message, and which one only advises.
-- [Handoff Notes](handoff-notes.html): carry a task across a new session in a short written note.
+- [Park Ideas for Later](park-ideas-for-later.html): keep new ideas out of the window until a later session.
 :::
 
 ::: {.ao-lore}

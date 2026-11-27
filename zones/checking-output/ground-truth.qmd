@@ -3,7 +3,7 @@ title: "Ground Truth"
 ---
 
 ::: {.ao-story}
-A script glows in the maze and claims to have been tested, and the Astral that wrote it swears it works. Cartographer Vesna does not take its word. Vesna keeps a lantern, a measurement the script did not make, and checks every claim against it. Light it and see whether the script is telling the truth.
+A script glows in the marsh light and claims to have been tested, and the Astral that wrote it swears it works. Cartographer Vesna does not take its word. Vesna keeps a lantern whose light does not waver, a measurement the script did not make, and checks every claim against it. Light it and see whether the script is telling the truth.
 :::
 
 ::: {.quest-dialog}

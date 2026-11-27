@@ -3,13 +3,12 @@ title: "Boss: Review a Messy Session"
 ---
 
 ::: {.ao-story}
-You walk to the centre of the land from the map, with the whole trunk and three branches behind you. There the Murk has gathered into one dark knot: every unchecked answer you met on the way, pressed together, and the Astral at your side has begun to half believe it. Sage Maelis returns, and this is the Blight she warned of. It hides in small things here, and each habit you learned has its use. Read one messy session closely and name what it gets wrong.
-
+Resting in Tidewrack, the party hears whispers of a monstrous entity in a sunken cavern beneath the reef, and presumes it a corrupted Astral poisoning the waters and radiating the Blight across the realm. Sage Maelis joins you at the cave mouth, and drawing on the disciplines learned along the road, you descend into the grotto, where the monster attacks and tries to drown you in unverified work. The battle is long and hard, but the party overcomes the monster, only to realise it was an Astral left free without bounds, and that the Blight will never truly go away as long as people are careless and abandon their Shokanju. Its last session lies in the mud.  Read it closely and name what it got wrong.
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster Aris
+## Quartermaster Aris
 
-Guildmaster Aris stands ready to sign off, or to refuse.
+Quartermaster Aris stands ready to sign off, or to refuse.
 
 ## Diviner Ilsa
 

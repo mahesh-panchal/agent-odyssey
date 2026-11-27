@@ -3,13 +3,12 @@ title: "Tokens, Not Letters"
 ---
 
 ::: {.ao-story}
-You leave the Crypt and cross the fields to the Codon Mill, where Miller Garrick turns the wheel before an Astral reads a single word, and everything fed to it comes out as small chunks. A boaster from Gaia's Rest swore an Astral reads letter by letter, so you handed it a sequence and asked it to count the Gs. It named a number with great pride, and the number was wrong. You carry sequences where every letter counts, so Garrick shows you what the mill does to them.
-
+You leave the training grounds and cross the fields to the Quern Mill, where Miller Garrick turns the wheel before an Astral reads a single word, and everything fed to it comes out as small chunks. A boaster from Gaia's Rest swore an Astral reads letter by letter, so you handed it a sequence and asked it to count the Gs. It named a number with great pride, and the number was wrong. You carry sequences where every letter counts, so Garrick shows you what the mill does to them.
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster Aris
+## Quartermaster Aris
 
-Guildmaster Aris notes that the bill is counted in tokens, and starts a budget line.
+Quartermaster Aris notes that the bill is counted in tokens, and starts a budget line.
 
 ## Diviner Ilsa
 
@@ -84,7 +83,7 @@ Take this mock line: `>read1 ACGTTGCAAGGCTTAGGCCATTAGC`. Count the letters yours
 
 - [The Context Window](the-context-window.html): for more on the window whose size is counted in tokens, and what fills it.
 - [Where Machines Fail](where-machines-fail.html): sort jobs into "ask the model" and "run a script", and meet the other ways a model fails.
-- [Memory, Sessions and Usage](memory-sessions-and-usage.html): how usage is counted in tokens across a session.
+- [Spend Fewer Tokens](spend-fewer-tokens.html): how usage is counted in tokens across a session.
 :::
 
 ::: {.ao-lore}

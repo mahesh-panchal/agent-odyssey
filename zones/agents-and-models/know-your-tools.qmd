@@ -189,7 +189,7 @@ These get mixed up more than any others.
 
 - [Tokens, Not Letters](../prompts-and-context/tokens-not-letters.html): what a token is and why limits and costs count in tokens.
 - [The Context Window](../prompts-and-context/the-context-window.html): what the model can see at once and how it fills up.
-- [Memory, Sessions and Usage](../prompts-and-context/memory-sessions-and-usage.html): what outlives a session and what a session costs.
+- [Spend Fewer Tokens](../prompts-and-context/spend-fewer-tokens.html): what a session costs and how to keep it down.
 - [Write a Skill](../instructions-skills-and-hooks/write-a-skill.html): write a `SKILL.md` of your own.
 - [Spot Hallucinations](../checking-output/spot-hallucinations.html): how plausible-but-false output looks and how to check it.
 :::

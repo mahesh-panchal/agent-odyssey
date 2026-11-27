@@ -63,7 +63,7 @@ Check OpenCode's documentation for which instruction file names it loads, and in
 ## Related lessons
 
 - [The Context Window](the-context-window.html): for more on what loads into the window before you type.
-- [Memory, Sessions and Usage](memory-sessions-and-usage.html): the instructions file and auto memory, side by side.
+- [Carry Context Between Sessions](carry-context-between-sessions.html): the instructions file and auto memory, and what a fresh session already has.
 - [Advice or Enforcement](../instructions-skills-and-hooks/advice-or-enforcement.html): when a hook or a rule enforces, and when text only asks.
 - [Write an Instructions File](../instructions-skills-and-hooks/write-an-instructions-file.html): write the instructions file for a real project.
 :::

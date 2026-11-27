@@ -9,6 +9,17 @@ questions:
       - { text: "Tried a trim at Q15, it dropped 40% of reads, do not retry", bin: "Handoff note", misconception: "This is the state of one task and tells the next session what not to repeat. A standing rule would apply to all work." }
       - { text: "a1b2c3d qc: vectorise the mean-quality calculation", bin: "Git history", misconception: "A commit message is stored with the commit, in the repository history, so it does not belong in a notes file." }
       - { text: "Next step: rerun the filter on batch 2 with the new threshold", bin: "Handoff note", misconception: "A next step is only true until it is done. A stable instructions file would soon be wrong if it held it." }
+  - type: sort
+    prompt: "Where would this page point you in each situation?"
+    bins: ["Start fresh", "Carry on"]
+    explain: "A new unrelated task, two failed corrections and a verified committed result all mean the conversation has done its job or is hurting. Same task, on track, or returning to a named session all need the history you already built."
+    items:
+      - { text: "You finish aligning samples and move to an unrelated question about a figure for a different project", bin: "Start fresh", misconception: "Old history is dead weight for the new task and can distract; clear between unrelated tasks." }
+      - { text: "The agent has repeated the same wrong claim after two corrections", bin: "Start fresh", misconception: "A third correction adds to two failed attempts the model keeps re-reading; clear and write one better prompt." }
+      - { text: "A task is done, the result has been checked, and it is committed", bin: "Start fresh", misconception: "The result lives in your files and git, so the conversation is no longer needed to hold it." }
+      - { text: "You are halfway through debugging one failing step and the agent is making progress", bin: "Carry on", misconception: "Clearing a working session discards good context, and nothing needs fixing." }
+      - { text: "Next step depends on reference-build decisions you made earlier in this same task", bin: "Carry on", misconception: "Those early decisions live only in the conversation; clearing would lose them unless written down." }
+      - { text: "You reopen a named session with /resume to finish the same piece of work", bin: "Carry on", misconception: "Resuming is the carry-on route: it restores the saved messages rather than starting empty." }
   - type: faulty-line
     prompt: "Lines from a handoff note written at the end of a session in which only sample_A was compared with the old output. Which line overstates what was verified?"
     explain: "A claim of verification must say what was run and on what. This line claims every sample matched but names no command and no sample, and only sample_A was compared. The next session would trust it and skip the check."
@@ -33,6 +44,14 @@ questions:
       - { text: "Read HANDOFF.md and then carry out the listed next steps in order", misconception: "If the note is misread, the error shows up only as wrong edits you must then find and undo; a restatement first catches it more cheaply." }
       - { text: "Continue where we stopped", misconception: "A fresh session has no history, so the agent has nothing to continue from and may invent it." }
       - { text: "Summarise what you remember of yesterday's session with me", misconception: "A fresh session has no copy of yesterday's session, so it can only guess." }
+  - type: choice
+    prompt: "A fresh session keeps using a wrong column name that you never typed. /memory lists a line with that name. What clears the problem?"
+    explain: "Auto memory loads again in every session, so clearing the conversation leaves the line in place. Open /memory, check the claim against the data, and delete the line."
+    options:
+      - { text: "Delete the line in /memory after checking it against the data", correct: true }
+      - { text: "Run /clear and carry on", misconception: "/clear drops the conversation, and memory loads again in the new session, so the wrong line returns." }
+      - { text: "Correct the agent in chat each time it appears", misconception: "Each fresh session loads the wrong line again, so you would repeat the correction forever." }
+      - { text: "Add a handoff note saying the name is wrong", misconception: "The memory line still loads, and the note adds a second statement for the agent to weigh against it." }
   - type: match
     prompt: "Match each risk to the habit that counters it."
     explain: "Each habit answers one risk: check what a draft claims, verify what the tool wrote itself, and compare a restatement with the real state before any edit."

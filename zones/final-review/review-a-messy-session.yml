@@ -1,4 +1,4 @@
-boss: { name: "The Murk's Heart" }
+boss: { name: "The Unbound Astral" }
 questions:
   - type: choice
     prompt: "The summary says: 'Removed -q 30 from the varcall call: it is the default in varcall 2.4.' How do you check this claim?"

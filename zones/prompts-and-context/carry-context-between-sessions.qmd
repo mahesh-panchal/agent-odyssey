@@ -1,0 +1,208 @@
+---
+title: "Carry Context Between Sessions"
+---
+
+::: {.ao-story}
+You wake at the mill with a fresh Astral and a half-finished job. It knows nothing of yesterday except what loads by itself or lies written down, and yesterday you wrote nothing. Scribe Linnea keeps a ledger of notes at the mill for exactly this gap, and she knows when to tip the hopper out and begin again. Learn what belongs in the ledger, and the next visit starts where the last one stopped.
+:::
+
+::: {.quest-dialog}
+- **Goal:** you will decide when to start a fresh session, and write a short handoff note and memory entry that a fresh session can act on, with what was checked kept apart from what was not.
+- **Before you start:** [The Context Window](the-context-window.html). Commands here are Claude Code commands.
+- **Time:** about 25 minutes.
+:::
+
+You stop work on Friday with a half-finished refactor. On Monday you open a new **session** (one conversation with the agent, which has its own **context**: the text it can see right now). Each session begins with a fresh context window and no conversation history from before, so the new session does not know your goal, what you tried or what you checked.
+
+You will meet this gap in every long task. If you write down what matters, a fresh session continues the work and you stop re-explaining the same background. If you do not, you pay for it in time and in wrong guesses.
+
+## What a new session already has
+
+Only some things reach a fresh session without you typing them.
+
+1. **The instructions file** (`CLAUDE.md` in Claude Code). A file **you** write, loaded at the start of every session. Good for stable facts and conventions: how to run the tests, which folders are off limits.
+2. **Auto memory.** Notes the **harness** (the program around the model) writes itself, from your corrections and preferences. In Claude Code, `/memory` lists and opens them.
+3. **Files in the repository** (the project folder under version control): code, tests, a README and, if you keep one, a progress or handoff file.
+4. **Git history.** A **commit** is a saved snapshot of the project with a message you or the agent write. The list of commits shows what changed and when. It is durable unless someone rewrites it (with commands that replace past commits, such as `git rebase`, `git commit --amend` or `git push --force`), and unpushed commits are local only.
+5. **Your handoff note.** A short file about the state of one task, written for the next session.
+
+| What | Goes where | Lifetime | Who writes it | Trust |
+|---|---|---|---|---|
+| Stable rules and conventions | Instructions file | Until you edit it | You | High if short and checked |
+| Preferences the harness picked up | Auto memory | Until deleted | The harness | Medium: it can be wrong |
+| What the files say now | Files in the repository | Until edited or deleted | You or the agent | Medium: files can be stale |
+| State of one task | Handoff note | Until the task is done | You, or the agent drafts and you review | Only as good as your review |
+| What changed, and why | Commit messages in git history | Durable unless rewritten; local until pushed | You or the agent | Reliable for what changed; the why is only as good as the message |
+
+Anything only said in chat is gone. That covers the decisions, what failed and why, and which sample misbehaved.
+
+## Start fresh or carry on
+
+Starting fresh opens a new, empty conversation. Your files stay as they are. Neither choice is free: clearing too early makes the agent re-read files and rediscover decisions, and carrying on too long keeps a crowded or degraded context.
+
+**Start fresh when:**
+
+1. **The task is new and unrelated.** Run `/clear` between unrelated tasks. It drops the chat, so write down anything you need first. A name, as in `/clear oauth-migration`, labels the conversation you leave so you can find it again.
+2. **The agent repeats a wrong claim after two corrections.** Clear, and write one better prompt that includes what you learned. A third correction adds to a conversation that already holds two failed attempts.
+3. **The agent forgets early instructions or contradicts itself.** Start fresh, and move the instruction into the instructions file.
+4. **A task is finished and a verified result is committed.** The result lives in your files and in git, so the conversation has done its job.
+5. **You have been away and the next task is new.** A fresh session has no history to re-send.
+
+**Carry on when:**
+
+- **It is the same task and early decisions still matter.** The next step needs the same files, the decisions you made and what was already tried.
+- **The agent is on track.** Nothing is repeated or contradicted, and clearing a working session throws away good context.
+- **You are returning to a named session.** `/resume` (or `claude --resume <name>`) reopens a session you chose, and `claude --continue` reopens the most recent one in this directory. Resume restores the messages, the model and the permission mode (what the agent may do without asking). Pass startup flags such as `--mcp-config` again.
+
+`/compact` replaces a long history with a summary and stays in the same conversation. It is a middle path for a crowded window on a task you still need.
+
+| Situation | Action |
+|---|---|
+| New task, unrelated to this conversation | `/clear` |
+| Same task, agent on track, plenty of room | Carry on |
+| Same task, crowded, early decisions matter | `/compact` with a focus note |
+| Wrong claim repeated after two corrections | `/clear`, then one new prompt |
+| Back after a break, still need the conversation | `/resume` or `claude --continue` |
+| Back after a break, next task is new | Fresh session |
+| Task done, verified result committed | Write down what matters, then `/clear` |
+
+## Before you clear
+
+Write down what only exists in the chat, and commit the result so the state is recoverable. Your files and memory remain, and the instructions file and auto memory load again in the new session. If you clear by mistake, `/resume` can reopen the old conversation.
+
+Write the note **before** you run `/clear`, because `/clear` drops the conversation. Pairing the note with a commit leaves a matching record in git.
+
+## What a good handoff note contains
+
+Keep it short, so reading it costs less than rediscovering the state. Point to files and commands, and let the next session run them for fresh output.
+
+- **Goal** in one line.
+- **Current state:** branch, last commit, what runs and what does not.
+- **Decisions and the reasons**, including options you rejected.
+- **Verified, and how; not verified.** Two separate lists. For each verified item, the command and what it showed.
+- **What failed and should not be retried.**
+- **Next steps, in order.**
+- **Pointers:** file paths, commands, job IDs, work directories.
+- **Open questions** that the next session should settle.
+
+This is a mock handoff note for a mock task. The file names and numbers are invented.
+
+```markdown
+# HANDOFF: qc_filter.py refactor (mock example)
+
+## Goal
+Replace the per-read loop in qc_filter.py with a vectorised version, same output.
+
+## State (git branch refactor-qc, last commit a1b2c3d "qc: add vectorised mean quality")
+- New function mean_qual_fast() is written and called from main().
+- Old function mean_qual() is kept for comparison. Do not delete yet.
+
+## Decisions
+- Keep both functions until all samples are compared (a bug here would silently change which reads pass).
+- Threshold stays at mean Q20, as in the lab protocol.
+
+## Verified
+- tests/test_filter.py: ran `pytest -q`, 6 passed.
+- sample_A: `diff <(python qc_filter.py A.fq) old_out/A.txt` gave no output.
+
+## Not verified
+- Samples B and C have not been compared with the old output.
+- Reads shorter than 30 bases: no test covers them.
+- Speed gain: not measured.
+
+## Failed, do not retry
+- Using numpy on the raw quality string: wrong values for the Phred offset. Convert to integers first.
+
+## Next steps
+1. Compare B and C against old_out/ with the same diff command.
+2. Add a test for a 10-base read.
+3. Only then delete mean_qual().
+
+## Open questions
+- Should the threshold be a command-line option?
+```
+
+## Where to put it, and how to start the next session
+
+Put the note in a file the next session can find. Two options:
+
+- A file in the repo, such as `HANDOFF.md`, if the team should see it.
+- A gitignored ordinary file you point to, if it is personal. This is the simpler choice.
+
+A `CLAUDE.local.md` file in the project's top-level folder (add it to `.gitignore`) holds private per-project preferences and loads after `CLAUDE.md`. It exists only in the worktree (separate checkout folder) where you created it.
+
+Anything loaded every session takes room in the window, so keep a handoff note out of `CLAUDE.md` and remove it once its task is done.
+
+Then start the new session with a prompt like this:
+
+> Read HANDOFF.md, then tell me your understanding before changing anything.
+
+The agent restates the goal and state in its own words, and you compare that with what you know. This is a cheap comprehension check that can catch a misreading of the note. The restatement comes from the same model that read it, so the note's claims still need checking against the source.
+
+You can ask the agent to draft the note at the end of a session. Review it yourself, since a draft can overstate what was verified ("all tests pass" when none were run in that session).
+
+Two more habits help a long task: make git commits with descriptive messages so bad changes can be reverted, and begin each session by reading the progress file and the recent git log, then run a basic check before new work.
+
+## When a wrong claim gets in
+
+Memory the harness wrote can be wrong, and a wrong line is loaded again every session. This is **context poisoning**: a wrong or injected statement enters the context and later answers build on it. The term is community vocabulary.
+
+| Where the wrong claim sits | What clears it |
+|---|---|
+| The conversation | `/clear`, then one new prompt that folds in what you learned. `/rewind` (a command that rolls the conversation back to an earlier turn) can return to before the bad turn. |
+| Auto memory or the instructions file | Open `/memory`, read what has been written about your project, and delete the line. A fresh session loads it again until you do. |
+| A handoff note | Edit the line, then say in the note what was actually checked. |
+
+Check a claim against its source, such as the data, the program's own `--help` or the paper, before it goes into the instructions file, auto memory or a note.
+
+::: {.panel-tabset group="companion"}
+
+## Claude Code
+
+Commands:
+
+- `/memory`: lists memory files, toggles auto memory, opens the folder. Auto memory is per git repository and machine-local.
+- `/clear`: new empty conversation; the old one stays resumable. `/new` is an alias.
+- `/compact [focus]`: replace the history with a summary.
+- `/resume` and `claude --resume [name]`: reopen an earlier session.
+- `claude --continue`: the most recent session in this directory.
+- `/rename`: name the current session.
+- `/rewind`: return the conversation to an earlier turn.
+- `/export`: writes the conversation as plain text for a person to read. Transcripts are long, so write a short curated note yourself.
+
+## OpenCode + Ollama
+
+Commands: `/new` (alias `/clear`), `/sessions` (aliases `/resume` and `/continue`), `/compact` (alias `/summarize`) and `/export`. The handoff note itself is just a file, so the practice carries over. Check OpenCode's documentation for how it loads project instructions and memory. A local model with a small window means starting fresh sooner, so keep the note short.
+
+:::
+
+## Battle: carry the context
+
+<div data-ao-test="prompts-and-context-carry-context-between-sessions" data-xp="50"></div>
+
+## Bonus
+
+<div data-ao-honour="write-handoff" data-xp="20">Write a handoff note for a task you are on and give it to a fresh session with the prompt above. Does its restatement match your own?</div>
+<div data-ao-honour="review-draft" data-xp="20">Ask an agent to draft a handoff note, then mark each line in your own words as checked by you, or not checked. Count how many lines it overstated.</div>
+<div data-ao-honour="read-memory" data-xp="20">Open your tool's memory (in Claude Code, <code>/memory</code>) and read what it has recorded about a project. Is every line something you could source?</div>
+
+::: {.ao-related}
+## Related lessons
+
+- [The Context Window](the-context-window.html): what a fresh session loads before you type.
+- [Spend Fewer Tokens](spend-fewer-tokens.html): what a long session costs, and how compacting and the cache change it.
+- [Park Ideas for Later](park-ideas-for-later.html): how parked ideas travel to the next session in a note.
+- [Ground Truth](../checking-output/ground-truth.html): checking claims against the source, which a note's claims also need.
+:::
+
+::: {.ao-lore}
+## Lore
+
+*Further reading. Optional.*
+
+- [How Claude remembers your project](https://code.claude.com/docs/en/memory): Anthropic, docs. Why read: it separates CLAUDE.md from auto memory, the two things that carry knowledge to a fresh session, and says memory is context and not enforced configuration.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the exact commands to name, resume, branch and clear sessions, and what a resumed session restores.
+- [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents): Anthropic, article. Why read: it describes the progress file, descriptive commits and the start-of-session routine that make work survive a fresh context window.
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): Anthropic, article. Why read: it explains why long contexts degrade and describes structured note-taking outside the window.
+- [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html): Drew Breunig, blog, article. Why read: it names context poisoning and distraction, the failure modes behind clearing a session; a personal blog, not vendor documentation.
+:::

@@ -3,7 +3,7 @@ title: "Choose What to Hand Over"
 ---
 
 ::: {.ao-story}
-Sage Maelis gathers you in a hall of the Collegium with a warning: left unchecked, an Astral will pull in everything within reach to finish a task, and spread the Blight across the land in the process. As the four travellers imagine what a pact could unlock for their craft, loud boasters brag of giving their Astral free rein over entire projects, dismissing small, guarded tasks as timid half-measures. Maelis points to a wiser way: think of the work as a deep river, and you need not swim the whole span at once. Limit what the Astral sees, step from stone to stone carrying only what the task demands, and check your footing at each stone before you step to the next. She needs a little time to prepare the pacts, so she asks you to return tomorrow and to visit Warden Hesper at the Crypt until then.
+Sage Maelis gathers you in a hall of the Collegium with a warning: left unchecked, an Astral will pull in everything within reach to finish a task, and spread the Blight across the land in the process. As the four travellers imagine what a pact could unlock for their craft, loud boasters brag of giving their Astral free rein over entire projects, dismissing small, guarded tasks as timid half-measures. Maelis points to a wiser way: think of the work as a deep river, and you need not swim the whole span at once. Limit what the Astral sees, step from stone to stone carrying only what the task demands, and check your footing at each stone before you step to the next. She needs a little time to prepare the pacts, so she asks you to return tomorrow and to visit Warden Hesper at the Adventurers' Training Grounds until then.
 :::
 
 ::: {.quest-dialog}
@@ -18,7 +18,7 @@ Four people want help from an LLM (a large language model, the kind of tool behi
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster Aris
+## Quartermaster Aris
 
 "I keep twelve projects in one spreadsheet. If an LLM could read it, I would have a status report and a risk list for the board by lunch."
 
@@ -105,7 +105,7 @@ For each task, decide three things before you open the answer: the lowest step t
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster Aris
+## Quartermaster Aris
 
 Task: a one-page status summary and risk list for twelve projects, from a spreadsheet of project names, milestone dates, owner names and status. The data is internal, and owner names are personal data.
 

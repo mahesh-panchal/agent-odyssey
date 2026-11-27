@@ -3,7 +3,7 @@ title: "Write an Instructions File"
 ---
 
 ::: {.ao-story}
-Surveyor Rowan leads you to a carved stone at the forest's heart, holding the terms of the pact: where the paths run, and which trees are not to be touched. Your Astral reads it every morning, and some mornings it forgets what it read. Rowan says the stone advises and cannot bind. She hands you the chisel and shows you how to write on it, and how to tell what it does from what it cannot do.
+You return to Artisans' Row, and Hallmaster Cass, satisfied that you can check an Astral's work, takes you on as an apprentice. Surveyor Rowan leads you to a carved stone in the Charter Hall, holding the terms of the pact: where the paths run, and which things are not to be touched. Your Astral reads it every morning, and some mornings it forgets what it read. Rowan says the stone advises and cannot bind. She hands you the chisel and shows you how to write on it, and how to tell what it does from what it cannot do.
 :::
 
 ::: {.quest-dialog}

@@ -3,13 +3,12 @@ title: "Save Point"
 ---
 
 ::: {.ao-story}
-While Sage Maelis prepares the pacts, the party walks to the Crypt, where Warden Hesper waits at the first ward: a mark on the floor that you can step back to. Soon you will summon an Astral, and it will rewrite half the corridor in a few heartbeats. Hesper says every traveller who walked on without a mark walked back along that corridor with nothing to show, and Brannoch the tinker is one of them. She shows you how to make your mark before you touch anything.
-
+While Sage Maelis prepares the pacts, the party walks to the Adventurers' Training Grounds, where Warden Hesper drills novices behind a chalk line: a mark on the floor that you can step back to. Soon you will summon an Astral, and it will rewrite half the course in a few heartbeats. Hesper says every traveller who trained without a mark walked back across the field with nothing to show, and Brannoch the tinker is one of them. She shows you how to make your mark before you touch anything.
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster Aris
+## Quartermaster Aris
 
-Guildmaster Aris adds a line to the ledger: no change without a way back.
+Quartermaster Aris adds a line to the ledger: no change without a way back.
 
 ## Diviner Ilsa
 
@@ -44,6 +43,8 @@ An agent can edit many files in seconds, and you may want them back as they were
 - It also throws away **your own** uncommitted edits to tracked files, so commit before you start.
 - It leaves **new, untracked** files the agent created where they are. `git status` shows them, and you delete them yourself.
 
+Claude Code also takes a checkpoint at each prompt, and `/rewind` restores files the agent edited with its own editing tools. Files changed only by shell commands, and edits made outside the session, are not tracked, so the commit remains your save point.
+
 ## Battle: the save point
 
 <div data-ao-test="safe-editing-save-point" data-xp="50"></div>
@@ -51,7 +52,7 @@ An agent can edit many files in seconds, and you may want them back as they were
 ::: {.ao-related}
 ## Related lessons
 
-- [Capture Ideas Mid-Task](../prompts-and-context/the-stream-of-ideas.html): for more on `/rewind` and its limits, and why git is the real save point.
+- [Park Ideas for Later](../prompts-and-context/park-ideas-for-later.html): how to save a follow-up for a later session without acting on it now.
 - [The Context Window](../prompts-and-context/the-context-window.html): what fills an agent's working memory while it edits.
 - [Write Permission Rules](write-permission-rules.html): permission rules, the next layer of protection.
 :::

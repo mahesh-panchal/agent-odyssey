@@ -3,13 +3,12 @@ title: "Send Small Changes, Say What You Checked"
 ---
 
 ::: {.ao-story}
-The party arrives at the Reef and finds the Blight already here, a Review-leech clinging to the coral and feeding on work passed along unchecked. Tidewarden Nerys asks for your help and points to the desk where an Astral's vast haul of changes has landed on one reviewer. Nerys shows you four small habits that starve the leech. Practise them on your next hand-off.
-
+The party arrives at Tidewrack, a village on the reef, and finds the Blight already here, a Review-leech clinging to the coral and feeding on work passed along unchecked. Tidewarden Nerys asks for your help and points to the desk where an Astral's vast haul of changes has landed on one reviewer. Nerys shows you four small habits that starve the leech. Practise them on your next hand-off.
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster Aris
+## Quartermaster Aris
 
-Guildmaster Aris wants small, reviewable pieces and a named reviewer.
+Quartermaster Aris wants small, reviewable pieces and a named reviewer.
 
 ## Diviner Ilsa
 

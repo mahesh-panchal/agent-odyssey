@@ -322,7 +322,7 @@ def bust(skin, hair, style, robe, trim, extra=None, glasses=False, hood_col=None
     if extra: extra(d, im)
     return outline_img(im)
 
-def x_guildmaster(d, im):
+def x_quartermaster(d, im):
     d.rectangle([2, 70, 32, 94], fill="#efe3c2", outline=INK)                                       # ledger
     d.rectangle([2, 70, 6, 94], fill="#2f6b4f"); d.line([6, 70, 6, 94], fill=INK)
     for y in (75, 79, 83, 87): d.line([10, y, 28, y], fill="#9b8a60")
@@ -369,7 +369,7 @@ def x_archivist(d, im):
 
 def personas():
     return {
-        "guildmaster": bust(0, "#5a3a22", "short", "#2f6b4f", GOLD, x_guildmaster),
+        "quartermaster": bust(0, "#5a3a22", "short", "#2f6b4f", GOLD, x_quartermaster),
         "diviner":     bust(1, "#1a1428", "hood", "#3b3f8f", "#a9b4ff", x_diviner, hood_col="#2b2f6e"),
         "artificer":   bust(2, "#2a1a10", "short", "#b8672a", BRASS[1], x_artificer),
         "archivist":   bust(3, "#8a8a9c", "long", "#6b5a8f", "#d8cfa3", x_archivist, glasses=True),

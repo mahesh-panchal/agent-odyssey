@@ -3,7 +3,7 @@ title: "Bundle a Plugin"
 ---
 
 ::: {.ao-story}
-At the forest's edge Smith Dunmore holds out a satchel to be packed with the finest skills and their tests. Whatever you carry, others will unpack, and whatever you unpack from another traveller's satchel runs with your own authority. Dunmore once saw a pack that looked fine on the table split open on a stranger's back. The smith shows you how to pack with care, and how to open with more.
+At the door of the smithy Smith Dunmore holds out a satchel to be packed with the finest skills and their tests. Whatever you carry, others will unpack, and whatever you unpack from another traveller's satchel runs with your own authority. Dunmore once saw a pack that looked fine on the table split open on a stranger's back. The smith shows you how to pack with care, and how to open with more.
 :::
 
 ::: {.quest-dialog}

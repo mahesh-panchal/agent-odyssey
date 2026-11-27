@@ -16,7 +16,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 world = yaml.safe_load((ROOT / "zones.yml").read_text())
-ROLES = r"(Wanderer|Sage|Warden|Miller|Tinker|Beastmaster|Cartographer|Surveyor|Smith|Hunter|Watchman|Tidewarden|Diver|Net-mender|Scribe|Record Keeper|Gatekeeper|Queue Master)"
+ROLES = r"(Wanderer|Sage|Hallmaster|Warden|Miller|Tinker|Beastmaster|Cartographer|Surveyor|Smith|Watchman|Tidewarden|Diver|Net-mender|Scribe|Record Keeper|Gatekeeper|Queue Master)"
 TRAVEL = re.compile(r"\b(walk|walks|walked|return|returns|arrive|arrives|leave|leaves|cross|crosses|climb|climbs|road|reach|reaches|follow|leads|head|heads|journey|enter|enters|goes|go)\b", re.I)
 RETIRED = re.compile(r"kennel master|\bthe Beast\b|tongue-spirit|\barmou?r\b|\bcarapace\b|\bcompanion\b|\bthe Pet\b", re.I)
 CONTRAST = re.compile(r"rather than|\bnot (just|only|merely)\b|\bnot [^.]{0,30}, but\b|, not ", re.I)

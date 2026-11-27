@@ -3,7 +3,7 @@ title: "Plan Before You Edit"
 ---
 
 ::: {.ao-story}
-Surveyor Rowan walks the branch before the axe swings, and she has watched an Astral hew the wrong limb in a single stroke. She shows you how a wrong cut on paper costs a line, and a wrong cut on the tree costs the branch. The foresters keep her rule: no one cuts until the cut has been drawn, read aloud and questioned. She unrolls a sheet and shows you how to draw one.
+On the practice field Warden Hesper walks the course before any drill, and she has watched an Astral run the wrong lane at full speed. She shows you how a wrong step on paper costs a line, and a wrong step on the field costs the course. The trainers keep her rule: no one runs until the route has been drawn, read aloud and questioned. She unrolls a sheet and shows you how to draw one.
 :::
 
 ::: {.quest-dialog}
@@ -133,7 +133,7 @@ Everything here is a mock on your laptop, and no model runs. Save [mock-plan.md]
 - [Write the Brief](../prompts-and-context/write-the-brief.html): for more on what to put in the request that starts a plan.
 - [Ground Truth](../checking-output/ground-truth.html): for more on computing a value independently to check the agent's work.
 - [Boss: Review Large Output](../checking-output/boss-review-large-output.html): for more on accepting only as much output as you can review.
-- [Handoff Notes](../prompts-and-context/handoff-notes.html): for more on what a saved plan or spec file should hold.
+- [Carry Context Between Sessions](../prompts-and-context/carry-context-between-sessions.html): for more on what a saved plan or spec file should hold.
 - [Write Permission Rules](write-permission-rules.html): for more on permission modes and deny rules.
 :::
 

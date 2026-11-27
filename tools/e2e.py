@@ -44,7 +44,7 @@ try:
         for _ in range(n): B.press(k, 0.08)
     check("hero reaches the Crypt gate (18,2)", pos() == '{"x":18,"y":2}', pos())
     B.press("Enter", 1.2)
-    check("Enter on the open gate opens its quest", B.js("location.pathname").endswith("shield-of-undo.html"), B.js("location.pathname"))
+    check("Enter on the open gate opens its quest", B.js("location.pathname").endswith("save-point.html"), B.js("location.pathname"))
     # --- quest test: first-try scoring, misconception text, pass ---
     # A partly right run still clears the quest, with XP in proportion and a result line on the Blight scale.
     B.js("localStorage.clear()"); B.go(base + "zones/safe-editing/save-point.html")
@@ -105,7 +105,7 @@ try:
     check("every boss portrait file loads", B.js("Promise.all(['boss-wall','boss-wall-cracked','boss-wall-broken','boss-murk','boss-murk-cleared'].map(n=>new Promise(r=>{const i=new Image();i.onload=()=>r(i.naturalWidth>0);i.onerror=()=>r(false);i.src='/assets/img/'+n+'.png'})))").__class__ is list and all(B.js("Promise.all(['boss-wall','boss-wall-cracked','boss-wall-broken','boss-murk','boss-murk-cleared'].map(n=>new Promise(r=>{const i=new Image();i.onload=()=>r(i.naturalWidth>0);i.onerror=()=>r(false);i.src='/assets/img/'+n+'.png'})))")))
     B.js("AO.importCode(%s)" % json.dumps(boss_state))
     B.go(base + "index.html", 1.0)
-    check("front page has four persona tabs with portraits that load", B.js("(()=>{const t=[...document.querySelectorAll('.panel-tabset .nav-link')].map(e=>e.textContent.trim());const ims=[...document.querySelectorAll('img.ao-persona-img')];return ['Guildmaster Aris','Diviner Ilsa','Artificer Bob','Archivist Elowen'].every(n=>t.includes(n)) && ims.length===4 && ims.every(i=>i.complete && i.naturalWidth>0)})()"))
+    check("front page has four persona tabs with portraits that load", B.js("(()=>{const t=[...document.querySelectorAll('.panel-tabset .nav-link')].map(e=>e.textContent.trim());const ims=[...document.querySelectorAll('img.ao-persona-img')];return ['Quartermaster Aris','Diviner Ilsa','Artificer Bob','Archivist Elowen'].every(n=>t.includes(n)) && ims.length===4 && ims.every(i=>i.complete && i.naturalWidth>0)})()"))
     B.js("[...document.querySelectorAll('.panel-tabset .nav-link')].find(e=>e.textContent.trim()==='Diviner Ilsa').click()")
     B.go(base + "zones/agents-and-models/choose-what-to-hand-over.html", 1.0)
     check("persona choice carries to a later page", B.js("[...document.querySelectorAll('.panel-tabset .nav-link.active')].map(e=>e.textContent.trim()).includes('Diviner Ilsa')"))
@@ -119,7 +119,7 @@ try:
     check("exercise files are published", B.js("Promise.all(['tiny.fasta','gc.py'].map(f=>fetch('/exercises/checking-output/'+f).then(r=>r.ok)))").__class__ is list and all(B.js("Promise.all(['tiny.fasta','gc.py'].map(f=>fetch('/exercises/checking-output/'+f).then(r=>r.ok)))")))
     # --- Continue block: Next button follows the path, Related links sit apart ---
     B.go(base + "zones/worries/name-the-fears.html", 1.5)
-    check("Continue block offers Next to the following quest", B.js("(document.querySelector('.ao-nextsteps [rel=next]')||{}).href||''").endswith("three-kinds-of-machine.html"), B.js("(document.querySelector('.ao-nextsteps [rel=next]')||{}).href||''"))
+    check("Continue block offers Next to the following quest", B.js("(document.querySelector('.ao-nextsteps [rel=next]')||{}).href||''").endswith("script-model-or-llm.html"), B.js("(document.querySelector('.ao-nextsteps [rel=next]')||{}).href||''"))
     saved_state = B.js("AO.exportCode()"); B.js("localStorage.clear()"); B.go(base + "zones/worries/name-the-fears.html", 1.5)
     check("uncleared quest says so and links to its Battle", B.js("(document.querySelector('.ao-nextsteps .ao-uncleared a')||{}).getAttribute('href')") == "#ao-battle" and B.js("!!document.getElementById('ao-battle')"))
     B.js("AO.pass('worries-name-the-fears', 0)"); B.go(base + "zones/worries/name-the-fears.html", 1.5)
@@ -153,7 +153,7 @@ try:
     B.js("AO.pass('agents-and-models-script-model-or-llm', 0)")   # same gate as Choose What to Hand Over, so one cleared quest folds
     B.go(base + "zones/agents-and-models/choose-what-to-hand-over.html", 1.5)
     check("quest page lists its location with cleared quests folded and one next quest marked", B.js("!!document.querySelector('.ao-here-done')") and B.js("document.querySelectorAll('.ao-here-next').length") <= 1 and B.js("document.querySelector('.ao-nextsteps').textContent.includes('In this location')"), B.js("document.querySelector('.ao-nextsteps').textContent.slice(0, 200)"))
-    check("location minimap draws one linked node per quest of the gate, with NEXT or HERE text", B.js("document.querySelectorAll('.ao-minimap svg a').length") == 8 and B.js("!!document.querySelector('.ao-minimap svg a[aria-current=page]')") and B.js("document.querySelector('.ao-minimap svg').getAttribute('aria-labelledby')") is not None and B.js("!!document.querySelector('.ao-here-text')"), B.js("document.querySelectorAll('.ao-minimap svg a').length"))
+    check("location minimap draws one linked node per quest of the gate, with NEXT or HERE text", B.js("document.querySelectorAll('.ao-minimap svg a').length") == 7 and B.js("!!document.querySelector('.ao-minimap svg a[aria-current=page]')") and B.js("document.querySelector('.ao-minimap svg').getAttribute('aria-labelledby')") is not None and B.js("!!document.querySelector('.ao-here-text')"), B.js("document.querySelectorAll('.ao-minimap svg a').length"))
     B.js("localStorage.clear()"); B.go(base + "index.html", 1.5)
     check("home zone list shows n of m cleared per zone", B.js("document.querySelectorAll('.ao-zone-progress').length") >= 8 and "0 of 1 cleared" in B.js("document.querySelector('.ao-zone-progress').textContent"), B.js("document.querySelector('.ao-zone-progress') && document.querySelector('.ao-zone-progress').textContent"))
     # --- other question types ---

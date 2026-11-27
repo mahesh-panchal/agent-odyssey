@@ -92,16 +92,10 @@ SHOTS += [
     ("path-quest-nextsteps-wide", (1400, 900), lambda B: (with_state(B, "zones/worries/name-the-fears.html", ["worries-name-the-fears"]),
         B.js("(document.querySelector('.ao-nextsteps')||document.body).scrollIntoView({block:'center'})"))),
 ]
-for z, slugs in {"citadel": ["jobs-not-jam", "keys-on-shared-ground", "login-node-manners"],
-                 "gatehouse": ["plug-in-a-server", "guard-the-door", "advice-or-enforcement"],
-                 "codon-mill": ["the-context-window", "tokens-not-letters", "memory-sessions-and-usage", "the-stream-of-ideas", "too-many-tools-too-many-agents", "when-to-start-fresh", "where-machines-fail", "who-said-what", "handoff-notes", "rag-and-its-cousins", "grow-a-graph-with-ollama", "llm-wiki"],
-                 "factory": ["dry-run-first", "same-every-time"],
-                 "maze": ["spot-the-mirage"], "reef": ["send-small-say-so", "teach-and-share-the-load"],
-                 "forest": ["bundle-a-plugin", "close-the-loop", "plan-before-you-edit", "test-the-skill", "write-the-brief"],
-                 "basecamp": ["name-the-fears", "three-kinds-of-machine"], "crypt": []}.items():
-    for sl in slugs:
-        SHOTS.append(page(f"zone-{z}-{sl}-wide", f"zones/{z}/{sl}.html"))
-        if z in ("citadel", "gatehouse"): SHOTS.append(page(f"zone-{z}-{sl}-narrow", f"zones/{z}/{sl}.html", 600, 1800))
+for qmd in sorted((ROOT / "zones").glob("*/*.qmd")):
+    z, sl = qmd.parent.name, qmd.stem
+    SHOTS.append(page(f"zone-{z}-{sl}-wide", f"zones/{z}/{sl}.html"))
+    if z in ("shared-clusters", "instructions-skills-and-hooks"): SHOTS.append(page(f"zone-{z}-{sl}-narrow", f"zones/{z}/{sl}.html", 600, 1800))
 only = set(sys.argv[2:])
 for name, (w, h), steps in SHOTS:
     if only and name not in only: continue

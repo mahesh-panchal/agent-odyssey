@@ -9,9 +9,9 @@ You return to the Collegium, where the sages' college smells of ink and hot bras
 
 ::: {.panel-tabset group="persona"}
 
-## Guildmaster Aris
+## Quartermaster Aris
 
-Guildmaster Aris asks what the pact will cost each month, and who signs it off.
+Quartermaster Aris asks what the pact will cost each month, and who signs it off.
 
 ## Diviner Ilsa
 

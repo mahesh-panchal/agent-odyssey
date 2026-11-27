@@ -3,7 +3,7 @@ title: "Write a Skill"
 ---
 
 ::: {.ao-story}
-In a hollow of the forest Smith Dunmore keeps procedures in folders, tired of watching Astrals ask the same question twice. A long recipe hung on every branch would crowd the clearing, so Dunmore hangs only a label and fetches the rest on demand. The smith lays a fresh folder on the anvil and shows you how to forge one.
+In the smithy on the Row, Smith Dunmore keeps procedures in folders, tired of watching Astrals ask the same question twice. A long recipe hung on every wall would crowd the shop, so Dunmore hangs only a label and fetches the rest on demand. The smith lays a fresh folder on the anvil and shows you how to forge one.
 :::
 
 ::: {.quest-dialog}

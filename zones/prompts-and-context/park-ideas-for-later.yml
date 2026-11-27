@@ -1,0 +1,50 @@
+questions:
+  - type: match
+    prompt: "Match each new thought to where it should go."
+    explain: "Each destination fits one kind of thought: a one-off question about the conversation needs no history, a read-only sweep needs only a summary, a competing attempt needs a copy, and an unrelated task needs a fresh start."
+    pairs:
+      - { left: "Remind me which sample we excluded earlier in this conversation; I just need the answer.", right: "/btw: sees the conversation, no tools, nothing added to the history", misconception: "Opening a full side task for a one-line fact adds history you will re-send on every later request." }
+      - { left: "Search the repo and tell me where sample IDs are split; I only need the list.", right: "An Explore subagent: it reads in its own context and returns a summary", misconception: "Reading everything in the main session fills your context with files you will not reference again." }
+      - { left: "Try the competing aligner without losing this conversation.", right: "Commit, then /branch, a copy of the conversation", misconception: "Trying it in the main thread mixes two approaches and leaves dead ends in the history." }
+      - { left: "Unrelated: tidy the figures for a different project.", right: "Commit, then /rename and /clear, or a new named session", misconception: "Mixing in unrelated work makes every later turn re-read it and costs more." }
+  - type: choice
+    prompt: "Mid-fix you wonder whether a stricter QC threshold would help. You do not need the answer or the work this session. What is the best move?"
+    explain: "An idea you do not need this session costs almost nothing as a line in a file, and the main context stays focused. Pick it up when its trigger arrives."
+    options:
+      - { text: "Add one line to your parking-lot file and carry on", correct: true }
+      - { text: "Type it into the main session as a note to self, then return to the fix", misconception: "Every line typed into the session stays in the history and is re-sent with every later request." }
+      - { text: "Start a /branch straight away to test it while the fix is half done", misconception: "A branch is for a real attempt you chose to run now, and you said you do not need the work this session." }
+      - { text: "Ask it with /btw so that nothing is kept in the history", misconception: "/btw gives an answer now, which you do not need this session, and the idea itself is left unrecorded." }
+  - type: choice
+    prompt: "Which parked note can a session next week act on without this conversation?"
+    explain: "A usable note names the idea, why it matters, when to pick it up, where to look and what you already know. The others leave the next session to rediscover at least two of these."
+    options:
+      - { text: "2026-11-28 | Raise QC threshold from Q20 to Q30 | Fewer false variants | when the test cohort is ready | qc_filter.py, MIN_Q | Q30 drops 12% of reads in sample A", correct: true }
+      - { text: "Try a stricter QC threshold", misconception: "It gives no reason, trigger, location or result, so a later session must start from nothing." }
+      - { text: "QC threshold idea, discussed above", misconception: "A later session cannot see what was discussed above." }
+      - { text: "Raise QC threshold | Fewer false variants", misconception: "It gives a reason but no trigger, location or result, so nobody knows when to pick it up or where to look." }
+  - type: sort
+    prompt: "Where you save a parked idea decides what it costs. Sort these by when the session loads them."
+    bins: ["Costs context in every session", "Read only when you ask"]
+    explain: "The instructions file and the start of auto memory load into every session. A file you point to is read only when you ask for it."
+    items:
+      - { text: "The full idea list imported into CLAUDE.md", bin: "Costs context in every session", misconception: "The instructions file loads at the start of every session, so everything imported into it loads each time." }
+      - { text: "A one-line pointer in CLAUDE.md to IDEAS.md", bin: "Costs context in every session", misconception: "The pointer line loads every session, which is why it should stay one line." }
+      - { text: "A saved memory entry in the first 200 lines of the memory index", bin: "Costs context in every session", misconception: "Auto memory loads the start of its index at the beginning of each session, so every entry there costs context." }
+      - { text: "The contents of IDEAS.md, which the pointer line says to read only when asked", bin: "Read only when you ask", misconception: "A file the instructions only point to enters the context when you ask the session to read it." }
+  - type: choice
+    prompt: "You ask Claude Code to remember that an idea is parked in IDEAS.md. What should you do next?"
+    explain: "Claude decides what is worth remembering and does not save every request. Running /memory shows what it wrote, so you can fix or delete a wrong line before it loads in every later session."
+    options:
+      - { text: "Run /memory and read the entry it saved", correct: true }
+      - { text: "Nothing: a request to remember always saves exactly what you said", misconception: "Claude decides what is worth remembering and may word or skip an entry, so check it." }
+      - { text: "Restart the session to make the entry load", misconception: "You do not need a restart to check it. /memory lists the saved files, and the entry loads in later sessions." }
+      - { text: "Delete IDEAS.md, since the memory entry replaces it", misconception: "The memory entry is a short pointer. The idea list stays in the file." }
+  - type: faulty-line
+    prompt: "Habits from a team's notes on working with side ideas. Which line is the problem?"
+    explain: "An imported idea list loads at the start of every session, so unrelated work pays for it each time. Keep the list in a file and put only a pointer in the instructions file."
+    lines:
+      - { text: "Write one line per parked idea, with a reason, a trigger and a pointer", why: "A sound habit: a later session can act on a note like that." }
+      - { text: "Import IDEAS.md into CLAUDE.md so every session sees the whole list", faulty: true }
+      - { text: "Ask for a subagent when you only need the summary of a big search", why: "Subagents return a summary, which keeps your context light." }
+      - { text: "Commit your work before starting a different task in a fresh session", why: "It keeps the earlier state recoverable." }

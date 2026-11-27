@@ -3,7 +3,7 @@ title: "Teach and Share the Load"
 ---
 
 ::: {.ao-story}
-Younger travellers ask what you know, and your Astral could answer faster than you can, so Net-mender Joss asks what you are still learning. Joss mends the nets while talking, and has seen the Blight settle where hands grow idle and the load grows heavy. Joss shows you how to share what you know, protect your own learning and take on only what you can review.
+You return to Tidewrack, where younger villagers ask what you know, and your Astral could answer faster than you can, so Net-mender Joss asks what you are still learning. Joss mends the nets while talking, and has seen the Blight settle where hands grow idle and the load grows heavy. Joss shows you how to share what you know, protect your own learning and take on only what you can review.
 :::
 
 ::: {.quest-dialog}

@@ -49,18 +49,18 @@
     var p = P(), next = p.nextQuest(), fq = p.finale(), fid = fq && fq.id;
     setHTML(document.getElementById("ao-start-next"), next
       ? "<a class='ao-start-btn' href='" + base + next.page + "'>" + (Object.keys(AO.state.passed || {}).length ? "Next step: " : "Begin: ") + esc(next.title) + " ▶</a>"
-      : passed(fid) ? "<span>The Murk is cleared. Revisit any quest below.</span>"
+      : passed(fid) ? "<span>The monster beneath the reef is overcome. Revisit any quest below.</span>"
                     : "<span>Every quest in reach is cleared. Pick a branch below to go on.</span>");
 
     var link = fq ? "<a href='" + base + fq.page + "'>" + esc(fq.title.replace(/^Boss:\s*/, "")) + "</a>" : "the final boss";
     var r = p.remainingForFinale(), fin;
-    if (passed(fid)) fin = "<strong>The Murk's Heart is cleared.</strong> " + link + " holds the ending.";
-    else if (p.finaleUnlocked()) fin = "<strong>The Murk's Heart is open.</strong> " + link + " is the last stop.";
+    if (passed(fid)) fin = "<strong>The cave beneath the reef is cleared.</strong> " + link + " holds the ending.";
+    else if (p.finaleUnlocked()) fin = "<strong>The cave beneath the reef is open.</strong> " + link + " is the last stop.";
     else {
       var bits = [];
       if (r.trunk.length) bits.push("the trunk (" + plural(r.trunk.length, "quest", "quests") + " left)");
       if (r.branchesNeeded) bits.push(plural(r.branchesNeeded, "more branch", "more branches"));
-      fin = "<strong>The Murk's Heart is sealed.</strong> It opens when you finish " + bits.join(" and ") + ".";
+      fin = "<strong>The cave beneath the reef is sealed.</strong> It opens when you finish " + bits.join(" and ") + ".";
     }
     setHTML(document.getElementById("ao-start-finale"), fin);
 
