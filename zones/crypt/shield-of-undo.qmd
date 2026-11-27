@@ -63,5 +63,5 @@ An agent can edit many files in seconds, and you may want them back as they were
 *Further reading. Optional.*
 
 - [Checkpointing](https://code.claude.com/docs/en/checkpointing): Anthropic, docs. Why read: it explains `/rewind` and its limits, including that Bash-made changes need version control, so you see why git is the real save point.
-- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the commands for naming, resuming and clearing sessions, including `claude --resume`, a companion when work is interrupted.
+- [Manage sessions](https://code.claude.com/docs/en/sessions): Anthropic, docs. Why read: it lists the commands for naming, resuming and clearing sessions, including `claude --resume`, which picks up interrupted work.
 :::
