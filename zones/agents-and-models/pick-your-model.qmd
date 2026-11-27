@@ -3,7 +3,7 @@ title: "Pick Your Model"
 ---
 
 ::: {.ao-story}
-You walk to the Collegium and Sage Maelis shows you the long shelf in the sages' college, where Astrals of every size wait. A great one speaks well, answers slowly and costs the most to feed, and a small one is quick and cheap and loses the thread. She says you must choose for each job, and decide how hard each should think. Learn to choose, then check that you chose well.
+You walk to the Collegium and Sage Maelis leads you into the sages' auditorium, where Astrals of every size float in slow circles around a strange, glowing artifact that pulses like a heartbeat. A great one speaks well, answers slowly and costs the most to feed, and a small one is quick and cheap and loses the thread. She says you must choose for each job, and decide how hard each should think. Learn to choose, then check that you chose well.
 :::
 
 ::: {.quest-dialog}
