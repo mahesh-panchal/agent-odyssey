@@ -42,10 +42,10 @@
           "<a class='ao-mapbtn' href='" + B + "index.html'>◀ Map</a>" +
           "<a href='" + B + "start-here.html'>Start Here</a>" +
           "<button id='ao-logbtn' aria-expanded='false' aria-controls='ao-log'>Quest Log ▾</button>" +
-          "<a href='" + B + "character.html'>Character</a>" +
           "<a href='" + B + "lore.html'>Lore</a>" +
         "</nav>" +
-        "<div class='ao-hud-stats' aria-label='Progress'>" +
+        "<div class='ao-hud-stats' aria-label='Your progress'>" +
+          "<a class='ao-charbtn' href='" + B + "character.html'>Character</a>" +
           "<span class='ao-stat'><b>XP</b> " + AO.state.xp + "</span>" +
           "<span class='ao-stat'><b>Cleared</b> " + n + "</span>" +
         "</div>" +
