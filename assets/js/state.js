@@ -36,8 +36,22 @@
       var h = document.getElementById("ao-hud");
       if (!h) { h = document.createElement("header"); h.id = "ao-hud"; (document.getElementById("quarto-document-content") || document.body).prepend(h); }
       var n = Object.keys(AO.state.passed).length;
-      h.innerHTML = "<a class='ao-mapbtn' href='" + (window.AO_BASE || "./") + "index.html'>◀ Map</a> <a href='" + (window.AO_BASE || "./") + "start-here.html'>Start Here</a> <button id='ao-logbtn' aria-expanded='false' aria-controls='ao-log'>Quest Log ▾</button> <a href='" + (window.AO_BASE || "./") + "character.html'>Character</a> <a href='" + (window.AO_BASE || "./") + "lore.html'>Lore</a> <span style='white-space:nowrap'>XP " + AO.state.xp + " · Quests cleared " + n + "</span> " +
-        "<button id='ao-exp'>Save code</button> <button id='ao-imp'>Load code</button>";
+      var B = window.AO_BASE || "./";
+      h.innerHTML =
+        "<nav class='ao-hud-nav' aria-label='Course navigation'>" +
+          "<a class='ao-mapbtn' href='" + B + "index.html'>◀ Map</a>" +
+          "<a href='" + B + "start-here.html'>Start Here</a>" +
+          "<button id='ao-logbtn' aria-expanded='false' aria-controls='ao-log'>Quest Log ▾</button>" +
+          "<a href='" + B + "character.html'>Character</a>" +
+          "<a href='" + B + "lore.html'>Lore</a>" +
+        "</nav>" +
+        "<div class='ao-hud-stats' aria-label='Progress'>" +
+          "<span class='ao-stat'><b>XP</b> " + AO.state.xp + "</span>" +
+          "<span class='ao-stat'><b>Cleared</b> " + n + "</span>" +
+        "</div>" +
+        "<div class='ao-hud-save'>" +
+          "<button id='ao-exp'>Save code</button><button id='ao-imp'>Load code</button>" +
+        "</div>";
       (AO.hooks || []).forEach(function (f) { f(); });
       document.getElementById("ao-exp").onclick = function () { prompt("Copy your save code:", AO.exportCode()); };
       document.getElementById("ao-imp").onclick = function () {

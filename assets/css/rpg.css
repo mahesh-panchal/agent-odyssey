@@ -5,7 +5,17 @@ body { margin: 0 auto; max-width: 56rem; padding: 1rem; }
 #quarto-content.page-columns { grid-template-columns: [screen-start] .5rem [screen-start-inset] 0 [page-start page-start-inset] 0 [body-start-outset] 0 [body-start] .5rem [body-content-start] minmax(0, 1fr) [body-content-end] .5rem [body-end] 0 [body-end-outset] 0 [page-end-inset page-end] 0 [screen-end-inset] .5rem [screen-end]; }
 a { color: var(--accent); }
 h1, h2 { color: var(--accent); font-family: ui-monospace, monospace; }
-#ao-hud { background: var(--panel); border: 2px solid var(--accent); padding: .4rem 1rem; margin-bottom: 1.5rem; font: 14px ui-monospace, monospace; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+#ao-hud { background: var(--panel); border: 2px solid var(--accent); padding: .5rem .75rem; margin-bottom: 1.5rem; font: 14px ui-monospace, monospace; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "nav stats" "nav save"; align-items: center; gap: .4rem 1.25rem; }
+#ao-hud button { margin: 0; padding: .3rem .7rem; }
+.ao-hud-nav { grid-area: nav; display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.1rem; }
+.ao-hud-nav > a:not(.ao-mapbtn) { padding: .3rem 0; }
+.ao-hud-stats { grid-area: stats; display: flex; gap: .5rem; justify-content: flex-end; }
+.ao-stat { border: 1px solid var(--accent); padding: .15rem .6rem; white-space: nowrap; }
+.ao-stat b { color: var(--accent); font-weight: bold; }
+.ao-hud-save { grid-area: save; display: flex; gap: .4rem; justify-content: flex-end; }
+.ao-hud-save button { font-size: 12px; border-width: 1px; opacity: .85; }
+@media (max-width: 640px) { #ao-hud { grid-template-columns: 1fr auto; grid-template-areas: "nav nav" "stats save"; }
+  .ao-hud-stats { justify-content: flex-start; } .ao-hud-nav { padding-bottom: .5rem; border-bottom: 1px solid rgba(232,184,74,.35); } }
 #ao-world { width: 100%; image-rendering: pixelated; border: 2px solid var(--accent); display: block; }
 #ao-caption { min-height: 2.4em; margin-top: .8rem; font-size: 16px; }
 .ao-next { border: 2px solid var(--accent); background: var(--panel); padding: .6rem .9rem; font-weight: bold; }
