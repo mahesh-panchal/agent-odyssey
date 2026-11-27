@@ -4,7 +4,7 @@ map:
   - "#..F=======T~~~~...#"
   - "#..=.........~~~.=C#"
   - "#..=...K.....~~~.=.#"
-  - "#..=...=......N===.#"
+  - "#..=...=......====.#"
   - "#..=...===X......=M#"
   - "#..===============.#"
   - "#..=........=....=.#"
@@ -43,8 +43,6 @@ branches:
       blurb: "Connect tools safely and enforce rules in code, not advice.", entry: [gatehouse-plug-in-a-server] }
   - { id: craft, name: "Craft", who: "Pipeline authors (Nextflow, Snakemake) using an agent on workflow code.",
       blurb: "Use agents on pipeline code without losing reproducibility.", entry: [factory-dry-run-first, factory-same-every-time] }
-  - { id: notebooks, name: "Notebooks", who: "Jupyter and R Markdown users who review analysis in notebooks.",
-      blurb: "Review and re-run notebooks so results can be trusted.", entry: [scriptorium-why-notebooks-diff-badly] }
   - { id: citadel, name: "Shared ground", who: "HPC and cluster users.",
       blurb: "Work with agents on a shared cluster without harming others or leaking keys.", entry: [citadel-login-node-manners] }
   - { id: reef, name: "People", who: "Anyone collaborating, reviewing others' work or teaching a group.",
@@ -58,7 +56,7 @@ finale:
   title: "Boss: Review a Messy Session"
   requires:
     trunk: all
-    branches: { any: 3, of: [memory, skills, guards, craft, notebooks, citadel, reef, companions] }
+    branches: { any: 3, of: [memory, skills, guards, craft, citadel, reef, companions] }
 prologue: >-
   A Blight is spreading: plausible but false knowledge that grows whenever nobody checks it. It seeps through
   careless copy-and-paste, unreviewed output, and answers nobody understood. Travellers make pacts with Astrals,
@@ -90,9 +88,6 @@ gates:
          { id: kennel-pick-your-companion, after: [kennel-recruit-the-beast], suggested: [], branch: companions, trunk: false, optional: false, title: "Pick Your Model", page: zones/kennel/pick-your-companion.html,
            story: "You walk to the Collegium and Sage Maelis shows you the long shelf in the sages' college, where Astrals of every size wait. A great one speaks well, answers slowly and costs the most to feed, and a small one is quick and cheap and loses the thread.",
            done: "You choose a model and effort for each job, delegate bulk reading to a cheaper helper, and measure before you commit." },
-         { id: kennel-should-you-fine-tune, after: [kennel-pick-your-companion], suggested: [], branch: companions, trunk: false, optional: true, title: "Should You Fine-Tune?", page: zones/kennel/should-you-fine-tune.html,
-           story: "In the beastmasters' college Beastmaster Wyn offers to raise a Familiar for one trick. Wyn says it takes many examples, a record of the lessons and a test of the result, and every trick costs a season.",
-           done: "You can say what LoRA is, check four conditions before tuning, and choose a better prompt, tools and an eval first." },
          { id: kennel-claude-in-the-cloud, after: [kennel-recruit-the-beast, crypt-secrets-and-sensitive-ground], suggested: [], branch: companions, trunk: false, optional: false, title: "Claude in the Cloud", page: zones/kennel/claude-in-the-cloud.html,
            story: "You walk to the Collegium and climb its tower, where the Claude Astral can work on a borrowed machine that vanishes when the job is done. Sage Maelis climbs with you.",
            done: "You send scripts and documents to the cloud, keep data and analysis at home, and know what leaves your machine when you do." } ] }
@@ -215,14 +210,6 @@ gates:
          { id: factory-same-every-time, after: [basecamp-three-kinds-of-machine], suggested: [codon-mill-where-machines-fail], branch: craft, trunk: false, optional: false, title: "Same Every Time", page: zones/factory/same-every-time.html,
            story: "You walk to the Pipeline Factory, where a talkative creature sits in the middle of the line and Tinker Pell frowns at it. Sometimes it says one thing and sometimes another, and the factory's customers need the same answer every time, as the Automata give.",
            done: "You keep the talker out of the run, or fence it in with records, caches and checks." } ] }
-  N: { id: scriptorium, name: "The Scriptorium", track: "Side Quest", theme: "notebooks: reviewing and re-running them", guides: ["Record Keeper Ansel"], status: open,
-       quests: [
-         { id: scriptorium-why-notebooks-diff-badly, after: [crypt-shield-of-undo], suggested: [], branch: notebooks, trunk: false, optional: false, title: "Why Notebooks Diff Badly", page: zones/scriptorium/why-notebooks-diff-badly.html,
-           story: "The party leaves the map's road and climbs to the Scriptorium, where Record Keeper Ansel keeps notebooks stuffed with outputs and images on every page. Your Astral changed one line, and reviewing it means wading through all of it.",
-           done: "You know why a notebook review is hard, and how to make the changes visible." },
-         { id: scriptorium-run-it-top-to-bottom, after: [crypt-shield-of-undo], suggested: [scriptorium-why-notebooks-diff-badly], branch: notebooks, trunk: false, optional: false, title: "Run It Top to Bottom", page: zones/scriptorium/run-it-top-to-bottom.html,
-           story: "A notebook can hold a result nobody can reproduce, and Record Keeper Ansel holds that the order of work matters more than the page. Your Astral ran a cell out of turn, and the figure it drew belongs to a page that no longer exists.",
-           done: "You check a notebook by running it fresh from top to bottom, and you review the code, not the outputs." } ] }
   H: { id: citadel, name: "The Cluster Citadel", track: "Shared Ground", theme: "shared ground: clusters, keys and other people's queues", guides: ["Gatekeeper Brisa", "Queue Master Fenn"], status: open,
        quests: [
          { id: citadel-login-node-manners, after: [crypt-rules-of-the-carapace], suggested: [], branch: citadel, trunk: false, optional: false, title: "Login Node Manners", page: zones/citadel/login-node-manners.html,

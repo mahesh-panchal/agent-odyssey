@@ -47,7 +47,6 @@ Each area of the map has one theme and one or more guides who teach it.
 | The Gatehouse | Guards: connecting tools safely and enforcing rules in code | Watchman Corin |
 | Biodiversity Reef | People: the Blight festers here, and you help clean it up by handing over, reviewing and teaching | Tidewarden Nerys; Diver Kai; Net-mender Joss |
 | Pipeline Factory | Craft: agents on pipelines, and reproducibility | Tinker Pell |
-| The Scriptorium | Notebooks: reviewing and re-running them | Record Keeper Ansel |
 | The Cluster Citadel | Shared ground: clusters, keys and other people's queues | Gatekeeper Brisa; Queue Master Fenn |
 | The Murk's Heart | The final boss: review one messy session | Sage Maelis |
 :::

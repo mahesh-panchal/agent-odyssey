@@ -34,7 +34,6 @@ Choose a format your reviewer can diff (compare line by line). The notebook less
 ## Related lessons
 
 - [Boss: Review Large Output](../maze/wall-of-output.html): why an oversized change defeats review.
-- [Why Notebooks Diff Badly](../scriptorium/why-notebooks-diff-badly.html): what a notebook diff shows, and four ways to make it reviewable.
 :::
 
 ::: {.ao-lore}

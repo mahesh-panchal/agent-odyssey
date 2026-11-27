@@ -20,7 +20,7 @@ Four travellers share the long table. Choose the one closest to your own work: t
 
 **Research or project manager.** Guildmaster Aris keeps the ledgers, lights the milestone beacons and rations the budget. Their guild runs on deadlines, and a pact promises roadmaps and status reports without waiting on anyone. They have watched a flawless-looking demo turn out to be nothing of the kind, so they know the difference between "it ran" and "it is done".
 
-*Where your discipline matters most:* the Gatehouse, the Scriptorium and the Cluster Citadel.
+*Where your discipline matters most:* the Gatehouse and the Cluster Citadel.
 
 ## Diviner Ilsa
 
@@ -44,7 +44,7 @@ Four travellers share the long table. Choose the one closest to your own work: t
 
 **Data steward.** Archivist Elowen guards the vaults: raw data, checksums, ontologies and the metadata that makes a dataset findable. A pact can tidy a messy sample sheet in a moment. Archivist Elowen knows the danger of a tidy table whose missing values were quietly invented, and keeps a ledger of every change.
 
-*Where your discipline matters most:* the Gatehouse, the Biodiversity Reef and the Scriptorium.
+*Where your discipline matters most:* the Gatehouse and the Biodiversity Reef.
 
 :::
 
@@ -68,7 +68,6 @@ Read [Background](background.qmd) for how the course is laid out and what each a
 - [The Gatehouse](zones/gatehouse/plug-in-a-server.qmd): guards: connecting tools safely and enforcing rules in code
 - [Biodiversity Reef](zones/reef/send-small-say-so.qmd): people: the Blight festers here, and you help clean it up by handing over, reviewing and teaching
 - [Pipeline Factory](zones/factory/dry-run-first.qmd): craft: agents on pipelines, and reproducibility
-- [The Scriptorium (side quest)](zones/scriptorium/why-notebooks-diff-badly.qmd): notebooks: reviewing and re-running them
 - [The Cluster Citadel](zones/citadel/login-node-manners.qmd): shared ground: clusters, keys and other people's queues
 - [Character sheet](character.qmd)
 - [Lore library](lore.qmd)
