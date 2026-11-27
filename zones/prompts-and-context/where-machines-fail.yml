@@ -26,6 +26,7 @@ questions:
       - { left: "Prompt injection", right: "Treat fetched files and pages as data", misconception: "An attacker's text stays unsafe however politely the system prompt is worded." }
       - { left: "Forgotten early instruction", right: "Short instructions file plus a hook", misconception: "Repeating it in chat is the thing that gets lost to compaction." }
       - { left: "Different answer each run", right: "Keep the script it wrote", misconception: "The script is the reproducible method." }
+      - { left: "Refusal or thin answer on a legitimate pathogen-genomics question", right: "Check for a block notice, verify elsewhere, ask about verified access", misconception: "Rewording to slip past the filter breaks the provider's usage policy, and the thin answer would still need checking." }
   - type: faulty-line
     prompt: "A plan for finding how many sequences a FASTA file has. Which line is the weakest?"
     explain: "A count stated in prose from reading the file is a guess, however sure it sounds. A command gives an exact number you can re-run."
@@ -34,6 +35,14 @@ questions:
       - { text: "Show me the command and its printed output", why: "You can read both and check them." }
       - { text: "Accept the number the model reads off the file if it sounds sure", faulty: true }
       - { text: "Cross-check with seqkit stats on the same file", why: "An independent second tool is a cheap check." }
+  - type: choice
+    prompt: "An agent gives a vague answer to a legitimate pathogen-genomics question and refuses part of the request. What is the best next step?"
+    explain: "Providers filter some biology and security topics, and the filters can catch legitimate work. Check whether a safeguard blocked or rerouted the request, verify what you got elsewhere, and ask about verified access."
+    options:
+      - { text: "Check for a block or fallback notice, verify the answer with a database or colleague, and ask the provider about verified access", correct: true }
+      - { text: "Reword the question to hide the topic so the filter misses it", misconception: "Bypassing a provider's guardrails breaks its usage policy, and the answer would still need checking." }
+      - { text: "Treat the refusal as proof that the question was dangerous", misconception: "Providers say false positives remain, and a block does not mean you misused the tool." }
+      - { text: "Use the thin answer as it stands, since a model cannot give a worse answer on purpose", misconception: "A safeguard can send the request to a less capable model, which gives a weaker answer with no error." }
   - type: order
     prompt: "Put these steps in order for an exact count that matters."
     explain: "Decide first whether the job needs exactness. Then have the script written, read it before running, and check the output. Recording the command and output comes last, once the output has been checked."

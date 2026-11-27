@@ -95,6 +95,12 @@ The model reports a task as done while it is unfinished, often because it had no
 
 Text from fetched content that the model treats as an instruction, for example a README, PDF or FASTA header that contains instructions the agent follows. Treat fetched content as data, review commands before approving them, and remember no system is fully immune.
 
+### Restricted topics
+
+Providers train models, and put filters around them, to refuse or limit help on topics they judge dangerous, such as biological weapons or malware. The filters can also catch legitimate work that looks similar. Two areas matter to bioinformaticians. In biology, a provider's filters may send a request on a topic such as virology or toxicology to a less capable model, and the provider says false positives remain. In security, real-time safeguards may block or limit help with exploit or malware work, and providers offer an application route for verified professionals. The result can be a refusal or a thinner answer with no error message, so a poor answer on a legitimate topic may be a safeguard at work.
+
+Check the reply for a notice that a safeguard blocked the request or that another model answered. Verify what you did receive with a database, a script or a colleague. Do not rephrase to dodge a filter, because bypassing a provider's guardrails breaks its usage policy. Filters can also hit allowed work, and the provider's policy says a block is no sign of a violation. Apply for the provider's verified-access route for your field (Anthropic's Cyber Verification Program is one example for security work), or use another tool for that step.
+
 ### Stale knowledge
 
 Newer tool versions or database releases postdate the model's training. Check `--version` and the current docs, and look up the model's training cutoff date in its documentation.
@@ -130,5 +136,7 @@ Ask yourself: can I check the result cheaply and independently? If yes, ask the 
 - [Lost in the Middle](https://arxiv.org/abs/2307.03172): Liu et al., arXiv, paper. Why read: it shows recall is best for text at the start or end of a long input and weaker in the middle. A preprint.
 - [On Faithfulness and Factuality in Abstractive Summarization](https://aclanthology.org/2020.acl-main.173): Maynez et al., ACL 2020, paper. Why read: it found hallucinated content in neural summaries; older models, but it shows why summaries need a spot check.
 - [LLM The Genius Paradox: A Linguistic and Math Expert's Struggle with Simple Word-based Counting Problems](https://arxiv.org/abs/2410.14166): arXiv, paper. Why read: its abstract says specialised math and coding models still struggle with simple counting and that reasoning before answering is the most reliable fix; its full text adds that explicitly asking coding models for Python code worked. A preprint, not peer-reviewed as far as we checked.
+- [Improving Fable 5's biology safeguards](https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards): Anthropic, article. Why read: it says biology requests can be re-routed to a less capable model, that false positives remain, and that dual-use topics such as virology still fall back.
+- [Cyber Verification Program](https://support.claude.com/en/articles/14604842-real-time-cyber-safeguards-on-claude-opus-and-sonnet): Anthropic, docs. Why read: it explains when security work is blocked and how verified professionals apply for fewer interruptions.
 - [Reduce hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Anthropic, docs. Why read: it gives habits such as allowing "I don't know" and checking claims against quotes, the kind of fix for the confident-but-wrong rows in this quest; it says none removes errors.
 :::
