@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "A PreToolUse command hook finds a forbidden command. Which behaviour blocks the call and tells Claude why?"

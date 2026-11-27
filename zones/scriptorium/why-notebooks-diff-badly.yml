@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "You change one number in a notebook cell and re-run it. Why does git show many changed lines?"

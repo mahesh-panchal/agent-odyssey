@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "An agent rewrote your analysis script and the results look wrong. Which command returns tracked files to your last commit?"

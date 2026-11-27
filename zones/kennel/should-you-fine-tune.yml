@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "Which task is the best LoRA candidate?"

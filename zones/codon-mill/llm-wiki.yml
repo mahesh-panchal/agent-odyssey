@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: sort
     prompt: "Sort each item into the layer of an LLM-maintained wiki it belongs to."

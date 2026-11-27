@@ -1,4 +1,5 @@
 /* Test engine: choice, order, sort, faulty-line, match. Keyboard operable; wrong answers explain the misconception.
+   A quest is cleared when any part of the Blight is pushed back (a score above zero); the result line says how far, from 'recedes greatly' at 100% to 'remains unscathed' at 0%.
    Credit is judged on the FIRST check; you may keep trying to see the explanation and move on. Order, sort and match
    questions give partial credit: the fraction of parts right at the first check. Choice and faulty-line questions are all or nothing. */
 (function () {
@@ -98,7 +99,7 @@
     var id = el.getAttribute("data-ao-test"), xp = +el.getAttribute("data-xp") || 50;
     el.setAttribute("data-game-widget", "");
     fetch(window.AO_BASE + "assets/data/" + id + ".json").then(function (r) { return r.json(); }).then(function (bank) {
-      var qs = bank.questions, pass = bank.pass || 0.8;
+      var qs = bank.questions;
       function run() {
         var score = 0, i = 0;
         function portrait(hp, broken) {
@@ -107,11 +108,17 @@
           var k = broken || hp === 0 ? 2 : (hp < qs.length * 0.67 ? 1 : 0);
           img.setAttribute("src", img.getAttribute("src").replace(/[^\/]+$/, names[k] + ".png"));
         }
+        function band(f) {
+          return f >= 1 - 1e-9 ? "The Blight recedes greatly." : f >= 0.75 ? "The Blight recedes." : f >= 0.5 ? "The Blight loosens its grip."
+            : f >= 0.25 ? "The Blight is scratched, no more." : f > 1e-9 ? "The Blight barely flinches." : "The Blight remains unscathed.";
+        }
         function finish() {
-          var ok = score / qs.length >= pass - 1e-9, fresh = !AO.state.passed[id];
+          var frac = score / qs.length, hit = frac > 1e-9, fresh = !AO.state.passed[id], total = AO.awarded(id), rest = 0;
+          if (hit && fresh) { rest = Math.max(0, Math.round(xp * frac) - total); total += rest; }
           el.innerHTML = "";
-          el.appendChild(h("p", { role: "status", text: (ok ? "✔ Victory! The Blight recedes. " : "✖ The Blight holds. ") + fmt(score) + "/" + qs.length + " right first time (partial credit counts)." + (ok ? (fresh ? " Quest XP: " + xp + "." : " Already cleared, so no new XP.") : " Need " + fmt(pass * qs.length) + ".") }));
-          if (ok) { portrait(0, true); var rest = xp - AO.awarded(id); AO.pass(id, Math.max(0, rest)); } else { var b = h("button", { text: "Fight again" }); b.onclick = run; el.appendChild(b); }
+          el.appendChild(h("p", { role: "status", text: (hit ? "✔ " : "✖ ") + band(frac) + " " + Math.round(frac * 100) + "% right first time (partial credit counts)." + (hit ? (fresh ? " Quest XP: " + total + "." : " Already cleared, so no new XP.") : "") }));
+          portrait(Math.max(0, qs.length - score), frac >= 1 - 1e-9);
+          if (hit) AO.pass(id, rest); else { var b = h("button", { text: "Fight again" }); b.onclick = run; el.appendChild(b); }
         }
         function show() {
           if (i >= qs.length) return finish();
@@ -144,7 +151,7 @@
               var w = why(q); if (w) fb.parentNode.insertBefore(w, next); next.hidden = false; next.focus();
             } else {
               fb.className = "ao-fb bad";
-              fb.textContent = (tries === 1 && part ? "◐ Partly right: " + Math.round(part * 100) + "% of the parts." + (gain ? " +" + gain + " XP so far." : "") + " " : "✖ Not quite. ") + msg;
+              fb.textContent = (tries === 1 && part ? "◐ Partly right: " + Math.round(part * 100) + "% of the parts." + (gain ? " +" + gain + " XP so far." : "") + "\n" : "✖ Not quite.\n") + msg;
             }
           });
           el.appendChild(box); el.appendChild(fb); el.appendChild(next);

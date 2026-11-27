@@ -1,4 +1,3 @@
-pass: 0.8
 boss: { name: "The Wall of Output", portraits: [boss-wall, boss-wall-cracked, boss-wall-broken] }
 questions:
   - type: choice

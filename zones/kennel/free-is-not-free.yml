@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: sort
     prompt: "Sort each offer into the kind of free it is."

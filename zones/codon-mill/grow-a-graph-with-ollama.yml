@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "In the exercise, simple RAG with k=3 said the notes did not contain the answer, though the notes were in the folder. What happened?"

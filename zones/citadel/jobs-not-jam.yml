@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: sort
     prompt: "Sort each Slurm command into the permission bin a cautious setup would give it."

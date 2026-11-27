@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: faulty-line
     prompt: "A plugin's skill never loads. Which line of its layout is the problem?"

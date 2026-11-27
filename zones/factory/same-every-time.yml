@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "You need to rename 40 columns by a fixed mapping in every run. What is the sturdiest design?"

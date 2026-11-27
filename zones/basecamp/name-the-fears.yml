@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: match
     prompt: "Round one: match each worry about the output and your files to the habit that makes it smaller."

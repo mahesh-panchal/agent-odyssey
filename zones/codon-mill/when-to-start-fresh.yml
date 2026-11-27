@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: sort
     prompt: "Where would the docs and this page point you in each situation?"

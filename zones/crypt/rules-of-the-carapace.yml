@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: sort
     prompt: "Sort each action into the bin you would set for an agent working in a project folder."

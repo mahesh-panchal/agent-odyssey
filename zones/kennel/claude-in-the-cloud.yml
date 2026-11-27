@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: sort
     prompt: "Sort these tasks: fine to hand to a cloud session on a repository that holds only code and mock data, or keep on your own machine or the cluster."

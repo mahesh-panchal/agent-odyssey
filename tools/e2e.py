@@ -46,6 +46,13 @@ try:
     B.press("Enter", 1.2)
     check("Enter on the open gate opens its quest", B.js("location.pathname").endswith("shield-of-undo.html"), B.js("location.pathname"))
     # --- quest test: first-try scoring, misconception text, pass ---
+    # A partly right run still clears the quest, with XP in proportion and a result line on the Blight scale.
+    B.js("localStorage.clear()"); B.go(base + "zones/crypt/shield-of-undo.html")
+    B.click_text("git restore --staged --worktree ."); B.click_text("Next")
+    B.click_text("After the agent"); B.click_text("Before letting"); B.click_text("Next")
+    B.click_text("Both files are reverted"); B.click_text("analysis.py is reverted"); B.click_text("Next")
+    res = B.js("document.querySelector('[data-ao-test]').textContent")
+    check("a partly right run clears the quest with XP in proportion and says how far the Blight receded", "scratched" in res and "33%" in res and B.js("!!AO.state.passed['crypt-shield-of-undo']") and B.js("AO.state.xp") == 17, res + " xp=" + str(B.js("AO.state.xp")))
     wrong = {"Quest": 0}
     B.js("localStorage.clear()"); B.go(base + "zones/crypt/shield-of-undo.html")
     B.click_text("git commit -a")
@@ -57,7 +64,7 @@ try:
     B.click_text("After the agent"); B.click_text("Before letting"); B.click_text("Next")
     B.click_text("Both files are reverted"); B.click_text("analysis.py is reverted"); B.click_text("Next")
     res = B.js("document.querySelector('[data-ao-test]').textContent")
-    check("first-try misses fail the 80% bar", "The Blight holds" in res, res)
+    check("a run with nothing right first time leaves the Blight unscathed and the quest uncleared", "remains unscathed" in res and "Fight again" in res and not B.js("!!AO.state.passed['crypt-shield-of-undo']"), res)
     B.click_text("Fight again")
     B.click_text("git restore --staged --worktree .")
     check("XP rises while answering, before the quest is cleared", B.js("AO.state.xp") > 0 and not B.js("!!AO.state.passed['crypt-shield-of-undo']"), B.js("AO.state.xp"))

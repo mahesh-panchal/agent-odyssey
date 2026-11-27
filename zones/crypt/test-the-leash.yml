@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "You run claude in default mode and ask for poem.txt. Before the file exists, Claude shows a prompt. What does that prompt mean?"

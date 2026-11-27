@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "You add a stdio MCP server with `claude mcp add myserver -- <command>`. What is the most accurate description of what you did?"

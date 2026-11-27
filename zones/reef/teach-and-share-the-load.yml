@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "A colleague wants to learn how to use an agent. Where do you start?"

@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "A notebook shows `reads kept: 2`, but a fresh top-to-bottom run prints 3. What does that tell you?"

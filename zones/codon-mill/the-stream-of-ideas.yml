@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: match
     prompt: "Match each new thought to where it should go."

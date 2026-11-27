@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "Why does the eval prompt say 'check this FASTA file' and not 'use the check-fasta skill'?"

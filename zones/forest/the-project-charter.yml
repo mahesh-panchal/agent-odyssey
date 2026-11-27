@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "Your CLAUDE.md says 'never delete files'. What does that guarantee?"

@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "Why can a large set of tool definitions be a problem even before the agent does any work?"

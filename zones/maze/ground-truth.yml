@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "For seq2 the script prints 20.0 but the independent check gives 6 GC of 10 (60%). What is wrong with the script?"

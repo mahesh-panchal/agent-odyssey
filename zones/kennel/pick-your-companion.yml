@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: sort
     prompt: "Sort these jobs by where to start: a smaller, cheaper setup (possibly a subagent), or a stronger model."

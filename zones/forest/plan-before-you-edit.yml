@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: faulty-line
     prompt: "Which plan step lacks a check that is independent of the code being written?"

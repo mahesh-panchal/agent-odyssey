@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: sort
     prompt: "Sort each action by where it belongs on a typical cluster (your site's guide decides)."

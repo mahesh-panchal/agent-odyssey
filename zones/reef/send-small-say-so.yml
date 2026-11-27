@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "An agent produced a 1,500-line change for you. A collaborator who does not use LLMs will review it. What do you do?"

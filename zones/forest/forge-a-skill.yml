@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "What is preloaded from every Skill, before it is used?"

@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "A model says banana has three n. What is the best reading of that, and the best next step?"

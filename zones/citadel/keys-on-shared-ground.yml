@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: choice
     prompt: "`ANTHROPIC_API_KEY` is exported in a shared lab profile, and you also log in with a subscription. In `-p` (non-interactive) mode, which does Claude Code use?"

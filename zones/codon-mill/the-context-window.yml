@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: sort
     prompt: "Which of these take room in the context window of a coding agent, and which do not?"

@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: sort
     prompt: "A researcher plans six tasks. Sort them by whether real rows from the samples database would leave the machine."

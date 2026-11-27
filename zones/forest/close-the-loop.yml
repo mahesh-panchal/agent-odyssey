@@ -1,4 +1,3 @@
-pass: 0.8
 questions:
   - type: order
     prompt: "Put the improvement loop in order."
