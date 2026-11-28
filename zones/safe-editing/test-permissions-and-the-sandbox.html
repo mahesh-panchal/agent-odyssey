@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Test Permissions and the Sandbox – Agent Odyssey</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-977c00f727d934aaf92f33c3e4ecd871.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../assets/css/rpg.css">
+</head>
+
+<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Test Permissions and the Sandbox</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="ao-story">
+<p>The party returns from the Collegium, where Sage Maelis made the pact, and the Astral has agreed and wants to run ahead. At the gate of the training grounds Warden Hesper gives you a chalk circle and a feather. “Do not trust a boundary you have not tested,” she says, remembering a boaster who swore his held against anything. You ask the Astral for one small poem and watch what it does at the edge of the circle. Then she shows you a wall of stone around it: test the circle, then test the wall.</p>
+</div>
+<div class="quest-dialog">
+<ul>
+<li><strong>Goal:</strong> you will watch an agent ask before it acts, switch it between modes, block one file with a rule, and see an operating-system boundary refuse a command.</li>
+<li><strong>Before you start:</strong> <a href="../agents-and-models/know-your-tools.html">Know Your Tools</a>, and <a href="../agents-and-models/set-up-your-agent.html">Set Up Your Agent</a>, which installs an agent (Claude Code, or OpenCode with Ollama) and starts it in a throwaway folder. Each step has a tab for each route. The OpenCode route also needs Docker for step 4. The <a href="../../prerequisites.html">Prerequisites</a> page lists the tools for the optional steps.</li>
+<li><strong>Time:</strong> about 30 minutes. Everything happens in a scratch folder with invented content.</li>
+</ul>
+</div>
+<p>Do this before an agent touches real files. An agent (a model with tools, running in a loop) can write files and run commands. Two separate guards limit it:</p>
+<ul>
+<li><strong>Permissions.</strong> The program around the model (the harness) asks you or refuses before one of its tools runs. A tool is an action such as writing a file or running a command.</li>
+<li><strong>Sandbox.</strong> The operating system limits what a shell command can touch, whatever the model asks for.</li>
+</ul>
+<p>You test each guard in a safe folder, one at a time. Every command below runs in <code>~/odyssey-scratch/leash</code>. If you open a new terminal, run <code>cd ~/odyssey-scratch/leash</code> and check with <code>pwd</code> before you continue. The first test is the simplest possible job: a poem in a text file.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/odyssey-scratch/leash <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/odyssey-scratch/leash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="permissions-the-agent-asks-first" class="level2">
+<h2 class="anchored" data-anchor-id="permissions-the-agent-asks-first">1. Permissions: the agent asks first</h2>
+<figure class="figure">
+<svg viewbox="0 0 640 120" role="img" aria-labelledby="l1-t l1-d" style="width:100%;height:auto;max-width:640px;font-family:inherit">
+<title id="l1-t">
+The permission prompt
+</title>
+<desc id="l1-d">You send a prompt to the model. The model requests a tool call. The harness stops and asks you to approve before the tool writes a file.</desc> <g stroke-width="2" font-size="15" fill="currentColor"> <rect x="10" y="30" width="110" height="52" rx="8" style="fill:none;stroke:var(--fg)"></rect><text x="30" y="61">You: prompt</text> <rect x="190" y="30" width="110" height="52" rx="8" style="fill:none;stroke:var(--fg)"></rect><text x="217" y="61">Model</text> <rect x="370" y="30" width="120" height="52" rx="8" style="fill:var(--panel);stroke:var(--accent)"></rect><text x="385" y="61">Ask: allow?</text> <rect x="550" y="30" width="80" height="52" rx="8" style="fill:none;stroke:var(--fg)"></rect><text x="565" y="61">Write</text> <path d="M120 56 H190 M300 56 H370 M490 56 H550" style="fill:none;stroke:var(--fg)"></path> <text x="310" y="26" font-size="12">tool request</text><text x="495" y="26" font-size="12">if yes</text> </g>
+</svg>
+<figcaption>
+The question to you sits between the model’s request and the write.
+</figcaption>
+</figure>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Start Claude Code in its default mode and give it a small job:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>Write a four-line poem about a thermocycler to a file called poem.txt.</code></pre>
+<p>Claude shows a prompt before it creates the file. Read it: it names the tool, the file path and the contents. The choices include yes once, yes for the rest of the session, and no. Choose yes once, then check the result in a second terminal or after you exit the session with <code>/exit</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> poem.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Run a prompt for a different file name and answer no. Claude reports the refusal and no file appears. It may offer another way to do the job; decline that too.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>OpenCode’s default policy allows edits without asking, so first add a rule that makes it ask. In <code>~/odyssey-scratch/leash</code>, create a project config file named <code>opencode.json</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"$schema"</span><span class="fu">:</span> <span class="st">"https://opencode.ai/config.json"</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"permissions"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">"action"</span><span class="fu">:</span> <span class="st">"edit"</span><span class="fu">,</span> <span class="dt">"resource"</span><span class="fu">:</span> <span class="st">"*"</span><span class="fu">,</span> <span class="dt">"effect"</span><span class="fu">:</span> <span class="st">"ask"</span> <span class="fu">}</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each rule has an <code>action</code> (what the agent wants to do), a <code>resource</code> (what it is done to; <code>*</code> matches anything) and an <code>effect</code> (<code>allow</code>, <code>ask</code> or <code>deny</code>). Send a small job from the shell:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">-m</span> ollama/qwen3:4b <span class="st">"Write a four-line poem about a thermocycler to a file called poem.txt."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>opencode run</code> cannot ask you anything, so it rejects the request. The output says <code>This non-interactive run cannot ask the user for permission, so the request was rejected</code>, and no <code>poem.txt</code> appears.</p>
+<p>For the interactive question, start <code>opencode</code> in the folder, type <code>/models</code> to pick your Ollama model, and send the same prompt. The prompt offers <strong>Allow once</strong>, <strong>Allow always</strong> and <strong>Reject</strong>. Choose Allow once, then check the result in a second terminal or after you exit:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> poem.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Run a prompt for a different file name and choose Reject. Nothing is written.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="modes-how-much-it-asks" class="level2">
+<h2 class="anchored" data-anchor-id="modes-how-much-it-asks">2. Modes: how much it asks</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>A <strong>permission mode</strong> sets what the harness asks about. <code>Shift+Tab</code> cycles the common modes inside a session, and the status bar shows the current one.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>default</code></td>
+<td>asks before edits, shell commands and network requests</td>
+</tr>
+<tr class="even">
+<td><code>acceptEdits</code></td>
+<td>auto-accepts file edits and common file commands (<code>mkdir</code>, <code>touch</code>, <code>mv</code>, <code>cp</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>plan</code></td>
+<td>reads and proposes; no edits until you approve a plan</td>
+</tr>
+<tr class="even">
+<td><code>bypassPermissions</code></td>
+<td>skips most prompts; for isolated containers and virtual machines only</td>
+</tr>
+</tbody>
+</table>
+<p>Try plan mode. Exit with <code>/exit</code>, then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--permission-mode</span> plan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>Write a four-line poem about a gel box to a file called poem2.txt.</code></pre>
+<p>Claude proposes a plan and waits. Reject the plan, exit with <code>/exit</code>, then run <code>ls</code>: <code>poem2.txt</code> does not exist. Plan mode answers “what would you do?” without doing it.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>OpenCode has <strong>agents</strong> (preset bundles of instructions and permissions) in place of a mode table. The <strong>build</strong> agent is the default. The <strong>plan</strong> agent explores and plans and does not edit your project files. In the interface, <code>Shift+Tab</code> cycles between agents.</p>
+<p>Try the plan agent from the shell:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">--agent</span> plan <span class="at">-m</span> ollama/qwen3:4b <span class="st">"Write a four-line poem about a gel box to a file called poem2.txt."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The plan agent declines to write the file. Run <code>ls</code>: <code>poem2.txt</code> does not exist. The plan agent stops file edits only. Its shell commands still follow the rules in your config, and the default policy allows them.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="a-rule-that-always-applies" class="level2">
+<h2 class="anchored" data-anchor-id="a-rule-that-always-applies">3. A rule that always applies</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>A <strong>permission rule</strong> is a line in a settings file that allows, asks about or denies one action. Rules are checked deny first, then ask, then allow, and the first match decides. Create an invented secret (a <code>.env</code> file is where programs often keep passwords and keys) and a rule that blocks reading it. Exit the previous session first with <code>/exit</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/odyssey-scratch/leash</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"FAKE_API_KEY=not-a-real-key"</span> <span class="op">&gt;</span> .env</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .claude</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> .claude/settings.local.json <span class="op">&lt;&lt;'JSON'</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="st">  "permissions": {</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="st">    "deny": ["Read(./.env)"]</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="op">JSON</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Type this into Claude, not into the shell:</p>
+<pre class="text"><code>Show me what is in .env.</code></pre>
+<p>Claude cannot read the file with its file tools. Claude Code also applies the rule to shell commands it recognises as file readers, such as <code>cat .env</code>. It cannot apply the rule to a program that opens the file itself, such as <code>python3 -c "print(open('.env').read())"</code>. The sandbox in the next section limits what such a program can write and send over the network. By default it can still read <code>.env</code>, so keep real secrets out of the folder.</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>A <strong>permission rule</strong> is one entry in the <code>permissions</code> list of a config file. OpenCode checks the rules in order, and <strong>the last matching rule wins</strong>. Create an invented secret (a <code>.env</code> file is where programs often keep passwords and keys) and a rule that blocks reading it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/odyssey-scratch/leash</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"FAKE_API_KEY=not-a-real-key"</span> <span class="op">&gt;</span> .env</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> opencode.json <span class="op">&lt;&lt;'JSON'</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="st">  "$schema": "https://opencode.ai/config.json",</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="st">  "permissions": [</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">    { "action": "edit", "resource": "*", "effect": "ask" },</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="st">    { "action": "read", "resource": "*.env", "effect": "deny" }</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">  ]</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="op">JSON</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ask for the file twice, once for the read tool and once for a shell command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">-m</span> ollama/qwen3:4b <span class="st">"Use your read tool to show me what is in the file .env."</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">-m</span> ollama/qwen3:4b <span class="st">"Run the shell command: cat .env  and show me the exact output."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The first run fails with <code>Permission denied: read</code>. The second prints <code>FAKE_API_KEY=not-a-real-key</code>. The rule covers the <code>read</code> action only, and <code>cat</code> is a shell command. Add a rule for the shell and run the second command again. Replace the file with all three rules, so the first one stays:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"$schema"</span><span class="fu">:</span> <span class="st">"https://opencode.ai/config.json"</span><span class="fu">,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"permissions"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">"action"</span><span class="fu">:</span> <span class="st">"edit"</span><span class="fu">,</span> <span class="dt">"resource"</span><span class="fu">:</span> <span class="st">"*"</span><span class="fu">,</span> <span class="dt">"effect"</span><span class="fu">:</span> <span class="st">"ask"</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">"action"</span><span class="fu">:</span> <span class="st">"read"</span><span class="fu">,</span> <span class="dt">"resource"</span><span class="fu">:</span> <span class="st">"*.env"</span><span class="fu">,</span> <span class="dt">"effect"</span><span class="fu">:</span> <span class="st">"deny"</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">"action"</span><span class="fu">:</span> <span class="st">"shell"</span><span class="fu">,</span> <span class="dt">"resource"</span><span class="fu">:</span> <span class="st">"cat *"</span><span class="fu">,</span> <span class="dt">"effect"</span><span class="fu">:</span> <span class="st">"deny"</span> <span class="fu">}</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now it fails with <code>Permission denied: shell</code>. A rule blocks the commands it names. A program that opens the file itself, such as <code>python3 -c "print(open('.env').read())"</code>, still reads it, so keep real secrets out of the folder.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-sandbox-the-operating-system-says-no" class="level2">
+<h2 class="anchored" data-anchor-id="the-sandbox-the-operating-system-says-no">4. The sandbox: the operating system says no</h2>
+<figure class="figure">
+<svg viewbox="0 0 640 170" role="img" aria-labelledby="l2-t l2-d" style="width:100%;height:auto;max-width:640px;font-family:inherit">
+<title id="l2-t">
+Permissions and the sandbox
+</title>
+<desc id="l2-d">The same flow as before, with the write replaced by a shell command. A dashed box named sandbox surrounds the shell command. Inside it, writes are limited to the project folder, the home folder is read-only, and the internet is blocked by default.</desc> <g stroke-width="2" font-size="15" fill="currentColor"> <rect x="10" y="20" width="110" height="52" rx="8" style="fill:none;stroke:var(--fg)"></rect><text x="30" y="51">You: prompt</text> <rect x="150" y="20" width="90" height="52" rx="8" style="fill:none;stroke:var(--fg)"></rect><text x="170" y="51">Model</text> <rect x="270" y="20" width="120" height="52" rx="8" style="fill:var(--panel);stroke:var(--accent)"></rect><text x="285" y="51">Ask: allow?</text> <rect x="420" y="10" width="210" height="150" rx="12" style="fill:none;stroke:var(--ok);stroke-dasharray:6 4"></rect> <text x="432" y="30" font-size="13" style="fill:var(--ok)">SANDBOX (operating system)</text> <rect x="440" y="42" width="170" height="40" rx="8" style="fill:none;stroke:var(--fg)"></rect><text x="452" y="67">Shell command</text> <text x="440" y="106" font-size="13">writes: project and temp folders</text> <text x="440" y="126" font-size="13">home folder: no write</text> <text x="440" y="146" font-size="13">internet: blocked by default</text> <path d="M120 46 H150 M240 46 H270 M390 46 H440" style="fill:none;stroke:var(--fg)"></path> </g>
+</svg>
+<figcaption>
+Permissions decide whether the command starts. The sandbox limits what it can touch once it runs.
+</figcaption>
+</figure>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>The <strong>sandbox</strong> is a boundary the operating system enforces around the shell commands Claude runs, and around the programs those commands start. By default it allows writes in the project folder and a temporary folder, and it routes network traffic through a proxy (a gatekeeper program that traffic passes through) that starts with no allowed domains. It can still read most of your machine, so keep secrets out of reach with the rules above. It does not cover Claude’s own Read, Edit and Write tools or MCP servers (programs that offer Claude extra tools); those stay under permission rules.</p>
+<p>Set-up differs by system:</p>
+<ul>
+<li><strong>macOS:</strong> nothing to install.</li>
+<li><strong>Linux and WSL 2 (Windows Subsystem for Linux):</strong> install the two helper tools the sandbox is built from, <code>sudo apt-get install bubblewrap socat</code> (Debian, Ubuntu) or <code>sudo dnf install bubblewrap socat</code> (Fedora), then restart Claude Code.</li>
+<li><strong>Native Windows:</strong> commands run without a sandbox. Use WSL 2.</li>
+</ul>
+<p>Start Claude, type <code>/sandbox</code>, and choose a mode:</p>
+<ul>
+<li><strong>Auto-allow:</strong> sandboxed commands run without asking.</li>
+<li><strong>Regular permissions:</strong> every command still asks.</li>
+</ul>
+<p>Both modes enforce the same boundary. Choose regular permissions for this exercise so you see each command first. Then ask:</p>
+<pre class="text"><code>Run this command and show me the exact result: touch ~/sandbox-probe</code></pre>
+<pre class="text"><code>Run this command and show me the exact result: curl --noproxy '*' https://example.com</code></pre>
+<p>Expected results:</p>
+<ul>
+<li><code>touch</code>: <code>Operation not permitted</code> on macOS, <code>Read-only file system</code> on Linux and WSL 2.</li>
+<li><code>curl</code>: <code>Could not resolve host</code>.</li>
+</ul>
+<p>Both commands failed because the operating system refused, and no instruction to the model can override that. If Claude offers to run a blocked command outside the sandbox, answer no. If the <code>touch</code> succeeded, the sandbox is off. Run <code>rm ~/sandbox-probe</code>, switch <code>/sandbox</code> on, and do not continue until the <code>touch</code> fails. Run the probes through Claude and not with the <code>!</code> prefix, which runs a shell command directly, outside the sandbox.</p>
+<p>To open one path or domain for a task, add it under <code>sandbox</code> in <code>settings.json</code> (<code>.claude/settings.json</code> inside a project, or <code>~/.claude/settings.json</code> for every project):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"sandbox"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"enabled"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"filesystem"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"allowWrite"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"~/odyssey-scratch/build"</span><span class="ot">]</span> <span class="fu">},</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"network"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"allowedDomains"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"github.com"</span><span class="ot">]</span> <span class="fu">}</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>OpenCode’s documentation describes permission rules but no operating-system sandbox. Its shell commands run with your user’s authority: your files, your processes and your network. If Docker is not available on your machine, skip this step; steps 1 to 3 already showed the rules and their limits. OpenCode enforces its own rules inside its program, and nothing at the operating-system level limits what a command it runs can touch. A boundary has to come from outside the agent, and a container is the simplest one to test.</p>
+<p>A <strong>container</strong> is an isolated Linux environment with its own filesystem; it sees your files only where you mount them in. Docker is a common tool for this. Install Docker Desktop (or Docker Engine on Linux) and start it before you run this command. The first run downloads the <code>python:3.11</code> image, which is large. The command mounts the scratch folder and cuts the network:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">--rm</span> <span class="at">--network</span> none <span class="at">-v</span> ~/odyssey-scratch/leash:/project <span class="at">-w</span> /project python:3.11 bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Inside, run <code>ls /</code> (a different filesystem from yours), <code>curl https://example.com</code> (fails, no network) and <code>touch /project/inside.txt</code>. The file appears in your scratch folder because it is the mounted project folder, the only part of your machine the container can change. Type <code>exit</code> to leave. This tests the boundary itself. Running an agent inside one takes more set-up than this lesson covers.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="optional-a-container" class="level2">
+<h2 class="anchored" data-anchor-id="optional-a-container">5. Optional: a container</h2>
+<p>On the Claude Code route you do not need a container for this lesson, because <code>/sandbox</code> already gives you a boundary to test. On the OpenCode route, step 4 used one.</p>
+<p>For an agent inside a container, Anthropic’s reference setup is a <strong>dev container</strong> (a container definition your editor starts for you). Anthropic’s docs allow the flag <code>--dangerously-skip-permissions</code> (the same as <code>bypassPermissions</code> mode) only there, because the container is the boundary. Two limits remain: the agent can still change the mounted project folder, and a malicious project can reach anything inside the container, including Claude’s login in <code>~/.claude</code>. Mount no host secrets such as <code>~/.ssh</code>, and restrict the network.</p>
+</section>
+<section id="clean-up" class="level2">
+<h2 class="anchored" data-anchor-id="clean-up">Clean up</h2>
+<p>Exit the agent. On the Claude Code route, switch <code>/sandbox</code> off if you do not want it on. Then delete the probe file and the scratch folder, nothing else:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~ <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-f</span> ~/sandbox-probe <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-rf</span> ~/odyssey-scratch/leash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="battle" class="level2">
+<h2 class="anchored" data-anchor-id="battle">Battle</h2>
+<div data-ao-test="safe-editing-test-permissions-and-the-sandbox" data-xp="60">
+
+</div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="../agents-and-models/set-up-your-agent.html">Set Up Your Agent</a>: install the agent and start in plan mode.</li>
+<li><a href="write-permission-rules.html">Write Permission Rules</a>: write allow, ask and deny rules for a real project.</li>
+<li><a href="save-point.html">Save Point</a>: set a save point so an approved edit can be undone.</li>
+<li><a href="../instructions-skills-and-hooks/advice-or-enforcement.html">Advice or Enforcement</a>: why a hook enforces and an instructions file only asks.</li>
+<li><a href="../agents-and-models/choose-what-to-hand-over.html">Choose What to Hand Over</a>: decide what an agent may do before you start.</li>
+</ul>
+</section>
+<section id="lore" class="level2 ao-lore">
+<h2 class="anchored" data-anchor-id="lore">Lore</h2>
+<p><em>Further reading. Optional.</em></p>
+<ul>
+<li><a href="https://code.claude.com/docs/en/sandboxing">Sandboxing</a>: Anthropic, docs. Why read: it lists what the sandbox covers, the settings keys and the two probe commands used here.</li>
+<li><a href="https://code.claude.com/docs/en/permission-modes">Choose a permission mode</a>: Anthropic, docs. Why read: it defines each mode and how to switch between them.</li>
+<li><a href="https://code.claude.com/docs/en/permissions">Configure permissions</a>: Anthropic, docs. Why read: it gives the rule syntax and the deny, ask, allow order.</li>
+<li><a href="https://opencode.ai/docs/permissions/">OpenCode permissions</a>: OpenCode, docs. Why read: it gives the rule fields, the allow, ask and deny effects, and says the last matching rule wins.</li>
+<li><a href="https://code.claude.com/docs/en/devcontainer">Development containers</a>: Anthropic, docs. Why read: it sets out when running without permission prompts is acceptable and what a dev container does not protect.</li>
+<li><a href="https://coderefinery.github.io/coding-with-ai/scenario-agentic/">Scenario III: full agentic code development</a>: CodeRefinery, docs. Why read: a course lesson with a Docker demo and exercises on supervising an agent.</li>
+</ul>
+</section>
+
+
+
+</main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
+<script>
+(function () {
+  var l = document.querySelector('link[href$="assets/css/rpg.css"]');
+  var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
+  window.AO_BASE = base;
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
+    return p.then(function () {
+      return new Promise(function (res) {
+        var s = document.createElement("script");
+        s.src = base + "assets/js/" + n + ".js"; s.onload = res; document.body.appendChild(s);
+      });
+    });
+  }, Promise.resolve());
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mahesh-panchal\.github\.io\/agent-odyssey\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

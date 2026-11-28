@@ -123,7 +123,7 @@
         if (!revealed(g)) return;
         var done = cleared(g), cx = (g.x + .5) * T * S, cy = (g.y + .5) * T * S;
         if (!done) {
-          var r = 2.6 * T * S, a = gst(g) === "open" ? .2 : (g.id === "basecamp" ? 0 : .8);
+          var r = 2.6 * T * S, a = gst(g) === "open" ? .2 : (g.id === "worries" ? 0 : .8);
           var gr = f.createRadialGradient(cx, cy, 6, cx, cy, r);
           gr.addColorStop(0, "rgba(70,20,110," + a + ")"); gr.addColorStop(1, "rgba(70,20,110,0)");
           f.fillStyle = gr; f.fillRect(cx - r, cy - r, 2 * r, 2 * r);

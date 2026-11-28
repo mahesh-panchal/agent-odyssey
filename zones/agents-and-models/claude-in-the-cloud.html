@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Claude in the Cloud – Agent Odyssey</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-977c00f727d934aaf92f33c3e4ecd871.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../assets/css/rpg.css">
+</head>
+
+<body class="fullcontent quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Claude in the Cloud</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="ao-story">
+<p>You walk to the Collegium and climb its tower, where the Claude Astral can work on a borrowed machine that vanishes when the job is done. Sage Maelis climbs with you. She says it is a fine place to sketch and write, and that the boasters make it sound fit for any task. Asked plainly, she lowers her voice: nothing precious should be carried to the tower. Learn what the tower is good for, and what you must leave at home.</p>
+</div>
+<div class="quest-dialog">
+<ul>
+<li><strong>Goal:</strong> you will say what a cloud session is, what leaves your machine when you start one, which jobs suit it, and how to review what comes back.</li>
+<li><strong>Before you start:</strong> <a href="know-your-tools.html">Know Your Tools</a>, <a href="set-up-your-agent.html">Set Up Your Agent</a> and <a href="../safe-editing/keep-secrets-out-of-reach.html">Keep Secrets Out of Reach</a>. You need git and a GitHub account only if you later start a session.</li>
+<li><strong>Time:</strong> about 15 minutes. The exercise is a worksheet on a mock file tree and needs no cloud account or model.</li>
+</ul>
+</div>
+<section id="the-rule-for-this-page" class="level2">
+<h2 class="anchored" data-anchor-id="the-rule-for-this-page">The rule for this page</h2>
+<p>You may be offered a way to run an agent on someone else’s computer. You need this lesson before you start one, because what you send is stored away from your machine. Decide what may go there first.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Cloud sessions are for drafting scripts and documentation. Data analysis stays on your machine or the cluster.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use a cloud session for <strong>writing scripts, updating documentation and similar low-risk text work</strong>. <strong>Real data, controlled data, sample sheets with identifiers, genotypes and results stay out of a cloud session and its repository.</strong> Analysis runs on your own machine or the cluster, under your data agreement.</p>
+<p>Think of the cloud agent as a <strong>drafting helper that returns a branch</strong> (a named line of commits in git) which you review and then run yourself, where the data lives.</p>
+</div>
+</div>
+<p>Cloud sessions are optional. If you use one, the rest of the page shows how to keep sensitive material at home.</p>
+</section>
+<section id="what-a-cloud-session-is" class="level2">
+<h2 class="anchored" data-anchor-id="what-a-cloud-session-is">1. What a cloud session is</h2>
+<p>A <strong>cloud session</strong> is a Claude Code session that runs on Anthropic’s servers, away from your laptop. Each one gets a fresh <strong>virtual machine</strong> (a computer simulated inside a bigger one, thrown away afterwards) with a fresh <strong>clone</strong> (a full copy of a repository) of your code, made from its copy on GitHub. It keeps working after you close your laptop. When it is done, the work comes back as a <strong>branch</strong>, which you can turn into a <strong>pull request</strong> (a proposal on GitHub to merge that branch, with a place to review the changes).</p>
+<p>Only <strong>committed</strong> files (changes you have saved into git history with <code>git commit</code>) travel, because the clone is made from GitHub. A committed <code>CLAUDE.md</code> (the instructions file Claude Code reads at the start of a session) and the project’s skills and agents come along. What stays behind:</p>
+<ul>
+<li>your personal <code>~/.claude/CLAUDE.md</code> (the same kind of file, kept in your home folder), skills, agents and user-level settings;</li>
+<li>MCP servers (add-on connections that give the agent extra tools) you added only for yourself;</li>
+<li><code>.claude/settings.local.json</code> and interactive sign-ins.</li>
+</ul>
+</section>
+<section id="what-leaves-your-machine" class="level2">
+<h2 class="anchored" data-anchor-id="what-leaves-your-machine">2. What leaves your machine</h2>
+<p>Read this part twice. When you start a cloud session:</p>
+<ul>
+<li><strong>Your repository contents</strong> are cloned onto Anthropic’s VM. Anthropic reads only the repository you start the session in.</li>
+<li><strong>Your prompts and everything the agent reads and writes</strong> go to the model.</li>
+<li><strong>The session transcript</strong> (the saved record of the whole conversation, including tool output) is stored by Anthropic so you can return to it later.</li>
+<li><strong>Retention</strong> (how long Anthropic keeps stored data) depends on your account type. Check your plan’s current terms on the Data usage page in Lore. Deleting a cloud session permanently removes its event data.</li>
+<li><strong>Network level None may still let data exit.</strong> A <strong>network access level</strong> is the setting that says which internet hosts the VM may reach (None, Limited or Full; see section 5). The Anthropic API stays reachable even at None, which may allow data to exit the VM.</li>
+<li><strong>Environment variables</strong> (named settings handed to programs, often used for keys) set in a cloud environment can be read by any command Claude runs, and anyone who uses that environment can read the values.</li>
+</ul>
+<p>Some organisation settings block cloud sessions outright, and your administrator can switch them off. Ask whether yours are available.</p>
+<p>Keep controlled data out of the cloud repository. Treat the clone, the transcript and anything you paste as held by Anthropic. Read your data agreement before you push anything to a remote that a cloud session can see (a <strong>remote</strong> is the copy of a repository hosted elsewhere, such as on GitHub).</p>
+</section>
+<section id="good-uses-and-bad-uses" class="level2">
+<h2 class="anchored" data-anchor-id="good-uses-and-bad-uses">3. Good uses and bad uses</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fine for a cloud session (code and mock data only)</th>
+<th>Keep for your machine or the cluster</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Write a samplesheet validator, tested on a three-row mock file</td>
+<td>Run the analysis</td>
+</tr>
+<tr class="even">
+<td>Write a QC summary plotting script, developed on mock data</td>
+<td>Load real counts, genotypes or results</td>
+</tr>
+<tr class="odd">
+<td>Draft or update the README, changelog, docstrings</td>
+<td>Debug with real sample IDs in the repository</td>
+</tr>
+<tr class="even">
+<td>Refactor non-data code that has tests</td>
+<td>Anything under a data agreement</td>
+</tr>
+<tr class="odd">
+<td>Review a pull request that holds no identifiers</td>
+<td>Anything that needs a local database or the cluster</td>
+</tr>
+<tr class="even">
+<td>Triage issues that hold no identifiers</td>
+<td>Anything that needs your institution’s network or files</td>
+</tr>
+</tbody>
+</table>
+<p>A cloud machine has no GPU and no access to your institution’s network. Work that needs a GPU, a VPN (a private network link into your institution) or local databases stays on your side.</p>
+</section>
+<section id="how-to-start" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-start">4. How to start</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="companion">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Claude Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">OpenCode + Ollama</a></li></ul>
+<div class="tab-content" data-group="companion">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ul>
+<li><strong>Push first.</strong> <code>claude --cloud "your task"</code> starts a cloud session from your terminal. It clones the GitHub remote at your current branch, and your local folder is not used. <strong>Commit and push</strong> (save snapshots, then upload them to the remote) before you start, so the session sees your latest work. If the branch is not on GitHub, the session starts from a pushed commit or the default branch. One repository per session. You can also start from claude.ai/code in the browser.</li>
+<li><strong>Write a ticket-style prompt.</strong> That is a self-contained note like a work ticket: the problem, the expected result, and a command that proves it (in the example, <code>pytest</code>, a Python test runner). Be specific, name files and paste errors. Example, with no data in it:</li>
+</ul>
+<pre class="text"><code>Problem: scripts/validate_samplesheet.py accepts duplicate sample IDs.
+Expected: exit status 1 and a message naming the duplicated ID.
+Check: pytest tests/test_validate_samplesheet.py (mock rows only).
+Add a test for the duplicate case. Only change files under scripts/ and tests/.</code></pre>
+<p>A repository with no real data anywhere in it is the safe one. Removing the <code>data/</code> and <code>results/</code> folders is not enough if real files sit elsewhere. A prompt line such as “do not read data/” is a request to the model and gives no protection. If the folder is in the repository, the cloud session can read it.</p>
+<ul>
+<li><strong>If there is no remote.</strong> When the repository has no git remote, or a GitHub repository does not have the Claude GitHub App (an app you install on a repository to let Claude clone it) installed, Claude Code <strong>bundles</strong> it and uploads the full history of all branches plus uncommitted changes to tracked files. <strong>Keep data out of this route entirely.</strong> Your history may already hold a file you deleted, and the bundle takes all of it. Check what is tracked and what your <code>.gitignore</code> covers first.</li>
+<li><strong>Getting the session back.</strong> <code>claude --teleport</code> pulls a cloud session into your local terminal. It needs a clean git state, the same repository, the branch pushed and the same claude.ai account.</li>
+<li><strong>GitHub access.</strong> Cloud sessions reach your repositories through the Claude GitHub App or a token that <code>/web-setup</code> (a command you run in the terminal) sends to Anthropic; it sends your local <code>gh</code> (GitHub command-line tool) token. The proxy that holds your credential does not limit which branches a push can update. Use GitHub <strong>branch protection or rulesets</strong> (rules on which branches may be changed and by whom) for that.</li>
+</ul>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>To run an agent away from your laptop with OpenCode, run it yourself in your own container or virtual machine. That is your own infrastructure and your own responsibility.</p>
+<p>A local Ollama model keeps prompts on your machine, though web or tool calls the agent makes may leave it, so check your data agreement before you rely on it.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="environments" class="level2">
+<h2 class="anchored" data-anchor-id="environments">5. Environments</h2>
+<p>An <strong>environment</strong> is a saved configuration for cloud sessions: network access, environment variables, a setup script and network secrets.</p>
+<p><strong>Network access levels:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>What the VM can reach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td>No internet (the Anthropic API, the GitHub proxy and enabled connectors still work)</td>
+</tr>
+<tr class="even">
+<td>Limited</td>
+<td>A default <strong>allowlist</strong> (a list of the only hosts permitted) of package registries, GitHub and cloud SDKs, plus domains you add</td>
+</tr>
+<tr class="odd">
+<td>Full</td>
+<td>Any host</td>
+</tr>
+</tbody>
+</table>
+<p>Pick the narrowest level that lets the task finish.</p>
+<ul>
+<li><strong>Setup scripts:</strong> a <strong>setup script</strong> is a Bash script that runs once before Claude starts, to install what the task needs. Installs need network access, so None blocks them.</li>
+<li><strong>Environment variables versus network secrets:</strong> environment variables are readable by any command Claude runs. <strong>Network secrets</strong> are the safer option where possible: the key stays outside the VM, and a proxy adds it to requests to hosts you list.</li>
+<li><strong>Preinstalled tools:</strong> common programming tools are present. No R, conda or bioinformatics tools are listed, so ask Claude to list the tools installed on the cloud machine before you rely on one.</li>
+</ul>
+</section>
+<section id="permission-modes-in-the-cloud" class="level2">
+<h2 class="anchored" data-anchor-id="permission-modes-in-the-cloud">6. Permission modes in the cloud</h2>
+<p>A <strong>permission mode</strong> says how much the agent may do before asking you. Cloud sessions offer <strong>Accept edits</strong>, <strong>Plan</strong> and <strong>Auto</strong>. There is no Manual or Bypass mode there. You pick the mode in the dropdown.</p>
+<p>Use <strong>Plan</strong> for anything you do not already understand, and read the plan before it edits. You can also plan locally with <code>claude --permission-mode plan</code>, commit and push the plan, and then start <code>claude --cloud</code>.</p>
+</section>
+<section id="limits-and-failure-modes" class="level2">
+<h2 class="anchored" data-anchor-id="limits-and-failure-modes">7. Limits and failure modes</h2>
+<ul>
+<li><strong>A fresh machine every time.</strong> An idle session stops and its VM is taken back. Commit and push work you want to keep.</li>
+<li><strong>Size.</strong> A cloud machine has limited CPU, memory and disk. Heavy jobs may be stopped.</li>
+<li><strong>Shared usage.</strong> Cloud work counts against the same plan limits as all your other Claude Code use.</li>
+<li><strong>GitHub comments under your name.</strong> Claude can reply on pull requests under your GitHub name, marked as from Claude Code.</li>
+</ul>
+</section>
+<section id="review-what-comes-back" class="level2">
+<h2 class="anchored" data-anchor-id="review-what-comes-back">8. Review what comes back</h2>
+<p>The result is <strong>a branch</strong>. Treat it like a stranger’s pull request: it may be fine and it may be wrong.</p>
+<ol type="1">
+<li><strong>Read the diff</strong> (the list of changed lines) as you would any other.</li>
+<li><strong>Look for accidents in the diff:</strong> committed data files, absolute paths, sample IDs in a test or a comment, a <code>.env</code>, a notebook saved with outputs (a <strong>notebook</strong> is a Jupyter document mixing code and results; its saved outputs are the tables and plots stored inside the file).</li>
+<li><strong>Run the tests locally</strong>, on your machine.</li>
+<li><strong>Only then run the script on your data</strong>, locally or on the cluster, under your data agreement. The cloud agent never saw that data and never ran that step.</li>
+</ol>
+<p>A green test in the cloud is a claim to verify. A test passing on mock data tells you the script runs; your real data is the next check, run locally.</p>
+</section>
+<section id="exercise-the-safe-to-send-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-the-safe-to-send-checklist">Exercise: the safe-to-send checklist</h2>
+<p>No cloud account, GitHub account or model needed, and no repository to clone. The tree is a text file in this course’s exercises folder. Open <a href="../../exercises/agents-and-models/cloud-safe/tree.txt">tree.txt</a>, a <strong>mock</strong> repository tree (every name is invented).</p>
+<ol type="1">
+<li><strong>Mark each path</strong> that must not reach anything a cloud session can see. Say whether it needs removing from history (it is already committed) or only ignoring, and write one reason each.</li>
+<li><strong>Write the <code>.gitignore</code> lines</strong> that would have stopped it.</li>
+<li><strong>Draft a ticket-style prompt</strong> for one low-risk task: update <code>docs/usage.md</code>, or add a missing-column test to <code>scripts/validate_samplesheet.py</code>. Include the problem, the expected result and a check that uses only <code>data/mock/</code>.</li>
+</ol>
+<details>
+<summary>
+Answer key (some entries depend on your data agreement)
+</summary>
+<ul>
+<li><strong>Every path under “Paths to remove” is committed, so remove each one from history before you push anything a cloud session can see.</strong> The ignore lines further down only prevent a repeat.</li>
+</ul>
+<p><strong>Paths to remove:</strong></p>
+<ul>
+<li><p><code>.env</code>: a secret. It was already committed, so remove it from history and replace the token; ignoring it helps only from now on.</p></li>
+<li><p><code>samplesheet_real.csv</code>: identifiers and genotype calls.</p></li>
+<li><p><code>data/raw/</code> and <code>data/processed/</code>: real reads and real counts.</p></li>
+<li><p><code>notebooks/01_qc.ipynb</code> and <code>notebooks/02_diffexp.ipynb</code>: outputs saved inside them contain real sample IDs, tables and plots. Clear the outputs, or keep the notebooks out.</p></li>
+<li><p><code>results/</code> (including <code>de_genes.csv</code> and <code>pca_real_samples.png</code>): results.</p></li>
+<li><p><code>logs/slurm-482913.out</code>: real sample IDs and cluster paths.</p></li>
+<li><p><code>notebooks/.ipynb_checkpoints/</code>: autosave copies of the notebooks, with the same saved outputs.</p></li>
+<li><p><strong>Fine to send</strong> (they hold no real data): <code>README.md</code>, <code>environment.yml</code>, <code>samplesheet_template.csv</code>, <code>config/params.yaml</code> (check it for real paths), <code>data/mock/</code>, <code>docs/</code>, <code>scripts/</code>, <code>tests/</code>.</p></li>
+</ul>
+<p><strong>Ignore lines</strong> that would help:</p>
+<pre class="text"><code>.env
+.env.*
+samplesheet_real.csv
+*.fastq.gz
+data/raw/
+data/processed/
+results/
+logs/
+.ipynb_checkpoints/</code></pre>
+<p>Add a rule for notebooks too (for example, a <strong>pre-commit</strong> hook, a script git runs automatically before each commit, that clears outputs), because <code>.gitignore</code> alone cannot strip outputs from a notebook you do want to commit. Likewise, <code>.gitignore</code> only stops files that are <strong>not yet tracked</strong>; anything already committed stays in history until you remove it properly, and rewriting history is its own careful job.</p>
+<p><strong>Sample prompt:</strong></p>
+<pre class="text"><code>Problem: docs/usage.md does not mention the --strandedness option added in v0.3.
+Expected: a short section with the option, its allowed values, and one example
+command using data/mock/ only.
+Check: the example command in the new section runs on data/mock/counts_mock.tsv. Only edit docs/usage.md.</code></pre>
+<p>A prompt line is a request to the model. The safe version of this repository has no real data folders to read.</p>
+</details>
+</section>
+<section id="what-to-remember" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-remember">What to remember</h2>
+<ul>
+<li><strong>Cloud sessions are for drafting scripts and documentation; analysis stays on your machine or the cluster.</strong> Real data, controlled data, sample sheets with identifiers, genotypes and results stay out of a cloud session and its repository.</li>
+<li>Your repository contents, prompts and session transcript go to Anthropic, and network level None may still let data exit the VM.</li>
+<li>Return is a branch: read the diff, look for stray data, run the tests locally, then run on your data where it lives, under your data agreement.</li>
+</ul>
+</section>
+<section id="battle" class="level2">
+<h2 class="anchored" data-anchor-id="battle">Battle</h2>
+<div data-ao-test="agents-and-models-claude-in-the-cloud" data-xp="50">
+
+</div>
+<div data-ao-honour="check-data-agreement" data-xp="25">
+Look up your data agreement and check whether it allows any third-party processing before you ever push to a cloud-connected remote.
+</div>
+<div data-ao-honour="check-plan-cloud" data-xp="25">
+Check whether your organisation’s plan allows cloud sessions at all.
+</div>
+</section>
+<section id="related-lessons" class="level2 ao-related">
+<h2 class="anchored" data-anchor-id="related-lessons">Related lessons</h2>
+<ul>
+<li><a href="../safe-editing/keep-secrets-out-of-reach.html">Keep Secrets Out of Reach</a>: for more on keys, secrets and data agreements.</li>
+<li><a href="../safe-editing/write-permission-rules.html">Write Permission Rules</a>: permission modes and rules in depth.</li>
+<li><a href="../safe-editing/plan-before-you-edit.html">Plan Before You Edit</a>: read a plan before the agent changes anything.</li>
+<li><a href="../safe-editing/save-point.html">Save Point</a>: git snapshots, and what stays in history.</li>
+<li><a href="../collaboration/review-agent-written-work.html">Review Agent-Written Work</a>: habits for reviewing a change you did not write.</li>
+<li><a href="../checking-output/boss-review-large-output.html">Boss: Review Large Output</a>: reading a large diff without missing the problem.</li>
+</ul>
+</section>
+<section id="lore" class="level2 ao-lore">
+<h2 class="anchored" data-anchor-id="lore">Lore</h2>
+<p><em>Further reading. Optional.</em></p>
+<ul>
+<li><a href="https://code.claude.com/docs/en/claude-code-on-the-web">Use Claude Code in the cloud</a>: Anthropic, docs. Why read: it is the main page on cloud sessions, including what gets uploaded when a repository has no GitHub remote.</li>
+<li><a href="https://code.claude.com/docs/en/cloud-environments">Configure cloud environments</a>: Anthropic, docs. Why read: it covers network access levels, environment variables and setup scripts for a session.</li>
+<li><a href="https://code.claude.com/docs/en/data-usage">Data usage</a>: Anthropic, docs. Why read: it states what Anthropic stores from a cloud session and how retention differs by plan (from 30 days up to 5 years at the time of writing).</li>
+<li><a href="https://code.claude.com/docs/en/security">Security</a>: Anthropic, docs. Why read: its cloud execution section lists the isolation, credential and audit controls.</li>
+<li><a href="https://claude.dev/blog/claude-code-in-the-cloud/">Claude Code in the cloud article</a>: claude.dev blog, article. Why read: a community field guide to cloud sessions; use it for ideas and rely on the official pages above for facts.</li>
+</ul>
+</section>
+
+
+
+</main> <!-- /main -->
+<footer class="ao-footer"><a href="https://github.com/mahesh-panchal/agent-odyssey/blob/main/ACKNOWLEDGEMENTS.md">Acknowledgements</a></footer>
+<script>
+(function () {
+  var l = document.querySelector('link[href$="assets/css/rpg.css"]');
+  var base = l ? l.getAttribute("href").replace("assets/css/rpg.css", "") : "./";
+  window.AO_BASE = base;
+  ["state", "path", "log", "world", "nav", "tests", "honour", "character", "start", "minimap", "next", "storykey", "tabs"].reduce(function (p, n) {
+    return p.then(function () {
+      return new Promise(function (res) {
+        var s = document.createElement("script");
+        s.src = base + "assets/js/" + n + ".js"; s.onload = res; document.body.appendChild(s);
+      });
+    });
+  }, Promise.resolve());
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mahesh-panchal\.github\.io\/agent-odyssey\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

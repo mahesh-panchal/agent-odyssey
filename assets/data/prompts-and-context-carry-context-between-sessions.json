@@ -1,0 +1,197 @@
+{
+ "questions": [
+  {
+   "type": "sort",
+   "prompt": "Where does each item belong? Pick the one place that fits best.",
+   "bins": [
+    "Instructions file",
+    "Auto memory",
+    "Handoff note",
+    "Git history"
+   ],
+   "explain": "The instructions file holds stable rules you write. Auto memory holds notes the tool wrote itself. A handoff note holds the state of one task (what failed, what is next). Git history holds the commits and their messages.",
+   "items": [
+    {
+     "text": "Never edit files under raw_data/",
+     "bin": "Instructions file",
+     "misconception": "A standing rule that applies to every session belongs in the instructions file, which loads every session; a handoff note covers one task."
+    },
+    {
+     "text": "Prefers sample_id over id as the column name: a line you never typed, found listed by /memory",
+     "bin": "Auto memory",
+     "misconception": "You did not write it and the harness decided to keep it, which is what makes it auto memory."
+    },
+    {
+     "text": "Tried a trim at Q15, it dropped 40% of reads, do not retry",
+     "bin": "Handoff note",
+     "misconception": "This is the state of one task and tells the next session what not to repeat. A standing rule would apply to all work."
+    },
+    {
+     "text": "a1b2c3d qc: vectorise the mean-quality calculation",
+     "bin": "Git history",
+     "misconception": "A commit message is stored with the commit, in the repository history, so it does not belong in a notes file."
+    },
+    {
+     "text": "Next step: rerun the filter on batch 2 with the new threshold",
+     "bin": "Handoff note",
+     "misconception": "A next step is only true until it is done. A stable instructions file would soon be wrong if it held it."
+    }
+   ]
+  },
+  {
+   "type": "sort",
+   "prompt": "Where would this page point you in each situation?",
+   "bins": [
+    "Start fresh",
+    "Carry on"
+   ],
+   "explain": "A new unrelated task, two failed corrections and a verified committed result all mean the conversation has done its job or is hurting. Same task, on track, or returning to a named session all need the history you already built.",
+   "items": [
+    {
+     "text": "You finish aligning samples and move to an unrelated question about a figure for a different project",
+     "bin": "Start fresh",
+     "misconception": "Old history is dead weight for the new task and can distract; clear between unrelated tasks."
+    },
+    {
+     "text": "The agent has repeated the same wrong claim after two corrections",
+     "bin": "Start fresh",
+     "misconception": "A third correction adds to two failed attempts the model keeps re-reading; clear and write one better prompt."
+    },
+    {
+     "text": "A task is done, the result has been checked, and it is committed",
+     "bin": "Start fresh",
+     "misconception": "The result lives in your files and git, so the conversation is no longer needed to hold it."
+    },
+    {
+     "text": "You are halfway through debugging one failing step and the agent is making progress",
+     "bin": "Carry on",
+     "misconception": "Clearing a working session discards good context, and nothing needs fixing."
+    },
+    {
+     "text": "Next step depends on reference-build decisions you made earlier in this same task",
+     "bin": "Carry on",
+     "misconception": "Those early decisions live only in the conversation; clearing would lose them unless written down."
+    },
+    {
+     "text": "You reopen a named session with /resume to finish the same piece of work",
+     "bin": "Carry on",
+     "misconception": "Resuming is the carry-on route: it restores the saved messages rather than starting empty."
+    }
+   ]
+  },
+  {
+   "type": "faulty-line",
+   "prompt": "Lines from a handoff note written at the end of a session in which only sample_A was compared with the old output. Which line overstates what was verified?",
+   "explain": "A claim of verification must say what was run and on what. This line claims every sample matched but names no command and no sample, and only sample_A was compared. The next session would trust it and skip the check.",
+   "lines": [
+    {
+     "text": "Goal: replace the per-read loop in qc_filter.py with a vectorised version",
+     "why": "A plain statement of intent that makes no claim about results."
+    },
+    {
+     "text": "Verified: matches old output on all samples",
+     "faulty": true
+    },
+    {
+     "text": "Not verified: behaviour on reads shorter than 30 bases",
+     "why": "It says openly what was not checked."
+    },
+    {
+     "text": "Decision: keep the old function mean_qual() until all samples are compared",
+     "why": "It records a decision and the condition for dropping it."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "The agent drafted your handoff note and wrote: 'All tests pass.' You did not see it run them. What do you do before giving the note to a fresh session?",
+   "explain": "A drafted note can overstate what was checked. Run the tests yourself, or edit the line to say what was actually run. Then the next session starts from a true statement.",
+   "options": [
+    {
+     "text": "Run the tests, then fix the line to match the result",
+     "correct": true
+    },
+    {
+     "text": "Keep it, since the agent wrote it with the whole session in view",
+     "misconception": "Having seen the session is different from having checked it; models can state more certainty than the work supports."
+    },
+    {
+     "text": "Delete the note and let auto memory carry the state",
+     "misconception": "Auto memory holds what the tool chose to save, so it may hold nothing about this task's state."
+    },
+    {
+     "text": "Ask the agent in the same session if it is sure",
+     "misconception": "A confident yes comes from the same writer, so a check needs a command or a test."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A fresh session starts with your handoff note in the repo. Which first prompt gives you a check on its understanding?",
+   "explain": "Asking for a restatement before any change lets you compare it with the real state: a cheap comprehension check that works best alongside your own look at the real state, since the same model wrote the restatement. Starting work at once can hide a misunderstanding inside new edits.",
+   "options": [
+    {
+     "text": "Read HANDOFF.md and tell me what you understand before editing",
+     "correct": true
+    },
+    {
+     "text": "Read HANDOFF.md and then carry out the listed next steps in order",
+     "misconception": "If the note is misread, the error shows up only as wrong edits you must then find and undo; a restatement first catches it more cheaply."
+    },
+    {
+     "text": "Continue where we stopped",
+     "misconception": "A fresh session has no history, so the agent has nothing to continue from and may invent it."
+    },
+    {
+     "text": "Summarise what you remember of yesterday's session with me",
+     "misconception": "A fresh session has no copy of yesterday's session, so it can only guess."
+    }
+   ]
+  },
+  {
+   "type": "choice",
+   "prompt": "A fresh session keeps using a wrong column name that you never typed. /memory lists a line with that name. What clears the problem?",
+   "explain": "Auto memory loads again in every session, so clearing the conversation leaves the line in place. Open /memory, check the claim against the data, and delete the line.",
+   "options": [
+    {
+     "text": "Delete the line in /memory after checking it against the data",
+     "correct": true
+    },
+    {
+     "text": "Run /clear and carry on",
+     "misconception": "/clear drops the conversation, and memory loads again in the new session, so the wrong line returns."
+    },
+    {
+     "text": "Correct the agent in chat each time it appears",
+     "misconception": "Each fresh session loads the wrong line again, so you would repeat the correction forever."
+    },
+    {
+     "text": "Add a handoff note saying the name is wrong",
+     "misconception": "The memory line still loads, and the note adds a second statement for the agent to weigh against it."
+    }
+   ]
+  },
+  {
+   "type": "match",
+   "prompt": "Match each risk to the habit that counters it.",
+   "explain": "Each habit answers one risk: check what a draft claims, verify what the tool wrote itself, and compare a restatement with the real state before any edit.",
+   "pairs": [
+    {
+     "left": "The agent's draft note says 'all tests pass' but you never saw them run",
+     "right": "Run them yourself, or edit the line to say what was actually run",
+     "misconception": "Keeping the line because the agent wrote it passes an unchecked claim to the next session."
+    },
+    {
+     "left": "Auto memory holds a wrong column name that loads every session",
+     "right": "Check it against the data in /memory and delete the line if it is wrong",
+     "misconception": "Memory is loaded as written; nothing checks it for you."
+    },
+    {
+     "left": "A fresh session may have misread the handoff note",
+     "right": "Ask for its restatement before any edits and compare it with the real state",
+     "misconception": "Letting it start work at once hides a misreading inside new edits."
+    }
+   ]
+  }
+ ]
+}

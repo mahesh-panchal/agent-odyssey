@@ -58,9 +58,9 @@
     ids.forEach(function (k) {
       var q = G.quests[k], c = L.pos[k], st = status(k), isNext = k === focus, here = k === opts.current, r = q.optional ? RO : R;
       var cls = "ao-mm-node ao-mm-" + (st === "cleared" ? "cleared" : st === "ready" ? "ready" : "waiting") + (isNext ? " ao-mm-next" : "") + (q.optional ? " ao-mm-opt" : "") + (here ? " ao-mm-here" : "");
-      var words = (st === "cleared" ? "cleared" : st === "ready" ? "ready" : "not ready yet") + (isNext ? ", next" : "") + (q.optional ? ", optional" : "") + (here ? ", this page" : "");
+      var words = (st === "cleared" ? "cleared" : st === "ready" ? "ready" : "not ready yet") + (isNext ? ", next" : "") + (q.trunk ? ", trunk quest" : ", side quest") + (q.optional ? ", optional" : "") + (here ? ", this page" : "");
       var tag = isNext ? "NEXT" : here ? "HERE" : "";
-      var t = wrap(q.title), ty = c.y + (t.length === 2 ? -2 : 4);
+      var t = wrap((q.trunk ? "◆ " : "◇ ") + q.title), ty = c.y + (t.length === 2 ? -2 : 4);
       var label = t.map(function (ln, i) { return "<tspan x='" + (c.x + r + 8) + "' dy='" + (i ? 15 : 0) + "'>" + esc(ln) + "</tspan>"; }).join("");
       nodes += "<a href='" + window.AO_BASE + q.page + "'" + (here ? " aria-current='page'" : "") + " aria-label='" + esc(q.title + ": " + words) + "' class='" + cls + "'>" +
         "<title>" + esc(q.title + " (" + words + ")") + "</title>" +
@@ -75,7 +75,7 @@
       "<desc id='ao-mm-d-" + gateKey + "'>" + cleared + " of " + ids.length + " quests cleared. Each quest is a link. Lines join a quest to the quest it follows; dashed lines are suggestions.</desc>" +
       edges + nodes + "</svg>";
     return "<div class='ao-mm-scroll'>" + svg + "</div>" +
-      "<p class='ao-mm-key'><span aria-hidden='true'>✔</span> cleared · <span aria-hidden='true'>◎</span> NEXT · ○ not ready yet · small dot = optional · dashed line = suggested order</p>";
+      "<p class='ao-mm-key'><span aria-hidden='true'>✔</span> cleared · <span aria-hidden='true'>◎</span> NEXT · ○ not ready yet · ◆ trunk quest · ◇ side quest · small dot = optional · dashed line = suggested order</p>";
   }
 
   function render(gateKey, el, opts) {
@@ -92,6 +92,7 @@
       if (!w || !w.graph) return;
       var G = w.graph;
       host.querySelectorAll("li > a[href*='zones/']").forEach(function (a) {
+        if (/\(continued\)/.test(a.textContent)) return;
         var href = (a.getAttribute("href") || "").replace(/\.(qmd|html)$/, "");
         var hit = Object.keys(G.quests).filter(function (k) { var pg = G.quests[k].page.replace(/\.html$/, ""); return href === pg || href.slice(-pg.length) === pg; })[0];
         if (!hit) return;

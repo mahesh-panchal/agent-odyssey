@@ -1,227 +1,215 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/scriptorium/why-notebooks-diff-badly.html</loc>
-    <lastmod>2026-11-27T13:31:32.617Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/worries/name-the-fears.html</loc>
+    <lastmod>2026-11-28T00:03:21.309Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/reef/the-reviewers-code.html</loc>
-    <lastmod>2026-11-27T13:31:29.318Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/shared-clusters/keys-on-shared-ground.html</loc>
+    <lastmod>2026-11-28T00:03:21.308Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/reef/send-small-say-so.html</loc>
-    <lastmod>2026-11-27T13:38:59.742Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/safe-editing/write-permission-rules.html</loc>
+    <lastmod>2026-11-28T00:03:21.307Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/maze/wall-of-output.html</loc>
-    <lastmod>2026-11-27T15:13:56.737Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/safe-editing/save-point.html</loc>
+    <lastmod>2026-11-28T00:03:21.307Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/maze/keep-a-paper-trail.html</loc>
-    <lastmod>2026-11-27T13:38:59.741Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/safe-editing/keep-secrets-out-of-reach.html</loc>
+    <lastmod>2026-11-28T00:03:21.306Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/kennel/should-you-fine-tune.html</loc>
-    <lastmod>2026-11-27T13:38:59.741Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/prompts-and-context/which-instructions-apply.html</loc>
+    <lastmod>2026-11-28T00:03:21.305Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/kennel/pick-your-companion.html</loc>
-    <lastmod>2026-11-27T13:31:29.077Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/prompts-and-context/tokens-not-letters.html</loc>
+    <lastmod>2026-11-28T00:03:21.303Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/kennel/claude-in-the-cloud.html</loc>
-    <lastmod>2026-11-27T13:38:59.742Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/prompts-and-context/spend-fewer-tokens.html</loc>
+    <lastmod>2026-11-28T00:03:21.299Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/gatehouse/guard-the-door.html</loc>
-    <lastmod>2026-11-27T13:31:29.306Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/prompts-and-context/park-ideas-for-later.html</loc>
+    <lastmod>2026-11-28T00:03:21.297Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/forest/write-the-brief.html</loc>
-    <lastmod>2026-11-27T13:31:32.610Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/prompts-and-context/carry-context-between-sessions.html</loc>
+    <lastmod>2026-11-28T00:03:21.295Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/forest/test-the-skill.html</loc>
-    <lastmod>2026-11-27T13:31:32.614Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/pipelines/same-every-time.html</loc>
+    <lastmod>2026-11-28T00:03:21.294Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/forest/forge-a-skill.html</loc>
-    <lastmod>2026-11-27T13:31:32.612Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/instructions-skills-and-hooks/write-an-instructions-file.html</loc>
+    <lastmod>2026-11-28T00:03:21.293Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/forest/bundle-a-plugin.html</loc>
-    <lastmod>2026-11-27T13:31:32.614Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/instructions-skills-and-hooks/turn-mistakes-into-tests.html</loc>
+    <lastmod>2026-11-28T00:03:21.292Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/factory/dry-run-first.html</loc>
-    <lastmod>2026-11-27T13:31:32.615Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/instructions-skills-and-hooks/test-the-skill.html</loc>
+    <lastmod>2026-11-28T00:03:21.291Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/crypt/shield-of-undo.html</loc>
-    <lastmod>2026-11-27T13:31:29.280Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/instructions-skills-and-hooks/connect-an-mcp-server.html</loc>
+    <lastmod>2026-11-28T00:03:21.289Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/crypt/rules-of-the-carapace.html</loc>
-    <lastmod>2026-11-27T13:31:29.290Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/instructions-skills-and-hooks/block-actions-with-a-hook.html</loc>
+    <lastmod>2026-11-28T00:03:21.288Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/where-machines-fail.html</loc>
-    <lastmod>2026-11-27T13:31:41.560Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/final-review/review-a-messy-session.html</loc>
+    <lastmod>2026-11-28T00:03:21.285Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/too-many-tools-too-many-agents.html</loc>
-    <lastmod>2026-11-27T13:38:59.741Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/collaboration/send-small-changes.html</loc>
+    <lastmod>2026-11-28T00:03:21.284Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/the-stream-of-ideas.html</loc>
-    <lastmod>2026-11-27T13:31:41.562Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/checking-output/spot-hallucinations.html</loc>
+    <lastmod>2026-11-28T00:03:21.283Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/rag-and-its-cousins.html</loc>
-    <lastmod>2026-11-27T13:31:41.565Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/checking-output/ground-truth.html</loc>
+    <lastmod>2026-11-28T00:03:21.282Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/llm-wiki.html</loc>
-    <lastmod>2026-11-27T13:31:41.566Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/agents-and-models/set-up-your-agent.html</loc>
+    <lastmod>2026-11-28T00:03:21.279Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/grow-a-graph-with-ollama.html</loc>
-    <lastmod>2026-11-27T13:31:41.565Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/agents-and-models/pick-your-model.html</loc>
+    <lastmod>2026-11-28T00:03:21.279Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/citadel/keys-on-shared-ground.html</loc>
-    <lastmod>2026-11-27T13:38:59.742Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/agents-and-models/free-is-not-free.html</loc>
+    <lastmod>2026-11-28T00:03:21.278Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/basecamp/wade-in.html</loc>
-    <lastmod>2026-11-27T13:31:46.774Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/agents-and-models/choose-what-to-hand-over.html</loc>
+    <lastmod>2026-11-28T00:03:21.277Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/basecamp/name-the-fears.html</loc>
-    <lastmod>2026-11-27T14:50:00.701Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/prerequisites.html</loc>
+    <lastmod>2026-11-28T00:03:21.271Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/index.html</loc>
+    <lastmod>2026-11-28T00:03:21.271Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/background.html</loc>
+    <lastmod>2026-11-28T00:03:21.266Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/character.html</loc>
+    <lastmod>2026-11-28T00:03:21.267Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/lore.html</loc>
+    <lastmod>2026-11-27T23:59:36.677Z</lastmod>
   </url>
   <url>
     <loc>https://mahesh-panchal.github.io/agent-odyssey/read-first.html</loc>
     <lastmod>2026-11-27T08:46:37.915Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/lore.html</loc>
-    <lastmod>2026-11-27T13:39:53.881Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/agents-and-models/claude-in-the-cloud.html</loc>
+    <lastmod>2026-11-28T00:03:21.277Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/character.html</loc>
-    <lastmod>2026-11-26T20:57:28.386Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/agents-and-models/know-your-tools.html</loc>
+    <lastmod>2026-11-28T00:03:21.278Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/background.html</loc>
-    <lastmod>2026-11-27T13:31:53.067Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/agents-and-models/script-model-or-llm.html</loc>
+    <lastmod>2026-11-28T00:03:21.279Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/index.html</loc>
-    <lastmod>2026-11-27T14:15:36.802Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/checking-output/boss-review-large-output.html</loc>
+    <lastmod>2026-11-28T00:03:21.280Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/prerequisites.html</loc>
-    <lastmod>2026-11-27T10:11:18.856Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/checking-output/keep-a-paper-trail.html</loc>
+    <lastmod>2026-11-28T00:03:21.283Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/basecamp/know-your-gear.html</loc>
-    <lastmod>2026-11-27T14:35:48.794Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/collaboration/review-agent-written-work.html</loc>
+    <lastmod>2026-11-28T00:03:21.283Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/basecamp/three-kinds-of-machine.html</loc>
-    <lastmod>2026-11-27T13:31:46.772Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/collaboration/teach-and-share-the-load.html</loc>
+    <lastmod>2026-11-28T00:03:21.284Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/citadel/jobs-not-jam.html</loc>
-    <lastmod>2026-11-27T13:38:59.741Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/instructions-skills-and-hooks/advice-or-enforcement.html</loc>
+    <lastmod>2026-11-28T00:03:21.287Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/citadel/login-node-manners.html</loc>
-    <lastmod>2026-11-27T13:38:59.741Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/instructions-skills-and-hooks/bundle-a-plugin.html</loc>
+    <lastmod>2026-11-28T00:03:21.289Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/handoff-notes.html</loc>
-    <lastmod>2026-11-27T13:31:41.563Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/instructions-skills-and-hooks/meet-the-guilds.html</loc>
+    <lastmod>2026-11-28T00:03:21.290Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/memory-sessions-and-usage.html</loc>
-    <lastmod>2026-11-27T13:31:41.561Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/instructions-skills-and-hooks/too-many-tools-too-many-agents.html</loc>
+    <lastmod>2026-11-28T00:03:21.292Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/the-context-window.html</loc>
-    <lastmod>2026-11-27T13:31:41.561Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/instructions-skills-and-hooks/write-a-skill.html</loc>
+    <lastmod>2026-11-28T00:03:21.293Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/tokens-not-letters.html</loc>
-    <lastmod>2026-11-27T13:31:41.560Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/pipelines/dry-run-first.html</loc>
+    <lastmod>2026-11-28T00:03:21.293Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/when-to-start-fresh.html</loc>
-    <lastmod>2026-11-27T13:31:41.562Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/prompts-and-context/build-a-knowledge-graph-with-ollama.html</loc>
+    <lastmod>2026-11-28T00:03:21.294Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/codon-mill/who-said-what.html</loc>
-    <lastmod>2026-11-27T13:31:41.563Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/prompts-and-context/keep-an-llm-wiki.html</loc>
+    <lastmod>2026-11-28T00:03:21.296Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/crypt/secrets-and-sensitive-ground.html</loc>
-    <lastmod>2026-11-27T13:31:29.295Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/prompts-and-context/rag-and-its-cousins.html</loc>
+    <lastmod>2026-11-28T00:03:21.298Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/crypt/test-the-leash.html</loc>
-    <lastmod>2026-11-27T13:31:29.286Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/prompts-and-context/the-context-window.html</loc>
+    <lastmod>2026-11-28T00:03:21.301Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/factory/same-every-time.html</loc>
-    <lastmod>2026-11-27T13:38:59.742Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/prompts-and-context/where-machines-fail.html</loc>
+    <lastmod>2026-11-28T00:03:21.304Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/forest/close-the-loop.html</loc>
-    <lastmod>2026-11-27T13:31:32.613Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/prompts-and-context/write-the-brief.html</loc>
+    <lastmod>2026-11-28T00:03:21.306Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/forest/plan-before-you-edit.html</loc>
-    <lastmod>2026-11-27T13:31:32.611Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/safe-editing/plan-before-you-edit.html</loc>
+    <lastmod>2026-11-28T00:03:21.306Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/forest/the-project-charter.html</loc>
-    <lastmod>2026-11-27T13:31:32.612Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/safe-editing/test-permissions-and-the-sandbox.html</loc>
+    <lastmod>2026-11-28T00:03:21.307Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/gatehouse/advice-or-enforcement.html</loc>
-    <lastmod>2026-11-27T13:31:29.310Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/shared-clusters/jobs-not-jam.html</loc>
+    <lastmod>2026-11-28T00:03:21.308Z</lastmod>
   </url>
   <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/gatehouse/plug-in-a-server.html</loc>
-    <lastmod>2026-11-27T13:31:29.301Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/kennel/free-is-not-free.html</loc>
-    <lastmod>2026-11-27T13:31:29.076Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/kennel/recruit-the-beast.html</loc>
-    <lastmod>2026-11-27T14:24:29.881Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/maze/ground-truth.html</loc>
-    <lastmod>2026-11-27T13:38:59.741Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/maze/spot-the-mirage.html</loc>
-    <lastmod>2026-11-27T13:38:59.742Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/murk/clear-the-murk.html</loc>
-    <lastmod>2026-11-27T15:13:56.738Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/reef/teach-and-share-the-load.html</loc>
-    <lastmod>2026-11-27T13:38:59.742Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/scriptorium/run-it-top-to-bottom.html</loc>
-    <lastmod>2026-11-27T13:31:32.621Z</lastmod>
+    <loc>https://mahesh-panchal.github.io/agent-odyssey/zones/shared-clusters/login-node-manners.html</loc>
+    <lastmod>2026-11-28T00:03:21.308Z</lastmod>
   </url>
 </urlset>
